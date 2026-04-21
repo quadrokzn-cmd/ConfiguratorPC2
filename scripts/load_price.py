@@ -14,6 +14,11 @@ from pathlib import Path
 # Гарантируем, что корень проекта есть в sys.path при запуске из любой директории
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+# Загружаем переменные окружения из .env ДО импорта app.*,
+# чтобы app.config.settings получил реальный DATABASE_URL, а не дефолт.
+from dotenv import load_dotenv
+load_dotenv()
+
 from app.services.price_loader import load_ocs_price
 
 logger = logging.getLogger(__name__)
@@ -41,7 +46,6 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    # Проверяем существование файла до обращения к БД
     if not Path(args.file).is_file():
         print(f"ОШИБКА: файл не найден: {args.file}", file=sys.stderr)
         return 2
@@ -52,6 +56,7 @@ def main() -> int:
     try:
         result = load_ocs_price(args.file)
     except ValueError as exc:
+        # Наши собственные ValueError (например, нет нужного листа в Excel).
         print(f"ОШИБКА: {exc}", file=sys.stderr)
         return 2
     except Exception as exc:

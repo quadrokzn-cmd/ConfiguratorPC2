@@ -245,9 +245,17 @@ def _save_failed_upload(filepath: str, counters: dict) -> None:
             },
         )
         session.commit()
-    except Exception as exc:
-        logger.error("Не удалось сохранить запись о провальной загрузке: %s", exc)
-        session.rollback()
+    except Exception:
+        # Ошибки здесь не должны затенять исходное исключение загрузки.
+        # Логируем максимально безопасно — через repr, а не через форматирование.
+        try:
+            logger.error(
+                "Не удалось сохранить запись о провальной загрузке. "
+                "Служебная ошибка подавлена, чтобы не затенять исходное исключение."
+            )
+            session.rollback()
+        except Exception:
+            pass
     finally:
         session.close()
 
@@ -333,6 +341,9 @@ def load_ocs_price(filepath: str) -> dict:
             stock_qty   = _parse_int(stock_raw)
             transit_qty = _parse_int(transit_raw)
 
+            # SAVEPOINT на каждую строку: если здесь что-то упадёт,
+            # откатим только эту строку, а не всю загрузку целиком.
+            savepoint = session.begin_nested()
             try:
                 component_id, is_new = _find_or_create_component(
                     session, table, name, manufacturer, supplier_sku
@@ -341,12 +352,14 @@ def load_ocs_price(filepath: str) -> dict:
                     session, supplier_id, category, component_id,
                     supplier_sku, price, currency, stock_qty, transit_qty,
                 )
+                savepoint.commit()
                 if is_new:
                     counters["added"] += 1
                 else:
                     counters["updated"] += 1
 
             except Exception as exc:
+                savepoint.rollback()
                 logger.error(
                     "Строка %d (sku=%r): ошибка при записи в БД — %s",
                     row_idx, supplier_sku, exc,
