@@ -14,6 +14,7 @@ from app.database import SessionLocal
 from app.services.enrichment.base import CATEGORY_TO_TABLE
 from app.services.enrichment.persistence import apply_enrichment
 from app.services.enrichment.regex_sources import cpu as cpu_src
+from app.services.enrichment.regex_sources import psu as psu_src
 
 logger = logging.getLogger(__name__)
 
@@ -26,12 +27,16 @@ REQUIRED_FIELDS: dict[str, list[str]] = {
         "tdp_watts", "has_integrated_graphics",
         "memory_type", "package_type",
     ],
-    # motherboard / ram / gpu / storage / case / psu / cooler — следующие подэтапы
+    "psu": [
+        "power_watts",
+    ],
+    # motherboard / ram / gpu / storage / case / cooler — следующие подэтапы
 }
 
 # Экстракторы по категориям. Отсутствующая запись = категория ещё не реализована.
 EXTRACTORS = {
     "cpu": cpu_src.extract,
+    "psu": psu_src.extract,
 }
 
 
