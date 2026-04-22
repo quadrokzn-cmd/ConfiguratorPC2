@@ -16,6 +16,7 @@ from app.services.enrichment.persistence import apply_enrichment
 from app.services.enrichment.regex_sources import cpu as cpu_src
 from app.services.enrichment.regex_sources import psu as psu_src
 from app.services.enrichment.regex_sources import ram as ram_src
+from app.services.enrichment.regex_sources import storage as storage_src
 
 logger = logging.getLogger(__name__)
 
@@ -35,14 +36,18 @@ REQUIRED_FIELDS: dict[str, list[str]] = {
         "memory_type", "form_factor",
         "module_size_gb", "modules_count", "frequency_mhz",
     ],
-    # motherboard / gpu / storage / case / cooler — следующие подэтапы
+    "storage": [
+        "storage_type", "form_factor", "interface", "capacity_gb",
+    ],
+    # motherboard / gpu / case / cooler — следующие подэтапы
 }
 
 # Экстракторы по категориям. Отсутствующая запись = категория ещё не реализована.
 EXTRACTORS = {
-    "cpu": cpu_src.extract,
-    "psu": psu_src.extract,
-    "ram": ram_src.extract,
+    "cpu":     cpu_src.extract,
+    "psu":     psu_src.extract,
+    "ram":     ram_src.extract,
+    "storage": storage_src.extract,
 }
 
 
