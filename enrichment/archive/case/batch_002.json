@@ -1,0 +1,378 @@
+{
+  "category": "case",
+  "batch_id": "batch_002",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 383,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH780-WH-Panoramic-Tempered-Glass-ATX-Case/2023/17535.shtml"
+        }
+      }
+    },
+    {
+      "id": 384,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/the-tower-300-racing-green-mini-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 385,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 386,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        }
+      }
+    },
+    {
+      "id": 387,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 388,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11-dynamic-mini/"
+        }
+      }
+    },
+    {
+      "id": 389,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 390,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-205m-mesh/"
+        }
+      }
+    },
+    {
+      "id": 391,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 392,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 393,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1551"
+        }
+      }
+    },
+    {
+      "id": 394,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/a3/"
+        }
+      }
+    },
+    {
+      "id": 395,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 396,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 397,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 398,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 399,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://en.aerocool.io/"
+        }
+      }
+    },
+    {
+      "id": 400,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/the-tower-100-turquoise-mini-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 401,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 402,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 403,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://en.aerocool.io/"
+        }
+      }
+    },
+    {
+      "id": 404,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 405,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://en.aerocool.io/"
+        }
+      }
+    },
+    {
+      "id": 406,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://en.aerocool.io/"
+        }
+      }
+    },
+    {
+      "id": 407,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://en.aerocool.io/"
+        }
+      }
+    },
+    {
+      "id": 408,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 409,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд-интегратор; на оф. ресурсах производителя модель Crystal Z9 FLOE подробно не специфицирована"
+        }
+      }
+    },
+    {
+      "id": 410,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд-интегратор; на оф. ресурсах производителя модель Crystal Z9 подробно не специфицирована"
+        }
+      }
+    },
+    {
+      "id": 411,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.azza.com.tw/"
+        }
+      }
+    },
+    {
+      "id": 412,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-GCUB4 недоступны"
+        }
+      }
+    },
+    {
+      "id": 413,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд-интегратор; на оф. ресурсах производителя модель Crystal Z8 подробно не специфицирована"
+        }
+      }
+    },
+    {
+      "id": 414,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд-интегратор; на оф. ресурсах производителя модель Crystal Z8 подробно не специфицирована"
+        }
+      }
+    },
+    {
+      "id": 415,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-ZA06B недоступны"
+        }
+      }
+    },
+    {
+      "id": 416,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-ZMS03W недоступны"
+        }
+      }
+    },
+    {
+      "id": 417,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://kingprice.ru/",
+          "reason": "KingPrice — российский бренд; на оф. ресурсах подробные спецификации KPCC-MN208 недоступны"
+        }
+      }
+    },
+    {
+      "id": 418,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://kingprice.ru/",
+          "reason": "KingPrice — российский бренд; на оф. ресурсах подробные спецификации KPCC-MN209 недоступны"
+        }
+      }
+    },
+    {
+      "id": 419,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://kingprice.ru/",
+          "reason": "KingPrice — российский бренд; на оф. ресурсах подробные спецификации KPCC-MN210 недоступны"
+        }
+      }
+    },
+    {
+      "id": 420,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.azza.com.tw/"
+        }
+      }
+    },
+    {
+      "id": 421,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.azza.com.tw/"
+        }
+      }
+    },
+    {
+      "id": 422,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-3602 недоступны"
+        }
+      }
+    }
+  ]
+}

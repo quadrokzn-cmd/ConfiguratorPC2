@@ -1,0 +1,409 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_006",
+  "filled_at": "2026-04-22T14:35:00Z",
+  "items": [
+    {
+      "id": 201,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 202,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 203,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 204,
+      "fields": {
+        "tdp_watts": {"value": 140, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "core_clock_mhz": {"value": 1560, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"}
+      }
+    },
+    {
+      "id": 205,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 206,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "core_clock_mhz": {"value": 1650, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"}
+      }
+    },
+    {
+      "id": 207,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "core_clock_mhz": {"value": 1650, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"}
+      }
+    },
+    {
+      "id": 208,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "core_clock_mhz": {"value": 1650, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"}
+      }
+    },
+    {
+      "id": 209,
+      "fields": {
+        "tdp_watts": {"value": 140, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "core_clock_mhz": {"value": 1560, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"}
+      }
+    },
+    {
+      "id": 210,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 211,
+      "fields": {
+        "tdp_watts": {"value": 265, "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-5000/"},
+        "video_outputs": {"value": "DisplayPort 1.4 x4, VirtualLink x1", "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-5000/"},
+        "core_clock_mhz": {"value": 1815, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-5000-data-sheet-us-nvidia-704120-r4-web.pdf"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-5000-data-sheet-us-nvidia-704120-r4-web.pdf"}
+      }
+    },
+    {
+      "id": 212,
+      "fields": {
+        "tdp_watts": {"value": 260, "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4 x4, VirtualLink x1", "source_url": "https://www.nvidia.com/en-gb/products/workstations/quadro/rtx-6000/"},
+        "core_clock_mhz": {"value": 1770, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-6000-us-nvidia-704093-r4-web.pdf"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-6000-us-nvidia-704093-r4-web.pdf"}
+      }
+    },
+    {
+      "id": 213,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 214,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 215,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 216,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 217,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "core_clock_mhz": {"value": 1565, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/rtx-4000-sff/proviz-rtx-4000-sff-ada-datasheet-2616456-web.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/rtx-4000-sff/proviz-rtx-4000-sff-ada-datasheet-2616456-web.pdf"}
+      }
+    },
+    {
+      "id": 218,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 219,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 220,
+      "fields": {
+        "tdp_watts": {"value": 140, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "core_clock_mhz": {"value": 1560, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"}
+      }
+    },
+    {
+      "id": 221,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 222,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 223,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 224,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000/"},
+        "core_clock_mhz": {"value": 1560, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000/"}
+      }
+    },
+    {
+      "id": 225,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 226,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4000-sff/"},
+        "core_clock_mhz": {"value": 1565, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/rtx-4000-sff/proviz-rtx-4000-sff-ada-datasheet-2616456-web.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/rtx-4000-sff/proviz-rtx-4000-sff-ada-datasheet-2616456-web.pdf"}
+      }
+    },
+    {
+      "id": 227,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"},
+        "core_clock_mhz": {"value": 2130, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"}
+      }
+    },
+    {
+      "id": 228,
+      "fields": {
+        "tdp_watts": {"value": 450, "source_url": "https://www.pny.com/pny-geforce-rtx-4090-24gb-verto-triple-fan-led"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.pny.com/pny-geforce-rtx-4090-24gb-verto-triple-fan-led"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4a x3", "source_url": "https://www.pny.com/pny-geforce-rtx-4090-24gb-verto-triple-fan-led"},
+        "core_clock_mhz": {"value": 2520, "source_url": "https://www.pny.com/pny-geforce-rtx-4090-24gb-verto-triple-fan-led"},
+        "memory_clock_mhz": {"value": 21000, "source_url": "https://www.pny.com/pny-geforce-rtx-4090-24gb-verto-triple-fan-led"}
+      }
+    },
+    {
+      "id": 229,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"},
+        "core_clock_mhz": {"value": 1460, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-a1000-datasheet"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-a1000-datasheet"}
+      }
+    },
+    {
+      "id": 230,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 231,
+      "fields": {
+        "tdp_watts": {"value": 210, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/nvidia-rtx-a4500-dat-1"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/nvidia-rtx-a4500-dat-1"}
+      }
+    },
+    {
+      "id": 232,
+      "fields": {
+        "tdp_watts": {"value": 285, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5880/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5880/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5880/"},
+        "core_clock_mhz": {"value": 2460, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-5880-ada-1"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-5880-ada-1"}
+      }
+    },
+    {
+      "id": 233,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"},
+        "core_clock_mhz": {"value": 1755, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-a400-datasheet"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-rtx-a400-datasheet"}
+      }
+    },
+    {
+      "id": 234,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/"},
+        "core_clock_mhz": {"value": 2550, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/rtx-5000-ada-datashe"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/rtx-5000-ada-datashe"}
+      }
+    },
+    {
+      "id": 235,
+      "fields": {
+        "tdp_watts": {"value": 600, "source_url": "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not published on NVIDIA product page for Server Edition"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/"}
+      }
+    },
+    {
+      "id": 236,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "video_outputs": {"value": "DisplayPort 2.1b x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"}
+      }
+    },
+    {
+      "id": 237,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-6000/"},
+        "core_clock_mhz": {"value": 2505, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/proviz-print-rtx6000-datasheet-web-2504660.pdf"}
+      }
+    },
+    {
+      "id": 238,
+      "fields": {
+        "tdp_watts": {"value": 600, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "video_outputs": {"value": "DisplayPort 2.1b x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"}
+      }
+    },
+    {
+      "id": 239,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"}
+      }
+    },
+    {
+      "id": 240,
+      "fields": {
+        "tdp_watts": {"value": 210, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-4500/"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/nvidia-rtx-a4500-dat-1"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/nvidia-rtx-a4500-dat-1"}
+      }
+    }
+  ]
+}

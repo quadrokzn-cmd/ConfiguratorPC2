@@ -1,0 +1,532 @@
+{
+  "category": "case",
+  "batch_id": "batch_004",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 487,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 488,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 489,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 490,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 491,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 492,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 493,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/rus/productdetail/10649",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 494,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        },
+        "supported_form_factors": {
+          "value": ["mATX", "ITX"],
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 495,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Lagrange AH-TC1GC-000 недоступны"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD Lagrange — ATX-корпус, но точные поддерживаемые форм-факторы в оф. спеках отсутствуют"
+        }
+      }
+    },
+    {
+      "id": 496,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Citadel 104 недоступны"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD Citadel 104 — ATX-корпус, но точные поддерживаемые форм-факторы в оф. спеках отсутствуют"
+        }
+      }
+    },
+    {
+      "id": 498,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 499,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 500,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 501,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Coffre 501 недоступны"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD Coffre — ATX-корпус, но точные поддерживаемые форм-факторы в оф. спеках отсутствуют"
+        }
+      }
+    },
+    {
+      "id": 502,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.chenbro.com/en-US/product/RackmountChassis",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) DS25224 — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 503,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 504,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 505,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 506,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 507,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 508,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 509,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 510,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 511,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 512,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 513,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 514,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 515,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 516,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "http://www.orangepi.org/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "http://www.orangepi.org/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 517,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 519,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.chenbro.com/en-US/product",
+          "reason": "Для SKU SR11369-0070A0 на оф. сайте Chenbro точные характеристики PSU не указаны"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX"],
+          "source_url": "https://www.chenbro.com/en-US/product/TowerServerChassis/item/SR11369H0115553"
+        }
+      }
+    },
+    {
+      "id": 520,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Coffre 107 недоступны"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD Coffre — ATX-корпус, но точные поддерживаемые форм-факторы в оф. спеках отсутствуют"
+        }
+      }
+    },
+    {
+      "id": 521,
+      "fields": {
+        "has_psu_included": {
+          "value": true,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 523,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 524,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/en/productdetail/51326",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 525,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/en/productdetail/86",
+          "reason": "Серверное хранилище с backplane, без стандартной ATX-материнской платы"
+        }
+      }
+    },
+    {
+      "id": 526,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 527,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Citadel 101 недоступны"
+        }
+      }
+    },
+    {
+      "id": 528,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 529,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX"],
+          "source_url": "https://www.chenbro.com/en-US/products/RackmountChassis/2U_Chassis/RM23812MR"
+        }
+      }
+    }
+  ]
+}

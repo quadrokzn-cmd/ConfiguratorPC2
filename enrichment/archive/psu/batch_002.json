@@ -1,0 +1,16 @@
+{
+  "category": "psu",
+  "batch_id": "batch_002",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 311,
+      "fields": {
+        "power_watts": {
+          "value": 700,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PK700D-80-PLUS-Bronze-Power-Supply/2022/15617.shtml"
+        }
+      }
+    }
+  ]
+}

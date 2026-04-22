@@ -1,0 +1,41 @@
+{
+  "category": "cpu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-22T14:00:00Z",
+  "items": [
+    {
+      "id": 77,
+      "fields": {
+        "base_clock_ghz": {
+          "value": 3.0,
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/4th-generation-9004-and-8004-series/amd-epyc-9124.html"
+        },
+        "turbo_clock_ghz": {
+          "value": 3.7,
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/4th-generation-9004-and-8004-series/amd-epyc-9124.html"
+        },
+        "package_type": {
+          "value": "OEM",
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/4th-generation-9004-and-8004-series/amd-epyc-9124.html"
+        }
+      }
+    },
+    {
+      "id": 87,
+      "fields": {
+        "base_clock_ghz": {
+          "value": 3.6,
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/9005-series/amd-epyc-9015.html"
+        },
+        "turbo_clock_ghz": {
+          "value": 4.1,
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/9005-series/amd-epyc-9015.html"
+        },
+        "package_type": {
+          "value": "OEM",
+          "source_url": "https://www.amd.com/en/products/processors/server/epyc/9005-series/amd-epyc-9015.html"
+        }
+      }
+    }
+  ]
+}

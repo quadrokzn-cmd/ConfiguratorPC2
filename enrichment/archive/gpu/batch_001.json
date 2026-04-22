@@ -1,0 +1,431 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 1,
+      "fields": {
+        "tdp_watts": {"value": 19, "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"},
+        "video_outputs": {"value": "D-Sub x1, DVI-D x1, HDMI 1.4 x1", "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"},
+        "core_clock_mhz": {"value": 954, "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"},
+        "memory_clock_mhz": {"value": 1600, "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"}
+      }
+    },
+    {
+      "id": 2,
+      "fields": {
+        "tdp_watts": {"value": 19, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N710D3-2GL/sp"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N710D3-2GL/sp"},
+        "video_outputs": {"value": "D-Sub x1, DVI-D x1, HDMI 1.4 x1", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N710D3-2GL/sp"},
+        "core_clock_mhz": {"value": 954, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N710D3-2GL/sp"},
+        "memory_clock_mhz": {"value": 1800, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N710D3-2GL/sp"}
+      }
+    },
+    {
+      "id": 3,
+      "fields": {
+        "tdp_watts": {"value": 38, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "core_clock_mhz": {"value": 902, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "memory_clock_mhz": {"value": 5010, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "vram_type": {"value": "GDDR5", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"}
+      }
+    },
+    {
+      "id": 4,
+      "fields": {
+        "tdp_watts": {"value": 20, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1030D4-2GL/sp"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1030D4-2GL/sp"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.0 x1", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1030D4-2GL/sp"},
+        "core_clock_mhz": {"value": 1417, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1030D4-2GL/sp"},
+        "memory_clock_mhz": {"value": 2100, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1030D4-2GL/sp"}
+      }
+    },
+    {
+      "id": 5,
+      "fields": {
+        "tdp_watts": {"value": 20, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.0b x1, DisplayPort 1.4a x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "core_clock_mhz": {"value": 1430, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "memory_clock_mhz": {"value": 2100, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "vram_gb": {"value": 2, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"},
+        "vram_type": {"value": "DDR4", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-2GHD4-LP-OC/Specification"}
+      }
+    },
+    {
+      "id": 6,
+      "fields": {
+        "tdp_watts": {"value": 20, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-2GD4-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-2GD4-OC/Specification"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.0b x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-2GD4-OC/Specification"},
+        "core_clock_mhz": {"value": 1430, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-2GD4-OC/Specification"},
+        "memory_clock_mhz": {"value": 2100, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-2GD4-OC/Specification"}
+      }
+    },
+    {
+      "id": 7,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/geforce-gt-1030/specifications/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-2g-brk/techspec/"},
+        "video_outputs": {"value": "HDMI 2.0b x1, DisplayPort x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-2g-brk/techspec/"},
+        "core_clock_mhz": {"value": 1506, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-2g-brk/techspec/"},
+        "memory_clock_mhz": {"value": 6008, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-2g-brk/techspec/"}
+      }
+    },
+    {
+      "id": 8,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/geforce-gt-1030/specifications/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-sl-2g-brk/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.0b x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-sl-2g-brk/techspec/"},
+        "core_clock_mhz": {"value": 1506, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-sl-2g-brk/techspec/"},
+        "memory_clock_mhz": {"value": 6008, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-sl-2g-brk/techspec/"},
+        "vram_type": {"value": "GDDR5", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt1030-sl-2g-brk/techspec/"}
+      }
+    },
+    {
+      "id": 9,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.pny.com/nvidia-quadro-rtx-4000"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.pny.com/nvidia-quadro-rtx-4000"},
+        "video_outputs": {"value": "DisplayPort 1.4 x3, USB-C (VirtualLink) x1", "source_url": "https://www.pny.com/nvidia-quadro-rtx-4000"},
+        "core_clock_mhz": {"value": 1545, "source_url": "https://www.pny.com/nvidia-quadro-rtx-4000"},
+        "memory_clock_mhz": {"value": 13000, "source_url": "https://www.pny.com/nvidia-quadro-rtx-4000"}
+      }
+    },
+    {
+      "id": 10,
+      "fields": {
+        "tdp_watts": {"value": 38, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"},
+        "video_outputs": {"value": "HDMI x4", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"},
+        "core_clock_mhz": {"value": 927, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"},
+        "memory_clock_mhz": {"value": 5010, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"},
+        "vram_type": {"value": "GDDR5", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-4h-sl-2gd5/techspec/"}
+      }
+    },
+    {
+      "id": 11,
+      "fields": {
+        "tdp_watts": {"value": 107, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R65XTEAGLE-4GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R65XTEAGLE-4GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4 x1", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R65XTEAGLE-4GD/sp"},
+        "core_clock_mhz": {"value": 2815, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R65XTEAGLE-4GD/sp"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R65XTEAGLE-4GD/sp"}
+      }
+    },
+    {
+      "id": 12,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-IA380GAMING-OC-6GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-IA380GAMING-OC-6GD/sp"},
+        "video_outputs": {"value": "HDMI 2.0 x2, DisplayPort 2.0 x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-IA380GAMING-OC-6GD/sp"},
+        "core_clock_mhz": {"value": 2000, "source_url": "https://www.intel.com/content/www/us/en/products/sku/227959/intel-arc-a380-graphics/specifications.html"},
+        "memory_clock_mhz": {"value": 15500, "source_url": "https://www.intel.com/content/www/us/en/products/sku/227959/intel-arc-a380-graphics/specifications.html"}
+      }
+    },
+    {
+      "id": 13,
+      "fields": {
+        "tdp_watts": {"value": 170, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-10/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-10/sp"},
+        "video_outputs": {"value": "HDMI 2.1 x2, DisplayPort 1.4a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-10/sp"},
+        "core_clock_mhz": {"value": 1792, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-10/sp"},
+        "memory_clock_mhz": {"value": 15000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-10/sp"}
+      }
+    },
+    {
+      "id": 14,
+      "fields": {
+        "tdp_watts": {"value": 170, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1 x2, DisplayPort 1.4a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"},
+        "core_clock_mhz": {"value": 1807, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"},
+        "memory_clock_mhz": {"value": 15000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-8GD/sp"}
+      }
+    },
+    {
+      "id": 15,
+      "fields": {
+        "tdp_watts": {"value": 285, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4a x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"},
+        "memory_clock_mhz": {"value": 21000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"}
+      }
+    },
+    {
+      "id": 16,
+      "fields": {
+        "tdp_watts": {"value": 38, "source_url": "https://www.msi.com/Graphics-Card/N730-2GD3V3/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/N730-2GD3V3/Specification"},
+        "video_outputs": {"value": "D-Sub x1, HDMI 1.4 x1, DVI-I x1", "source_url": "https://www.msi.com/Graphics-Card/N730-2GD3V3/Specification"},
+        "core_clock_mhz": {"value": 700, "source_url": "https://www.msi.com/Graphics-Card/N730-2GD3V3/Specification"},
+        "memory_clock_mhz": {"value": 1600, "source_url": "https://www.msi.com/Graphics-Card/N730-2GD3V3/Specification"}
+      }
+    },
+    {
+      "id": 17,
+      "fields": {
+        "tdp_watts": {"value": 285, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4a x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"},
+        "core_clock_mhz": {"value": 2640, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"},
+        "memory_clock_mhz": {"value": 21000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"},
+        "vram_type": {"value": "GDDR6X", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"}
+      }
+    },
+    {
+      "id": 18,
+      "fields": {
+        "tdp_watts": {"value": 115, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G-OC/Specification"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.1 x1, DisplayPort 1.4a x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G-OC/Specification"},
+        "core_clock_mhz": {"value": 1807, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G-OC/Specification"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G-OC/Specification"}
+      }
+    },
+    {
+      "id": 19,
+      "fields": {
+        "tdp_watts": {"value": 20, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-4GD4-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-4GD4-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.0b x1, DVI-D x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-4GD4-OC/Specification"},
+        "core_clock_mhz": {"value": 1430, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-4GD4-OC/Specification"},
+        "memory_clock_mhz": {"value": 2100, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-AERO-ITX-4GD4-OC/Specification"}
+      }
+    },
+    {
+      "id": 20,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.1 x1, DisplayPort 1.4a x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"},
+        "core_clock_mhz": {"value": 1852, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o8g-v2/techspec/"}
+      }
+    },
+    {
+      "id": 21,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11"},
+        "video_outputs": {"value": "HDMI 2.1a x2, DisplayPort 2.1 x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11"},
+        "core_clock_mhz": {"value": 2755, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11"}
+      }
+    },
+    {
+      "id": 22,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, DisplayPort 1.4a x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"},
+        "core_clock_mhz": {"value": 1537, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx3050-o6g-lp-brk/techspec/"}
+      }
+    },
+    {
+      "id": 23,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, HDMI 2.1 x1, DisplayPort 1.4a x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"},
+        "core_clock_mhz": {"value": 1537, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3050-o6g/techspec/"}
+      }
+    },
+    {
+      "id": 24,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g-evo/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g-evo/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1a x1, DisplayPort 1.4a x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g-evo/techspec/"},
+        "core_clock_mhz": {"value": 2595, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g-evo/techspec/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g-evo/techspec/"}
+      }
+    },
+    {
+      "id": 25,
+      "fields": {
+        "tdp_watts": {"value": 19, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"},
+        "video_outputs": {"value": "DVI-D x1, D-Sub x1, HDMI 1.4b x1", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"},
+        "core_clock_mhz": {"value": 954, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"},
+        "memory_clock_mhz": {"value": 5012, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"},
+        "vram_type": {"value": "GDDR5", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd5-brk-evo/techspec/"}
+      }
+    },
+    {
+      "id": 26,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/specifications.html"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-IA310WF2-4GD"},
+        "video_outputs": {"value": "HDMI 2.0 x2, DisplayPort 2.0 x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-IA310WF2-4GD"},
+        "core_clock_mhz": {"value": 2000, "source_url": "https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/specifications.html"},
+        "memory_clock_mhz": {"value": 15500, "source_url": "https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/specifications.html"}
+      }
+    },
+    {
+      "id": 27,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1 x2, DisplayPort 1.4a x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G-OC/Specification"},
+        "core_clock_mhz": {"value": 1492, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G-OC/Specification"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G-OC/Specification"}
+      }
+    },
+    {
+      "id": 28,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"},
+        "video_outputs": {"value": "HDMI 2.1 x2, DisplayPort 1.4a x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"},
+        "core_clock_mhz": {"value": 1470, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"}
+      }
+    },
+    {
+      "id": 29,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"},
+        "core_clock_mhz": {"value": 2782, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"}
+      }
+    },
+    {
+      "id": 30,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2730, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 31,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"},
+        "needs_extra_power": {"value": true, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1b x3", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"},
+        "core_clock_mhz": {"value": 2790, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5080-o16g-gaming/"}
+      }
+    },
+    {
+      "id": 32,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2730, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5080-o16g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 33,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2685, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5080-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 34,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 35,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070ti-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 36,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"},
+        "core_clock_mhz": {"value": 3100, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTAORUS-E-16GD/sp"}
+      }
+    },
+    {
+      "id": 37,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"},
+        "core_clock_mhz": {"value": 3060, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070XTGAMING-OC-16GD"}
+      }
+    },
+    {
+      "id": 38,
+      "fields": {
+        "tdp_watts": {"value": 220, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9070GAMING-OC-16GD"}
+      }
+    },
+    {
+      "id": 39,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"},
+        "core_clock_mhz": {"value": 2805, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUS-M-16GD"}
+      }
+    },
+    {
+      "id": 40,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"},
+        "core_clock_mhz": {"value": 2730, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "category": "case",
+  "batch_id": "batch_006",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 57,
+      "fields": {
+        "included_psu_watts": {
+          "value": 120,
+          "source_url": "https://fox-line.ru/catalogue/foxline/fl-103/"
+        }
+      }
+    },
+    {
+      "id": 79,
+      "fields": {
+        "included_psu_watts": {
+          "value": 120,
+          "source_url": "https://fox-line.ru/catalogue/foxline/"
+        }
+      }
+    },
+    {
+      "id": 121,
+      "fields": {
+        "included_psu_watts": {
+          "value": 120,
+          "source_url": "https://fox-line.ru/catalogue/foxline/"
+        }
+      }
+    },
+    {
+      "id": 463,
+      "fields": {
+        "included_psu_watts": {
+          "value": null,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1551",
+          "reason": "По официальной спецификации Zalman T4 Plus блок питания не входит в комплект"
+        }
+      }
+    }
+  ]
+}

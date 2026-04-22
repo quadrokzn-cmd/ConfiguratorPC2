@@ -1,0 +1,339 @@
+{
+  "category": "case",
+  "batch_id": "batch_005",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 530,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 531,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 533,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Citadel 107 недоступны"
+        }
+      }
+    },
+    {
+      "id": 534,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH260-High-Airflow-M-ATX-Compact-Case-Supports-Rear-Connector-Motherboards/2025/20030.shtml"
+        },
+        "supported_form_factors": {
+          "value": ["mATX", "ITX"],
+          "source_url": "https://www.deepcool.com/products/Cases/CH260-High-Airflow-M-ATX-Compact-Case-Supports-Rear-Connector-Motherboards/2025/20030.shtml"
+        }
+      }
+    },
+    {
+      "id": 541,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/Rockpi4"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/Rockpi4",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 542,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/RockpiX"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/RockpiX",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 543,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/Rock5/5b"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/Rock5/5b",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 544,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1648"
+        }
+      }
+    },
+    {
+      "id": 545,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1649"
+        }
+      }
+    },
+    {
+      "id": 546,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1654"
+        }
+      }
+    },
+    {
+      "id": 547,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/Rock5/5a"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/Rock5/5a",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 548,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/Rock5/5b"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/Rock5/5b",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 549,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://wiki.radxa.com/Rock5/5c"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://wiki.radxa.com/Rock5/5c",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 552,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 553,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 554,
+      "fields": {
+        "has_psu_included": {
+          "value": true,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912",
+          "reason": "JBOD-шасси (Just a Bunch of Disks) — дисковая полка без поддержки ATX-материнских плат"
+        }
+      }
+    },
+    {
+      "id": 555,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1654"
+        },
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1654"
+        }
+      }
+    },
+    {
+      "id": 556,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/us/Xtender-Black-Tinted-Glass/ACPCC00015A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/us/Xtender-Black-Tinted-Glass/ACPCC00015A"
+        }
+      }
+    },
+    {
+      "id": 557,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/us/Xtender-Mirror-Black/ACPCC00018A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/us/Xtender-Mirror-Black/ACPCC00018A"
+        }
+      }
+    },
+    {
+      "id": 558,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/us/Xtender-White/ACPCC00014A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/us/Xtender-White/ACPCC00014A"
+        }
+      }
+    },
+    {
+      "id": 559,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/en/Xtender-VG-Black/ACPCC00016A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/en/Xtender-VG-Black/ACPCC00016A"
+        }
+      }
+    },
+    {
+      "id": 560,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/us/Xtender-VG-Mirror-Black/ACPCC00019A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/us/Xtender-VG-Mirror-Black/ACPCC00019A"
+        }
+      }
+    },
+    {
+      "id": 561,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.arctic.de/us/Xtender-VG-White/ACPCC00017A"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://www.arctic.de/us/Xtender-VG-White/ACPCC00017A"
+        }
+      }
+    },
+    {
+      "id": 562,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 563,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 564,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    }
+  ]
+}

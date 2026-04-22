@@ -1,0 +1,192 @@
+{
+  "category": "psu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 222,
+      "fields": {
+        "power_watts": {
+          "value": 1200,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1444"
+        }
+      }
+    },
+    {
+      "id": 230,
+      "fields": {
+        "power_watts": {
+          "value": 650,
+          "source_url": "https://www.thermaltake.com/smart-bm3-bronze-650w-tt-premium-edition.html"
+        }
+      }
+    },
+    {
+      "id": 236,
+      "fields": {
+        "power_watts": {
+          "value": 1000,
+          "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9200/hardware/install/b-c9200-hig/technical_specifications.pdf"
+        }
+      }
+    },
+    {
+      "id": 252,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель POE-15-12W снята с производства, на ui.com/store.ui.com/ubnt.com актуальной страницы продукта не найдено"
+        }
+      }
+    },
+    {
+      "id": 253,
+      "fields": {
+        "power_watts": {
+          "value": 30,
+          "source_url": "https://eu.store.ui.com/eu/en/products/poe-24-30w-g-wh"
+        }
+      }
+    },
+    {
+      "id": 254,
+      "fields": {
+        "power_watts": {
+          "value": 80,
+          "source_url": "https://store.ui.com/us/en/products/poe-54v-80w"
+        }
+      }
+    },
+    {
+      "id": 260,
+      "fields": {
+        "power_watts": {
+          "value": 60,
+          "source_url": "https://me.store.ui.com/me/en/products/poe-50-60w"
+        }
+      }
+    },
+    {
+      "id": 266,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Производитель FSP Group отсутствует в белом списке доменов"
+        }
+      }
+    },
+    {
+      "id": 269,
+      "fields": {
+        "power_watts": {
+          "value": 550,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PL550D-V2-ATX3.1-Direct-Power-Supply/2024/19090.shtml"
+        }
+      }
+    },
+    {
+      "id": 270,
+      "fields": {
+        "power_watts": {
+          "value": 750,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PL750D-V2-ATX3.1-Direct-Power-Supply/2024/19092.shtml"
+        }
+      }
+    },
+    {
+      "id": 271,
+      "fields": {
+        "power_watts": {
+          "value": 750,
+          "source_url": "https://global.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PN750M-WH-ATX3.1-Modular-Power-Supply/2024/19529.shtml"
+        }
+      }
+    },
+    {
+      "id": 274,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Производитель FSP Group отсутствует в белом списке доменов"
+        }
+      }
+    },
+    {
+      "id": 278,
+      "fields": {
+        "power_watts": {
+          "value": 65,
+          "source_url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/cisco_ie3000/hardware/installation/notes/OL_28823.html"
+        }
+      }
+    },
+    {
+      "id": 282,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Производитель FSP Group отсутствует в белом списке доменов"
+        }
+      }
+    },
+    {
+      "id": 283,
+      "fields": {
+        "power_watts": {
+          "value": 24,
+          "source_url": "https://me.store.ui.com/me/en/products/poe-24-24w"
+        }
+      }
+    },
+    {
+      "id": 289,
+      "fields": {
+        "power_watts": {
+          "value": 800,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PL800D-V2-ATX3.1-Direct-Power-Supply/2024/19093.shtml"
+        }
+      }
+    },
+    {
+      "id": 295,
+      "fields": {
+        "power_watts": {
+          "value": 13,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-universal-power-supply/"
+        }
+      }
+    },
+    {
+      "id": 308,
+      "fields": {
+        "power_watts": {
+          "value": 650,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PN650M-ATX3.1-Modular-Power-Supply/2023/17878.shtml"
+        }
+      }
+    },
+    {
+      "id": 309,
+      "fields": {
+        "power_watts": {
+          "value": 750,
+          "source_url": "https://www.deepcool.com/products/PowerSupplyUnits/powersupplyunits/PN750D-V2-ATX3.1-Direct-Power-Supply/2024/18393.shtml"
+        }
+      }
+    },
+    {
+      "id": 310,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "На официальном сайте deepcool.com страница модели PN1000D (R-PNA00D-FC0B-WGEU-V2) не найдена; серия PN_D на сайте заканчивается на PN850D"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "category": "case",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 73,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["mATX", "ITX"],
+          "source_url": "https://fox-line.ru/catalogue/foxline/fl-733/"
+        }
+      }
+    },
+    {
+      "id": 100,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/D30.html"
+        }
+      }
+    },
+    {
+      "id": 101,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/D40.html"
+        }
+      }
+    },
+    {
+      "id": 102,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/D500Black.html"
+        }
+      }
+    },
+    {
+      "id": 103,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/MOD-5Black.html"
+        }
+      }
+    },
+    {
+      "id": 104,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/MOD-5.html"
+        }
+      }
+    },
+    {
+      "id": 105,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/product/ComputerCase/ATXMotherboardSeries.html"
+        }
+      }
+    },
+    {
+      "id": 106,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/product/ComputerCase/ATXMotherboardSeries.html"
+        }
+      }
+    },
+    {
+      "id": 184,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.jonsbo.com/en/products/D31.html"
+        }
+      }
+    },
+    {
+      "id": 244,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-ii/"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-ii/"
+        }
+      }
+    },
+    {
+      "id": 245,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-white-edition-model/spec/"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-white-edition-model/spec/"
+        }
+      }
+    },
+    {
+      "id": 246,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-model/spec/"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX"],
+          "source_url": "https://rog.asus.com/cases/rog-strix-helios-model/spec/"
+        }
+      }
+    },
+    {
+      "id": 348,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 349,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 350,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 357,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 358,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH780-Panoramic-Tempered-Glass-ATX-Case/2023/17534.shtml"
+        }
+      }
+    },
+    {
+      "id": 359,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 360,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/dk07/"
+        }
+      }
+    },
+    {
+      "id": 362,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/cte-c700-tg-argb-mid-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 363,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 364,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 365,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://chieftec.eu/"
+        }
+      }
+    },
+    {
+      "id": 366,
+      "fields": {}
+    },
+    {
+      "id": 367,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 368,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 369,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 370,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 371,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    },
+    {
+      "id": 372,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 373,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 374,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 375,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-216/"
+        }
+      }
+    },
+    {
+      "id": 376,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        }
+      }
+    },
+    {
+      "id": 377,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 378,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-216/"
+        }
+      }
+    },
+    {
+      "id": 379,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-205m-mesh/"
+        }
+      }
+    },
+    {
+      "id": 380,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 381,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/the-tower-200-mini-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 382,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/index.shtml"
+        }
+      }
+    }
+  ]
+}

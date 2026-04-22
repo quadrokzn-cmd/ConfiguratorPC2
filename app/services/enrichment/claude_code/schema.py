@@ -114,18 +114,32 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "phanteks.com",
     "thermaltake.com",
     "chenbro.com",
+    "aerocool.io",
+    "montechpc.com",
+    "azza.com.tw",
+    "aicipc.com",
     # БП и PoE
     "seasonic.com",
     "zalman.com",
     "chieftec.com",
+    "chieftec.eu",
     "ubnt.com",
     "ui.com",
     "ubiquiti.com",
     "cisco.com",
-    # Прочее
+    # SBC (одноплатные компьютеры и корпуса для них)
     "raspberrypi.com",
+    "radxa.com",
+    "orangepi.org",
+    # Прочее
     "hp.com",
     "lenovo.com",
+    # Российские сборщики / производители корпусов под собственной маркой
+    "fox-line.ru",
+    "formula-pc.ru",
+    "accord-pc.ru",
+    "kingprice.ru",
+    "acd-group.com",
 })
 
 # Источник, под которым значения от Claude Code пишутся в

@@ -1,0 +1,419 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_008",
+  "filled_at": "2026-04-22T17:00:00Z",
+  "items": [
+    {
+      "id": 281,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Карта AFOX GTX750 не найдена на afox.eu/afox.ru (официальный сайт в белом списке)"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 282,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Карта AFOX GT740 не найдена на afox.eu/afox.ru (оф. сайт в белом списке)"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 283,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Карта AFOX R5 230 не найдена на afox.eu/afox.ru (оф. сайт в белом списке)"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 284,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Конкретный TDP на оф. странице Matrox MPX-4/0 не извлечён"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Данные о разъёме питания в поисковых результатах не обнаружены"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Конкретные порты (DVI/RGB) не извлечены точно"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Не применимо/не извлечено для video wall-платы"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Не извлечено из поиска"},
+        "vram_gb": {"value": 2, "source_url": "https://www.matrox.com/graphics/en/products/video-wall/mura_mpx_series/mpx40/?productTabs=1"},
+        "vram_type": {"value": null, "source_url": null, "reason": "Тип памяти не указан в извлечённых данных"}
+      }
+    },
+    {
+      "id": 285,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP не извлечён из поиска для Matrox MPX-4/2"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Не извлечено"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Не извлечено точно с оф. страницы"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Не применимо для video wall-платы"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Не извлечено"},
+        "vram_gb": {"value": null, "source_url": null, "reason": "Конкретный объём не подтверждён из оф. страницы"},
+        "vram_type": {"value": null, "source_url": null, "reason": "Не извлечено"}
+      }
+    },
+    {
+      "id": 286,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT1030 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 287,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT730 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 288,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX R5 230 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 289,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1050Ti LP не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 290,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX RTX3090 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 291,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX R5 220 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 292,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP не извлечён из поиска для Matrox Mura IPX"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Не извлечено из поиска"},
+        "video_outputs": {"value": "DisplayPort x4", "source_url": "https://video.matrox.com/en/products/video-walls/mura-ipx-series/4k-ip-decode-display"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Не применимо для IP-decode карты"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Не извлечено"},
+        "vram_gb": {"value": null, "source_url": null, "reason": "Объём памяти не указан в извлечённых данных"},
+        "vram_type": {"value": null, "source_url": null, "reason": "Тип памяти не указан в извлечённых данных"}
+      }
+    },
+    {
+      "id": 293,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-geforce-gt-1030-2gb-gddr5-hdmi-dvi-low-profile"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-geforce-gt-1030-2gb-gddr5-hdmi-dvi-low-profile"},
+        "video_outputs": {"value": "HDMI x1, DVI-D x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-geforce-gt-1030-2gb-gddr5-hdmi-dvi-low-profile"},
+        "core_clock_mhz": {"value": 1468, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-geforce-gt-1030-2gb-gddr5-hdmi-dvi-low-profile"},
+        "memory_clock_mhz": {"value": 6000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-geforce-gt-1030-2gb-gddr5-hdmi-dvi-low-profile"}
+      }
+    },
+    {
+      "id": 294,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX RTX3090 24GB не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 295,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1650 SUPER не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 296,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX RX550 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 297,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX RX550 8GB не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 298,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX R9 370 (bad pack) не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 299,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT1030 4GB DDR4 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 300,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1050Ti Gaming не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 301,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX R9 370 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 302,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX RTX3060 12GB не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 303,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1050 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "vram_gb": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 304,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge"}
+      }
+    },
+    {
+      "id": 305,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"},
+        "core_clock_mhz": {"value": 2497, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"},
+        "vram_gb": {"value": 8, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge"}
+      }
+    },
+    {
+      "id": 306,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"},
+        "core_clock_mhz": {"value": 2550, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"},
+        "vram_gb": {"value": 8, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-amp"}
+      }
+    },
+    {
+      "id": 307,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"},
+        "core_clock_mhz": {"value": 2512, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"},
+        "vram_gb": {"value": 12, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge"}
+      }
+    },
+    {
+      "id": 308,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-amp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-amp"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-amp"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-amp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-amp"}
+      }
+    },
+    {
+      "id": 309,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge-oc"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge-oc"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge-oc"}
+      }
+    },
+    {
+      "id": 310,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-8gb-twin-edge"}
+      }
+    },
+    {
+      "id": 311,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"},
+        "vram_gb": {"value": 8, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5050-twin-edge-oc"}
+      }
+    },
+    {
+      "id": 312,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT730 1GB DDR3 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 313,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge-oc"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge-oc"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-twin-edge-oc"}
+      }
+    },
+    {
+      "id": 314,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1660TI не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "vram_gb": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 315,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge-oc"},
+        "video_outputs": {"value": "DisplayPort 2.1b x3, HDMI 2.1b x1", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge-oc"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5060-ti-16gb-twin-edge-oc"}
+      }
+    },
+    {
+      "id": 316,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX R7 350 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 317,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT730 4GB GDDR5 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 318,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GTX1660 SUPER не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 319,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT1030 не найден на afox.eu/afox.ru"},
+        "needs_extra_power": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Нет доступа к оф. странице модели AFOX в белом списке"}
+      }
+    },
+    {
+      "id": 320,
+      "fields": {
+        "tdp_watts": {"value": 40, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/proviz-print-nvidia-T600-datasheet-us-nvidia-1670029-r5-web.pdf"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/proviz-print-nvidia-T600-datasheet-us-nvidia-1670029-r5-web.pdf"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4 x4", "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/proviz-print-nvidia-T600-datasheet-us-nvidia-1670029-r5-web.pdf"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock не извлечён из поиска"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Memory clock не извлечён из поиска"}
+      }
+    }
+  ]
+}

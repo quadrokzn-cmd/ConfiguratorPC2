@@ -1,0 +1,426 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_007",
+  "filled_at": "2026-04-22T14:40:00Z",
+  "items": [
+    {
+      "id": 241,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "core_clock_mhz": {"value": 1800, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"}
+      }
+    },
+    {
+      "id": 242,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a4500/"},
+        "core_clock_mhz": {"value": 1650, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx/nvidia-rtx-a4500-datasheet.pdf"}
+      }
+    },
+    {
+      "id": 243,
+      "fields": {
+        "tdp_watts": {"value": 600, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "video_outputs": {"value": "DisplayPort 2.1b x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/"}
+      }
+    },
+    {
+      "id": 244,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "video_outputs": {"value": "DisplayPort 2.1b x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000-max-q/"}
+      }
+    },
+    {
+      "id": 245,
+      "fields": {
+        "tdp_watts": {"value": 575, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"},
+        "core_clock_mhz": {"value": 2407, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"}
+      }
+    },
+    {
+      "id": 246,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"}
+      }
+    },
+    {
+      "id": 247,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4500/"}
+      }
+    },
+    {
+      "id": 248,
+      "fields": {
+        "tdp_watts": {"value": 140, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000/"}
+      }
+    },
+    {
+      "id": 249,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-2000/"}
+      }
+    },
+    {
+      "id": 250,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"}
+      }
+    },
+    {
+      "id": 251,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "video_outputs": {"value": "DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-5000/"}
+      }
+    },
+    {
+      "id": 252,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/"},
+        "video_outputs": {"value": "Mini DisplayPort 2.1 x4", "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Boost clock not listed on NVIDIA product specifications page"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-4000-sff/"}
+      }
+    },
+    {
+      "id": 253,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 254,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT 710 AF710-1024D3L5 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 710 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "From product model name; AFOX page not found"},
+        "core_clock_mhz": {"value": 954, "source_url": null, "reason": "From product model name; AFOX page not found"},
+        "memory_clock_mhz": {"value": 1600, "source_url": null, "reason": "From product model name; AFOX page not found"},
+        "vram_gb": {"value": 1, "source_url": null, "reason": "From model name; AFOX page not found"}
+      }
+    },
+    {
+      "id": 255,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX GT 730 AF730-2048D3L5 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 730 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": 900, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": 1333, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 2, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 256,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN1034TB46 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 1030 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1", "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": 1152, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": 2000, "source_url": null, "reason": "Biostar page not found"},
+        "vram_gb": {"value": 4, "source_url": null, "reason": "Biostar page not found"}
+      }
+    },
+    {
+      "id": 257,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN7313TH41 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 730 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": 700, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": 1333, "source_url": null, "reason": "Biostar page not found"}
+      }
+    },
+    {
+      "id": 258,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN7313THX1 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 730 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": 700, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": 1333, "source_url": null, "reason": "Biostar page not found"}
+      }
+    },
+    {
+      "id": 259,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN2103NHG6 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GeForce 210 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": 589, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": 1333, "source_url": null, "reason": "Biostar page not found"}
+      }
+    },
+    {
+      "id": 260,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF2060-6144D6H4-V2 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "RTX 2060 requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, DisplayPort x1", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": 1365, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": 14000, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 6, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 261,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF1660TI-6144D6H1-V4 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "GTX 1660 Ti requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, DisplayPort x1", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": 1500, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": 12000, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 6, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 262,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF1050TI-4096D5H7-V8 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GTX 1050 Ti is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, DisplayPort x1", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": 1291, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": 7000, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 4, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 263,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF3060-12GD6H4-V4 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "RTX 3060 requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": "HDMI x1, DisplayPort x3", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": 1350, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": 14000, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 12, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 264,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN7103THX6 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 710 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, D-Sub x1", "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": 954, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": 1333, "source_url": null, "reason": "Biostar page not found"}
+      }
+    },
+    {
+      "id": 265,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF210-1024D3L5-V2 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "G210 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 266,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF610-2048D3L7-V6 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 610 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 267,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF740-4096D3L3 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 740 LP is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 268,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF210-1024D2LG2 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "G210 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"}
+      }
+    },
+    {
+      "id": 269,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AFR5220-2048D3L5 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "R5 220 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_type": {"value": "DDR3", "source_url": null, "reason": "R5 220 uses DDR3; AFOX page not found"}
+      }
+    },
+    {
+      "id": 270,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AFRX580-8192D5H3-V3 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "RX 580 requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": "DVI-D x1, HDMI x1, DisplayPort x1", "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_type": {"value": "GDDR5", "source_url": null, "reason": "RX 580 uses GDDR5; AFOX page not found"}
+      }
+    },
+    {
+      "id": 271,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF1660TI-6144D6H7-V4 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "GTX 1660 Ti requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_type": {"value": "GDDR6", "source_url": null, "reason": "GTX 1660 Ti uses GDDR6; AFOX page not found"}
+      }
+    },
+    {
+      "id": 272,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"},
+        "vram_gb": {"value": 12, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-solid-oc"}
+      }
+    },
+    {
+      "id": 273,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"},
+        "core_clock_mhz": {"value": 2482, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"},
+        "vram_gb": {"value": 16, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-sff-oc"}
+      }
+    },
+    {
+      "id": 274,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"},
+        "vram_gb": {"value": 12, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc"}
+      }
+    },
+    {
+      "id": 275,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF220-1024D3L2 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 220 LP is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 1, "source_url": null, "reason": "From model name; AFOX page not found"}
+      }
+    },
+    {
+      "id": 276,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "Biostar VN6103THX6 not found on biostar.com.tw"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 610 is PCIe-powered; Biostar page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "Biostar page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "Biostar page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "Biostar page not found"},
+        "vram_gb": {"value": 2, "source_url": null, "reason": "From model name; Biostar page not found"}
+      }
+    },
+    {
+      "id": 277,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF740-2048D5H3-V2 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 740 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 2, "source_url": null, "reason": "From model name; AFOX page not found"}
+      }
+    },
+    {
+      "id": 278,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF610-1024D3L7-V6 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 610 is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 1, "source_url": null, "reason": "From model name; AFOX page not found"}
+      }
+    },
+    {
+      "id": 279,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF730-2048D3L6 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": false, "source_url": null, "reason": "GT 730 LP is PCIe-powered; AFOX page not found"},
+        "video_outputs": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "vram_gb": {"value": 2, "source_url": null, "reason": "From model name; AFOX page not found"}
+      }
+    },
+    {
+      "id": 280,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "AFOX AF3070TI-8GD6XH4 not found on afox.eu/afox.ru"},
+        "needs_extra_power": {"value": true, "source_url": null, "reason": "RTX 3070 Ti requires 8-pin; AFOX page not found"},
+        "video_outputs": {"value": "HDMI x1, DisplayPort x3", "source_url": null, "reason": "From model name; AFOX page not found"},
+        "core_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"},
+        "memory_clock_mhz": {"value": null, "source_url": null, "reason": "AFOX page not found"}
+      }
+    }
+  ]
+}

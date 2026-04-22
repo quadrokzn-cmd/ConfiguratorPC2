@@ -1,0 +1,439 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_005",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 161,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "vram_gb": {"value": 12, "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.palit.com/palit/vgapro.php?id=5715&lang=en&pn=NE75070U19K9-GB2050W&tab=sp"}
+      }
+    },
+    {
+      "id": 162,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "vram_gb": {"value": 8, "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.palit.com/palit/vgapro.php?id=5545&lang=en&pn=NE7506T019P1-GB2062D&tab=sp"}
+      }
+    },
+    {
+      "id": 163,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "core_clock_mhz": {"value": 2497, "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "vram_gb": {"value": 8, "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.palit.com/palit/vgapro.php?id=5575&lang=en&pn=NE75060019P1-GB2063D&tab=sp"}
+      }
+    },
+    {
+      "id": 164,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "vram_gb": {"value": 8, "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.palit.com/palit/vgapro.php?id=5745&lang=en&pn=NE75060U19P1-GB2063M&tab=sp"}
+      }
+    },
+    {
+      "id": 165,
+      "fields": {
+        "tdp_watts": {"value": 115, "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4a x1, DVI-D x1", "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "core_clock_mhz": {"value": 1777, "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "vram_gb": {"value": 8, "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&tab=sp"}
+      }
+    },
+    {
+      "id": 166,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"},
+        "core_clock_mhz": {"value": 3060, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R907XGAMINGOCICE-16GD/sp"}
+      }
+    },
+    {
+      "id": 167,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"},
+        "core_clock_mhz": {"value": 3320, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R906XGAMINGOCICE-16GD/sp"}
+      }
+    },
+    {
+      "id": 168,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-8GD"}
+      }
+    },
+    {
+      "id": 169,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"},
+        "core_clock_mhz": {"value": 2730, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AORUSX-WB-16GD"}
+      }
+    },
+    {
+      "id": 170,
+      "fields": {
+        "tdp_watts": {"value": 132, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x2", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "core_clock_mhz": {"value": 2990, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"}
+      }
+    },
+    {
+      "id": 171,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC"}
+      }
+    },
+    {
+      "id": 172,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1 x1, DisplayPort 1.4a x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"},
+        "core_clock_mhz": {"value": 1492, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-E-6G-OC/Specification"}
+      }
+    },
+    {
+      "id": 173,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050D6-8GD"}
+      }
+    },
+    {
+      "id": 174,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X-OC/Specification"}
+      }
+    },
+    {
+      "id": 175,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"},
+        "core_clock_mhz": {"value": 2587, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5050WF2OCV2-8GD/sp"}
+      }
+    },
+    {
+      "id": 176,
+      "fields": {
+        "tdp_watts": {"value": 150, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"},
+        "core_clock_mhz": {"value": 3130, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R9060XTGAMING-8GD/sp"}
+      }
+    },
+    {
+      "id": 177,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"},
+        "core_clock_mhz": {"value": 2647, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD/sp"}
+      }
+    },
+    {
+      "id": 178,
+      "fields": {
+        "tdp_watts": {"value": 20, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.0b x1, DisplayPort 1.4a x1", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "core_clock_mhz": {"value": 1430, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "memory_clock_mhz": {"value": 2100, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "vram_gb": {"value": 4, "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"},
+        "vram_type": {"value": "DDR4", "source_url": "https://www.msi.com/Graphics-Card/GeForce-GT-1030-4GD4-LP-OC/Specification"}
+      }
+    },
+    {
+      "id": 179,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.pny.com/nvidia-t1000"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.pny.com/nvidia-t1000"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.pny.com/nvidia-t1000"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 180,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.pny.com/nvidia-t1000"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.pny.com/nvidia-t1000"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.pny.com/nvidia-t1000"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 181,
+      "fields": {
+        "tdp_watts": {"value": 47, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-p1000-datasheet-us-nvidia-704103-r1-web.pdf"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-p1000-datasheet-us-nvidia-704103-r1-web.pdf"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4 x4", "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-p1000-datasheet-us-nvidia-704103-r1-web.pdf"},
+        "core_clock_mhz": {"value": 1481, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-p1000-datasheet-us-nvidia-704103-r1-web.pdf"},
+        "memory_clock_mhz": {"value": 5000, "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-p1000-datasheet-us-nvidia-704103-r1-web.pdf"}
+      }
+    },
+    {
+      "id": 182,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 183,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 184,
+      "fields": {
+        "tdp_watts": {"value": 30, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x3", "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "core_clock_mhz": {"value": 1425, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t400/"}
+      }
+    },
+    {
+      "id": 185,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "core_clock_mhz": {"value": 1800, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"}
+      }
+    },
+    {
+      "id": 186,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "core_clock_mhz": {"value": 1800, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"}
+      }
+    },
+    {
+      "id": 187,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 188,
+      "fields": {
+        "tdp_watts": {"value": 40, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "core_clock_mhz": {"value": 1335, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"}
+      }
+    },
+    {
+      "id": 189,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 190,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 191,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 192,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "core_clock_mhz": {"value": 1800, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "memory_clock_mhz": {"value": 16000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "vram_gb": {"value": 48, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a6000/"}
+      }
+    },
+    {
+      "id": 193,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    },
+    {
+      "id": 194,
+      "fields": {
+        "tdp_watts": {"value": 140, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "video_outputs": {"value": "DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "core_clock_mhz": {"value": 1560, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "vram_gb": {"value": 16, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a4000/"}
+      }
+    },
+    {
+      "id": 195,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 196,
+      "fields": {
+        "tdp_watts": {"value": 40, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "core_clock_mhz": {"value": 1335, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"}
+      }
+    },
+    {
+      "id": 197,
+      "fields": {
+        "tdp_watts": {"value": 40, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "core_clock_mhz": {"value": 1335, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t600/"}
+      }
+    },
+    {
+      "id": 198,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 199,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "core_clock_mhz": {"value": 1200, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/design-visualization/rtx-a2000/"}
+      }
+    },
+    {
+      "id": 200,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "video_outputs": {"value": "Mini DisplayPort 1.4a x4", "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "core_clock_mhz": {"value": 1395, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"},
+        "memory_clock_mhz": {"value": 10000, "source_url": "https://www.nvidia.com/en-us/design-visualization/t1000/"}
+      }
+    }
+  ]
+}

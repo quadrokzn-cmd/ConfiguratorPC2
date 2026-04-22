@@ -1,0 +1,27 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_003",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {"id": 211, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/frozen-warframe-420-argb-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 212, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/grand-vision-240/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 213, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/grand-vision-240-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 214, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/grand-vision-360/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 215, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/grand-vision-360-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 216, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/hyper-vision-360/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 217, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/hyper-vision-360-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 218, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/mjolnir-vision-360/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 219, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/mjolnir-vision-360-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 220, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/rainbow-vision-360-turbo/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 221, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/rainbow-vision-360-turbo-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 222, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/trofeo-vision-360-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 223, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/wonder-vision-360-turbo/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 224, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/wonder-vision-360-turbo-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 236, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.corsair.com/us/en/p/cpu-coolers/cw-9061018-ww/icue-link-titan-360-rx-rgb-liquid-cpu-cooler-cw-9061018-ww", "reason": "Corsair не публикует max TDP на странице продукта iCUE LINK TITAN"}}},
+    {"id": 251, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/levita-vision-360/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 252, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.thermalright.com/product/levita-vision-360-white/", "reason": "Thermalright не публикует max TDP на официальной странице продукта"}}},
+    {"id": 253, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.arctic.de/us/Liquid-Freezer-III-240-A-RGB-White/ACFRE00150A", "reason": "ARCTIC не публикует явное значение max TDP на странице продукта Liquid Freezer III 240"}}},
+    {"id": 254, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.arctic.de/en/Liquid-Freezer-III-280-A-RGB/ACFRE00151A", "reason": "ARCTIC не публикует явное значение max TDP на странице продукта Liquid Freezer III 280"}}},
+    {"id": 255, "fields": {"max_tdp_watts": {"value": null, "source_url": "https://www.arctic.de/en/Liquid-Freezer-III-Pro-360-A-RGB/ACFRE00184A", "reason": "ARCTIC не публикует явное значение max TDP на странице продукта Liquid Freezer III Pro 360"}}}
+  ]
+}

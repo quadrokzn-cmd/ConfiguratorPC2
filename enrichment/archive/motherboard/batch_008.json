@@ -1,0 +1,121 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_008",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {"id": 351, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B850M-EAGLE-WF7"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B850M-EAGLE-WF7"}
+    }},
+    {"id": 352, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B840M-GAMING-P-WF6E"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B840M-GAMING-P-WF6E"}
+    }},
+    {"id": 353, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B840M-D3HP-WF6E"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B840M-D3HP-WF6E"}
+    }},
+    {"id": 354, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650E-EAGLE"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650E-EAGLE"}
+    }},
+    {"id": 355, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.gigabyte.com/Motherboard/B550M-DS3H-AC-R2"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B550M-DS3H-AC-R2"}
+    }},
+    {"id": 356, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/MAG-X870E-GAMING-PLUS-MAX-WIFI/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/MAG-X870E-GAMING-PLUS-MAX-WIFI/Specification"}
+    }},
+    {"id": 357, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/MAG-X870E-TOMAHAWK-MAX-WIFI/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/MAG-X870E-TOMAHAWK-MAX-WIFI/Specification"}
+    }},
+    {"id": 358, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/MEG-X870E-ACE-MAX/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/MEG-X870E-ACE-MAX/Specification"}
+    }},
+    {"id": 359, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.msi.com/Motherboard/PRO-B550M-B/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-B550M-B/Specification"}
+    }},
+    {"id": 360, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-B840-S-EVO-WIFI6E/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-B840-S-EVO-WIFI6E/Specification"}
+    }},
+    {"id": 361, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/MAG-B850-TOMAHAWK-MAX-WIFI-II/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/MAG-B850-TOMAHAWK-MAX-WIFI-II/Specification"}
+    }},
+    {"id": 362, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-B850-S-WIFI6E/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-B850-S-WIFI6E/Specification"}
+    }},
+    {"id": 363, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-H810M-E/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-H810M-E/Specification"}
+    }},
+    {"id": 364, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/Z890-GAMING-PLUS-WIFI6E/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/Z890-GAMING-PLUS-WIFI6E/Specification"}
+    }},
+    {"id": 365, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/Z890-GAMING-WIFI6E/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/Z890-GAMING-WIFI6E/Specification"}
+    }},
+    {"id": 366, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/Z890-D-PLUS"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/Z890-D-PLUS"}
+    }},
+    {"id": 367, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B760M-G-X-DDR4-GEN5"}
+    }},
+    {"id": 368, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B840-GAMING-X-WF6E"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B840-GAMING-X-WF6E"}
+    }},
+    {"id": 369, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B840-EAGLE-WF6E"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B840-EAGLE-WF6E"}
+    }},
+    {"id": 370, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650E-EAGLE-WF6E"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650E-EAGLE-WF6E"}
+    }},
+    {"id": 371, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B860M-D3W"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B860M-D3W"}
+    }},
+    {"id": 372, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/workstation/pro-ws-trx50-sage-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/workstation/pro-ws-trx50-sage-wifi/techspec/"}
+    }},
+    {"id": 373, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1131"}
+    }},
+    {"id": 374, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1094"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1094"}
+    }},
+    {"id": 375, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=931"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=931"}
+    }},
+    {"id": 376, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1082"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1082"}
+    }},
+    {"id": 377, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1177"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.biostar.com.tw/app/en/mb/introduction.php?S_ID=1177"}
+    }},
+    {"id": 378, "fields": {
+      "memory_type": {"value": null, "source_url": null, "reason": "AFOX AFHM65-ETH8EX (Intel HM65 mining board): spec not found on afox.eu/afox.ru; model description mentions DDR3 but no official spec confirmation available"},
+      "has_m2_slot": {"value": null, "source_url": null, "reason": "AFOX AFHM65-ETH8EX: spec not found on afox.eu/afox.ru"}
+    }},
+    {"id": 379, "fields": {
+      "memory_type": {"value": null, "source_url": null, "reason": "AFOX AFB250-BTC12EX (mining board): spec not found on afox.eu/afox.ru; model description mentions DDR4 but no official spec confirmation available"},
+      "has_m2_slot": {"value": null, "source_url": null, "reason": "AFOX AFB250-BTC12EX: spec not found on afox.eu/afox.ru"}
+    }}
+  ]
+}

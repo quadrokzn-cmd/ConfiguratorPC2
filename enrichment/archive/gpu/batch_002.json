@@ -1,0 +1,447 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_002",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 41,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"},
+        "core_clock_mhz": {"value": 2730, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080AERO-OC-16GD"}
+      }
+    },
+    {
+      "id": 42,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"},
+        "core_clock_mhz": {"value": 2700, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3OC-16GD"}
+      }
+    },
+    {
+      "id": 43,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAORUS-M-16GD"}
+      }
+    },
+    {
+      "id": 44,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"},
+        "video_outputs": {"value": "HDMI 2.1 x2, DisplayPort 1.4a x2", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"},
+        "core_clock_mhz": {"value": 1492, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-6GD"}
+      }
+    },
+    {
+      "id": 45,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"},
+        "core_clock_mhz": {"value": 2482, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TEAGLE-OC-16GD"}
+      }
+    },
+    {
+      "id": 46,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2482, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 47,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 3080, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx9070xt-o16g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 48,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"},
+        "core_clock_mhz": {"value": 3010, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070xt-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 49,
+      "fields": {
+        "tdp_watts": {"value": 220, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1a x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rx9070-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 50,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"},
+        "core_clock_mhz": {"value": 2588, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TAERO-OC-16GD"}
+      }
+    },
+    {
+      "id": 51,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"},
+        "core_clock_mhz": {"value": 2588, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD"}
+      }
+    },
+    {
+      "id": 52,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"},
+        "core_clock_mhz": {"value": 2482, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3OC-16GD"}
+      }
+    },
+    {
+      "id": 53,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"}
+      }
+    },
+    {
+      "id": 54,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X-OC/Specification"}
+      }
+    },
+    {
+      "id": 55,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2640, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 56,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5070-o12g/techspec/"}
+      }
+    },
+    {
+      "id": 57,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x2, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2625, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-o12g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 58,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 59,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 60,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 61,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 62,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-OC/Specification"}
+      }
+    },
+    {
+      "id": 63,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"},
+        "core_clock_mhz": {"value": 2535, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-3X-OC/Specification"}
+      }
+    },
+    {
+      "id": 64,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "core_clock_mhz": {"value": 2647, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"}
+      }
+    },
+    {
+      "id": 65,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"}
+      }
+    },
+    {
+      "id": 66,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"}
+      }
+    },
+    {
+      "id": 67,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "core_clock_mhz": {"value": 2512, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC/Specification"}
+      }
+    },
+    {
+      "id": 68,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2595, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 69,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"},
+        "core_clock_mhz": {"value": 2595, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g/techspec/"}
+      }
+    },
+    {
+      "id": 70,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2595, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 71,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"},
+        "core_clock_mhz": {"value": 2595, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-o8g/techspec/"}
+      }
+    },
+    {
+      "id": 72,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2640, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o16g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 73,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"},
+        "core_clock_mhz": {"value": 2647, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAERO-OC-16GD"}
+      }
+    },
+    {
+      "id": 74,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLE-OC-8GD"}
+      }
+    },
+    {
+      "id": 75,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"},
+        "core_clock_mhz": {"value": 2617, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-16GD"}
+      }
+    },
+    {
+      "id": 76,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"},
+        "core_clock_mhz": {"value": 2617, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TEAGLEOC-ICE-8GD"}
+      }
+    },
+    {
+      "id": 77,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"},
+        "core_clock_mhz": {"value": 2647, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-16GD/sp"}
+      }
+    },
+    {
+      "id": 78,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"},
+        "core_clock_mhz": {"value": 2647, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-OC-8GD"}
+      }
+    },
+    {
+      "id": 79,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2-16GD"}
+      }
+    },
+    {
+      "id": 80,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"},
+        "video_outputs": {"value": "HDMI 2.1b x1, DisplayPort 2.1b x3", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2OC-16GD"}
+      }
+    }
+  ]
+}

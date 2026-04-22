@@ -1,0 +1,203 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_003",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {"id": 101, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760-plus/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760-plus/techspec/"}
+    }},
+    {"id": 102, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z790-p/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z790-p/techspec/"}
+    }},
+    {"id": 103, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-b660m-a-d4-csm/techspec/"}
+    }},
+    {"id": 104, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-b760m-a-d4-csm/techspec/"}
+    }},
+    {"id": 105, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-Z790-A-MAX-WIFI/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-Z790-A-MAX-WIFI/Specification"}
+    }},
+    {"id": 106, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/B760M-GAMING-PLUS-WIFI/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/B760M-GAMING-PLUS-WIFI/Specification"}
+    }},
+    {"id": 107, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/Z790-D-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/Z790-D-rev-10/sp"}
+    }},
+    {"id": 108, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-10/sp"}
+    }},
+    {"id": 109, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-g-gaming-wifi-model/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-g-gaming-wifi-model/spec/"}
+    }},
+    {"id": 110, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-a520m-r/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-a520m-r/techspec/"}
+    }},
+    {"id": 111, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b650m-r/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b650m-r/techspec/"}
+    }},
+    {"id": 112, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760m-plus/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760m-plus/techspec/"}
+    }},
+    {"id": 113, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760m-r-d4/techspec/"}
+    }},
+    {"id": 114, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-h610m-a-csm/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-h610m-a-csm/techspec/"}
+    }},
+    {"id": 115, "fields": {
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-h610m-k-d4-argb/techspec/"}
+    }},
+    {"id": 116, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b760m-plus-ii/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b760m-plus-ii/techspec/"}
+    }},
+    {"id": 117, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b760m-plus-wifi-ii/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b760m-plus-wifi-ii/techspec/"}
+    }},
+    {"id": 118, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/A620M-DS3H-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/A620M-DS3H-rev-10/sp"}
+    }},
+    {"id": 119, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.gigabyte.com/Motherboard/H610M-S2H-V3-DDR4-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/H610M-S2H-V3-DDR4-rev-10/sp"}
+    }},
+    {"id": 120, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-H610M-G/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-H610M-G/Specification"}
+    }},
+    {"id": 121, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/B550M-PRO-VDH/Specification"}
+    }},
+    {"id": 122, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.gigabyte.com/Motherboard/H610M-H-V3-DDR4-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/H610M-H-V3-DDR4-rev-10/sp"}
+    }},
+    {"id": 123, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650M-AORUS-ELITE-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650M-AORUS-ELITE-rev-10/sp"}
+    }},
+    {"id": 124, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650-AORUS-ELITE-AX-V2-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650-AORUS-ELITE-AX-V2-rev-10/sp"}
+    }},
+    {"id": 125, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-B650-S-WIFI/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-B650-S-WIFI/Specification"}
+    }},
+    {"id": 126, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-a-gaming-wifi-model/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-a-gaming-wifi-model/spec/"}
+    }},
+    {"id": 127, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-f-gaming-wifi-model/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-b760-f-gaming-wifi-model/spec/"}
+    }},
+    {"id": 128, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/pro-q670m-c-csm/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/pro-q670m-c-csm/techspec/"}
+    }},
+    {"id": 129, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-h770-pro-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-h770-pro-wifi/techspec/"}
+    }},
+    {"id": 130, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.gigabyte.com/Motherboard/B760M-D3HP-DDR4-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B760M-D3HP-DDR4-rev-10/sp"}
+    }},
+    {"id": 131, "fields": {
+      "memory_type": {"value": "DDR4", "source_url": "https://www.gigabyte.com/Motherboard/B760M-H-DDR4-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B760M-H-DDR4-rev-10/sp"}
+    }},
+    {"id": 132, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/H610M-S2H-V2-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/H610M-S2H-V2-rev-10/sp"}
+    }},
+    {"id": 133, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/H610M-H-V2-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/H610M-H-V2-rev-10/sp"}
+    }},
+    {"id": 134, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.gigabyte.com/Motherboard/B650-EAGLE-rev-10/sp"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.gigabyte.com/Motherboard/B650-EAGLE-rev-10/sp"}
+    }},
+    {"id": 135, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/proart/proart-b760-creator-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/proart/proart-b760-creator-wifi/techspec/"}
+    }},
+    {"id": 136, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760m-k/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-b760m-k/techspec/"}
+    }},
+    {"id": 137, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-b760m-a-csm/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-b760m-a-csm/techspec/"}
+    }},
+    {"id": 138, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-a620m-a-csm/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/csm/prime-a620m-a-csm/techspec/"}
+    }},
+    {"id": 139, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/PRO-B760-P-II/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/PRO-B760-P-II/Specification"}
+    }},
+    {"id": 140, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.msi.com/Motherboard/B650M-PROJECT-ZERO/Specification"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.msi.com/Motherboard/B650M-PROJECT-ZERO/Specification"}
+    }},
+    {"id": 141, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-extreme/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-extreme/spec/"}
+    }},
+    {"id": 142, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-apex/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-apex/spec/"}
+    }},
+    {"id": 143, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-hero/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-maximus/rog-maximus-z890-hero/spec/"}
+    }},
+    {"id": 144, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z890-e-gaming-wifi/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z890-e-gaming-wifi/spec/"}
+    }},
+    {"id": 145, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z890-f-gaming-wifi/spec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z890-f-gaming-wifi/spec/"}
+    }},
+    {"id": 146, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-z890-pro-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-z890-pro-wifi/techspec/"}
+    }},
+    {"id": 147, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-z890-plus-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-z890-plus-wifi/techspec/"}
+    }},
+    {"id": 148, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890-p-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890-p-wifi/techspec/"}
+    }},
+    {"id": 149, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890-p/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890-p/techspec/"}
+    }},
+    {"id": 150, "fields": {
+      "memory_type": {"value": "DDR5", "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890m-plus-wifi/techspec/"},
+      "has_m2_slot": {"value": true, "source_url": "https://www.asus.com/motherboards-components/motherboards/prime/prime-z890m-plus-wifi/techspec/"}
+    }}
+  ]
+}

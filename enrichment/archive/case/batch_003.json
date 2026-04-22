@@ -1,0 +1,462 @@
+{
+  "category": "case",
+  "batch_id": "batch_003",
+  "filled_at": "2026-04-22T14:30:00Z",
+  "items": [
+    {
+      "id": 423,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации Air Mesh G1 недоступны"
+        }
+      }
+    },
+    {
+      "id": 424,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://kingprice.ru/",
+          "reason": "KingPrice — российский бренд; на оф. ресурсах подробные спецификации KPCC-MD201 недоступны"
+        }
+      }
+    },
+    {
+      "id": 425,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации Crystal Z8 FLOE недоступны"
+        }
+      }
+    },
+    {
+      "id": 426,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации TimberLine T0 недоступны"
+        }
+      }
+    },
+    {
+      "id": 427,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации Crystal Z1 недоступны"
+        }
+      }
+    },
+    {
+      "id": 428,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-241 недоступны"
+        }
+      }
+    },
+    {
+      "id": 429,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации Air Power G5 Plus недоступны"
+        }
+      }
+    },
+    {
+      "id": 430,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-3312 недоступны"
+        }
+      }
+    },
+    {
+      "id": 431,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-3338 недоступны"
+        }
+      }
+    },
+    {
+      "id": 432,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 433,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 434,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 435,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 436,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 437,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации Air Power G5 DUO недоступны"
+        }
+      }
+    },
+    {
+      "id": 438,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC A-300 недоступны"
+        }
+      }
+    },
+    {
+      "id": 439,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://accord-pc.ru/",
+          "reason": "Accord — российский бренд; на оф. ресурсах подробные спецификации ACC-3407 недоступны"
+        }
+      }
+    },
+    {
+      "id": 441,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.montechpc.com/"
+        }
+      }
+    },
+    {
+      "id": 442,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации F-33RGB недоступны"
+        }
+      }
+    },
+    {
+      "id": 443,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации F-3401 V1 недоступны"
+        }
+      }
+    },
+    {
+      "id": 444,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://www.formula-pc.ru/",
+          "reason": "Formula — российский бренд; на оф. ресурсах подробные спецификации CL-3303W недоступны"
+        }
+      }
+    },
+    {
+      "id": 458,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductList.do"
+        }
+      }
+    },
+    {
+      "id": 468,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX", "ITX", "XL-ATX"],
+          "source_url": "https://www.thermaltake.com/ax700-tg-super-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 470,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 471,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 472,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 473,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 474,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["ATX", "mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 475,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "http://www.orangepi.org/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "http://www.orangepi.org/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 476,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD — российский бренд; на оф. ресурсах подробные спецификации Lagrange AH-TC1GCW-000 недоступны"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://acd-group.com/",
+          "reason": "ACD Lagrange — ATX-корпус, но точные поддерживаемые форм-факторы в оф. спеках отсутствуют"
+        }
+      }
+    },
+    {
+      "id": 477,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        },
+        "supported_form_factors": {
+          "value": ["mATX", "ITX"],
+          "source_url": "https://www.thermaltake.com/products/chassis.html"
+        }
+      }
+    },
+    {
+      "id": 478,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 479,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 480,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.chenbro.com/en-global/products/RackmountChassis/4U_Chassis/RM41300"
+        },
+        "supported_form_factors": {
+          "value": ["E-ATX", "ATX", "mATX"],
+          "source_url": "https://www.chenbro.com/en-global/products/RackmountChassis/4U_Chassis/RM41300"
+        }
+      }
+    },
+    {
+      "id": 481,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 482,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 483,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 484,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 485,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    },
+    {
+      "id": 486,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+          "reason": "Корпус для одноплатного компьютера, не для ATX-плат"
+        }
+      }
+    }
+  ]
+}
