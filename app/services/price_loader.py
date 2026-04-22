@@ -380,7 +380,7 @@ def load_ocs_price(filepath: str) -> dict:
 
     session.close()
 
-    return {
+    result = {
         "total_rows": counters["total_rows"],
         "processed":  counters["processed"],
         "updated":    counters["updated"],
@@ -390,3 +390,14 @@ def load_ocs_price(filepath: str) -> dict:
         "status":     status,
         "upload_id":  upload_id,
     }
+
+    # Авто-хук обогащения новых SKU через OpenAI Web Search (этап 2.5В).
+    # Включается флагом OPENAI_ENRICH_AUTO_HOOK в .env. Сам хук не бросает
+    # исключения наружу и не влияет на результат загрузки прайса.
+    try:
+        from app.services.enrichment.openai_search.hooks import auto_enrich_new_skus
+        auto_enrich_new_skus(added_new=counters["added"])
+    except Exception as exc:
+        logger.warning("auto-hook OpenAI пропущен из-за ошибки: %s", exc)
+
+    return result
