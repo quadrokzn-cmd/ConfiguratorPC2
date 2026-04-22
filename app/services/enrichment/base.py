@@ -8,12 +8,16 @@ from typing import Any
 class ExtractedField:
     """Одно извлечённое значение характеристики.
 
-    source:     откуда получено значение — 'regex' / 'derived' / 'ai' / 'manual' / ...
+    source:     откуда получено значение — 'regex' / 'derived' / 'ai' / 'manual' /
+                'claude_code' / ...
     confidence: уверенность 0..1 (для regex и derived обычно 1.0).
+    source_url: URL официальной страницы источника (для 'claude_code' / 'ai').
+                Для regex/derived/manual — None.
     """
     value: Any
     source: str
     confidence: float = 1.0
+    source_url: str | None = None
 
 
 # Соответствие внешней категории (значение колонки category в supplier_prices

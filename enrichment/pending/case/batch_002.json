@@ -1,0 +1,572 @@
+{
+  "category": "case",
+  "batch_id": "batch_002",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "has_psu_included",
+    "supported_form_factors"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 383,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH780-WHADE41-G-1",
+      "model": "Корпус Deepcool CH780 белый ATX 9x120mm 9x140mm 4x180mm 4x200mm 4xUSB3.0 audio bott PSU [R-CH780-WHADE41-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 384,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Y4-00SCWN-00",
+      "model": "Корпус Thermaltake The Tower 300 Racing Green зеленый mATX 8x120mm 6x140mm 2xUSB3.0 audio bott PSU [CA-1Y4-00SCWN-00]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 385,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z2-00M1WN-00",
+      "model": "Корпус Thermaltake View 380 TG ARGB черный ATX 6x120mm 2x140mm 1x200mm 2xUSB3.0 audio bott PSU [CA-1Z2-00M1WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 386,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.LAN207RX.R0",
+      "model": "Корпус Lian-Li Lancool 207 черный ATX 4x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.LAN207RX.R0]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 387,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1X8-00F6WN-01",
+      "model": "Корпус Thermaltake CTE T500 TG ARGB белый ATX 11x120mm 8x140mm 2xUSB3.0 audio bott PSU [CA-1X8-00F6WN-01]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 388,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.O11DMI-X.00",
+      "model": "Корпус Lian-Li O11 Dynamic MINI черный ATX 9x120mm 6x140mm 2xUSB3.0 audio bott PSU [G99.O11DMI-X.00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 389,
+      "manufacturer": "Zalman",
+      "sku": "N4 REV.1 BLACK",
+      "model": "Корпус Zalman N4 REV.1 черный ATX 5x120mm 2x180mm 2xUSB2.0 1xUSB3.0 audio bott PSU [N4 REV.1 BLACK]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 390,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.OE744MS.10",
+      "model": "Корпус Lian-Li Lancool 205M Mesh белый mATX 3x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.OE744MS.10]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 391,
+      "manufacturer": "Zalman",
+      "sku": "Z10",
+      "model": "Корпус Zalman Z10 черный ATX 10x120mm 2x140mm 2xUSB3.0 audio bott PSU [Z10]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 392,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH560-BKAPE4-G-1",
+      "model": "Корпус Deepcool CH560 черный ATX 8x120mm 3x140mm 1xUSB3.0 audio bott PSU [R-CH560-BKAPE4-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 393,
+      "manufacturer": "Zalman",
+      "sku": "ZM-T4 PLUS",
+      "model": "Корпус Zalman ZM-T4 Plus черный mATX 6x120mm 1x140mm 1xUSB2.0 2xUSB3.0 audio bott PSU [ZM-T4 PLUS]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 394,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.A3X.R0",
+      "model": "Корпус Lian-Li A3 черный mATX 10x120mm 2x140mm 2xUSB3.0 1xUSB3.1 audio bott PSU [G99.A3X.R0]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 395,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1J1-00S1NN-00",
+      "model": "Корпус Thermaltake Versa H17 черный mATX 2xUSB2.0 1xUSB3.0 audio bott PSU [CA-1J1-00S1NN-00]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 396,
+      "manufacturer": "Zalman",
+      "sku": "ZM-T6",
+      "model": "Корпус Zalman ZM-T6 черный ATX 3x120mm 2xUSB2.0 1xUSB3.0 audio [ZM-T6]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 397,
+      "manufacturer": "Zalman",
+      "sku": "S4 PLUS BLACK",
+      "model": "Корпус Zalman S4 Plus черный ATX 7x120mm 2xUSB2.0 1xUSB3.0 audio bott PSU [S4 PLUS BLACK]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 398,
+      "manufacturer": "Zalman",
+      "sku": "S3 TG BLACK",
+      "model": "Корпус Zalman S3 TG черный ATX 5x120mm 2xUSB2.0 1xUSB3.0 audio bott PSU [S3 TG BLACK]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 399,
+      "manufacturer": "Aerocool",
+      "sku": "ACCM-PB26033.11",
+      "model": "Корпус Aerocool Splinter Duo-G-BK-v1 черный ATX 5x120mm 2x140mm 2xUSB3.0 audio bott PSU [ACCM-PB26033.11]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 400,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1R3-00SBWN-00",
+      "model": "Корпус Thermaltake The Tower 100 Turquoise голубой miniITX 1x120mm 3x140mm 2xUSB3.0 audio bott PSU [CA-1R3-00SBWN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 401,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1R3-00SCWN-00",
+      "model": "Корпус Thermaltake The Tower 100 Racing зеленый miniITX 1x120mm 3x140mm 2xUSB3.0 audio bott PSU [CA-1R3-00SCWN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 402,
+      "manufacturer": "Zalman",
+      "sku": "ZM-T8",
+      "model": "Корпус Zalman ZM-T8 черный ATX 3x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio [ZM-T8]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 403,
+      "manufacturer": "Aerocool",
+      "sku": "SKRIBBLE-G-BK-V1",
+      "model": "Корпус Aerocool Skribble черный ATX 3x120mm 4x140mm 2xUSB3.0 audio bott PSU [SKRIBBLE-G-BK-V1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 404,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1B2-00M1NN-00",
+      "model": "Корпус Thermaltake Versa H21 черный ATX 2x120mm 1xUSB2.0 1xUSB3.0 audio bott PSU [CA-1B2-00M1NN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 405,
+      "manufacturer": "Aerocool",
+      "sku": "ACCM-PB17043.21",
+      "model": "Корпус Aerocool Aero One Frost-G-WT-v1 белый ATX 4x120mm 2x140mm 2xUSB3.0 audio bott PSU [ACCM-PB17043.21]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 406,
+      "manufacturer": "Aerocool",
+      "sku": "MENACE FRGB-G-BK-V1",
+      "model": "Корпус Aerocool Menace Saturn FRGB-G-BK-v1 черный ATX 7x120mm 2x140mm 2xUSB3.0 audio bott PSU [MENACE FRGB-G-BK-V1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 407,
+      "manufacturer": "Aerocool",
+      "sku": "COSMO-G-BK-V1",
+      "model": "Корпус Aerocool Glider Cosmo-G-BK-v1 черный ATX 2x120mm 2xUSB2.0 1xUSB3.0 audio [COSMO-G-BK-V1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 408,
+      "manufacturer": "Zalman",
+      "sku": "S5  BLACK",
+      "model": "Корпус Zalman S5 черный ATX 6x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [S5  BLACK]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 409,
+      "manufacturer": "Formula",
+      "sku": "CRYSTAL Z9 FLOE B",
+      "model": "Корпус Formula Crystal Z9 FLOE черный ATX 2xUSB3.0 audio bott PSU [CRYSTAL Z9 FLOE B]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 410,
+      "manufacturer": "Formula",
+      "sku": "CRYSTAL Z9 W",
+      "model": "Корпус Formula Crystal Z9 белый ATX 7x120mm 2xUSB3.0 audio bott PSU [CRYSTAL Z9 W]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 411,
+      "manufacturer": "AZZA",
+      "sku": "CSAZ-290 FIGHTER",
+      "model": "Корпус Azza Fighter черный ATX 4x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [CSAZ-290 FIGHTER]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 412,
+      "manufacturer": "Accord",
+      "sku": "ACC-GCUB4",
+      "model": "Корпус Accord ACC-GCUB4 черный mATX 1x92mm 1xUSB3.0 1xUSB3.1 audio [ACC-GCUB4]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 413,
+      "manufacturer": "Formula",
+      "sku": "CRYSTAL Z8 W",
+      "model": "Корпус Formula Crystal Z8 белый ATX 9x120mm 6x140mm 1xUSB3.0 audio bott PSU [CRYSTAL Z8 W]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 414,
+      "manufacturer": "Formula",
+      "sku": "CRYSTAL Z8 B",
+      "model": "Корпус Formula Crystal Z8 черный ATX 9x120mm 6x140mm 1xUSB3.0 audio bott PSU [CRYSTAL Z8 B]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 415,
+      "manufacturer": "Accord",
+      "sku": "ACC-ZA06B",
+      "model": "Корпус Accord ACC-ZA06B черный ATX 3x120mm 1xUSB2.0 1xUSB3.0 1xUSB3.1 audio [ACC-ZA06B]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 416,
+      "manufacturer": "Accord",
+      "sku": "ACC-ZMS03W",
+      "model": "Корпус Accord ACC-ZMS03W белый mATX 3x120mm 1xUSB2.0 1xUSB3.0 1xUSB3.1 audio [ACC-ZMS03W]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 417,
+      "manufacturer": "KingPrice",
+      "sku": "KPCC-MN208",
+      "model": "Корпус KingPrice KPCC-MN208 черный mATX 1x80mm 2x120mm 2xUSB2.0 audio [KPCC-MN208]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 418,
+      "manufacturer": "KingPrice",
+      "sku": "KPCC-MN209",
+      "model": "Корпус KingPrice KPCC-MN209 черный mATX 1x80mm 2x120mm 2xUSB2.0 audio [KPCC-MN209]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 419,
+      "manufacturer": "KingPrice",
+      "sku": "KPCC-MN210",
+      "model": "Корпус KingPrice KPCC-MN210 черный mATX 1x80mm 2x120mm 2xUSB2.0 audio [KPCC-MN210]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 420,
+      "manufacturer": "AZZA",
+      "sku": "NEPTUNE CSAZ-491",
+      "model": "Корпус Azza Neptune черный ATX 5x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [NEPTUNE CSAZ-491]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 421,
+      "manufacturer": "AZZA",
+      "sku": "CSAZ-450 HIVE",
+      "model": "Корпус Azza Hive черный ATX 8x120mm 5x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [CSAZ-450 HIVE]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 422,
+      "manufacturer": "Accord",
+      "sku": "ACC-3602",
+      "model": "Корпус Accord 3602 черный ATX 8x120mm 6x140mm 3x200mm 2xUSB3.0 audio bott PSU [ACC-3602]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    }
+  ]
+}

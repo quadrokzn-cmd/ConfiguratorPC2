@@ -1,0 +1,411 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_001",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "max_tdp_watts"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 6,
+      "manufacturer": "Thermalright",
+      "sku": "PA120-WH-ARGB",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 120 White ARGB (4-pin PWM, 157mm, Ni/Cu, 6x6mm, ARGB, 2x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1851, 1700, 1200, 115X, AM5, AM4, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 9,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-90-X47",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-90 X47 Black (4-pin PWM, 32mm, Ni/Cu, 4x6mm, 1x92mm, 42.58CFM, 22.4dBA, 2700RPM, S: 1851/1700/1200/115X, AM5/AM4, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 10,
+      "manufacturer": "Thermalright",
+      "sku": "BA120-ARGB",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Burst Assasin 120 ARGB (4-pin PWM, 154mm, Ni/CU, 6x6mm, ARGB, 1x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 27,
+      "manufacturer": "Thermalright",
+      "sku": "AX120-R-SE",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Assassin X 120 Refined SE (4-pin PWM, 148mm, Ni/CU, 4x6mm, 1x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 28,
+      "manufacturer": "Thermalright",
+      "sku": "AX120-R-SE-ARGB",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Assassin X Refined SE ARGB 120 (4-pin PWM, 148mm, Ni/CU, 4x6mm, ARGB, 1x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 29,
+      "manufacturer": "Thermalright",
+      "sku": "BA120",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Burst Assasin 120 (4-pin PWM, 154mm, Ni/CU, 6x6mm, 1x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 30,
+      "manufacturer": "Thermalright",
+      "sku": "PA90-SE-BL",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 90 SE (4-pin PWM, 110mm, Ni/CU, 4x6mm, 1x92mm, 32.77CFM, 23.85 dBA, 2200RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 31,
+      "manufacturer": "Thermalright",
+      "sku": "PA90-SE-WH",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 90 SE White (4-pin PWM, 110mm, Ni/CU, 4x6mm, 1x92mm, 32.77CFM, 23.85 dBA, 2200RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 32,
+      "manufacturer": "Thermalright",
+      "sku": "PA120",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 120 (4-pin PWM, 157mm, Ni/CU, 6x6mm, 2x120mm, 66.17CFM, 25.6dBA, 1500RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 33,
+      "manufacturer": "Thermalright",
+      "sku": "PA120-BLACK",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 120 Black (4-pin PWM, 157mm, Ni/CU, 6x6mm, 2x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1700, 1200, 20XX, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 34,
+      "manufacturer": "Thermalright",
+      "sku": "PS120",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 (4-pin PWM, 157mm, Ni/CU, 7x6mm, 2x120mm, 66.17CFM, 25.6dBA, 1500RPM, S: 1700, 1200, 20XX, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 35,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-EVO",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 EVO (4-pin PWM, 157mm, Ni/CU, 7x6mm, ARGB, 2x120mm, 69CFM, 27dBA, 2150RPM, S: 1700, 1200, 20XX, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 36,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-SE-ARGB",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 SE ARGB (4-pin PWM, 154mm, Ni/CU, 7x6mm, ARGB, 2x120mm, 66.17CFM, 25.6dBA, 1500RPM, S: 1700, 1200, 115X, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 51,
+      "manufacturer": "Thermalright",
+      "sku": "PA120-BL",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 120 Black (4-pin PWM, 157mm, Ni/Cu, 6x6mm, 2x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 2011, -3, 2066, 1200, 1700, 1851, 115x, AM4, AM5, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 52,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-SE-bl",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 SE Black (4-pin PWM, 154mm, Ni/Cu, 7x6mm, 2x120mm, 66.17CFM, 25.6dBA, 1500RPM, S: 1200, 1700, 1851, 115X, AM4, AM5, silver, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 53,
+      "manufacturer": "Thermalright",
+      "sku": "BA120-SE",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Burst Assassin 120 SE  (4-pin PWM, 148mm, Al/Cu, 6x6mm, 1x120mm, 66.17CFM, 25.6dBA, 1550RPM, S: 1851/1700/1200/115X, AM5/AM4, silver, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 68,
+      "manufacturer": "Thermalright",
+      "sku": "PA140-DG-BL",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 140 Digital Black (4-pin PWM, 165mm, Ni/Cu, 6x6mm, 1x120mm + 1x140mm, 82.CFM, 29.6dBA, 1850RPM, S: 1200, 1700, 1851, 115X, 2011, 2066, AM4, AM5, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 69,
+      "manufacturer": "Thermalright",
+      "sku": "PA140-DG-WH",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 140 Digital White (4-pin PWM, 165mm, Ni/Cu, 6x6mm, 1x120mm + 1x140mm, 82.CFM, 29.6dBA, 1850RPM, S: 1200, 1700, 1851, 115X, 2011, 2066, AM4, AM5, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 72,
+      "manufacturer": "Thermalright",
+      "sku": "AS120-EVO",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Assassin Spirit 120 EVO (4-pin PWM, 156mm, Al/Cu, 4x6mm, ARGB, 1x120mm, 68.9CFM, 28.2dBA, 2000RPM, S: 1851/1700/1200/115X, AM5/AM4, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 73,
+      "manufacturer": "Thermalright",
+      "sku": "PA120-SE-EX",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Peerless Assassin 120 SE Extrem (4-pin PWM, 154mm, Al/Cu, 6x6mm, 2x120mm, 82CFM, 29.6dBA, 1850RPM, S: 1851, 1700, 1200, 115X, AM5, AM4, black, silver)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 74,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-DG-EVO",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 Digital EVO (4-pin PWM, LED temp., 160mm, Ni/CU, 7x6mm, ARGB, 2x120mm, 69CFM, 27dBA, 2150RPM, S: 1851, 1700, 1200, 115X, AM5, AM4, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 75,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-DG-SNOW",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 Digital SNOW (4-pin PWM, LED temp., 160mm, Ni/CU, 7x6mm, ARGB, 2x120mm, 69CFM, 27dBA, 2150RPM, S: 1851, 1700, 1200, 115X, AM5, AM4, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 76,
+      "manufacturer": "Thermalright",
+      "sku": "PS120-V-SNOW",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Phantom Spirit 120 Vision SNOW (4-pin PWM, LED, 160mm, Ni/CU, 7x6mm, ARGB, 2x120mm, 92CFM, 36dBA, 2150RPM, S: 1851, 1700, 1200, 115X, AM5, AM4, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 77,
+      "manufacturer": "Thermalright",
+      "sku": "RP130-U-WH",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright Royal Pretor 130 Ultra White (4-pin PWM, 158mm, Ni/Cu, 7x6mm, 1x120mm ARGB +1x130mm, 69CFM/81.88CFM, 27dBA/28.3dBA, 2150RPM/1750RPM, S: 1200, 1700, 1851, 115X, 2011, 2066, AM4, AM5, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 78,
+      "manufacturer": "Thermalright",
+      "sku": "SI-100-BL",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright SI-100 Black (4-pin PWM, 74.8mm, Ni/Cu, 6x6mm, 1x120mm, 72.37CFM, 27.7dBA, 2000RPM, S: 1851/1700/1200/20XX/115X, AM5/AM4, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 79,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-90-X47-WH",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-90 X47 White (4-pin PWM, 32mm, Ni/Cu, 4x6mm, 1x92mm, 42.58CFM, 22.4dBA, 2700RPM, S: 1851/1700/1200/115X, AM5/AM4, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 80,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-90-X53-BL",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-90 X53 Black (4-pin PWM, 38mm, Ni/Cu, 4x6mm, 1x92mm, 42.58CFM, 22.4dBA, 2700RPM, S: 1851/1700/1200/115X, AM5/AM4, black)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 81,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-90-X53-WH",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-90 X53 White (4-pin PWM, 38mm, Ni/Cu, 4x6mm, 1x92mm, 42.58CFM, 22.4dBA, 2700RPM, S: 1851/1700/1200/115X, AM5/AM4, white)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 82,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-90-X53-COPPER",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-90 X53 Full (4-pin PWM, 38mm, Cu/Cu, 4x6mm, 1x92mm, 42.58CFM, 22.4dBA, 2700RPM, S: 1851/1700/1200/115X, AM5/AM4, orange, red)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 83,
+      "manufacturer": "Thermalright",
+      "sku": "AXP-120-X67",
+      "model": "Кулер для процессора/ CPU Cooler Thermalright AXP-120 X67 (4-pin PWM, 52mm, Ni/Cu, 6x6mm, 1x120mm, 59CFM, 26.1dBA, 1800RPM, S: 1851/1700/1200/115X, 2011, 2066, AM5/AM4, grey)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 130,
+      "manufacturer": "ALSEYE CORPORATION LIMITED",
+      "sku": "AS.03.03.0022",
+      "model": "Кулер для сервера/ CPU Cooler ALSEYE AS-M81(4677)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 131,
+      "manufacturer": "ALSEYE CORPORATION LIMITED",
+      "sku": "AS.01.07.0169",
+      "model": "Кулер для сервера/ 2U CPU Cooler S22 AMD SP5, Active, PWM 2600-8000RPM, 4 pins, 360 Wt, Copper base + aluminum fin + 6 heat pipes",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 138,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFAN00135A",
+      "model": "Вентилятор корпусной ARCTIC Cooling P12 Value pack (black/black)  (5pc)  (ACFAN00135A) (701617)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 139,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFAN00151A",
+      "model": "Вентилятор Arctic Cooling Вентилятор для корпуса Arctic P8 PWM PST CO black/black (ACFAN00151A) (702041)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 140,
+      "manufacturer": "Deepcool",
+      "sku": "R-UL551-BKAMAB-G-17",
+      "model": "Вентилятор Deepcool UL551 1700 R-UL551-BKAMAB-G-17",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 141,
+      "manufacturer": "ACD Systems",
+      "sku": "RA535",
+      "model": "Кулер ACD RA535 Два вентилятора с радиатором ACD Double Fans (25*25*7mm) + Radiator (50*25*5mm) for Raspberry Pi 3B+/4B (RASP3409)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 143,
+      "manufacturer": "ACD Systems",
+      "sku": "RA003",
+      "model": "Вентилятор ACD RA003  3010 Fan (30*30*10mm) w/ Screw and Nut  for Raspberry Pi 3 B/B+ (RASP1742)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 144,
+      "manufacturer": "ACD Systems",
+      "sku": "ACD-F0625HM3-A",
+      "model": "Вентилятор ACD ACD-F0625HM3-A 62mm, hydraulic, 4000rpm, 25dBA, 3pin OEM {200}",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 145,
+      "manufacturer": "ACD Systems",
+      "sku": "ACD-F0615HM3-A",
+      "model": "Вентилятор ACD ACD-F0615HM3-A 62mm, толщина 15mm, hydraulic, 25dBA, 3pin OEM {300}",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 146,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFAN00200A",
+      "model": "Вентилятор корпусной ARCTIC Cooling F12 PWM PST (Black) - retail (ACFAN00200A) (702966)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

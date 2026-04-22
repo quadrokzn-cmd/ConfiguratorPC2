@@ -1,0 +1,211 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_003",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "max_tdp_watts"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 211,
+      "manufacturer": "Thermalright",
+      "sku": "F-WFRAME-420-ARGB-WH",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe 420 ARGB (420mm, LED, White, ARGB/ Fans: 3x140mm, 88.7CFM, 29.8dBA, 1750RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1851, 1700, 1200, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 212,
+      "manufacturer": "Thermalright",
+      "sku": "G-VISION-BL-240-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 240 (240mm, LED, Black, ARGB/ Fans: 2x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 213,
+      "manufacturer": "Thermalright",
+      "sku": "G-VISION-WH-240-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 240 (240mm, LED, White, ARGB/ Fans: 2x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 214,
+      "manufacturer": "Thermalright",
+      "sku": "G-VISION-BL-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 215,
+      "manufacturer": "Thermalright",
+      "sku": "G-VISION-WH-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 216,
+      "manufacturer": "Thermalright",
+      "sku": "H-VISION-BL-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Hyper Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 68mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 217,
+      "manufacturer": "Thermalright",
+      "sku": "H-VISION-WH-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Hyper Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 68mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 218,
+      "manufacturer": "Thermalright",
+      "sku": "M-VISION-360-BL-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Mjolnir Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 65mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 219,
+      "manufacturer": "Thermalright",
+      "sku": "M-VISION-360-WH-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Mjolnir Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 65mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 220,
+      "manufacturer": "Thermalright",
+      "sku": "R-VISION-TURBO-BL-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Rainbow Vision 360 Turbo (360mm, LED, Black, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 86mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 221,
+      "manufacturer": "Thermalright",
+      "sku": "R-VISION-TURBO-WH-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Rainbow Vision 360 Turbo (360mm, LED, White, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 86mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 222,
+      "manufacturer": "Thermalright",
+      "sku": "T-VISION-WH-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Trofeo Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 102mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 223,
+      "manufacturer": "Thermalright",
+      "sku": "W-VISION-TURBO-BL-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Wonder Vision 360 Turbo (360mm, LED, Black, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 107mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 224,
+      "manufacturer": "Thermalright",
+      "sku": "W-VISION-TURBO-WH-360-ARGB",
+      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Wonder Vision 360 Turbo (360mm, LED, White, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 107mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 236,
+      "manufacturer": "Corsair",
+      "sku": "CW-9061018-WW",
+      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK TITAN 360 RX RGB (360mm, Black, RGB/ Fans: 3x120mm, 73.5CFM, 36dBA, 2100RPM/ S: 1851, 1700, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 251,
+      "manufacturer": "Thermalright",
+      "sku": "L-VISION-BL-360-ARGB",
+      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Levita Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 98mm, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 252,
+      "manufacturer": "Thermalright",
+      "sku": "L-VISION-WH-360-ARGB",
+      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Levita Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 98mm, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 253,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFRE00150A",
+      "model": "Жидкостная система охлаждения Arctic Cooling Arctic Liquid Freezer III-240 A-RGB White Multi Compatible All-In-One CPU Water Cooler  (ACFRE00150A)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 254,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFRE00151A",
+      "model": "Жидкостная система охлаждения Arctic Cooling Arctic Liquid Freezer III-280 A-RGB White Multi Compatible All-In-One CPU Water Cooler (ACFRE00151A)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 255,
+      "manufacturer": "ARCTIC",
+      "sku": "ACFRE00184A",
+      "model": "Жидкостная система охлаждения Arctic Cooling Liquid Freezer III Pro 360 ARGB  Multi Compatible  All-In-One CPU Water Cooler  (ACFRE00184A)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

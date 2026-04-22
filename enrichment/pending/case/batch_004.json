@@ -1,0 +1,466 @@
+{
+  "category": "case",
+  "batch_id": "batch_004",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "has_psu_included",
+    "supported_form_factors"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 487,
+      "manufacturer": "ACD Systems",
+      "sku": "RA507",
+      "model": "Корпус ACD RA507 Silver Fine Heat Dispersion Aluminium Alloy Case for Raspberry Pi 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 488,
+      "manufacturer": "ACD Systems",
+      "sku": "RA595",
+      "model": "Корпус ACD RA595 White Injection Molding Case Supporting 3007 Fans for Raspberry 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 489,
+      "manufacturer": "ACD Systems",
+      "sku": "RA600",
+      "model": "Корпус ACD RA600   White+Yellow ABS Case for Raspberry 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 490,
+      "manufacturer": "ACD Systems",
+      "sku": "RA071",
+      "model": "Корпус ACD RA071 Raspberry Pi 2/3B/3B+ Injection Molding Case Black (41433)(CaseRaspPI3)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 491,
+      "manufacturer": "ACD Systems",
+      "sku": "RA072",
+      "model": "Корпус ACD RA072 Raspberry Pi 2/3B/3B+ Injection Molding Case Black",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 492,
+      "manufacturer": "ACD Systems",
+      "sku": "XG387",
+      "model": "Корпус ACD XG387  Metal case IP65, 200*120*80mm, металлический, 3 отверстия (28 + 28 + 23мм) с резиновыми заглушками, цвет серебристый, совместим с Raspberry Pi 3B, 3B+, 4, Orange Pi {12}",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 493,
+      "manufacturer": "AIC",
+      "sku": "XJ1-20242-07",
+      "model": "Корпус AIC J2024-02-03X_XJ1-20242-07 J2024-02, 2U, 24xSATA/SAS HS 2,5\" bay, hot swap JBOD, 2xSAS 12G expander with 3xSFF-8644, 2xBMC, 549W 1+1 redundant 80+ Platinum, w/o rails, w/o bezel",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 494,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH360-WHAPE3-G-1",
+      "model": "Корпус Deepcool CH360 WH R-CH360-WHAPE3-G-1",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 495,
+      "manufacturer": "ACD Systems",
+      "sku": "AH-TC1GC-000",
+      "model": "Корпус ACD Lagrange black with 4 pcs ARGB fan (PWM+5V 3PIN) +FAN HUB",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 496,
+      "manufacturer": "ACD Systems",
+      "sku": "AH-TC4GA-0000",
+      "model": "Корпус ACD Citadel 104 (AH-TC4GA-0000) 3403 with USB3.0*1+USB2.0*2+HD audio,3*12cm F1 ARGB fans at front(Slave fans) ,1*12cm F1 ARGB fan at rear (Master fan)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 498,
+      "manufacturer": "ACD Systems",
+      "sku": "RA508",
+      "model": "Корпус ACD RA508   Black Fine Heat Dispersion Aluminium Alloy Case for Raspberry Pi 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 499,
+      "manufacturer": "ACD Systems",
+      "sku": "RA460",
+      "model": "Корпус ACD RA460   Black Metal Aluminum Case for Raspberry Pi 3B/3B+",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 500,
+      "manufacturer": "ACD Systems",
+      "sku": "RA601",
+      "model": "Корпус ACD RA601  White+Green ABS Case for Raspberry 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 501,
+      "manufacturer": "ACD Systems",
+      "sku": "MH-SI1GOA-0000",
+      "model": "Корпус ACD ACD Coffre 501 (MH-SI1GOA-0000)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 502,
+      "manufacturer": "Chenbro",
+      "sku": "384-20019-Z1B900",
+      "model": "Корпус Chenbro 384-20019-Z1B900 DS25224 2U JBOD 24x2.5\" SAS/SATA , dual path, CRPS 1+1 Redundant 550W, 2x 4x SFF-8644, BMC, w/o rails",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 503,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1T4-00M1WN-01",
+      "model": "Корпус Thermaltake Divider 500 TG ARGB CA-1T4-00M1WN-01 Black/Win/SPCC/Tempered Glass*4/120mm ARGB Fan*3/120mm CA-1T4-00M1WN-01 Standard Fan*1 (527880)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 504,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1T4-00M6WN-01",
+      "model": "Корпус Thermaltake Divider 500 TG Snow ARGB CA-1T4-00M6WN-01 White/Win/SPCC/Tempered Glass*4/120mm ARGB Fan*3/120mm CA-1T4-00M6WN-01 Standard Fan*1 (527897)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 505,
+      "manufacturer": "ACD Systems",
+      "sku": "RA178",
+      "model": "Корпус ACD RA178 White ABS Plastic case with Logo for Raspberry Pi 3 B/B+, совместим с креплением VESA Mount (RASP1791) RA178 Корпус ACD White ABS Plastic case with Logo for Raspberry Pi 3 B/B+ (494194)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 506,
+      "manufacturer": "ACD Systems",
+      "sku": "RA179",
+      "model": "Корпус ACD RA179 Black ABS Plastic case with Logo for Raspberry Pi 3 B/B+, совместим с креплением VESA Mount (RASP1793)(ASM-1900036-22)(аналог 167-7046)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 507,
+      "manufacturer": "ACD Systems",
+      "sku": "RA129",
+      "model": "Корпус ACD RA129  Red+White ABS Plastic case for Raspberry Pi 3 B/B+ (аналог арт.54201)(RASP1952) RA129 Корпус ACD Red+White ABS Plastic case for Raspberry Pi 3 B/B+ (494156)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 508,
+      "manufacturer": "ACD Systems",
+      "sku": "RA181",
+      "model": "Корпус ACD RA181 White ABS Plastic Building Block case for Raspberry Pi 3 B/B+ (CBPIBLOX-WHT) (494279)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 509,
+      "manufacturer": "ACD Systems",
+      "sku": "RA182",
+      "model": "Корпус ACD RA182 Black ABS Plastic Building Block case for Raspberry Pi 3 B/B+ (CBPIBLOX-BLK) (494293)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 510,
+      "manufacturer": "ACD Systems",
+      "sku": "RA183",
+      "model": "Корпус ACD RA183 Red ABS Plastic Building Block case for Raspberry Pi 3 B (CBPIBLOX-RED) (494309)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 511,
+      "manufacturer": "ACD Systems",
+      "sku": "RA184",
+      "model": "Корпус ACD RA184 Blue ABS Plastic Building Block case for Raspberry Pi 3 B (CBPIBLOX-BLU) (494354)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 512,
+      "manufacturer": "ACD Systems",
+      "sku": "RA185",
+      "model": "Корпус ACD RA185 Yellow ABS Plastic Building Block case for Raspberry Pi 3 B (CBPIBLOX-YEL) (494408)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 513,
+      "manufacturer": "ACD Systems",
+      "sku": "RA147",
+      "model": "Корпус ACD RA147  Acrylic Case w/ 3.5 inch LCD hole for Raspberry Pi 3 B (вместо верхней крышки - отверстие для LCD дисплея) (494248)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 514,
+      "manufacturer": "ACD Systems",
+      "sku": "RA186",
+      "model": "Корпус ACD RA186 Black ABS Plastic Case Brick style w/ Camera cable hole for Raspberry Pi 3 B (RASP1787) (494422)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 515,
+      "manufacturer": "ACD Systems",
+      "sku": "RA187",
+      "model": "Корпус ACD RA187 Black ABS Plastic Case w/GPIO port hole and Fan holes for Raspberry Pi 3 B, (RASP1788) (494446)",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 516,
+      "manufacturer": "ACD Systems",
+      "sku": "RD034",
+      "model": "Корпус ACD RD034 Black ABS Protective case for Orange Pi Pi Lite",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 517,
+      "manufacturer": "ACD Systems",
+      "sku": "KP561",
+      "model": "Корпус ACD KP561 Metal Case + Power Control Switch + Cooling Fan Kit for Raspberry Pi X820 v3.0 (X800) SSD&HDD SATA Storage Board",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 519,
+      "manufacturer": "Chenbro",
+      "sku": "SR11369-0070A0",
+      "model": "Корпус Chenbro SR11369-0070A0",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 520,
+      "manufacturer": "ACD Systems",
+      "sku": "MO-TC500-000",
+      "model": "Корпус ACD Coffre 107 USB3.0*2+USB2.0*2+HD audio",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 521,
+      "manufacturer": "AIC",
+      "sku": "XJ1-41081-02_",
+      "model": "Корпус AIC J4108-01-35X_XJ1-41081-02",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 523,
+      "manufacturer": "Zalman",
+      "sku": "M2 mini (Gray)",
+      "model": "Корпус Zalman M2 mini (Gray) Mini ITX PC Case",
+      "current": {
+        "supported_form_factors": [
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 524,
+      "manufacturer": "AIC",
+      "sku": "XJ1-20246-02",
+      "model": "Корпус AIC XJ1-20246-02 2U 24x 2.5\" hot-swap bays, hot-swap JBOD with dual SAS 12G expander controller, dual BMC, tool-less HDD tray, 550W 1+1 hot-swap redundant 80+ platinum, tool-less rail kit 35X series",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 525,
+      "manufacturer": "AIC",
+      "sku": "RSC-4BT_XE1-4BT00-05",
+      "model": "Корпус AIC RSC-4BT, 4U 36x 3.5\" hot-swap bays, tooless 3.5\" and 2.5\" HOD tray, 1200W CRPS redundant power supply",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 526,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1B2-00M1NN-00  bp",
+      "model": "Корпус Thermaltake Bad Pack Versa H21 /Black/No Win/SECC (394439) bp",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 527,
+      "manufacturer": "ACD Systems",
+      "sku": "AH-TC1GA-000",
+      "model": "Корпус ACD ACD Citadel 101 ATX, Black, USB3.0*1 + USB2.0*2 + HD AUDIO, 1*12cm H1 argb fan at rear, 3*12cm H1 argb fas at front, TG",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 528,
+      "manufacturer": "Zalman",
+      "sku": "M2 mini (Silver)",
+      "model": "Корпус Zalman M2 mini (Silver) Mini ITX PC Case",
+      "current": {
+        "supported_form_factors": [
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 529,
+      "manufacturer": "Chenbro",
+      "sku": "RM2381202-0010A0",
+      "model": "Корпус Chenbro RM2381202-0010A0 2U,26.29\",12BAY*3.5\",8T4S GEN 4,3*8038,CRPS(1+1),1300W,SINGLE(CHENBRO)+PALLET,A01",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    }
+  ]
+}

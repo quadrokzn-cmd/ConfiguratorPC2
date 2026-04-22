@@ -1,0 +1,689 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_005",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 161,
+      "manufacturer": "Palit",
+      "sku": "NE75070U19K9-GB2050W",
+      "model": "Видеокарта/ Palit GeForce RTX 5070 White OC",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 162,
+      "manufacturer": "Palit",
+      "sku": "NE7506T019P1-GB2062D",
+      "model": "Видеокарта/ Palit GeForce RTX 5060 Ti Dual",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 163,
+      "manufacturer": "Palit",
+      "sku": "NE75060019P1-GB2063D",
+      "model": "Видеокарта/ Palit GeForce RTX 5060 Dual",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 164,
+      "manufacturer": "Palit",
+      "sku": "NE75060U19P1-GB2063M",
+      "model": "Видеокарта/ Palit GeForce RTX 5060 White OC",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 165,
+      "manufacturer": "Palit",
+      "sku": "NE63050018JE-1072F",
+      "model": "Видеокарта/ Palit GeForce RTX 3050 StormX",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 166,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-R907XGAMINGOCICE-16GD",
+      "model": "Видеокарта/ GV-R907XGAMINGOCICE-16GD",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 167,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-R906XGAMINGOCICE-16GD",
+      "model": "Видеокарта/ GV-R906XGAMINGOCICE-16GD",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 168,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N506TWF2MAX-8GD",
+      "model": "Видеокарта/ GV-N506TWF2MAX-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 169,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5080AORUSX WB-16GD",
+      "model": "Видеокарта/ GV-N5080AORUSX WB-16GD",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 170,
+      "manufacturer": "ASUS",
+      "sku": "90YV0NU0-M0NA00",
+      "model": "Видеокарта/ DUAL-RX9060-8G OEM",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 171,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G SHADOW 3X OC CLASSIC",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G SHADOW 3X OC CLASSIC",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 172,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 3050 LP E 6G OC",
+      "model": "Видеокарта/ GeForce RTX 3050 LP E 6G OC",
+      "current": {
+        "vram_gb": 6
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 173,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5050D6-8GD",
+      "model": "Видеокарта/ GV-N5050D6-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 174,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 8G SHADOW 2X OC MAX",
+      "model": "Видеокарта/ GeForce RTX 5060 8G SHADOW 2X OC MAX",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 175,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5050WF2OCV2-8GD",
+      "model": "Видеокарта/ RTX5050 WINDFORCE OC V2 8GB",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 176,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-R9060XTGAMING-8GD",
+      "model": "Видеокарта/ GV-R9060XTGAMING-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 177,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N506TGAMING-8GD",
+      "model": "Видеокарта/ GV-N506TGAMING-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 178,
+      "manufacturer": "MSI",
+      "sku": "GeForce GT 1030 4GD4 LP OC",
+      "model": "Видеокарта/ GeForce GT 1030 4GD4 LP OC",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 179,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-8GB-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA T1000, 8 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 180,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-8GB-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA T1000, 8 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 181,
+      "manufacturer": "PNY",
+      "sku": "VCQP1000V2-SB",
+      "model": "Видеокарта/ VGA PNY Nvidia Quadro P1000 (GP107GL), 4GB GDDR5/128 bit, PCI Express 3.0 16x (PCI Express 2.x/1.х)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 182,
+      "manufacturer": "PNY",
+      "sku": "VCNT400-4GB-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 183,
+      "manufacturer": "PNY",
+      "sku": "VCNT400-4GB-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16,3x mini-DisplayPort v1.4,2x mini-DisplayPort->DisplayPort",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 184,
+      "manufacturer": "PNY",
+      "sku": "VCNT400-4GBBLK-1",
+      "model": "Видеокарта/ VGA PNY NVIDIA T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16 (полный комплект)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 185,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA6000-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX A6000, 48 GB GDDR6 with ECC,DisplayPort 1.4 (4), PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 186,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA6000-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX A6000, 48 GB GDDR6 with ECC,DisplayPort 1.4 (4),PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 187,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA2000-12GB-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX A2000 12 GB GDDR6/192 bit, PCI Express 4.0 x16,4 ? mDP1.4a",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 188,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2220-000",
+      "model": "Видеокарта/ NVIDIA Quadro T600 4GB GDDR6 PCI-E x16 (ATX bracket)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 189,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2270-000",
+      "model": "Видеокарта/ T1000 8G PCI, bulk packing",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 190,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2570-000",
+      "model": "Видеокарта/ VGA NVIDIA QUADRO T1000 8GB, GDDR6/128-bit, PCIe 3.0, 4xmDP, 1-slot, BOX/RTL/PB",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 191,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G192-1750-000",
+      "model": "Видеокарта/ VGA NVIDIA QUADRO RTXA2000,12GB,PCIE 4.0, ATX/LP bracket, 1y warranty",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 192,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G133-2200-000",
+      "model": "Видеокарта/ Nvidia RTX A6000, bulk packing",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 193,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2550-000",
+      "model": "Видеокарта/ VGA NVIDIA QUADRO T1000 4GB, GDDR6/128-bit, PCIe 3.0, 4xmDP, 1-slot, BOX/RTL/PB",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 194,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G190-2200-000",
+      "model": "Видеокарта/ NVIDIA RTX A4000 Graphics Card,bulk packing",
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 195,
+      "manufacturer": "PNY",
+      "sku": "900-5G192-2250-000",
+      "model": "Видеокарта/ VGA NVIDIA QUADRO RTXA2000,12GB,PCIE 4.0, FH bracket, 1y warranty",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 196,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-1721-000",
+      "model": "Видеокарта/ NVIDIA Quadro T600 4GB GDDR6 PCI-E x16 (LP bracket + ATX bracket + mDP-DP cables)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 197,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-0121-000",
+      "model": "Видеокарта/ NVIDIA Quadro T600 4GB GDDR6 PCI-E x16 (ATX bracket)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 198,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA2000-12GB-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA QUADRO RTXA2000,12GB,PCIE 4.0",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 199,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA2000-12GB-BLK",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX A2000 12 GB GDDR6/192 bit, PCI Express 4.0 x16, 4x mDP1.4a (LP+ATX)",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 200,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-8GB-BLK",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro T1000, 8 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP, LP+ATX",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

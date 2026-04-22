@@ -62,12 +62,13 @@ def apply_enrichment(
         session.execute(
             text(
                 "INSERT INTO component_field_sources "
-                "    (category, component_id, field_name, source, confidence, updated_at) "
+                "    (category, component_id, field_name, source, confidence, source_url, updated_at) "
                 "VALUES "
-                "    (:category, :component_id, :field_name, :source, :confidence, NOW()) "
+                "    (:category, :component_id, :field_name, :source, :confidence, :source_url, NOW()) "
                 "ON CONFLICT (category, component_id, field_name) DO UPDATE SET "
                 "    source     = EXCLUDED.source, "
                 "    confidence = EXCLUDED.confidence, "
+                "    source_url = EXCLUDED.source_url, "
                 "    updated_at = NOW()"
             ),
             {
@@ -76,6 +77,7 @@ def apply_enrichment(
                 "field_name":   fname,
                 "source":       ef.source,
                 "confidence":   ef.confidence,
+                "source_url":   ef.source_url,
             },
         )
 

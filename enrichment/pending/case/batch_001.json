@@ -1,0 +1,553 @@
+{
+  "category": "case",
+  "batch_id": "batch_001",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "has_psu_included",
+    "supported_form_factors"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 73,
+      "manufacturer": "Foxline",
+      "sku": "FL-733R-FZ450R-U32H-NRP",
+      "model": "Корпус с блоком питания 450Вт./ Case Foxline FL-733R-FZ450R-U32H-NRPmATX case, black, w/PSU 450W 12cm, w/2xUSB2.0, w/2xUSB3.0, w/P-lock, w/E-lock support, w/rear LED lighting button,w/top handle, w/pwr cord, w/o FAN",
+      "current": {
+        "has_psu_included": true
+      },
+      "to_fill": [
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 100,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO D30 Silver TG",
+      "model": "Корпус компьютерный mATX/ JONSBO D30 Silver TG, mATX case, 1xU3.0+1xType-C, Combo Audio, 1.5mm aluminium +metal",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 101,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO D40 Silver TG",
+      "model": "Корпус компьютерный ATX/ JONSBO D40 Silver TG, ATX case, 1xU3.0+1xType-C, Combo Audio, 1.5mm aluminium +metal",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 102,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO D500 BK",
+      "model": "Корпус компьютерный E-ATX/ JONSBO D500 BK, E-ATX case, 2xU3.0+1xType-C, Combo Audio, 2.0mm aluminium +metal",
+      "current": {
+        "supported_form_factors": [
+          "E-ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 103,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO MOD 5 BK",
+      "model": "Корпус компьютерный ATX/ JONSBO MOD 5, Black, Mod Gaming ATX case, 2xU3.0+1xType-C, HD-Audio, 2.0 - 3.0mm aluminum alloy panel + 4mm tempered glass panel",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 104,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO MOD 5 GR",
+      "model": "Корпус компьютерный ATX/ JONSBO MOD 5, Grey, Mod Gaming ATX case, 2xU3.0+1xType-C, HD-Audio, 2.0 - 3.0mm aluminum alloy panel + 4mm tempered glass panel",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 105,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO MOD 3 GR",
+      "model": "Корпус компьютерный ATX/ JONSBO MOD 3, Grey, Mod Gaming ATX case, 2xU3.0+1xType-C, HD-Audio, structure 1.0+0.8mm steel plate, 4mm Aluminum, 4mm Tempered Glass Plate",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 106,
+      "manufacturer": "JONSBO",
+      "sku": "JONSBO MOD 3 WT",
+      "model": "Корпус компьютерный ATX/ JONSBO MOD 3, White, Mod Gaming ATX case, 2xU3.0+1xType-C, HD-Audio, structure 1.0+0.8mm steel plate, 4mm Aluminum, 4mm Tempered Glass Plate",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 184,
+      "manufacturer": "JONSBO",
+      "sku": "D31 STD White",
+      "model": "Корпус компьютерный Mini-Tower/ Case JONSBO D31 STD, Mini-Tower, TG, no fan, 1xUSB-A 3.2 + 1xUSB-C 3.2, mATX, mDTX, mITX White",
+      "current": {
+        "supported_form_factors": [
+          "mATX",
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 244,
+      "manufacturer": "ASUS",
+      "sku": "90DC00W0-B39010",
+      "model": "Корпус ASUS ROG STRIX HELIOS II GX601S HATSUNE MIKU/ ASUS ROG STRIX HELIOS II GX601S HATSUNE MIKU",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 245,
+      "manufacturer": "ASUS",
+      "sku": "90DC0023-B39000",
+      "model": "Корпус ASUS GX601 ROG STRIX HELIOS CASE Белый/ ASUS GX601 ROG STRIX HELIOS CASE/WT/AL/WITH HANDLE",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 246,
+      "manufacturer": "ASUS",
+      "sku": "90DC0020-B39000",
+      "model": "Корпус ASUS GX601 ROG STRIX HELIOS CASE/BK/AL/WITH HANDLE/ ASUS GX601 ROG STRIX HELIOS CASE/BK/AL/WITH HANDLE",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 348,
+      "manufacturer": "ACD Systems",
+      "sku": "RA598",
+      "model": "Корпус ACD RA598   Black ABS Case for Raspberry 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 349,
+      "manufacturer": "ACD Systems",
+      "sku": "RA506",
+      "model": "Корпус ACD RA506  Gold Metal Aluminum Case for Raspberry Pi 4B",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 350,
+      "manufacturer": "Deepcool",
+      "sku": "DP-MATX-MATREXX30",
+      "model": "Корпус mATX MATREXX 30 Deepcool",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 357,
+      "manufacturer": "Deepcool",
+      "sku": "R-CC560-WHAMA4-G-2",
+      "model": "Корпус Deepcool CC560 MESH V2 белый ATX 8x120mm 5x140mm 1xUSB2.0 audio bott PSU [R-CC560-WHAMA4-G-2]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 358,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH780-BKADE41-G-1",
+      "model": "Корпус Deepcool CH780 черный ATX 9x120mm 9x140mm 4x180mm 4x200mm 4xUSB3.0 audio bott PSU [R-CH780-BKADE41-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 359,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z4-00M6WN-00",
+      "model": "Корпус Thermaltake View 170 TG ARGB белый mATX 5x120mm 2x140mm 1x200mm 2xUSB3.0 audio bott PSU [CA-1Z4-00M6WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 360,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.DK07X.10RU",
+      "model": "Корпус Lian-Li DK07X черный E-ATX 10x120mm 3x140mm 2xUSB3.0 audio bott PSU [G99.DK07X.10RU]",
+      "current": {
+        "supported_form_factors": [
+          "E-ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 362,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1X7-00F6WN-01",
+      "model": "Корпус Thermaltake CTE C700 TG ARGB белый ATX 12x120mm 8x140mm 2x200mm 2xUSB3.0 audio bott PSU [CA-1X7-00F6WN-01]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 363,
+      "manufacturer": "Deepcool",
+      "sku": "R-MATREXX55-BKAGA4-G-4",
+      "model": "Корпус Deepcool Matrexx 55 V4 MESH черный ATX 7x120mm 2x140mm 2xUSB3.0 audio bott PSU [R-MATREXX55-BKAGA4-G-4]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 364,
+      "manufacturer": "Deepcool",
+      "sku": "R-MATREXX55-BKADA4-G-4",
+      "model": "Корпус Deepcool Matrexx 55 V4 черный ATX 7x120mm 2x140mm 2xUSB3.0 audio bott PSU [R-MATREXX55-BKADA4-G-4]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 365,
+      "manufacturer": "Chieftec",
+      "sku": "GS-01B-OP",
+      "model": "Корпус Chieftec Hunter черный ATX 4x120mm 4x140mm 2xUSB3.1 audio bott PSU [GS-01B-OP]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 366,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z1-00M1WN-00",
+      "model": "Кабель Thermaltake USB 3.0 IDC Extender 20 PIN черный Tower 600 [CA-1Z1-00M1WN-00]",
+      "current": {},
+      "to_fill": [
+        "has_psu_included",
+        "supported_form_factors"
+      ]
+    },
+    {
+      "id": 367,
+      "manufacturer": "Deepcool",
+      "sku": "R-CG530-BKADA4-G-1",
+      "model": "Корпус Deepcool CG530 4F черный ATX 2x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [R-CG530-BKADA4-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 368,
+      "manufacturer": "Deepcool",
+      "sku": "R-CG530-WHNDA0-G-1",
+      "model": "Корпус Deepcool CG530 WH белый ATX 2x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [R-CG530-WHNDA0-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 369,
+      "manufacturer": "Deepcool",
+      "sku": "R-CG530-BKNDA0-G-1",
+      "model": "Корпус Deepcool CG530 черный ATX 2x120mm 2x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU [R-CG530-BKNDA0-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 370,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH170-WHNPI0D-G-1",
+      "model": "Корпус Deepcool CH170 DIGITAL белый mATX 1x120mm 1xUSB2.0 1xUSB3.0 audio bott PSU [R-CH170-WHNPI0D-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 371,
+      "manufacturer": "Deepcool",
+      "sku": "R-CH170-BKNPI0D-G-1",
+      "model": "Корпус Deepcool CH170 DIGITAL черный mATX 1x120mm 1xUSB2.0 1xUSB3.0 audio bott PSU [R-CH170-BKNPI0D-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 372,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z3-00M1WN-00",
+      "model": "Корпус Thermaltake Ceres 350 MX черный E-ATX 2x140mm 2xUSB3.0 audio bott PSU [CA-1Z3-00M1WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "E-ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 373,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z8-00M1WN-00",
+      "model": "Корпус Thermaltake CTE E550 TG черный ATX 8x120mm 6x140mm 2xUSB3.0 audio bott PSU [CA-1Z8-00M1WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 374,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z8-00M6WN-00",
+      "model": "Корпус Thermaltake CTE E550 TG Snow белый ATX 8x120mm 6x140mm 2xUSB3.0 audio bott PSU [CA-1Z8-00M6WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 375,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.LAN216X.10R",
+      "model": "Корпус Lian-Li Lancool 216 (без RGB) черный ATX 2x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.LAN216X.10R]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 376,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.LAN207RW.R0",
+      "model": "Корпус Lian-Li Lancool 207 белый ATX 4x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.LAN207RW.R0]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 377,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Y3-00M1WN-00",
+      "model": "Корпус Thermaltake CTE E600MX черный E-ATX 11x120mm 4x140mm 2xUSB3.0 audio bott PSU [CA-1Y3-00M1WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "E-ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 378,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.LAN216RW.10R",
+      "model": "Корпус Lian-Li Lancool 216 белый ATX 2x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.LAN216RW.10R]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 379,
+      "manufacturer": "Lian-Li",
+      "sku": "G99.OE744MX.10",
+      "model": "Корпус Lian-Li Lancool 205M Mesh черный mATX 3x120mm 2x140mm 2xUSB3.0 audio bott PSU [G99.OE744MX.10]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 380,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1Z2-00MFWN-00",
+      "model": "Корпус Thermaltake View 380 TG ARGB Hydrangea синий ATX 6x120mm 2x140mm 1x200mm 2xUSB3.0 audio bott PSU [CA-1Z2-00MFWN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 381,
+      "manufacturer": "Thermaltake",
+      "sku": "CA-1X9-00S1WN-00",
+      "model": "Корпус Thermaltake The Tower 200 черный miniITX 6x120mm 4x140mm 2xUSB3.0 audio bott PSU [CA-1X9-00S1WN-00]",
+      "current": {
+        "supported_form_factors": [
+          "ITX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    },
+    {
+      "id": 382,
+      "manufacturer": "Deepcool",
+      "sku": "R-CC360-BKAPM3-G-1",
+      "model": "Корпус Deepcool CC360 ARGB черный mATX 5x120mm 4x140mm 1xUSB2.0 1xUSB3.0 audio bott PSU [R-CC360-BKAPM3-G-1]",
+      "current": {
+        "supported_form_factors": [
+          "mATX"
+        ]
+      },
+      "to_fill": [
+        "has_psu_included"
+      ]
+    }
+  ]
+}

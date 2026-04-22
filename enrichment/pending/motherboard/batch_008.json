@@ -1,0 +1,333 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_008",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "memory_type",
+    "has_m2_slot"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 351,
+      "manufacturer": "Gigabyte",
+      "sku": "B850M EAGLE WF7",
+      "model": "Материнская плата/ B850M EAGLE WF7",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 352,
+      "manufacturer": "Gigabyte",
+      "sku": "B840M GAMING P WF6E",
+      "model": "Материнская плата/ B840M GAMING P WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 353,
+      "manufacturer": "Gigabyte",
+      "sku": "B840M D3HP WF6E",
+      "model": "Материнская плата/ B840M D3HP WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 354,
+      "manufacturer": "Gigabyte",
+      "sku": "B650E EAGLE",
+      "model": "Материнская плата/ B650E EAGLE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 355,
+      "manufacturer": "Gigabyte",
+      "sku": "B550M DS3H AC R2",
+      "model": "Материнская плата/ B550M DS3H AC R2",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 356,
+      "manufacturer": "MSI",
+      "sku": "MAG X870E GAMING PLUS MAX WIFI",
+      "model": "Материнская плата/ MAG X870E GAMING PLUS MAX WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 357,
+      "manufacturer": "MSI",
+      "sku": "MAG X870E TOMAHAWK MAX WIFI",
+      "model": "Материнская плата/ MAG X870E TOMAHAWK MAX WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 358,
+      "manufacturer": "MSI",
+      "sku": "MEG X870E ACE MAX",
+      "model": "Материнская плата/ MEG X870E ACE MAX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 359,
+      "manufacturer": "MSI",
+      "sku": "PRO B550M-B",
+      "model": "Материнская плата/ PRO B550M-B",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 360,
+      "manufacturer": "MSI",
+      "sku": "PRO B840-S EVO WIFI6E",
+      "model": "Материнская плата/ PRO B840-S EVO WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 361,
+      "manufacturer": "MSI",
+      "sku": "MAG B850 TOMAHAWK MAX WIFI II",
+      "model": "Материнская плата/ MAG B850 TOMAHAWK MAX WIFI II",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 362,
+      "manufacturer": "MSI",
+      "sku": "PRO B850-S WIFI6E",
+      "model": "Материнская плата/ PRO B850-S WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 363,
+      "manufacturer": "MSI",
+      "sku": "PRO H810M-E",
+      "model": "Материнская плата/ PRO H810M-E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 364,
+      "manufacturer": "MSI",
+      "sku": "Z890 GAMING PLUS WIFI6E",
+      "model": "Материнская плата/ Z890 GAMING PLUS WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 365,
+      "manufacturer": "MSI",
+      "sku": "Z890 GAMING WIFI6E",
+      "model": "Материнская плата/ Z890 GAMING WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 366,
+      "manufacturer": "Gigabyte",
+      "sku": "Z890 D PLUS",
+      "model": "Материнская плата/ Z890 D PLUS",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 367,
+      "manufacturer": "Gigabyte",
+      "sku": "B760M G X DDR4 GEN5",
+      "model": "Материнская плата/ B760M G X DDR4 GEN5",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 368,
+      "manufacturer": "Gigabyte",
+      "sku": "B840 GAMING X WF6E",
+      "model": "Материнская плата/ B840 GAMING X WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 369,
+      "manufacturer": "Gigabyte",
+      "sku": "B840 EAGLE WF6E",
+      "model": "Материнская плата/ B840 EAGLE WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 370,
+      "manufacturer": "Gigabyte",
+      "sku": "B650E EAGLE WF6E",
+      "model": "Материнская плата/ B650E EAGLE WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 371,
+      "manufacturer": "Gigabyte",
+      "sku": "B860M D3W",
+      "model": "Материнская плата/ B860M D3W",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 372,
+      "manufacturer": "ASUS",
+      "sku": "90MB1FZ0-M0EAY0",
+      "model": "Материнская плата/ ASUS PRO WS TRX50-SAGE WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 373,
+      "manufacturer": "Biostar Microtech Netherlands B.V.",
+      "sku": "H610MH D5",
+      "model": "Материнская плата Biostar H610MH D5 Soc-1700 Intel H610 2xDDR5 mATX AC`97 8ch(7.1) GbLAN RAID+VGA+HDMI [H610MH D5]",
+      "current": {
+        "memory_type": "DDR5"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 374,
+      "manufacturer": "Biostar Microtech Netherlands B.V.",
+      "sku": "B760A-SILVER",
+      "model": "Материнская плата Biostar B760A-Silver  Soc-1700 Intel B760 4xDDR5 ATX AC`97 8ch(7.1) 2.5Gg RAID+VGA+HDMI+DP [B760A-SILVER]",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 375,
+      "manufacturer": "Biostar Microtech Netherlands B.V.",
+      "sku": "A520MHP",
+      "model": "Материнская плата Biostar A520MHP Soc-AM4 AMD A520 2xDDR4 mATX AC`97 8ch(7.1) GbLAN RAID+VGA+HDMI [A520MHP]",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 376,
+      "manufacturer": "Biostar Microtech Netherlands B.V.",
+      "sku": "H610MS",
+      "model": "Материнская плата Biostar H610MS  Soc-1700 Intel H610 2xDDR4 mATX AC`97 8ch(7.1) GbLAN RAID+HDMI+DP [H610MS]",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 377,
+      "manufacturer": "Biostar Microtech Netherlands B.V.",
+      "sku": "B850MT2-E DJ",
+      "model": "Материнская плата Biostar B850MT2-E DJ SocketAM5 AMD B850 2xDDR5 mATX AC`97 8ch(7.1) 2.5Gg RAID+HDMI+DP",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 378,
+      "manufacturer": "AFOX CORPORATION",
+      "sku": "AFHM65-ETH8EX",
+      "model": "Материнская плата с ЦПУ Afox AFHM65-ETH8EX Intel HM65+ Intel Celeron,1XDDR3-1600MHZ,8XPCI-EX16,1XSATA2,1XMSATA2,100LAN MATX, RETAIL PACK, RTL {10} (783903)",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 379,
+      "manufacturer": "AFOX CORPORATION",
+      "sku": "AFB250-BTC12EX RTL",
+      "model": "Материнская плата Afox AFB250-BTC12EX RTL LGA1151 ATX 2xDDR4 PCIEx16 11xPCIEx1 DVI VGA (783767)",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    }
+  ]
+}

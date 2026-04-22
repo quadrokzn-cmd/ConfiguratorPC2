@@ -1,0 +1,564 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_006",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "memory_type",
+    "has_m2_slot"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 251,
+      "manufacturer": "ASUS",
+      "sku": "90MB1L20-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B850-E WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 252,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LZ0-M0EAY0",
+      "model": "Материнская плата/ X870 MAX GAMING WIFI7 W",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 253,
+      "manufacturer": "Gigabyte",
+      "sku": "B840M D2H",
+      "model": "Материнская плата/ B840M D2H",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 254,
+      "manufacturer": "Gigabyte",
+      "sku": "B840M DS3H",
+      "model": "Материнская плата/ B840M DS3H",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 255,
+      "manufacturer": "MSI",
+      "sku": "PRO B860M-A WIFI",
+      "model": "Материнская плата/ PRO B860M-A WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 256,
+      "manufacturer": "MSI",
+      "sku": "MPG B850 EDGE TI WIFI",
+      "model": "Материнская плата/ MPG B850 EDGE TI WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 257,
+      "manufacturer": "MSI",
+      "sku": "MAG B850M MORTAR WIFI",
+      "model": "Материнская плата/ MAG B850M MORTAR WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 258,
+      "manufacturer": "Gigabyte",
+      "sku": "X870E A ELITE WF7 ICE",
+      "model": "Материнская плата/ X870E A ELITE WF7 ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 259,
+      "manufacturer": "Gigabyte",
+      "sku": "B850 EAGLE WF7 ICE",
+      "model": "Материнская плата/ B850 EAGLE WF7 ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 260,
+      "manufacturer": "Gigabyte",
+      "sku": "B850 EAGLE ICE",
+      "model": "Материнская плата/ B850 EAGLE ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 261,
+      "manufacturer": "Gigabyte",
+      "sku": "B850M A ELT WF6E",
+      "model": "Материнская плата/ B850M A ELT WF6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 262,
+      "manufacturer": "Gigabyte",
+      "sku": "B650M GAMING WIFI6E",
+      "model": "Материнская плата/ B650M GAMING WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 263,
+      "manufacturer": "Gigabyte",
+      "sku": "B650I AX",
+      "model": "Материнская плата/ B650I AX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 264,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LB0-M0EAY0",
+      "model": "Материнская плата/ ROG CROSSHAIR X870E EXTREME",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 265,
+      "manufacturer": "MSI",
+      "sku": "B840M GAMING WIFI6E",
+      "model": "Материнская плата/ B840M GAMING WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 266,
+      "manufacturer": "MSI",
+      "sku": "PRO B840M-B",
+      "model": "Материнская плата/ PRO B840M-B",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 267,
+      "manufacturer": "MSI",
+      "sku": "PRO B840M-P WIFI6E",
+      "model": "Материнская плата/ PRO B840M-P WIFI6E",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 268,
+      "manufacturer": "MSI",
+      "sku": "PRO B850M-A WIFI",
+      "model": "Материнская плата/ PRO B850M-A WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 269,
+      "manufacturer": "MSI",
+      "sku": "PRO B850M-P WIFI",
+      "model": "Материнская плата/ PRO B850M-P WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 270,
+      "manufacturer": "MSI",
+      "sku": "PRO H810M-B",
+      "model": "Материнская плата/ PRO H810M-B",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 271,
+      "manufacturer": "MSI",
+      "sku": "PRO X870E-P WIFI",
+      "model": "Материнская плата/ PRO X870E-P WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 272,
+      "manufacturer": "MSI",
+      "sku": "X870E GAMING PLUS WIFI",
+      "model": "Материнская плата/ X870E GAMING PLUS WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 273,
+      "manufacturer": "Gigabyte",
+      "sku": "B760M DS3H GEN5",
+      "model": "Материнская плата/ B760M DS3H GEN5",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 274,
+      "manufacturer": "Gigabyte",
+      "sku": "H810M GAMING WIFI6",
+      "model": "Материнская плата/ H810M GAMING WIFI6",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 275,
+      "manufacturer": "Gigabyte",
+      "sku": "H810M S2H",
+      "model": "Материнская плата/ H810M S2H",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 276,
+      "manufacturer": "Gigabyte",
+      "sku": "H810M H",
+      "model": "Материнская плата/ H810M H",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 277,
+      "manufacturer": "Gigabyte",
+      "sku": "H810M K",
+      "model": "Материнская плата/ H810M K",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 278,
+      "manufacturer": "Gigabyte",
+      "sku": "H610M K V2",
+      "model": "Материнская плата/ H610M K V2",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 279,
+      "manufacturer": "Gigabyte",
+      "sku": "B550M DS3H R2",
+      "model": "Материнская плата/ B550M DS3H R2",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 280,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LN0-M0EAY0",
+      "model": "Материнская плата/ PRIME B850M-A WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 281,
+      "manufacturer": "ASUS",
+      "sku": "90MB1M30-M0EAY0",
+      "model": "Материнская плата/ ROG STRIX B850-G GAMING WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 282,
+      "manufacturer": "ASUS",
+      "sku": "90MB1M70-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING X870E-PLUS WIFI7",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 283,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LS0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B850M-E WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 284,
+      "manufacturer": "ASUS",
+      "sku": "90MB1KR0-M0EAY0",
+      "model": "Материнская плата/ ROG CROSSHAIR X870E APEX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 285,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LV0-M0EAY0",
+      "model": "Материнская плата/ PRIME B850M-K",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 286,
+      "manufacturer": "Gigabyte",
+      "sku": "B850 A STEALTH ICE",
+      "model": "Материнская плата/ B850 A STEALTH ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 287,
+      "manufacturer": "Gigabyte",
+      "sku": "B850M EAGLE WF6E ICE",
+      "model": "Материнская плата/ B850M EAGLE WF6E ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 288,
+      "manufacturer": "ASUS",
+      "sku": "90MB1LC0-M0EAYC",
+      "model": "Материнская плата/ PRIME B850-PLUS-CSM//AM5 B850 USB10G AURA MB",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 289,
+      "manufacturer": "ASUS",
+      "sku": "90MB1E50-M1EAY0",
+      "model": "Материнская плата/ TUF GAMING B760M-BTF WIFI D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 290,
+      "manufacturer": "ASUS",
+      "sku": "90MB1KW0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B850-BTF WIFI W",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 291,
+      "manufacturer": "Gigabyte",
+      "sku": "B760 G X WF6E GEN5",
+      "model": "Материнская плата/ B760 G X WF6E GEN5",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 292,
+      "manufacturer": "Gigabyte",
+      "sku": "X870 A STEALTH ICE",
+      "model": "Материнская плата/ X870 A STEALTH ICE",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 293,
+      "manufacturer": "Gigabyte",
+      "sku": "X870M A ELITE WF7",
+      "model": "Материнская плата/ X870M A ELITE WF7",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 294,
+      "manufacturer": "MSI",
+      "sku": "B850 GAMING PLUS WIFI PZ",
+      "model": "Материнская плата/ B850 GAMING PLUS WIFI PZ",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 295,
+      "manufacturer": "ASUS",
+      "sku": "90MB1KEP-M0EAYC",
+      "model": "Материнская плата/ PRO Q870M-C-CSM",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 296,
+      "manufacturer": "Gigabyte",
+      "sku": "B840M DS3H WF6",
+      "model": "Материнская плата/ B840M DS3H WF6",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 297,
+      "manufacturer": "Gigabyte",
+      "sku": "B760M G X WF6E GEN5",
+      "model": "Материнская плата/ B760M G X WF6E GEN5",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 298,
+      "manufacturer": "Gigabyte",
+      "sku": "B760 GAMING X D4 GEN5",
+      "model": "Материнская плата/ B760 GAMING X D4 GEN5",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 299,
+      "manufacturer": "ASUS",
+      "sku": "90MB1M90-M0EAY0",
+      "model": "Материнская плата/ ROG STRIX X870E-H GAMING WIFI7",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 300,
+      "manufacturer": "ASUS",
+      "sku": "90MB1MD0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B850M-PLUS WIFI7 W",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    }
+  ]
+}

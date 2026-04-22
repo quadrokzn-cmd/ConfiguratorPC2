@@ -1,0 +1,697 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_003",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 81,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N506TWF2OC-8GD",
+      "model": "Видеокарта/ GV-N506TWF2OC-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 82,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070AERO OC-12GD",
+      "model": "Видеокарта/ GV-N5070AERO OC-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 83,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070AORUS M-12GD",
+      "model": "Видеокарта/ GV-N5070AORUS M-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 84,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070EAGLE OC-12GD",
+      "model": "Видеокарта/ GV-N5070EAGLE OC-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 85,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070EAGLEOC ICE-12GD",
+      "model": "Видеокарта/ GV-N5070EAGLEOC ICE-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 86,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070WF3OC-12GD",
+      "model": "Видеокарта/ GV-N5070WF3OC-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 87,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 16G GAMING OC",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 16G GAMING OC",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 88,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N506TWF2-8GD",
+      "model": "Видеокарта/ GV-N506TWF2-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 89,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060GAMING OC-8GD",
+      "model": "Видеокарта/ GV-N5060GAMING OC-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 90,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060EAGLE OC-8GD",
+      "model": "Видеокарта/ GV-N5060EAGLE OC-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 91,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060WF2OC-8GD",
+      "model": "Видеокарта/ GV-N5060WF2OC-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 92,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060OC-8GL",
+      "model": "Видеокарта/ GV-N5060OC-8GL",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 93,
+      "manufacturer": "ASUS",
+      "sku": "90YV0LF1-M0NA00",
+      "model": "Видеокарта/ PRIME-RX9060XT-O16G",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 94,
+      "manufacturer": "ASUS",
+      "sku": "90YV0MI1-M0NA00",
+      "model": "Видеокарта/ DUAL-RX9060XT-8G",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 95,
+      "manufacturer": "ASUS",
+      "sku": "90YV0M90-M0NA00",
+      "model": "Видеокарта/ ROG-STRIX-RTX5070TI-O16GGAMING",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 96,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5070GAMING OC-12GD",
+      "model": "Видеокарта/ GV-N5070GAMING OC-12GD",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 97,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060AORUS E-8GD",
+      "model": "Видеокарта/ GV-N5060AORUS E-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 98,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 8G GAMING TRIO OC",
+      "model": "Видеокарта/ GeForce RTX 5060 8G GAMING TRIO OC",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 99,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 8G SHADOW 2X OC",
+      "model": "Видеокарта/ GeForce RTX 5060 8G SHADOW 2X OC",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 100,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G VENTUS 2X OC PLUS",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G VENTUS 2X OC PLUS",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 101,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5080 16G SHADOW 3X",
+      "model": "Видеокарта/ GeForce RTX 5080 16G SHADOW 3X",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 102,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5070 Ti 16G SHADOW 3X OC",
+      "model": "Видеокарта/ GeForce RTX 5070 Ti 16G SHADOW 3X OC",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 103,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G GAMING TRIO OC",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G GAMING TRIO OC",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 104,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060AERO OC-8GD",
+      "model": "Видеокарта/ GV-N5060AERO OC-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 105,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060WF2-8GD",
+      "model": "Видеокарта/ GV-N5060WF2-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 106,
+      "manufacturer": "ASUS",
+      "sku": "90YV0M17-M0NA00",
+      "model": "Видеокарта/ DUAL-RTX5070-O12G",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 107,
+      "manufacturer": "ASUS",
+      "sku": "90YV0N12-M0NA00",
+      "model": "Видеокарта/ DUAL-RTX5060-O8G",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 108,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G SHADOW 2X OC PLUS",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G SHADOW 2X OC PLUS",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 109,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G GAMING TRIO",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G GAMING TRIO",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 110,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 8G INSPIRE 2X",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G INSPIRE 2X",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 111,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5080 16G VENTUS 3X PLUS",
+      "model": "Видеокарта/ GeForce RTX 5080 16G VENTUS 3X PLUS",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 112,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-R9060XTGAMING OC-16GD",
+      "model": "Видеокарта/ GV-R9060XTGAMING OC-16GD",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 113,
+      "manufacturer": "Gigabyte",
+      "sku": "GV-N5060EAGLEOC ICE-8GD",
+      "model": "Видеокарта/ GV-N5060EAGLEOC ICE-8GD",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 114,
+      "manufacturer": "ASUS",
+      "sku": "90YV0N10-M0NA00",
+      "model": "Видеокарта/ PRIME-RTX5060-O8G",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 115,
+      "manufacturer": "ASUS",
+      "sku": "90YV0N00-M0NA00",
+      "model": "Видеокарта/ TUF-RTX5060-O8G-GAMING",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 116,
+      "manufacturer": "ASUS",
+      "sku": "90YV0M19-M0NA00",
+      "model": "Видеокарта/ PRIME-RTX5070-O12G-WHITE",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 117,
+      "manufacturer": "Palit",
+      "sku": "NE75070019K9-GB2050U",
+      "model": "Видеокарта/ Palit RTX5070 12GB GAMING PRO-S 12GB",
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 118,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5050 8G VENTUS 2X OC",
+      "model": "Видеокарта/ GeForce RTX 5050 8G VENTUS 2X OC",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 119,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 8G VENTUS 2X",
+      "model": "Видеокарта/ GeForce RTX 5060 8G VENTUS 2X",
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 120,
+      "manufacturer": "MSI",
+      "sku": "GeForce RTX 5060 Ti 16G SHADOW 2X OC PLUS",
+      "model": "Видеокарта/ GeForce RTX 5060 Ti 16G SHADOW 2X OC PLUS",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    }
+  ]
+}

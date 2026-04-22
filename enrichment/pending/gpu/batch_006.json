@@ -1,0 +1,697 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_006",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 201,
+      "manufacturer": "PNY",
+      "sku": "VCNT400-4GB-BLK",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16 (LP+ATX)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 202,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA QUADRO T1000, 4 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP (900-5G172-2550-000)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 203,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000BLK-1",
+      "model": "Видеокарта/ VGA PNY NVIDIA QUADRO T1000, 4 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 204,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA4000-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX A4000, 16 GB GDDR6/256 bit, PCI Express 4.0 x16, 4xDisplayPort 1.4",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 205,
+      "manufacturer": "PNY",
+      "sku": "VCNRTX6000ADA-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16 (900-5G133-2550-000)",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 206,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA4500-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX A4500, 20 GB GDDR6/320 bit, PCI Express 4.0 x16, 4xDisplayPort 1.4",
+      "current": {
+        "vram_gb": 20,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 207,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA4500-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX A4500, 20 GB GDDR6/320 bit, PCI Express 4.0 x16, 4xDisplayPort 1.4",
+      "current": {
+        "vram_gb": 20,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 208,
+      "manufacturer": "PNY",
+      "sku": "SVCNRTXA4500-PB",
+      "model": "Видеокарта/ PNY VGA QUAD,RTXA4500,20GB,PCIE 4.x16",
+      "current": {
+        "vram_gb": 20
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 209,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA4000-BLK",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX A4000, 16 GB GDDR6 with ECC,DisplayPort 1.4 (4), PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 210,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-BLK",
+      "model": "Видеокарта/ VGA PNY NVIDIA T1000, 4 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 211,
+      "manufacturer": "PNY",
+      "sku": "VCQRTX5000BLK-1",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX 5000, 16 GB GDDR6/256 bit, PCI Express 3.0 16x, 4xDP",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 212,
+      "manufacturer": "PNY",
+      "sku": "VCQRTX6000-PB",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX 6000, 24 GB GDDR6/384 bit, PCI Express 3.0 x16, 4xDP+VirtualLink",
+      "current": {
+        "vram_gb": 24,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 213,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G133-1750-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 214,
+      "manufacturer": "PNY",
+      "sku": "900-5G172-2250-000",
+      "model": "Видеокарта/ VGA NVIDIA T1000, 4 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP, BLK",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 215,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2750-002",
+      "model": "Видеокарта/ VGA NVIDIA T1000, 4 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP, BLK",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 216,
+      "manufacturer": "PNY",
+      "sku": "VCNRTX6000ADA-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 217,
+      "manufacturer": "PNY",
+      "sku": "VCNRTX4000ADALP-SB",
+      "model": "Видеокарта/ VGA PNY  NVIDIA RTX 4000 SFF Ada, 20 GB GDDR6 ECC, mDP 1.4a, PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 20,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 218,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2240-000",
+      "model": "Видеокарта/ VGA NVIDIA T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 219,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2540-000",
+      "model": "Видеокарта/ VGA NVIDIA T400, 4GB GDDR6/64 bit, PCI Express 3.0 x16,3x mini-DisplayPort v1.4, 3x mini-DisplayPort->DisplayPort, BOX",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 220,
+      "manufacturer": "PNY",
+      "sku": "FPCGP369GP",
+      "model": "Видеокарта/ Fujitsu NVIDIA RTX A4000 16GB 4xDP 1.4 Graphics Card",
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 221,
+      "manufacturer": "PNY",
+      "sku": "900-5G192-2501-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX A2000 6 GB GDDR6/192 bit, PCI Express 4.0 x16, 4x mDP1.4a BOX",
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 222,
+      "manufacturer": "PNY",
+      "sku": "VCNT1000-8GBBLK-1",
+      "model": "Видеокарта/ VGA PNY NVIDIA Quadro T1000, 8 GB GDDR6/128 bit, PCI Express 4.0 x16, 4x mDP",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 223,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G133-2250-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16 BLK",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 224,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G190-2270-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 4000 Ada, 20 GB GDDR6 ECC, DP 1.4a, PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 20,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 225,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G133-2550-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16  (PB)",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 226,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G192-2270-000",
+      "model": "Видеокарта/ VGA  NVIDIA RTX 4000 SFF Ada, 20 GB GDDR6 ECC, mDP 1.4a, PCI Express 4.0 x16",
+      "current": {
+        "vram_gb": 20,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 227,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G192-2240-000",
+      "model": "Видеокарта/ NVIDIA RTX 2000 Ada PCIe 16GB GDDR6, BLK",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 228,
+      "manufacturer": "PNY",
+      "sku": "VCG409024TFXPB1",
+      "model": "Видеокарта/ VGA PNY NVIDIA GeForce RTX 4090 VERTO 24GB, GDDR6X/384-bit, PCIe 4.0, 1xHDMI 2.1, 3xDP, 3-slot",
+      "current": {
+        "vram_gb": 24,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 229,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2280-000",
+      "model": "Видеокарта/ NVIDIA RTX A1000 PCIe 8GB GDDR6 128bit , BLK",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 230,
+      "manufacturer": "PNY",
+      "sku": "900-5G192-2551-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX A2000 12 GB GDDR6/192 bit, PCI Express 4.0 x16, 4x mDP1.4a (LP+ATX)",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 231,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G132-2260-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 4500 Ada Graphic Card - 24 GB GDDR6 - PCIe 4.0 x16 - 2x Slot - Bulk",
+      "current": {
+        "vram_gb": 24,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 232,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G133-2240-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 5880 Ada Graphic Card - 48 GB GDDR6 - PCIe 4.0 x16 - 2x Slot - 285 W",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 233,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G172-2260-000",
+      "model": "Видеокарта/ VGA NVIDIA A400 PCIe 4GB GDDR6 PCIe Bulk Pack (ATX+LP)",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 234,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G132-2240-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 5000 Ada 32GB GDDR6 256 bit , NVIDIA",
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 235,
+      "manufacturer": "NVIDIA",
+      "sku": "900-2G153-0000-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX PRO 6000 Blackwell Server Edition, 96 GB GDDR7 with ECC, DisplayPort 2.1, PCI Express 5.0 x16, BLK",
+      "current": {
+        "vram_gb": 96,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 236,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G153-2200-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX PRO 6000 Blackwell Max-Q, 96 GB GDDR7 with ECC, DisplayPort 2.1b, PCI Express 5.0 x16, BLK",
+      "current": {
+        "vram_gb": 96,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 237,
+      "manufacturer": "NVIDIA",
+      "sku": "VCNRTX6000ADA-EDU-SB",
+      "model": "Видеокарта/ VGA PNY NVIDIA RTX 6000 ADA, 48 GB GDDR6 with ECC, DisplayPort 1.4a, PCIe 4.0 x16, 16pin power supply cable",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 238,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G144-2500-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 96 GB GDDR7 with ECC, DisplayPort 2.1b, PCI Express 5.0 x16, BOX",
+      "current": {
+        "vram_gb": 96,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 239,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G153-2550-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX PRO 5000 Blackwell, 48 GB GDDR7 with ECC, DisplayPort 2.1, PCI Express 5.0 x16, BOX",
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 240,
+      "manufacturer": "NVIDIA",
+      "sku": "900-5G132-0060-000",
+      "model": "Видеокарта/ VGA NVIDIA RTX 4500 Ada Graphic Card - 24 GB GDDR6 - PCIe 4.0 x16 - 2x Slot - Bulk",
+      "current": {
+        "vram_gb": 24,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

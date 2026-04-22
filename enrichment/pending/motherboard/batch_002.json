@@ -1,0 +1,572 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_002",
+  "generated_at": "2026-04-22T13:00:36+00:00",
+  "target_fields": [
+    "memory_type",
+    "has_m2_slot"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 51,
+      "manufacturer": "ASUS",
+      "sku": "90MB19U0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B550-PLUS WIFI II",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 52,
+      "manufacturer": "ASUS",
+      "sku": "90MB1BY0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B650-PLUS",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 53,
+      "manufacturer": "ASUS",
+      "sku": "90MB1BF0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B650M-PLUS WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 54,
+      "manufacturer": "ASUS",
+      "sku": "90MB14I0-M0EAYC",
+      "model": "Материнская плата/ PRIME B550M-A/CSM",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 55,
+      "manufacturer": "ASUS",
+      "sku": "90MB1AT0-M0EAYC",
+      "model": "Материнская плата/ PRO H610M-C-CSM",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 56,
+      "manufacturer": "ASUS",
+      "sku": "90MB18S0-M1EAY0",
+      "model": "Материнская плата/ ROG STRIX B660-A GAMING WIFI D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 57,
+      "manufacturer": "ASUS",
+      "sku": "90MB1C80-M0EAY0",
+      "model": "Материнская плата/ PRIME H610M-A WIFI D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 58,
+      "manufacturer": "ASUS",
+      "sku": "90MB1BQ0-M0EAY0",
+      "model": "Материнская плата/ ROG STRIX B650E-F GAMING WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 59,
+      "manufacturer": "MSI",
+      "sku": "PRO B760M-P",
+      "model": "Материнская плата/ MB MSI INTEL B760 s1700, 4xDDR5(256GB), D-SUB/HDMI 2.1/DP, 1xPCIe 4.0x16, 2xPCIe 4.0, 1xLAN, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 1xUSB 3.2, 4xUSB 2.0, 2xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 60,
+      "manufacturer": "MSI",
+      "sku": "PRO B760M-A WIFI",
+      "model": "Материнская плата/ MB MSI INTEL B760 s1700, 4xDDR5(256GB), 2xHDMI 2.1/2xDP, 2xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN (2.5GbE), Wi-Fi, BT, 4xSATA 6Gb/s, 2xM.2, 4xUSB 3.2, 2xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 61,
+      "manufacturer": "ASUS",
+      "sku": "90MB1EZ0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING A620M-PLUS",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 62,
+      "manufacturer": "ASUS",
+      "sku": "90MB18X0-M1EAY0",
+      "model": "Материнская плата/ PRIME B660-PLUS D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 63,
+      "manufacturer": "ASUS",
+      "sku": "90MB19F0-M1EAY0",
+      "model": "Материнская плата/ PROART B660-CREATOR D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 64,
+      "manufacturer": "ASUS",
+      "sku": "90MB1FV0-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B650M-E WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 65,
+      "manufacturer": "MSI",
+      "sku": "PRO B650M-P",
+      "model": "Материнская плата/ MB MSI AMD B650 sAM5, 4xDDR5(256GB), D-SUB/HDMI 2.1/DP, 1xPCIe 4.0x16, 2xPCIe 3.0, 1xLAN (2.5GbE), 4xSATA 6Gb/s, 2xM.2, 4xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 66,
+      "manufacturer": "Gigabyte",
+      "sku": "A520M K V2",
+      "model": "Материнская плата/ MB GIGABYTE AMD A520 sAM4, 2xDDR4(64GB), D-SUB/HDMI 2.1, 1xPCIe 3.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 4xUSB 3.2, 2xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 67,
+      "manufacturer": "MSI",
+      "sku": "B760 GAMING PLUS WIFI",
+      "model": "Материнская плата/ MB MSI INTEL B760 s1700, 4xDDR5(256GB), HDMI 2.1/DP, 3xPCIe 4.0x16, 2xPCIe 3.0x16, 1xLAN (2.5GbE), Wi-Fi, BT, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 2xUSB 3.2, 4xUSB 2.0, 1xPS/2, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 68,
+      "manufacturer": "Gigabyte",
+      "sku": "A620M GAMING X",
+      "model": "Материнская плата/ MB GIGABYTE AMD A620 sAM5, 4xDDR5(192GB), HDMI 2.1/DP, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 1xUSB-C, 3xUSB 3.2, 2xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 69,
+      "manufacturer": "Gigabyte",
+      "sku": "B760 DS3H DDR4",
+      "model": "Материнская плата/ MB GIGABYTE INTEL B760 s1700, 4xDDR4(128GB), HDMI 2.0/DP, 1xPCIe 4.0x16, 4xPCIe 3.0x16, 1xLAN, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 1xUSB 3.2, 4xUSB 2.0, 1xPS/2, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 70,
+      "manufacturer": "Gigabyte",
+      "sku": "B760 DS3H",
+      "model": "Материнская плата/ MB GIGABYTE INTEL B760 s1700, 4xDDR5(192GB), HDMI 2.0/DP, 1xPCIe 4.0x16, 4xPCIe 3.0x16, 1xLAN, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 1xUSB 3.2, 4xUSB 2.0, 1xPS/2, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 71,
+      "manufacturer": "Gigabyte",
+      "sku": "H610M K DDR4",
+      "model": "Материнская плата/ MB GIGABYTE INTEL H610 s1700, 2xDDR4(64GB), HDMI 2.0, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 2xSATA 6Gb/s, 1xM.2, 2xUSB 3.2, 4xUSB 2.0, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 72,
+      "manufacturer": "Gigabyte",
+      "sku": "Z790 AORUS ELITE AX",
+      "model": "Материнская плата/ MB GIGABYTE INTEL Z790 s1700, 4xDDR5(192GB), HDMI 2.0/DP, 1xPCIe 5.0x16, 1xPCIe 4.0x16, 1xPCIe 3.0x16, 1xLAN (2.5GbE), Wi-Fi, BT, 6xSATA 6Gb/s, 4xM.2, 1xUSB-C, 5xUSB 3.2, 4xUSB 2.0, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 73,
+      "manufacturer": "MSI",
+      "sku": "MPG B760I EDGE WIFI",
+      "model": "Материнская плата/ MB MSI INTEL B760 s1700, 2xDDR5(128GB), HDMI 2.1/DP, 1xPCIe 5.0x16, 1xLAN (2.5GbE), Wi-Fi, BT, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 5xUSB 3.2, 2xUSB 2.0, mini ITX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 74,
+      "manufacturer": "ASUS",
+      "sku": "90MB1F60-M0EAY0",
+      "model": "Материнская плата/ PRIME B650M-K",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 75,
+      "manufacturer": "ASUS",
+      "sku": "90MB1F40-M0EAY0",
+      "model": "Материнская плата/ PRIME A620M-K",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 76,
+      "manufacturer": "MSI",
+      "sku": "PRO H610M-E",
+      "model": "Материнская плата/ MB MSI INTEL H610 s1700, 2xDDR5(96GB), D-SUB/HDMI 1.4, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 2xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 77,
+      "manufacturer": "Gigabyte",
+      "sku": "B650M D3HP",
+      "model": "Материнская плата/ MB GIGABYTE AMD B650 sAM5, 4xDDR5(192GB), HDMI 2.1/2xDP, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN (2.5GbE), 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 3xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 78,
+      "manufacturer": "Gigabyte",
+      "sku": "B550M K",
+      "model": "Материнская плата/ MB GIGABYTE AMD B550 sAM4, 4xDDR4(128GB), HDMI 2.1/DP, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 2xM.2, 4xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 79,
+      "manufacturer": "Gigabyte",
+      "sku": "A520M DS3H V2",
+      "model": "Материнская плата/ MB GIGABYTE AMD A520 sAM4, 4xDDR4(128GB), HDMI 2.1/DP, 1xPCIe 3.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 4xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 80,
+      "manufacturer": "ASUS",
+      "sku": "90MB19N0-M1EAYC",
+      "model": "Материнская плата/ PRIME H610M-E D4-CSM",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 81,
+      "manufacturer": "ASUS",
+      "sku": "90MB1CW0-M1EAY0",
+      "model": "Материнская плата/ PRIME B760-PLUS D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 82,
+      "manufacturer": "ASUS",
+      "sku": "90MB1GA0-M0EAY0",
+      "model": "Материнская плата/ PRIME H610M-K",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 83,
+      "manufacturer": "ASUS",
+      "sku": "90MB1G80-M0EAY0",
+      "model": "Материнская плата/ PRIME H610M-D",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 84,
+      "manufacturer": "ASUS",
+      "sku": "90MB1GC0-M0EAY0",
+      "model": "Материнская плата/ PRIME B550M-K ARGB//M4 B550 2DIMM DUAL M.2 AURA MB",
+      "current": {
+        "has_m2_slot": true
+      },
+      "to_fill": [
+        "memory_type"
+      ]
+    },
+    {
+      "id": 85,
+      "manufacturer": "ASUS",
+      "sku": "90MB1G00-M0EAY0",
+      "model": "Материнская плата/ PRIME H610M-A WIFI//LGA1700 H610 USB3.2GEN2 WIFI5 MB",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 86,
+      "manufacturer": "ASUS",
+      "sku": "90MB1G90-M0EAY0",
+      "model": "Материнская плата/ PRIME H610M-K ARGB//LGA1700 H610 U32 GEN 1 M.2 AURA MB",
+      "current": {
+        "has_m2_slot": true
+      },
+      "to_fill": [
+        "memory_type"
+      ]
+    },
+    {
+      "id": 87,
+      "manufacturer": "ASUS",
+      "sku": "90MB1GL0-M0ECY0",
+      "model": "Материнская плата/ PRIME H610M-R-SI//LGA1700 H610 DP HDMI VGA MB",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 88,
+      "manufacturer": "ASUS",
+      "sku": "90MB1G50-M0EAY0",
+      "model": "Материнская плата/ TUF GAMING B760M-BTF WIFI//LGA1700 B760 USB3.2 GEN 2 MB",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 89,
+      "manufacturer": "ASUS",
+      "sku": "90MB18F0-M0EAYC",
+      "model": "Материнская плата/ PRO A520M-C II/CSM",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 90,
+      "manufacturer": "Gigabyte",
+      "sku": "B650M A ELITE AX ICE",
+      "model": "Материнская плата/ MB GIGABYTE AMD B650 sAM5, 4xDDR5(192GB), HDMI 2.1/DP, 2xPCIe 4.0x16, 1xLAN (2.5GbE), Wi-Fi, BT, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 7xUSB 3.2, 4xUSB 2.0, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 91,
+      "manufacturer": "Gigabyte",
+      "sku": "B650M D3HP AX",
+      "model": "Материнская плата/ MB GIGABYTE AMD B650 sAM5, 4xDDR5(192GB), HDMI 2.1/2xDP, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN (2.5GbE), Wi-Fi, BT, 4xSATA 6Gb/s, 2xM.2, 1xUSB-C, 3xUSB 3.2, 2xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 92,
+      "manufacturer": "Gigabyte",
+      "sku": "A620M H",
+      "model": "Материнская плата/ MB GIGABYTE AMD A620 sAM5, 2xDDR5(96GB), HDMI 2.1/DP, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 2xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 93,
+      "manufacturer": "MSI",
+      "sku": "PRO B760M-E",
+      "model": "Материнская плата/ MB MSI INTEL B760 s1700, 2xDDR5(128GB), D-SUB/HDMI 1.4, 1xPCIe 4.0x16, 1xPCIe 3.0, 1xLAN, 4xSATA 6Gb/s, 1xM.2, 2xUSB 3.2, 4xUSB 2.0, 1xPS/2, mATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 94,
+      "manufacturer": "MSI",
+      "sku": "Z790 GAMING PLUS WIFI",
+      "model": "Материнская плата/ MB MSI INTEL Z790 s1700, 4xDDR5(256GB), HDMI 2.1/DP, 1xPCIe 5.0x16, 1xPCIe 4.0x16, 1xPCIe 3.0x16, 1xPCIe 3.0, 1xLAN (2.5GbE), Wi-Fi, BT, 6xSATA 6Gb/s, 4xM.2, 1xUSB-C, 3xUSB 3.2, 4xUSB 2.0, ATX",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 95,
+      "manufacturer": "ASUS",
+      "sku": "90MB1D80-M1EAY0",
+      "model": "Материнская плата/ TUF GAMING Z790-PLUS WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 96,
+      "manufacturer": "ASUS",
+      "sku": "90MB1ER0-M1EAY0",
+      "model": "Материнская плата/ TUF GAMING B760-PLUS WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 97,
+      "manufacturer": "ASUS",
+      "sku": "90MB1CJ0-M1EAY0",
+      "model": "Материнская плата/ PRIME Z790-P WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 98,
+      "manufacturer": "ASUS",
+      "sku": "90MB1D90-M1EAY0",
+      "model": "Материнская плата/ ROG STRIX B760-I GAMING WIFI",
+      "current": {},
+      "to_fill": [
+        "memory_type",
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 99,
+      "manufacturer": "ASUS",
+      "sku": "90MB1DS0-M1EAY0",
+      "model": "Материнская плата/ PRIME B760M-K D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    },
+    {
+      "id": 100,
+      "manufacturer": "ASUS",
+      "sku": "90MB1CX0-M1EAY0",
+      "model": "Материнская плата/ PRIME B760M-A WIFI D4",
+      "current": {
+        "memory_type": "DDR4"
+      },
+      "to_fill": [
+        "has_m2_slot"
+      ]
+    }
+  ]
+}
