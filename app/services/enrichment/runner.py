@@ -13,6 +13,7 @@ from sqlalchemy import text
 from app.database import SessionLocal
 from app.services.enrichment.base import CATEGORY_TO_TABLE
 from app.services.enrichment.persistence import apply_enrichment
+from app.services.enrichment.regex_sources import case as case_src
 from app.services.enrichment.regex_sources import cooler as cooler_src
 from app.services.enrichment.regex_sources import cpu as cpu_src
 from app.services.enrichment.regex_sources import gpu as gpu_src
@@ -52,7 +53,9 @@ REQUIRED_FIELDS: dict[str, list[str]] = {
     "motherboard": [
         "socket", "chipset", "form_factor", "memory_type", "has_m2_slot",
     ],
-    # case — следующий подэтап
+    "case": [
+        "supported_form_factors", "has_psu_included", "included_psu_watts",
+    ],
 }
 
 # Экстракторы по категориям. Отсутствующая запись = категория ещё не реализована.
@@ -64,6 +67,7 @@ EXTRACTORS = {
     "cooler":      cooler_src.extract,
     "gpu":         gpu_src.extract,
     "motherboard": mobo_src.extract,
+    "case":        case_src.extract,
 }
 
 
