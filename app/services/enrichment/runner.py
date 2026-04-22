@@ -16,6 +16,7 @@ from app.services.enrichment.persistence import apply_enrichment
 from app.services.enrichment.regex_sources import cooler as cooler_src
 from app.services.enrichment.regex_sources import cpu as cpu_src
 from app.services.enrichment.regex_sources import gpu as gpu_src
+from app.services.enrichment.regex_sources import motherboard as mobo_src
 from app.services.enrichment.regex_sources import psu as psu_src
 from app.services.enrichment.regex_sources import ram as ram_src
 from app.services.enrichment.regex_sources import storage as storage_src
@@ -48,17 +49,21 @@ REQUIRED_FIELDS: dict[str, list[str]] = {
         "vram_gb", "vram_type", "tdp_watts", "needs_extra_power",
         "video_outputs", "core_clock_mhz", "memory_clock_mhz",
     ],
-    # motherboard / case — следующие подэтапы
+    "motherboard": [
+        "socket", "chipset", "form_factor", "memory_type", "has_m2_slot",
+    ],
+    # case — следующий подэтап
 }
 
 # Экстракторы по категориям. Отсутствующая запись = категория ещё не реализована.
 EXTRACTORS = {
-    "cpu":     cpu_src.extract,
-    "psu":     psu_src.extract,
-    "ram":     ram_src.extract,
-    "storage": storage_src.extract,
-    "cooler":  cooler_src.extract,
-    "gpu":     gpu_src.extract,
+    "cpu":         cpu_src.extract,
+    "psu":         psu_src.extract,
+    "ram":         ram_src.extract,
+    "storage":     storage_src.extract,
+    "cooler":      cooler_src.extract,
+    "gpu":         gpu_src.extract,
+    "motherboard": mobo_src.extract,
 }
 
 
