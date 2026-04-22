@@ -15,6 +15,7 @@ from app.services.enrichment.base import CATEGORY_TO_TABLE
 from app.services.enrichment.persistence import apply_enrichment
 from app.services.enrichment.regex_sources import cooler as cooler_src
 from app.services.enrichment.regex_sources import cpu as cpu_src
+from app.services.enrichment.regex_sources import gpu as gpu_src
 from app.services.enrichment.regex_sources import psu as psu_src
 from app.services.enrichment.regex_sources import ram as ram_src
 from app.services.enrichment.regex_sources import storage as storage_src
@@ -43,7 +44,11 @@ REQUIRED_FIELDS: dict[str, list[str]] = {
     "cooler": [
         "supported_sockets", "max_tdp_watts",
     ],
-    # motherboard / gpu / case — следующие подэтапы
+    "gpu": [
+        "vram_gb", "vram_type", "tdp_watts", "needs_extra_power",
+        "video_outputs", "core_clock_mhz", "memory_clock_mhz",
+    ],
+    # motherboard / case — следующие подэтапы
 }
 
 # Экстракторы по категориям. Отсутствующая запись = категория ещё не реализована.
@@ -53,6 +58,7 @@ EXTRACTORS = {
     "ram":     ram_src.extract,
     "storage": storage_src.extract,
     "cooler":  cooler_src.extract,
+    "gpu":     gpu_src.extract,
 }
 
 
