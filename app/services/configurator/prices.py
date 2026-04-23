@@ -42,11 +42,12 @@ def fetch_offers(
     """
     query = text(
         """
-        SELECT s.name       AS supplier,
-               sp.price     AS price,
-               sp.currency  AS currency,
-               sp.stock_qty AS stock,
-               sp.transit_qty AS transit
+        SELECT s.name           AS supplier,
+               sp.supplier_sku  AS supplier_sku,
+               sp.price         AS price,
+               sp.currency      AS currency,
+               sp.stock_qty     AS stock,
+               sp.transit_qty   AS transit
         FROM supplier_prices sp
         JOIN suppliers s ON s.id = sp.supplier_id
         WHERE sp.category     = :cat
@@ -66,6 +67,7 @@ def fetch_offers(
         price_rub = price_usd * usd_rub
         offers.append(SupplierOffer(
             supplier=r["supplier"],
+            supplier_sku=r["supplier_sku"],
             price_usd=round(price_usd, 2),
             price_rub=round(price_rub, 2),
             stock=int(r["stock"]) if in_stock else int(r["transit"]),

@@ -1,11 +1,16 @@
 # Точка входа FastAPI-приложения (этап 5).
 #
-# Подключает:
-#   - SessionMiddleware (подписанные cookie для сессий);
-#   - роутеры auth_router, main_router, admin_router;
-#   - обработчик LoginRequiredRedirect → 302 на /login.
+# ВАЖНО: load_dotenv() ДОЛЖЕН быть первым исполняемым кодом модуля —
+# до любых import из app.*, иначе app.config и app.database прочитают
+# пустые/дефолтные значения до того, как .env попадёт в os.environ,
+# и мы получим падения вида «password authentication failed for user 'user'»
+# или «Не задан OPENAI_API_KEY».
 
-from __future__ import annotations
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# ---- Дальше уже можно импортировать app.* ----
 
 from fastapi import FastAPI, Request, status
 from fastapi.responses import RedirectResponse

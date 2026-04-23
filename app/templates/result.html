@@ -7,6 +7,10 @@
   {% else %}—{% endif %}
 {%- endmacro %}
 
+{% macro dash_or(value) -%}
+  {% if value %}{{ value }}{% else %}<span class="text-zinc-600">—</span>{% endif %}
+{%- endmacro %}
+
 {% block content %}
 <div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
 
@@ -91,8 +95,10 @@
         <thead>
           <tr class="text-zinc-500 border-b border-zinc-700">
             <th class="text-left font-normal py-2">Категория</th>
+            <th class="text-left font-normal py-2">Артикул</th>
             <th class="text-left font-normal py-2">Модель</th>
             <th class="text-left font-normal py-2">Поставщик</th>
+            <th class="text-left font-normal py-2">№ у поставщика</th>
             <th class="text-right font-normal py-2">Цена $</th>
             <th class="text-right font-normal py-2">Цена ₽</th>
           </tr>
@@ -103,10 +109,12 @@
             {% if c %}
             <tr>
               <td class="py-2 text-zinc-400">{{ category_label.get(cat, cat) }}</td>
+              <td class="py-2 text-zinc-400 font-mono text-xs">{{ dash_or(c.sku) }}</td>
               <td class="py-2 text-zinc-100">
                 {{ c.model }}{% if c.quantity and c.quantity > 1 %} <span class="text-zinc-500">×{{ c.quantity }}</span>{% endif %}
               </td>
               <td class="py-2 text-zinc-300">{{ supplier_cell(c) }}</td>
+              <td class="py-2 text-zinc-400 font-mono text-xs">{{ dash_or(c.supplier_sku) }}</td>
               <td class="py-2 text-right text-zinc-100">
                 {{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
               </td>

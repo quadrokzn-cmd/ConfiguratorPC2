@@ -104,6 +104,10 @@ class SupplierOffer:
     price_rub: float
     stock: int
     in_transit: bool = False   # True, если позиция взята из transit_qty
+    # Номенклатурный номер компонента у конкретного поставщика
+    # (supplier_prices.supplier_sku). Нужен менеджеру для оформления
+    # заказа у поставщика. None, если поставщик его не указал.
+    supplier_sku: str | None = None
 
 
 @dataclass
@@ -246,6 +250,7 @@ def result_to_dict(result: BuildResult) -> dict:
                         "manufacturer": c.manufacturer,
                         "quantity": c.quantity,
                         "supplier": c.chosen.supplier,
+                        "supplier_sku": c.chosen.supplier_sku,
                         "price_usd": round(c.chosen.price_usd, 2),
                         "price_rub": round(c.chosen.price_rub, 2),
                         "stock": c.chosen.stock,
