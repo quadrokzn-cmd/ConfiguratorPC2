@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from fastapi.testclient import TestClient
 
-from tests.test_web.conftest import _login, extract_csrf
+from tests.test_web.conftest import _login, extract_csrf, qid_from_submit_redirect
 
 
 def _create_query(client, *, text="тест"):
@@ -17,7 +17,7 @@ def _create_query(client, *, text="тест"):
         "/query",
         data={"project_name": "", "raw_text": text, "csrf_token": token},
     )
-    return int(r.headers["location"].rsplit("/", 1)[1])
+    return qid_from_submit_redirect(r.headers["location"])
 
 
 def test_owner_can_view_own_query(manager_client, mock_process_query):

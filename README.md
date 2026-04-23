@@ -19,15 +19,20 @@ app/
   routers/
     auth_router.py       /login, /logout
     main_router.py       /, /query, /query/{id}, /history
+    project_router.py    /projects, /project/{id}, AJAX спецификации (этап 6.2)
     admin_router.py      /admin, /admin/users, /admin/budget, /admin/queries
   services/
     budget_guard.py      контроль дневного лимита OpenAI
     web_service.py       бизнес-логика веб-роутов
+    spec_service.py      CRUD проектов и спецификации (этап 6.2)
+    spec_naming.py       generate_auto_name (этап 6.2)
+    web_result_view.py   обогащение компонентов specs_short/raw_specs
     configurator/        подбор сборки (этап 3)
     nlu/                 парсер запросов (этап 4)
     enrichment/          обогащение характеристик (этап 2.5)
   templates/             Jinja2 с наследованием от base.html
-migrations/              SQL-миграции 001-007
+static/js/project.js     AJAX-клиент спецификации (этап 6.2)
+migrations/              SQL-миграции 001-008
 scripts/
   create_admin.py        создать пользователя admin
   query.py               CLI для NLU
@@ -73,10 +78,11 @@ psql -U postgres -d <DBNAME> -f migrations/004_add_component_field_sources.sql
 psql -U postgres -d <DBNAME> -f migrations/005_add_source_url_to_component_field_sources.sql
 psql -U postgres -d <DBNAME> -f migrations/006_add_api_usage_log.sql
 psql -U postgres -d <DBNAME> -f migrations/007_web_service.sql
+psql -U postgres -d <DBNAME> -f migrations/008_project_specification.sql
 ```
 На существующей БД с данными — только новую миграцию:
 ```
-psql -U postgres -d <DBNAME> -f migrations/007_web_service.sql
+psql -U postgres -d <DBNAME> -f migrations/008_project_specification.sql
 ```
 
 ### 4. Админ
@@ -109,8 +115,25 @@ pytest
 pytest tests/test_web/
 ```
 
-`conftest.py` автоматически применяет все 7 миграций к тестовой БД и
+`conftest.py` автоматически применяет все 8 миграций к тестовой БД и
 чистит состояние перед каждым тестом.
+
+## Страницы веб-сервиса
+
+| URL | Назначение |
+|---|---|
+| `/` | Форма нового запроса. После отправки создаётся новый проект + первая конфигурация, редирект на `/project/{pid}?highlight={qid}` |
+| `/projects` | Список проектов пользователя (админ видит все) с суммой спецификации по каждому |
+| `/project/{id}` | Детальная страница: конфигурации с чекбоксами «в спецификацию» и полем количества; внизу — панель спецификации и кнопки-заглушки экспорта |
+| `/project/{id}/new_query` | Форма добавления ещё одной конфигурации в проект |
+| `/query/{id}` | Детальный просмотр одной конфигурации (кнопка «Открыть проект» ведёт в `/project/{pid}`) |
+| `/history` | Плоская история всех запросов пользователя |
+| `/admin/*` | Админка (бюджет, пользователи, все запросы) |
+
+Галочка «В спецификацию» и поле количества работают через AJAX
+(`/project/{id}/select`, `/deselect`, `/update_quantity`); CSRF
+передаётся в заголовке `X-CSRF-Token`. Клик по галочке на `/query/{id}`
+тоже попадает в спецификацию проекта.
 
 ## Этапы проекта
 
@@ -119,7 +142,8 @@ pytest tests/test_web/
 - Этап 2.5 — обогащение характеристик ✅
 - Этап 3 — подбор конфигурации с проверкой совместимости ✅
 - Этап 4 — NLU (свободный текст → BuildRequest) ✅
-- **Этап 5 — веб-сервис: авторизация, история, админка** ✅
-- Этап 6 — проекты с несколькими конфигурациями
-- Этап 7 — экспорт / PDF
+- Этап 5 — веб-сервис: авторизация, история, админка ✅
+- Этап 6.1 — карточная раскладка результата ✅
+- **Этап 6.2 — проекты с несколькими конфигурациями и спецификацией** ✅
+- Этап 7 — экспорт (Excel / PDF / email)
 - Этап 8 — финальный дизайн

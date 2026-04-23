@@ -9,6 +9,16 @@ from sqlalchemy import text as _t
 from tests.test_web.conftest import extract_csrf
 
 
+def _parse_redirect(loc: str) -> tuple[int, int]:
+    """/project/{pid}?highlight={qid} → (pid, qid)."""
+    assert loc.startswith("/project/"), f"Неожиданный редирект: {loc}"
+    path, _, qs = loc.partition("?")
+    pid = int(path.rsplit("/", 1)[1])
+    params = dict(p.split("=") for p in qs.split("&")) if qs else {}
+    qid = int(params["highlight"])
+    return pid, qid
+
+
 def test_submit_query_creates_project_and_redirects(
     manager_client, mock_process_query, db_session, manager_user
 ):
@@ -24,14 +34,13 @@ def test_submit_query_creates_project_and_redirects(
         },
     )
     assert r.status_code == 302
-    loc = r.headers["location"]
-    assert loc.startswith("/query/")
-    qid = int(loc.rsplit("/", 1)[1])
+    # Этап 6.2: теперь редирект ведёт в карточку проекта с якорем.
+    pid, qid = _parse_redirect(r.headers["location"])
 
     # В БД появились project + query
     row = db_session.execute(
         _t(
-            "SELECT q.id, q.raw_text, q.status, p.name AS pname, q.user_id "
+            "SELECT q.id, q.raw_text, q.status, p.id AS pid, p.name AS pname, q.user_id "
             "FROM queries q JOIN projects p ON p.id=q.project_id WHERE q.id=:id"
         ),
         {"id": qid},
@@ -39,6 +48,7 @@ def test_submit_query_creates_project_and_redirects(
     assert row is not None
     assert row.raw_text == "Офисный ПК для бухгалтера до 50000"
     assert row.status == "ok"
+    assert row.pid == pid
     # Название должно содержать «Проект бухгалтерии» и дату в скобках
     assert row.pname.startswith("Проект бухгалтерии (")
     assert row.user_id == manager_user["id"]
@@ -57,7 +67,7 @@ def test_empty_project_name_autogenerates(
         data={"project_name": "", "raw_text": "любой запрос", "csrf_token": token},
     )
     assert r.status_code == 302
-    qid = int(r.headers["location"].rsplit("/", 1)[1])
+    _, qid = _parse_redirect(r.headers["location"])
     row = db_session.execute(
         _t("SELECT p.name FROM queries q JOIN projects p ON p.id=q.project_id "
            "WHERE q.id=:id"),
@@ -88,7 +98,7 @@ def test_view_query_result_page(manager_client, mock_process_query):
         "/query",
         data={"project_name": "Test", "raw_text": "любой запрос", "csrf_token": token},
     )
-    qid = int(r.headers["location"].rsplit("/", 1)[1])
+    _, qid = _parse_redirect(r.headers["location"])
 
     r = manager_client.get(f"/query/{qid}")
     assert r.status_code == 200

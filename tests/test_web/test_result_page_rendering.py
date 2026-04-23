@@ -97,7 +97,8 @@ def _submit_and_get_result(client, raw_text: str) -> tuple[int, str]:
         "csrf_token":   token,
     })
     assert r.status_code == 302, r.text[:200]
-    qid = int(r.headers["location"].rsplit("/", 1)[1])
+    from tests.test_web.conftest import qid_from_submit_redirect
+    qid = qid_from_submit_redirect(r.headers["location"])
     r = client.get(f"/query/{qid}")
     assert r.status_code == 200
     return qid, r.text

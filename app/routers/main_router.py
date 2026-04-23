@@ -98,7 +98,8 @@ def query_submit(
             ),
         )
         return RedirectResponse(
-            url=f"/query/{qid}", status_code=status.HTTP_302_FOUND
+            url=f"/project/{project_id}?highlight={qid}",
+            status_code=status.HTTP_302_FOUND,
         )
 
     # 4. Запуск NLU. Засекаем старт, чтобы потом точно посчитать
@@ -136,7 +137,13 @@ def query_submit(
     # 5. Обновляем дневной снэпшот
     budget_guard.upsert_daily_log(db)
 
-    return RedirectResponse(url=f"/query/{qid}", status_code=status.HTTP_302_FOUND)
+    # Этап 6.2: ведём не на одиночный /query/{id}, а в карточку проекта
+    # с якорем на только что добавленную конфигурацию — менеджер сразу
+    # видит результат и может поставить галочку «в спецификацию».
+    return RedirectResponse(
+        url=f"/project/{project_id}?highlight={qid}",
+        status_code=status.HTTP_302_FOUND,
+    )
 
 
 @router.get("/query/{query_id}")
@@ -159,25 +166,33 @@ def query_detail(
         raise HTTPException(status_code=403, detail="Чужой запрос.")
 
     variants = _prepare_variants(q.get("build_result"))
-    # Обогащаем компоненты короткой строкой характеристик (этап 6.1).
-    # Сам подбор/цены не трогаем — только дотягиваем специ для отображения.
+    # Обогащаем компоненты короткой строкой характеристик (этап 6.1)
+    # и сырыми полями raw_specs (для автоназвания при выборе в спецификацию).
     if variants:
         enrich_variants_with_specs(variants, db)
     refusal = None
     if q.get("build_result") is not None:
         refusal = q["build_result"].get("refusal_reason")
 
+    # Этап 6.2: какие варианты уже выбраны в спецификацию проекта —
+    # чтобы чекбоксы на этой странице отражали актуальное состояние.
+    # Локальный импорт, чтобы не плодить циклы на уровне модуля.
+    from app.services import spec_service
+    spec_items = spec_service.list_spec_items(db, project_id=q["project_id"])
+    selected_of_cfg = spec_service.selected_set(spec_items).get(q["id"], {})
+
     return templates.TemplateResponse(
         request,
         "result.html",
         {
-            "user":          user,
-            "csrf_token":    get_csrf_token(request),
-            "q":             q,
-            "variants":      variants,
-            "refusal":       refusal,
-            "category_order": _CATEGORY_ORDER,
-            "category_label": _CATEGORY_LABELS,
+            "user":            user,
+            "csrf_token":      get_csrf_token(request),
+            "q":               q,
+            "variants":        variants,
+            "refusal":         refusal,
+            "selected_of_cfg": selected_of_cfg,
+            "category_order":  _CATEGORY_ORDER,
+            "category_label":  _CATEGORY_LABELS,
         },
     )
 
@@ -205,24 +220,31 @@ def history(
 
 def _prepare_variants(build_result: dict | None) -> list[dict]:
     """Раскладывает dict-BuildResult в список вариантов для шаблона.
-    Каждый вариант: {manufacturer, total_usd, total_rub, components (dict по категориям),
-    warnings, used_transit, path_used, comment}."""
+    Каждый вариант: {manufacturer, total_usd, total_rub,
+    components (dict по категориям — для карточек в variant_block),
+    storages_list (список всех накопителей варианта — для автоназвания
+    со строкой «1TB SSD + 2TB HDD»), warnings, used_transit, path_used}."""
     if not build_result:
         return []
     out: list[dict] = []
     for v in build_result.get("variants") or []:
         components_by_cat: dict[str, dict] = {}
+        storages_list: list[dict] = []
         for c in v.get("components") or []:
             cat = c.get("category")
-            if cat:
-                components_by_cat[cat] = c
+            if not cat:
+                continue
+            components_by_cat[cat] = c
+            if cat == "storage":
+                storages_list.append(c)
         out.append({
-            "manufacturer": v.get("manufacturer"),
-            "total_usd":    v.get("total_usd"),
-            "total_rub":    v.get("total_rub"),
-            "components":   components_by_cat,
-            "warnings":     v.get("warnings") or [],
-            "used_transit": v.get("used_transit"),
-            "path_used":    v.get("path_used"),
+            "manufacturer":  v.get("manufacturer"),
+            "total_usd":     v.get("total_usd"),
+            "total_rub":     v.get("total_rub"),
+            "components":    components_by_cat,
+            "storages_list": storages_list,
+            "warnings":      v.get("warnings") or [],
+            "used_transit":  v.get("used_transit"),
+            "path_used":     v.get("path_used"),
         })
     return out

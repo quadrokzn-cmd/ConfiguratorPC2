@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from sqlalchemy import text as _t
 
-from tests.test_web.conftest import extract_csrf
+from tests.test_web.conftest import extract_csrf, qid_from_submit_redirect
 
 
 def _insert_api_usage(session, *, cost_rub: float) -> None:
@@ -35,7 +35,7 @@ def test_blocked_budget_prevents_openai_call(
         data={"project_name": "", "raw_text": "любой запрос", "csrf_token": token},
     )
     assert r.status_code == 302
-    qid = int(r.headers["location"].rsplit("/", 1)[1])
+    qid = qid_from_submit_redirect(r.headers["location"])
 
     # process_query НЕ вызывался
     mock_process_query.assert_not_called()

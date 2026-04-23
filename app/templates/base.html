@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}КВАДРО-ТЕХ: конфигуратор ПК{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  {% block extra_head %}{% endblock %}
   <style>
     /* Простой спиннер для индикатора «обрабатываем запрос» */
     .kt-spinner {
@@ -29,6 +30,7 @@
       {% if user %}
       <nav class="flex items-center gap-4 text-sm">
         <a href="/" class="text-zinc-300 hover:text-indigo-400">Новый запрос</a>
+        <a href="/projects" class="text-zinc-300 hover:text-indigo-400">Проекты</a>
         <a href="/history" class="text-zinc-300 hover:text-indigo-400">История</a>
         {% if user.is_admin %}
         <a href="/admin" class="text-zinc-300 hover:text-indigo-400">Админка</a>

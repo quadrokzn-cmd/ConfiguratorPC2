@@ -1,0 +1,92 @@
+{#
+  Панель спецификации внизу страницы проекта (этап 6.2).
+  По решению UX — обычный блок в конце страницы, НЕ sticky.
+  Стики-вариант отложен до этапа 8 (финальный дизайн).
+
+  Параметры:
+    items   — список спец-позиций (list_spec_items).
+    totals  — dict {total_usd, total_rub}.
+#}
+
+{% macro _rub(value) -%}
+  {{ '{:,.0f}'.format(value|default(0)).replace(',', ' ') }}
+{%- endmacro %}
+
+{% macro specification_panel(items, totals) -%}
+<section class="bg-zinc-950/60 border border-zinc-700 rounded-xl p-5"
+         id="kt-spec-panel">
+  <header class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+    <h2 class="text-xl font-semibold text-zinc-100">Спецификация</h2>
+    <div class="text-sm text-zinc-500">
+      Выбранные варианты в порядке галочек. Цены — снимок на момент выбора.
+    </div>
+  </header>
+
+  {% if not items %}
+  <div class="text-sm text-zinc-500 py-4" id="kt-spec-empty">
+    Пока ничего не выбрано. Отметьте галочкой «В спецификацию» нужные варианты выше.
+  </div>
+  {% endif %}
+
+  <div class="overflow-x-auto {% if not items %}hidden{% endif %}" id="kt-spec-wrap">
+    <table class="w-full text-sm" id="kt-spec-table">
+      <thead class="text-zinc-500 border-b border-zinc-700">
+        <tr>
+          <th class="text-left font-normal px-3 py-2 w-10">№</th>
+          <th class="text-left font-normal px-3 py-2">Название конфигурации</th>
+          <th class="text-right font-normal px-3 py-2 w-20">Кол-во</th>
+          <th class="text-right font-normal px-3 py-2 w-40">Цена за шт.</th>
+          <th class="text-right font-normal px-3 py-2 w-40">Сумма</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-800" id="kt-spec-tbody">
+        {% for it in items %}
+        <tr data-item-id="{{ it.id }}">
+          <td class="px-3 py-3 text-zinc-500">{{ it.position }}</td>
+          <td class="px-3 py-3 text-zinc-100 break-words">
+            <div>{{ it.display_name }}</div>
+            <div class="text-xs text-zinc-500">Вариант {{ it.variant_manufacturer }}</div>
+          </td>
+          <td class="px-3 py-3 text-right text-zinc-300">{{ it.quantity }}</td>
+          <td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">
+            ${{ '%.0f'|format(it.unit_usd) }}
+            <div class="text-xs text-zinc-500">{{ _rub(it.unit_rub) }} ₽</div>
+          </td>
+          <td class="px-3 py-3 text-right text-zinc-100 whitespace-nowrap">
+            ${{ '%.0f'|format(it.total_usd) }}
+            <div class="text-xs text-zinc-400">{{ _rub(it.total_rub) }} ₽</div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot class="border-t-2 border-zinc-700">
+        <tr>
+          <td colspan="4" class="px-3 py-3 text-right text-zinc-400">Итого:</td>
+          <td class="px-3 py-3 text-right text-zinc-100 whitespace-nowrap font-semibold"
+              id="kt-spec-total">
+            ${{ '%.0f'|format(totals.total_usd) }}
+            <div class="text-xs text-zinc-400 font-normal">
+              {{ _rub(totals.total_rub) }} ₽
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="mt-5 flex flex-wrap gap-2">
+    <button type="button" class="kt-stub bg-zinc-800 hover:bg-zinc-700 border border-zinc-700
+                                 text-zinc-200 px-4 py-2 rounded-lg transition">
+      Экспорт в Excel
+    </button>
+    <button type="button" class="kt-stub bg-zinc-800 hover:bg-zinc-700 border border-zinc-700
+                                 text-zinc-200 px-4 py-2 rounded-lg transition">
+      Коммерческое предложение
+    </button>
+    <button type="button" class="kt-stub bg-zinc-800 hover:bg-zinc-700 border border-zinc-700
+                                 text-zinc-200 px-4 py-2 rounded-lg transition">
+      Email поставщикам
+    </button>
+  </div>
+</section>
+{%- endmacro %}

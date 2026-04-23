@@ -14,11 +14,12 @@ load_dotenv()
 
 from fastapi import FastAPI, Request, status
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.auth import LoginRequiredRedirect
 from app.config import settings
-from app.routers import admin_router, auth_router, main_router
+from app.routers import admin_router, auth_router, main_router, project_router
 
 
 app = FastAPI(title="КВАДРО-ТЕХ: сервис-конфигуратор ПК")
@@ -42,9 +43,13 @@ def _redirect_to_login(request: Request, exc: LoginRequiredRedirect):
     return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
 
 
+# Статические файлы (JS конфигуратора спецификации, картинки и т. п.).
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Роутеры
 app.include_router(auth_router.router)
-app.include_router(admin_router.router)   # /admin/* — подключаем раньше /
+app.include_router(admin_router.router)     # /admin/* — подключаем раньше /
+app.include_router(project_router.router)   # /projects, /project/*
 app.include_router(main_router.router)
 
 

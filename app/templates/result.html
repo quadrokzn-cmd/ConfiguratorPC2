@@ -1,13 +1,18 @@
 {% extends "base.html" %}
-{% from "_macros/variant_block.html" import variant_block %}
+{% from "_macros/configuration_block.html" import configuration_block %}
 
 {% block title %}{{ q.project_name }} — КВАДРО-ТЕХ{% endblock %}
+
+{% block extra_head %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+<meta name="kt-project-id" content="{{ q.project_id }}">
+{% endblock %}
 
 {% block content %}
 <div class="max-w-screen-2xl mx-auto px-4 py-10 space-y-6">
 
   <!-- Заголовок -->
-  <div class="flex items-start justify-between gap-4">
+  <div class="flex items-start justify-between gap-4 flex-wrap">
     <div>
       <h1 class="text-2xl font-semibold">{{ q.project_name }}</h1>
       <div class="text-sm text-zinc-500 mt-1">
@@ -17,11 +22,18 @@
         {% endif %}
       </div>
     </div>
-    <a href="/"
-       class="bg-indigo-600 hover:bg-indigo-500 text-white
-              font-medium px-4 py-2 rounded-lg transition">
-      Новый запрос
-    </a>
+    <div class="flex items-center gap-2">
+      <a href="/project/{{ q.project_id }}"
+         class="text-sm text-indigo-400 hover:text-indigo-300 border border-indigo-800
+                hover:bg-indigo-900/30 px-3 py-2 rounded-lg transition">
+        Открыть проект
+      </a>
+      <a href="/"
+         class="bg-indigo-600 hover:bg-indigo-500 text-white
+                font-medium px-4 py-2 rounded-lg transition">
+        Новый запрос
+      </a>
+    </div>
   </div>
 
   <!-- Исходный запрос -->
@@ -58,13 +70,24 @@
   </div>
   {% endif %}
 
-  <!-- Варианты сборок: карточная раскладка -->
+  <!-- Варианты сборок: блок конфигурации с чекбоксами «в спецификацию» -->
   {% if variants %}
-    <div class="space-y-6">
-      {% for v in variants %}
-        {{ variant_block(v, category_order, category_label) }}
-      {% endfor %}
-    </div>
+    {% set cfg = {
+         'id':             q.id,
+         'short_text':     q.raw_text,
+         'created_at':     q.created_at,
+         'status':         q.status,
+         'error_msg':      q.error_msg,
+         'variants':       variants,
+         'refusal_reason': refusal,
+       } %}
+    {{ configuration_block(
+         cfg,
+         selected_of_cfg,
+         category_order, category_label,
+         show_delete_btn=false,
+         csrf_token=csrf_token,
+       ) }}
   {% elif refusal %}
     <!-- Отказ подбора -->
     <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
@@ -101,4 +124,6 @@
   {% endif %}
 
 </div>
+
+<script src="/static/js/project.js"></script>
 {% endblock %}

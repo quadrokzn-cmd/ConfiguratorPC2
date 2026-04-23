@@ -40,6 +40,7 @@ _MIGRATIONS = [
     "005_add_source_url_to_component_field_sources.sql",
     "006_add_api_usage_log.sql",
     "007_web_service.sql",
+    "008_project_specification.sql",
 ]
 
 
@@ -49,8 +50,10 @@ def _project_root() -> Path:
 
 def _drop_all_known_tables(engine) -> None:
     """Дропает все таблицы, которые создают миграции. Без CASCADE не
-    обойтись — есть FK между projects/queries/users."""
+    обойтись — есть FK между projects/queries/users/specification_items."""
     tables = [
+        # этап 6.2
+        "specification_items",
         # этап 5
         "queries", "projects", "daily_budget_log", "users",
         # этап 4 (api_usage_log)
@@ -96,11 +99,11 @@ def db_engine():
 
 @pytest.fixture(autouse=True)
 def _clean_tables(db_engine):
-    """Перед каждым тестом — пустые таблицы этапа 5 + api_usage_log."""
+    """Перед каждым тестом — пустые таблицы этапов 5 и 6.2 + api_usage_log."""
     with db_engine.begin() as conn:
         conn.execute(text(
-            "TRUNCATE TABLE queries, projects, daily_budget_log, "
-            "users, api_usage_log RESTART IDENTITY CASCADE"
+            "TRUNCATE TABLE specification_items, queries, projects, "
+            "daily_budget_log, users, api_usage_log RESTART IDENTITY CASCADE"
         ))
     yield
 
@@ -199,6 +202,21 @@ def extract_csrf(html: str) -> str:
     return m.group(1)
 
 
+def parse_query_submit_redirect(location: str) -> tuple[int, int]:
+    """POST /query теперь редиректит на /project/{pid}?highlight={qid}.
+    Возвращает (project_id, query_id)."""
+    from urllib.parse import urlsplit, parse_qs
+    parts = urlsplit(location)
+    pid = int(parts.path.rsplit("/", 1)[1])
+    qid = int(parse_qs(parts.query).get("highlight", ["0"])[0])
+    return pid, qid
+
+
+def qid_from_submit_redirect(location: str) -> int:
+    """Только query_id — для тестов, которым не нужен project_id."""
+    return parse_query_submit_redirect(location)[1]
+
+
 @pytest.fixture()
 def mock_process_query(monkeypatch):
     """Мокает process_query из main_router.
@@ -265,4 +283,9 @@ def mock_process_query(monkeypatch):
 
     mock = MagicMock(return_value=default_resp)
     monkeypatch.setattr(main_router, "process_query", mock)
+    # На этапе 6.2 process_query ещё раз импортируется в project_router —
+    # мокнем и его, чтобы тесты новой формы /project/{id}/new_query тоже
+    # работали без обращения к OpenAI.
+    from app.routers import project_router
+    monkeypatch.setattr(project_router, "process_query", mock)
     return mock

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% from "_macros/configuration_block.html" import configuration_block %}
+{% from "_macros/specification_panel.html" import specification_panel %}
+
+{% block title %}{{ project.name }} — КВАДРО-ТЕХ{% endblock %}
+
+{% block extra_head %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+<meta name="kt-project-id" content="{{ project.id }}">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto px-4 py-10 space-y-6">
+
+  <!-- Заголовок проекта -->
+  <div class="flex items-start justify-between gap-4 flex-wrap">
+    <div class="min-w-0">
+      <div class="flex items-center gap-2 flex-wrap">
+        <h1 class="text-2xl font-semibold break-words" id="kt-project-name">
+          {{ project.name }}
+        </h1>
+        <button type="button" id="kt-rename-toggle"
+                class="text-xs text-zinc-500 hover:text-indigo-400">
+          переименовать
+        </button>
+      </div>
+      <div class="text-sm text-zinc-500 mt-1">
+        создан {{ project.created_at.strftime('%d.%m.%Y %H:%M') }}
+        {% if user.is_admin and project.author_login %}
+          · автор: {{ project.author_name }}
+          <span class="text-zinc-600">({{ project.author_login }})</span>
+        {% endif %}
+      </div>
+
+      <!-- Inline-форма переименования -->
+      <form method="post" action="/project/{{ project.id }}/rename"
+            id="kt-rename-form" class="hidden mt-3 flex items-center gap-2">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="text" name="name" value="{{ project.name }}" maxlength="300"
+               class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-1.5
+                      text-zinc-100 text-sm min-w-[20rem]
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-3 py-1.5 rounded-lg">
+          Сохранить
+        </button>
+        <button type="button" id="kt-rename-cancel"
+                class="text-sm text-zinc-400 hover:text-zinc-200 px-2">
+          отмена
+        </button>
+      </form>
+    </div>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="/projects"
+         class="text-sm text-zinc-400 hover:text-indigo-400">
+        ← ко всем проектам
+      </a>
+      <a href="/project/{{ project.id }}/new_query"
+         class="bg-indigo-600 hover:bg-indigo-500 text-white
+                font-medium px-4 py-2 rounded-lg transition">
+        + Добавить конфигурацию
+      </a>
+      <form method="post" action="/project/{{ project.id }}/delete"
+            onsubmit="return confirm('Удалить проект целиком со всеми конфигурациями и спецификацией?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit"
+                class="text-sm text-zinc-500 hover:text-red-400 px-3 py-2 rounded-lg transition">
+          Удалить проект
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Список конфигураций -->
+  {% if not queries %}
+  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
+    В проекте пока нет конфигураций.
+    <a href="/project/{{ project.id }}/new_query" class="text-indigo-400 hover:underline">
+      Добавить первую
+    </a>.
+  </div>
+  {% else %}
+  <div class="space-y-6">
+    {% for cfg in queries %}
+      {{ configuration_block(
+           cfg,
+           selected.get(cfg.id, {}),
+           category_order, category_label,
+           show_delete_btn=true,
+           delete_action="/project/" ~ project.id ~ "/query/" ~ cfg.id ~ "/delete",
+           csrf_token=csrf_token,
+         ) }}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Спецификация (обычный блок в конце страницы, не sticky) -->
+  {{ specification_panel(spec_items, spec_totals) }}
+
+</div>
+
+{% if highlight %}
+<script>
+  // Плавно подсветить только что добавленную конфигурацию.
+  (function () {
+    var el = document.getElementById('query-{{ highlight }}');
+    if (!el) return;
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    el.classList.add('ring-2', 'ring-indigo-500');
+    setTimeout(function () {
+      el.classList.remove('ring-2', 'ring-indigo-500');
+    }, 2500);
+  })();
+</script>
+{% endif %}
+
+<script>
+  // Inline-форма переименования: toggle + отмена.
+  (function () {
+    var btn = document.getElementById('kt-rename-toggle');
+    var form = document.getElementById('kt-rename-form');
+    var cancel = document.getElementById('kt-rename-cancel');
+    if (!btn || !form) return;
+    btn.addEventListener('click', function () { form.classList.remove('hidden'); });
+    cancel.addEventListener('click', function () { form.classList.add('hidden'); });
+  })();
+</script>
+
+<script src="/static/js/project.js"></script>
+{% endblock %}

@@ -1,14 +1,19 @@
-# View-слой для страницы /query/{id}.
+# View-слой для страницы /query/{id} и страницы проекта.
 #
-# Задача модуля — обогатить view-модель вариантов (результат
-# _prepare_variants в main_router) короткой строкой характеристик
-# specs_short для каждого компонента. Строка собирается из
-# структурированных полей в таблицах cpus/motherboards/rams/gpus/
-# storages/psus/cases/coolers — тех, что появились на этапах 2.5А-В.
+# Задачи модуля:
+#   1) Обогатить view-модель вариантов короткой строкой характеристик
+#      specs_short для каждого компонента. Строка собирается из полей
+#      в таблицах cpus/motherboards/rams/gpus/storages/psus/cases/
+#      coolers — тех, что появились на этапах 2.5А-В.
+#   2) Сложить в каждый компонент dict raw_specs с сырыми полями
+#      (socket, base_clock_ghz, capacity_gb и т. п.) — они нужны
+#      generate_auto_name на этапе 6.2 для формирования автоназвания
+#      конфигурации.
 #
-# Схему БД модуль не меняет. Логика подбора/совместимости/цен не
-# затрагивается — мы только читаем уже сохранённые компоненты по id,
-# чтобы показать их на странице.
+# Схему БД модуль не меняет — читает уже сохранённые компоненты
+# по component_id. Функция принимает «плоский» список вариантов
+# (их может быть много — из разных BuildResult одного проекта)
+# и делает один SELECT на категорию.
 
 from __future__ import annotations
 
@@ -181,43 +186,53 @@ def _fmt_cooler(row: Any) -> str | None:
 # Описание категорий: таблица + SELECT + форматтер
 # -----------------------------------------------------------------------------
 
-_CATEGORY_QUERIES: dict[str, tuple[str, Callable[[Any], str | None]]] = {
+# Описание категории: SELECT, форматтер specs_short, список сырых полей,
+# которые нужно положить в c["raw_specs"] (для generate_auto_name и пр.).
+_CATEGORY_QUERIES: dict[str, tuple[str, Callable[[Any], str | None], tuple[str, ...]]] = {
     "cpu": (
         "SELECT id, socket, cores, threads, base_clock_ghz, turbo_clock_ghz "
         "FROM cpus WHERE id = ANY(:ids)",
         _fmt_cpu,
+        ("socket", "cores", "threads", "base_clock_ghz", "turbo_clock_ghz"),
     ),
     "motherboard": (
         "SELECT id, socket, form_factor, memory_type "
         "FROM motherboards WHERE id = ANY(:ids)",
         _fmt_motherboard,
+        ("socket", "form_factor", "memory_type"),
     ),
     "ram": (
         "SELECT id, memory_type, module_size_gb, modules_count, frequency_mhz "
         "FROM rams WHERE id = ANY(:ids)",
         _fmt_ram,
+        ("memory_type", "module_size_gb", "modules_count", "frequency_mhz"),
     ),
     "gpu": (
         "SELECT id, vram_gb, vram_type, tdp_watts "
         "FROM gpus WHERE id = ANY(:ids)",
         _fmt_gpu,
+        ("vram_gb", "vram_type", "tdp_watts"),
     ),
     "storage": (
         "SELECT id, capacity_gb, storage_type, interface "
         "FROM storages WHERE id = ANY(:ids)",
         _fmt_storage,
+        ("capacity_gb", "storage_type", "interface"),
     ),
     "psu": (
         "SELECT id, power_watts FROM psus WHERE id = ANY(:ids)",
         _fmt_psu,
+        ("power_watts",),
     ),
     "case": (
         "SELECT id, supported_form_factors FROM cases WHERE id = ANY(:ids)",
         _fmt_case,
+        ("supported_form_factors",),
     ),
     "cooler": (
         "SELECT id, max_tdp_watts FROM coolers WHERE id = ANY(:ids)",
         _fmt_cooler,
+        ("max_tdp_watts",),
     ),
 }
 
@@ -226,62 +241,89 @@ _CATEGORY_QUERIES: dict[str, tuple[str, Callable[[Any], str | None]]] = {
 # Публичная функция
 # -----------------------------------------------------------------------------
 
+def _row_to_raw(row: Any, fields: tuple[str, ...]) -> dict[str, Any]:
+    """Выбирает из sqlalchemy Row указанные поля в обычный dict."""
+    out: dict[str, Any] = {}
+    for name in fields:
+        try:
+            val = getattr(row, name)
+        except AttributeError:
+            val = None
+        out[name] = val
+    return out
+
+
 def enrich_variants_with_specs(
     variants: list[dict],
     session: Session,
 ) -> list[dict]:
-    """Добавляет specs_short в каждый компонент каждого варианта.
+    """Добавляет specs_short и raw_specs в каждый компонент варианта.
 
-    Принимает на вход результат main_router._prepare_variants: список
-    вариантов, где components — dict по категориям со структурой из
-    schema.result_to_dict. Изменяет dict-ы компонентов по месту и
-    возвращает тот же список (удобно для совместимости с вызывающим
-    кодом).
+    Принимает плоский список вариантов (можно передать варианты
+    из разных BuildResult — будет один SQL-проход на категорию).
+    Структура варианта:
+      - components: dict[cat → component-dict] (как в _prepare_variants).
+      - опционально storages_list: list[component-dict] — все накопители
+        варианта; если есть, их id тоже попадают в пакетный SELECT.
 
-    specs_short добавляется всегда; если подтянуть характеристики
-    не удалось (компонент удалён из БД или все поля NULL) — поле
-    будет равно None и шаблон его не отрисует.
+    Изменяет dict-ы компонентов по месту: добавляет
+      c["specs_short"]  — человекочитаемая строка («6C/12T · 2.5/4.4GHz · LGA1700»);
+      c["raw_specs"]    — сырые поля из БД для генерации автоназвания.
+
+    Если подтянуть характеристики не удалось (id отсутствует или
+    компонент удалён), specs_short=None и raw_specs={}.
     """
     if not variants:
         return variants
 
-    # Собираем id-ы по категориям: {category: {id, id, ...}}
+    # Собираем все компоненты, которые нужно обогатить. Один компонент
+    # может встретиться и в components, и в storages_list — достаточно
+    # обогатить его один раз (по ссылке).
     ids_by_cat: dict[str, set[int]] = {}
+    components_to_fill: list[tuple[str, dict]] = []
+
+    def _collect(cat: str, c: dict) -> None:
+        cid = c.get("component_id")
+        if cid is not None:
+            ids_by_cat.setdefault(cat, set()).add(int(cid))
+        components_to_fill.append((cat, c))
+
     for v in variants:
         comps = v.get("components") or {}
         for cat, c in comps.items():
-            if not isinstance(c, dict):
-                continue
-            cid = c.get("component_id")
-            if cid is None:
-                continue
-            ids_by_cat.setdefault(cat, set()).add(int(cid))
+            if isinstance(c, dict):
+                _collect(cat, c)
+        for c in v.get("storages_list") or []:
+            if isinstance(c, dict):
+                _collect("storage", c)
 
-    # Для каждой категории — один SELECT, складываем специ в {id: specs_short}.
+    # Пакетные SELECT-ы по категориям.
     specs_by_cat: dict[str, dict[int, str | None]] = {}
+    raw_by_cat: dict[str, dict[int, dict]] = {}
     for cat, ids in ids_by_cat.items():
         query_info = _CATEGORY_QUERIES.get(cat)
         if query_info is None:
-            # Неизвестная категория — просто пропускаем (не ломаем страницу).
             continue
-        sql, formatter = query_info
+        sql, formatter, raw_fields = query_info
         rows = session.execute(text(sql), {"ids": list(ids)}).all()
-        bucket: dict[int, str | None] = {}
+        bucket_s: dict[int, str | None] = {}
+        bucket_r: dict[int, dict] = {}
         for row in rows:
-            bucket[int(row.id)] = formatter(row)
-        specs_by_cat[cat] = bucket
+            rid = int(row.id)
+            bucket_s[rid] = formatter(row)
+            bucket_r[rid] = _row_to_raw(row, raw_fields)
+        specs_by_cat[cat] = bucket_s
+        raw_by_cat[cat] = bucket_r
 
-    # Раскладываем обратно по вариантам.
-    for v in variants:
-        comps = v.get("components") or {}
-        for cat, c in comps.items():
-            if not isinstance(c, dict):
-                continue
-            cid = c.get("component_id")
-            if cid is None:
-                c["specs_short"] = None
-                continue
-            bucket = specs_by_cat.get(cat, {})
-            c["specs_short"] = bucket.get(int(cid))
+    # Раскладываем обратно. Один и тот же dict может быть прописан
+    # дважды (в components и в storages_list) — это ок, значения те же.
+    for cat, c in components_to_fill:
+        cid = c.get("component_id")
+        if cid is None:
+            c["specs_short"] = None
+            c["raw_specs"] = {}
+            continue
+        c["specs_short"] = specs_by_cat.get(cat, {}).get(int(cid))
+        c["raw_specs"] = raw_by_cat.get(cat, {}).get(int(cid), {})
 
     return variants

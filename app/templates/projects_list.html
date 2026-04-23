@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Проекты — КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-10">
+
+  <div class="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
+    <h1 class="text-2xl font-semibold">Проекты</h1>
+    <div class="flex items-center gap-4">
+      <a href="/history" class="text-sm text-zinc-400 hover:text-indigo-400">
+        Все запросы
+      </a>
+      <form method="post" action="/projects">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-500 text-white
+                       font-medium px-4 py-2 rounded-lg transition">
+          + Новый проект
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {% if not items %}
+  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
+    У вас ещё нет проектов.
+    <form method="post" action="/projects" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="text-indigo-400 hover:underline">
+        Создать первый
+      </button>
+    </form>
+    или начните с <a href="/" class="text-indigo-400 hover:underline">нового запроса</a>.
+  </div>
+  {% else %}
+  <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-zinc-900/60 text-zinc-500">
+        <tr>
+          <th class="text-left font-normal px-4 py-3">Проект</th>
+          <th class="text-left font-normal px-4 py-3 w-44">Создан</th>
+          <th class="text-right font-normal px-4 py-3 w-28">Конфигураций</th>
+          <th class="text-right font-normal px-4 py-3 w-48">Сумма спецификации</th>
+          {% if user.is_admin %}
+          <th class="text-left font-normal px-4 py-3 w-48">Автор</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-700">
+        {% for it in items %}
+        <tr class="hover:bg-zinc-900/40 transition cursor-pointer"
+            onclick="window.location='/project/{{ it.id }}'">
+          <td class="px-4 py-3">
+            <a href="/project/{{ it.id }}"
+               class="text-zinc-100 hover:text-indigo-400">
+              {{ it.name }}
+            </a>
+          </td>
+          <td class="px-4 py-3 text-zinc-400 whitespace-nowrap">
+            {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+          </td>
+          <td class="px-4 py-3 text-right text-zinc-300">{{ it.queries_count }}</td>
+          <td class="px-4 py-3 text-right text-zinc-300 whitespace-nowrap">
+            {% if it.spec_total_usd > 0 %}
+              ${{ '%.0f'|format(it.spec_total_usd) }}
+              <span class="text-xs text-zinc-500">
+                ({{ '{:,.0f}'.format(it.spec_total_rub).replace(',', ' ') }} ₽)
+              </span>
+            {% else %}
+              <span class="text-zinc-600">—</span>
+            {% endif %}
+          </td>
+          {% if user.is_admin %}
+          <td class="px-4 py-3 text-zinc-400">
+            {{ it.author_name }}
+            <span class="text-zinc-600">({{ it.author_login }})</span>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

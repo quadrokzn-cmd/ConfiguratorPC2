@@ -1,0 +1,114 @@
+{#
+  Блок одной конфигурации на странице проекта (этап 6.2).
+  Обёртка вокруг variant_block: сверху заголовок с короткой сводкой,
+  для каждого варианта — чекбокс «в спецификацию» и поле количества.
+
+  Используется и на /project/{id}, и на /query/{id} — во втором случае
+  список конфигураций состоит из одной cfg.
+
+  Параметры:
+    cfg              — dict конфигурации: id, raw_text, short_text, status,
+                       created_at, variants (list), refusal_reason.
+    selected_of_cfg  — dict {manufacturer: spec_item} уже выбранных вариантов
+                       этой конфигурации. Ключ — точный manufacturer
+                       (например, "Intel") из БД.
+    category_order / category_label — общее для страницы.
+    show_delete_btn  — показывать ли форму «Удалить конфигурацию».
+    delete_action    — url для формы удаления (если show_delete_btn).
+#}
+{% from "_macros/variant_block.html" import variant_block %}
+
+{% macro configuration_block(cfg, selected_of_cfg, category_order, category_label,
+                              show_delete_btn=false, delete_action="",
+                              csrf_token="") -%}
+<section id="query-{{ cfg.id }}"
+         class="kt-config-section bg-zinc-900/40 border border-zinc-700
+                rounded-xl p-5 transition"
+         data-query-id="{{ cfg.id }}">
+
+  <header class="flex items-start justify-between gap-4 mb-4">
+    <div class="min-w-0">
+      <h2 class="text-lg font-semibold text-zinc-100">
+        Конфигурация #{{ cfg.id }}
+        {% if cfg.created_at %}
+          <span class="text-xs text-zinc-500 ml-2">
+            {{ cfg.created_at.strftime('%d.%m.%Y %H:%M') }}
+          </span>
+        {% endif %}
+      </h2>
+      {% if cfg.short_text %}
+      <div class="text-sm text-zinc-400 mt-1 break-words">
+        {{ cfg.short_text }}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if show_delete_btn %}
+    <form method="post" action="{{ delete_action }}" class="shrink-0"
+          onsubmit="return confirm('Удалить эту конфигурацию из проекта? Связанные выбранные позиции спецификации тоже удалятся.');">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit"
+              class="text-xs text-zinc-500 hover:text-red-400 transition">
+        Удалить конфигурацию
+      </button>
+    </form>
+    {% endif %}
+  </header>
+
+  {# Ошибка запроса (status=error) или отказ подбора #}
+  {% if cfg.status == 'error' %}
+    <div class="bg-red-900/40 border border-red-800 rounded-xl p-4 text-sm text-red-200">
+      {{ cfg.error_msg or 'Не удалось обработать запрос.' }}
+    </div>
+  {% elif not cfg.variants and cfg.refusal_reason %}
+    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-4">
+      <div class="text-zinc-200 font-medium mb-1">Подбор не удался</div>
+      <ul class="list-disc list-inside text-zinc-300 text-sm space-y-1">
+        {% for key, msg in cfg.refusal_reason.items() %}
+          <li><span class="text-zinc-400">{{ key }}:</span> {{ msg }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% elif not cfg.variants %}
+    <div class="text-sm text-zinc-500">Нет подобранных вариантов.</div>
+  {% else %}
+    <div class="space-y-5">
+      {% for v in cfg.variants %}
+        {% set sel = selected_of_cfg.get(v.manufacturer) %}
+        {% set is_selected = sel is not none %}
+        <div>
+          <div class="flex items-center gap-4 mb-2 flex-wrap">
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="checkbox"
+                     class="kt-spec-check w-4 h-4 rounded border-zinc-500 bg-zinc-800
+                            text-indigo-500 focus:ring-indigo-500"
+                     data-query-id="{{ cfg.id }}"
+                     data-manufacturer="{{ v.manufacturer }}"
+                     {% if is_selected %}checked{% endif %}>
+              <span class="text-sm text-zinc-300">В спецификацию</span>
+            </label>
+            <label class="inline-flex items-center gap-2 text-sm text-zinc-400">
+              Количество
+              <input type="number" min="1"
+                     class="kt-spec-qty w-20 bg-zinc-900 border border-zinc-700
+                            rounded-lg px-2 py-1 text-zinc-100 text-sm
+                            focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            disabled:opacity-40"
+                     value="{{ sel.quantity if is_selected else 1 }}"
+                     data-query-id="{{ cfg.id }}"
+                     data-manufacturer="{{ v.manufacturer }}"
+                     {% if not is_selected %}disabled{% endif %}>
+            </label>
+            {% if is_selected %}
+              <span class="text-xs text-indigo-400">
+                · позиция #{{ sel.position }} в спецификации
+              </span>
+            {% endif %}
+          </div>
+          {{ variant_block(v, category_order, category_label) }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+{%- endmacro %}
