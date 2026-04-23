@@ -27,14 +27,21 @@ app/
     spec_service.py      CRUD проектов и спецификации (этап 6.2)
     spec_naming.py       generate_auto_name (этап 6.2)
     web_result_view.py   обогащение компонентов specs_short/raw_specs
+    mapping_service.py   ручное сопоставление unmapped_supplier_items (этап 7)
     configurator/        подбор сборки (этап 3)
     nlu/                 парсер запросов (этап 4)
     enrichment/          обогащение характеристик (этап 2.5)
+    price_loaders/       пакет загрузчиков прайсов (этап 7):
+                          models, base, ocs, merlion, treolan,
+                          matching, orchestrator, candidates
+    price_loader.py      тонкая обёртка load_ocs_price для совместимости
   templates/             Jinja2 с наследованием от base.html
 static/js/project.js     AJAX-клиент спецификации (этап 6.2)
-migrations/              SQL-миграции 001-008
+migrations/              SQL-миграции 001-009
 scripts/
   create_admin.py        создать пользователя admin
+  load_price.py          CLI загрузки прайса (ocs/merlion/treolan)
+  backfill_gtin.py       одноразовый: заполнить gtin из OCS EAN128
   query.py               CLI для NLU
   ...
 tests/
@@ -79,10 +86,11 @@ psql -U postgres -d <DBNAME> -f migrations/005_add_source_url_to_component_field
 psql -U postgres -d <DBNAME> -f migrations/006_add_api_usage_log.sql
 psql -U postgres -d <DBNAME> -f migrations/007_web_service.sql
 psql -U postgres -d <DBNAME> -f migrations/008_project_specification.sql
+psql -U postgres -d <DBNAME> -f migrations/009_multi_supplier_and_gtin.sql
 ```
 На существующей БД с данными — только новую миграцию:
 ```
-psql -U postgres -d <DBNAME> -f migrations/008_project_specification.sql
+psql -U postgres -d <DBNAME> -f migrations/009_multi_supplier_and_gtin.sql
 ```
 
 ### 4. Админ
@@ -115,8 +123,57 @@ pytest
 pytest tests/test_web/
 ```
 
-`conftest.py` автоматически применяет все 8 миграций к тестовой БД и
+`conftest.py` автоматически применяет все 9 миграций к тестовой БД и
 чистит состояние перед каждым тестом.
+
+## Прайс-листы поставщиков (этап 7)
+
+Система принимает прайсы трёх поставщиков: OCS, Merlion, Treolan.
+Каждый со своим Excel-форматом — парсеры разнесены по модулям
+пакета `app/services/price_loaders/`, общий раннер (`orchestrator.py`)
+делает сопоставление и запись в БД одинаково для всех.
+
+### Загрузка прайса
+
+```
+python scripts/load_price.py --file path/to/OCS_price.xlsx        --supplier ocs
+python scripts/load_price.py --file path/to/Прайслист_Мерлион.xlsm --supplier merlion
+python scripts/load_price.py --file path/to/23_04_2026_catalog.xlsx --supplier treolan
+```
+Если `--supplier` не указан, скрипт определяет его по имени файла
+(OCS, Merlion/Мерлион, Treolan/catalog).
+
+### Сопоставление товаров между поставщиками
+
+При загрузке каждая строка прайса сопоставляется с компонентами БД:
+1. по `MPN` (каталожный номер производителя → колонка `sku`);
+2. если не сработало — по `GTIN` (штрихкод).
+
+Кейс Intel CPU через Treolan: артикул там — 5-символьный S-Spec (например
+`SRMBG`), а у OCS/Merlion — Order Code (`CM8071512400F`). Match по MPN
+не сработает, но если у OCS-компонента заполнен `gtin` — match найдётся
+по штрихкоду. Для уже загруженных 3 040 компонентов OCS это заполняется
+разовым скриптом:
+```
+python scripts/backfill_gtin.py --file path/to/OCS_price.xlsx
+```
+Скрипт не трогает цены/остатки, только перечитывает колонку EAN128 и
+проставляет `gtin` там, где он ещё пуст.
+
+### Ручное сопоставление (`/admin/mapping`)
+
+Если автосопоставление неоднозначно (несколько компонентов по тому же
+MPN/GTIN) или ничего не нашло — строка попадает в
+`unmapped_supplier_items`. Админ разбирает очередь на странице
+`/admin/mapping`:
+
+| Действие | Что делает |
+|---|---|
+| Объединить с выбранным | `supplier_prices` переезжает на указанный `component_id`, скелет-дубликат удаляется, статус → `merged` |
+| Это точно новый товар | Статус → `confirmed_new`, компонент остаётся отдельным |
+| Разобраться потом | Без изменений |
+
+Страница закрыта `require_admin`. Менеджеру `/admin/mapping` возвращает 403.
 
 ## Страницы веб-сервиса
 
@@ -144,6 +201,6 @@ pytest tests/test_web/
 - Этап 4 — NLU (свободный текст → BuildRequest) ✅
 - Этап 5 — веб-сервис: авторизация, история, админка ✅
 - Этап 6.1 — карточная раскладка результата ✅
-- **Этап 6.2 — проекты с несколькими конфигурациями и спецификацией** ✅
-- Этап 7 — экспорт (Excel / PDF / email)
-- Этап 8 — финальный дизайн
+- Этап 6.2 — проекты с несколькими конфигурациями и спецификацией ✅
+- **Этап 7 — Merlion и Treolan, GTIN, ручное сопоставление** ✅
+- Этап 8 — экспорт / финальный дизайн

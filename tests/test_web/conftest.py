@@ -41,6 +41,7 @@ _MIGRATIONS = [
     "006_add_api_usage_log.sql",
     "007_web_service.sql",
     "008_project_specification.sql",
+    "009_multi_supplier_and_gtin.sql",
 ]
 
 
@@ -52,6 +53,8 @@ def _drop_all_known_tables(engine) -> None:
     """Дропает все таблицы, которые создают миграции. Без CASCADE не
     обойтись — есть FK между projects/queries/users/specification_items."""
     tables = [
+        # этап 7
+        "unmapped_supplier_items",
         # этап 6.2
         "specification_items",
         # этап 5

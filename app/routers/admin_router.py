@@ -16,7 +16,7 @@ from app.auth import (
     verify_csrf,
 )
 from app.database import get_db
-from app.services import budget_guard, web_service
+from app.services import budget_guard, mapping_service, web_service
 
 
 router = APIRouter(prefix="/admin")
@@ -33,15 +33,17 @@ def dashboard(
     budget = budget_guard.check_budget(db)
     month_total = web_service.get_month_total_rub(db)
     recent = web_service.list_all_queries(db, limit=20)
+    mapping_count = mapping_service.count_active(db)
     return templates.TemplateResponse(
         request,
         "admin/dashboard.html",
         {
-            "user":        user,
-            "csrf_token":  get_csrf_token(request),
-            "budget":      budget,
-            "month_total": month_total,
-            "recent":      recent,
+            "user":          user,
+            "csrf_token":    get_csrf_token(request),
+            "budget":        budget,
+            "month_total":   month_total,
+            "recent":        recent,
+            "mapping_count": mapping_count,
         },
     )
 

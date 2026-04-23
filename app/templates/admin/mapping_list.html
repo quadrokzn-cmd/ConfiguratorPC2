@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Сопоставление — Админка{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10 space-y-6">
+
+  <div class="flex items-baseline justify-between">
+    <h1 class="text-2xl font-semibold">
+      Ручное сопоставление
+      <span class="ml-2 text-base text-zinc-500">
+        На сопоставлении: {{ total_active }} товаров
+      </span>
+    </h1>
+    <a href="/admin" class="text-sm text-indigo-400 hover:text-indigo-300">← в админку</a>
+  </div>
+
+  {% if flash_info %}
+  <div class="bg-emerald-900/40 border border-emerald-700 text-emerald-200 rounded-lg px-4 py-3 text-sm">
+    {{ flash_info }}
+  </div>
+  {% endif %}
+  {% if flash_error %}
+  <div class="bg-red-900/40 border border-red-700 text-red-200 rounded-lg px-4 py-3 text-sm">
+    {{ flash_error }}
+  </div>
+  {% endif %}
+
+  <!-- Фильтры -->
+  <form method="get" action="/admin/mapping" class="flex items-end gap-3 text-sm">
+    <div>
+      <label class="block text-zinc-500 mb-1">Поставщик</label>
+      <select name="supplier" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2">
+        <option value="">— все —</option>
+        {% for s in suppliers %}
+        <option value="{{ s.id }}" {% if filter_supplier == s.id %}selected{% endif %}>{{ s.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="block text-zinc-500 mb-1">Категория</label>
+      <select name="category" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2">
+        <option value="">— все —</option>
+        {% for code, label in categories %}
+        <option value="{{ code }}" {% if filter_category == code %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-4 py-2">
+      Применить
+    </button>
+    <a href="/admin/mapping" class="text-zinc-400 hover:text-zinc-200 px-3 py-2">сбросить</a>
+  </form>
+
+  {% if not rows %}
+  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
+    Нет активных записей на сопоставлении.
+  </div>
+  {% else %}
+  <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-zinc-900/60 text-zinc-500">
+        <tr>
+          <th class="text-left font-normal px-3 py-3">Поставщик</th>
+          <th class="text-left font-normal px-3 py-3">Категория</th>
+          <th class="text-left font-normal px-3 py-3">Товар от поставщика</th>
+          <th class="text-left font-normal px-3 py-3">MPN / GTIN</th>
+          <th class="text-right font-normal px-3 py-3">Цена</th>
+          <th class="text-left font-normal px-3 py-3">Статус</th>
+          <th class="text-left font-normal px-3 py-3">Похожие в БД</th>
+          <th class="text-left font-normal px-3 py-3">Действия</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-700">
+        {% for r in rows %}
+        <tr class="hover:bg-zinc-900/40 align-top">
+          <td class="px-3 py-3 text-zinc-300 whitespace-nowrap">{{ r.supplier_name }}</td>
+          <td class="px-3 py-3 text-zinc-400">
+            <div class="text-zinc-300">{{ r.guessed_category or '—' }}</div>
+            <div class="text-xs text-zinc-500">{{ r.raw_category }}</div>
+          </td>
+          <td class="px-3 py-3">
+            <div class="text-zinc-100">{{ r.raw_name }}</div>
+            <div class="text-xs text-zinc-500">
+              sku: {{ r.supplier_sku }}
+              {% if r.brand %}· {{ r.brand }}{% endif %}
+            </div>
+          </td>
+          <td class="px-3 py-3 text-xs text-zinc-400">
+            <div>MPN: {{ r.mpn or '—' }}</div>
+            <div>GTIN: {{ r.gtin or '—' }}</div>
+          </td>
+          <td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">
+            {{ '%.2f'|format(r.price) if r.price is not none else '—' }} {{ r.currency or '' }}
+          </td>
+          <td class="px-3 py-3 text-zinc-300">
+            {% if r.status == 'pending' %}
+              <span class="text-amber-400">ambiguous</span>
+            {% elif r.status == 'created_new' %}
+              <span class="text-sky-400">новый</span>
+            {% else %}
+              {{ r.status }}
+            {% endif %}
+          </td>
+          <td class="px-3 py-3">
+            {% set sugs = suggestions.get(r.id, []) %}
+            {% if sugs %}
+              <ul class="space-y-1 text-xs">
+                {% for c in sugs %}
+                <li>
+                  <span class="text-zinc-200">{{ c.model }}</span>
+                  <span class="text-zinc-500">· id={{ c.id }}</span>
+                  {% if c.min_price %}<span class="text-zinc-500">· от {{ '%.2f'|format(c.min_price) }}</span>{% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <span class="text-zinc-600 text-xs">—</span>
+            {% endif %}
+          </td>
+          <td class="px-3 py-3 whitespace-nowrap">
+            <a href="/admin/mapping/{{ r.id }}"
+               class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-3 py-1.5 text-xs inline-block">
+              Разобрать
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

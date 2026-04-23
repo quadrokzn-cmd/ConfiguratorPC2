@@ -1,0 +1,190 @@
+# Админский роутер /admin/mapping: ручное сопоставление неопределённых
+# строк прайсов с компонентами БД (этап 7).
+
+from __future__ import annotations
+
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
+from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
+from sqlalchemy.orm import Session
+
+from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
+from app.database import get_db
+from app.services import mapping_service
+from app.services.price_loaders.candidates import find_candidates
+
+
+router = APIRouter(prefix="/admin/mapping")
+templates = Jinja2Templates(directory="app/templates")
+
+
+CATEGORY_OPTIONS = [
+    ("cpu", "Процессоры"),
+    ("motherboard", "Материнские платы"),
+    ("ram", "Оперативная память"),
+    ("gpu", "Видеокарты"),
+    ("storage", "Накопители"),
+    ("case", "Корпуса"),
+    ("psu", "Блоки питания"),
+    ("cooler", "Охлаждение"),
+]
+
+# Размер страницы. 50 — удобно для обычной работы, увеличит нагрузку
+# не больше, чем /admin/queries.
+PAGE_SIZE = 50
+
+
+@router.get("")
+def mapping_list(
+    request: Request,
+    supplier: int | None = Query(default=None),
+    category: str | None = Query(default=None),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Список активных записей (pending + created_new) с фильтрами."""
+    rows = mapping_service.list_active(
+        db,
+        supplier_id=supplier,
+        category=category or None,
+        limit=PAGE_SIZE,
+    )
+    total_active = mapping_service.count_active(db)
+    suppliers = mapping_service.list_suppliers(db)
+
+    # Топ-3 похожих кандидатов для каждой строки — покажем прямо в таблице.
+    suggestions: dict[int, list[dict]] = {}
+    for r in rows:
+        if r.guessed_category:
+            try:
+                suggestions[r.id] = find_candidates(
+                    db,
+                    category=r.guessed_category,
+                    raw_name=r.raw_name,
+                    brand=r.brand,
+                    exclude_id=r.resolved_component_id,
+                    limit=3,
+                )
+            except Exception:
+                # Кандидатов не нашли — не критично, покажем пустой блок.
+                suggestions[r.id] = []
+        else:
+            suggestions[r.id] = []
+
+    return templates.TemplateResponse(
+        request,
+        "admin/mapping_list.html",
+        {
+            "user":            user,
+            "csrf_token":      get_csrf_token(request),
+            "rows":            rows,
+            "suggestions":     suggestions,
+            "total_active":    total_active,
+            "suppliers":       suppliers,
+            "categories":      CATEGORY_OPTIONS,
+            "filter_supplier": supplier,
+            "filter_category": category or "",
+            "flash_info":      request.session.pop("mapping_flash_info", None),
+            "flash_error":     request.session.pop("mapping_flash_error", None),
+        },
+    )
+
+
+@router.get("/{row_id}")
+def mapping_detail(
+    row_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Детальная страница: вся информация + топ-10 похожих кандидатов."""
+    row = mapping_service.get_by_id(db, row_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Запись не найдена.")
+
+    candidates: list[dict] = []
+    if row.guessed_category:
+        try:
+            candidates = find_candidates(
+                db,
+                category=row.guessed_category,
+                raw_name=row.raw_name,
+                brand=row.brand,
+                exclude_id=row.resolved_component_id,
+                limit=10,
+            )
+        except Exception:
+            candidates = []
+
+    return templates.TemplateResponse(
+        request,
+        "admin/mapping_detail.html",
+        {
+            "user":       user,
+            "csrf_token": get_csrf_token(request),
+            "row":        row,
+            "candidates": candidates,
+        },
+    )
+
+
+def _require_csrf(request: Request, token: str) -> None:
+    if not verify_csrf(request, token):
+        raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
+
+
+@router.post("/{row_id}/merge")
+def mapping_merge(
+    row_id: int,
+    request: Request,
+    target_component_id: int = Form(..., alias="target_component_id"),
+    csrf_token: str = Form(""),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Объединяет запись с выбранным компонентом. См. mapping_service.merge_with_component."""
+    _require_csrf(request, csrf_token)
+    try:
+        mapping_service.merge_with_component(
+            db,
+            unmapped_id=row_id,
+            target_component_id=int(target_component_id),
+            admin_user_id=user.id,
+        )
+        request.session["mapping_flash_info"] = (
+            f"Запись #{row_id} объединена с компонентом id={target_component_id}."
+        )
+    except ValueError as exc:
+        request.session["mapping_flash_error"] = f"Не удалось объединить: {exc}"
+    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+
+
+@router.post("/{row_id}/confirm_as_new")
+def mapping_confirm_new(
+    row_id: int,
+    request: Request,
+    csrf_token: str = Form(""),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """«Это точно новый товар» — меняем статус на confirmed_new, компонент оставляем."""
+    _require_csrf(request, csrf_token)
+    mapping_service.confirm_as_new(db, unmapped_id=row_id, admin_user_id=user.id)
+    request.session["mapping_flash_info"] = (
+        f"Запись #{row_id} отмечена как новый товар."
+    )
+    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+
+
+@router.post("/{row_id}/defer")
+def mapping_defer(
+    row_id: int,
+    request: Request,
+    csrf_token: str = Form(""),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """«Разобраться потом» — просто возвращаемся к списку."""
+    _require_csrf(request, csrf_token)
+    mapping_service.defer(db, unmapped_id=row_id)
+    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)

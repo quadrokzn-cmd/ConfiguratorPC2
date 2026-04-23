@@ -19,7 +19,13 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from app.auth import LoginRequiredRedirect
 from app.config import settings
-from app.routers import admin_router, auth_router, main_router, project_router
+from app.routers import (
+    admin_router,
+    auth_router,
+    main_router,
+    mapping_router,
+    project_router,
+)
 
 
 app = FastAPI(title="КВАДРО-ТЕХ: сервис-конфигуратор ПК")
@@ -48,6 +54,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Роутеры
 app.include_router(auth_router.router)
+# /admin/mapping раньше /admin, иначе более общий роутер съест префикс.
+app.include_router(mapping_router.router)
 app.include_router(admin_router.router)     # /admin/* — подключаем раньше /
 app.include_router(project_router.router)   # /projects, /project/*
 app.include_router(main_router.router)
