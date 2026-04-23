@@ -23,6 +23,16 @@ router = APIRouter(prefix="/admin")
 templates = Jinja2Templates(directory="app/templates")
 
 
+@router.get("/dashboard")
+def dashboard_legacy_alias():
+    """Алиас /admin/dashboard → /admin.
+
+    Исторически ссылка была такой. 301 — чтобы браузер/боты
+    закешировали правильный URL.
+    """
+    return RedirectResponse(url="/admin", status_code=301)
+
+
 @router.get("")
 def dashboard(
     request: Request,

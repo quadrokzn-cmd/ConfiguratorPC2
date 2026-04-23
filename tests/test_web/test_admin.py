@@ -7,6 +7,18 @@ from sqlalchemy import text as _t
 from tests.test_web.conftest import extract_csrf
 
 
+def test_admin_dashboard_returns_200(admin_client):
+    """Регрессия Этапа 7: /admin/dashboard был 404 — сейчас 301 на /admin."""
+    # Без follow_redirects: проверяем сам редирект.
+    r = admin_client.get("/admin/dashboard", follow_redirects=False)
+    assert r.status_code == 301
+    assert r.headers["location"] == "/admin"
+
+    # С follow_redirects: финальная страница отдаёт 200.
+    r = admin_client.get("/admin/dashboard", follow_redirects=True)
+    assert r.status_code == 200
+
+
 def test_admin_can_create_manager(admin_client, db_session):
     r = admin_client.get("/admin/users")
     token = extract_csrf(r.text)

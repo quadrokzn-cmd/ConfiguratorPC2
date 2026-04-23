@@ -151,3 +151,41 @@ def test_treolan_detect_by_filename():
     assert TreolanLoader.detect("23_04_2026_catalog__1_.xlsx") is True
     assert TreolanLoader.detect("Treolan_price.xlsx") is True
     assert TreolanLoader.detect("OCS_price.xlsx") is False
+
+
+def test_treolan_parses_qualitative_stock_markers():
+    """Колонки «Склад»/«Транзит» у Treolan часто содержат не числа,
+    а маркеры «<10», «много» и пр. Без перевода в числа конфигуратор
+    (фильтр stock_qty > 0) их не увидит."""
+    from app.services.price_loaders.treolan import _parse_stock
+
+    assert _parse_stock("<10") == 5
+    assert _parse_stock("много") == 50
+    assert _parse_stock("МНОГО") == 50      # регистр не важен
+    assert _parse_stock(" < 10 ") == 5      # пробелы вокруг и внутри
+    assert _parse_stock(">10") == 20
+    assert _parse_stock(">100") == 100
+    assert _parse_stock("") == 0
+    assert _parse_stock(None) == 0
+    # Числа — как раньше
+    assert _parse_stock(5) == 5
+    assert _parse_stock("12") == 12
+    assert _parse_stock("неизвестный маркер") == 0
+
+
+def test_treolan_qualitative_stock_end_to_end(make_treolan_xlsx):
+    """Сквозной тест: «много» в колонке «Склад» даёт stock=50."""
+    path = make_treolan_xlsx([
+        {"category": "Комплектующие->Корпуса"},
+        {
+            "article": "ZLM-QUAL", "name": "Zalman T3", "brand": "Zalman",
+            "stock": "много",
+            "transit_1": "<10",
+            "transit_2": 0,
+            "price_rub": 3500,
+        },
+    ])
+    [r] = list(TreolanLoader().iter_rows(path))
+    assert r.stock == 50
+    # transit = 5 («<10») + 0 = 5
+    assert r.transit == 5

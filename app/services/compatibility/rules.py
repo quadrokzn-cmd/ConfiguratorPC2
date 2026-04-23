@@ -21,6 +21,51 @@ from typing import Any
 COOLER_TDP_MARGIN: float = 1.30
 
 
+# Базовая требуемая мощность БП для любой сборки (этап 7.1).
+# Намеренно НЕ считаем формулу через TDP всех компонентов — слишком многие
+# поля пусты, и в живой эксплуатации это даёт ложные отказы. 400W — безопасный
+# минимум для офисных и большинства игровых конфигураций; для конкретной GPU
+# с высоким потреблением срабатывает warning _gpu_needs_aux_power ниже.
+DEFAULT_PSU_WATTS: int = 400
+
+
+def required_psu_watts(build: dict) -> int:
+    """Требуемая мощность БП для сборки.
+
+    Всегда возвращает DEFAULT_PSU_WATTS (400W) — см. комментарий выше.
+    Параметр `build` оставлен в сигнатуре, чтобы позже легко переключиться
+    на расчёт по TDP без правки вызывающего кода.
+    """
+    _ = build  # не используется — см. DEFAULT_PSU_WATTS
+    return DEFAULT_PSU_WATTS
+
+
+# Порог TDP видеокарты, выше которого она гарантированно требует
+# дополнительного питания от БП (6-pin/8-pin): 75W — это максимум,
+# который может отдать сам слот PCIe.
+GPU_AUX_POWER_TDP_THRESHOLD: int = 75
+
+
+def gpu_needs_aux_power(gpu: dict | None) -> bool:
+    """True, если видеокарта точно требует доп.питания от БП.
+
+    Смотрит на поля в таком порядке:
+      1) needs_extra_power == True  — явный флаг;
+      2) tdp_watts > 75W            — неявный признак.
+    """
+    if gpu is None:
+        return False
+    if gpu.get("needs_extra_power") is True:
+        return True
+    tdp = gpu.get("tdp_watts")
+    if tdp is None:
+        return False
+    try:
+        return int(tdp) > GPU_AUX_POWER_TDP_THRESHOLD
+    except (TypeError, ValueError):
+        return False
+
+
 @dataclass
 class RuleResult:
     """Результат проверки одного правила для финальной валидации сборки.

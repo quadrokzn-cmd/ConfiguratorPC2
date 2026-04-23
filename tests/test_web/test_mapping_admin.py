@@ -102,11 +102,15 @@ def test_admin_sees_mapping_list(admin_client, db_session):
         raw_name="Ryzen 5 7600 6-core", status="created_new",
     )
 
-    r = admin_client.get("/admin/mapping")
+    # По умолчанию /admin/mapping фильтрует «подозрительных» (score >= 50);
+    # наша запись без кандидатов получит score=0 → проверяем вид «все».
+    r = admin_client.get("/admin/mapping?score=all")
     assert r.status_code == 200
     assert "Ryzen 5 7600 6-core" in r.text
-    # Счётчик активных строк видится в заголовке.
-    assert "На сопоставлении: 1" in r.text
+    # Счётчик по score в шапке
+    assert "Всего активных: 1" in r.text
+    # И в «вероятно новых» именно 1 (score < 50)
+    assert "Вероятно новых:" in r.text
 
 
 def test_manager_cannot_access_mapping(manager_client, db_session):
@@ -301,6 +305,151 @@ def test_defer_does_not_change_anything(admin_client, db_session):
 
 
 # ---- candidates ordering ---------------------------------------------
+
+
+def test_mapping_score_calculation(admin_client, db_session):
+    """Типовые кейсы расчёта score: brand-only (30), common-model-token (50),
+    near-duplicate (30+50+40=100, обрезанное до 100), пустой (0)."""
+    from app.services import mapping_service as ms
+
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+
+    # Реальный компонент — эталон, относительно которого считается score.
+    _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400F",
+    )
+
+    # 1) Только совпадающий бренд.
+    u_brand = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-BRAND",
+        raw_name="совсем другое название",
+        status="created_new", brand="Intel",
+    )
+    # 2) Общий модельный токен (12400), бренд не совпадает.
+    u_token = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-TOK",
+        raw_name="Какой-то процессор 12400",
+        status="created_new", brand="NoName",
+    )
+    # 3) Почти идентичное название + совпадающий бренд.
+    u_near = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-NEAR",
+        raw_name="Intel Core i5-12400", status="created_new", brand="Intel",
+    )
+
+    row_brand = ms.get_by_id(db_session, u_brand)
+    row_token = ms.get_by_id(db_session, u_token)
+    row_near  = ms.get_by_id(db_session, u_near)
+
+    s_brand, _ = ms.calculate_score(db_session, row_brand)
+    s_token, _ = ms.calculate_score(db_session, row_token)
+    s_near,  _ = ms.calculate_score(db_session, row_near)
+
+    # Строгие равенства: 30, 50, 100.
+    assert s_brand == 30
+    assert s_token == 50
+    assert s_near  == 100
+
+
+def test_mapping_list_default_filter_is_suspicious(admin_client, db_session):
+    """По умолчанию показываем только подозрительных (score >= 50).
+    «Вероятно новые» остаются скрытыми до переключения фильтра."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+    # Реальный i5 — чтобы «похожая» запись получила score=100.
+    _insert_cpu(db_session, model="Intel Core i5-12400", manufacturer="Intel",
+                sku="CM8071512400F")
+    _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="S-HIGH",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new",
+    )
+    _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="S-LOW",
+        raw_name="Совершенно уникальное устройство ABC-123",
+        brand="NoName", status="created_new",
+    )
+
+    r = admin_client.get("/admin/mapping")
+    assert r.status_code == 200
+    # Подозрительная запись (near-duplicate) — видна.
+    assert "Intel Core i5-12400" in r.text
+    # «Вероятно новая» — скрыта под фильтром по умолчанию.
+    assert "Совершенно уникальное устройство" not in r.text
+
+
+def test_bulk_confirm_new(admin_client, db_session):
+    """Массовое подтверждение «новых»: все created_new со score < 50
+    переходят в confirmed_new; «подозрительные» не трогаются."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Merlion")
+    # Эталон для «подозрительного»
+    _insert_cpu(db_session, model="AMD Ryzen 7 7700", manufacturer="AMD",
+                sku="R7-7700")
+    # Три «вероятно новых» (score=0, нет бренда и токенов)
+    low_ids = [
+        _insert_unmapped(
+            db_session, supplier_id=sid, supplier_sku=f"NEW-{i}",
+            raw_name=f"Уникальная железка {i}", brand="NoName",
+            status="created_new",
+        )
+        for i in range(3)
+    ]
+    # Две «подозрительные» (score=100 каждая)
+    high_ids = [
+        _insert_unmapped(
+            db_session, supplier_id=sid, supplier_sku=f"DUP-{i}",
+            raw_name="AMD Ryzen 7 7700", brand="AMD",
+            status="created_new",
+        )
+        for i in range(2)
+    ]
+
+    # Открываем /admin/mapping — это посчитает score для всех пяти.
+    r = admin_client.get("/admin/mapping?score=new")
+    assert r.status_code == 200
+    token = extract_csrf(r.text)
+
+    # Массовое действие.
+    r = admin_client.post(
+        "/admin/mapping/bulk_confirm_new",
+        data={"csrf_token": token},
+    )
+    assert r.status_code == 302
+
+    # Три «новых» стали confirmed_new.
+    for rid in low_ids:
+        status = db_session.execute(_t(
+            "SELECT status FROM unmapped_supplier_items WHERE id = :id"
+        ), {"id": rid}).scalar()
+        assert status == "confirmed_new"
+    # Две «подозрительные» остались в created_new.
+    for rid in high_ids:
+        status = db_session.execute(_t(
+            "SELECT status FROM unmapped_supplier_items WHERE id = :id"
+        ), {"id": rid}).scalar()
+        assert status == "created_new"
+
+
+def test_mapping_list_shows_best_candidate_model(admin_client, db_session):
+    """В колонке «Похожие в БД» рендерится модель best_candidate, а не «—»."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+    _insert_cpu(db_session, model="Intel Core i5-12400",
+                manufacturer="Intel", sku="CM8071512400F")
+    _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="S-NEAR",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new",
+    )
+
+    # По умолчанию — suspicious, наша запись score=100 туда попадает.
+    r = admin_client.get("/admin/mapping")
+    assert r.status_code == 200
+    # Модель лучшего кандидата виднa в колонке.
+    assert "Intel Core i5-12400" in r.text
 
 
 def test_detail_page_shows_matching_candidates(admin_client, db_session):

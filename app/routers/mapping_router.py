@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 from app.database import get_db
 from app.services import mapping_service
-from app.services.price_loaders.candidates import find_candidates
+from app.services.price_loaders.candidates import find_candidates  # noqa: F401 — используется в mapping_detail
 
 
 router = APIRouter(prefix="/admin/mapping")
@@ -39,37 +39,53 @@ def mapping_list(
     request: Request,
     supplier: int | None = Query(default=None),
     category: str | None = Query(default=None),
+    score: str = Query(default=mapping_service.SCORE_FILTER_SUSPICIOUS),
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Список активных записей (pending + created_new) с фильтрами."""
-    rows = mapping_service.list_active(
+    """Список активных записей (pending + created_new) с фильтрами.
+
+    По умолчанию показываем только «подозрительные» (score >= 50) —
+    это сокращает ручной поток работы с 2000+ до ~300-500 записей.
+    Фильтр score: suspicious | new | all.
+    """
+    # Нормализуем значение фильтра, чтобы опечатка в URL не уронила запрос.
+    if score not in (
+        mapping_service.SCORE_FILTER_SUSPICIOUS,
+        mapping_service.SCORE_FILTER_NEW,
+        mapping_service.SCORE_FILTER_ALL,
+    ):
+        score = mapping_service.SCORE_FILTER_SUSPICIOUS
+
+    # Сначала досчитаем score у активных записей, где он не считался.
+    # Иначе при фильтре «подозрительные» (score >= 50) они даже не попадут
+    # в выборку, т. к. NULL не проходит условие по значению.
+    # Для тяжёлой миграции 2000+ записей пользователь запускает
+    # scripts/recalculate_unmapped_scores.py; здесь — лёгкий добор на
+    # PAGE_SIZE за раз.
+    missing = mapping_service.list_ids_missing_score(
         db,
         supplier_id=supplier,
         category=category or None,
         limit=PAGE_SIZE,
     )
-    total_active = mapping_service.count_active(db)
-    suppliers = mapping_service.list_suppliers(db)
+    for rid in missing:
+        try:
+            mapping_service.ensure_score(db, rid)
+        except Exception:
+            # Сбой на одной записи не должен валить всю страницу.
+            pass
 
-    # Топ-3 похожих кандидатов для каждой строки — покажем прямо в таблице.
-    suggestions: dict[int, list[dict]] = {}
-    for r in rows:
-        if r.guessed_category:
-            try:
-                suggestions[r.id] = find_candidates(
-                    db,
-                    category=r.guessed_category,
-                    raw_name=r.raw_name,
-                    brand=r.brand,
-                    exclude_id=r.resolved_component_id,
-                    limit=3,
-                )
-            except Exception:
-                # Кандидатов не нашли — не критично, покажем пустой блок.
-                suggestions[r.id] = []
-        else:
-            suggestions[r.id] = []
+    rows = mapping_service.list_active_with_score(
+        db,
+        supplier_id=supplier,
+        category=category or None,
+        score_filter=score,
+        limit=PAGE_SIZE,
+    )
+
+    score_counts = mapping_service.count_by_score(db)
+    suppliers = mapping_service.list_suppliers(db)
 
     return templates.TemplateResponse(
         request,
@@ -78,12 +94,15 @@ def mapping_list(
             "user":            user,
             "csrf_token":      get_csrf_token(request),
             "rows":            rows,
-            "suggestions":     suggestions,
-            "total_active":    total_active,
+            "score_counts":    score_counts,
             "suppliers":       suppliers,
             "categories":      CATEGORY_OPTIONS,
             "filter_supplier": supplier,
             "filter_category": category or "",
+            "filter_score":    score,
+            "score_filter_suspicious": mapping_service.SCORE_FILTER_SUSPICIOUS,
+            "score_filter_new":        mapping_service.SCORE_FILTER_NEW,
+            "score_filter_all":        mapping_service.SCORE_FILTER_ALL,
             "flash_info":      request.session.pop("mapping_flash_info", None),
             "flash_error":     request.session.pop("mapping_flash_error", None),
         },
@@ -188,3 +207,42 @@ def mapping_defer(
     _require_csrf(request, csrf_token)
     mapping_service.defer(db, unmapped_id=row_id)
     return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+
+
+@router.post("/bulk_confirm_new")
+def mapping_bulk_confirm_new(
+    request: Request,
+    supplier: int | None = Form(default=None),
+    category: str | None = Form(default=None),
+    csrf_token: str = Form(""),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Массовое действие: все created_new со score ниже порога →
+    confirmed_new. Используется для очистки очереди от «точно новых»
+    позиций после первичной загрузки прайсов."""
+    _require_csrf(request, csrf_token)
+    updated = mapping_service.bulk_confirm_new(
+        db,
+        admin_user_id=user.id,
+        supplier_id=supplier,
+        category=category,
+    )
+    if updated == 0:
+        request.session["mapping_flash_info"] = (
+            "Нет записей, подходящих под массовое подтверждение."
+        )
+    else:
+        request.session["mapping_flash_info"] = (
+            f"Подтверждено {updated} товаров как «новые»."
+        )
+    # Сохраняем исходные фильтры в query-string, чтобы админ после
+    # массовой операции остался в «вероятно новых».
+    qs = f"?score={mapping_service.SCORE_FILTER_NEW}"
+    if supplier is not None:
+        qs += f"&supplier={supplier}"
+    if category:
+        qs += f"&category={category}"
+    return RedirectResponse(
+        url=f"/admin/mapping{qs}", status_code=status.HTTP_302_FOUND,
+    )

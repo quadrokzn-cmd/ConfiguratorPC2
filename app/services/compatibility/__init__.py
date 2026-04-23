@@ -6,25 +6,31 @@
 # нарушений — по нему принимается решение, принимать сборку или нет.
 
 from app.services.compatibility.rules import (
+    DEFAULT_PSU_WATTS,
     RuleResult,
     check_build,
     cooler_cpu,
     cpu_mb_socket,
     gpu_case_length,
+    gpu_needs_aux_power,
     iron_invariant_gpu,
     mb_case_form_factor,
     mb_ram_match,
     required_cooler_tdp,
+    required_psu_watts,
 )
 
 __all__ = [
+    "DEFAULT_PSU_WATTS",
     "RuleResult",
     "check_build",
     "cooler_cpu",
     "cpu_mb_socket",
     "gpu_case_length",
+    "gpu_needs_aux_power",
     "iron_invariant_gpu",
     "mb_case_form_factor",
     "mb_ram_match",
     "required_cooler_tdp",
+    "required_psu_watts",
 ]

@@ -16,9 +16,22 @@ from __future__ import annotations
 from typing import Any
 
 from app.services.compatibility import check_build
-from app.services.compatibility.rules import required_cooler_tdp
+from app.services.compatibility.rules import (
+    gpu_needs_aux_power,
+    required_cooler_tdp,
+    required_psu_watts,
+)
 from app.services.configurator import candidates as C
 from app.services.configurator.schema import BuildRequest
+
+
+# Предупреждение, которое добавляется в сборку при обнаружении GPU,
+# требующей доп.питания от БП. Единый текст — чтобы тесты и UI-проверки
+# могли ориентироваться на подстроку.
+_WARN_GPU_AUX_POWER = (
+    "Видеокарта требует дополнительного питания от БП. "
+    "Требуется проверка достаточности мощности БП менеджером."
+)
 
 
 # Фоллбэк на количество слотов DIMM, если у MB memory_slots = NULL.
@@ -175,28 +188,80 @@ def assemble_build(
     if storage is None:
         return None
 
-    # --- 6. PSU -------------------------------------------------------------
-    psu = C.get_cheapest_psu(
-        session,
-        fixed=req.psu,
-        usd_rub=usd_rub,
-        allow_transit=allow_transit,
-    )
-    if psu is None:
-        return None
-
-    # --- 7. Case ------------------------------------------------------------
+    # --- 6-7. Пара корпус + БП ----------------------------------------------
+    # Считаем два сценария параллельно и выбираем дешевле:
+    #   A: корпус без встроенного БП + отдельный БП (power_watts >= req_watts);
+    #   B: корпус со встроенным БП (included_psu_watts >= req_watts), без PSU.
     mb_ff = motherboard.get("form_factor")
     if not mb_ff:
         return None
-    case = C.get_cheapest_case(
+
+    req_watts = required_psu_watts({
+        "cpu": cpu, "gpu": gpu, "motherboard": motherboard, "ram": ram_row,
+    })
+
+    # Если пользователь зафиксировал корпус или БП — сценарий B отключаем,
+    # иначе попытка подставить встроенный БП «съест» выбранный пользователем
+    # БП/корпус. Сценарий A в этом случае — единственный корректный путь.
+    fixed_case_or_psu = (
+        (req.case and req.case.is_set())
+        or (req.psu and req.psu.is_set())
+    )
+
+    # --- Сценарий A ---------------------------------------------------------
+    case_a = C.get_cheapest_case(
         session,
         mb_form_factor=mb_ff,
         fixed=req.case,
         usd_rub=usd_rub,
         allow_transit=allow_transit,
+        scenario="A",
+        min_watts=None,
     )
-    if case is None:
+    psu_a = C.get_cheapest_psu(
+        session,
+        fixed=req.psu,
+        usd_rub=usd_rub,
+        allow_transit=allow_transit,
+        min_watts=req_watts,
+    )
+    total_a: float | None = None
+    if case_a is not None and psu_a is not None:
+        total_a = (
+            C.to_float(case_a.get("price_usd_min"))
+            + C.to_float(psu_a.get("price_usd_min"))
+        )
+
+    # --- Сценарий B ---------------------------------------------------------
+    case_b: dict | None = None
+    total_b: float | None = None
+    if not fixed_case_or_psu:
+        case_b = C.get_cheapest_case(
+            session,
+            mb_form_factor=mb_ff,
+            fixed=None,
+            usd_rub=usd_rub,
+            allow_transit=allow_transit,
+            scenario="B",
+            min_watts=req_watts,
+        )
+        if case_b is not None:
+            total_b = C.to_float(case_b.get("price_usd_min"))
+
+    # --- Выбор сценария -----------------------------------------------------
+    case: dict | None
+    psu: dict | None
+    case_psu_cost: float
+    if total_a is not None and total_b is not None:
+        if total_b < total_a:
+            case, psu, case_psu_cost = case_b, None, total_b
+        else:
+            case, psu, case_psu_cost = case_a, psu_a, total_a
+    elif total_a is not None:
+        case, psu, case_psu_cost = case_a, psu_a, total_a
+    elif total_b is not None:
+        case, psu, case_psu_cost = case_b, None, total_b
+    else:
         return None
 
     # --- 8. Финальная валидация правилами совместимости ---------------------
@@ -213,6 +278,11 @@ def assemble_build(
     if errors:
         return None
 
+    # Предупреждение о GPU с доп.питанием (см. правку 2 ТЗ этапа 7.1):
+    # БП автоматически не усиливаем — менеджер должен это проверить.
+    if gpu_needs_aux_power(gpu):
+        warnings.append(_WARN_GPU_AUX_POWER)
+
     # --- 9. Итог ------------------------------------------------------------
     total_usd = 0.0
     total_usd += C.to_float(cpu.get("price_usd_min"))
@@ -221,8 +291,7 @@ def assemble_build(
     if gpu is not None:
         total_usd += C.to_float(gpu.get("price_usd_min"))
     total_usd += C.to_float(storage.get("price_usd_min"))
-    total_usd += C.to_float(psu.get("price_usd_min"))
-    total_usd += C.to_float(case.get("price_usd_min"))
+    total_usd += case_psu_cost
     if cooler is not None:
         total_usd += C.to_float(cooler.get("price_usd_min"))
 

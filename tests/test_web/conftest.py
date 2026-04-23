@@ -42,6 +42,7 @@ _MIGRATIONS = [
     "007_web_service.sql",
     "008_project_specification.sql",
     "009_multi_supplier_and_gtin.sql",
+    "010_unmapped_score.sql",
 ]
 
 

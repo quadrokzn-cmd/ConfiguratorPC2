@@ -96,6 +96,34 @@ def _parse_int(value) -> int:
         return 0
 
 
+# Буквенные маркеры остатка у Treolan: в колонках «Склад»/«Транзит»/«Б.Тр.»
+# вместо точного числа встречаются «<10», «много», «>10», «>100».
+# Без перевода в числа весь Treolan-прайс ложился в supplier_prices
+# со stock_qty=0 и конфигуратор его не видел.
+_TREOLAN_QUAL_STOCK: dict[str, int] = {
+    "<10":   5,
+    "много": 50,
+    ">10":   20,
+    ">100":  100,
+}
+
+
+def _parse_stock(value) -> int:
+    """Остаток с учётом буквенных маркеров Treolan.
+
+    Возвращает int >= 0. Приоритет — таблица маркеров, затем число.
+    Нормализуем lower() и убираем пробелы, чтобы «< 10» и «<10» сошлись.
+    """
+    if value is None:
+        return 0
+    s = str(value).strip().lower().replace(" ", "")
+    if not s:
+        return 0
+    if s in _TREOLAN_QUAL_STOCK:
+        return _TREOLAN_QUAL_STOCK[s]
+    return _parse_int(value)
+
+
 def _normalize(s) -> str:
     return (str(s).strip() if s is not None else "")
 
@@ -172,8 +200,8 @@ class TreolanLoader(BasePriceLoader):
             article = _normalize(_cell(row, _COL_ARTICLE))
             name    = _normalize(_cell(row, _COL_NAME))
             brand   = _normalize(_cell(row, _COL_BRAND)) or None
-            stock   = _parse_int(_cell(row, _COL_STOCK))
-            transit = _parse_int(_cell(row, _COL_TRANSIT_1)) + _parse_int(_cell(row, _COL_TRANSIT_2))
+            stock   = _parse_stock(_cell(row, _COL_STOCK))
+            transit = _parse_stock(_cell(row, _COL_TRANSIT_1)) + _parse_stock(_cell(row, _COL_TRANSIT_2))
             price_usd = _parse_price(_cell(row, _COL_PRICE_USD))
             price_rub = _parse_price(_cell(row, _COL_PRICE_RUB))
             gtin = _normalize_gtin(_cell(row, _COL_GTIN))

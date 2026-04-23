@@ -119,7 +119,13 @@ def mk_psu(pid: int, watts: int, price: float) -> dict:
     }
 
 
-def mk_case(cid: int, ffs: list[str], price: float, *, max_gpu: int | None = None) -> dict:
+def mk_case(
+    cid: int, ffs: list[str], price: float,
+    *,
+    max_gpu: int | None = None,
+    has_psu: bool = False,
+    builtin_watts: int | None = None,
+) -> dict:
     return {
         "id": cid,
         "model": f"Case-{cid}",
@@ -127,6 +133,8 @@ def mk_case(cid: int, ffs: list[str], price: float, *, max_gpu: int | None = Non
         "sku": f"SKU-CS-{cid}",
         "supported_form_factors": ffs,
         "max_gpu_length_mm": max_gpu,
+        "has_psu_included": has_psu,
+        "included_psu_watts": builtin_watts,
         "price_usd_min": price,
     }
 
@@ -257,21 +265,35 @@ def world(monkeypatch) -> MockWorld:
             return None
         return sorted(rows, key=lambda s: s["price_usd_min"])[0]
 
-    def fake_cheapest_psu(session, *, fixed, usd_rub, allow_transit):
+    def fake_cheapest_psu(session, *, fixed, usd_rub, allow_transit, min_watts=None):
         if fixed and fixed.is_set():
             rows = [p for p in w.psus if p["id"] == fixed.id or p["sku"] == fixed.sku]
         else:
             rows = list(w.psus)
+            if min_watts is not None:
+                rows = [p for p in rows if (p.get("power_watts") or 0) >= min_watts]
         rows = w._filter_stock("psu", rows, allow_transit)
         if not rows:
             return None
         return sorted(rows, key=lambda p: p["price_usd_min"])[0]
 
-    def fake_cheapest_case(session, *, mb_form_factor, fixed, usd_rub, allow_transit):
+    def fake_cheapest_case(
+        session, *, mb_form_factor, fixed, usd_rub, allow_transit,
+        scenario="A", min_watts=None,
+    ):
         if fixed and fixed.is_set():
             rows = [c for c in w.cases if c["id"] == fixed.id or c["sku"] == fixed.sku]
         else:
             rows = [c for c in w.cases if mb_form_factor in c["supported_form_factors"]]
+            if scenario == "A":
+                rows = [c for c in rows if not c.get("has_psu_included")]
+            elif scenario == "B":
+                rows = [
+                    c for c in rows
+                    if c.get("has_psu_included")
+                    and c.get("included_psu_watts") is not None
+                    and (min_watts is None or c["included_psu_watts"] >= min_watts)
+                ]
         rows = w._filter_stock("case", rows, allow_transit)
         if not rows:
             return None
@@ -636,6 +658,167 @@ def test_empty_request_refused(world):
     assert result.status == "failed"
     assert result.refusal_reason is not None
     assert "request" in (result.refusal_reason or {})
+
+
+# -- Тест 17.1 (этап 7.1). Корпус со встроенным БП дешевле пары A ---------
+def test_case_with_builtin_psu_wins_over_separate(world):
+    """Сценарий B (корпус со встроенным БП) должен победить сценарий A,
+    если его стоимость меньше суммы (корпус без БП + отдельный БП)."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    world.psus.append(mk_psu(501, 650, 60))          # отдельный БП = $60
+    world.cases.append(
+        mk_case(601, ["ATX", "mATX"], 50, has_psu=False)          # корпус без БП = $50 → A=$110
+    )
+    world.cases.append(
+        mk_case(602, ["ATX", "mATX"], 90, has_psu=True, builtin_watts=500)  # B=$90
+    )
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({"cpu": {"min_cores": 4}})
+    result = S.build_config(req)
+    assert result.status in ("ok", "partial")
+    v = result.variants[0]
+    cats = [c.category for c in v.components]
+    # В сценарии B отдельного PSU не должно быть.
+    assert "psu" not in cats
+    assert "case" in cats
+    # Выбран именно корпус 602 (со встроенным БП).
+    case_choice = next(c for c in v.components if c.category == "case")
+    assert case_choice.component_id == 602
+
+
+# -- Тест 17.2. Встроенный БП слишком слабый — сценарий B пропускается ----
+def test_case_builtin_psu_insufficient_watts(world):
+    """Если included_psu_watts < требуемых 400W, сценарий B не срабатывает,
+    даже если корпус дешевле."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    world.psus.append(mk_psu(501, 500, 60))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 55, has_psu=False))
+    # Встроенный БП всего 300W — не покрывает 400W.
+    world.cases.append(mk_case(602, ["ATX", "mATX"], 40, has_psu=True, builtin_watts=300))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({"cpu": {"min_cores": 4}})
+    result = S.build_config(req)
+    assert result.status in ("ok", "partial")
+    v = result.variants[0]
+    cats = [c.category for c in v.components]
+    # Обычный сценарий: case + psu.
+    assert "psu" in cats
+    case_choice = next(c for c in v.components if c.category == "case")
+    assert case_choice.component_id == 601
+
+
+# -- Тест 17.3. PSU ниже 400W не выбирается ---------------
+def test_psu_respects_min_watts(world):
+    """Отдельный БП должен быть >= 400W (DEFAULT_PSU_WATTS)."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    # Дешёвый 300W и чуть дороже 500W.
+    world.psus.append(mk_psu(500, 300, 30))   # слишком слабый
+    world.psus.append(mk_psu(501, 500, 55))   # подойдёт
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 50, has_psu=False))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({"cpu": {"min_cores": 4}})
+    result = S.build_config(req)
+    v = result.variants[0]
+    psu_choice = next(c for c in v.components if c.category == "psu")
+    assert psu_choice.component_id == 501
+
+
+# -- Тест 17.4. Предупреждение о GPU с доп.питанием ---------------
+def test_gpu_aux_power_warning(world):
+    """Видеокарта с needs_extra_power=True должна добавлять конкретное
+    предупреждение о доп.питании."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=False))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.gpus.append(mk_gpu(301, vram=8, price=250, length=280, needs_power=True))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({"gpu": {"required": True}})
+    result = S.build_config(req)
+    v = result.variants[0]
+    joined = " | ".join(v.warnings)
+    assert "Видеокарта требует дополнительного питания от БП" in joined
+
+
+# -- Тест 17.5 (этап 7.1). Мультипоставщик — выбирается самый дешёвый -----
+def test_configurator_multi_supplier(world, monkeypatch):
+    """Для одного component_id фигурируют OCS, Merlion и Treolan; самый
+    дешёвый среди них с stock>0 должен быть выбран как chosen. Регрессия
+    на баг Этапа 7: Merlion/Treolan терялись после подбора."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    _std_common(world)
+
+    # Подменяем fetch_offers, чтобы на каждый компонент возвращать 3
+    # предложения. Для motherboard=101 самый дешёвый — Merlion ($100).
+    def multi_fetch_offers(session, *, category, component_id, usd_rub, allow_transit):
+        base_price = None
+        for storage in (world.cpus, world.motherboards, world.rams, world.gpus,
+                        world.storages, world.psus, world.cases, world.coolers):
+            for r in storage:
+                if r["id"] == component_id:
+                    base_price = float(r["price_usd_min"])
+                    break
+            if base_price is not None:
+                break
+        if base_price is None:
+            return []
+
+        if category == "motherboard" and component_id == 102:
+            offers = [
+                ("OCS",     base_price),
+                ("Merlion", base_price - 20),   # самый дешёвый и в наличии
+                ("Treolan", base_price - 10),
+            ]
+        else:
+            offers = [
+                ("OCS",     base_price),
+                ("Merlion", base_price + 5),
+                ("Treolan", base_price + 10),
+            ]
+
+        result = [
+            SupplierOffer(
+                supplier=name,
+                price_usd=round(price, 2),
+                price_rub=round(price * usd_rub, 2),
+                stock=10,
+                in_transit=False,
+            )
+            for name, price in offers
+        ]
+        # Реальный fetch_offers сортирует по цене; повторяем это здесь,
+        # иначе choose_supplier возьмёт первый in-stock без сортировки.
+        result.sort(key=lambda o: o.price_usd)
+        return result
+
+    monkeypatch.setattr(S, "fetch_offers", multi_fetch_offers)
+
+    req = request_from_dict({"cpu": {"min_cores": 4}})
+    result = S.build_config(req)
+    assert result.status in ("ok", "partial")
+    v = result.variants[0]
+    mb_choice = next(c for c in v.components if c.category == "motherboard")
+    # Для motherboard=102 Merlion — самый дешёвый.
+    assert mb_choice.component_id == 102
+    assert mb_choice.chosen.supplier == "Merlion"
+    # И в also_available_at — OCS и Treolan.
+    suppliers_also = {o.supplier for o in mb_choice.also_available_at}
+    assert suppliers_also == {"OCS", "Treolan"}
 
 
 # -- Тест 17. Валютная конвертация: проверяем поле price_rub --

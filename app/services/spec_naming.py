@@ -256,6 +256,27 @@ def _block_psu(psu_raw: dict) -> str | None:
     return f"{w}W" if w else None
 
 
+def _block_psu_or_builtin(
+    psu_raw: dict | None, case_raw: dict,
+) -> str | None:
+    """БП-блок в автоназвании.
+
+    Если PSU в сборке есть — «{power}W».
+    Если PSU нет, но корпус со встроенным БП — «{included_psu_watts}W (встроен)».
+    Если ни то, ни другое — None.
+    """
+    if psu_raw:
+        block = _block_psu(psu_raw)
+        if block:
+            return block
+    if case_raw and case_raw.get("has_psu_included"):
+        w = _fmt_num(case_raw.get("included_psu_watts"))
+        if w:
+            return f"{w}W (встроен)"
+        return "БП (встроен)"
+    return None
+
+
 # ---------------------------------------------------------------------
 # Публичная функция
 # ---------------------------------------------------------------------
@@ -292,7 +313,8 @@ def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
     cpu_raw = _raw("cpu")
     mb_raw = _raw("motherboard")
     ram_raw = _raw("ram")
-    psu_raw = _raw("psu")
+    psu_raw = _raw("psu") if comps.get("psu") else None
+    case_raw = _raw("case")
     storages = variant.get("storages_list") or []
     if not storages and comps.get("storage"):
         # Запасной путь, если storages_list не заполнен вызывающим кодом.
@@ -307,7 +329,7 @@ def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
         _block_storage(storages),
         _block_gpu(_model("gpu")) if comps.get("gpu") else None,
         _block_case_ff(mb_raw),
-        _block_psu(psu_raw),
+        _block_psu_or_builtin(psu_raw, case_raw),
     ]
     tail = [b for b in tail_blocks if b]
 

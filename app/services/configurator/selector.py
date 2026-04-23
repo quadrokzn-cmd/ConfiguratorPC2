@@ -242,7 +242,9 @@ def _build_to_variant(
         components.append(make_choice("gpu", build["gpu"]))
 
     components.append(make_choice("storage", build["storage"]))
-    components.append(make_choice("psu",     build["psu"]))
+    # Если корпус со встроенным БП (сценарий B) — отдельного PSU нет.
+    if build["psu"] is not None:
+        components.append(make_choice("psu", build["psu"]))
     components.append(make_choice("case",    build["case"]))
     if build["cooler"] is not None:
         components.append(make_choice("cooler", build["cooler"]))

@@ -180,6 +180,46 @@ def test_merlion_sums_transit_columns(make_merlion_xlsx):
     assert r.transit == 12
 
 
+def test_merlion_parses_qualitative_stock_markers(make_merlion_xlsx):
+    """Буквенные маркеры остатка Merlion должны становиться числами,
+    иначе конфигуратор (фильтр stock_qty > 0) никогда не увидит позиции."""
+    from app.services.price_loaders.merlion import _parse_stock
+
+    assert _parse_stock("+") == 5
+    assert _parse_stock("++") == 15
+    assert _parse_stock("+++") == 50
+    assert _parse_stock("++++") == 100
+    assert _parse_stock("call") == 0
+    assert _parse_stock("CALL") == 0         # регистр не важен
+    assert _parse_stock("  +++  ") == 50     # лишние пробелы
+    assert _parse_stock("") == 0
+    assert _parse_stock(None) == 0
+    # Числа — как раньше
+    assert _parse_stock(7) == 7
+    assert _parse_stock("12") == 12
+    assert _parse_stock("неизвестный маркер") == 0
+
+
+def test_merlion_qualitative_stock_end_to_end(make_merlion_xlsx):
+    """Сквозной тест: «+++» в колонке L даёт stock=50 в PriceRow."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Блоки питания", "g3": "Блоки питания",
+            "brand": "Corsair", "number": "PSU-QUAL", "mpn": "RM750x",
+            "name": "Corsair RM750x",
+            "price_rub": 12000,
+            "stock": "+++",
+            "transit_1": "+",
+            "transit_2": "++",
+        },
+    ])
+    [r] = list(MerlionLoader().iter_rows(path))
+    assert r.stock == 50
+    # transit = 5 (++) + 15 (+) = 20
+    assert r.transit == 20
+
+
 def test_merlion_requires_supplier_sku(make_merlion_xlsx):
     """Без «Номер» (колонка E) — строка пропускается."""
     path = make_merlion_xlsx([

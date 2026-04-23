@@ -365,9 +365,13 @@ def get_cheapest_psu(
     fixed: FixedRef | None,
     usd_rub: float,
     allow_transit: bool,
+    min_watts: int | None = None,
 ) -> dict | None:
-    """Самый дешёвый БП из наличия. Минимумов по мощности не задаём — итоговая
-    проверка мощности выходит за рамки этого этапа (warning предупредит)."""
+    """Самый дешёвый БП из наличия.
+
+    min_watts — минимально допустимая мощность (power_watts >= min_watts).
+    Этап 7.1: в builder этот параметр передаётся всегда (= 400 по умолчанию).
+    """
     params: dict[str, Any] = {"usd_rub": usd_rub}
     conditions: list[str] = []
 
@@ -380,6 +384,9 @@ def get_cheapest_psu(
             params["fsku"] = fixed.sku
     else:
         conditions.append("p.power_watts IS NOT NULL")
+        if min_watts is not None:
+            conditions.append("p.power_watts >= :min_w")
+            params["min_w"] = int(min_watts)
 
     stock_sql = _stock_where("sp", allow_transit)
     price_usd_sql = _price_in_usd_sql("sp")
@@ -414,8 +421,18 @@ def get_cheapest_case(
     fixed: FixedRef | None,
     usd_rub: float,
     allow_transit: bool,
+    scenario: str = "A",
+    min_watts: int | None = None,
 ) -> dict | None:
-    """Самый дешёвый корпус, поддерживающий форм-фактор MB."""
+    """Самый дешёвый корпус, поддерживающий форм-фактор MB.
+
+    scenario:
+      'A' — корпус БЕЗ встроенного БП (has_psu_included=false или NULL);
+            отдельный БП подбирается в get_cheapest_psu.
+      'B' — корпус СО встроенным БП (has_psu_included=true);
+            included_psu_watts >= :min_watts (параметр обязателен для B).
+    Если fixed — scenario игнорируется (как и раньше, приоритет у пользователя).
+    """
     params: dict[str, Any] = {"usd_rub": usd_rub}
     conditions: list[str] = []
 
@@ -431,6 +448,22 @@ def get_cheapest_case(
         conditions.append(":ff = ANY(cs.supported_form_factors)")
         params["ff"] = mb_form_factor
 
+        if scenario == "A":
+            # Корпуса без встроенного БП: false ИЛИ NULL (страхуемся от
+            # неполных записей-скелетов у Merlion/Treolan).
+            conditions.append(
+                "(cs.has_psu_included = FALSE OR cs.has_psu_included IS NULL)"
+            )
+        elif scenario == "B":
+            # Корпуса со встроенным БП достаточной мощности.
+            conditions.append("cs.has_psu_included = TRUE")
+            conditions.append("cs.included_psu_watts IS NOT NULL")
+            if min_watts is not None:
+                conditions.append("cs.included_psu_watts >= :min_w")
+                params["min_w"] = int(min_watts)
+        else:
+            raise ValueError(f"Неизвестный scenario: {scenario!r}")
+
     stock_sql = _stock_where("sp", allow_transit)
     price_usd_sql = _price_in_usd_sql("sp")
 
@@ -438,6 +471,7 @@ def get_cheapest_case(
         f"""
         SELECT cs.id, cs.model, cs.manufacturer, cs.sku,
                cs.supported_form_factors, cs.max_gpu_length_mm,
+               cs.has_psu_included, cs.included_psu_watts,
                {price_usd_sql} AS price_usd_min
         FROM cases cs
         JOIN supplier_prices sp

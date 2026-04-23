@@ -104,6 +104,40 @@ def _parse_int(value) -> int:
         return 0
 
 
+# Буквенные маркеры остатка у Merlion: в колонках L/M/N вместо чисел
+# встречаются «+», «++», «+++», «++++» (градация «есть»→«очень много»)
+# и «call» («позвоните, уточнить»). Пустая ячейка — товара нет.
+# Без этого парсера все буквенные маркеры через _parse_int становились 0
+# и конфигуратор не видел ни одной позиции Merlion (фильтр stock_qty > 0).
+_MERLION_QUAL_STOCK: dict[str, int] = {
+    "+":    5,
+    "++":   15,
+    "+++":  50,
+    "++++": 100,
+    # «call» консервативно трактуем как «точно нет» — менеджер должен
+    # сам позвонить поставщику; в авто-подбор такие позиции не попадают.
+    "call": 0,
+}
+
+
+def _parse_stock(value) -> int:
+    """Остаток с учётом буквенных маркеров Merlion.
+
+    Возвращает int >= 0. Если значение — число, возвращает его as-is.
+    Если это один из буквенных маркеров — возвращает табличное значение.
+    Иначе — 0 (пусто, неизвестный маркер).
+    """
+    if value is None:
+        return 0
+    s = str(value).strip().lower()
+    if not s:
+        return 0
+    if s in _MERLION_QUAL_STOCK:
+        return _MERLION_QUAL_STOCK[s]
+    # Числовое значение (возможно, с запятой/пробелом).
+    return _parse_int(value)
+
+
 def _normalize(s) -> str:
     return (str(s).strip() if s is not None else "")
 
@@ -150,9 +184,9 @@ class MerlionLoader(BasePriceLoader):
             name         = _normalize(_cell(row, _COL_NAME))
             price_usd    = _parse_price(_cell(row, _COL_PRICE_USD))
             price_rub    = _parse_price(_cell(row, _COL_PRICE_RUB))
-            stock        = _parse_int(_cell(row, _COL_STOCK))
-            transit_1    = _parse_int(_cell(row, _COL_TRANSIT_1))
-            transit_2    = _parse_int(_cell(row, _COL_TRANSIT_2))
+            stock        = _parse_stock(_cell(row, _COL_STOCK))
+            transit_1    = _parse_stock(_cell(row, _COL_TRANSIT_1))
+            transit_2    = _parse_stock(_cell(row, _COL_TRANSIT_2))
 
             # Пустые строки-разделители категорий (если такие есть в самом
             # начале листа) — пропускаем.

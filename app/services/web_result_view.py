@@ -163,16 +163,28 @@ def _fmt_psu(row: Any) -> str | None:
 
 def _fmt_case(row: Any) -> str | None:
     ffs = row.supported_form_factors
-    if not ffs:
+    parts: list[str] = []
+    if ffs:
+        # supported_form_factors в БД — TEXT[]; psycopg2 отдаёт list[str].
+        # На всякий случай страхуемся от строки.
+        if isinstance(ffs, str):
+            ffs = [p.strip() for p in ffs.strip("{}").split(",") if p.strip()]
+        clean = [str(x).strip() for x in ffs if x]
+        if clean:
+            parts.append("/".join(clean))
+
+    # Если у корпуса встроенный БП — показываем это в описании,
+    # чтобы менеджер не спутал сборку со сценарием A (корпус + отдельный БП).
+    if getattr(row, "has_psu_included", None):
+        w = getattr(row, "included_psu_watts", None)
+        if w is not None:
+            parts.append(f"+ встроенный БП {int(w)}W")
+        else:
+            parts.append("+ встроенный БП")
+
+    if not parts:
         return None
-    # supported_form_factors в БД — TEXT[]; psycopg2 отдаёт list[str].
-    # На всякий случай страхуемся от строки.
-    if isinstance(ffs, str):
-        ffs = [p.strip() for p in ffs.strip("{}").split(",") if p.strip()]
-    clean = [str(x).strip() for x in ffs if x]
-    if not clean:
-        return None
-    return "/".join(clean)
+    return " · ".join(parts)
 
 
 def _fmt_cooler(row: Any) -> str | None:
@@ -225,9 +237,10 @@ _CATEGORY_QUERIES: dict[str, tuple[str, Callable[[Any], str | None], tuple[str, 
         ("power_watts",),
     ),
     "case": (
-        "SELECT id, supported_form_factors FROM cases WHERE id = ANY(:ids)",
+        "SELECT id, supported_form_factors, has_psu_included, included_psu_watts "
+        "FROM cases WHERE id = ANY(:ids)",
         _fmt_case,
-        ("supported_form_factors",),
+        ("supported_form_factors", "has_psu_included", "included_psu_watts"),
     ),
     "cooler": (
         "SELECT id, max_tdp_watts FROM coolers WHERE id = ANY(:ids)",

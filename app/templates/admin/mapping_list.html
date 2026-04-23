@@ -7,11 +7,23 @@
   <div class="flex items-baseline justify-between">
     <h1 class="text-2xl font-semibold">
       Ручное сопоставление
-      <span class="ml-2 text-base text-zinc-500">
-        На сопоставлении: {{ total_active }} товаров
-      </span>
     </h1>
     <a href="/admin" class="text-sm text-indigo-400 hover:text-indigo-300">← в админку</a>
+  </div>
+
+  {# Счётчик по score (этап 7.1) — помогает понять масштаб очереди #}
+  <div class="text-sm text-zinc-400 flex gap-4 flex-wrap">
+    <span>
+      Подозрительных:
+      <span class="text-amber-300 font-semibold">{{ score_counts.suspicious }}</span>
+    </span>
+    <span>
+      Вероятно новых:
+      <span class="text-sky-300 font-semibold">{{ score_counts.new }}</span>
+    </span>
+    <span class="text-zinc-500">
+      Всего активных: {{ score_counts.total }}
+    </span>
   </div>
 
   {% if flash_info %}
@@ -25,8 +37,27 @@
   </div>
   {% endif %}
 
+  {# Переключатель режима: suspicious | new | all #}
+  <div class="flex gap-2 text-sm">
+    {% set _filter_labels = [
+      (score_filter_suspicious, 'Подозрительные'),
+      (score_filter_new,        'Вероятно новые'),
+      (score_filter_all,        'Все'),
+    ] %}
+    {% for code, label in _filter_labels %}
+      {% set active = (filter_score == code) %}
+      <a href="?score={{ code }}{% if filter_supplier %}&supplier={{ filter_supplier }}{% endif %}{% if filter_category %}&category={{ filter_category }}{% endif %}"
+         class="px-3 py-1.5 rounded border
+                {% if active %}bg-indigo-600 border-indigo-500 text-white
+                {% else %}bg-zinc-800 border-zinc-700 text-zinc-300 hover:bg-zinc-700{% endif %}">
+        {{ label }}
+      </a>
+    {% endfor %}
+  </div>
+
   <!-- Фильтры -->
   <form method="get" action="/admin/mapping" class="flex items-end gap-3 text-sm">
+    <input type="hidden" name="score" value="{{ filter_score }}">
     <div>
       <label class="block text-zinc-500 mb-1">Поставщик</label>
       <select name="supplier" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2">
@@ -49,8 +80,27 @@
             class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-4 py-2">
       Применить
     </button>
-    <a href="/admin/mapping" class="text-zinc-400 hover:text-zinc-200 px-3 py-2">сбросить</a>
+    <a href="/admin/mapping?score={{ filter_score }}" class="text-zinc-400 hover:text-zinc-200 px-3 py-2">сбросить</a>
   </form>
+
+  {# Массовое действие: появляется только в режиме «вероятно новые» #}
+  {% if filter_score == score_filter_new and score_counts.new > 0 %}
+  <form method="post" action="/admin/mapping/bulk_confirm_new"
+        onsubmit="return confirm('Будет подтверждено {{ score_counts.new }} товаров как новые. Вы уверены?');"
+        class="bg-zinc-900/60 border border-zinc-700 rounded-lg px-4 py-3 flex items-center justify-between">
+    <div class="text-sm text-zinc-300">
+      Подтвердить все «вероятно новые» ({{ score_counts.new }}) как новые товары.
+      Применится только к статусу «новый» со score ниже {{ 50 }}.
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    {% if filter_supplier %}<input type="hidden" name="supplier" value="{{ filter_supplier }}">{% endif %}
+    {% if filter_category %}<input type="hidden" name="category" value="{{ filter_category }}">{% endif %}
+    <button type="submit"
+            class="bg-sky-600 hover:bg-sky-500 text-white font-medium rounded px-4 py-2 text-sm">
+      Подтвердить все как новые
+    </button>
+  </form>
+  {% endif %}
 
   {% if not rows %}
   <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
@@ -61,6 +111,7 @@
     <table class="w-full text-sm">
       <thead class="bg-zinc-900/60 text-zinc-500">
         <tr>
+          <th class="text-right font-normal px-3 py-3 w-16">Score</th>
           <th class="text-left font-normal px-3 py-3">Поставщик</th>
           <th class="text-left font-normal px-3 py-3">Категория</th>
           <th class="text-left font-normal px-3 py-3">Товар от поставщика</th>
@@ -74,6 +125,17 @@
       <tbody class="divide-y divide-zinc-700">
         {% for r in rows %}
         <tr class="hover:bg-zinc-900/40 align-top">
+          <td class="px-3 py-3 text-right whitespace-nowrap">
+            {% if r.best_candidate_score is not none %}
+              {% if r.best_candidate_score >= 50 %}
+                <span class="text-amber-300 font-semibold">{{ r.best_candidate_score }}</span>
+              {% else %}
+                <span class="text-zinc-500">{{ r.best_candidate_score }}</span>
+              {% endif %}
+            {% else %}
+              <span class="text-zinc-600">—</span>
+            {% endif %}
+          </td>
           <td class="px-3 py-3 text-zinc-300 whitespace-nowrap">{{ r.supplier_name }}</td>
           <td class="px-3 py-3 text-zinc-400">
             <div class="text-zinc-300">{{ r.guessed_category or '—' }}</div>
@@ -103,17 +165,14 @@
             {% endif %}
           </td>
           <td class="px-3 py-3">
-            {% set sugs = suggestions.get(r.id, []) %}
-            {% if sugs %}
-              <ul class="space-y-1 text-xs">
-                {% for c in sugs %}
-                <li>
-                  <span class="text-zinc-200">{{ c.model }}</span>
-                  <span class="text-zinc-500">· id={{ c.id }}</span>
-                  {% if c.min_price %}<span class="text-zinc-500">· от {{ '%.2f'|format(c.min_price) }}</span>{% endif %}
-                </li>
-                {% endfor %}
-              </ul>
+            {% if r.best_candidate_model %}
+              <a href="/admin/mapping/{{ r.id }}"
+                 class="text-indigo-300 hover:text-indigo-200 text-xs">
+                {{ r.best_candidate_model }}
+              </a>
+              {% if r.best_candidate_component_id %}
+                <div class="text-xs text-zinc-500">id={{ r.best_candidate_component_id }}</div>
+              {% endif %}
             {% else %}
               <span class="text-zinc-600 text-xs">—</span>
             {% endif %}
