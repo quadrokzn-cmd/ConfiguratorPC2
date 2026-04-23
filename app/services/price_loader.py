@@ -32,18 +32,30 @@ _CATEGORY_MAP = {
 # Белый список имён таблиц — исключает подстановку произвольных значений
 _ALLOWED_TABLES = frozenset({"cpus", "motherboards", "rams", "gpus", "storages", "cases", "psus", "coolers"})
 
-# Индексы нужных колонок (0-based)
-_COL_CAT_A       = 0
-_COL_CAT_B       = 1
-_COL_KIND_C      = 2
-_COL_MAKER       = 3
-_COL_SKU         = 6
-_COL_NAME        = 7
-_COL_PRICE       = 8
-_COL_CURRENCY    = 9
-_COL_STOCK       = 11
-_COL_TRANSIT     = 17
-_MIN_COLS        = _COL_TRANSIT + 1   # строка должна содержать хотя бы 18 колонок
+# Индексы нужных колонок (0-based) в прайсе OCS.
+#
+# ВАЖНО про sku vs supplier_sku:
+#   - Колонка E («Номенклатурный номер», индекс 4) — внутренний код OCS,
+#     например '1000659869'. Это supplier_sku: номер, по которому
+#     менеджер оформляет заказ у этого конкретного поставщика.
+#   - Колонка G («Каталожный номер», индекс 6) — партномер производителя,
+#     например 'CM8071504650609' (Intel). Это sku: каталожный артикул,
+#     общий для всех поставщиков и для базы компонентов.
+#
+# Раньше мы брали только колонку G и писали её И в cpus/gpus/...sku,
+# И в supplier_prices.supplier_sku — в итоге supplier_sku дублировал sku.
+_COL_CAT_A        = 0
+_COL_CAT_B        = 1
+_COL_KIND_C       = 2
+_COL_MAKER        = 3
+_COL_SUPPLIER_SKU = 4    # E: номенклатурный номер OCS → supplier_prices.supplier_sku
+_COL_SKU          = 6    # G: каталожный номер производителя → <table>.sku
+_COL_NAME         = 7
+_COL_PRICE        = 8
+_COL_CURRENCY     = 9
+_COL_STOCK        = 11
+_COL_TRANSIT      = 17
+_MIN_COLS         = _COL_TRANSIT + 1   # строка должна содержать хотя бы 18 колонок
 
 
 def _cell(row: tuple, idx: int):
@@ -139,7 +151,7 @@ def _upsert_price(
     supplier_id: int,
     category: str,
     component_id: int,
-    supplier_sku: str,
+    supplier_sku: str | None,
     price: Decimal,
     currency: str,
     stock_qty: int,
@@ -297,7 +309,8 @@ def load_ocs_price(filepath: str) -> dict:
             cat_b        = str(_cell(row, _COL_CAT_B) or "").strip()
             kind_c       = str(_cell(row, _COL_KIND_C) or "").strip()
             manufacturer = str(_cell(row, _COL_MAKER) or "").strip()
-            supplier_sku = str(_cell(row, _COL_SKU) or "").strip()
+            supplier_sku = str(_cell(row, _COL_SUPPLIER_SKU) or "").strip()  # E
+            sku          = str(_cell(row, _COL_SKU) or "").strip()           # G
             name         = str(_cell(row, _COL_NAME) or "").strip()
             price_raw    = _cell(row, _COL_PRICE)
             currency_raw = _cell(row, _COL_CURRENCY)
@@ -314,10 +327,14 @@ def load_ocs_price(filepath: str) -> dict:
 
             table, category = mapping
 
-            # Без SKU сопоставление невозможно
-            if not supplier_sku:
+            # Каталожный номер производителя — ключ для сопоставления с таблицей
+            # компонентов. Без него строка бесполезна.
+            if not sku:
                 counters["skipped"] += 1
                 continue
+            # Если OCS не указал свой номенклатурный номер — в supplier_sku
+            # оставим NULL, чтобы не врать менеджеру.
+            supplier_sku_or_none = supplier_sku or None
 
             counters["processed"] += 1
 
@@ -345,12 +362,16 @@ def load_ocs_price(filepath: str) -> dict:
             # откатим только эту строку, а не всю загрузку целиком.
             savepoint = session.begin_nested()
             try:
+                # Компонент ищется/создаётся по каталожному номеру (sku, колонка G):
+                # это глобальный артикул производителя, общий для всех поставщиков.
                 component_id, is_new = _find_or_create_component(
-                    session, table, name, manufacturer, supplier_sku
+                    session, table, name, manufacturer, sku
                 )
+                # В supplier_prices пишется номенклатурный номер OCS (supplier_sku,
+                # колонка E) — именно по нему менеджер оформляет заказ у OCS.
                 _upsert_price(
                     session, supplier_id, category, component_id,
-                    supplier_sku, price, currency, stock_qty, transit_qty,
+                    supplier_sku_or_none, price, currency, stock_qty, transit_qty,
                 )
                 savepoint.commit()
                 if is_new:
@@ -361,8 +382,8 @@ def load_ocs_price(filepath: str) -> dict:
             except Exception as exc:
                 savepoint.rollback()
                 logger.error(
-                    "Строка %d (sku=%r): ошибка при записи в БД — %s",
-                    row_idx, supplier_sku, exc,
+                    "Строка %d (sku=%r, supplier_sku=%r): ошибка при записи в БД — %s",
+                    row_idx, sku, supplier_sku, exc,
                 )
                 counters["errors"] += 1
 

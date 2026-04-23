@@ -86,16 +86,19 @@ def _mk_session(results_per_call: list[list[dict]]) -> MagicMock:
 
 
 class TestFind:
-    def test_exact_match_by_tokens(self):
+    def test_substitute_by_suffix_mismatch(self):
+        # Запрос "Ryzen 5 7600" (base=7600, без суффикса), а в БД только
+        # "Ryzen 5 7600X OEM" (base=7600, suffix=X) — это аналог, а не точное
+        # совпадение. Новое поведение rerank_by_exact_match помечает substitute.
         rows = [{"id": 42, "model": "AMD Ryzen 5 7600X OEM", "sku": "ABC", "min_price": 180.0}]
         session = _mk_session([rows])
         rm = fuzzy_lookup.find(session, ModelMention(category="cpu", query="Ryzen 5 7600"))
         assert rm.found_id == 42
-        assert rm.is_substitute is False
-        assert rm.note is None
+        assert rm.is_substitute is True
+        assert rm.note is not None and "близкий вариант" in rm.note
 
-    def test_chooses_cheapest(self):
-        # Несколько результатов — берём первый (БД отсортировала по min_price)
+    def test_chooses_cheapest_when_exact_match_exists(self):
+        # Два точных совпадения по base+suffix — порядок по цене, substitute=False.
         rows = [
             {"id": 7,  "model": "Ryzen 5 7600 OEM", "sku": "OEM-1", "min_price": 175.0},
             {"id": 8,  "model": "Ryzen 5 7600 BOX", "sku": "BOX-1", "min_price": 200.0},
@@ -104,6 +107,7 @@ class TestFind:
         rm = fuzzy_lookup.find(session, ModelMention(category="cpu", query="Ryzen 5 7600"))
         assert rm.found_id == 7
         assert rm.found_sku == "OEM-1"
+        assert rm.is_substitute is False
 
     def test_substitute_via_model_number(self):
         # Первый поиск (по всем токенам) — пусто; второй (по номеру) — что-то нашёл

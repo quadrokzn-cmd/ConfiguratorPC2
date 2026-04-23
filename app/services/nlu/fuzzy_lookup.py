@@ -100,6 +100,63 @@ def pick_model_number(tokens: Iterable[str]) -> str | None:
     return last_with_digit
 
 
+# Номер модели в строке: 4-5 цифр + опциональный буквенный суффикс (F/K/KF/T/...).
+# Пример: "12400" → ("12400", ""); "13400F" → ("13400", "F"); "9700K" → ("9700", "K").
+# Ищем ПОСЛЕДНЕЕ совпадение в строке: в каталожных названиях часто
+# встречается кусок SKU после человеческого имени, и нам нужно брать
+# именно модель, которая обычно стоит позже. Для запросов менеджера
+# это тоже работает — там номер модели один.
+_MODEL_NUMBER_RE = re.compile(r"\b(\d{4,5})([A-Z]{0,4})\b")
+
+
+def extract_model_number(text_upper: str) -> tuple[str, str] | None:
+    """Достаёт (base_number, suffix) из строки; возвращает None, если номер
+    модели не найден. На вход подавать уже в верхнем регистре."""
+    if not text_upper:
+        return None
+    matches = list(_MODEL_NUMBER_RE.finditer(text_upper))
+    if not matches:
+        return None
+    last = matches[-1]
+    return last.group(1), last.group(2) or ""
+
+
+def _rank_row(row: dict, req_base: str, req_suffix: str) -> int:
+    """Ранжирует кандидата по совпадению номера модели с запросом.
+    Меньше = лучше:
+        0 — точное совпадение base + suffix (Core i5-12400 при запросе 12400),
+        1 — совпал base, suffix различается (Core i5-12400F при запросе 12400),
+        2 — номер модели не нашёлся или base другой.
+    Дальнейшая сортировка — по min_price (уже сделана в БД), поэтому
+    достаточно использовать этот ранг как первичный ключ."""
+    mn = extract_model_number((row.get("model") or "").upper())
+    if mn is None:
+        return 2
+    r_base, r_suffix = mn
+    if r_base == req_base and r_suffix == req_suffix:
+        return 0
+    if r_base == req_base:
+        return 1
+    return 2
+
+
+def rerank_by_exact_match(
+    rows: list[dict], *, query_upper: str,
+) -> list[dict]:
+    """Переупорядочивает список кандидатов так, чтобы сверху оказались
+    точные совпадения по номеру модели (base+suffix). Порядок по цене
+    внутри одного ранга сохраняется — он уже задан БД."""
+    mn = extract_model_number(query_upper)
+    if mn is None:
+        # В запросе номера модели нет — ничего не меняем.
+        return rows
+    req_base, req_suffix = mn
+    # stable sort по ключу (rank, original_index)
+    indexed = list(enumerate(rows))
+    indexed.sort(key=lambda pair: (_rank_row(pair[1], req_base, req_suffix), pair[0]))
+    return [r for _, r in indexed]
+
+
 # --- Поиск в БД ----------------------------------------------------------
 
 def _table_for(category: str) -> str:
@@ -186,12 +243,34 @@ def find(session, mention: ModelMention) -> ResolvedMention:
     # 2. ILIKE по всем токенам
     rows = _search_by_tokens(session, mention.category, tokens)
     if rows:
+        # Приоритет точному совпадению по номеру модели: если менеджер
+        # написал «12400», а в списке есть и «12400», и «12400F» — берём
+        # первый, даже если F-версия дешевле.
+        rows = rerank_by_exact_match(rows, query_upper=mention.query.upper())
         best = rows[0]
+        # Если best по base совпадает с запросом, но по суффиксу нет —
+        # это de-facto аналог (например, запрошен 13400, но есть только
+        # 13400F). Помечаем как substitute, чтобы менеджер видел.
+        req_mn = extract_model_number(mention.query.upper())
+        best_mn = extract_model_number((best.get("model") or "").upper())
+        is_substitute = bool(
+            req_mn and best_mn
+            and req_mn[0] == best_mn[0]
+            and req_mn[1] != best_mn[1]
+        )
+        note = None
+        if is_substitute:
+            note = (
+                f"Запрошенная модель «{mention.query}» точно не найдена; "
+                f"подобран близкий вариант: {best.get('model')}."
+            )
         return ResolvedMention(
             mention=mention,
             found_id=int(best["id"]),
             found_model=best.get("model"),
             found_sku=best.get("sku"),
+            is_substitute=is_substitute,
+            note=note,
         )
 
     # 3. Fallback: только «номер модели»
@@ -201,6 +280,7 @@ def find(session, mention: ModelMention) -> ResolvedMention:
         # единственным токеном.
         rows = _search_by_tokens(session, mention.category, [num])
         if rows:
+            rows = rerank_by_exact_match(rows, query_upper=mention.query.upper())
             best = rows[0]
             return ResolvedMention(
                 mention=mention,
