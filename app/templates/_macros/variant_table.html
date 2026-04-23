@@ -1,0 +1,148 @@
+{#
+  Компактная таблица варианта сборки (этап 6.2, правка после
+  live-проверки).
+
+  Используется:
+    - на /project/{id} — при нескольких конфигурациях страница с
+      карточками получалась неприемлемо длинной;
+    - на /query/{id} — сразу после добавления конфигурации в проект.
+
+  Старый макрос variant_block.html (карточный вид) оставлен рядом
+  для возможного переиспользования в дашбордах.
+
+  variant_table рендерит заголовок варианта (модель/цена), таблицу
+  компонентов и блок warnings под таблицей. Ширина — на всю ширину
+  контейнера; горизонтального скролла не предполагается (на экранах
+  от 1280px колонки умещаются за счёт truncate по ключевым колонкам).
+#}
+
+
+{% macro _rub(value) -%}
+  {{ '{:,.0f}'.format(value|default(0)).replace(',', ' ') }}
+{%- endmacro %}
+
+
+{# Одна строка таблицы — один компонент сборки.
+   c — dict компонента (см. variant_block.component_card).
+   label — человекочитаемая подпись категории (CPU / Видеокарта / …). #}
+{% macro _component_row(c, label) -%}
+<tr class="border-b border-zinc-800 hover:bg-zinc-800/40 align-top">
+  {# Категория: узкая колонка, uppercase #}
+  <td class="px-3 py-2 w-28 text-xs uppercase tracking-wide text-zinc-400">
+    {{ label }}
+  </td>
+
+  {# Название + характеристики: основная ширина. В title — полная
+     модель (на hover), если она не помещается в одну строку. #}
+  <td class="px-3 py-2 w-auto">
+    <div class="text-sm text-zinc-100 break-words" title="{{ c.model }}">
+      {{ c.model }}{% if c.quantity and c.quantity > 1 %}
+        <span class="text-zinc-500 text-xs">×{{ c.quantity }}</span>
+      {% endif %}
+    </div>
+    {% if c.specs_short %}
+      <div class="text-xs text-zinc-400 mt-0.5">{{ c.specs_short }}</div>
+    {% endif %}
+    {% if c.in_transit %}
+      <div class="text-xs text-amber-400 mt-0.5">· транзит</div>
+    {% endif %}
+    {% if c.also_available_at %}
+      <div class="text-xs text-zinc-600 mt-0.5">
+        также у: {{ c.also_available_at | map(attribute='supplier') | join(', ') }}
+      </div>
+    {% endif %}
+  </td>
+
+  {# Артикул: обрезаем многоточием; полный — в title. #}
+  <td class="px-3 py-2 w-40 font-mono text-xs text-zinc-500 truncate max-w-[10rem]"
+      title="{{ c.sku or '' }}">
+    {{ c.sku or '—' }}
+  </td>
+
+  {# Поставщик + номер: «OCS · № 1000815468» (компактно). #}
+  <td class="px-3 py-2 w-36 text-xs text-zinc-400 truncate max-w-[9rem]"
+      title="{{ c.supplier or '' }}{% if c.supplier_sku %} · № {{ c.supplier_sku }}{% endif %}">
+    {{ c.supplier or '—' }}{% if c.supplier_sku %}
+      <span class="text-zinc-500">· №</span>
+      <span class="font-mono text-zinc-500">{{ c.supplier_sku }}</span>
+    {% endif %}
+  </td>
+
+  {# Цена $: целое число, выделено. Учитывает quantity. #}
+  <td class="px-3 py-2 w-20 text-right text-zinc-100 font-semibold whitespace-nowrap">
+    ${{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
+  </td>
+
+  {# Цена ₽: второстепенно. #}
+  <td class="px-3 py-2 w-24 text-right text-xs text-zinc-400 whitespace-nowrap">
+    {{ _rub((c.price_rub or 0) * (c.quantity or 1)) }} ₽
+  </td>
+</tr>
+{%- endmacro %}
+
+
+{# Блок одной конфигурации: заголовок + таблица компонентов +
+   предупреждения. Контракт параметров тот же, что у variant_block,
+   чтобы макросы были взаимозаменяемы в шаблонах. #}
+{% macro variant_table(v, category_order, category_label) -%}
+<section class="bg-zinc-900/40 border border-zinc-700 rounded-xl p-5">
+
+  {# Заголовок варианта #}
+  <header class="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+    <h2 class="text-lg font-semibold">
+      Вариант <span class="text-indigo-400">{{ v.manufacturer }}</span>
+    </h2>
+    <div class="text-right">
+      <div class="text-2xl font-semibold text-zinc-100">
+        ${{ '%.0f'|format(v.total_usd or 0) }}
+      </div>
+      <div class="text-sm text-zinc-400">
+        ≈ {{ _rub(v.total_rub) }} ₽
+      </div>
+    </div>
+  </header>
+
+  {% if v.used_transit %}
+    <div class="mb-3 text-xs text-amber-400">
+      Включает позиции из транзита (не на складе).
+    </div>
+  {% endif %}
+
+  <table class="w-full table-auto text-sm border-collapse">
+    <thead>
+      <tr class="text-xs uppercase tracking-wide text-zinc-500
+                 border-b border-zinc-700">
+        <th class="px-3 py-2 w-28 text-left font-normal">Категория</th>
+        <th class="px-3 py-2 w-auto text-left font-normal">Название</th>
+        <th class="px-3 py-2 w-40 text-left font-normal">Артикул</th>
+        <th class="px-3 py-2 w-36 text-left font-normal">Поставщик</th>
+        <th class="px-3 py-2 w-20 text-right font-normal">Цена $</th>
+        <th class="px-3 py-2 w-24 text-right font-normal">Цена ₽</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat in category_order %}
+        {% set c = v.components.get(cat) %}
+        {% if c %}
+          {{ _component_row(c, category_label.get(cat, cat)) }}
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {# Предупреждения по сборке: отдельная карточка с жёлтой рамкой. #}
+  {% if v.warnings %}
+    <aside class="mt-4 bg-amber-900/20 border border-amber-700/60
+                  rounded-xl p-4">
+      <div class="text-xs uppercase tracking-wide text-amber-300
+                  font-medium mb-2">
+        Предупреждения по сборке
+      </div>
+      <ul class="list-disc list-inside text-sm text-amber-200/90 space-y-1">
+        {% for w in v.warnings %}<li>{{ w }}</li>{% endfor %}
+      </ul>
+    </aside>
+  {% endif %}
+
+</section>
+{%- endmacro %}

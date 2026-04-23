@@ -237,7 +237,7 @@ def _block_psu(psu_raw: dict) -> str | None:
 # Публичная функция
 # ---------------------------------------------------------------------
 
-_FALLBACK_PREFIX = "Системный блок"
+_PREFIX = "Системный блок"
 
 
 def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
@@ -247,8 +247,14 @@ def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
     компоненте лежит raw_specs (dict с socket, power_watts, capacity_gb…).
     Несколько накопителей берутся из variant['storages_list'].
 
-    Если все существенные блоки пустые — возвращает
-    «Конфигурация #<id> · <manufacturer>» (fallback_id=query_id).
+    Формат (правка после live-проверки 6.2):
+      «Системный блок <CPU модель+частоты> / <socket> / <RAM> /
+       <Storage> / <GPU?> / <case ff> / <PSU>W»
+
+    Префикс «Системный блок» склеивается с CPU-блоком через пробел,
+    остальное — через « / ». Если CPU-блока нет, но есть хоть
+    что-то полезное — строка начинается с «Системный блок / …».
+    Если блоков нет вообще — fallback «Конфигурация #<id> · <mfg>».
     """
     comps = variant.get("components") or {}
 
@@ -269,25 +275,33 @@ def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
         # Запасной путь, если storages_list не заполнен вызывающим кодом.
         storages = [comps["storage"]]
 
-    blocks: list[str | None] = [
-        _FALLBACK_PREFIX,
+    cpu_block = _block_cpu(_model("cpu"), cpu_raw)
+
+    # Остальные блоки — в том порядке, в котором они появляются в имени.
+    tail_blocks: list[str | None] = [
         _block_socket(cpu_raw, mb_raw),
-        _block_cpu(_model("cpu"), cpu_raw),
         _block_ram(ram_raw),
         _block_storage(storages),
         _block_gpu(_model("gpu")) if comps.get("gpu") else None,
         _block_case_ff(mb_raw),
         _block_psu(psu_raw),
     ]
-    parts = [b for b in blocks if b]
+    tail = [b for b in tail_blocks if b]
 
-    # Значимыми считаем всё, кроме первого «Системный блок». Если
-    # больше ничего нет — отдаём fallback, чтобы строка не была
-    # вырожденной.
-    if len(parts) <= 1:
-        manuf = variant.get("manufacturer") or "—"
-        if fallback_id is not None:
-            return f"Конфигурация #{fallback_id} · {manuf}"
-        return f"Конфигурация · {manuf}"
+    # Головной блок: «Системный блок Intel Core i5-12400F 2.5/4.4GHz»,
+    # если CPU есть; иначе просто «Системный блок».
+    if cpu_block:
+        head = f"{_PREFIX} {cpu_block}"
+    else:
+        head = _PREFIX
 
-    return " / ".join(parts)
+    if cpu_block or tail:
+        if tail:
+            return head + " / " + " / ".join(tail)
+        return head
+
+    # Ничего нет — fallback, чтобы строка не была вырожденной.
+    manuf = variant.get("manufacturer") or "—"
+    if fallback_id is not None:
+        return f"Конфигурация #{fallback_id} · {manuf}"
+    return f"Конфигурация · {manuf}"

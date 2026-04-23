@@ -72,7 +72,7 @@ def test_full_gaming_build_example_1():
         psu=_comp("psu", model="Be Quiet 450W", power_watts=450),
     )
     assert generate_auto_name(v) == (
-        "Системный блок / LGA1700 / Intel Core i5-12400F 2.5/4.4GHz / "
+        "Системный блок Intel Core i5-12400F 2.5/4.4GHz / LGA1700 / "
         "16GB DDR4 / 512GB SSD / RTX 3050 / mATX / 450W"
     )
 
@@ -88,7 +88,7 @@ def test_office_without_gpu_example_2():
         psu=_comp("psu", power_watts=450),
     )
     assert generate_auto_name(v) == (
-        "Системный блок / LGA1700 / Intel Core i5-12400 2.5/4.4GHz / "
+        "Системный блок Intel Core i5-12400 2.5/4.4GHz / LGA1700 / "
         "16GB DDR4 / 512GB SSD / mATX / 450W"
     )
 
@@ -107,7 +107,7 @@ def test_two_storages_combined_with_plus_example_3():
         psu=_comp("psu", power_watts=650),
     )
     assert generate_auto_name(v) == (
-        "Системный блок / AM5 / AMD Ryzen 5 7600 3.8/5.1GHz / "
+        "Системный блок AMD Ryzen 5 7600 3.8/5.1GHz / AM5 / "
         "32GB DDR5 / 1TB SSD + 2TB HDD / ATX / 650W"
     )
 
@@ -142,8 +142,10 @@ def test_missing_psu_skipped():
         ram=_comp("ram", memory_type="DDR4", module_size_gb=8, modules_count=1),
     )
     name = generate_auto_name(v)
-    assert "W" not in name.split("/")[-1]  # последнего блока 450W нет
-    assert name.startswith("Системный блок / LGA1700 /")
+    # Последний блок — RAM, никакого «450W».
+    assert not name.rstrip().endswith("W")
+    # Голова строки — CPU-блок вплотную к «Системный блок».
+    assert name.startswith("Системный блок Intel Core i5-12400 2.5/4.4GHz / LGA1700 /")
 
 
 def test_missing_ram_block_skipped():
@@ -153,7 +155,8 @@ def test_missing_ram_block_skipped():
     )
     name = generate_auto_name(v)
     assert "GB DDR" not in name
-    assert "GB" not in name.split(" / ")[2]  # 3-й блок — это CPU
+    # Только два блока: «Системный блок <CPU>» и «LGA1700».
+    assert name == "Системный блок Intel Core i5-12400 2.5/4.4GHz / LGA1700"
 
 
 # ---------------------------------------------------------------------
@@ -190,6 +193,8 @@ def test_gpu_model_extracted_rtx():
                   base_clock_ghz=2.5, turbo_clock_ghz=4.4),
         gpu=_comp("gpu", model="GIGABYTE GeForce RTX 4060 Gaming OC 8G"),
     )
+    # Первый кусок теперь — «Системный блок <CPU>», поэтому по « / »
+    # он не разбивается и в parts не попадает. GPU-блок ищем в хвосте.
     parts = generate_auto_name(v).split(" / ")
     assert "RTX 4060" in parts
 
@@ -230,8 +235,31 @@ def test_fallback_when_only_model_no_freq_returns_cpu_block_alone():
         cpu=_comp("cpu", model="Intel Core i3-12100F"),
     )
     name = generate_auto_name(v, fallback_id=7)
-    assert name.startswith("Системный блок / Intel Core i3-12100F")
+    # CPU клеится к префиксу через пробел, без слэша.
+    assert name == "Системный блок Intel Core i3-12100F"
     assert "Конфигурация" not in name
+
+
+def test_name_starts_with_prefix_space_cpu_not_slash():
+    """Контрольный тест новой склейки: префикс и CPU — через пробел."""
+    v = _variant(
+        cpu=_comp("cpu", model="Intel Core i5-12400F", socket="LGA1700",
+                  base_clock_ghz=2.5, turbo_clock_ghz=4.4),
+        ram=_comp("ram", memory_type="DDR4", module_size_gb=16, modules_count=1),
+    )
+    name = generate_auto_name(v)
+    assert name.startswith("Системный блок Intel Core i5-12400F 2.5/4.4GHz / ")
+    # После префикса перед CPU не должно быть слэша.
+    assert not name.startswith("Системный блок /")
+
+
+def test_prefix_uses_slash_when_cpu_block_missing():
+    """Если CPU нет, но RAM есть — «Системный блок / 16GB DDR4»."""
+    v = _variant(
+        ram=_comp("ram", memory_type="DDR4", module_size_gb=16, modules_count=1),
+    )
+    name = generate_auto_name(v)
+    assert name == "Системный блок / 16GB DDR4"
 
 
 # ---------------------------------------------------------------------

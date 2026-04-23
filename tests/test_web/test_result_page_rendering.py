@@ -152,20 +152,20 @@ def test_scenario_a_single_variant_long_gpu_name(
     )
     _dump_html("scen_a_single_variant_long_gpu", html)
 
-    # Карточная сетка подключена
-    assert 'grid-cols-1' in html and 'lg:grid-cols-2' in html
-    assert 'auto-rows-fr' in html
-    # Длинное имя GPU присутствует целиком и не обрезано сервером
+    # Этап 6.2: на /query/{id} теперь компактная таблица вместо карточек.
+    assert "<table" in html
+    assert "<thead>" in html
+    # Колонки таблицы
+    for col in ("Категория", "Название", "Артикул", "Поставщик"):
+        assert col in html
+    # Длинное имя GPU присутствует целиком
     assert long_gpu in html
-    # Характеристики подтянуты
+    # Характеристики подтянуты (вторая строка в ячейке Название)
     assert "8C/16T · 4.5/5.4GHz · AM5" in html
     assert "16GB GDDR6X · 285W" in html
     assert "16GB × 2 · DDR5-6000" in html
     # Транзит отмечен
     assert "транзит" in html
-    # Таблица старого формата удалена
-    assert "<thead>" not in html
-    assert "<table" not in html
     # Заголовок варианта
     assert "Вариант" in html and "AMD" in html
 
@@ -221,10 +221,11 @@ def test_scenario_b_two_variants_stacked(
     )
     _dump_html("scen_b_two_variants", html)
 
-    # Оба варианта присутствуют и идут друг под другом (space-y-6).
+    # Оба варианта присутствуют и идут друг под другом.
     assert html.count("Вариант") >= 2
     assert "Intel" in html and "AMD" in html
-    assert "space-y-6" in html
+    # Обе таблицы отрисованы.
+    assert html.count("<table") >= 2
     # Характеристики подтянуты для обоих CPU.
     assert "6C/12T · 2.5/4.4GHz · LGA1700" in html
     assert "6C/12T · 3.8/5.1GHz · AM5" in html

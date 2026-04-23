@@ -16,7 +16,11 @@
     show_delete_btn  — показывать ли форму «Удалить конфигурацию».
     delete_action    — url для формы удаления (если show_delete_btn).
 #}
-{% from "_macros/variant_block.html" import variant_block %}
+{# Для страницы проекта и /query/{id} используем компактную таблицу
+   вместо карточной раскладки — чтобы несколько конфигураций подряд
+   не делали страницу непрактично длинной. Макрос variant_block
+   с карточками оставлен рядом для возможного переиспользования. #}
+{% from "_macros/variant_table.html" import variant_table %}
 
 {% macro configuration_block(cfg, selected_of_cfg, category_order, category_label,
                               show_delete_btn=false, delete_action="",
@@ -105,7 +109,7 @@
               </span>
             {% endif %}
           </div>
-          {{ variant_block(v, category_order, category_label) }}
+          {{ variant_table(v, category_order, category_label) }}
         </div>
       {% endfor %}
     </div>
