@@ -79,7 +79,13 @@ def _apply_migrations(engine) -> None:
 def db_engine():
     """Создаёт движок и один раз на сессию проливает все миграции."""
     from app.config import settings
-    engine = create_engine(settings.test_database_url, future=True)
+    # client_encoding=utf8 — защита от UnicodeDecodeError на русской Windows
+    # (аналогичный фикс в app/database.py).
+    engine = create_engine(
+        settings.test_database_url,
+        future=True,
+        connect_args={"client_encoding": "utf8"},
+    )
     try:
         _drop_all_known_tables(engine)
         _apply_migrations(engine)
