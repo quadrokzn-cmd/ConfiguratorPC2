@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}КВАДРО-ТЕХ: конфигуратор ПК{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Простой спиннер для индикатора «обрабатываем запрос» */
+    .kt-spinner {
+      width: 1rem; height: 1rem;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: kt-spin 0.8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @keyframes kt-spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="bg-zinc-900 text-zinc-100 min-h-screen antialiased">
+  <header class="bg-zinc-950 border-b border-zinc-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 text-zinc-100 hover:text-indigo-400 transition">
+        <span class="text-indigo-400 font-semibold">КВАДРО-ТЕХ</span>
+        <span class="text-zinc-500 text-sm">/ конфигуратор ПК</span>
+      </a>
+      {% if user %}
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="/" class="text-zinc-300 hover:text-indigo-400">Новый запрос</a>
+        <a href="/history" class="text-zinc-300 hover:text-indigo-400">История</a>
+        {% if user.is_admin %}
+        <a href="/admin" class="text-zinc-300 hover:text-indigo-400">Админка</a>
+        {% endif %}
+        <span class="text-zinc-500">|</span>
+        <span class="text-zinc-400">{{ user.name }} <span class="text-zinc-600">({{ user.login }})</span></span>
+        <form method="post" action="/logout" class="inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button type="submit"
+                  class="text-zinc-400 hover:text-red-400 transition">
+            Выйти
+          </button>
+        </form>
+      </nav>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 py-6 text-xs text-zinc-600">
+    КВАДРО-ТЕХ · внутренний сервис подбора ПК
+  </footer>
+</body>
+</html>

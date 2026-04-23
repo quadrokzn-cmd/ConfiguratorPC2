@@ -1,11 +1,49 @@
-# Точка входа FastAPI-приложения.
-# Полное наполнение будет добавлено на следующих этапах.
+# Точка входа FastAPI-приложения (этап 5).
+#
+# Подключает:
+#   - SessionMiddleware (подписанные cookie для сессий);
+#   - роутеры auth_router, main_router, admin_router;
+#   - обработчик LoginRequiredRedirect → 302 на /login.
 
-from fastapi import FastAPI
+from __future__ import annotations
+
+from fastapi import FastAPI, Request, status
+from fastapi.responses import RedirectResponse
+from starlette.middleware.sessions import SessionMiddleware
+
+from app.auth import LoginRequiredRedirect
+from app.config import settings
+from app.routers import admin_router, auth_router, main_router
+
 
 app = FastAPI(title="КВАДРО-ТЕХ: сервис-конфигуратор ПК")
 
 
-@app.get("/")
-def root():
-    return {"status": "ok", "service": "КВАДРО-ТЕХ конфигуратор"}
+# Сессии — подписанные cookie. SESSION_SECRET_KEY задаётся в .env.
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.session_secret_key,
+    session_cookie="kt_session",
+    # 30 дней; менеджер вряд ли хочет логиниться каждую неделю.
+    max_age=60 * 60 * 24 * 30,
+    same_site="lax",
+    https_only=False,   # локально https нет; в проде будет True
+)
+
+
+@app.exception_handler(LoginRequiredRedirect)
+def _redirect_to_login(request: Request, exc: LoginRequiredRedirect):
+    """Неавторизованный заход на защищённый роут → /login."""
+    return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
+
+
+# Роутеры
+app.include_router(auth_router.router)
+app.include_router(admin_router.router)   # /admin/* — подключаем раньше /
+app.include_router(main_router.router)
+
+
+@app.get("/healthz")
+def healthz():
+    """Проверка живости. Не требует авторизации."""
+    return {"status": "ok"}

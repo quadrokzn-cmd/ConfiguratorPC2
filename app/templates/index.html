@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Новый запрос — КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-10">
+  <h1 class="text-2xl font-semibold mb-6">Новый запрос</h1>
+
+  {% if error %}
+  <div class="bg-red-900/40 border border-red-800 text-red-200
+              text-sm px-3 py-2 rounded-lg mb-4">
+    {{ error }}
+  </div>
+  {% endif %}
+
+  <form method="post" action="/query" id="query-form"
+        class="space-y-4 bg-zinc-800 p-6 rounded-xl border border-zinc-700">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-1">
+        Название проекта <span class="text-zinc-600">(необязательно)</span>
+      </label>
+      <input name="project_name" type="text" maxlength="200"
+             placeholder="Например: ПК для бухгалтерии"
+             class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
+                    px-3 py-2 text-zinc-100 focus:outline-none
+                    focus:ring-2 focus:ring-indigo-500">
+    </div>
+
+    <div>
+      <label class="block text-sm text-zinc-400 mb-1">Запрос</label>
+      <textarea name="raw_text" rows="7" required
+                placeholder="Например: игровой ПК до 100 тысяч, RTX 4060, Ryzen 5"
+                class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
+                       px-3 py-2 text-zinc-100 focus:outline-none
+                       focus:ring-2 focus:ring-indigo-500"></textarea>
+      <p class="mt-2 text-xs text-zinc-500">
+        Пишите свободным текстом: назначение, бюджет, желаемые компоненты.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button id="submit-btn" type="submit"
+              class="bg-indigo-600 hover:bg-indigo-500 text-white
+                     font-medium px-5 py-2 rounded-lg transition
+                     disabled:opacity-50 disabled:cursor-not-allowed
+                     flex items-center gap-2">
+        <span id="submit-label">Подобрать</span>
+        <span id="submit-spinner" class="kt-spinner hidden"></span>
+      </button>
+      <span id="submit-hint" class="text-sm text-zinc-500 hidden">
+        Обрабатываем запрос, это займёт 5-15 секунд…
+      </span>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Минимальный фронт: блокируем кнопку и показываем спиннер, чтобы
+  // менеджер не нажимал отправить повторно, пока идёт запрос к OpenAI.
+  (function () {
+    var form    = document.getElementById('query-form');
+    var btn     = document.getElementById('submit-btn');
+    var label   = document.getElementById('submit-label');
+    var spinner = document.getElementById('submit-spinner');
+    var hint    = document.getElementById('submit-hint');
+    if (!form) return;
+    form.addEventListener('submit', function () {
+      btn.disabled = true;
+      label.textContent = 'Обрабатываем…';
+      spinner.classList.remove('hidden');
+      hint.classList.remove('hidden');
+    });
+  })();
+</script>
+{% endblock %}
