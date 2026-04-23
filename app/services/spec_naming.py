@@ -74,6 +74,11 @@ def _short_cpu_model(raw: str | None) -> str | None:
             best_idx = idx
     if best_idx is not None:
         s = s[best_idx:].strip()
+    else:
+        # Маркера нет (редкий случай, OEM-бренд без Intel/AMD в имени) —
+        # уберём хотя бы префикс «Процессор/ CPU …», чтобы он не попал
+        # в автоназвание.
+        s = _strip_category_prefix(s)
     return s or None
 
 
@@ -82,11 +87,27 @@ def _short_cpu_model(raw: str | None) -> str | None:
 # а не «RX 7600».
 _GPU_MARKERS = ("Radeon RX", "Radeon", "GeForce RTX", "GeForce GTX", "RTX", "GTX", "Arc")
 
+# Регулярка срезает префикс категории в имени компонента — такой
+# префикс часто встречается в прайсах OCS: «Видеокарта/ GT710…»,
+# «Процессор/ CPU…», «Материнская плата/ PRIME…». Срабатывает только
+# если слэш встречается в начале строки (первые ~30 символов), иначе
+# риск отрезать что-то осмысленное.
+_CATEGORY_PREFIX_RE = re.compile(r"^[^/]{1,30}/\s*")
+
+
+def _strip_category_prefix(s: str) -> str:
+    """Убирает ведущий «Категория/» из имени компонента, если он есть."""
+    return _CATEGORY_PREFIX_RE.sub("", s, count=1)
+
 
 def _short_gpu_model(raw: str | None) -> str | None:
     """Короткое имя видеокарты: «RTX 4060», «Radeon RX 7600», «Arc A770».
 
-    Если маркер не найден — возвращаем исходную строку (как оговорено в ТЗ).
+    Если маркер найден — возвращается он + номер модели.
+    Если нет — возвращается исходная строка с ОБРЕЗАННЫМ префиксом
+    категории (например, «Видеокарта/ GT710-SL-2GD5-BRK-EVO» →
+    «GT710-SL-2GD5-BRK-EVO»), чтобы в автоназвании не появлялся
+    хвост из прайса.
     """
     if not raw:
         return None
@@ -102,7 +123,9 @@ def _short_gpu_model(raw: str | None) -> str | None:
         if best is None or idx < best[0]:
             best = (idx, marker)
     if best is None:
-        return s or None
+        # Маркер не найден: чистим префикс «Видеокарта/ …» и отдаём
+        # оставшееся как есть.
+        return _strip_category_prefix(s) or None
     idx, marker = best
     tail = s[idx + len(marker):].strip()
     # Берём следующее «слово» (буквенно-цифровое), например «4060», «A770», «7600 XT».

@@ -148,3 +148,68 @@ def test_variant_table_no_sku_shown_as_dash(manager_client, mock_process_query):
     assert "Intel Core i3-12100F" in html
     # Для пустого SKU — прочерк.
     assert "—" in html
+
+
+def test_variant_table_rows_follow_business_order(manager_client, mock_process_query):
+    """Порядок строк в таблице: CPU → Cooler → Motherboard → RAM →
+    Storage → GPU → Case → PSU. Отсутствующие категории пропускаются."""
+    variant = Variant(
+        manufacturer="Intel",
+        components=[
+            # Добавляем в «случайном» порядке — рендер должен
+            # упорядочить по _CATEGORY_ORDER.
+            _component("psu",         9, "PSU-MODEL",     "S", 60, 5400),
+            _component("ram",         3, "RAM-MODEL",     "S", 40, 3600),
+            _component("cpu",         1, "CPU-MODEL",     "S", 200, 18000),
+            _component("motherboard", 2, "MOBO-MODEL",    "S", 120, 10800),
+            _component("storage",     5, "STORAGE-MODEL", "S", 50, 4500),
+            _component("gpu",         7, "GPU-MODEL",     "S", 300, 27000),
+            _component("case",        8, "CASE-MODEL",    "S", 70, 6300),
+            _component("cooler",     10, "COOLER-MODEL",  "S", 30, 2700),
+        ],
+        total_usd=870, total_rub=78300,
+    )
+    _set_response(mock_process_query, variant)
+    html = _submit(manager_client)
+
+    # Ищем позиции маркер-строк в вёрстке — порядок должен быть
+    # в точности бизнес-порядок.
+    markers = [
+        "CPU-MODEL", "COOLER-MODEL", "MOBO-MODEL", "RAM-MODEL",
+        "STORAGE-MODEL", "GPU-MODEL", "CASE-MODEL", "PSU-MODEL",
+    ]
+    positions = [html.find(m) for m in markers]
+    assert all(p != -1 for p in positions), positions
+    assert positions == sorted(positions), (
+        f"Порядок строк нарушен: {list(zip(markers, positions))}"
+    )
+
+
+def test_variant_table_missing_gpu_is_skipped(manager_client, mock_process_query):
+    """Офисная сборка без GPU: соответствующий ряд отсутствует,
+    остальные идут подряд без пробелов."""
+    variant = Variant(
+        manufacturer="Intel",
+        components=[
+            _component("cpu",         1, "OFFICE-CPU",   "S", 120, 10800),
+            _component("motherboard", 2, "OFFICE-MOBO",  "S",  80,  7200),
+            _component("ram",         3, "OFFICE-RAM",   "S",  40,  3600),
+            _component("storage",     5, "OFFICE-SSD",   "S",  50,  4500),
+            _component("case",        8, "OFFICE-CASE",  "S",  60,  5400),
+            _component("psu",         9, "OFFICE-PSU",   "S",  55,  4950),
+        ],
+        total_usd=405, total_rub=36450,
+    )
+    _set_response(mock_process_query, variant)
+    html = _submit(manager_client)
+
+    # GPU-строки нет (в этой сборке такой нет).
+    assert "GPU-MODEL" not in html
+    # Порядок оставшихся сохранён.
+    markers = [
+        "OFFICE-CPU", "OFFICE-MOBO", "OFFICE-RAM",
+        "OFFICE-SSD", "OFFICE-CASE", "OFFICE-PSU",
+    ]
+    positions = [html.find(m) for m in markers]
+    assert all(p != -1 for p in positions)
+    assert positions == sorted(positions)

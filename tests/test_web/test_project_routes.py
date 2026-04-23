@@ -456,3 +456,31 @@ def test_csrf_required_on_ajax_deselect(manager_client, mock_process_query):
         json={"query_id": qid, "variant_manufacturer": "Intel"},
     )
     assert r.status_code == 400
+
+
+# ==========================================================================
+# Панель спецификации: без дубля «Вариант Intel/AMD»
+# ==========================================================================
+
+def test_specification_panel_no_variant_label_under_name(
+    manager_client, both_variants_response
+):
+    """Под строкой спецификации не должно быть подписи «Вариант Intel»
+    или «Вариант AMD» — production/manufacturer уже виден в auto_name
+    («Системный блок Intel Core …» / «Системный блок AMD Ryzen …»)."""
+    pid = _create_project(manager_client)
+    qid = _submit_query_to(manager_client, pid)
+    csrf = extract_csrf(manager_client.get(f"/project/{pid}").text)
+
+    _ajax(manager_client, f"/project/{pid}/select",
+          {"query_id": qid, "variant_manufacturer": "Intel", "quantity": 1},
+          csrf=csrf)
+    _ajax(manager_client, f"/project/{pid}/select",
+          {"query_id": qid, "variant_manufacturer": "AMD", "quantity": 1},
+          csrf=csrf)
+
+    html = manager_client.get(f"/project/{pid}").text
+    # Ищем именно в секции-панели спецификации; для простоты —
+    # вся «Вариант Intel/AMD» подпись в принципе не должна встречаться.
+    assert "Вариант Intel" not in html.split('id="kt-spec-panel"')[1]
+    assert "Вариант AMD" not in html.split('id="kt-spec-panel"')[1]

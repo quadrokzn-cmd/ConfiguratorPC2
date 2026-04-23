@@ -75,9 +75,7 @@
           '<tr data-item-id="' + it.id + '">' +
             '<td class="px-3 py-3 text-zinc-500">' + it.position + '</td>' +
             '<td class="px-3 py-3 text-zinc-100 break-words">' +
-              '<div>' + escapeHtml(it.display_name) + '</div>' +
-              '<div class="text-xs text-zinc-500">Вариант ' +
-                escapeHtml(it.variant_manufacturer) + '</div>' +
+              escapeHtml(it.display_name) +
             '</td>' +
             '<td class="px-3 py-3 text-right text-zinc-300">' + it.quantity + '</td>' +
             '<td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">' +

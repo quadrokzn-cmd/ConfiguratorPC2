@@ -220,6 +220,33 @@ def test_gpu_model_unknown_marker_returns_raw_tail():
     assert "Некая видеокарта Model ABC" in name
 
 
+def test_gpu_strips_category_prefix_when_no_marker():
+    """Префикс «Видеокарта/» из прайса OCS должен отрезаться,
+    если маркеры RTX/GTX/RX/Arc не найдены."""
+    v = _variant(
+        cpu=_comp("cpu", model="Intel Core i3-12100F",
+                  base_clock_ghz=3.3, turbo_clock_ghz=4.3),
+        gpu=_comp("gpu", model="Видеокарта/ GT710-SL-2GD5-BRK-EVO"),
+    )
+    parts = generate_auto_name(v).split(" / ")
+    assert "GT710-SL-2GD5-BRK-EVO" in parts
+    # Префикс не просочился.
+    assert not any("Видеокарта" in p for p in parts)
+
+
+def test_gpu_prefers_marker_over_prefix_stripping():
+    """Если маркер RTX/RX всё же найден — префикс не играет роли,
+    выдаём короткое бытовое название."""
+    v = _variant(
+        cpu=_comp("cpu", model="Intel Core i5-12400",
+                  base_clock_ghz=2.5, turbo_clock_ghz=4.4),
+        gpu=_comp("gpu", model="Видеокарта/ GeForce RTX 3050 LP E 6G OC"),
+    )
+    parts = generate_auto_name(v).split(" / ")
+    assert "RTX 3050" in parts
+    assert not any("Видеокарта" in p for p in parts)
+
+
 # ---------------------------------------------------------------------
 # Fallback
 # ---------------------------------------------------------------------
