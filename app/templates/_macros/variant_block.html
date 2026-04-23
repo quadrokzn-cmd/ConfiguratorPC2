@@ -1,0 +1,143 @@
+{#
+  Макросы для отображения результата подбора в виде карточек.
+
+  Используются:
+    - на /query/{id} — один или два варианта друг под другом;
+    - на странице проекта (этап 6.2) — несколько вариантов подряд.
+
+  Макрос variant_block рендерит один Variant целиком (заголовок
+  с ценой, сетка карточек компонентов, блок предупреждений).
+  Окружающий контейнер страницы макрос не добавляет — это задача
+  вызывающего шаблона.
+#}
+
+
+{# Форматирует число с пробелами как тысячный разделитель: 42 927 #}
+{% macro _rub(value) -%}
+  {{ '{:,.0f}'.format(value|default(0)).replace(',', ' ') }}
+{%- endmacro %}
+
+
+{# Карточка одного компонента сборки.
+   c — dict компонента из enrich_variants_with_specs; ожидаются поля:
+       category, model, sku, quantity, supplier, supplier_sku,
+       price_usd, price_rub, in_transit, also_available_at,
+       specs_short (опционально).
+   label — человекочитаемая подпись категории (CPU / Видеокарта / ...). #}
+{% macro component_card(c, label) -%}
+<article class="flex flex-col bg-zinc-800 border border-zinc-700
+                hover:border-zinc-600 rounded-xl p-4 transition">
+
+  {# Верх: категория слева, цена справа #}
+  <header class="flex items-start justify-between gap-3 mb-3">
+    <span class="text-xs uppercase tracking-wide text-zinc-400 font-medium">
+      {{ label }}
+    </span>
+    <div class="text-right leading-tight shrink-0">
+      <div class="text-xl font-semibold text-zinc-100">
+        ${{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
+      </div>
+      <div class="text-xs text-zinc-400">
+        {{ _rub((c.price_rub or 0) * (c.quantity or 1)) }} ₽
+      </div>
+    </div>
+  </header>
+
+  {# Средняя часть: модель + (опц.) строка характеристик.
+     flex-1 растягивает блок так, чтобы footer прижимался к низу
+     карточки и все карточки в строке были одной высоты. #}
+  <div class="flex-1">
+    <div class="text-zinc-100 font-medium leading-snug break-words"
+         title="{{ c.model }}">
+      {{ c.model }}{% if c.quantity and c.quantity > 1 %}
+        <span class="text-zinc-500 text-sm">×{{ c.quantity }}</span>
+      {% endif %}
+    </div>
+    {% if c.specs_short %}
+      <div class="text-sm text-zinc-300 mt-1">{{ c.specs_short }}</div>
+    {% endif %}
+  </div>
+
+  {# Низ: артикул, поставщик, также доступно у #}
+  <footer class="mt-3 pt-3 border-t border-zinc-700 space-y-1">
+    {% if c.sku %}
+      <div class="text-xs font-mono text-zinc-500 break-all">
+        Артикул: {{ c.sku }}
+      </div>
+    {% endif %}
+    <div class="text-xs text-zinc-500">
+      {{ c.supplier or '—' }}{% if c.supplier_sku %}
+        · № <span class="font-mono">{{ c.supplier_sku }}</span>
+      {% endif %}
+      {% if c.in_transit %}
+        <span class="text-amber-400">· транзит</span>
+      {% endif %}
+    </div>
+    {% if c.also_available_at %}
+      <div class="text-xs text-zinc-600">
+        также у:
+        {{ c.also_available_at | map(attribute='supplier') | join(', ') }}
+      </div>
+    {% endif %}
+  </footer>
+</article>
+{%- endmacro %}
+
+
+{# Блок одной конфигурации: заголовок + сетка карточек + предупреждения.
+   v — dict варианта: manufacturer, total_usd, total_rub, components,
+       warnings, used_transit, path_used.
+   category_order / category_label — передавать из вызывающего шаблона
+   (они уже есть в контексте роута и общие для всех вариантов). #}
+{% macro variant_block(v, category_order, category_label) -%}
+<section class="bg-zinc-900/40 border border-zinc-700 rounded-xl p-5">
+
+  {# Заголовок варианта #}
+  <header class="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+    <h2 class="text-lg font-semibold">
+      Вариант <span class="text-indigo-400">{{ v.manufacturer }}</span>
+    </h2>
+    <div class="text-right">
+      <div class="text-2xl font-semibold text-zinc-100">
+        ${{ '%.0f'|format(v.total_usd or 0) }}
+      </div>
+      <div class="text-sm text-zinc-400">
+        ≈ {{ _rub(v.total_rub) }} ₽
+      </div>
+    </div>
+  </header>
+
+  {% if v.used_transit %}
+    <div class="mb-3 text-xs text-amber-400">
+      Включает позиции из транзита (не на складе).
+    </div>
+  {% endif %}
+
+  {# Сетка карточек: 1 → 2 → 3 колонки в зависимости от ширины.
+     auto-rows-fr выравнивает карточки по высоте в строке. #}
+  <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3
+              auto-rows-fr gap-4">
+    {% for cat in category_order %}
+      {% set c = v.components.get(cat) %}
+      {% if c %}
+        {{ component_card(c, category_label.get(cat, cat)) }}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {# Предупреждения по сборке: отдельная карточка с жёлтой рамкой. #}
+  {% if v.warnings %}
+    <aside class="mt-5 bg-amber-900/20 border border-amber-700/60
+                  rounded-xl p-4">
+      <div class="text-xs uppercase tracking-wide text-amber-300
+                  font-medium mb-2">
+        Предупреждения по сборке
+      </div>
+      <ul class="list-disc list-inside text-sm text-amber-200/90 space-y-1">
+        {% for w in v.warnings %}<li>{{ w }}</li>{% endfor %}
+      </ul>
+    </aside>
+  {% endif %}
+
+</section>
+{%- endmacro %}

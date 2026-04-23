@@ -14,6 +14,7 @@ from app.auth import AuthUser, get_csrf_token, require_login, verify_csrf
 from app.database import get_db
 from app.services import budget_guard, web_service
 from app.services.nlu import process_query
+from app.services.web_result_view import enrich_variants_with_specs
 
 logger = logging.getLogger(__name__)
 
@@ -158,6 +159,10 @@ def query_detail(
         raise HTTPException(status_code=403, detail="Чужой запрос.")
 
     variants = _prepare_variants(q.get("build_result"))
+    # Обогащаем компоненты короткой строкой характеристик (этап 6.1).
+    # Сам подбор/цены не трогаем — только дотягиваем специ для отображения.
+    if variants:
+        enrich_variants_with_specs(variants, db)
     refusal = None
     if q.get("build_result") is not None:
         refusal = q["build_result"].get("refusal_reason")

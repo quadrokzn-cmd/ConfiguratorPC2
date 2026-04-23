@@ -1,25 +1,7 @@
 {% extends "base.html" %}
+{% from "_macros/variant_block.html" import variant_block %}
+
 {% block title %}{{ q.project_name }} — КВАДРО-ТЕХ{% endblock %}
-
-{% macro supplier_cell(c) -%}
-  {% if c %}
-    {{ c.supplier or '—' }}{% if c.in_transit %} <span class="text-amber-400">(транзит)</span>{% endif %}
-  {% else %}—{% endif %}
-{%- endmacro %}
-
-{% macro dash_or(value) -%}
-  {% if value %}{{ value }}{% else %}<span class="text-zinc-600">—</span>{% endif %}
-{%- endmacro %}
-
-{# Моноширинная ячейка-артикул: обрезается до ~8ch, при наведении полное значение в title. #}
-{% macro article_cell(value) -%}
-  {% if value -%}
-    <span class="block max-w-[10rem] truncate font-mono text-xs text-zinc-400"
-          title="{{ value }}">{{ value }}</span>
-  {%- else -%}
-    <span class="text-zinc-600">—</span>
-  {%- endif %}
-{%- endmacro %}
 
 {% block content %}
 <div class="max-w-screen-2xl mx-auto px-4 py-10 space-y-6">
@@ -76,80 +58,13 @@
   </div>
   {% endif %}
 
-  <!-- Варианты сборок -->
+  <!-- Варианты сборок: карточная раскладка -->
   {% if variants %}
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    {% for v in variants %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-      <div class="flex items-baseline justify-between mb-4">
-        <h2 class="text-lg font-semibold">
-          Вариант <span class="text-indigo-400">{{ v.manufacturer }}</span>
-        </h2>
-        <div class="text-right">
-          <div class="text-xl font-semibold text-zinc-100">
-            ${{ '%.0f'|format(v.total_usd) }}
-          </div>
-          <div class="text-sm text-zinc-400">
-            ≈ {{ '{:,.0f}'.format(v.total_rub).replace(',', ' ') }} ₽
-          </div>
-        </div>
-      </div>
-
-      {% if v.used_transit %}
-      <div class="mb-3 text-xs text-amber-400">
-        Включает позиции из транзита (не на складе).
-      </div>
-      {% endif %}
-
-      <div class="overflow-x-auto -mx-5 px-5">
-        <table class="w-full text-sm table-auto">
-          <thead>
-            <tr class="text-zinc-500 border-b border-zinc-700">
-              <th class="text-left font-normal py-2 pr-3 whitespace-nowrap">Категория</th>
-              <th class="text-left font-normal py-2 pr-3 whitespace-nowrap">Артикул</th>
-              <th class="text-left font-normal py-2 pr-3">Модель</th>
-              <th class="text-left font-normal py-2 pr-3 whitespace-nowrap">Поставщик</th>
-              <th class="text-left font-normal py-2 pr-3 whitespace-nowrap">№ у поставщика</th>
-              <th class="text-right font-normal py-2 pr-3 whitespace-nowrap">Цена $</th>
-              <th class="text-right font-normal py-2 whitespace-nowrap">Цена ₽</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-800">
-            {% for cat in category_order %}
-              {% set c = v.components.get(cat) %}
-              {% if c %}
-              <tr>
-                <td class="py-2 pr-3 text-zinc-400 whitespace-nowrap">{{ category_label.get(cat, cat) }}</td>
-                <td class="py-2 pr-3">{{ article_cell(c.sku) }}</td>
-                <td class="py-2 pr-3 text-zinc-100">
-                  {{ c.model }}{% if c.quantity and c.quantity > 1 %} <span class="text-zinc-500">×{{ c.quantity }}</span>{% endif %}
-                </td>
-                <td class="py-2 pr-3 text-zinc-300 whitespace-nowrap">{{ supplier_cell(c) }}</td>
-                <td class="py-2 pr-3">{{ article_cell(c.supplier_sku) }}</td>
-                <td class="py-2 pr-3 text-right text-zinc-100 whitespace-nowrap">
-                  {{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
-                </td>
-                <td class="py-2 text-right text-zinc-400 whitespace-nowrap">
-                  {{ '{:,.0f}'.format((c.price_rub or 0) * (c.quantity or 1)).replace(',', ' ') }}
-                </td>
-              </tr>
-              {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-      {% if v.warnings %}
-      <div class="mt-4 text-sm">
-        <div class="text-zinc-500 mb-1">Предупреждения по сборке:</div>
-        <ul class="list-disc list-inside text-amber-200/90 space-y-1">
-          {% for w in v.warnings %}<li>{{ w }}</li>{% endfor %}
-        </ul>
-      </div>
-      {% endif %}
+    <div class="space-y-6">
+      {% for v in variants %}
+        {{ variant_block(v, category_order, category_label) }}
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
   {% elif refusal %}
     <!-- Отказ подбора -->
     <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
@@ -167,12 +82,14 @@
 
   <!-- Общие предупреждения (fuzzy-замены моделей и пр.) -->
   {% if q.warnings %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-    <div class="text-xs uppercase tracking-wide text-zinc-500 mb-2">Предупреждения</div>
+  <aside class="bg-amber-900/20 border border-amber-700/60 rounded-xl p-5">
+    <div class="text-xs uppercase tracking-wide text-amber-300 font-medium mb-2">
+      Предупреждения
+    </div>
     <ul class="list-disc list-inside text-amber-200/90 text-sm space-y-1">
       {% for w in q.warnings %}<li>{{ w }}</li>{% endfor %}
     </ul>
-  </div>
+  </aside>
   {% endif %}
 
   <!-- Стоимость вызова -->
