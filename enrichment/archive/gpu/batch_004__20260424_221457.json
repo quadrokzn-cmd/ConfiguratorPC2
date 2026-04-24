@@ -1,0 +1,407 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_004",
+  "filled_at": "2026-04-24T21:55:00Z",
+  "items": [
+    {
+      "id": 441,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 442,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2330, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 443,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 444,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 445,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 446,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 447,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 448,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 449,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9070-xt-16g-gddr6"},
+        "video_outputs": {"value": "2xHDMI2.1+2xDP2.1", "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9070-xt-16g-gddr6"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9070-xt-16g-gddr6"}
+      }
+    },
+    {
+      "id": 450,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-9070-xt-16g-gddr6"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-9070-xt-16g-gddr6"}
+      }
+    },
+    {
+      "id": 451,
+      "fields": {
+        "tdp_watts": {"value": 220, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9070-16g-gddr6"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9070-16g-gddr6"}
+      }
+    },
+    {
+      "id": 452,
+      "fields": {
+        "tdp_watts": {"value": 245, "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-16g-gddr6"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-16g-gddr6"},
+        "video_outputs": {"value": "2xHDMI2.1+2xDP2.1", "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-16g-gddr6"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-16g-gddr6"}
+      }
+    },
+    {
+      "id": 453,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1700, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/nitro-radeon-rx-9060-xt-16g-gddr6"}
+      }
+    },
+    {
+      "id": 454,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1700, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-9060-xt-16g-gddr6"}
+      }
+    },
+    {
+      "id": 455,
+      "fields": {
+        "tdp_watts": {"value": 150, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1700, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-9060-xt-8g-gddr6"}
+      }
+    },
+    {
+      "id": 456,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2310, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/"}
+      }
+    },
+    {
+      "id": 457,
+      "fields": {
+        "tdp_watts": {"value": 150, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241676/intel-arc-b570-graphics/specifications.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241676/intel-arc-b570-graphics/specifications.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2500, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241676/intel-arc-b570-graphics/specifications.html"},
+        "memory_clock_mhz": {"value": 19000, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241676/intel-arc-b570-graphics/specifications.html"}
+      }
+    },
+    {
+      "id": 458,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7600.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP1.4", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/"},
+        "core_clock_mhz": {"value": 1770, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/"}
+      }
+    },
+    {
+      "id": 459,
+      "fields": {
+        "tdp_watts": {"value": 190, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2670, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "memory_clock_mhz": {"value": 19000, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"}
+      }
+    },
+    {
+      "id": 460,
+      "fields": {
+        "tdp_watts": {"value": 190, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2670, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"},
+        "memory_clock_mhz": {"value": 19000, "source_url": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/specifications.html"}
+      }
+    },
+    {
+      "id": 461,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7600.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7600.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1720, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7600.html"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7600.html"}
+      }
+    },
+    {
+      "id": 462,
+      "fields": {
+        "tdp_watts": {"value": 220, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html"}
+      }
+    },
+    {
+      "id": 463,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1660, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html"}
+      }
+    },
+    {
+      "id": 464,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 465,
+      "fields": {
+        "tdp_watts": {"value": 38, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "video_outputs": {"value": "1xVGA+1xDVI-D+1xHDMI1.4", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "core_clock_mhz": {"value": 902, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"},
+        "memory_clock_mhz": {"value": 5010, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt730-sl-2gd5-brk/techspec/"}
+      }
+    },
+    {
+      "id": 466,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1050-ti/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1050-ti/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1290, "source_url": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1050-ti/"},
+        "memory_clock_mhz": {"value": 7000, "source_url": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1050-ti/"}
+      }
+    },
+    {
+      "id": 467,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/16-series/geforce-gtx-1650/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/16-series/geforce-gtx-1650/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/16-series/geforce-gtx-1650/"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/16-series/geforce-gtx-1650/"}
+      }
+    },
+    {
+      "id": 468,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1042, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/"}
+      }
+    },
+    {
+      "id": 469,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 470,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 471,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 472,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 473,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 474,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 475,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 476,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 477,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 478,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 479,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 480,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_005",
+  "filled_at": "2026-04-24T21:55:00Z",
+  "items": [
+    {
+      "id": 481,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 482,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 483,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2330, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 484,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2330, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 485,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"}
+      }
+    },
+    {
+      "id": 486,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2330, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 487,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 488,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 489,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 490,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5070-family/"}
+      }
+    },
+    {
+      "id": 491,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 492,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 493,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 494,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 495,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": null, "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    }
+  ]
+}
