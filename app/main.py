@@ -22,6 +22,7 @@ from app.config import settings
 from app.routers import (
     admin_router,
     auth_router,
+    export_router,
     main_router,
     mapping_router,
     project_router,
@@ -58,6 +59,7 @@ app.include_router(auth_router.router)
 app.include_router(mapping_router.router)
 app.include_router(admin_router.router)     # /admin/* — подключаем раньше /
 app.include_router(project_router.router)   # /projects, /project/*
+app.include_router(export_router.router)    # /project/*/export/*
 app.include_router(main_router.router)
 
 

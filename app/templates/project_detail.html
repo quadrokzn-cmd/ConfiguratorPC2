@@ -98,6 +98,20 @@
   <!-- Спецификация (обычный блок в конце страницы, не sticky) -->
   {{ specification_panel(spec_items, spec_totals) }}
 
+  {# Блок экспорта: Excel — этап 8.1, КП — этап 8.2 (дозаполнит параллельный чат). #}
+  <div class="mt-6 p-4 border border-zinc-700 rounded-xl bg-zinc-900">
+    <h3 class="text-lg font-semibold text-zinc-100 mb-3">Экспорт проекта</h3>
+    <div class="flex items-center gap-4 flex-wrap">
+      <a href="/project/{{ project.id }}/export/excel"
+         class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition">
+        Скачать Excel
+      </a>
+      <div id="kp-export-placeholder" class="flex items-center gap-2">
+        {# Этап 8.2: сюда встроится поле «наценка, %» и кнопка «Сформировать КП». #}
+      </div>
+    </div>
+  </div>
+
 </div>
 
 {% if highlight %}
