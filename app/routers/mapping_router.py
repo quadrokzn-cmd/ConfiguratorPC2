@@ -3,6 +3,9 @@
 
 from __future__ import annotations
 
+import logging
+import traceback
+
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -11,6 +14,9 @@ from sqlalchemy.orm import Session
 from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 from app.database import get_db
 from app.services import mapping_service
+
+
+_log = logging.getLogger(__name__)
 
 
 router = APIRouter(prefix="/admin/mapping")
@@ -131,6 +137,11 @@ def mapping_detail(
     except Exception:
         candidates = []
 
+    # best_id — id топового кандидата по score. Список уже отсортирован
+    # по (score DESC, min_price ASC, id), поэтому candidates[0] и есть
+    # лучший. Шаблон по нему pre-select'ит radio-кнопку.
+    best_id = int(candidates[0]["id"]) if candidates else None
+
     return templates.TemplateResponse(
         request,
         "admin/mapping_detail.html",
@@ -139,6 +150,8 @@ def mapping_detail(
             "csrf_token": get_csrf_token(request),
             "row":        row,
             "candidates": candidates,
+            "best_id":    best_id,
+            "flash_error": request.session.pop("mapping_flash_error", None),
         },
     )
 
@@ -157,7 +170,14 @@ def mapping_merge(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Объединяет запись с выбранным компонентом. См. mapping_service.merge_with_component."""
+    """Объединяет запись с выбранным компонентом. См. mapping_service.merge_with_component.
+
+    Любую ошибку превращаем в flash-сообщение и редирект — 500 от этого
+    роута ломает рабочий процесс админа (после редиректа он потерял бы
+    свой выбор и пришлось бы искать запись заново). Валидационные
+    ошибки показываем как есть; неожиданные — логируем полный traceback
+    и отдаём админу общее сообщение.
+    """
     _require_csrf(request, csrf_token)
     try:
         mapping_service.merge_with_component(
@@ -171,6 +191,21 @@ def mapping_merge(
         )
     except ValueError as exc:
         request.session["mapping_flash_error"] = f"Не удалось объединить: {exc}"
+    except Exception as exc:
+        # Откат транзакции обязателен — иначе следующий запрос получит
+        # «current transaction is aborted».
+        try:
+            db.rollback()
+        except Exception:
+            pass
+        _log.error(
+            "Неожиданная ошибка при merge unmapped #%s → component id=%s:\n%s",
+            row_id, target_component_id, traceback.format_exc(),
+        )
+        request.session["mapping_flash_error"] = (
+            f"Внутренняя ошибка при объединении: {type(exc).__name__}. "
+            "См. логи сервера."
+        )
     return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
 
 

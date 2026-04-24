@@ -308,8 +308,12 @@ def test_defer_does_not_change_anything(admin_client, db_session):
 
 
 def test_mapping_score_calculation(admin_client, db_session):
-    """Типовые кейсы расчёта score: brand-only (30), common-model-token (50),
-    near-duplicate (30+50+40=100, обрезанное до 100), пустой (0)."""
+    """Типовые кейсы расчёта score (этап 7.5: MPN — главный сигнал):
+      - brand-only без MPN → 30 (fallback, только бренд);
+      - common-model-token без MPN → 50 (fallback, только токен);
+      - near-duplicate без MPN → 70 (fallback, капнутый _SCORE_FALLBACK_CAP);
+      - точное совпадение MPN → 100.
+    """
     from app.services import mapping_service as ms
 
     _cleanup_fixtures_for_test(db_session)
@@ -321,36 +325,44 @@ def test_mapping_score_calculation(admin_client, db_session):
         sku="CM8071512400F",
     )
 
-    # 1) Только совпадающий бренд.
+    # 1) Только совпадающий бренд, MPN нет.
     u_brand = _insert_unmapped(
         db_session, supplier_id=sid, supplier_sku="SK-BRAND",
         raw_name="совсем другое название",
         status="created_new", brand="Intel",
     )
-    # 2) Общий модельный токен (12400), бренд не совпадает.
+    # 2) Общий модельный токен (12400), бренд не совпадает, MPN нет.
     u_token = _insert_unmapped(
         db_session, supplier_id=sid, supplier_sku="SK-TOK",
         raw_name="Какой-то процессор 12400",
         status="created_new", brand="NoName",
     )
-    # 3) Почти идентичное название + совпадающий бренд.
+    # 3) Почти идентичное название + совпадающий бренд, MPN нет → fallback, cap 70.
     u_near = _insert_unmapped(
         db_session, supplier_id=sid, supplier_sku="SK-NEAR",
         raw_name="Intel Core i5-12400", status="created_new", brand="Intel",
+    )
+    # 4) MPN точно совпадает с sku кандидата → 100.
+    u_mpn = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-MPN",
+        raw_name="Intel Core i5-12400", status="created_new", brand="Intel",
+        mpn="CM8071512400F",
     )
 
     row_brand = ms.get_by_id(db_session, u_brand)
     row_token = ms.get_by_id(db_session, u_token)
     row_near  = ms.get_by_id(db_session, u_near)
+    row_mpn   = ms.get_by_id(db_session, u_mpn)
 
     s_brand, _ = ms.calculate_score(db_session, row_brand)
     s_token, _ = ms.calculate_score(db_session, row_token)
     s_near,  _ = ms.calculate_score(db_session, row_near)
+    s_mpn,   _ = ms.calculate_score(db_session, row_mpn)
 
-    # Строгие равенства: 30, 50, 100.
     assert s_brand == 30
     assert s_token == 50
-    assert s_near  == 100
+    assert s_near  == 70   # fallback, capped
+    assert s_mpn   == 100  # MPN идентичен
 
 
 def test_mapping_list_default_filter_is_suspicious(admin_client, db_session):
@@ -542,7 +554,9 @@ def test_score_excludes_unmapped_candidates(admin_client, db_session):
     )
     score_a2, best_a2 = ms.calculate_score(db_session, row_a)
     assert best_a2 == real_cpu
-    assert score_a2 == 100
+    # Без MPN у unmapped fallback упирается в _SCORE_FALLBACK_CAP (70).
+    # Важна не конкретная цифра, а что реальный компонент найден.
+    assert score_a2 >= 70
 
 
 def test_score_calibration(admin_client, db_session):
@@ -598,7 +612,8 @@ def test_score_calibration(admin_client, db_session):
         status="created_new",
     )
     s4, _ = ms.calculate_score(db_session, ms.get_by_id(db_session, u_near))
-    assert s4 >= 80, f"почти идентичное имя ожидали ≥ 80, получили {s4}"
+    # Без MPN fallback капается до _SCORE_FALLBACK_CAP (70).
+    assert s4 >= 70, f"почти идентичное имя ожидали ≥ 70, получили {s4}"
 
 
 def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
@@ -644,3 +659,245 @@ def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
     # Колонка reason видна (хотя бы одна из типовых строк).
     assert ("бренд" in r.text) or ("модельный токен" in r.text) \
         or ("похожесть имён" in r.text)
+
+
+# ---- этап 7.6: UX и надёжность merge ----------------------------------
+
+
+def test_detail_page_preselects_best_candidate(admin_client, db_session):
+    """На /admin/mapping/{id} по умолчанию выбран (checked) кандидат с
+    лучшим score — тот же, что виден как best_candidate в списке."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+
+    # Два кандидата: «точный» (MPN совпадёт) и «слабый» (только бренд).
+    best = _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400F",
+    )
+    _insert_cpu(
+        db_session, model="Intel Core i5-13400", manufacturer="Intel",
+        sku="CM8071512400-OTHER",
+    )
+
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-PRE",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new", mpn="CM8071512400F",
+    )
+
+    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    assert r.status_code == 200
+    # checked стоит именно на best.
+    import re as _re
+    m = _re.search(r'<input type="radio"[^>]*value="(\d+)"[^>]*checked', r.text)
+    assert m, "Не нашли checked radio на детальной"
+    assert int(m.group(1)) == best
+
+
+def test_detail_page_has_merge_button_at_top(admin_client, db_session):
+    """Кнопка «Объединить с выбранным» находится в той же группе, что
+    «Новый товар» и «Разобраться потом», и ДО таблицы кандидатов."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+    _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400F",
+    )
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-TOP",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new", mpn="CM8071512400F",
+    )
+
+    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    assert r.status_code == 200
+
+    # Кнопка merge находится РАНЬШЕ заголовка таблицы кандидатов.
+    pos_merge = r.text.find("Объединить с выбранным")
+    pos_table = r.text.find("Похожие компоненты в БД")
+    assert pos_merge != -1, "Кнопка merge не найдена"
+    assert pos_table != -1, "Таблица кандидатов не найдена"
+    assert pos_merge < pos_table, (
+        "Кнопка merge должна быть ВЫШЕ таблицы кандидатов, "
+        f"но pos_merge={pos_merge}, pos_table={pos_table}"
+    )
+    # И привязана к форме merge через form="merge-form".
+    assert 'form="merge-form"' in r.text
+
+
+def test_merge_success(admin_client, db_session):
+    """Нормальное объединение: supplier_prices переносится, скелет
+    удаляется, unmapped.status = 'merged'. Повторяет позитивный сценарий
+    из 7.1 как санити-проверку после правок 7.6."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Merlion")
+    real_cpu = _insert_cpu(db_session, model="Real CPU", sku="REAL-1")
+    skeleton = _insert_cpu(db_session, model="Skel CPU", sku="SKEL-1")
+    _insert_price(db_session, supplier_id=sid, component_id=skeleton,
+                  supplier_sku="MER-1")
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="MER-1",
+        raw_name="Real CPU dupe", status="created_new",
+        resolved_component_id=skeleton,
+    )
+
+    r = admin_client.get("/admin/mapping")
+    token = extract_csrf(r.text)
+    r = admin_client.post(
+        f"/admin/mapping/{unmapped_id}/merge",
+        data={"target_component_id": real_cpu, "csrf_token": token},
+    )
+    assert r.status_code == 302
+
+    # supplier_prices на real_cpu.
+    row = db_session.execute(_t(
+        "SELECT component_id FROM supplier_prices WHERE supplier_id = :sid"
+    ), {"sid": sid}).first()
+    assert int(row.component_id) == real_cpu
+    # Скелет удалён.
+    assert db_session.execute(_t(
+        "SELECT id FROM cpus WHERE id = :id"
+    ), {"id": skeleton}).first() is None
+    # unmapped → merged.
+    assert db_session.execute(_t(
+        "SELECT status FROM unmapped_supplier_items WHERE id = :id"
+    ), {"id": unmapped_id}).scalar() == "merged"
+
+
+def test_merge_with_existing_supplier_price(admin_client, db_session):
+    """Если на target уже есть supplier_prices от того же поставщика и
+    категории (UNIQUE sup+cat+component), merge не падает с 500:
+    конфликтующая строка удаляется, новая переносится."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+    real_cpu = _insert_cpu(db_session, model="Real CPU", sku="REAL-PRE")
+    skeleton = _insert_cpu(db_session, model="Skel CPU", sku="SKEL-PRE")
+
+    # У real_cpu ОТ ТОГО ЖЕ поставщика уже есть supplier_prices (старая
+    # загрузка того же SSD) — именно этот кейс ломал merge в 7.5.
+    _insert_price(db_session, supplier_id=sid, component_id=real_cpu,
+                  supplier_sku="TR-OLD", price=999.0)
+    # А у скелета — свежая запись из новой загрузки.
+    _insert_price(db_session, supplier_id=sid, component_id=skeleton,
+                  supplier_sku="TR-NEW", price=1234.0)
+
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="TR-NEW",
+        raw_name="Real CPU", status="created_new",
+        resolved_component_id=skeleton,
+    )
+
+    r = admin_client.get("/admin/mapping")
+    token = extract_csrf(r.text)
+    r = admin_client.post(
+        f"/admin/mapping/{unmapped_id}/merge",
+        data={"target_component_id": real_cpu, "csrf_token": token},
+    )
+    # 302 на /admin/mapping — редирект, НЕ 500.
+    assert r.status_code == 302
+
+    # На real_cpu осталась ОДНА строка — свежая (TR-NEW), конфликтующая
+    # старая (TR-OLD) удалена.
+    rows = db_session.execute(_t(
+        "SELECT supplier_sku, price FROM supplier_prices "
+        "WHERE supplier_id = :sid AND category = 'cpu' AND component_id = :cid "
+        "ORDER BY id"
+    ), {"sid": sid, "cid": real_cpu}).all()
+    assert len(rows) == 1
+    assert rows[0].supplier_sku == "TR-NEW"
+    # Скелет удалён.
+    assert db_session.execute(_t(
+        "SELECT id FROM cpus WHERE id = :id"
+    ), {"id": skeleton}).first() is None
+
+
+def test_merge_self_reference_rejected(admin_client, db_session):
+    """Попытка объединить со скелетом, который принадлежит ДРУГОЙ
+    unmapped-записи, даёт понятную flash-ошибку, а не 500."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Merlion")
+
+    # Скелет, привязанный к другой (посторонней) unmapped-записи.
+    other_skel = _insert_cpu(db_session, model="Other skel", sku="OS-1")
+    _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="OS-1",
+        raw_name="Other skel", status="created_new",
+        resolved_component_id=other_skel,
+    )
+
+    # «Моя» unmapped-запись со своим скелетом.
+    my_skel = _insert_cpu(db_session, model="My skel", sku="MS-1")
+    _insert_price(db_session, supplier_id=sid, component_id=my_skel,
+                  supplier_sku="MS-1")
+    my_unmapped = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="MS-1",
+        raw_name="My raw", status="created_new",
+        resolved_component_id=my_skel,
+    )
+
+    r = admin_client.get("/admin/mapping")
+    token = extract_csrf(r.text)
+    # Пытаемся объединить my_unmapped с other_skel — это «чужой» скелет.
+    r = admin_client.post(
+        f"/admin/mapping/{my_unmapped}/merge",
+        data={"target_component_id": other_skel, "csrf_token": token},
+    )
+    # 302 (редирект с flash), НЕ 500.
+    assert r.status_code == 302
+
+    # Статус my_unmapped не поменялся.
+    status = db_session.execute(_t(
+        "SELECT status FROM unmapped_supplier_items WHERE id = :id"
+    ), {"id": my_unmapped}).scalar()
+    assert status == "created_new"
+    # Flash-ошибка видна на следующем GET.
+    r2 = admin_client.get("/admin/mapping")
+    assert "Не удалось объединить" in r2.text or "скелет" in r2.text.lower()
+
+
+def test_merge_idempotent(admin_client, db_session):
+    """Повторный merge на уже merged-записи не падает, не создаёт
+    дубликатов supplier_prices, не меняет resolved_component_id."""
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+    real_cpu = _insert_cpu(db_session, model="Real", sku="REAL-IDP")
+    skeleton = _insert_cpu(db_session, model="Skel", sku="SKEL-IDP")
+    _insert_price(db_session, supplier_id=sid, component_id=skeleton,
+                  supplier_sku="TR-IDP")
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="TR-IDP",
+        raw_name="Real dupe", status="created_new",
+        resolved_component_id=skeleton,
+    )
+
+    r = admin_client.get("/admin/mapping")
+    token = extract_csrf(r.text)
+    # Первый merge — нормальный.
+    r = admin_client.post(
+        f"/admin/mapping/{unmapped_id}/merge",
+        data={"target_component_id": real_cpu, "csrf_token": token},
+    )
+    assert r.status_code == 302
+
+    # Второй merge на той же записи — должен быть noop, не 500.
+    r = admin_client.get("/admin/mapping")
+    token = extract_csrf(r.text)
+    r = admin_client.post(
+        f"/admin/mapping/{unmapped_id}/merge",
+        data={"target_component_id": real_cpu, "csrf_token": token},
+    )
+    assert r.status_code == 302
+
+    # supplier_prices не задублировался.
+    rows = db_session.execute(_t(
+        "SELECT id FROM supplier_prices WHERE supplier_id = :sid"
+    ), {"sid": sid}).all()
+    assert len(rows) == 1
+    # Статус — всё ещё merged, resolved_component_id — real_cpu.
+    row = db_session.execute(_t(
+        "SELECT status, resolved_component_id FROM unmapped_supplier_items "
+        "WHERE id = :id"
+    ), {"id": unmapped_id}).first()
+    assert row.status == "merged"
+    assert int(row.resolved_component_id) == real_cpu

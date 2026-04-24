@@ -67,8 +67,17 @@
     {% endif %}
   </div>
 
-  <!-- Действия без выбора (confirm/defer) -->
-  <div class="flex gap-3">
+  {% if flash_error %}
+  <div class="bg-rose-900/40 border border-rose-700 rounded-xl p-3 text-rose-200 text-sm">
+    {{ flash_error }}
+  </div>
+  {% endif %}
+
+  <!-- Единая группа действий: confirm / defer / merge.
+       Форма merge висит ниже (оборачивает таблицу кандидатов), но
+       кнопка submit связана с ней через form="merge-form" — это позволяет
+       держать все три кнопки рядом, в верхней части страницы. -->
+  <div class="flex gap-3 flex-wrap">
     <form method="post" action="/admin/mapping/{{ row.id }}/confirm_as_new" class="inline">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <button type="submit"
@@ -83,6 +92,13 @@
         Разобраться потом
       </button>
     </form>
+    {% if candidates %}
+    <button type="submit" form="merge-form" id="merge-submit"
+            {% if best_id is none %}disabled{% endif %}
+            class="bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-900 disabled:text-indigo-300 disabled:cursor-not-allowed text-white font-medium rounded px-5 py-2 text-sm">
+      Объединить с выбранным
+    </button>
+    {% endif %}
   </div>
 
   <!-- Кандидаты в БД -->
@@ -94,10 +110,10 @@
       Можно подтвердить товар как новый.
     </div>
     {% else %}
-    <form method="post" action="/admin/mapping/{{ row.id }}/merge" class="space-y-3">
+    <form method="post" action="/admin/mapping/{{ row.id }}/merge" id="merge-form" class="space-y-3">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm" id="candidates-table">
           <thead class="bg-zinc-900/60 text-zinc-500">
             <tr>
               <th class="text-left font-normal px-3 py-3 w-8"></th>
@@ -113,10 +129,12 @@
           </thead>
           <tbody class="divide-y divide-zinc-700">
             {% for c in candidates %}
-            <tr>
+            {% set is_best = (best_id is not none and c.id == best_id) %}
+            <tr data-row-for="{{ c.id }}"
+                class="{% if is_best %}bg-indigo-900/20 border-l-2 border-indigo-500{% endif %}">
               <td class="px-3 py-3">
                 <input type="radio" name="target_component_id"
-                       value="{{ c.id }}" {% if loop.first %}checked{% endif %}>
+                       value="{{ c.id }}" {% if is_best %}checked{% endif %}>
               </td>
               <td class="px-3 py-3 text-right {% if c.score >= 50 %}text-amber-300 font-semibold{% else %}text-zinc-400{% endif %}">
                 {{ c.score }}
@@ -135,11 +153,31 @@
           </tbody>
         </table>
       </div>
-      <button type="submit"
-              class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-5 py-2 text-sm">
-        Объединить с выбранным
-      </button>
     </form>
+    <script>
+      // При выборе radio: снимаем disabled с merge-submit и
+      // переносим visual highlight на выбранную строку.
+      (function () {
+        var form = document.getElementById('merge-form');
+        var btn  = document.getElementById('merge-submit');
+        if (!form || !btn) return;
+        var highlightClasses = ['bg-indigo-900/20', 'border-l-2', 'border-indigo-500'];
+        form.addEventListener('change', function (ev) {
+          var t = ev.target;
+          if (!t || t.name !== 'target_component_id') return;
+          btn.disabled = false;
+          // Снимаем подсветку со всех строк, ставим на выбранную.
+          var rows = form.querySelectorAll('tr[data-row-for]');
+          rows.forEach(function (r) {
+            highlightClasses.forEach(function (cls) { r.classList.remove(cls); });
+          });
+          var selected = form.querySelector('tr[data-row-for="' + t.value + '"]');
+          if (selected) {
+            highlightClasses.forEach(function (cls) { selected.classList.add(cls); });
+          }
+        });
+      })();
+    </script>
     {% endif %}
   </div>
 
