@@ -1,407 +1,407 @@
 {
   "category": "cooler",
   "batch_id": "batch_002",
-  "generated_at": "2026-04-22T13:00:36+00:00",
+  "generated_at": "2026-04-24T13:30:26+00:00",
   "target_fields": [
     "max_tdp_watts"
   ],
   "case_psu_pass": false,
   "items": [
     {
-      "id": 147,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFAN00248A",
-      "model": "Вентилятор корпусной ARCTIC Cooling F12 Value pack Black (5pc)  (ACFAN00248A) (703291) {12}",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 148,
-      "manufacturer": "Lenovo",
-      "sku": "4F17A14497",
-      "model": "Вентилятор Lenovo 4F17A14497 ThinkSystem SR650 V2 Standard Fan Option Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 149,
-      "manufacturer": "Lenovo",
-      "sku": "4F17A14496",
-      "model": "Вентилятор Lenovo 4F17A14496 ThinkSystem SR650 V2 Performance Fan Option Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 150,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFAN00153A",
-      "model": "Вентилятор Arctic Cooling Вентилятор корпусной ARCTIC P8 Value Pack (Black/Black) (5pc)  (ACFAN00153A) (702065)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 155,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFAN00152A",
-      "model": "Вентилятор корпусной ARCTIC Cooling P8 Silent (Black/Black) - retail (ACFAN00152A) (702003)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 156,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFAN00201A",
-      "model": "Вентилятор корпусной ARCTIC Cooling F12 Black - retail (ACFAN00201A) (702942)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 158,
-      "manufacturer": "Chenbro",
-      "sku": "384-FAN000014BA0",
-      "model": "Вентилятор Chenbro 384-FAN000014BA0 AS'Y COMPONENT,RM23812,FAN AS'Y,8038(NIDEC),BULK,REV.A,FOR 3LOGIC,48SET/CTN 130-08038-3111A0=384-FAN000014BA0 {48}",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 160,
-      "manufacturer": "HP",
-      "sku": "P37042-B21",
-      "model": "Кулер HPE ProLiant DL300 Gen10 Plus 2U Standard Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 161,
-      "manufacturer": "HP",
-      "sku": "P26477-B21",
-      "model": "Кулер HPE ProLiant DL36X Gen10 Plus High Performance Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 162,
-      "manufacturer": "HP",
-      "sku": "P37861-B21",
-      "model": "Кулер HPE ProLiant DL36X Gen10 Plus Standard Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 163,
-      "manufacturer": "HP",
-      "sku": "P14608-B21",
-      "model": "Кулер Lenovo HPE DL38X Gen10 Plus Maximum Performance Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 164,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFRE00085A",
-      "model": "Вентилятор Arctic Cooling для процессора  Freezer 7 X CO 1200/1150-56, Ryzen (AM4) RET (ACFRE00085A) (702485)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 165,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFRE00113A",
-      "model": "Вентилятор Arctic Cooling Вентилятор для процессора Arctic Freezer A35 CO AM4 (ACFRE00113A) (703727)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 166,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFAN00239A",
-      "model": "Вентилятор Arctic Cooling ARCTIC P14 PWM PST A-RGB 0dB (Black) - retail (ACFAN00239A)",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 167,
-      "manufacturer": "Raspberry Pi Foundation",
-      "sku": "RPI-LPCOOL",
-      "model": "Вентилятор для процессора Raspberry Pi RPI-LPCOOL     Ice Tower CPU for Raspberry Pi, Low Profile",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 168,
-      "manufacturer": "Raspberry Pi Foundation",
-      "sku": "RPI-ICETOW",
-      "model": "Вентилятор для процессора Raspberry Pi RPI-ICETOW    Ice Tower CPU for Raspberry Pi",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 169,
-      "manufacturer": "HP",
-      "sku": "P48908-B21",
-      "model": "Вентилятор для процессора HPE ProLiant DL3X0 Gen11 1U High Performance Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 170,
-      "manufacturer": "HP",
-      "sku": "P48907-B21",
-      "model": "Вентилятор для процессора HPE ProLiant DL3X0 Gen11 1U Standard Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 171,
-      "manufacturer": "HP",
-      "sku": "P54697-B21",
-      "model": "Вентилятор для процессора HPE ProLiant DL3X0 Gen11 1U 2P Standard Fan Kit",
-      "current": {},
-      "to_fill": [
-        "max_tdp_watts"
-      ]
-    },
-    {
-      "id": 172,
+      "id": 539,
       "manufacturer": "Deepcool",
-      "sku": "R-AN400-BKNNMN-G / R-AN400-SRWNMN-G",
-      "model": "Кулер R-AN400-BKNNMN-G",
+      "sku": "Xfan80",
+      "model": "Вентилятор для корпуса DEEPCOOL Xfan80 80x80x25мм (240шт./кор, пит. от БП, черный, 1800об/мин)  Color BOX (DP-FDC-XF80)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 173,
-      "manufacturer": "Thermalright",
-      "sku": "A-ELITE-BL-240-ARGB-V3",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Aqua Elite 240 V3 (240mm, Black, ARGB/ Fans: 2x120mm, 66.17CFM, 25.6dBA, 1500RPM/ Pump height 53mm, 23dBA, 3300RPM, Rad thickness 27mm/ S: 1700, 1200, 20XX, 115X, AM5, AM4)",
+      "id": 540,
+      "manufacturer": "ID-Cooling",
+      "sku": "NO-8025-SD",
+      "model": "Вентилятор для корпуса ID-COOLING NO-8025-SD 80x80x25мм (136шт./кор, 3pin, черный, 2000об/мин) BOX",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 178,
-      "manufacturer": "Thermalright",
-      "sku": "F-WFRAME--360-PRO-BL-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe Pro 360 Black Argb (360mm, Black, ARGB/ Fans: 3x120mm, 70.84CFM, 29.8dBA, 2000RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1200, 1700, 1851, 2011, 2066, 115X, AM4, AM5)",
+      "id": 541,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma ET20",
+      "model": "Термопаста Ocypus Gamma ET20, 12.5W/m-k, 2g",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 179,
-      "manufacturer": "Thermalright",
-      "sku": "F-WFRAME-360-UL-BL-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe 360 Ultra Black Argb (360mm, Black, ARGB/ Fans: 3x120mm, 70.84CFM, 22.1dBA, 2000RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1200, 1700, 1851, 2011, 2066, 115X, AM5, AM4)",
+      "id": 542,
+      "manufacturer": "Deepcool",
+      "sku": "Z3 PRO",
+      "model": "Термопаста DEEPCOOL Z3 PRO  1.5g (100шт/кор,Thermal Paste: AD66) Blister Card (R-EZ3PRO-G)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 180,
-      "manufacturer": "Thermalright",
-      "sku": "F-WFRAME-360-UL-WH-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe 360 Ultra White Argb (360mm, White, ARGB/ Fans: 3x120mm, 70.84CFM, 29.8dBA, 2000RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1200, 1700, 1851, 2011, 2066, 115X, AM5, AM4)",
+      "id": 543,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 BK",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 BK, 120x120x25mm, 3-PIN, 1300 RPM, 24.5 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 182,
-      "manufacturer": "Corsair",
-      "sku": "CW-9061022-WW",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK TITAN 240 RX LCD (240mm, Black, RGB/ Fans: 2x120mm, 73.5CFM, 36dBA, 2100RPM/ S: 1851, 1700, AM5, AM4)",
+      "id": 544,
+      "manufacturer": "ID-Cooling",
+      "sku": "FROST X05 3g",
+      "model": "Термопаста ID-COOLING FROST X05 3g (200шт/кор,Thermal Paste) Retail",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 183,
-      "manufacturer": "Corsair",
-      "sku": "CW-9061016-WW",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK TITAN 240 RX RGB (240mm, Black, RGB/ Fans: 2x120mm, 73.5CFM, 36dBA, 2100RPM/ S: 1851, 1700, AM5, AM4)",
+      "id": 545,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 WH",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 WH, 120x120x25mm, 3-PIN, 1300 RPM, 24.5 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 184,
-      "manufacturer": "Corsair",
-      "sku": "CW-9061023-WW",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK TITAN 360 RX LCD (360mm, Black, RGB/ Fans: 3x120mm, 73.5CFM, 36dBA, 2100RPM/ S: 1851, 1700, AM5, AM4)",
+      "id": 546,
+      "manufacturer": "ID-Cooling",
+      "sku": "FROST X25 2g",
+      "model": "Термопаста ID-COOLING FROST X25 2g (200шт/кор,Thermal Paste) Retail",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 185,
-      "manufacturer": "Corsair",
-      "sku": "CW-9061003-WW",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK H150i RGB (360mm, Black, RGB/ Fans: 3x120mm, 63.1CFM, 37dBA, 2400RPM/Rad thickness 27mm/ S: 1851, 1700, 1200, 115X, AM5, AM4)",
+      "id": 547,
+      "manufacturer": "Ocypus",
+      "sku": "Beta F12 BK ARGB",
+      "model": "Вентилятор для корпуса Ocypus Beta F12 BK ARGB, 120x120x25mm, 3-PIN, 800-1600 RPM, 29 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 198,
-      "manufacturer": "Thermalright",
-      "sku": "C-MATRIX-VISION-BL-240-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Core Matrix 240 Vision (240mm, LED, Black, ARGB/ Fans: 2x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 64.4mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, AM5, AM4)",
+      "id": 548,
+      "manufacturer": "Ocypus",
+      "sku": "Beta F12 BK ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Beta F12 BK ARGB REVERSE BLADE, 120x120x25mm, 3-PIN, 800-1600 RPM, 29 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 199,
-      "manufacturer": "Thermalright",
-      "sku": "C-MATRIX-VISION-WH-240-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Core Matrix 240 Vision (240mm, LED, White, ARGB/ Fans: 2x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 64.4mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, AM5, AM4)",
+      "id": 549,
+      "manufacturer": "Ocypus",
+      "sku": "Beta F12 WH ARGB",
+      "model": "Вентилятор для корпуса Ocypus Beta F12 WH ARGB, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 29 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 200,
-      "manufacturer": "Thermalright",
-      "sku": "C-VISION-BL-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Core Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 72.37CFM, 27.7dBA, 2000RPM/ Pump height 66mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 550,
+      "manufacturer": "Ocypus",
+      "sku": "Beta F12 WH ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Beta F12 WH ARGB REVERSE BLADE, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 29 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 201,
-      "manufacturer": "Thermalright",
-      "sku": "C-VISION-WH-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Core Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 72.37CFM, 27.7dBA, 2000RPM/ Pump height 66mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 551,
+      "manufacturer": "Zalman",
+      "sku": "ZM-STC8",
+      "model": "Термопаста Zalman ZM-STC8 superconducting thermal compound, thermal conductivity 8.3W/m-k, viscosity 350-480Pa.s",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 202,
-      "manufacturer": "Thermalright",
-      "sku": "E-VISION-BL-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Elite Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 63mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 552,
+      "manufacturer": "Deepcool",
+      "sku": "Xfan120",
+      "model": "Вентилятор для корпуса DEEPCOOL Xfan120 120x120x25мм (64шт./кор, пит. от мат.платы и БП, черный, 1300об/мин)  Retail blister (DP-FDC-XF120)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 203,
-      "manufacturer": "Thermalright",
-      "sku": "E-VISION-WH-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Elite Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 63mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 553,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma ET40",
+      "model": "Термопаста Ocypus Gamma ET40, 12.5W/m-k, 2x2g",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 204,
-      "manufacturer": "Thermalright",
-      "sku": "F-HORIZON-DIGITAL-BL-240-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Frozen Horizon 240 Digital (240mm, LED temp., Black, ARGB/ Fans: 2x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 53.2mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, AM5, AM4)",
+      "id": 554,
+      "manufacturer": "Zalman",
+      "sku": "ZM-F1 Plus (SF)",
+      "model": "Вентилятор для корпуса ZALMAN ZM-F1 PLUS (SF), 80x80x25mm, 3-PIN, 2000 RPM, 20-23DBA, LONG LIFE BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 205,
-      "manufacturer": "Thermalright",
-      "sku": "F-HORIZON-DIGITAL-WH-240-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Frozen Horizon 240 Digital (240mm, LED temp., White, ARGB/ Fans: 2x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 53.2mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, AM5, AM4)",
+      "id": 555,
+      "manufacturer": "Zalman",
+      "sku": "ZM-F2 Plus (SF)",
+      "model": "Вентилятор для корпуса ZALMAN ZM-F2 PLUS (SF), 92x92x25mm, 3-PIN, 1500 RPM, 20-23DBA, LONG LIFE BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 206,
-      "manufacturer": "Thermalright",
-      "sku": "F-HORIZON-DIGITAL-BL-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Frozen Horizon 360 Digital (360mm, LED temp., Black, ARGB/ Fans: 3x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 53.2mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, AM5, AM4)",
+      "id": 557,
+      "manufacturer": "ID-Cooling",
+      "sku": "XF-120-K",
+      "model": "Вентилятор для корпуса ID-COOLING XF-120-K 120x120x25мм (60шт./кор, PWM, Low Noise, резиновые углы, 700-1800об/мин, черный)  BOX",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 207,
-      "manufacturer": "Thermalright",
-      "sku": "F-VISION-BL-360-ARGB-V2",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Frozen Vision 360 V2 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 558,
+      "manufacturer": "ID-Cooling",
+      "sku": "FROST X45 2g",
+      "model": "Термопаста ID-COOLING FROST X45 2g (200шт/кор,Thermal Paste) Retail",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 208,
-      "manufacturer": "Thermalright",
-      "sku": "F-VISION-WH-360-ARGB-V2",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Frozen Vision 360 V2 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 559,
+      "manufacturer": "Zalman",
+      "sku": "ZM-STC10",
+      "model": "Термопаста Zalman ZM-STC10 thermal compound, scoop, 2.0g",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 210,
-      "manufacturer": "Thermalright",
-      "sku": "F-WFRAME-420-ARGB-BL",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe 420 ARGB (420mm, LED, Black, ARGB/ Fans: 3x140mm, 88.7CFM, 29.8dBA, 1750RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1851, 1700, 1200, 115X, 2011, 2066, AM5, AM4)",
+      "id": 560,
+      "manufacturer": "Zalman",
+      "sku": "ZM-F3 (SF)",
+      "model": "Вентилятор для корпуса ZALMAN ZM-F3 (SF), 120x120x25mm, 3-PIN, 1200 RPM, 20-23DBA, LONG LIFE BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 561,
+      "manufacturer": "ID-Cooling",
+      "sku": "AS-120-K",
+      "model": "Вентилятор для корпуса ID-COOLING AS-120-K 120x120x25мм (60шт./кор, PWM, резиновые углы, черный, 300-2000об/мин, супертихий) BOX",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 562,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 BK ARGB",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 BK ARGB, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 563,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 WH ARGB",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 WH ARGB, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 564,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 BK ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 BK ARGB REVERSE BLADE, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 565,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 WH ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 WH ARGB REVERSE BLADE, 120x120x25mm, 4-PIN PWM, 800-1600 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 566,
+      "manufacturer": "ID-Cooling",
+      "sku": "TF-9215-K",
+      "model": "Вентилятор для корпуса ID-COOLING TF-9215-K 92x92x15мм (80шт./кор, PWM, 4pin, черный, резиновые углы, 800-2800об/мин)  BOX",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 568,
+      "manufacturer": "ID-Cooling",
+      "sku": "FROST X25 4g",
+      "model": "Термопаста ID-COOLING FROST X25 4g (200шт/кор,Thermal Paste) Retail",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 569,
+      "manufacturer": "Formula V",
+      "sku": "Air Frost Plus FRGB 3P",
+      "model": "Кулер для процессора Formula V Line Air Frost Plus, 120mm FAN, 3-PIN, 1500 RPM, 24.2DBA, HYDRO BEARING, LGA1700/1200/115x/775, AM5/AM4/AM3+/AM3/AM2+/AM2/FM2/FM1",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 570,
+      "manufacturer": "Ocypus",
+      "sku": "Delta F12 WH",
+      "model": "Вентилятор для корпуса Ocypus Delta F12 WH, 120x120x25mm, 4-PIN PWM, 500-2000 RPM, 29 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 571,
+      "manufacturer": "Zalman",
+      "sku": "ZM-AF120R ARGB WHITE",
+      "model": "Вентилятор для корпуса ZALMAN ZM-AF120R ARGB WHITE, REVERSE, 120x120x25mm, 4-PIN PWM, 800-1500 RPM, 24,3 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 572,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite BK ARGB",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite BK ARGB, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 573,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite WH ARGB",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite WH ARGB, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 574,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite BK ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite BK ARGB REVERSE BLADE, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 575,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite WH ARGB REVERSE BLADE",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite WH ARGB REVERSE BLADE, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 576,
+      "manufacturer": "Zalman",
+      "sku": "ZM-RFD120A",
+      "model": "Вентилятор для корпуса ZALMAN ZM-RFD120A, 120x120x25mm, 3 PIN ADDRESSABLE, 800-1500 RPM, 25.6DBA, HYDRAULIC BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 577,
+      "manufacturer": "Deepcool",
+      "sku": "DEEPCOOL Z10",
+      "model": "Термопаста DEEPCOOL Z10 5g (300шт/кор) Blister Card (DP-TIM-Z10-1)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 578,
+      "manufacturer": "Formula V",
+      "sku": "Verkho 2",
+      "model": "Кулер для процессора Formula V Line Verkho 2, 90mm FAN, 2 HEAT PIPES, 4-PIN PWM, 800-2000 RPM, 15-25DBA, HYDRO BEARING, LGA1700/1200/115x/775, AM5/AM4/AM3+/AM3/AM2+/AM2/FM2/FM1",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 581,
+      "manufacturer": "ID-Cooling",
+      "sku": "FROST X45 4g",
+      "model": "Термопаста ID-COOLING FROST X45 4g (200шт/кор,Thermal Paste) Retail",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 582,
+      "manufacturer": "ID-Cooling",
+      "sku": "AF-125-K",
+      "model": "Вентилятор для корпуса ID-COOLING AF-125-K 120x120x25мм (60шт./кор, PWM, резиновые углы, черный, 500-2000об/мин)  BOX",
       "current": {},
       "to_fill": [
         "max_tdp_watts"

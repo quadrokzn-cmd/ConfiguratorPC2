@@ -1,0 +1,247 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:00:00Z",
+  "items": [
+    {
+      "id": 141,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 399,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 400,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 405,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 406,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 407,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 408,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 409,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 410,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 411,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 412,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 446,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 480,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 481,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 482,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 483,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 484,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 485,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 486,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 487,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 488,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 489,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 490,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 491,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 492,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 493,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 494,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 495,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 496,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 497,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 498,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 499,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 500,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 501,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 502,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 503,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 521,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 522,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 523,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 524,
+      "fields": {
+        "max_tdp_watts": {"value": null, "source_url": "about:blank"}
+      }
+    }
+  ]
+}

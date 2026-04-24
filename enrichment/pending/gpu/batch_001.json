@@ -1,7 +1,7 @@
 {
   "category": "gpu",
   "batch_id": "batch_001",
-  "generated_at": "2026-04-22T13:00:36+00:00",
+  "generated_at": "2026-04-24T13:30:26+00:00",
   "target_fields": [
     "tdp_watts",
     "needs_extra_power",
@@ -14,46 +14,12 @@
   "case_psu_pass": false,
   "items": [
     {
-      "id": 1,
-      "manufacturer": "MSI",
-      "sku": "GT 710 2GD3H LP",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce GT 710 2GB, DDR3/64-bit, PCIe 2.0, 1xD-Sub, 1xDVI-D, 1xHDMI 2.0, 1-slot",
+      "id": 321,
+      "manufacturer": "AFOX",
+      "sku": "AF210-512D3L3-V2",
+      "model": "Видеокарта Afox PCI-E 2.0 AF210-512D3L3-V2 NVIDIA G210 512Mb 64bit DDR3 550/1600 DVIx1 HDMIx1 CRTx1 HDCP Ret low profile",
       "current": {
-        "vram_gb": 2,
         "vram_type": "DDR3"
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz"
-      ]
-    },
-    {
-      "id": 2,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N710D3-2GL",
-      "model": "Видеокарта/ VGA GIGABYTE NVIDIA GeForce GT 710 2GB, DDR3/64-bit, PCIe 2.0, 1xD-Sub, 1xDVI-D, 1xHDMI 1.4, 1-slot",
-      "current": {
-        "vram_gb": 2,
-        "vram_type": "DDR3"
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz"
-      ]
-    },
-    {
-      "id": 3,
-      "manufacturer": "ASUS",
-      "sku": "90YV06N2-M0NA00",
-      "model": "Видеокарта/ GT730-SL-2GD5-BRK",
-      "current": {
-        "vram_gb": 2
       },
       "to_fill": [
         "tdp_watts",
@@ -61,16 +27,33 @@
         "video_outputs",
         "core_clock_mhz",
         "memory_clock_mhz",
-        "vram_type"
+        "vram_gb"
       ]
     },
     {
-      "id": 4,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N1030D4-2GL",
-      "model": "Видеокарта/ VGA GIGABYTE NVIDIA GeForce GT 1030 2GB, DDR4/64-bit, PCIe 3.0, 1xDVI-D, 1xHDMI 2.0, 1-slot",
+      "id": 322,
+      "manufacturer": "AFOX",
+      "sku": "AF730-4096D3L6",
+      "model": "Видеокарта Afox PCI-E 2.0 AF730-4096D3L6 NVIDIA GeForce GT 730 4Gb 128bit GDDR3 700/1333 DVIx1 HDMIx1 CRTx1 HDCP Ret low profile",
       "current": {
-        "vram_gb": 2,
+        "vram_gb": 4,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 323,
+      "manufacturer": "AFOX",
+      "sku": "AF1030-4096D4L2",
+      "model": "Видеокарта Afox PCI-E 3.0 AF1030-4096D4L2 NVIDIA GeForce GT 1030 4Gb 64bit DDR4 1152/2100 DVIx1 HDMIx1 Ret low profile",
+      "current": {
+        "vram_gb": 4,
         "vram_type": "DDR4"
       },
       "to_fill": [
@@ -82,29 +65,13 @@
       ]
     },
     {
-      "id": 5,
-      "manufacturer": "MSI",
-      "sku": "GeForce GT 1030 2GHD4 LP OC",
-      "model": "Видеокарта/ GeForce GT 1030 2GHD4 LP OC",
-      "current": {},
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_gb",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 6,
-      "manufacturer": "MSI",
-      "sku": "GeForce GT 1030 AERO ITX 2GD4 OC",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce GT 1030 AERO ITX 2GD4 OC 2GB, DDR4/64-bit, PCIe 3.0, 1xDVI-D, 1xHDMI 2.0, 2-slot",
+      "id": 324,
+      "manufacturer": "AFOX",
+      "sku": "AF1050TI-4096D5H7-V9",
+      "model": "Видеокарта Afox PCI-E 3.0 AF1050TI-4096D5H7-V9 NVIDIA GeForce GTX 1050TI 4Gb 128bit GDDR5 1291/7000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 2,
-        "vram_type": "DDR4"
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
       },
       "to_fill": [
         "tdp_watts",
@@ -115,10 +82,197 @@
       ]
     },
     {
-      "id": 7,
+      "id": 325,
+      "manufacturer": "AFOX",
+      "sku": "AF2060S-8192D6H4-V2",
+      "model": "Видеокарта Afox PCI-E 3.0 AF2060S-8192D6H4-V2 NVIDIA GeForce RTX 2060SUPER 8Gb 256bit GDDR6 1470/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 326,
+      "manufacturer": "AFOX",
+      "sku": "AF3060-8GD6H4",
+      "model": "Видеокарта Afox PCI-E 4.0 AF3060-8GD6H4 NVIDIA GeForce RTX 3060 8Gb 128bit GDDR6 1320/15000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 327,
+      "manufacturer": "ASROCK",
+      "sku": "A310 LP 4G",
+      "model": "Видеокарта Asrock PCI-E 4.0 A310 LP 4G INTEL ARC A310 4Gb 64bit GDDR6 2000/15500 HDMIx1 DPx1 HDCP Ret low profile",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 328,
+      "manufacturer": "ASROCK",
+      "sku": "A380 CLI 6GO",
+      "model": "Видеокарта Asrock PCI-E 4.0 A380 CLI 6GO INTEL ARC A380 6Gb 96bit GDDR6 2250/15500 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 329,
+      "manufacturer": "ASROCK",
+      "sku": "B570 CL 10GO",
+      "model": "Видеокарта Asrock PCI-E 4.0 B570 CL 10GO INTEL ARC B570 10Gb 160bit GDDR6 2600/19000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 10,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 330,
+      "manufacturer": "ASROCK",
+      "sku": "B580 CL 12GO",
+      "model": "Видеокарта Asrock PCI-E 4.0 B580 CL 12GO INTEL ARC B580 12Gb 192bit GDDR6 2740/19000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 331,
+      "manufacturer": "ASROCK",
+      "sku": "RX7600 CLP 8GO",
+      "model": "Видеокарта Asrock PCI-E 4.0 RX7600 CLP 8GO AMD Radeon RX 7600 8Gb 128bit GDDR6 2280/18000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 332,
+      "manufacturer": "ASROCK",
+      "sku": "RX7600 SL 8GO",
+      "model": "Видеокарта Asrock PCI-E 4.0 RX7600 SL 8GO AMD Radeon RX 7600 8Gb 128bit GDDR6 2320/18000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 333,
+      "manufacturer": "ASROCK",
+      "sku": "RX9060 CL 8G",
+      "model": "Видеокарта Asrock PCI-E 5.0 RX9060 CL 8G AMD Radeon RX 9060 8Gb 128bit GDDR6 2400/18000 HDMIx1 DPx2 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 334,
+      "manufacturer": "ASROCK",
+      "sku": "RX9060XT CL 16GO",
+      "model": "Видеокарта Asrock PCI-E 5.0 RX9060XT CL 16GO AMD Radeon RX 9060XT 16Gb 128bit GDDR6 2700/20000 HDMIx1 DPx2 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 335,
+      "manufacturer": "ASROCK",
+      "sku": "RX9070XT CL 16G",
+      "model": "Видеокарта Asrock PCI-E 5.0 RX9070XT CL 16G AMD Radeon RX 9070XT 16Gb 256bit GDDR6 2400/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 336,
       "manufacturer": "ASUS",
-      "sku": "GT1030-2G-BRK",
-      "model": "Видеокарта/ VGA ASUS NVIDIA GeForce GT 1030 2GB, GDDR5/64-bit, PCIe 3.0, 1xHDMI 2.0, 1xDP, 2-slot  90YV0AT2-M0NA00",
+      "sku": "GT710-SL-2GD5-BRK-EVO",
+      "model": "Видеокарта Asus PCI-E 2.0 GT710-SL-2GD5-BRK-EVO NVIDIA GeForce GT 710 2Gb 64bit GDDR5 954/5012 DVIx1 HDMIx1 CRTx1 HDCP Ret low profile",
       "current": {
         "vram_gb": 2,
         "vram_type": "GDDR5"
@@ -132,30 +286,13 @@
       ]
     },
     {
-      "id": 8,
+      "id": 337,
       "manufacturer": "ASUS",
-      "sku": "90YV0AT0-M0NA00",
-      "model": "Видеокарта/ GT1030-SL-2G-BRK",
+      "sku": "GT730-4H-SL-2GD5",
+      "model": "Видеокарта Asus PCI-E 2.0 GT730-4H-SL-2GD5 NVIDIA GeForce GT 730 2Gb 64bit GDDR5 902/5010 HDMIx4 HDCP Ret",
       "current": {
-        "vram_gb": 2
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 9,
-      "manufacturer": "PNY",
-      "sku": "VCQRTX4000BLK-1",
-      "model": "Видеокарта/ VGA PNY NVIDIA Quadro RTX 4000 (Turing TU106), 8GB GDDR6/256 bit, PCI Express 3.0 16x, 3xDP, DisplayPort-DVI-D, USB Type-C, 1xStereo, 1xSync",
-      "current": {
-        "vram_gb": 8,
-        "vram_type": "GDDR6"
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
       },
       "to_fill": [
         "tdp_watts",
@@ -166,30 +303,13 @@
       ]
     },
     {
-      "id": 10,
+      "id": 338,
       "manufacturer": "ASUS",
-      "sku": "90YV0H20-M0NA00",
-      "model": "Видеокарта/ GT730-4H-SL-2GD5",
+      "sku": "GT1030-SL-2G-BRK",
+      "model": "Видеокарта Asus PCI-E 3.0 GT1030-SL-2G-BRK NVIDIA GeForce GT 1030 2Gb 64bit GDDR5 1228/6008 DVIx1 HDMIx1 HDCP Ret low profile",
       "current": {
-        "vram_gb": 2
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 11,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-R65XTEAGLE-4GD",
-      "model": "Видеокарта/ VGA GIGABYTE AMD RADEON RX 6500 XT EAGLE 4G 4GB, GDDR6/64-bit, PCIe 4.0, 1xHDMI 2.1, 1xDP, 2-slot",
-      "current": {
-        "vram_gb": 4,
-        "vram_type": "GDDR6"
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
       },
       "to_fill": [
         "tdp_watts",
@@ -200,10 +320,10 @@
       ]
     },
     {
-      "id": 12,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-IA380GAMING OC-6GD",
-      "model": "Видеокарта/ VGA GIGABYTE INTEL ARC A380 GAMING OC 6GB, GDDR6/96-bit, PCIe 4.0, 2xHDMI 2.0, 2xDP, 2-slot",
+      "id": 339,
+      "manufacturer": "ASUS",
+      "sku": "DUAL-RTX3050-O6G",
+      "model": "Видеокарта Asus PCI-E 4.0 DUAL-RTX3050-O6G NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1507/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
         "vram_gb": 6,
         "vram_type": "GDDR6"
@@ -217,12 +337,12 @@
       ]
     },
     {
-      "id": 13,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N3060WF2OC-12GD",
-      "model": "Видеокарта/ VGA GIGABYTE NVIDIA GeForce RTX 3060 WINDFORCE OC 12G REV1.0 12GB, GDDR6/192-bit, PCIe 4.0, 2xHDMI 2.1, 2xDP, 2-slot",
+      "id": 340,
+      "manufacturer": "ASUS",
+      "sku": "DUAL-RTX3050-O8G-V2",
+      "model": "Видеокарта Asus PCI-E 4.0 DUAL-RTX3050-O8G-V2 NVIDIA GeForce RTX 3050 8Gb 128bit GDDR6 1822/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 12,
+        "vram_gb": 8,
         "vram_type": "GDDR6"
       },
       "to_fill": [
@@ -234,30 +354,13 @@
       ]
     },
     {
-      "id": 14,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N3060GAMING OC-8GD",
-      "model": "Видеокарта/ GV-N3060GAMING OC-8GD",
+      "id": 341,
+      "manufacturer": "ASUS",
+      "sku": "RTX3050-O6G-LP-BRK",
+      "model": "Видеокарта Asus PCI-E 4.0 RTX3050-O6G-LP-BRK NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1507/14000 DVIx1 HDMIx1 DPx1 HDCP Ret low profile",
       "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 15,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 4070 Ti GAMING X TRIO 12G",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce RTX 4070 Ti GAMING X TRIO 12G 12GB, GDDR6X/192-bit, PCIe 4.0, 1xHDMI 2.1, 3xDP, 3.1-slot",
-      "current": {
-        "vram_gb": 12,
-        "vram_type": "GDDR6X"
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
@@ -268,10 +371,180 @@
       ]
     },
     {
-      "id": 16,
-      "manufacturer": "MSI",
-      "sku": "N730-2GD3V3",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce GT N730-2GD3V3 2GB, DDR3/128-bit, PCIe 2.0, 1xD-Sub, 1xHDMI 1.4, 1xDVI-I, 1-slot",
+      "id": 342,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5080-16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5080-16G NVIDIA GeForce RTX 5080 16Gb 256bit GDDR7 2617/30000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 343,
+      "manufacturer": "BIOSTAR",
+      "sku": "VA5505RF41",
+      "model": "Видеокарта Biostar PCI-E 3.0 VA5505RF41 AMD Radeon RX 550 4Gb 128bit GDDR5 1100/6000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 344,
+      "manufacturer": "BIOSTAR",
+      "sku": "VA5815RQ82",
+      "model": "Видеокарта Biostar PCI-E 3.0 VA5815RQ82 AMD Radeon RX 580 8Gb 256bit GDDR5 1274/7000 HDMIx1 DPx2 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 345,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN1055TF41",
+      "model": "Видеокарта Biostar PCI-E 3.0 VN1055TF41 NVIDIA GeForce GTX 1050TI 4Gb 128bit GDDR5 1291/7008 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 346,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN1055XF41",
+      "model": "Видеокарта Biostar PCI-E 3.0 VN1055XF41 NVIDIA GeForce GTX 1050 4Gb 128bit GDDR5 1354/7000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 347,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN1666SF69",
+      "model": "Видеокарта Biostar PCI-E 3.0 VN1666SF69 NVIDIA GeForce GTX 1660SUPER 6Gb 192bit GDDR6 1530/8000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 348,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN1666TF69",
+      "model": "Видеокарта Biostar PCI-E 3.0 VN1666TF69 NVIDIA GeForce GTX 1660TI 6Gb 192bit GDDR6 1500/12000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 349,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN2066RF82",
+      "model": "Видеокарта Biostar PCI-E 3.0 VN2066RF82 NVIDIA GeForce RTX 2060SUPER 8Gb 256bit GDDR6 1470/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 350,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN3606TM82",
+      "model": "Видеокарта Biostar PCI-E 4.0 VN3606TM82 NVIDIA GeForce RTX 3060Ti 8Gb 256bit GDDR6 1410/14000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 351,
+      "manufacturer": "BIOSTAR",
+      "sku": "VN3706RM82",
+      "model": "Видеокарта Biostar PCI-E 4.0 VN3706RM82 NVIDIA GeForce RTX 3070 8Gb 256bit GDDR6 1500/14000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 352,
+      "manufacturer": "GIGABYTE",
+      "sku": "GV-N710D3-2GL 2.0",
+      "model": "Видеокарта Gigabyte PCI-E 2.0 GV-N710D3-2GL 2.0 NVIDIA GeForce GT 710 2Gb 64bit DDR3 954/1600 DVIx1 HDMIx1 CRTx1 HDCP Ret low profile",
       "current": {
         "vram_gb": 2,
         "vram_type": "DDR3"
@@ -285,27 +558,10 @@
       ]
     },
     {
-      "id": 17,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 4070 Ti VENTUS 2X 12G OC",
-      "model": "Видеокарта/ GeForce RTX 4070 Ti VENTUS 2X 12G OC",
-      "current": {
-        "vram_gb": 12
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 18,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 3050 VENTUS 2X XS 8G OC",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce RTX 3050 VENTUS 2X XS 8G OC 8GB, GDDR6/128-bit, PCIe 4.0, 1xDVI-D, 1xHDMI 2.1, 1xDP, 2.3-slot",
+      "id": 353,
+      "manufacturer": "GIGABYTE",
+      "sku": "GV-N3060GAMING OC-8GD 2.0",
+      "model": "Видеокарта Gigabyte PCI-E 4.0 GV-N3060GAMING OC-8GD 2.0 NVIDIA GeForce RTX 3060 8Gb 128bit GDDR6 1807/15000 HDMIx2 DPx2 HDCP Ret",
       "current": {
         "vram_gb": 8,
         "vram_type": "GDDR6"
@@ -319,10 +575,61 @@
       ]
     },
     {
-      "id": 19,
+      "id": 354,
+      "manufacturer": "GIGABYTE",
+      "sku": "GV-R76GAMING-8GD",
+      "model": "Видеокарта Gigabyte PCI-E 4.0 GV-R76GAMING-8GD AMD Radeon RX 7600 8Gb 128bit GDDR6 2250/18000 HDMIx2 DPx2 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 355,
       "manufacturer": "MSI",
-      "sku": "GeForce GT 1030 AERO ITX 4GD4 OC",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce GT 1030 AERO ITX 4GD4 OC 4GB, DDR4/64-bit, PCIe 3.0, 1xHDMI 2.0, 1xDVI-D, 2-slot",
+      "sku": "N730K-2GD3/LP",
+      "model": "Видеокарта MSI PCI-E 2.0 N730K-2GD3/LP NVIDIA GeForce GT 730 2Gb 64bit DDR3 902/1600 DVIx1 HDMIx1 CRTx1 HDCP Ret low profile",
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 356,
+      "manufacturer": "MSI",
+      "sku": "GT 1030 AERO ITX 2GD4 OC",
+      "model": "Видеокарта MSI PCI-E 3.0 GT 1030 AERO ITX 2GD4 OC NVIDIA GeForce GT 1030 2Gb 64bit DDR4 1189/2100 HDMIx1 HDCP Ret",
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 357,
+      "manufacturer": "MSI",
+      "sku": "GT 1030 AERO ITX 4GD4 OC",
+      "model": "Видеокарта MSI PCI-E 3.0 GT 1030 AERO ITX 4GD4 OC NVIDIA GeForce GT 1030 4Gb 64bit DDR4 2100/2100 HDMIx1 HDCP Ret",
       "current": {
         "vram_gb": 4,
         "vram_type": "DDR4"
@@ -336,129 +643,10 @@
       ]
     },
     {
-      "id": 20,
-      "manufacturer": "ASUS",
-      "sku": "90YV0GH6-M0NA00",
-      "model": "Видеокарта/ DUAL-RTX3050-O8G-V2",
-      "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 21,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-R76GAMING OC-8GD",
-      "model": "Видеокарта/ VGA GIGABYTE AMD RADEON RX 7600 GAMING OC 8G 8GB, GDDR6/128-bit, PCIe 4.0, 2xHDMI 2.1a, 2xDP, 2.5-slot",
-      "current": {
-        "vram_gb": 8,
-        "vram_type": "GDDR6"
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz"
-      ]
-    },
-    {
-      "id": 22,
-      "manufacturer": "ASUS",
-      "sku": "90YV0KQ0-M0NA00",
-      "model": "Видеокарта/ RTX3050-O6G-LP-BRK",
-      "current": {
-        "vram_gb": 6
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 23,
-      "manufacturer": "ASUS",
-      "sku": "90YV0K60-M0NA00",
-      "model": "Видеокарта/ DUAL-RTX3050-O6G",
-      "current": {
-        "vram_gb": 6
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 24,
-      "manufacturer": "ASUS",
-      "sku": "DUAL-RTX4060TI-O8G-EVO",
-      "model": "Видеокарта/ VGA ASUS NVIDIA GeForce DUAL-RTX4060TI-O8G-EVO 8GB, GDDR6/128-bit, PCIe 4.0, 1xHDMI 2.1a, 3xDP, 2.5-slot  90YV0J49-M0NA00",
-      "current": {
-        "vram_gb": 8,
-        "vram_type": "GDDR6"
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz"
-      ]
-    },
-    {
-      "id": 25,
-      "manufacturer": "ASUS",
-      "sku": "90YV0ALA-M0NA00",
-      "model": "Видеокарта/ GT710-SL-2GD5-BRK-EVO",
-      "current": {
-        "vram_gb": 2
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 26,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-IA310WF2-4GD",
-      "model": "Видеокарта/ VGA GIGABYTE INTEL ARC A310 WINDFORCE 4GB, GDDR6/64-bit, PCIe 4.0, 2xHDMI 2.0, 2xDP, 2-slot",
-      "current": {
-        "vram_gb": 4,
-        "vram_type": "GDDR6"
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz"
-      ]
-    },
-    {
-      "id": 27,
+      "id": 358,
       "manufacturer": "MSI",
-      "sku": "GeForce RTX 3050 VENTUS 2X E 6G OC",
-      "model": "Видеокарта/ VGA MSI NVIDIA GeForce RTX 3050 VENTUS 2X E 6G OC 6GB, GDDR6/96-bit, PCIe 4.0, 2xHDMI 2.1, 1xDP, 2.1-slot",
+      "sku": "RTX 3050 LP E 6G OC",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 3050 LP E 6G OC NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret low profile",
       "current": {
         "vram_gb": 6,
         "vram_type": "GDDR6"
@@ -472,224 +660,37 @@
       ]
     },
     {
-      "id": 28,
+      "id": 359,
       "manufacturer": "MSI",
-      "sku": "GeForce RTX 3050 VENTUS 2X E 6G",
-      "model": "Видеокарта/ GeForce RTX 3050 VENTUS 2X E 6G",
+      "sku": "RTX 3050 VENTUS 2X E 6G OC",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 3050 VENTUS 2X E 6G OC NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 6
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 29,
+      "id": 360,
       "manufacturer": "MSI",
-      "sku": "GeForce RTX 5080 16G GAMING TRIO OC",
-      "model": "Видеокарта/ GeForce RTX 5080 16G GAMING TRIO OC",
+      "sku": "RTX 3050 VENTUS 2X XS 8G OC",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 3050 VENTUS 2X XS 8G OC NVIDIA GeForce RTX 3050 8Gb 128bit GDDR6 1807/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 30,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5080 16G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5080 16G VENTUS 3X OC",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 31,
-      "manufacturer": "ASUS",
-      "sku": "90YV0LV0-M0NA00",
-      "model": "Видеокарта/ ROG-ASTRAL-RTX5080-O16G-GAMING",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 32,
-      "manufacturer": "ASUS",
-      "sku": "90YV0M30-M0NA00",
-      "model": "Видеокарта/ TUF-RTX5080-O16G-GAMING",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 33,
-      "manufacturer": "ASUS",
-      "sku": "90YV0LX0-M0NA00",
-      "model": "Видеокарта/ PRIME-RTX5080-O16G",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 34,
-      "manufacturer": "ASUS",
-      "sku": "90YV0MD0-M0NA00",
-      "model": "Видеокарта/ TUF-RTX5070TI-O16G-GAMING",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 35,
-      "manufacturer": "ASUS",
-      "sku": "90YV0MF0-M0NA00",
-      "model": "Видеокарта/ PRIME-RTX5070TI-O16G",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 36,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-R9070XTAORUS E-16GD",
-      "model": "Видеокарта/ GV-R9070XTAORUS E-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 37,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-R9070XTGAMING OC-16GD",
-      "model": "Видеокарта/ GV-R9070XTGAMING OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 38,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-R9070GAMING OC-16GD",
-      "model": "Видеокарта/ GV-R9070GAMING OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 39,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N5080AORUS M-16GD",
-      "model": "Видеокарта/ GV-N5080AORUS M-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 40,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N5080GAMING OC-16GD",
-      "model": "Видеокарта/ GV-N5080GAMING OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     }
   ]

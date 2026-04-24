@@ -146,6 +146,9 @@ _MB_MEMORY_TYPES = {"DDR3", "DDR4", "DDR5", "DDR4+DDR5"}
 # Тип упаковки CPU.
 _CPU_PACKAGE_TYPES = {"OEM", "BOX"}
 
+# storage: значения в БД хранятся с сохранением регистра/кавычек, поэтому
+# обычный _as_enum (он делает .upper()) не подходит. Свой нормализатор ниже.
+
 
 def _v_gpu_tdp_watts(payload):       return _as_int(payload, lo=10, hi=600)
 def _v_gpu_needs_extra_power(payload): return _as_bool(payload)
@@ -183,6 +186,52 @@ def _v_cpu_package_type(payload):    return _as_enum(payload, allowed=_CPU_PACKA
 def _v_psu_power_watts(payload): return _as_int(payload, lo=5, hi=3000)
 
 
+# storage-валидаторы. Регистр и кавычки значений в БД нестандартные ("2.5\"",
+# "M.2", "mSATA"), поэтому _as_enum не подходит: он делает .upper() и
+# допускает только ASCII.
+def _v_storage_type(value):
+    if not isinstance(value, str):
+        raise ValidationError(f"wrong_type:not_str({type(value).__name__})")
+    s = value.strip().upper()
+    mapping = {"SSD": "SSD", "HDD": "HDD",
+               "NVME": "SSD", "SOLID STATE DRIVE": "SSD", "HARD DISK DRIVE": "HDD"}
+    out = mapping.get(s)
+    if out is None:
+        raise ValidationError(f"bad_value:{s}_not_in_['HDD','SSD']")
+    return out
+
+
+def _v_storage_form_factor(value):
+    if not isinstance(value, str):
+        raise ValidationError(f"wrong_type:not_str({type(value).__name__})")
+    s = value.strip()
+    norm = s.replace("''", '"').replace("”", '"').replace("’", '"').replace("″", '"')
+    norm = norm.replace(",", ".").upper()
+    if norm in {"2.5\"", "2.5", "2.5''"}: return "2.5\""
+    if norm in {"3.5\"", "3.5", "3.5''"}: return "3.5\""
+    if norm in {"M.2", "M2"}:             return "M.2"
+    if norm in {"MSATA"}:                 return "mSATA"
+    raise ValidationError(f"bad_value:{s!r}_not_a_storage_ff")
+
+
+def _v_storage_interface(value):
+    if not isinstance(value, str):
+        raise ValidationError(f"wrong_type:not_str({type(value).__name__})")
+    s = value.strip().upper().replace("-", "").replace(" ", "")
+    if s in {"NVME"}:                              return "NVMe"
+    if s in {"SAS"}:                               return "SAS"
+    if s.startswith("SATA") or s in {"PCIE", "PCI", "PCIEXPRESS"}:
+        # PCIe-only интерфейс в прайсе встречается как M.2 NVMe — интерфейс NVMe.
+        # Если это PCIe + NOT NVMe — всё равно NVMe (M.2 NVMe-SSD).
+        if s.startswith("SATA"):
+            return "SATA"
+        return "NVMe"
+    raise ValidationError(f"bad_value:{s!r}_not_a_storage_iface")
+
+
+def _v_storage_capacity_gb(payload): return _as_int(payload, lo=1, hi=256000)
+
+
 # Регистр валидаторов: (категория, имя поля) -> функция-валидатор значения.
 _VALIDATORS: dict[tuple[str, str], callable] = {
     ("gpu", "tdp_watts"):              _v_gpu_tdp_watts,
@@ -207,6 +256,11 @@ _VALIDATORS: dict[tuple[str, str], callable] = {
     ("cpu", "package_type"):           _v_cpu_package_type,
 
     ("psu", "power_watts"):            _v_psu_power_watts,
+
+    ("storage", "storage_type"):       _v_storage_type,
+    ("storage", "form_factor"):        _v_storage_form_factor,
+    ("storage", "interface"):          _v_storage_interface,
+    ("storage", "capacity_gb"):        _v_storage_capacity_gb,
 }
 
 

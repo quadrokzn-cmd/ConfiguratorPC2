@@ -1,0 +1,31 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_005",
+  "generated_at": "2026-04-24T13:30:26+00:00",
+  "target_fields": [
+    "max_tdp_watts"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 716,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L36 PRO BK",
+      "model": "Система водяного охлаждения Ocypus Sigma L36 PRO BK, 360mm, LCD Pump, 3x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 717,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 DS A36 Black",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 360mm, ARGB, LCD Display, black",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

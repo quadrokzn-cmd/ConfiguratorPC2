@@ -19,3 +19,7 @@ data/
 
 # Дампы HTML из визуальных тестов (VISUAL_DUMP=1)
 visual_samples/
+
+# Архив устаревших pending-батчей (Этап 2.5Б) — локальная резервная копия,
+# перенесена при пересборке pending/ после regex-этапа.
+enrichment/stale_pending_20260424/

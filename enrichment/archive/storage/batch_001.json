@@ -1,0 +1,125 @@
+{
+  "category": "storage",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:10:00Z",
+  "items": [
+    {
+      "id": 216,
+      "fields": {
+        "form_factor": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z9-30.html"
+        },
+        "interface": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z9-30.html"
+        }
+      }
+    },
+    {
+      "id": 217,
+      "fields": {
+        "form_factor": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z-Slim-32.html"
+        },
+        "interface": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z-Slim-32.html"
+        }
+      }
+    },
+    {
+      "id": 218,
+      "fields": {
+        "form_factor": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z-Slim-32.html"
+        },
+        "interface": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z-Slim-32.html"
+        }
+      }
+    },
+    {
+      "id": 219,
+      "fields": {
+        "form_factor": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z9-30.html"
+        },
+        "interface": {
+          "value": null,
+          "source_url": "https://www.netac.com/product/Z9-30.html"
+        }
+      }
+    },
+    {
+      "id": 227,
+      "fields": {
+        "interface": {
+          "value": "NVMe",
+          "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4_m2_pcie_gen3x4"
+        }
+      }
+    },
+    {
+      "id": 230,
+      "fields": {
+        "form_factor": {
+          "value": null,
+          "source_url": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9500-series-switches/nb-06-cat9500-ser-data-sheet-cte-en.html"
+        },
+        "interface": {
+          "value": "SATA",
+          "source_url": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9500-series-switches/nb-06-cat9500-ser-data-sheet-cte-en.html"
+        }
+      }
+    },
+    {
+      "id": 295,
+      "fields": {
+        "interface": {
+          "value": "SATA",
+          "source_url": "https://www.westerndigital.com/products/internal-drives/wd-blue-desktop-sata-hdd?sku=WD5000AZLX"
+        },
+        "capacity_gb": {
+          "value": 500,
+          "source_url": "https://www.westerndigital.com/products/internal-drives/wd-blue-desktop-sata-hdd?sku=WD5000AZLX"
+        }
+      }
+    },
+    {
+      "id": 365,
+      "fields": {
+        "capacity_gb": {
+          "value": 1000,
+          "source_url": "https://www.seagate.com/support/internal-hard-drives/desktop-hard-drives/barracuda-3-5/"
+        }
+      }
+    },
+    {
+      "id": 368,
+      "fields": {
+        "interface": {
+          "value": "SATA",
+          "source_url": "https://www.seagate.com/www-content/product-content/seagate-laptop-fam/barracuda_25/en-us/docs/100807728a.pdf"
+        },
+        "capacity_gb": {
+          "value": 500,
+          "source_url": "https://www.seagate.com/www-content/product-content/seagate-laptop-fam/barracuda_25/en-us/docs/100807728a.pdf"
+        }
+      }
+    },
+    {
+      "id": 782,
+      "fields": {
+        "capacity_gb": {
+          "value": null,
+          "source_url": "about:blank"
+        }
+      }
+    }
+  ]
+}

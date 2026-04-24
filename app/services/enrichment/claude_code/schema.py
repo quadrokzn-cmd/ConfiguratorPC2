@@ -43,6 +43,14 @@ TARGET_FIELDS: dict[str, list[str]] = {
     "psu": [
         "power_watts",
     ],
+    # storage — добавлено на Этапе 2.5Б (2026-04-24, оркестратор).
+    # 10 позиций с NULL в одном из полей, не закрывались regex.
+    "storage": [
+        "storage_type",
+        "form_factor",
+        "interface",
+        "capacity_gb",
+    ],
 }
 
 # Поле включённого БП у корпуса — обрабатывается ВО ВТОРОМ прогоне Case,
@@ -51,7 +59,7 @@ CASE_PSU_WATTS_FIELD = "included_psu_watts"
 
 # Список категорий в порядке, удобном для CLI --all.
 ALL_CATEGORIES: list[str] = [
-    "cpu", "psu", "cooler", "case", "motherboard", "gpu",
+    "cpu", "psu", "storage", "cooler", "case", "motherboard", "gpu",
 ]
 
 # Размер батча по умолчанию для каждой категории (можно переопределить
@@ -63,6 +71,7 @@ DEFAULT_BATCH_SIZES: dict[str, int] = {
     "case":        40,
     "cpu":         20,
     "psu":         20,
+    "storage":     20,
 }
 
 # Соответствие категории и таблицы компонентов (берём ровно как в base.py,
@@ -94,6 +103,11 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "matrox.com",
     "afox.eu",
     "afox.ru",
+    # GPU: AIB-партнёры — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
+    "sapphiretech.com",   # AMD AIB: Radeon
+    "inno3d.com",         # NVIDIA AIB: Twin X2, iChill
+    "maxsun.com",         # NVIDIA AIB (глобальный домен)
+    "maxsun.com.cn",      # NVIDIA AIB (китайский домен, документация часто только там)
     # Материнские платы (помимо AIB-вендоров выше)
     "supermicro.com",
     # Кулеры
@@ -106,6 +120,9 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "bequiet.com",
     "coolermaster.com",
     "alseye.com",
+    # Кулеры — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
+    "idcooling.com",      # ID-Cooling: серия SE/AF (SE-214-XT и др.)
+    "pccooler.com.cn",    # PCCooler: БП KF550, YS1200
     # Корпуса
     "jonsbo.com",
     "fractal-design.com",
@@ -118,6 +135,10 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "montechpc.com",
     "azza.com.tw",
     "aicipc.com",
+    # Корпуса / серверные платформы — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
+    "ocypus.com",         # Ocypus: корпусы Gamma, Iota + БП (крупнейший пробел: 72 позиции)
+    "in-win.com",         # InWin: корпусы IW-RS436 и др.
+    "hpe.com",            # HPE: фан-киты ProLiant Gen10/11 (enterprise-ветка, отделена от hp.com)
     # БП и PoE
     "seasonic.com",
     "zalman.com",
@@ -127,6 +148,15 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "ui.com",
     "ubiquiti.com",
     "cisco.com",
+    # БП — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
+    "fsp-group.com",      # FSP Group — корпоративный сайт
+    "fsplifestyle.com",   # FSP Group — потребительская ветка
+    # Накопители (HDD/SSD) — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
+    "kingston.com",       # Kingston: SSD и аксессуары
+    "westerndigital.com", # WD: HDD/SSD
+    "seagate.com",        # Seagate: HDD
+    "netac.com",          # Netac: SSD N600S, N5M, Z9
+    "apacer.com",         # Apacer: SSD
     # SBC (одноплатные компьютеры и корпуса для них)
     "raspberrypi.com",
     "radxa.com",

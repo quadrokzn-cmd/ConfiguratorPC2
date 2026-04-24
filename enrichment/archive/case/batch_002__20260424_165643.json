@@ -1,0 +1,34 @@
+{
+  "category": "case",
+  "batch_id": "batch_002",
+  "filled_at": "2026-04-24T14:10:00Z",
+  "items": [
+    {
+      "id": 463,
+      "fields": {
+        "included_psu_watts": {
+          "value": null,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1597"
+        }
+      }
+    },
+    {
+      "id": 521,
+      "fields": {
+        "included_psu_watts": {
+          "value": 2000,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912"
+        }
+      }
+    },
+    {
+      "id": 554,
+      "fields": {
+        "included_psu_watts": {
+          "value": 2000,
+          "source_url": "https://www.aicipc.com/en/productdetail/40912"
+        }
+      }
+    }
+  ]
+}

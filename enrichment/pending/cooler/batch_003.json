@@ -1,207 +1,407 @@
 {
   "category": "cooler",
   "batch_id": "batch_003",
-  "generated_at": "2026-04-22T13:00:36+00:00",
+  "generated_at": "2026-04-24T13:30:26+00:00",
   "target_fields": [
     "max_tdp_watts"
   ],
   "case_psu_pass": false,
   "items": [
     {
-      "id": 211,
-      "manufacturer": "Thermalright",
-      "sku": "F-WFRAME-420-ARGB-WH",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Frozen Warframe 420 ARGB (420mm, LED, White, ARGB/ Fans: 3x140mm, 88.7CFM, 29.8dBA, 1750RPM/ Pump height 60mm, 23dBA, 3000RPM, Rad thickness 27mm/ S: 1851, 1700, 1200, 115X, 2011, 2066, AM5, AM4)",
+      "id": 583,
+      "manufacturer": "ID-Cooling",
+      "sku": "AS-140-K",
+      "model": "Вентилятор для корпуса ID-COOLING AS-140-K 140x140x25мм (60шт./кор, PWM, резиновые углы, черный, 300-1800об/мин, супертихий) BOX",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 212,
-      "manufacturer": "Thermalright",
-      "sku": "G-VISION-BL-240-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 240 (240mm, LED, Black, ARGB/ Fans: 2x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 588,
+      "manufacturer": "Ocypus",
+      "sku": "Delta EH10 BK",
+      "model": "концентратор Ocypus Delta EH10 BK, 10 ports FAN/ARGB Hub",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 213,
-      "manufacturer": "Thermalright",
-      "sku": "G-VISION-WH-240-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 240 (240mm, LED, White, ARGB/ Fans: 2x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 589,
+      "manufacturer": "Zalman",
+      "sku": "CNPS80G Rev.3",
+      "model": "Кулер для процессора ZALMAN CNPS80G Rev.3, 85mm FAN, AL, 4-PIN PWM, 900-2500 RPM, 28DBA, LONG LIFE BEARING, LGA 1700/1200/115X, AM5/AM4/AM3+/AM3",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 214,
-      "manufacturer": "Thermalright",
-      "sku": "G-VISION-BL-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 591,
+      "manufacturer": "Zalman",
+      "sku": "ZM-AF120R ARGB BLACK",
+      "model": "Вентилятор для корпуса ZALMAN ZM-AF120R ARGB BLACK, REVERSE, 120x120x25mm, 4-PIN PWM, 800-1500 RPM, 24,3 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 215,
-      "manufacturer": "Thermalright",
-      "sku": "G-VISION-WH-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Grand Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 80.45CFM, 29.4dBA, 2150RPM/ Pump height 72.5mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 593,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A20 BK ARGB",
+      "model": "Кулер для процессора Ocypus Gamma A20 BK ARGB, 92mm FARGB FAN, Top FARGB Panel, 2 HEAT PIPES, 3-PIN, 1900 RPM, 21DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 216,
-      "manufacturer": "Thermalright",
-      "sku": "H-VISION-BL-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Hyper Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 68mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 594,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A20 WH ARGB",
+      "model": "Кулер для процессора Ocypus Gamma A20 WH ARGB, 92mm FARGB FAN, Top FARGB Panel, 2 HEAT PIPES, 3-PIN, 1900 RPM, 21DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 217,
-      "manufacturer": "Thermalright",
-      "sku": "H-VISION-WH-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Hyper Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 68mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 596,
+      "manufacturer": "Ocypus",
+      "sku": "Delta EH10 BK PRO",
+      "model": "концентратор Ocypus Delta EH10 BK PRO, 10 ports FAN/ARGB Hub, remote control",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 218,
-      "manufacturer": "Thermalright",
-      "sku": "M-VISION-360-BL-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Mjolnir Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 65mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 600,
+      "manufacturer": "Deepcool",
+      "sku": "AG300 G2",
+      "model": "Кулер для процессора DEEPCOOL AG300 G2 LGA1851/1700/AM5/AM4 (36шт/кор, TDP 160Вт, PWM, Fan 92mm, 3 тепл. трубки прямого контакта) RET (R-AG300-BKAMMG2)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 219,
-      "manufacturer": "Thermalright",
-      "sku": "M-VISION-360-WH-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Mjolnir Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 65mm, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 602,
+      "manufacturer": "Deepcool",
+      "sku": "AG300 LED",
+      "model": "Кулер для процессора DEEPCOOL AG300 LED LGA1700/1200/115X/AM5/AM4 (36шт/кор, TDP 150Вт, PWM, Multi-Color LED Lighting, Fan 92mm, 3 тепл. Трубки прямого контакта) RET (R-AG300-BKLNMN-G)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 220,
-      "manufacturer": "Thermalright",
-      "sku": "R-VISION-TURBO-BL-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Rainbow Vision 360 Turbo (360mm, LED, Black, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 86mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 603,
+      "manufacturer": "Deepcool",
+      "sku": "AG300 MARRS",
+      "model": "Кулер для процессора DEEPCOOL AG300 MARRS LGA1700/1200/115X/AM5/AM4 (36шт/кор, TDP 150Вт, PWM, Static LED Lighting, Fan 92mm, 3 тепл. Трубки прямого контакта) RET (R-AG300-BKMNMN-G)",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 221,
-      "manufacturer": "Thermalright",
-      "sku": "R-VISION-TURBO-WH-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Rainbow Vision 360 Turbo (360mm, LED, White, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 86mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 605,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A40 BK",
+      "model": "Кулер для процессора Ocypus Gamma A40 BK, 100mm FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 600-2400 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 222,
-      "manufacturer": "Thermalright",
-      "sku": "T-VISION-WH-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Trofeo Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 69CFM, 27dBA, 2150RPM/ Pump height 102mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 607,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite BK ARGB 3 IN 1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite BK ARGB 3 IN 1, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 223,
-      "manufacturer": "Thermalright",
-      "sku": "W-VISION-TURBO-BL-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Wonder Vision 360 Turbo (360mm, LED, Black, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 107mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 608,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite WH ARGB 3 IN 1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite WH ARGB 3 IN 1, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 224,
-      "manufacturer": "Thermalright",
-      "sku": "W-VISION-TURBO-WH-360-ARGB",
-      "model": "Водяное охлаждение для процессора/ Water Cooling System Thermalright Wonder Vision 360 Turbo (360mm, LED, White, ARGB/ Fans: 3x120mm, 120.38CFM, 44.7dBA, 3000RPM/ Pump height 107mm, 6400RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 609,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite BK ARGB REV. BLADE 3in1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite BK ARGB REVERSE BLADE 3 IN 1, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 236,
-      "manufacturer": "Corsair",
-      "sku": "CW-9061018-WW",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Corsair iCUE LINK TITAN 360 RX RGB (360mm, Black, RGB/ Fans: 3x120mm, 73.5CFM, 36dBA, 2100RPM/ S: 1851, 1700, AM5, AM4)",
+      "id": 610,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 Elite WH ARGB REV. BLADE 3in1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 Elite WH ARGB REVERSE BLADE 3 IN 1, 120x120x25mm, 4-PIN PWM, 600-1800 RPM, 26 DBA MAX, HYDRO BEARING",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 251,
-      "manufacturer": "Thermalright",
-      "sku": "L-VISION-BL-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Levita Vision 360 (360mm, LED, Black, ARGB/ Fans: 3x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 98mm, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 613,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 SE BK ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 SE BK ARGB, 120mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 800-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 252,
-      "manufacturer": "Thermalright",
-      "sku": "L-VISION-WH-360-ARGB",
-      "model": "Система жидкостного охлаждения/ Water Cooling System Thermalright Levita Vision 360 (360mm, LED, White, ARGB/ Fans: 3x120mm, 68.9CFM, 28.2dBA, 2000RPM/ Pump height 98mm, 3000RPM, Rad thickness 27mm/ S: 1700, 1200, 1851, 115X, 2011, 2066, AM5, AM4)",
+      "id": 614,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 SE WH ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 SE WH ARGB, 120mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 800-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 253,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFRE00150A",
-      "model": "Жидкостная система охлаждения Arctic Cooling Arctic Liquid Freezer III-240 A-RGB White Multi Compatible All-In-One CPU Water Cooler  (ACFRE00150A)",
+      "id": 616,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A40 BK ARGB",
+      "model": "Кулер для процессора Ocypus Gamma A40 BK ARGB, 100mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 600-2400 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 254,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFRE00151A",
-      "model": "Жидкостная система охлаждения Arctic Cooling Arctic Liquid Freezer III-280 A-RGB White Multi Compatible All-In-One CPU Water Cooler (ACFRE00151A)",
+      "id": 617,
+      "manufacturer": "Zalman",
+      "sku": "CNPS9X OPTIMA2",
+      "model": "Кулер для процессора ZALMAN CNPS9X OPTIMA2, 120mm ARGB FAN, 4 HEAT PIPES, 4-PIN PWM, 800-1500 RPM, 29.5DBA MAX, HYDRO BEARING, FULL SOCKET SUPPORT",
       "current": {},
       "to_fill": [
         "max_tdp_watts"
       ]
     },
     {
-      "id": 255,
-      "manufacturer": "ARCTIC",
-      "sku": "ACFRE00184A",
-      "model": "Жидкостная система охлаждения Arctic Cooling Liquid Freezer III Pro 360 ARGB  Multi Compatible  All-In-One CPU Water Cooler  (ACFRE00184A)",
+      "id": 618,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 UNI BK ARGB 3 IN 1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 UNI BK ARGB 3 IN 1, 3x120x120x25mm, 4-PIN PWM, 800-1800 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 621,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A40 WH ARGB",
+      "model": "Кулер для процессора Ocypus Gamma A40 WH ARGB, 100mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 600-2400 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 622,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 WH ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 WH ARGB, 120mm ARGB FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 623,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A40 WH ARGB Digital",
+      "model": "Кулер для процессора Ocypus Gamma A40 WH ARGB Digital, 100mm ARGB FAN, Top Display Panel, 4 HEAT PIPES, 4-PIN PWM, 600-2400 RPM, 29.5DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 625,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 EX BK ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 EX BK ARGB, 120mm ARGB FAN, 4 HEAT PIPES, 4-PIN PWM, 500-1800 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 626,
+      "manufacturer": "Zalman",
+      "sku": "ZM-NS1000",
+      "model": "Система охлаждения нотбука Zalman ZM-NS1000 Notebook Cooling Stand, Up to 16” Laptop, 180mm fan, 5 level angle adjustment",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 630,
+      "manufacturer": "Ocypus",
+      "sku": "Iota A40 WH",
+      "model": "Кулер для процессора Ocypus Iota A40 WH, 120mm FAN, Display Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, FDB, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 631,
+      "manufacturer": "Formula V",
+      "sku": "AIR FUSION 3 WH",
+      "model": "Вентилятор для корпуса Formula V Line AIR FUSION 3 WH, 360x120x28mm, ARBG 3pin + PWM 4pin, 500-1800 RPM, 34.95 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 632,
+      "manufacturer": "Formula V",
+      "sku": "AIR FUSION 3 BK",
+      "model": "Вентилятор для корпуса Formula V Line AIR FUSION 3 BK, 360x120x28mm, ARBG 3pin + PWM 4pin, 500-1800 RPM, 34.95 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 633,
+      "manufacturer": "Formula V",
+      "sku": "AIR FUSION 3 WH REVERSE",
+      "model": "Вентилятор для корпуса Formula V Line AIR FUSION 3 WH REVERSE, 360x120x28mm, ARBG 3pin + PWM 4pin, 500-1800 RPM, 37.83 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 634,
+      "manufacturer": "Formula V",
+      "sku": "AIR FUSION 3 BK REVERSE",
+      "model": "Вентилятор для корпуса Formula V Line AIR FUSION 3 BK REVERSE, 360x120x28mm, ARBG 3pin + PWM 4pin, 500-1800 RPM, 37.83 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 635,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 Elite BK",
+      "model": "Кулер для процессора Ocypus Delta A40 Elite BK, 120mm FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 636,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 SE BK Dual Fan ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 SE BK Dual Fan ARGB, 2x120mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 800-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 637,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 SE WH Dual Fan ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 SE WH Dual Fan ARGB, 2x120mm ARGB FAN, Top ARGB Panel, 4 HEAT PIPES, 4-PIN PWM, 800-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 638,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma A40 BK ARGB Digital",
+      "model": "Кулер для процессора Ocypus Gamma A40 BK ARGB Digital, 100mm ARGB FAN, Top Display Panel, 4 HEAT PIPES, 4-PIN PWM, 600-2400 RPM, 29.5DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 639,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 UNI WH ARGB 3 IN 1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 UNI WH ARGB 3 IN 1, 3x120x120x25mm, 4-PIN PWM, 800-1800 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 640,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 UNI BK ARGB REVERSE BLADE 3in1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 UNI BK ARGB REVERSE BLADE 3 IN 1, 3x120x120x25mm, 4-PIN PWM, 800-1800 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 641,
+      "manufacturer": "Ocypus",
+      "sku": "Gamma F12 UNI WH ARGB REVERSE BLADE 3in1",
+      "model": "Вентилятор для корпуса Ocypus Gamma F12 UNI WH ARGB REVERSE BLADE 3 IN 1, 3x120x120x25mm, 4-PIN PWM, 800-1800 RPM, 31 DBA MAX, HYDRO BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 642,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 EX BK Digital",
+      "model": "Кулер для процессора Ocypus Delta A40 EX BK Digital, 120mm ARGB FAN, Top Display Panel, 4 HEAT PIPES, 4-PIN PWM, 500-1800 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 644,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 EX WH Digital",
+      "model": "Кулер для процессора Ocypus Delta A40 EX WH Digital, 120mm ARGB FAN, Top Display Panel, 4 HEAT PIPES, 4-PIN PWM, 500-1800 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 645,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 BK ARGB",
+      "model": "Кулер для процессора Ocypus Delta A40 BK ARGB, 120mm ARGB FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
       "current": {},
       "to_fill": [
         "max_tdp_watts"

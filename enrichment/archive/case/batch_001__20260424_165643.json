@@ -1,0 +1,25 @@
+{
+  "category": "case",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:10:00Z",
+  "items": [
+    {
+      "id": 724,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["ITX", "MATX", "ATX", "E-ATX", "XL-ATX", "SSI-CEB", "SSI-EEB"],
+          "source_url": "https://www.thermaltake.com/ax700-super-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 944,
+      "fields": {
+        "supported_form_factors": {
+          "value": ["ATX", "SSI-CEB", "SSI-EEB"],
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-rs436-07"
+        }
+      }
+    }
+  ]
+}

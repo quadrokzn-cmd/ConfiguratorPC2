@@ -1,0 +1,411 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_004",
+  "generated_at": "2026-04-24T13:30:26+00:00",
+  "target_fields": [
+    "max_tdp_watts"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 646,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 Elite BK Dual Fan",
+      "model": "Кулер для процессора Ocypus Delta A40 Elite BK Dual Fan, 2x120mm FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 647,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A40 Elite WH Dual Fan",
+      "model": "Кулер для процессора Ocypus Delta A40 Elite WH Dual Fan, 2x120mm FAN, Top Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 648,
+      "manufacturer": "Zalman",
+      "sku": "CNPS9X PERFORMA PLUS ARGB BLACK",
+      "model": "Кулер для процессора ZALMAN CNPS9X PERFORMA PLUS ARGB BLACK, 120mm FAN, 4 HEAT PIPES, 4-PIN PWM, 600-2000 RPM, 29.7DBA MAX, HYDRO BEARING, FULL SOCKET SUPPORT",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 649,
+      "manufacturer": "Zalman",
+      "sku": "CNPS9X PERFORMA PLUS ARGB WHITE",
+      "model": "Кулер для процессора ZALMAN CNPS9X PERFORMA PLUS ARGB WHITE, 120mm FAN, 4 HEAT PIPES, 4-PIN PWM, 600-2000 RPM, 29.7DBA MAX, HYDRO BEARING, FULL SOCKET SUPPORT",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 652,
+      "manufacturer": "Ocypus",
+      "sku": "Iota A40 BK",
+      "model": "Кулер для процессора Ocypus Iota A40 BK, 120mm FAN, Display Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, FDB, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 654,
+      "manufacturer": "Zalman",
+      "sku": "ZM-NS2000",
+      "model": "Система охлаждения нотбука Zalman ZM-NS2000 Notebook Cooling Stand, Up to 17” Laptop, 200mm fan, 4 level angle adjustment",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 657,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma F36 BK ARGB",
+      "model": "Вентилятор для корпуса Ocypus Sigma F36 BK ARGB, 3x120x120x25mm, 4-PIN PWM, 500-2200 RPM, 36 DBA MAX, FLUID DYNAMIC BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 658,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma F36 WH ARGB",
+      "model": "Вентилятор для корпуса Ocypus Sigma F36 WH ARGB, 3x120x120x25mm, 4-PIN PWM, 500-2200 RPM, 36 DBA MAX, FLUID DYNAMIC BEARING",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 664,
+      "manufacturer": "Ocypus",
+      "sku": "Iota A40 WH Dual Fan",
+      "model": "Кулер для процессора Ocypus Iota A40 WH Dual Fan, 2x120mm FAN, Display Panel, 4 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, FDB, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 665,
+      "manufacturer": "Zalman",
+      "sku": "CNPS13X BLACK",
+      "model": "Кулер для процессора ZALMAN CNPS13X BLACK, 120mm FAN, 5 HEAT PIPES, 4-PIN PWM, 600-2000 RPM, 29,7 DBA MAX, HYDRO BEARING, ARGB TOP COVER, FULL SOCKET SUPPORT",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 670,
+      "manufacturer": "PCCooler",
+      "sku": "RC600-67",
+      "model": "Кулер для процессора PCCooler RC600-67, Low Profile, 120mm FAN, 6 HEAT PIPES, 4-PIN PWM, 800-2200 RPM, 35 DBA, FDB BEARING, LGA 1851/1700/1200/115X, AMD AM5/AM4",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 671,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A62 WH ARGB",
+      "model": "Кулер для процессора Ocypus Delta A62 WH ARGB, 2x120mm ARGB FAN, Top Panel, 6 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 672,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A62 EX BK Digital",
+      "model": "Кулер для процессора Ocypus Delta A62 EX BK Digital, 2x120mm ARGB FAN, Top Display Panel, 6 HEAT PIPES, 4-PIN PWM, 600-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 673,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A62 EX WH Digital",
+      "model": "Кулер для процессора Ocypus Delta A62 EX WH Digital, 2x120mm ARGB FAN, Top Display Panel, 6 HEAT PIPES, 4-PIN PWM, 600-1800 RPM, 31DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 675,
+      "manufacturer": "Zalman",
+      "sku": "CNPS13X DS BLACK",
+      "model": "Кулер для процессора ZALMAN CNPS13X DS BLACK, 120mm FAN, 5 HEAT PIPES, 4-PIN PWM, 600-2000 RPM, 29,7 DBA MAX, HYDRO BEARING, ARGB TOP COVER, LIVE CPU TEMPERATURE DISPLAY, FULL SOCKET SUPPORT",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 677,
+      "manufacturer": "Ocypus",
+      "sku": "Delta A62 BK ARGB",
+      "model": "Кулер для процессора Ocypus Delta A62 BK ARGB, 2x120mm ARGB FAN, Top Panel, 6 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, HYDRO BEARING, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 678,
+      "manufacturer": "Ocypus",
+      "sku": "Iota A62 BK",
+      "model": "Кулер для процессора Ocypus Iota A62 BK, 2x120mm FAN, Display Panel, 6 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, FDB, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 680,
+      "manufacturer": "Ocypus",
+      "sku": "Delta L24 BK ARGB V2",
+      "model": "Система водяного охлаждения Ocypus Delta L24 BK ARGB V2, 240mm, ARGB Pump,2x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 681,
+      "manufacturer": "Ocypus",
+      "sku": "Delta L24 WH ARGB V2",
+      "model": "Система водяного охлаждения Ocypus Delta L24 WH ARGB V2, 240mm, ARGB Pump,2x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 683,
+      "manufacturer": "Ocypus",
+      "sku": "Iota A62 WH",
+      "model": "Кулер для процессора Ocypus Iota A62 WH, 2x120mm FAN, Display Panel, 6 HEAT PIPES, 4-PIN PWM, 500-2000 RPM, 29DBA, FDB, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 685,
+      "manufacturer": "Ocypus",
+      "sku": "Delta L36 BK ARGB V2",
+      "model": "Система водяного охлаждения Ocypus Delta L36 BK ARGB V2, 360mm, ARGB Pump, 3x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 686,
+      "manufacturer": "Ocypus",
+      "sku": "Delta L36 WH ARGB V2",
+      "model": "Система водяного охлаждения Ocypus Delta L36 WH ARGB V2, 360mm, ARGB Pump, 3x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 689,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 A24 White",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 240mm, ARGB, white",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 692,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 SE A24 Black",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 240mm, black",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 693,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 SE A36 White",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 360mm, white",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 695,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 SE A24 White",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 240mm, white",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 696,
+      "manufacturer": "Ocypus",
+      "sku": "Iota L36 WH",
+      "model": "Система водяного охлаждения Ocypus Iota L36 WH, 360mm, Display Pump, 3x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 697,
+      "manufacturer": "Ocypus",
+      "sku": "Iota L36 BK",
+      "model": "Система водяного охлаждения Ocypus Iota L36 BK, 360mm, Display Pump, 3x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 698,
+      "manufacturer": "Zalman",
+      "sku": "ZET5 WHITE",
+      "model": "Кулер для процессора ZALMAN ZET5 WHITE, 5 HEAT PIPES, 4-PIN PWM, 600-2000 RPM, 30.4 DBA MAX, HYDRO BEARING, FULL SOCKET SUPPORT",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 699,
+      "manufacturer": "Ocypus",
+      "sku": "Iota L24 WH",
+      "model": "Система водяного охлаждения Ocypus Iota L24 WH, 240mm, Display Pump, 2x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 700,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 A36 White",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 360mm, ARGB, white",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 704,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L24 BK ARGB",
+      "model": "Система водяного охлаждения Ocypus Sigma L24 BK ARGB, 240mm, LCD Pump 2.4\", 2x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 705,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L24 WH ARGB",
+      "model": "Система водяного охлаждения Ocypus Sigma L24 WH ARGB, 240mm, LCD Pump 2.4\", 2x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 709,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L36 BK ARGB",
+      "model": "Система водяного охлаждения Ocypus Sigma L36 BK ARGB, 360mm, LCD Pump 2.4\", 3x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 710,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L36 WH ARGB",
+      "model": "Система водяного охлаждения Ocypus Sigma L36 WH ARGB, 360mm, LCD Pump 2.4\", 3x120mm ARGB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 711,
+      "manufacturer": "Zalman",
+      "sku": "ALPHA2 A36 Black",
+      "model": "Система водяного охлаждения Zalman CPU Liquid Cooler 360mm, ARGB, black",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 712,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L24 PRO WH",
+      "model": "Система водяного охлаждения Ocypus Sigma L24 PRO WH, 240mm, LCD Pump, 2x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 713,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L24 PRO BK",
+      "model": "Система водяного охлаждения Ocypus Sigma L24 PRO BK, 240mm, LCD Pump, 2x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 714,
+      "manufacturer": "Lian Li",
+      "sku": "G99.12TLLCD3B.00",
+      "model": "Вентилятор LIAN LI UNI FAN TL LCD 120mm 1900RPM sRGB Black (3pcs)",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 715,
+      "manufacturer": "Ocypus",
+      "sku": "Sigma L36 PRO WH",
+      "model": "Система водяного охлаждения Ocypus Sigma L36 PRO WH, 360mm, LCD Pump, 3x120mm FDB fans, LGA115X/1200/1700/18XX, AM4/AM5",
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

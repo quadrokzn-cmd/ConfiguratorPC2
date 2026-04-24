@@ -1,0 +1,408 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:05:00Z",
+  "items": [
+    {
+      "id": 321,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xVGA", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "vram_gb": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 322,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xVGA", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 323,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 324,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1290, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "memory_clock_mhz": {"value": 7000, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"}
+      }
+    },
+    {
+      "id": 325,
+      "fields": {
+        "tdp_watts": {"value": 175, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1470, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"}
+      }
+    },
+    {
+      "id": 326,
+      "fields": {
+        "tdp_watts": {"value": 170, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+3xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1320, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 15000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 327,
+      "fields": {
+        "tdp_watts": {"value": 50, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A310%20Low%20Profile%204GB/index.asp"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A310%20Low%20Profile%204GB/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.0+1xDP2.0", "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A310%20Low%20Profile%204GB/index.asp"},
+        "core_clock_mhz": {"value": 2000, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A310%20Low%20Profile%204GB/index.asp"},
+        "memory_clock_mhz": {"value": 15500, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A310%20Low%20Profile%204GB/index.asp"}
+      }
+    },
+    {
+      "id": 328,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A380%20Challenger%20ITX%206GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A380%20Challenger%20ITX%206GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.0+3xDP2.0", "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A380%20Challenger%20ITX%206GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2250, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A380%20Challenger%20ITX%206GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 15500, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A380%20Challenger%20ITX%206GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 329,
+      "fields": {
+        "tdp_watts": {"value": 150, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B570%20Challenger%2010GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B570%20Challenger%2010GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B570%20Challenger%2010GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2600, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B570%20Challenger%2010GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 19000, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B570%20Challenger%2010GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 330,
+      "fields": {
+        "tdp_watts": {"value": 190, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B580%20Challenger%2012GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B580%20Challenger%2012GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B580%20Challenger%2012GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2740, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B580%20Challenger%2012GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 19000, "source_url": "https://www.asrock.com/Graphics-Card/Intel/Intel%20Arc%20B580%20Challenger%2012GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 331,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP1.4", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2280, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 332,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Steel%20Legend%208GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Steel%20Legend%208GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Steel%20Legend%208GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2320, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Steel%20Legend%208GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Steel%20Legend%208GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 333,
+      "fields": {
+        "tdp_watts": {"value": 150, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20Challenger%208GB/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20Challenger%208GB/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+2xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20Challenger%208GB/index.asp"},
+        "core_clock_mhz": {"value": 2400, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20Challenger%208GB/index.asp"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20Challenger%208GB/index.asp"}
+      }
+    },
+    {
+      "id": 334,
+      "fields": {
+        "tdp_watts": {"value": 160, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20XT%20Challenger%2016GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20XT%20Challenger%2016GB%20OC/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+2xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20XT%20Challenger%2016GB%20OC/index.asp"},
+        "core_clock_mhz": {"value": 2700, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20XT%20Challenger%2016GB%20OC/index.asp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%209060%20XT%20Challenger%2016GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 335,
+      "fields": {
+        "tdp_watts": {"value": 304, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX9070XT%20MH%2016G/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX9070XT%20MH%2016G/index.asp"},
+        "video_outputs": {"value": "1xHDMI2.1+3xDP2.1", "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX9070XT%20MH%2016G/index.asp"},
+        "core_clock_mhz": {"value": 2400, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX9070XT%20MH%2016G/index.asp"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX9070XT%20MH%2016G/index.asp"}
+      }
+    },
+    {
+      "id": 336,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xVGA", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 337,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "4xHDMI", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 338,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 339,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1040, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 340,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1550, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 341,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1040, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 342,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "video_outputs": {"value": "1xHDMI+3xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2300, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"}
+      }
+    },
+    {
+      "id": 343,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 344,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+2xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 345,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1290, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "memory_clock_mhz": {"value": 7000, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"}
+      }
+    },
+    {
+      "id": 346,
+      "fields": {
+        "tdp_watts": {"value": 75, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1354, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"},
+        "memory_clock_mhz": {"value": 7000, "source_url": "https://www.nvidia.com/en-us/geforce/10-series/"}
+      }
+    },
+    {
+      "id": 347,
+      "fields": {
+        "tdp_watts": {"value": 125, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1530, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"}
+      }
+    },
+    {
+      "id": 348,
+      "fields": {
+        "tdp_watts": {"value": 120, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1500, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"},
+        "memory_clock_mhz": {"value": 12000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-16"}
+      }
+    },
+    {
+      "id": 349,
+      "fields": {
+        "tdp_watts": {"value": 175, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1470, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/?section=compare-20"}
+      }
+    },
+    {
+      "id": 350,
+      "fields": {
+        "tdp_watts": {"value": 200, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+3xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1410, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 351,
+      "fields": {
+        "tdp_watts": {"value": 220, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+3xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1500, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 352,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xVGA", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 353,
+      "fields": {
+        "tdp_watts": {"value": 170, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "2xHDMI+2xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1320, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 15000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 354,
+      "fields": {
+        "tdp_watts": {"value": 165, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"},
+        "video_outputs": {"value": "2xHDMI+2xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 2250, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp"}
+      }
+    },
+    {
+      "id": 355,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xVGA", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 356,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 357,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": "about:blank"},
+        "needs_extra_power": {"value": null, "source_url": "about:blank"},
+        "video_outputs": {"value": "1xHDMI", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": null, "source_url": "about:blank"},
+        "memory_clock_mhz": {"value": null, "source_url": "about:blank"}
+      }
+    },
+    {
+      "id": 358,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "2xHDMI+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1040, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 359,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "2xHDMI+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1040, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    },
+    {
+      "id": 360,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "video_outputs": {"value": "1xHDMI+1xDVI-D+1xDP", "source_url": "about:blank"},
+        "core_clock_mhz": {"value": 1550, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/compare/"}
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "category": "gpu",
   "batch_id": "batch_002",
-  "generated_at": "2026-04-22T13:00:36+00:00",
+  "generated_at": "2026-04-24T13:30:26+00:00",
   "target_fields": [
     "tdp_watts",
     "needs_extra_power",
@@ -14,683 +14,683 @@
   "case_psu_pass": false,
   "items": [
     {
-      "id": 41,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N5080AERO OC-16GD",
-      "model": "Видеокарта/ GV-N5080AERO OC-16GD",
+      "id": 361,
+      "manufacturer": "PALIT",
+      "sku": "NE63050018JE-1070F/1072F",
+      "model": "Видеокарта Palit PCI-E 4.0 PA-RTX3050 STORMX NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1042/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 42,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N5080WF3OC-16GD",
-      "model": "Видеокарта/ GV-N5080WF3OC-16GD",
+      "id": 362,
+      "manufacturer": "PALIT",
+      "sku": "NE63050S18JE-1070F/1072F",
+      "model": "Видеокарта Palit PCI-E 4.0 PA-RTX3050 STORMX OC NVIDIA GeForce RTX 3050 6Gb 96bit GDDR6 1042/14000 DVIx1 HDMIx1 DPx1 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 43,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N507TAORUS M-16GD",
-      "model": "Видеокарта/ GV-N507TAORUS M-16GD",
+      "id": 363,
+      "manufacturer": "PNY",
+      "sku": "VCNRTX2000ADA-SB",
+      "model": "Видеокарта PNY PCI-E 4.0 2000ADA-SB NVIDIA RTX A2000 16Gb 192bit GDDR6 562 mDPx4 Ret low profile",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 44,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N3050WF2OCV2-6GD",
-      "model": "Видеокарта/ GV-N3050WF2OCV2-6GD",
+      "id": 364,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXA400-SB",
+      "model": "Видеокарта PNY PCI-E 4.0 A400 NVIDIA A400 4Gb 64bit GDDR6 727 mDPx4 Bulk low profile",
       "current": {
-        "vram_gb": 6
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 45,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N507TEAGLE OC-16GD",
-      "model": "Видеокарта/ GV-N507TEAGLE OC-16GD",
+      "id": 365,
+      "manufacturer": "PNY",
+      "sku": "VCNRTXPRO2000-SB",
+      "model": "Видеокарта PNY PCI-E 5.0 PRO2000 NVIDIA PRO2000 16Gb 128bit GDDR7 982 mDPx4 Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 46,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 Ti 16G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5070 Ti 16G VENTUS 3X OC",
+      "id": 366,
+      "manufacturer": "SAPPHIRE",
+      "sku": "11319-07-20G",
+      "model": "Видеокарта Sapphire PCI-E 4.0 11319-07-20G PULSE RX 6650 XT GAMING OC AMD Radeon RX 6650XT 8Gb 128bit GDDR6 2410/17500 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 47,
+      "id": 367,
+      "manufacturer": "SAPPHIRE",
+      "sku": "11324-01-20G",
+      "model": "Видеокарта Sapphire PCI-E 4.0 11324-01-20G PULSE RX 7600 GAMING AMD Radeon RX 7600 8Gb 128bit GDDR6 2355/17500 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 368,
+      "manufacturer": "ASROCK",
+      "sku": "RX9070 CL 16G",
+      "model": "Видеокарта Asrock PCI-E 5.0 RX9070 CL 16G AMD Radeon RX 9070 16Gb 256bit GDDR6 2070/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 369,
       "manufacturer": "ASUS",
-      "sku": "90YV0L70-M0NA00",
-      "model": "Видеокарта/ TUF-RX9070XT-O16G-GAMING",
+      "sku": "DUAL-RTX5050-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5050-O8G NVIDIA GeForce RTX 5050 8Gb 128bit GDDR6 2647/20000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 48,
+      "id": 370,
       "manufacturer": "ASUS",
-      "sku": "90YV0L71-M0NA00",
-      "model": "Видеокарта/ PRIME-RX9070XT-O16G",
+      "sku": "DUAL-RTX5060-O8G-WHITE",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5060-O8G-WHITE NVIDIA GeForce RTX 5060 8Gb 128bit GDDR7 2535/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 49,
+      "id": 371,
       "manufacturer": "ASUS",
-      "sku": "90YV0LI1-M0NA00",
-      "model": "Видеокарта/ PRIME-RX9070-O16G",
+      "sku": "DUAL-RTX5060-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5060-O8G NVIDIA GeForce RTX 5060 8Gb 128bit GDDR7 2535/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 50,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N507TAERO OC-16GD",
-      "model": "Видеокарта/ GV-N507TAERO OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 51,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N507TGAMING OC-16GD",
-      "model": "Видеокарта/ GV-N507TGAMING OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 52,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N507TWF3OC-16GD",
-      "model": "Видеокарта/ GV-N507TWF3OC-16GD",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 53,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 12G GAMING TRIO OC",
-      "model": "Видеокарта/ GeForce RTX 5070 12G GAMING TRIO OC",
-      "current": {
-        "vram_gb": 12
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 54,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 12G SHADOW 2X OC",
-      "model": "Видеокарта/ GeForce RTX 5070 12G SHADOW 2X OC",
-      "current": {
-        "vram_gb": 12
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 55,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5080 16G SHADOW 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5080 16G SHADOW 3X OC",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 56,
+      "id": 372,
       "manufacturer": "ASUS",
-      "sku": "90YV0M10-M0NA00",
-      "model": "Видеокарта/ PRIME-RTX5070-O12G",
+      "sku": "DUAL-RTX5060TI-8G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5060TI-8G NVIDIA GeForce RTX 5060TI 8Gb 128bit GDDR7 2572/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 12
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 57,
+      "id": 373,
       "manufacturer": "ASUS",
-      "sku": "90YV0LZ0-M0NA00",
-      "model": "Видеокарта/ TUF-RTX5070-O12G-GAMING",
+      "sku": "DUAL-RTX5060TI-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5060TI-O16G NVIDIA GeForce RTX 5060TI 16Gb 128bit GDDR7 2602/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 12
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 58,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 12G SHADOW 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5070 12G SHADOW 3X OC",
-      "current": {
-        "vram_gb": 12
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 59,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 Ti 16G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5060 Ti 16G VENTUS 3X OC",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 60,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 Ti 8G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G VENTUS 3X OC",
-      "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 61,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 12G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5070 12G VENTUS 3X OC",
-      "current": {
-        "vram_gb": 12
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 62,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 8G GAMING OC",
-      "model": "Видеокарта/ GeForce RTX 5060 8G GAMING OC",
-      "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 63,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 8G VENTUS 3X OC",
-      "model": "Видеокарта/ GeForce RTX 5060 8G VENTUS 3X OC",
-      "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 64,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 Ti 16G GAMING TRIO OC",
-      "model": "Видеокарта/ GeForce RTX 5060 Ti 16G GAMING TRIO OC",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 65,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 Ti 16G VENTUS 2X OC PLUS",
-      "model": "Видеокарта/ GeForce RTX 5060 Ti 16G VENTUS 2X OC PLUS",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 66,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5060 Ti 8G GAMING OC",
-      "model": "Видеокарта/ GeForce RTX 5060 Ti 8G GAMING OC",
-      "current": {
-        "vram_gb": 8
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 67,
-      "manufacturer": "MSI",
-      "sku": "GeForce RTX 5070 Ti 16G GAMING TRIO OC",
-      "model": "Видеокарта/ GeForce RTX 5070 Ti 16G GAMING TRIO OC",
-      "current": {
-        "vram_gb": 16
-      },
-      "to_fill": [
-        "tdp_watts",
-        "needs_extra_power",
-        "video_outputs",
-        "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
-      ]
-    },
-    {
-      "id": 68,
+      "id": 374,
       "manufacturer": "ASUS",
-      "sku": "90YV0MH0-M0NA00",
-      "model": "Видеокарта/ DUAL-RTX5060TI-O16G",
+      "sku": "DUAL-RTX5060TI-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5060TI-O8G NVIDIA GeForce RTX 5060TI 8Gb 128bit GDDR7 2602/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 69,
+      "id": 375,
       "manufacturer": "ASUS",
-      "sku": "90YV0MP2-M0NA00",
-      "model": "Видеокарта/ DUAL-RTX5060TI-O8G",
+      "sku": "DUAL-RTX5070-O12G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RTX5070-O12G NVIDIA GeForce RTX 5070 12Gb 192bit GDDR7 2542/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 8
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 70,
+      "id": 376,
       "manufacturer": "ASUS",
-      "sku": "90YV0MH2-M0NA00",
-      "model": "Видеокарта/ PRIME-RTX5060TI-O16G",
+      "sku": "DUAL-RX9060XT-16G-WHITE",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RX9060XT-16G-WHITE AMD Radeon RX 9060XT 16Gb 128bit GDDR6 2620/20000 HDMIx1 DPx2 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 71,
+      "id": 377,
       "manufacturer": "ASUS",
-      "sku": "90YV0MP0-M0NA00",
-      "model": "Видеокарта/ PRIME-RTX5060TI-O8G",
+      "sku": "DUAL-RX9060XT-16G",
+      "model": "Видеокарта Asus PCI-E 5.0 DUAL-RX9060XT-16G AMD Radeon RX 9060XT 16Gb 128bit GDDR6 2620/20000 HDMIx1 DPx2 HDCP Ret",
       "current": {
-        "vram_gb": 8
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 72,
+      "id": 378,
       "manufacturer": "ASUS",
-      "sku": "90YV0MG0-M0NA00",
-      "model": "Видеокарта/ TUF-RTX5060TI-O16G-GAMING",
+      "sku": "PRIME-RTX5050-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5050-O8G NVIDIA GeForce RTX 5050 8Gb 128bit GDDR6 2677/20000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 73,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TAERO OC-16GD",
-      "model": "Видеокарта/ GV-N506TAERO OC-16GD",
+      "id": 379,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5060-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5060-O8G NVIDIA GeForce RTX 5060 8Gb 128bit GDDR7 2565/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 74,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TEAGLE OC-8GD",
-      "model": "Видеокарта/ GV-N506TEAGLE OC-8GD",
+      "id": 380,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5060TI-O8G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5060TI-O8G NVIDIA GeForce RTX 5060TI 8Gb 128bit GDDR7 2617/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 8
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 75,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TEAGLEOC ICE-16GD",
-      "model": "Видеокарта/ GV-N506TEAGLEOC ICE-16GD",
+      "id": 381,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5070-O12G-WHITE",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5070-O12G-WHITE NVIDIA GeForce RTX 5070 12Gb 192bit GDDR7 2557/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 76,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TEAGLEOC ICE-8GD",
-      "model": "Видеокарта/ GV-N506TEAGLEOC ICE-8GD",
+      "id": 382,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5070-O12G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5070-O12G NVIDIA GeForce RTX 5070 12Gb 192bit GDDR7 2557/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 8
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 77,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TGAMING OC-16GD",
-      "model": "Видеокарта/ GV-N506TGAMING OC-16GD",
+      "id": 383,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5070TI-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5070TI-O16G NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2497/28000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 78,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TGAMING OC-8GD",
-      "model": "Видеокарта/ GV-N506TGAMING OC-8GD",
+      "id": 384,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RTX5080-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RTX5080-O16G NVIDIA GeForce RTX 5080 16Gb 256bit GDDR7 2655/30000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 8
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 79,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TWF2-16GD",
-      "model": "Видеокарта/ GV-N506TWF2-16GD",
+      "id": 385,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RX9060XT-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RX9060XT-O16G AMD Radeon RX 9060XT 16Gb 128bit GDDR6 2740/20000 HDMIx1 DPx2 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
       ]
     },
     {
-      "id": 80,
-      "manufacturer": "Gigabyte",
-      "sku": "GV-N506TWF2OC-16GD",
-      "model": "Видеокарта/ GV-N506TWF2OC-16GD",
+      "id": 386,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RX9070-O16G-EVO",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RX9070-O16G-EVO AMD Radeon RX 9070 16Gb 256bit GDDR6 2120/20000 HDMIx1 DPx3 HDCP Ret",
       "current": {
-        "vram_gb": 16
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
       },
       "to_fill": [
         "tdp_watts",
         "needs_extra_power",
         "video_outputs",
         "core_clock_mhz",
-        "memory_clock_mhz",
-        "vram_type"
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 387,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RX9070-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RX9070-O16G AMD Radeon RX 9070 16Gb 256bit GDDR6 2120/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 388,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RX9070XT-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RX9070XT-O16G AMD Radeon RX 9070XT 16Gb 256bit GDDR6 2460/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 389,
+      "manufacturer": "ASUS",
+      "sku": "PRIME-RX9070XT-O16GWHITE",
+      "model": "Видеокарта Asus PCI-E 5.0 PRIME-RX9070XT-O16GWHITE AMD Radeon RX 9070XT 16Gb 256bit GDDR6 2460/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 390,
+      "manufacturer": "ASUS",
+      "sku": "PROART-RTX5070TI-O16G",
+      "model": "Видеокарта Asus PCI-E 5.0 PROART-RTX5070TI-O16G NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2588/28000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 391,
+      "manufacturer": "ASUS",
+      "sku": "ROG-ASTRAL-RTX5080-O16G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 ROG-ASTRAL-RTX5080-O16G-GAMING NVIDIA GeForce RTX 5080 16Gb 256bit GDDR7 2760/30000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 392,
+      "manufacturer": "ASUS",
+      "sku": "ROG-STRIX-RTX5070-O12G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 ROG-STRIX-RTX5070-O12G-GAMING NVIDIA GeForce RTX 5070 12Gb 192bit GDDR7 2655/28000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 393,
+      "manufacturer": "ASUS",
+      "sku": "ROG-STRIX-RTX5070TI-16G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 ROG-STRIX-RTX5070TI-16G-GAMING NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2452/28000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 394,
+      "manufacturer": "ASUS",
+      "sku": "ROG-STRIX-RTX5070TI-O16G-GAM",
+      "model": "Видеокарта Asus PCI-E 5.0 ROG-STRIX-RTX5070TI-O16G-GAMING NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2602/28000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 395,
+      "manufacturer": "ASUS",
+      "sku": "TUF-RTX5060-O8G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 TUF-RTX5060-O8G-GAMING NVIDIA GeForce RTX 5060 8Gb 128bit GDDR7 2640/28000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 396,
+      "manufacturer": "ASUS",
+      "sku": "TUF-RTX5070-O12G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 TUF-RTX5070-O12G-GAMING NVIDIA GeForce RTX 5070 12Gb 192bit GDDR7 2610/28000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 397,
+      "manufacturer": "ASUS",
+      "sku": "TUF-RTX5070TI-O16G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 TUF-RTX5070TI-O16G-GAMING NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2588/28000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 398,
+      "manufacturer": "ASUS",
+      "sku": "TUF-RTX5080-O16G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 TUF-RTX5080-O16G-GAMING NVIDIA GeForce RTX 5080 16Gb 256bit GDDR7 2700/30000 HDMIx2 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 399,
+      "manufacturer": "ASUS",
+      "sku": "TUF-RX9070XT-O16G-GAMING",
+      "model": "Видеокарта Asus PCI-E 5.0 TUF-RX9070XT-O16G-GAMING AMD Radeon RX 9070XT 16Gb 256bit GDDR6 2520/20000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 400,
+      "manufacturer": "GIGABYTE",
+      "sku": "GV-N506TAERO OC-8GD",
+      "model": "Видеокарта Gigabyte PCI-E 5.0 GV-N506TAERO OC-8GD 1.0 NVIDIA GeForce RTX 5060TI 8Gb 128bit GDDR7 2572/28000 HDMIx1 DPx3 HDCP Ret",
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
       ]
     }
   ]

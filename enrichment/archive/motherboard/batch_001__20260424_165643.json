@@ -1,0 +1,33 @@
+{
+  "category": "motherboard",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:10:00Z",
+  "items": [
+    {
+      "id": 378,
+      "fields": {
+        "memory_type": {
+          "value": "DDR3",
+          "source_url": "https://www.afox-corp.com/show-105-413-1.html"
+        },
+        "has_m2_slot": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/show-105-413-1.html"
+        }
+      }
+    },
+    {
+      "id": 379,
+      "fields": {
+        "memory_type": {
+          "value": "DDR4",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=105&id=434"
+        },
+        "has_m2_slot": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=105&id=434"
+        }
+      }
+    }
+  ]
+}
