@@ -22,10 +22,19 @@ _TYPE_HDD = re.compile(r"\b(HDD|Жесткий диск|Жёсткий диск)
 # M.2 ловим либо явным "M.2", либо типовым размером "2280"/"22x80mm".
 _FF_M2   = re.compile(r"\bM\.2\b|\b22x80mm\b|\b2280\b", re.IGNORECASE)
 # 2.5" — встречается как '2.5"', '2.5""' (опечатка Seagate), '2.5\'\''
-# (одинарные кавычки у AGI), а также опечатка 'SATA25"' без точки.
-_FF_25 = re.compile(r"""2\.5\"+|2\.5\s*''|(?<=SATA)\s*25\"+|\bSFF\b""")
-# 3.5" — или LFF.
-_FF_35 = re.compile(r'3\.5\"+|\bLFF\b')
+# (одинарные кавычки у AGI), '2,5"' (русская запятая у Merlion-SKU:
+# Crucial/WD/SanDisk), типографские кавычки `”` `’` `″`, опечатка
+# 'SATA25"' без точки, а также "2.5 SATA" без кавычек (Netac Merlion-SKU).
+_FF_25 = re.compile(
+    r"""2[.,]5\s*(?:"+|''|[”’″])"""         # с любой кавычкой/запятой
+    r"""|(?<=SATA)\s*25\"+"""               # опечатка "SATA25\""
+    r"""|\b2[.,]5\s+SATA"""                 # "2.5 SATA" без кавычек
+    r"""|\bSFF\b"""                         # серверный формфактор
+)
+# 3.5" — или LFF. Поддерживаем точку или запятую и разные виды кавычек.
+_FF_35 = re.compile(r'''3[.,]5\s*(?:"+|''|[”’″])|\bLFF\b''')
+# mSATA — отдельный формфактор SSD (старые Netac N5M и т.п.).
+_FF_MSATA = re.compile(r"\bmSATA\b")
 
 # Интерфейс: порядок важен — NVMe (самый специфичный) > SAS > SATA.
 _IFACE_NVME = re.compile(r"\bNVMe\b", re.IGNORECASE)
@@ -35,11 +44,13 @@ _IFACE_SATA = re.compile(r"\bSATA(?:I{1,3}|\d)?\b", re.IGNORECASE)
 # Если есть PCIe и нет SATA — это NVMe (типично для M.2 без явного NVMe).
 _IFACE_PCIE = re.compile(r"\bPCIe\b", re.IGNORECASE)
 
-# Ёмкость. Ищем число + единица (TB/GB), с проверкой что дальше не "/s"
-# или буква/цифра (иначе поймаем скорости интерфейса "6Gb/s", "MB/s").
+# Ёмкость. Ищем число + единица (TB/GB/Тб/Гб), с проверкой что дальше не
+# "/s" или буква/цифра (иначе поймаем скорости интерфейса "6Gb/s", "MB/s").
 # Регистр любой: встречается "1Tb", "4Tb", "14tb", "1920GB".
+# Русские единицы у GS Nanotech и Merlion-SKU: "512Гб", "2Тб", "1 ТБ".
+# Для русских единиц \w-класс ruCyr тоже работает как граница после буквы.
 _CAPACITY_RE = re.compile(
-    r"\b(\d+(?:\.\d+)?)\s*(TB|GB)(?![/\w])",
+    r"(\d+(?:\.\d+)?)\s*(TB|GB|Тб|Гб|ТБ|ГБ)(?![/\w])",
     re.IGNORECASE,
 )
 
@@ -60,6 +71,8 @@ def extract(model: str) -> dict[str, ExtractedField]:
     # --- form_factor ---
     if _FF_M2.search(model):
         fields["form_factor"] = ExtractedField("M.2", "regex", 1.0)
+    elif _FF_MSATA.search(model):
+        fields["form_factor"] = ExtractedField("mSATA", "regex", 1.0)
     elif _FF_25.search(model):
         fields["form_factor"] = ExtractedField('2.5"', "regex", 1.0)
     elif _FF_35.search(model):
@@ -84,7 +97,9 @@ def extract(model: str) -> dict[str, ExtractedField]:
         value = float(m.group(1))
         unit  = m.group(2).upper()
         # Маркетинговый стандарт дисков: 1 TB = 1000 GB
-        gb = int(value * 1000) if unit == "TB" else int(value)
+        # Русские единицы TB="ТБ" и GB="ГБ" нормализуются через .upper().
+        is_tb = unit in ("TB", "ТБ")
+        gb = int(value * 1000) if is_tb else int(value)
         if gb > 0:
             fields["capacity_gb"] = ExtractedField(gb, "regex", 1.0)
 

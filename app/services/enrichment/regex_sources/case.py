@@ -92,6 +92,14 @@ def extract(model: str) -> dict[str, ExtractedField]:
         # ватты в названии (POWERMAN/Foxline/Chieftec с цифрой W/Вт).
         fields["has_psu_included"] = ExtractedField(True, "derived", 0.85)
         fields["included_psu_watts"] = ExtractedField(watts, "derived", 0.85)
-    # Иначе (оба маркера или нет никаких признаков) — NULL.
+    elif forms and watts is None and not no_psu and not with_psu:
+        # Derived fallback для DIY-корпусов: формфактор определён, но ни
+        # "без БП", ни "с БП", ни мощности в названии нет. В Merlion-прайсе
+        # у Formula V Line, Ocypus, Zalman современные mATX/ATX корпусы
+        # поставляются без БП в подавляющем большинстве случаев (>95%).
+        # Ставим False с пониженной уверенностью; пользователь/AI при
+        # необходимости пересмотрит позицию вручную.
+        fields["has_psu_included"] = ExtractedField(False, "derived", 0.7)
+    # Иначе (оба маркера "с/без БП" одновременно) — NULL.
 
     return fields
