@@ -107,7 +107,24 @@
         Скачать Excel
       </a>
       <div id="kp-export-placeholder" class="flex items-center gap-2">
-        {# Этап 8.2: сюда встроится поле «наценка, %» и кнопка «Сформировать КП». #}
+        <label for="markup-input" class="text-gray-200 text-sm">Наценка:</label>
+        <div class="relative">
+          <input type="number"
+                 id="markup-input"
+                 value="15" min="0" max="500" step="1"
+                 class="w-20 pr-6 pl-2 py-1.5 bg-gray-800 text-white border
+                        border-gray-600 rounded focus:border-emerald-500
+                        focus:outline-none"
+                 aria-label="Наценка в процентах">
+          <span class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400
+                       text-sm pointer-events-none">%</span>
+        </div>
+        <button id="kp-generate-btn"
+                type="button"
+                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700
+                       text-white rounded">
+          Сформировать КП
+        </button>
       </div>
     </div>
   </div>
@@ -138,6 +155,19 @@
     if (!btn || !form) return;
     btn.addEventListener('click', function () { form.classList.remove('hidden'); });
     cancel.addEventListener('click', function () { form.classList.add('hidden'); });
+  })();
+</script>
+
+<script>
+  // Генерация КП: отправляем markup параметром в /export/kp.
+  (function () {
+    var btn = document.getElementById('kp-generate-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var markup = document.getElementById('markup-input').value;
+      var projectId = {{ project.id }};
+      window.location.href = '/project/' + projectId + '/export/kp?markup=' + markup;
+    });
   })();
 </script>
 

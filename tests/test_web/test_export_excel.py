@@ -316,16 +316,8 @@ def test_excel_endpoint_returns_xlsx(
     assert "Эндпоинт" in (ws["A1"].value or "")
 
 
-def test_kp_endpoint_returns_501(
-    db_session, manager_client, manager_user,
-):
-    """Заглушка — KP реализует этап 8.2."""
-    pid = spec_service.create_empty_project(
-        db_session, user_id=manager_user["id"], name="KP-stub",
-    )
-    r = manager_client.get(f"/project/{pid}/export/kp")
-    assert r.status_code == 501
-    assert "8.2" in r.json().get("detail", "")
+# Тест заглушки /export/kp (501) удалён: KP-эндпоинт реализован в этапе 8.2.
+# Его поведение проверяется в tests/test_web/test_kp_builder.py.
 
 
 def test_excel_endpoint_forbidden_for_other_user(

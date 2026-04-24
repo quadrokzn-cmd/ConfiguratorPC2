@@ -1,12 +1,12 @@
 # Роутер экспорта проекта (этап 8).
 #
-# /project/{id}/export/excel — xlsx-выгрузка (этап 8.1, реализована).
-# /project/{id}/export/kp    — docx-КП (этап 8.2, идёт параллельно).
+# /project/{id}/export/excel — xlsx-выгрузка (этап 8.1).
+# /project/{id}/export/kp    — docx-КП с наценкой (этап 8.2).
 #
-# Эндпоинт Excel запрашивает курс ЦБ РФ, загружает проект и спецификацию,
-# собирает файл через excel_builder и отдаёт StreamingResponse с RFC 5987
-# Content-Disposition, чтобы браузер корректно скачивал файл с русским
-# названием.
+# Оба эндпоинта запрашивают курс ЦБ РФ, загружают проект и спецификацию,
+# собирают файл через соответствующий builder и отдают StreamingResponse
+# с RFC 5987 Content-Disposition, чтобы браузер корректно скачивал файл
+# с русским названием.
 
 from __future__ import annotations
 
@@ -15,13 +15,13 @@ from io import BytesIO
 from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.auth import AuthUser, require_login
 from app.database import get_db
 from app.routers.project_router import _load_project_or_raise
-from app.services.export import excel_builder, exchange_rate
+from app.services.export import excel_builder, exchange_rate, kp_builder
 
 logger = logging.getLogger(__name__)
 
@@ -30,16 +30,19 @@ router = APIRouter()
 _XLSX_MEDIA_TYPE = (
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
+_DOCX_MEDIA_TYPE = (
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
 
 
-def _content_disposition(filename: str) -> str:
+def _content_disposition(filename: str, *, ascii_fallback: str) -> str:
     """Content-Disposition по RFC 5987 — ASCII-фолбэк + UTF-8 параметр.
 
     Русское название в filename* URL-кодируется; для старых клиентов
-    отдаём ASCII-транслит «export.xlsx» в filename=.
+    отдаём ASCII-транслит в filename=.
     """
     quoted = quote(filename, safe="")
-    return f"attachment; filename=\"export.xlsx\"; filename*=UTF-8''{quoted}"
+    return f"attachment; filename=\"{ascii_fallback}\"; filename*=UTF-8''{quoted}"
 
 
 @router.get("/project/{project_id}/export/excel")
@@ -85,7 +88,11 @@ def export_excel(
     return StreamingResponse(
         BytesIO(xlsx_bytes),
         media_type=_XLSX_MEDIA_TYPE,
-        headers={"Content-Disposition": _content_disposition(filename)},
+        headers={
+            "Content-Disposition": _content_disposition(
+                filename, ascii_fallback="export.xlsx",
+            ),
+        },
     )
 
 
@@ -99,15 +106,37 @@ def export_kp(
     """Сформировать коммерческое предложение (docx) по проекту.
 
     markup — целое число процентов (15 = +15%) к закупочной цене в рублях;
-    результат: docx-файл по шаблону kp_template.docx.
+    результат: docx-файл по шаблону kp_template.docx с заменой даты,
+    заполнением таблицы конфигураций и строки ИТОГО.
 
-    Реализация — этап 8.2 (идёт в параллельном чате). Пока заглушка 501.
+    Коды ответа: 200 с docx / 400 при неверном markup / 403 или 404 при
+    отсутствии доступа / 503 если курс ЦБ недоступен и нет кэша.
     """
-    # Доступ всё равно проверяем — чтобы 501 видел только авторизованный
-    # пользователь своего проекта, а чужой получил 403/404 как обычно.
-    _load_project_or_raise(db, project_id=project_id, user=user)
-    _ = markup  # заглушка: параметр будет использован в этапе 8.2
-    return JSONResponse(
-        {"detail": "KP export — в разработке (Этап 8.2)"},
-        status_code=501,
+    project = _load_project_or_raise(db, project_id=project_id, user=user)
+
+    try:
+        data = kp_builder.build_kp_docx(
+            project_id=project_id, markup_percent=markup, db=db,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    except RuntimeError as exc:
+        logger.error("KP-экспорт: не удалось получить курс ЦБ: %s", exc)
+        raise HTTPException(
+            status_code=503,
+            detail="Не удалось получить курс ЦБ РФ и нет локального кэша.",
+        )
+
+    created = project["created_at"]
+    safe_name = (project["name"] or "project").replace("/", "_").replace("\\", "_")
+    filename = f"{safe_name}_{created.strftime('%Y-%m-%d_%H%M')}.docx"
+
+    return StreamingResponse(
+        BytesIO(data),
+        media_type=_DOCX_MEDIA_TYPE,
+        headers={
+            "Content-Disposition": _content_disposition(
+                filename, ascii_fallback="export.docx",
+            ),
+        },
     )
