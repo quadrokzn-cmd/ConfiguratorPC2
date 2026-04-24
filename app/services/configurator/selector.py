@@ -265,6 +265,7 @@ def _build_to_variant(
         gpu=build["gpu"],
         case=build["case"],
         used_transit=any_in_transit,
+        ram_modules_count=int(ram_block["quantity"]),
         extra_warnings=list(build.get("rule_warnings") or []),
     )
 

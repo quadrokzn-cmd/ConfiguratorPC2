@@ -485,3 +485,162 @@ def test_detail_page_shows_matching_candidates(admin_client, db_session):
     assert pos_exact > -1
     # Ryzen не должен попасть в кандидаты (разные токены).
     assert "AMD Ryzen 5 7600" not in body
+
+
+# ---- этап 7.2: фильтрация скелетов, калибровка, синхрон списка и детали ---
+
+
+def test_score_excludes_unmapped_candidates(admin_client, db_session):
+    """При расчёте score не должны учитываться другие скелеты unmapped.
+
+    Типичный кейс этапа 7.1: Merlion и Treolan создали скелеты для
+    своих прайсов. Если не фильтровать, SSD 512GB получает в кандидаты
+    SSD 1TB (тоже скелет), тот же бренд → score=100 → 2000+ ложных
+    «подозрительных». После фильтра скелеты друг друга не видят.
+    """
+    from app.services import mapping_service as ms
+
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Merlion")
+
+    # Два скелета одного бренда, ни один не связан с реальным OCS-компонентом.
+    skel_a = _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="SKEL-A",
+    )
+    skel_b = _insert_cpu(
+        db_session, model="Intel Core i5-12400F", manufacturer="Intel",
+        sku="SKEL-B",
+    )
+
+    u_a = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SKEL-A",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new", resolved_component_id=skel_a,
+    )
+    u_b = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SKEL-B",
+        raw_name="Intel Core i5-12400F", brand="Intel",
+        status="created_new", resolved_component_id=skel_b,
+    )
+
+    row_a = ms.get_by_id(db_session, u_a)
+    row_b = ms.get_by_id(db_session, u_b)
+
+    # Оба скелета — единственные кандидаты друг для друга. После фильтра
+    # их быть не должно → score=0.
+    score_a, best_a = ms.calculate_score(db_session, row_a)
+    score_b, best_b = ms.calculate_score(db_session, row_b)
+    assert score_a == 0 and best_a is None
+    assert score_b == 0 and best_b is None
+
+    # Добавим реальный OCS-компонент (без resolved_component_id-ссылок) —
+    # он должен появиться в кандидатах и дать score=100 (brand+token+lev).
+    real_cpu = _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400-REAL",
+    )
+    score_a2, best_a2 = ms.calculate_score(db_session, row_a)
+    assert best_a2 == real_cpu
+    assert score_a2 == 100
+
+
+def test_score_calibration(admin_client, db_session):
+    """Конкретные кейсы калибровки (этап 7.2):
+      - разные бренды в одной категории → 0
+      - одинаковый бренд, разные модели → ≤ 30 (cap при отсутствии
+        совпадающего токена и большой Lev-дистанции)
+      - одинаковый бренд + совпадающий конкретный токен → 50-80
+      - почти идентичное имя → ≥ 80.
+    """
+    from app.services import mapping_service as ms
+
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+
+    real_intel = _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400-REAL",
+    )
+    _ = real_intel
+
+    # 1) Разные бренды, одна категория.
+    u_other_brand = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-DB",
+        raw_name="Какой-то странный CPU без модели", brand="NoName",
+        status="created_new",
+    )
+    s1, _ = ms.calculate_score(db_session, ms.get_by_id(db_session, u_other_brand))
+    assert s1 == 0, f"разные бренды ожидали 0, получили {s1}"
+
+    # 2) Тот же бренд, разные модели (нет общих значимых токенов).
+    u_same_brand = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-SB",
+        raw_name="Intel Xeon E3-1240v5", brand="Intel",
+        status="created_new",
+    )
+    s2, _ = ms.calculate_score(db_session, ms.get_by_id(db_session, u_same_brand))
+    assert s2 <= 30, f"тот же бренд, разные модели ожидали ≤ 30, получили {s2}"
+
+    # 3) Тот же бренд + совпадающий конкретный токен «12400».
+    u_token = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-TK",
+        raw_name="Процессор Intel 12400 BOX", brand="Intel",
+        status="created_new",
+    )
+    s3, _ = ms.calculate_score(db_session, ms.get_by_id(db_session, u_token))
+    assert 50 <= s3 <= 80, f"бренд+токен ожидали 50-80, получили {s3}"
+
+    # 4) Почти идентичное имя.
+    u_near = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-NR",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new",
+    )
+    s4, _ = ms.calculate_score(db_session, ms.get_by_id(db_session, u_near))
+    assert s4 >= 80, f"почти идентичное имя ожидали ≥ 80, получили {s4}"
+
+
+def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
+    """Детальная страница использует тот же скоринг, что и список.
+
+    Раньше список показывал best_candidate из calculate_score (OR),
+    а деталь — из find_candidates (AND) — они могли расходиться.
+    Теперь оба пути через calculate_candidates_ranked: лучший кандидат
+    в списке совпадает с первой радио-кнопкой на детальной.
+    """
+    from app.services import mapping_service as ms
+
+    _cleanup_fixtures_for_test(db_session)
+    sid = _insert_supplier(db_session, "Treolan")
+
+    real_cpu = _insert_cpu(
+        db_session, model="Intel Core i5-12400", manufacturer="Intel",
+        sku="CM8071512400",
+    )
+
+    unmapped_id = _insert_unmapped(
+        db_session, supplier_id=sid, supplier_sku="SK-SYNC",
+        raw_name="Intel Core i5-12400", brand="Intel",
+        status="created_new",
+    )
+
+    # Считаем score, чтобы best_candidate_component_id записался в БД.
+    ms.ensure_score(db_session, unmapped_id)
+
+    # В списке best = real_cpu.
+    row = db_session.execute(_t(
+        "SELECT best_candidate_component_id FROM unmapped_supplier_items "
+        "WHERE id = :id"
+    ), {"id": unmapped_id}).first()
+    assert int(row.best_candidate_component_id) == real_cpu
+
+    # На детали — тот же real_cpu среди кандидатов.
+    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    assert r.status_code == 200
+    assert f'value="{real_cpu}"' in r.text
+    # Колонка Score видна и содержит 100 для этого кандидата.
+    assert "100" in r.text
+    # Колонка reason видна (хотя бы одна из типовых строк).
+    assert ("бренд" in r.text) or ("модельный токен" in r.text) \
+        or ("похожесть имён" in r.text)

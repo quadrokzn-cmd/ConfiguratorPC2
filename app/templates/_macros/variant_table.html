@@ -48,7 +48,10 @@
     {% endif %}
     {% if c.also_available_at %}
       <div class="text-xs text-zinc-600 mt-0.5">
-        также у: {{ c.also_available_at | map(attribute='supplier') | join(', ') }}
+        также у:
+        {%- for o in c.also_available_at %}
+          {{ o.supplier }} ${{ '%.0f'|format(o.price_usd or 0) }}{% if not loop.last %},{% endif %}
+        {%- endfor %}
       </div>
     {% endif %}
   </td>

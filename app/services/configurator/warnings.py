@@ -34,9 +34,14 @@ def collect_warnings(
     gpu: dict | None,
     case: dict,
     used_transit: bool,
+    ram_modules_count: int = 1,
     extra_warnings: list[str] | None = None,
 ) -> list[str]:
     """Собирает список предупреждений к сборке.
+
+    ram_modules_count — количество модулей памяти в итоговой сборке.
+    При modules_count == 1 предупреждение про количество слотов подавляется:
+    один слот на любой плате гарантированно есть, проверять нечего.
 
     extra_warnings — предупреждения, пришедшие из compatibility.check_build
     (например, «длина GPU не подтверждена»). Они объединяются с теми, что
@@ -44,8 +49,9 @@ def collect_warnings(
     """
     out: list[str] = []
 
-    # 1) memory_slots у MB не заполнен → считаем 4 слота, предупреждаем
-    if motherboard.get("memory_slots") is None:
+    # 1) memory_slots у MB не заполнен → считаем 4 слота, предупреждаем.
+    # Но только если планок больше одной: для одной планки слот точно есть.
+    if motherboard.get("memory_slots") is None and ram_modules_count > 1:
         out.append(W_MB_SLOTS_UNKNOWN)
 
     # 2) Есть дискретная GPU — проверяем связанные предупреждения

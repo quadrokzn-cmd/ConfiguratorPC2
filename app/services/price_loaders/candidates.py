@@ -27,6 +27,21 @@ def _table_for(category: str) -> str:
     return table
 
 
+# Фильтр, отсекающий «скелеты»: компоненты, созданные автоматически
+# при загрузке прайсов Merlion/Treolan и помеченные status='created_new'.
+# Они НЕ должны попадать в кандидаты для mapping — иначе при большом
+# скоплении unmapped-позиций они ссылаются друг на друга (SSD 512GB →
+# SSD 1TB того же бренда) и дают ложные score=100. Настоящие кандидаты —
+# только те компоненты, которые уже привязаны к реальному OCS-источнику
+# или созданы вручную.
+_EXCLUDE_SKELETONS_SQL = (
+    "c.id NOT IN ("
+    "SELECT resolved_component_id FROM unmapped_supplier_items "
+    "WHERE status = 'created_new' AND resolved_component_id IS NOT NULL"
+    ")"
+)
+
+
 def find_candidates(
     session: Session,
     *,
@@ -49,26 +64,29 @@ def find_candidates(
     # этой категории по цене. Это хуже, чем пустой список, — админ
     # хотя бы увидит ассортимент.
     if not tokens:
+        where_parts: list[str] = [_EXCLUDE_SKELETONS_SQL]
+        params: dict = {"cat": category}
+        if exclude_id:
+            where_parts.append("c.id <> :exclude_id")
+            params["exclude_id"] = exclude_id
+        where_sql = " AND ".join(where_parts)
         sql = (
             f"SELECT c.id, c.model, c.sku, c.manufacturer, c.gtin, "
             f"       MIN(sp.price) FILTER (WHERE sp.stock_qty > 0) AS min_price "
             f"FROM {table} c "
             f"LEFT JOIN supplier_prices sp "
             f"  ON sp.category = :cat AND sp.component_id = c.id "
-            f"{'WHERE c.id <> :exclude_id ' if exclude_id else ''}"
+            f"WHERE {where_sql} "
             f"GROUP BY c.id, c.model, c.sku, c.manufacturer, c.gtin "
             f"ORDER BY min_price NULLS LAST, c.id "
             f"LIMIT {int(limit)}"
         )
-        params: dict = {"cat": category}
-        if exclude_id:
-            params["exclude_id"] = exclude_id
         rows = session.execute(text(sql), params).mappings().all()
         return [dict(r) for r in rows]
 
     # Основной путь: все токены должны встречаться в model.
-    where_parts: list[str] = []
-    params: dict[str, object] = {"cat": category}
+    where_parts = [_EXCLUDE_SKELETONS_SQL]
+    params = {"cat": category}
     for i, tok in enumerate(tokens):
         key = f"tok{i}"
         where_parts.append(f"UPPER(c.model) LIKE :{key}")

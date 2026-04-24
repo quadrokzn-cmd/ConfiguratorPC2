@@ -628,7 +628,9 @@ def test_transit_fallback(world):
 
 # -- Тест 15. Все предупреждения корректно --
 def test_all_warnings_generated(world):
-    # MB без memory_slots, GPU с needs_extra_power=True, GPU.length_mm=None
+    # MB без memory_slots, GPU с needs_extra_power=True, GPU.length_mm=None.
+    # Требуем 32 ГБ RAM при модулях по 16 ГБ — builder возьмёт 2 модуля,
+    # и предупреждение про слоты памяти должно сработать.
     world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=False))
     world.motherboards.append(
         mk_mb(101, "LGA1700", "ATX", "DDR5", 120, slots=None)
@@ -640,7 +642,11 @@ def test_all_warnings_generated(world):
     world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=None))
     world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
 
-    req = request_from_dict({"cpu": {"min_cores": 4}, "gpu": {"required": True}})
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "ram": {"min_gb": 32, "memory_type": "DDR5"},
+        "gpu": {"required": True},
+    })
     result = S.build_config(req)
     v = next(v for v in result.variants if v.manufacturer == "Intel")
     joined = " | ".join(v.warnings).lower()
@@ -832,3 +838,114 @@ def test_currency_conversion(world):
     v = result.variants[0]
     for c in v.components:
         assert abs(c.chosen.price_rub - c.chosen.price_usd * 100.0) < 0.02
+
+
+# ---- этап 7.2: warning про слоты + цены в also_available_at ------------
+
+
+def test_warning_single_ram_module(world):
+    """Один модуль памяти → предупреждение про количество слотов НЕ
+    добавляется: один слот на плате гарантированно есть."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(
+        mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=None)
+    )
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "ram": {"min_gb": 16, "memory_type": "DDR5"},
+    })
+    result = S.build_config(req)
+    v = result.variants[0]
+    ram_choice = next(c for c in v.components if c.category == "ram")
+    assert ram_choice.quantity == 1
+    joined = " | ".join(v.warnings).lower()
+    assert "слотов" not in joined, (
+        f"для 1 модуля памяти предупреждение про слоты не должно добавляться, "
+        f"но оно есть: {v.warnings!r}"
+    )
+
+
+def test_warning_multiple_ram_modules(world):
+    """Два и больше модулей памяти → предупреждение про количество
+    слотов остаётся (регрессия): плата может оказаться 1-слотовой mATX."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(
+        mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=None)
+    )
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages.append(mk_storage(401, 500, "SSD", 45))
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    # min_gb=32 при модулях 16 ГБ → builder возьмёт 2 модуля.
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "ram": {"min_gb": 32, "memory_type": "DDR5"},
+    })
+    result = S.build_config(req)
+    v = result.variants[0]
+    ram_choice = next(c for c in v.components if c.category == "ram")
+    assert ram_choice.quantity == 2
+    joined = " | ".join(v.warnings).lower()
+    assert "слотов" in joined
+
+
+def test_also_available_includes_price(world, monkeypatch):
+    """В also_available_at каждого компонента должны быть USD-цены
+    альтернативных поставщиков — чтобы менеджер сразу видел разницу
+    без перехода в отдельный интерфейс."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    _std_common(world)
+
+    def multi_fetch_offers(session, *, category, component_id, usd_rub, allow_transit):
+        base_price = None
+        for storage in (world.cpus, world.motherboards, world.rams, world.gpus,
+                        world.storages, world.psus, world.cases, world.coolers):
+            for r in storage:
+                if r["id"] == component_id:
+                    base_price = float(r["price_usd_min"])
+                    break
+            if base_price is not None:
+                break
+        if base_price is None:
+            return []
+        offers = [
+            ("OCS",     base_price),
+            ("Merlion", base_price + 5),
+            ("Treolan", base_price + 10),
+        ]
+        result = [
+            SupplierOffer(
+                supplier=name,
+                price_usd=round(price, 2),
+                price_rub=round(price * usd_rub, 2),
+                stock=10,
+                in_transit=False,
+            )
+            for name, price in offers
+        ]
+        result.sort(key=lambda o: o.price_usd)
+        return result
+
+    monkeypatch.setattr(S, "fetch_offers", multi_fetch_offers)
+
+    req = request_from_dict({"cpu": {"min_cores": 4}})
+    result = S.build_config(req)
+    v = result.variants[0]
+    cpu_choice = next(c for c in v.components if c.category == "cpu")
+    # У CPU базовая цена 100 → chosen=OCS@100, also=[Merlion@105, Treolan@110].
+    assert cpu_choice.chosen.supplier == "OCS"
+    assert len(cpu_choice.also_available_at) == 2
+    for o in cpu_choice.also_available_at:
+        assert o.price_usd > 0
+        assert o.price_rub > 0
+    suppliers = {o.supplier: o.price_usd for o in cpu_choice.also_available_at}
+    assert suppliers["Merlion"] == 105.0
+    assert suppliers["Treolan"] == 110.0

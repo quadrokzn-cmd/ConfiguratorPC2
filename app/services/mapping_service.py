@@ -349,82 +349,223 @@ _MODEL_NUMBER_TOKEN_RE = re.compile(
 )
 
 
+# Стоп-слова для токенизации: совпадение по таким словам не означает,
+# что компоненты — дубликаты, это просто общая принадлежность к типу
+# продукта/интерфейсу. Без стоп-списка любые два SSD AGi с одинаковым
+# «SATA», «DDR4» или «1TB» получали +50 и ошибочно ранжировались как
+# подозрительные дубликаты.
+_MODEL_TOKEN_STOPWORDS: frozenset[str] = frozenset({
+    # типы памяти и интерфейсы
+    "DDR2", "DDR3", "DDR4", "DDR5",
+    "SATA", "SAS", "NVME", "PCIE", "PCI", "USB", "HDMI", "DP",
+    "M2", "RGB", "LED", "ATX", "ITX",
+    # единицы измерения
+    "GB", "TB", "MB", "KB", "GHZ", "MHZ", "KHZ",
+    "W", "MM", "CM", "V",
+    # общие типы компонентов
+    "SSD", "HDD", "NVME", "RAM", "CPU", "GPU", "PSU",
+})
+
+
+# Цифровая часть значимого токена должна быть не менее 3 символов
+# подряд — иначе любое «M2», «V2», «G4» проходит как «модель». Вместе
+# со стоп-списком это отсекает шум и оставляет действительно
+# различающие комбинации: B760, 7600X, MZ77E500B, CM8071512400F.
+_MIN_DIGITS_IN_TOKEN: int = 3
+
+
+_DIGIT_RUN_RE = re.compile(r"\d{%d,}" % _MIN_DIGITS_IN_TOKEN)
+
+
+# Токены вида «512GB», «1TB», «3200MHZ» — это единицы измерения,
+# а не модельные номера. Они часто общие между разными моделями
+# (2 разных SSD по 1 TB) и давали ложные +50 очков.
+_SIZE_SUFFIX_RE = re.compile(r"(GB|TB|MB|KB|GHZ|MHZ|KHZ|HZ|WT|MM)$")
+
+
 def _model_tokens(text_value: str) -> set[str]:
     """Извлекает «значимые» токены из имени: модельные номера и короткие
-    алфа-цифровые коды. Всё приводится к upper-case."""
+    алфа-цифровые коды. Всё приводится к upper-case.
+
+    Правила (ужесточены на этапе 7.2):
+      - длина токена ≥ 4 символов;
+      - содержит цифры (чисто буквенные «SATA» не различают модели);
+      - цифровая часть подряд ≥ 3 символов (чтобы «B760», «12400»,
+        «7600X» проходили, а «V2», «M2», «G4» — нет);
+      - токен не оканчивается на единицу измерения (512GB, 3200MHZ);
+      - токен не входит в стоп-список (DDR4, SATA, SSD, ATX, ...).
+    """
     if not text_value:
         return set()
     up = text_value.upper()
-    tokens = set(_MODEL_NUMBER_TOKEN_RE.findall(up))
-    # Дополнительно: «RYZEN 5 7600», «CORE I5-12400» — разобьём на слова
-    # и возьмём те, что содержат и буквы, и цифры (хорошие различители).
+    raw: set[str] = set()
     for word in re.split(r"[^A-Z0-9]+", up):
-        if not word:
+        if word:
+            raw.add(word)
+
+    result: set[str] = set()
+    for tok in raw:
+        if len(tok) < 4:
             continue
-        has_d = any(ch.isdigit() for ch in word)
-        has_a = any(ch.isalpha() for ch in word)
-        if has_d and has_a and 3 <= len(word) <= 12:
-            tokens.add(word)
-    return tokens
+        if tok in _MODEL_TOKEN_STOPWORDS:
+            continue
+        if _SIZE_SUFFIX_RE.search(tok):
+            continue
+        has_d = any(ch.isdigit() for ch in tok)
+        if not has_d:
+            continue
+        if not _DIGIT_RUN_RE.search(tok):
+            continue
+        result.add(tok)
+    return result
+
+
+# Ужесточённые пороги редакционного расстояния (этап 7.2):
+# требуется одновременно и абсолютный лимит (≤ 5 правок), и
+# относительный (< 20 % от короткой строки). Второе — ключевое:
+# для 20-символьного названия 5 правок (25 %) раньше проходили,
+# хотя уже означают «другой размер/суффикс», а не дубликат.
+_LEVENSHTEIN_MAX_ABS: int = 5
+_LEVENSHTEIN_MAX_RATIO_PCT: int = 20
+
+
+# Если у записи не совпал ни один значимый модельный токен с кандидатом
+# И Levenshtein больше _LEVENSHTEIN_MAX_ABS — итоговый score ограничен
+# сверху этим значением. Это лечит самую частую ошибку live-проверки:
+# «одинаковая категория + совпавший бренд, но разные модели»
+# раньше получали +30 и оседали в подозрительных; теперь они остаются
+# 30 и ниже, не попадая в фильтр suspicious.
+_SCORE_CAP_NO_MATCH: int = 30
+
+
+def _score_breakdown(
+    raw_name: str, brand: str | None, cand: dict,
+) -> tuple[int, str]:
+    """Считает (score, reason) для пары (unmapped, candidate).
+
+    reason — короткая строка на русском, описывающая, какие пути дали
+    очки: «бренд + модельный токен», «похожесть имён», «только бренд»
+    и т. п. Используется в UI для прозрачности сортировки.
+    """
+    score = 0
+    parts: list[str] = []
+
+    # 1) Совпадение бренда (+30). Manufacturer часто длиннее
+    # ('Intel Corporation' vs 'Intel') — считаем совпадением, если
+    # одно содержит другое.
+    cb = (brand or "").strip().upper()
+    cm = (cand.get("manufacturer") or "").strip().upper()
+    brand_match = False
+    if cb and cm and (cb == cm or cb in cm or cm in cb):
+        score += 30
+        brand_match = True
+        parts.append("бренд")
+
+    # 2) Общий модельный токен (+50) — с ужесточённой токенизацией.
+    tokens_a = _model_tokens(raw_name)
+    tokens_b = _model_tokens(cand.get("model") or "")
+    token_match = bool(tokens_a and tokens_b and (tokens_a & tokens_b))
+    if token_match:
+        score += 50
+        parts.append("модельный токен")
+
+    # 3) Похожесть имён по Levenshtein (+40): абсолютный лимит и
+    # относительный одновременно.
+    name_a = (raw_name or "").strip().upper()
+    name_b = (cand.get("model") or "").strip().upper()
+    lev_match = False
+    lev_dist: int | None = None
+    if name_a and name_b:
+        lev_dist = _levenshtein(name_a, name_b)
+        shorter = min(len(name_a), len(name_b))
+        if (
+            lev_dist <= _LEVENSHTEIN_MAX_ABS
+            and shorter > 0
+            and lev_dist * 100 < _LEVENSHTEIN_MAX_RATIO_PCT * shorter
+        ):
+            score += 40
+            lev_match = True
+            parts.append("похожесть имён")
+
+    # 4) Кап для «пустых» совпадений: ни общего токена, ни близости имён.
+    # Такие пары не должны перешагивать порог подозрительных: они почти
+    # всегда «тот же бренд, но другая модель».
+    if not token_match and not lev_match:
+        score = min(score, _SCORE_CAP_NO_MATCH)
+
+    score = min(100, score)
+
+    if not parts:
+        reason = "нет совпадений"
+    elif brand_match and len(parts) == 1:
+        reason = "только бренд"
+    else:
+        reason = " + ".join(parts)
+
+    return score, reason
 
 
 def _score_against_candidate(
     raw_name: str, brand: str | None, cand: dict,
 ) -> int:
     """Считает score конкретной пары (unmapped, candidate).
-    candidate: dict с ключами model, manufacturer."""
-    score = 0
+    candidate: dict с ключами model, manufacturer.
 
-    # 1) Совпадение бренда
-    cb = (brand or "").strip().upper()
-    cm = (cand.get("manufacturer") or "").strip().upper()
-    if cb and cm:
-        # Manufacturer часто длиннее ('Intel Corporation' vs 'Intel'),
-        # поэтому считаем совпадением, если одно содержит другое.
-        if cb == cm or cb in cm or cm in cb:
-            score += 30
-
-    # 2) Общий модельный токен
-    tokens_a = _model_tokens(raw_name)
-    tokens_b = _model_tokens(cand.get("model") or "")
-    if tokens_a and tokens_b and (tokens_a & tokens_b):
-        score += 50
-
-    # 3) Levenshtein distance < 15% длины
-    name_a = (raw_name or "").strip().upper()
-    name_b = (cand.get("model") or "").strip().upper()
-    if name_a and name_b:
-        longer = max(len(name_a), len(name_b))
-        if longer > 0:
-            dist = _levenshtein(name_a, name_b)
-            if dist * 100 < 15 * longer:
-                score += 40
-
-    return min(100, score)
+    Тонкая обёртка над _score_breakdown — возвращает только число.
+    Оставлена для обратной совместимости и простых проверок.
+    """
+    score, _ = _score_breakdown(raw_name, brand, cand)
+    return score
 
 
-def calculate_score(
-    session: Session, unmapped: "UnmappedRow",
-) -> tuple[int, int | None]:
-    """Возвращает (score, best_candidate_component_id).
+# Сколько кандидатов «собираем» перед ранжированием по score. Нужно
+# побольше, чем отдаём наружу — чтобы в top-10 попали лучшие, а не
+# случайные. 50 исторически достаточно и не создаёт нагрузки (LIMIT
+# в каждом из трёх запросов + dedup).
+_RANKED_GATHER_LIMIT: int = 50
 
-    Если guessed_category не задана или в БД нет кандидатов — (0, None).
-    Выбираем до 50 «ближайших» компонентов по токенам (как делает
-    find_candidates для UI), среди них берём максимум score.
-    Скелет, созданный для этой же записи (resolved_component_id),
-    исключается из сравнения: иначе любая запись получала бы 100 баллов
-    сама с собой.
+
+# Фильтр-скелет — такой же, как в candidates.py. Дублируем константу
+# здесь, чтобы mapping_service не тянул импорт через модуль price_loaders
+# и его поведение оставалось самодостаточным.
+_EXCLUDE_SKELETONS_SQL = (
+    "id NOT IN ("
+    "SELECT resolved_component_id FROM unmapped_supplier_items "
+    "WHERE status = 'created_new' AND resolved_component_id IS NOT NULL"
+    ")"
+)
+
+
+def calculate_candidates_ranked(
+    session: Session, unmapped: "UnmappedRow", limit: int = 10,
+) -> list[dict]:
+    """Топ-N кандидатов для записи unmapped_supplier_items с их score.
+
+    Единый источник правды для админского UI: и список /admin/mapping,
+    и детальная /admin/mapping/{id} работают через эту функцию —
+    поэтому в них не может быть рассинхрона.
+
+    Возвращает список dict'ов, отсортированный по score DESC, min_price ASC.
+    Каждый dict содержит ключи: id, model, sku, manufacturer, gtin,
+    min_price, score, reason.
+
+    Внутри — три параллельных пути поиска (токены, бренд, модельный
+    токен) с дедупом по id и общим ранжированием через _score_breakdown.
+    Скелеты (компоненты, созданные при загрузке Merlion/Treolan и
+    привязанные к status='created_new') полностью исключены из
+    кандидатов: иначе unmapped-записи ссылались бы друг на друга.
     """
     if not unmapped.guessed_category:
-        return 0, None
+        return []
 
     table = CATEGORY_TO_TABLE.get(unmapped.guessed_category)
     if table is None or table not in ALLOWED_TABLES:
-        return 0, None
+        return []
 
     from app.services.price_loaders.candidates import find_candidates
 
-    # 1) Кандидаты по токенам (как в UI /admin/mapping).
+    # 1) Кандидаты по токенам (та же функция, что на странице детали
+    # и при загрузке прайсов). Уже содержит фильтр скелетов и рерканкинг.
     try:
         by_tokens = find_candidates(
             session,
@@ -432,24 +573,25 @@ def calculate_score(
             raw_name=unmapped.raw_name,
             brand=unmapped.brand,
             exclude_id=unmapped.resolved_component_id,
-            limit=50,
+            limit=_RANKED_GATHER_LIMIT,
         )
     except Exception:
         by_tokens = []
 
-    # 2) Кандидаты по бренду — добор, если совпадение по токенам слабое
-    # или отсутствует. Без этого шага записи «бренд совпал, но модель
-    # экзотическая» получают score=0 вместо 30.
+    # 2) Добор по бренду: закрывает кейс «совпадение по токенам пустое,
+    # но бренд известен» — иначе компонент одного бренда вообще не
+    # попадёт в кандидаты.
     by_brand: list[dict] = []
     if unmapped.brand:
         try:
             rows = session.execute(
                 text(
-                    f"SELECT id, model, manufacturer "
+                    f"SELECT id, model, sku, manufacturer, gtin "
                     f"FROM {table} "
                     f"WHERE UPPER(manufacturer) = UPPER(:b) "
                     f"  AND (:exc IS NULL OR id <> :exc) "
-                    f"LIMIT 50"
+                    f"  AND {_EXCLUDE_SKELETONS_SQL} "
+                    f"LIMIT {_RANKED_GATHER_LIMIT}"
                 ),
                 {"b": unmapped.brand, "exc": unmapped.resolved_component_id},
             ).mappings().all()
@@ -457,16 +599,15 @@ def calculate_score(
         except Exception:
             by_brand = []
 
-    # 3) Кандидаты по модельному токену. Нужно отдельно — find_candidates
-    # требует AND по всем токенам; если в raw_name есть «шум», значимый
-    # модельный номер (12400) теряется. Ищем по каждому такому токену
-    # отдельно (OR-семантика).
+    # 3) Добор по модельному токену (OR-семантика): находит компоненты
+    # с совпавшим «12400» даже если нормализация токенов в find_candidates
+    # потеряла этот токен среди «шума».
     by_model: list[dict] = []
-    model_tokens = _model_tokens(unmapped.raw_name or "")
-    if model_tokens:
+    tokens = _model_tokens(unmapped.raw_name or "")
+    if tokens:
         like_parts: list[str] = []
         params: dict[str, object] = {"exc": unmapped.resolved_component_id}
-        for i, tok in enumerate(sorted(model_tokens)):
+        for i, tok in enumerate(sorted(tokens)):
             key = f"t{i}"
             like_parts.append(f"UPPER(model) LIKE :{key}")
             params[key] = f"%{tok}%"
@@ -474,10 +615,12 @@ def calculate_score(
         try:
             rows = session.execute(
                 text(
-                    f"SELECT id, model, manufacturer FROM {table} "
+                    f"SELECT id, model, sku, manufacturer, gtin "
+                    f"FROM {table} "
                     f"WHERE ({where_like}) "
                     f"  AND (:exc IS NULL OR id <> :exc) "
-                    f"LIMIT 50"
+                    f"  AND {_EXCLUDE_SKELETONS_SQL} "
+                    f"LIMIT {_RANKED_GATHER_LIMIT}"
                 ),
                 params,
             ).mappings().all()
@@ -485,32 +628,86 @@ def calculate_score(
         except Exception:
             by_model = []
 
-    # Объединение с дедупом по id, токены приоритетнее.
+    # Дедуп: by_tokens уже содержит min_price, остальные — нет. Допишем
+    # min_price одним запросом по собранным id. Для by_tokens значение
+    # сохраняем как есть.
     merged: dict[int, dict] = {}
     for c in by_tokens:
-        merged[int(c["id"])] = c
+        merged[int(c["id"])] = dict(c)
     for c in by_brand:
-        merged.setdefault(int(c["id"]), c)
+        merged.setdefault(int(c["id"]), dict(c))
     for c in by_model:
-        merged.setdefault(int(c["id"]), c)
+        merged.setdefault(int(c["id"]), dict(c))
 
     if not merged:
-        return 0, None
+        return []
 
-    best_score = 0
-    best_id: int | None = None
+    need_price_ids = [
+        cid for cid, c in merged.items() if "min_price" not in c
+    ]
+    if need_price_ids:
+        try:
+            rows = session.execute(
+                text(
+                    "SELECT component_id, "
+                    "       MIN(price) FILTER (WHERE stock_qty > 0) AS min_price "
+                    "FROM supplier_prices "
+                    "WHERE category = :cat AND component_id = ANY(:ids) "
+                    "GROUP BY component_id"
+                ),
+                {"cat": unmapped.guessed_category, "ids": list(need_price_ids)},
+            ).all()
+            price_map = {int(r.component_id): r.min_price for r in rows}
+        except Exception:
+            price_map = {}
+        for cid in need_price_ids:
+            merged[cid].setdefault("min_price", price_map.get(cid))
+
+    # Скоринг + reason для каждого кандидата.
+    scored: list[dict] = []
     for cid, c in merged.items():
-        s = _score_against_candidate(unmapped.raw_name, unmapped.brand, c)
-        if s > best_score:
-            best_score = s
-            best_id = cid
+        score, reason = _score_breakdown(unmapped.raw_name, unmapped.brand, c)
+        scored.append({
+            "id":           cid,
+            "model":        c.get("model") or "",
+            "sku":          c.get("sku"),
+            "manufacturer": c.get("manufacturer") or "",
+            "gtin":         c.get("gtin"),
+            "min_price":    c.get("min_price"),
+            "score":        score,
+            "reason":       reason,
+        })
 
-    # Если ни один кандидат не набрал очков — пусть будет первый из
-    # «по токенам» (чтобы в UI был живой указатель на «похоже на что-то»).
-    if best_id is None and by_tokens:
-        best_id = int(by_tokens[0]["id"])
+    # Сортировка: сначала по score DESC, потом по min_price ASC
+    # (NULL в конец), потом по id для детерминизма.
+    def _sort_key(item: dict) -> tuple:
+        mp = item.get("min_price")
+        return (
+            -int(item["score"]),
+            0 if mp is not None else 1,
+            float(mp) if mp is not None else 0.0,
+            int(item["id"]),
+        )
 
-    return best_score, best_id
+    scored.sort(key=_sort_key)
+    return scored[: int(limit)]
+
+
+def calculate_score(
+    session: Session, unmapped: "UnmappedRow",
+) -> tuple[int, int | None]:
+    """Возвращает (score, best_candidate_component_id).
+
+    Тонкая обёртка над calculate_candidates_ranked — берёт лучшего.
+    Сохранена как отдельная функция, т. к. точки вызова
+    (recalculate_unmapped_scores.py, ensure_score) хранят в БД только
+    id и score, без остальных полей кандидата.
+    """
+    ranked = calculate_candidates_ranked(session, unmapped, limit=1)
+    if not ranked:
+        return 0, None
+    top = ranked[0]
+    return int(top["score"]), int(top["id"])
 
 
 def ensure_score(session: Session, unmapped_id: int) -> None:

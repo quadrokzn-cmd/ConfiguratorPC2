@@ -11,7 +11,6 @@ from sqlalchemy.orm import Session
 from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 from app.database import get_db
 from app.services import mapping_service
-from app.services.price_loaders.candidates import find_candidates  # noqa: F401 — используется в mapping_detail
 
 
 router = APIRouter(prefix="/admin/mapping")
@@ -116,24 +115,21 @@ def mapping_detail(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Детальная страница: вся информация + топ-10 похожих кандидатов."""
+    """Детальная страница: вся информация + топ-10 похожих кандидатов.
+
+    Используем тот же скоринг, что на списочной странице
+    (calculate_candidates_ranked) — иначе список и деталь расходятся.
+    """
     row = mapping_service.get_by_id(db, row_id)
     if row is None:
         raise HTTPException(status_code=404, detail="Запись не найдена.")
 
-    candidates: list[dict] = []
-    if row.guessed_category:
-        try:
-            candidates = find_candidates(
-                db,
-                category=row.guessed_category,
-                raw_name=row.raw_name,
-                brand=row.brand,
-                exclude_id=row.resolved_component_id,
-                limit=10,
-            )
-        except Exception:
-            candidates = []
+    try:
+        candidates = mapping_service.calculate_candidates_ranked(
+            db, row, limit=10,
+        )
+    except Exception:
+        candidates = []
 
     return templates.TemplateResponse(
         request,

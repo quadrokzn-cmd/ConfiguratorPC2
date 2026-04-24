@@ -101,6 +101,8 @@
           <thead class="bg-zinc-900/60 text-zinc-500">
             <tr>
               <th class="text-left font-normal px-3 py-3 w-8"></th>
+              <th class="text-right font-normal px-3 py-3 w-16">Score</th>
+              <th class="text-left font-normal px-3 py-3 w-48">Причина</th>
               <th class="text-left font-normal px-3 py-3">Модель</th>
               <th class="text-left font-normal px-3 py-3">SKU / MPN</th>
               <th class="text-left font-normal px-3 py-3">GTIN</th>
@@ -116,6 +118,10 @@
                 <input type="radio" name="target_component_id"
                        value="{{ c.id }}" {% if loop.first %}checked{% endif %}>
               </td>
+              <td class="px-3 py-3 text-right {% if c.score >= 50 %}text-amber-300 font-semibold{% else %}text-zinc-400{% endif %}">
+                {{ c.score }}
+              </td>
+              <td class="px-3 py-3 text-xs text-zinc-400">{{ c.reason }}</td>
               <td class="px-3 py-3 text-zinc-100">{{ c.model }}</td>
               <td class="px-3 py-3 text-zinc-300">{{ c.sku or '—' }}</td>
               <td class="px-3 py-3 text-zinc-300">{{ c.gtin or '—' }}</td>
