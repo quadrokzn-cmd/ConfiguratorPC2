@@ -174,17 +174,16 @@
             </label>
 
             <label class="block">
-              <span class="text-xs text-zinc-400">Тело письма (HTML):</span>
-              <textarea id="emails-body-html" rows="14"
-                        class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-zinc-100 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        style="min-height: 300px;"></textarea>
+              <span class="text-xs text-zinc-400">Тело письма:</span>
+              <div id="emails-body-editor"
+                   contenteditable="true"
+                   spellcheck="false"
+                   class="w-full mt-1 kt-email-editor"
+                   style="background:#F3F4F6;color:#1F2937;padding:24px;min-height:320px;max-height:500px;overflow-y:auto;border:1px solid #4B5563;border-radius:8px;font-family:Arial,sans-serif;font-size:13px;cursor:text;outline:none;"></div>
             </label>
-
-            <details class="text-sm">
-              <summary class="cursor-pointer text-zinc-400 hover:text-zinc-200">HTML-предпросмотр</summary>
-              <iframe id="emails-preview-frame" sandbox=""
-                      class="w-full mt-2 bg-white rounded" style="height: 360px;"></iframe>
-            </details>
+            <style>
+              #emails-body-editor:focus { border-color: #3B82F6 !important; outline: none; }
+            </style>
           </div>
         </div>
 
@@ -271,8 +270,7 @@
     var tabsBox = document.getElementById('emails-tabs');
     var toInput = document.getElementById('emails-to');
     var subjInput = document.getElementById('emails-subject');
-    var bodyArea = document.getElementById('emails-body-html');
-    var previewFrame = document.getElementById('emails-preview-frame');
+    var bodyEditor = document.getElementById('emails-body-editor');
     var noEmailWarn = document.getElementById('emails-no-email-warning');
     var sendOneBtn = document.getElementById('emails-send-one-btn');
     var sendAllBtn = document.getElementById('emails-send-all-btn');
@@ -286,6 +284,18 @@
     function csrfToken() {
       var m = document.querySelector('meta[name="csrf-token"]');
       return m ? m.getAttribute('content') : '';
+    }
+
+    // Русское склонение: forms = [one, few, many].
+    // plural(1, ['позиция','позиции','позиций']) → 'позиция'
+    // plural(3, ...) → 'позиции'; plural(5, ...) → 'позиций'.
+    function plural(n, forms) {
+      n = Math.abs(n) % 100;
+      var n1 = n % 10;
+      if (n > 10 && n < 20) return forms[2];
+      if (n1 > 1 && n1 < 5) return forms[1];
+      if (n1 === 1) return forms[0];
+      return forms[2];
     }
 
     function openModal() {
@@ -360,10 +370,12 @@
         var status = '';
         if (st.sent_status === 'sent')        status = ' ✓';
         else if (st.sent_status === 'failed') status = ' ✗';
+        var cnt = d.items_count;
+        var word = plural(cnt, ['позиция', 'позиции', 'позиций']);
         btn.innerHTML =
           '<span class="font-medium">' + escapeHtml(d.supplier_name) + status + '</span>' +
           '<span class="block text-xs text-zinc-400">' +
-          d.items_count + ' позиций' +
+          cnt + ' ' + word +
           (!d.can_send ? ' · нет email' : '') +
           '</span>';
         btn.addEventListener('click', function () {
@@ -384,26 +396,17 @@
       var st = edits[sid];
       toInput.value = d.to_email || '';
       subjInput.value = st.subject;
-      bodyArea.value = st.body_html;
+      bodyEditor.innerHTML = st.body_html;
       noEmailWarn.classList.toggle('hidden', !!d.can_send);
       sendOneBtn.disabled = !d.can_send || st.sent_status === 'sent';
       renderTabs();
-      updatePreview();
     }
 
     function saveCurrentEdits() {
       if (activeId === null) return;
       if (!edits[activeId]) return;
       edits[activeId].subject = subjInput.value;
-      edits[activeId].body_html = bodyArea.value;
-    }
-
-    function updatePreview() {
-      try {
-        previewFrame.srcdoc = bodyArea.value;
-      } catch (_) {
-        // На совсем древних браузерах srcdoc отсутствует — тихо игнорируем.
-      }
+      edits[activeId].body_html = bodyEditor.innerHTML;
     }
 
     function escapeHtml(s) {
@@ -487,9 +490,22 @@
     subjInput.addEventListener('input', function () {
       if (activeId !== null) edits[activeId].subject = subjInput.value;
     });
-    bodyArea.addEventListener('input', function () {
-      if (activeId !== null) edits[activeId].body_html = bodyArea.value;
-      updatePreview();
+    bodyEditor.addEventListener('input', function () {
+      if (activeId !== null) edits[activeId].body_html = bodyEditor.innerHTML;
+    });
+    // F4: чистка вставки из буфера — только plain text в позицию курсора.
+    bodyEditor.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      if (document.queryCommandSupported && document.queryCommandSupported('insertText')) {
+        document.execCommand('insertText', false, text);
+      } else {
+        var selection = window.getSelection();
+        if (!selection || !selection.rangeCount) return;
+        selection.deleteFromDocument();
+        selection.getRangeAt(0).insertNode(document.createTextNode(text));
+        selection.collapseToEnd();
+      }
     });
     sendOneBtn.addEventListener('click', function () {
       if (activeId !== null) sendBatch([activeId]);
