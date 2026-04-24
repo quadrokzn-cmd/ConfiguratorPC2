@@ -82,10 +82,35 @@ def _short_cpu_model(raw: str | None) -> str | None:
     return s or None
 
 
-# Порядок важен: длинные маркеры (Radeon RX) раньше коротких (RX),
-# чтобы из «Sapphire Radeon RX 7600» получить «Radeon RX 7600»,
-# а не «RX 7600».
-_GPU_MARKERS = ("Radeon RX", "Radeon", "GeForce RTX", "GeForce GTX", "RTX", "GTX", "Arc")
+# Порядок важен: длинные маркеры (Radeon RX, GeForce RTX) раньше коротких
+# (Radeon, RTX), чтобы из «Sapphire Radeon RX 7600» получить
+# «Radeon RX 7600», а не «RX 7600». «GeForce» без RTX/GTX тоже нужен —
+# иначе для старых NVIDIA-карт (GeForce 210) маркер не найдётся и
+# парсер проваливается на короткий «RTX» внутри «CRTx1» (см. живой баг
+# этапа 8.4).
+_GPU_MARKERS = (
+    "GeForce RTX", "GeForce GTX", "GeForce",
+    "Radeon RX", "Radeon",
+    "RTX", "GTX", "Arc",
+)
+
+# Подозрительный результат парсера: маркер + «микро-номер» (1-2 цифры).
+# Такое бывает, когда слепое substring-совпадение зацепило кусок
+# соседнего слова («CRTx1» → «RTX 1»). В этом случае лучше перейти
+# на fallback «производитель + объём VRAM».
+_SUSPICIOUS_GPU_MODEL_RE = re.compile(
+    r"^(?:RTX|GTX|GT|Radeon(?:\s+RX)?|RX|HD|Arc)\s+\d{1,2}$",
+    re.IGNORECASE,
+)
+
+
+def _looks_suspicious_gpu_model(short: str | None) -> bool:
+    """True, если короткое имя GPU похоже на артефакт парсинга
+    (маркер + 1-2 цифры, напр. «RTX 1», «GTX 2», «Radeon RX 9»)."""
+    if not short:
+        return False
+    return bool(_SUSPICIOUS_GPU_MODEL_RE.match(short.strip()))
+
 
 # Регулярка срезает префикс категории в имени компонента — такой
 # префикс часто встречается в прайсах OCS: «Видеокарта/ GT710…»,
@@ -101,40 +126,46 @@ def _strip_category_prefix(s: str) -> str:
 
 
 def _short_gpu_model(raw: str | None) -> str | None:
-    """Короткое имя видеокарты: «RTX 4060», «Radeon RX 7600», «Arc A770».
+    """Короткое имя видеокарты: «RTX 4060», «Radeon RX 7600», «GeForce 210».
 
-    Если маркер найден — возвращается он + номер модели.
-    Если нет — возвращается исходная строка с ОБРЕЗАННЫМ префиксом
-    категории (например, «Видеокарта/ GT710-SL-2GD5-BRK-EVO» →
-    «GT710-SL-2GD5-BRK-EVO»), чтобы в автоназвании не появлялся
-    хвост из прайса.
+    Маркер ищется с word-boundary слева: «RTX» не должно совпадать
+    внутри слова «CRTx1» в длинных описаниях из прайса. Если маркер
+    найден — возвращается он + номер модели. Если нет — возвращается
+    исходная строка с ОБРЕЗАННЫМ префиксом категории («Видеокарта/ GT710…»
+    → «GT710…»), чтобы в автоназвании не появлялся хвост из прайса.
     """
     if not raw:
         return None
     s = re.sub(r"\s*\(.*?\)\s*", " ", raw)
     s = re.sub(r"\s+", " ", s).strip()
 
-    best: tuple[int, str] | None = None
-    lowered = s.lower()
+    best: tuple[int, str, int] | None = None  # (idx, marker, match_end)
     for marker in _GPU_MARKERS:
-        idx = lowered.find(marker.lower())
-        if idx == -1:
+        # (?<![A-Za-z0-9]) — левая граница слова. Иначе «RTX» в «CRTx1»
+        # дал бы ложное совпадение и на выходе получили бы «RTX 1».
+        pattern = re.compile(
+            r"(?<![A-Za-z0-9])" + re.escape(marker),
+            re.IGNORECASE,
+        )
+        m = pattern.search(s)
+        if m is None:
             continue
+        idx = m.start()
         if best is None or idx < best[0]:
-            best = (idx, marker)
+            best = (idx, marker, m.end())
     if best is None:
         # Маркер не найден: чистим префикс «Видеокарта/ …» и отдаём
         # оставшееся как есть.
         return _strip_category_prefix(s) or None
-    idx, marker = best
-    tail = s[idx + len(marker):].strip()
+    idx, marker, end = best
+    tail = s[end:].strip()
     # Берём следующее «слово» (буквенно-цифровое), например «4060», «A770», «7600 XT».
     m = re.match(r"([A-Za-z0-9\-]+(?:\s+(?:XT|XTX|Ti|SUPER|LE))?)", tail)
     model_part = m.group(1).strip() if m else None
 
     # «GeForce RTX 4060» и «GeForce GTX 1660» свернём до «RTX 4060»/«GTX 1660»,
     # это ближе к бытовому названию.
-    if marker.startswith("GeForce "):
+    if marker.startswith("GeForce ") and marker != "GeForce":
         marker = marker.removeprefix("GeForce ")
 
     if model_part:
@@ -238,8 +269,55 @@ def _block_storage(storages: list[dict]) -> str | None:
     return " + ".join(parts)
 
 
-def _block_gpu(gpu_model: str | None) -> str | None:
-    return _short_gpu_model(gpu_model)
+def _block_gpu(
+    gpu_model: str | None,
+    gpu_raw: dict,
+    manufacturer: str | None,
+) -> str | None:
+    """GPU-блок в автоназвании с подстраховкой от кривого парсинга.
+
+    Если _short_gpu_model вернул подозрительную строку («RTX 1» и т. п.
+    — см. _SUSPICIOUS_GPU_MODEL_RE), опираемся на производителя и объём
+    видеопамяти: «NVIDIA 1GB» / «AMD 8GB». Это визуально честнее,
+    чем показывать маркер с номером-артефактом.
+    """
+    short = _short_gpu_model(gpu_model)
+    if not _looks_suspicious_gpu_model(short):
+        return short
+    vram_gb = gpu_raw.get("vram_gb")
+    brand = _short_gpu_brand(manufacturer)
+    try:
+        vram_int = int(float(vram_gb)) if vram_gb is not None else None
+    except (TypeError, ValueError):
+        vram_int = None
+    vram_str = f"{vram_int}GB" if vram_int else None
+    if brand and vram_str:
+        return f"{brand} {vram_str}"
+    if brand:
+        return brand
+    if vram_str:
+        return vram_str
+    # Нет ни производителя, ни объёма памяти — вернём что есть,
+    # хоть и подозрительное: пусть менеджер увидит и перепишет руками.
+    return short
+
+
+# Сокращения длинных названий производителей GPU — чтобы fallback
+# не разрастался на всю строку автоназвания.
+_BRAND_SHORTCUTS = {
+    "biostar microtech netherlands b.v.": "Biostar",
+    "nvidia corporation":                  "NVIDIA",
+    "advanced micro devices, inc.":        "AMD",
+}
+
+
+def _short_gpu_brand(manufacturer: str | None) -> str | None:
+    if not manufacturer:
+        return None
+    key = manufacturer.strip().lower()
+    if not key:
+        return None
+    return _BRAND_SHORTCUTS.get(key, manufacturer.strip())
 
 
 def _block_case_ff(mb_raw: dict) -> str | None:
@@ -322,12 +400,21 @@ def generate_auto_name(variant: dict, *, fallback_id: int | None = None) -> str:
 
     cpu_block = _block_cpu(_model("cpu"), cpu_raw)
 
+    gpu_comp = comps.get("gpu")
+    gpu_block = None
+    if gpu_comp:
+        gpu_block = _block_gpu(
+            gpu_comp.get("model"),
+            _raw("gpu"),
+            gpu_comp.get("manufacturer"),
+        )
+
     # Остальные блоки — в том порядке, в котором они появляются в имени.
     tail_blocks: list[str | None] = [
         _block_socket(cpu_raw, mb_raw),
         _block_ram(ram_raw),
         _block_storage(storages),
-        _block_gpu(_model("gpu")) if comps.get("gpu") else None,
+        gpu_block,
         _block_case_ff(mb_raw),
         _block_psu_or_builtin(psu_raw, case_raw),
     ]

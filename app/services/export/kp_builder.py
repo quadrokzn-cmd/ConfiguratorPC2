@@ -83,12 +83,13 @@ def _compute_prices(
 
 
 def _format_rub(value: int) -> str:
-    """14500 → '14 500 руб.'. Пробел как разделитель тысяч, без копеек.
+    """14500 → '14 500'. Пробел как разделитель тысяч, без копеек.
 
-    Формат сверен с образцом «995 700,00р.» из шаблона, но копейки
-    убираем по ТЗ этапа 8.2 и «р.» заменяем на «руб.» ради читаемости.
+    «руб.» больше не добавляем — после живой проверки этапа 8.4
+    менеджер попросил убрать дублирующую единицу измерения: она
+    уже есть в заголовках колонок «Цена c НДС (руб.)» / «Сумма с НДС (руб.)».
     """
-    return f"{value:,} руб.".replace(",", " ")
+    return f"{value:,}".replace(",", " ")
 
 
 # ---------------------------------------------------------------------
@@ -189,7 +190,10 @@ def _fill_data_row_tr(
     total_rub: int,
     rpr_template: etree._Element | None,
 ) -> None:
-    """Заливает в склонированную строку данные: №, имя, цена, кол-во, сумма."""
+    """Заливает в склонированную строку данные.
+
+    Новый порядок (этап 8.4): №, Наименование, Кол-во, Цена c НДС, Сумма.
+    """
     tcs = _tcs_of_row(tr)
     if len(tcs) < 5:
         raise RuntimeError(
@@ -197,21 +201,62 @@ def _fill_data_row_tr(
         )
     _set_tc_text(tcs[0], str(pos_num), rpr_template)
     _set_tc_text(tcs[1], name, rpr_template)
-    _set_tc_text(tcs[2], _format_rub(price_rub), rpr_template)
-    _set_tc_text(tcs[3], str(qty), rpr_template)
+    _set_tc_text(tcs[2], str(qty), rpr_template)
+    _set_tc_text(tcs[3], _format_rub(price_rub), rpr_template)
     _set_tc_text(tcs[4], _format_rub(total_rub), rpr_template)
 
 
+def _update_header_row(header_tr: etree._Element) -> None:
+    """Перестраивает заголовочную строку под новый порядок колонок.
+
+    Было: №, Наименование, Цена c НДС (руб.), Кол-во, Сумма с НДС (руб.).
+    Надо: №, Наименование, Кол-во, Цена c НДС (руб.), Сумма с НДС (руб.).
+
+    Меняем только текст в tcs[2] и tcs[3]; rPr/стиль ячеек не трогаем.
+    """
+    tcs = _tcs_of_row(header_tr)
+    if len(tcs) < 5:
+        return
+    # Берём rPr из существующего run в tcs[2], чтобы сохранить
+    # жирность/шрифт заголовка.
+    src_run = tcs[2].find(f".//{_w('r')}")
+    rpr = src_run.find(_w("rPr")) if src_run is not None else None
+    _set_tc_text(tcs[2], "Кол-во", rpr)
+    _set_tc_text(tcs[3], "Цена c НДС (руб.)", rpr)
+
+
+def _force_bold(rpr: etree._Element | None) -> etree._Element:
+    """Возвращает копию rpr с принудительным <w:b/>.
+
+    Если rpr — None, создаёт новый <w:rPr> только с bold-атрибутом.
+    Используется в ИТОГО, чтобы значение было жирным независимо от
+    того, что лежало в шаблоне.
+    """
+    if rpr is None:
+        rpr_out = etree.Element(_w("rPr"))
+    else:
+        rpr_out = copy.deepcopy(rpr)
+    # Удаляем имеющиеся <w:b>/<w:bCs> и добавляем заново один раз.
+    for tag in ("b", "bCs"):
+        for el in rpr_out.findall(_w(tag)):
+            rpr_out.remove(el)
+    etree.SubElement(rpr_out, _w("b"))
+    etree.SubElement(rpr_out, _w("bCs"))
+    return rpr_out
+
+
 def _update_itogo(itogo_tr: etree._Element, total_rub: int) -> None:
-    """Обновляет сумму в последней ячейке строки ИТОГО."""
+    """Обновляет сумму в последней ячейке строки ИТОГО. Значение всегда
+    жирное — подстраховка, если в шаблоне rPr оказался не bold."""
     tcs = _tcs_of_row(itogo_tr)
     if not tcs:
         raise RuntimeError("В строке ИТОГО нет ячеек.")
     value_tc = tcs[-1]
-    # В этой ячейке уже есть run с жирным форматированием — сохраняем его.
+    # В этой ячейке уже есть run с жирным форматированием — сохраняем его
+    # как базу, но принудительно гарантируем <w:b/>.
     existing_run = value_tc.find(f".//{_w('r')}")
-    rpr_template = existing_run.find(_w("rPr")) if existing_run is not None else None
-    _set_tc_text(value_tc, _format_rub(total_rub), rpr_template)
+    rpr_src = existing_run.find(_w("rPr")) if existing_run is not None else None
+    _set_tc_text(value_tc, _format_rub(total_rub), _force_bold(rpr_src))
 
 
 # ---------------------------------------------------------------------
@@ -282,9 +327,13 @@ def build_kp_docx(
         raise RuntimeError(
             f"Шаблон KP: ожидалось >=3 строк во внутренней таблице, {len(rows)}."
         )
-    # rows[0] — заголовки «№ п/п, Наименование, …» — оставляем.
+    header_tr = rows[0]      # «№ п/п, Наименование, Цена, Кол-во, Сумма»
     template_tr = rows[1]    # шаблонная строка с «1» и пустыми ячейками.
     itogo_tr = rows[-1]      # строка «ИТОГО».
+
+    # Переставляем местами заголовки «Цена» и «Кол-во» — теперь «Кол-во»
+    # идёт раньше, а цена — ближе к итоговой сумме.
+    _update_header_row(header_tr)
 
     rpr_template = _extract_data_row_rpr(template_tr)
 

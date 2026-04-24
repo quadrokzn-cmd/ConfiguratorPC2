@@ -191,7 +191,10 @@ def _fake_items(items_spec: list[tuple[float, int, str]]) -> list[dict]:
 
 
 def test_rounding_math_matches_spec_example():
-    """unit_usd=100.10, rate=95, markup=15 → sell = 10 937 руб."""
+    """unit_usd=100.10, rate=95, markup=15 → sell = 10 937 (без «руб.»).
+
+    Новая раскладка этапа 8.4: tc[2]=кол-во, tc[3]=цена, tc[4]=сумма.
+    """
     items = _fake_items([(100.10, 1, "Конфигурация точного теста")])
     with patch(
         "app.services.export.kp_builder.spec_service.list_spec_items",
@@ -203,13 +206,13 @@ def test_rounding_math_matches_spec_example():
     doc = _docx.Document(BytesIO(data))
     rows = _data_rows_texts(doc)
     assert len(rows) == 1
-    # tc[0]=№, tc[1]=имя, tc[2]=цена, tc[3]=кол-во, tc[4]=сумма
+    # tc[0]=№, tc[1]=имя, tc[2]=кол-во, tc[3]=цена, tc[4]=сумма
     assert rows[0][0] == "1"
     assert rows[0][1] == "Конфигурация точного теста"
-    assert rows[0][2] == "10 937 руб."
-    assert rows[0][3] == "1"
-    assert rows[0][4] == "10 937 руб."
-    assert _itogo_value(doc) == "10 937 руб."
+    assert rows[0][2] == "1"
+    assert rows[0][3] == "10 937"
+    assert rows[0][4] == "10 937"
+    assert _itogo_value(doc) == "10 937"
 
 
 def test_markup_zero_means_no_markup():
@@ -223,9 +226,9 @@ def test_markup_zero_means_no_markup():
             project_id=1, markup_percent=0, db=None,
         )
     rows = _data_rows_texts(_docx.Document(BytesIO(data)))
-    # 100.0 * 90 = 9000 → +0% → 9000
-    assert rows[0][2] == "9 000 руб."
-    assert rows[0][4] == "9 000 руб."
+    # 100.0 * 90 = 9000 → +0% → 9000 (цена в tc[3], сумма в tc[4])
+    assert rows[0][3] == "9 000"
+    assert rows[0][4] == "9 000"
 
 
 def test_markup_500_is_accepted_and_applied():
@@ -239,8 +242,8 @@ def test_markup_500_is_accepted_and_applied():
             project_id=1, markup_percent=500, db=None,
         )
     rows = _data_rows_texts(_docx.Document(BytesIO(data)))
-    # 1 * 100 = 100 → +500% → 600
-    assert rows[0][2] == "600 руб."
+    # 1 * 100 = 100 → +500% → 600 (цена — в tc[3])
+    assert rows[0][3] == "600"
 
 
 def test_markup_negative_raises_value_error():
@@ -271,14 +274,17 @@ def test_two_configs_produce_two_numbered_rows():
     assert rows[1][0] == "2"
     assert rows[0][1] == "Первая конфигурация"
     assert rows[1][1] == "Вторая конфигурация"
-    # 100*90=9000 → +10% = 9900, *2 = 19800
-    assert rows[0][2] == "9 900 руб."
-    assert rows[0][4] == "19 800 руб."
-    # 200*90=18000 → +10% = 19800
-    assert rows[1][2] == "19 800 руб."
-    assert rows[1][4] == "19 800 руб."
+    # Новый порядок: tc[2]=кол-во, tc[3]=цена, tc[4]=сумма
+    # 100*90=9000 → +10% = 9900, qty=2, итого строки 19800
+    assert rows[0][2] == "2"
+    assert rows[0][3] == "9 900"
+    assert rows[0][4] == "19 800"
+    # 200*90=18000 → +10% = 19800, qty=1
+    assert rows[1][2] == "1"
+    assert rows[1][3] == "19 800"
+    assert rows[1][4] == "19 800"
     # ИТОГО = 19800 + 19800 = 39600
-    assert _itogo_value(_docx.Document(BytesIO(data))) == "39 600 руб."
+    assert _itogo_value(_docx.Document(BytesIO(data))) == "39 600"
 
 
 def test_header_date_replaced_with_today():
@@ -325,8 +331,10 @@ def test_single_config_integration(db_session):
     assert len(rows) == 1
     assert rows[0][0] == "1"
     # 220 * 90 = 19800 → +15% → math.ceil(22770) = 22770
-    assert rows[0][2] == "22 770 руб."
-    assert rows[0][4] == "22 770 руб."
+    # tc[2]=кол-во, tc[3]=цена, tc[4]=сумма (новый порядок)
+    assert rows[0][2] == "1"
+    assert rows[0][3] == "22 770"
+    assert rows[0][4] == "22 770"
     assert "Системный блок" in rows[0][1]
 
 
@@ -386,7 +394,8 @@ def test_kp_endpoint_default_markup_is_15(
     # (разные rsid/временные метки внутри), но цены обязаны совпадать.
     rows_a = _data_rows_texts(_docx.Document(BytesIO(r_default.content)))
     rows_b = _data_rows_texts(_docx.Document(BytesIO(r_explicit.content)))
-    assert rows_a[0][2] == rows_b[0][2]
+    # После этапа 8.4 цена переехала в tc[3], сумма — в tc[4].
+    assert rows_a[0][3] == rows_b[0][3]
     assert rows_a[0][4] == rows_b[0][4]
 
 

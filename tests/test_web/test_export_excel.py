@@ -173,7 +173,7 @@ def test_build_xlsx_single_config(db_session):
     assert ws["O2"].value == pytest.approx(92.5)
 
     # Собираем «наименования» всех строк: найдём comp и 2 компонента.
-    names = [ws.cell(row=r, column=4).value for r in range(4, 20)]
+    names = [ws.cell(row=r, column=4).value for r in range(3, 20)]
     comp_row = next((v for v in names if v and "Системный блок" in v), None)
     assert comp_row is not None, f"Нет строки «Системный блок», names={names}"
     cpu_row = next((v for v in names if v and "i5-12400F" in v), None)
@@ -214,7 +214,7 @@ def test_build_xlsx_two_configs_two_comp_blocks(db_session):
 
     comp_names = [
         ws.cell(row=r, column=4).value
-        for r in range(4, 30)
+        for r in range(3, 30)
         if ws.cell(row=r, column=4).value
         and "Системный блок" in (ws.cell(row=r, column=4).value or "")
     ]
@@ -245,7 +245,7 @@ def test_build_xlsx_contains_gtin_and_sku(db_session):
 
     # Ищем строку CPU-компонента (не «Системный блок ...») по сочетанию
     # модели и short-description: «... · 6C/12T · ...».
-    for r in range(4, 20):
+    for r in range(3, 20):
         name = ws.cell(row=r, column=4).value or ""
         if "i5-12400F" in name and "6C/12T" in name:
             assert str(ws.cell(row=r, column=2).value or "") == "1234567890123"
@@ -270,8 +270,8 @@ def test_build_xlsx_empty_spec_still_has_header(db_session):
     ws = wb.active
     assert "Пустой" in (ws["A1"].value or "")
     assert ws["O1"].value == "13.04.2026"
-    # В строке 4 данных быть не должно.
-    assert ws["D4"].value in (None, "")
+    # В строке 3 (первая строка данных) данных быть не должно.
+    assert ws["D3"].value in (None, "")
 
 
 # ---- тесты export_router -----------------------------------------------

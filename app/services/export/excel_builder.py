@@ -62,9 +62,12 @@ _FONT_SIZE = 10
 _HEADER_FILL = PatternFill("solid", start_color="FFE8F4F8")    # пастельный голубой — шапка проекта
 _COL_HEADER_FILL = PatternFill("solid", start_color="FFD4E6F1")  # заголовки таблицы
 _COMP_ROW_FILL = PatternFill("solid", start_color="FFE8F4F8")   # строка «Системный блок»
+_NO_FILL = PatternFill(fill_type=None)                          # явно без заливки
 
-_THIN = Side(border_style="thin", color="FFBFBFBF")
+_THIN = Side(border_style="thin", color="FFB0B0B0")
+_MEDIUM = Side(border_style="medium", color="FF808080")
 _CELL_BORDER = Border(left=_THIN, right=_THIN, top=_THIN, bottom=_THIN)
+_HEADER_BORDER = Border(left=_MEDIUM, right=_MEDIUM, top=_MEDIUM, bottom=_MEDIUM)
 
 _FMT_USD = '[$$-409]#,##0.00'
 _FMT_RUB = '_-* #,##0.00"₽"_-;\\-* #,##0.00"₽"_-;_-* "-"??"₽"_-;_-@_-'
@@ -74,6 +77,11 @@ _FMT_PCT = '0.0%'
 # «Общая стоимость $ +конв», считаемый формулой K*E; заголовок оставляем
 # пустым, чтобы не расходиться с исходным шаблоном.
 _COLS = list("ABCDEFGHIJKLMNO")
+
+# После удаления «Создан» (бывшая строка 2) заголовки таблицы оказываются
+# в строке 2, данные начинаются с 3-ей.
+_HEADER_ROW = 2
+_DATA_START_ROW = 3
 
 
 def _apply_font(cell, *, bold: bool = False) -> None:
@@ -205,14 +213,24 @@ def _fetch_gtin_map(
 # ---------------------------------------------------------------------
 
 def _row_style(ws, row: int, *, fill: PatternFill | None, bold: bool) -> None:
-    """Общее оформление всей строки данных: шрифт/граница/заливка/высота."""
+    """Общее оформление всей строки данных: шрифт/граница/заливка/высота.
+
+    fill=None явно сбрасывает заливку, оставшуюся от шаблона (там у
+    части ячеек был серый фон-«не применимо»). Границы — тонкие серые,
+    у comp-строк поверх накладывается пастельная заливка.
+    """
+    effective_fill = fill if fill is not None else _NO_FILL
     for col in _COLS:
         cell = ws[f"{col}{row}"]
         _apply_font(cell, bold=bold)
         cell.border = _CELL_BORDER
-        if fill is not None:
-            cell.fill = fill
-    ws.row_dimensions[row].height = 22
+        cell.fill = effective_fill
+    # Автоматическая высота строки — Excel сам подстроит при открытии,
+    # чтобы длинные «Наименование»/«Артикул» не обрезались. Убираем
+    # фиксированную height, унаследованную от шаблона.
+    if row in ws.row_dimensions:
+        ws.row_dimensions[row].height = None
+        ws.row_dimensions[row].hidden = False
 
     # Выравнивания по колонкам
     _apply_align(ws[f"A{row}"], horizontal="center")
@@ -223,19 +241,18 @@ def _row_style(ws, row: int, *, fill: PatternFill | None, bold: bool) -> None:
         _apply_align(ws[f"{col}{row}"], horizontal="right")
 
 
-def _write_data_row(
+def _write_component_row(
     ws,
     row: int,
     *,
-    pos_num: int | None,
     gtin: str | None,
     sku: str | None,
     name: str,
     qty: int,
     price_usd: float,
 ) -> None:
-    """Пишет одну строку таблицы — comp или компонент, без заливки."""
-    ws[f"A{row}"] = pos_num if pos_num is not None else None
+    """Строка отдельного компонента: реальная цена $ в колонке N."""
+    ws[f"A{row}"] = None
     ws[f"B{row}"] = gtin or ""
     ws[f"C{row}"] = sku or ""
     ws[f"D{row}"] = name
@@ -266,16 +283,58 @@ def _write_data_row(
     ws[f"F{row}"].number_format = '#,##0'
 
 
-def _clear_template_leftovers(ws) -> None:
-    """Удаляет значения/формулы шаблонных строк 4+, оставляя границы/формат.
+def _write_comp_row(
+    ws,
+    row: int,
+    *,
+    pos_num: int,
+    name: str,
+    qty: int,
+    first_comp_row: int | None,
+    last_comp_row: int | None,
+) -> None:
+    """Строка системного блока (comp): N считает =SUM(...) компонентов.
 
-    Нам важно стереть и старые SUM-формулы (строка 8), и блок маржи
-    (I9/I11/J11/I12/J12), чтобы они не оказались между нашими данными
-    и пересозданными итогами.
+    Если у конфигурации нет компонентов — N=0, а O тоже выйдет 0 (=N*E).
     """
-    for row in ws.iter_rows(min_row=4, max_row=max(ws.max_row, 4)):
+    ws[f"A{row}"] = pos_num
+    ws[f"B{row}"] = ""
+    ws[f"C{row}"] = ""
+    ws[f"D{row}"] = name
+    ws[f"E{row}"] = qty
+    # Продажная часть пустая/формульная.
+    ws[f"G{row}"] = f"=F{row}*E{row}"
+    ws[f"H{row}"] = f"=IFERROR(F{row}/I{row}-1,0)"
+    ws[f"H{row}"].number_format = _FMT_PCT
+    ws[f"M{row}"] = 0
+    ws[f"M{row}"].number_format = _FMT_PCT
+    # N — сумма N компонентов данной конфигурации.
+    if first_comp_row is not None and last_comp_row is not None:
+        ws[f"N{row}"] = f"=SUM(N{first_comp_row}:N{last_comp_row})"
+    else:
+        ws[f"N{row}"] = 0
+    ws[f"N{row}"].number_format = _FMT_USD
+    ws[f"K{row}"] = f"=N{row}*(1+M{row})"
+    ws[f"K{row}"].number_format = _FMT_USD
+    ws[f"L{row}"] = f"=K{row}*E{row}"
+    ws[f"L{row}"].number_format = _FMT_USD
+    ws[f"O{row}"] = f"=N{row}*E{row}"
+    ws[f"O{row}"].number_format = _FMT_USD
+    ws[f"I{row}"] = f"=K{row}*$O$2"
+    ws[f"I{row}"].number_format = _FMT_RUB
+    ws[f"J{row}"] = f"=E{row}*I{row}"
+    ws[f"J{row}"].number_format = _FMT_RUB
+    ws[f"F{row}"].number_format = '#,##0'
+
+
+def _clear_template_leftovers(ws, *, start_row: int) -> None:
+    """Удаляет значения/формулы шаблонных строк от start_row, а также
+    сбрасывает заливку у строк, чтобы не тянулся серый фон-«заглушка»."""
+    last = max(ws.max_row, start_row)
+    for row in ws.iter_rows(min_row=start_row, max_row=last):
         for cell in row:
             cell.value = None
+            cell.fill = _NO_FILL
 
 
 # ---------------------------------------------------------------------
@@ -302,19 +361,19 @@ def build_project_xlsx(
     wb = load_workbook(str(_TEMPLATE_PATH))
     ws = wb.active
 
-    _clear_template_leftovers(ws)
+    # Удаляем строку «Создан: …» (бывшая строка 2): заголовки таблицы
+    # поднимаются на строку 2, данные начинаются с 3-ей.
+    ws.delete_rows(2, 1)
 
-    # --- Шапка проекта (строки 1-2, левее курса) ---
-    # Разъединяем на всякий случай, затем мерджим заново — некоторые
-    # шаблоны могут иметь предыдущие merge.
+    _clear_template_leftovers(ws, start_row=_DATA_START_ROW)
+
+    # --- Шапка проекта (строка 1) ---
     for rng in list(ws.merged_cells.ranges):
-        if rng.min_row in (1, 2) and rng.min_col == 1:
+        if rng.min_row == 1 and rng.min_col == 1:
             ws.unmerge_cells(str(rng))
 
     ws["A1"] = f"Проект: {project['name']}"
-    ws["A2"] = f"Создан: {project['created_at'].strftime('%d.%m.%Y %H:%M')}"
     ws.merge_cells("A1:M1")
-    ws.merge_cells("A2:M2")
 
     c = ws["A1"]
     c.font = Font(name="Segoe UI", size=13, bold=True)
@@ -322,13 +381,11 @@ def build_project_xlsx(
     c.fill = _HEADER_FILL
     ws.row_dimensions[1].height = 26
 
-    c = ws["A2"]
-    c.font = Font(name="Segoe UI", size=10, bold=False, italic=True)
-    c.alignment = Alignment(horizontal="left", vertical="center", indent=1)
-    c.fill = _HEADER_FILL
-    ws.row_dimensions[2].height = 20
-
-    # --- Курс в N1-O2 (N1/N2 текст остаётся из шаблона) ---
+    # --- Курс в N1-O1/O2 ---
+    # N1/N2 — подписи «Курс на»/«Курс ЦБ», лежащие в шаблоне. После
+    # delete_rows(2,1) N2 стёрся вместе со строкой — восстанавливаем.
+    ws["N1"] = "Курс на"
+    ws["N2"] = "Курс ЦБ"
     ws["O1"] = rate_date.strftime("%d.%m.%Y")
     ws["O2"] = float(rate)
     ws["O2"].number_format = '0.0000'
@@ -336,39 +393,32 @@ def build_project_xlsx(
         _apply_font(ws[coord], bold=coord in ("N1", "N2"))
         _apply_align(ws[coord], horizontal="center", wrap=False)
 
-    # --- Заголовки таблицы (row 3) ---
+    # --- Заголовки таблицы (теперь строка 2) ---
     for col in _COLS:
-        cell = ws[f"{col}3"]
+        cell = ws[f"{col}{_HEADER_ROW}"]
         _apply_font(cell, bold=True)
         cell.alignment = Alignment(
             horizontal="center", vertical="center", wrap_text=True,
         )
         cell.fill = _COL_HEADER_FILL
-        cell.border = _CELL_BORDER
-    ws.row_dimensions[3].height = 40
+        cell.border = _HEADER_BORDER
+    ws.row_dimensions[_HEADER_ROW].height = 40
 
     # --- Данные ---
-    current_row = 4
+    current_row = _DATA_START_ROW
     pos_num = 0
+    # Запомним строки «Системный блок» — ИТОГО суммирует только их.
+    comp_rows: list[int] = []
     for item, variant, comps in blocks:
         pos_num += 1
         comp_name = item.get("display_name") or item.get("auto_name") or "Конфигурация"
         comp_qty = int(item.get("quantity") or 1)
-        comp_unit_usd = float(item.get("unit_usd") or 0.0)
 
-        _write_data_row(
-            ws,
-            current_row,
-            pos_num=pos_num,
-            gtin=None,
-            sku=None,
-            name=comp_name,
-            qty=comp_qty,
-            price_usd=comp_unit_usd,
-        )
-        _row_style(ws, current_row, fill=_COMP_ROW_FILL, bold=True)
+        comp_row = current_row
+        comp_rows.append(comp_row)
         current_row += 1
 
+        first_comp_row = current_row if comps else None
         for comp in comps:
             cat = comp.get("category")
             cid = comp.get("component_id")
@@ -382,10 +432,9 @@ def build_project_xlsx(
             if not title:
                 title = "—"
 
-            _write_data_row(
+            _write_component_row(
                 ws,
                 current_row,
-                pos_num=None,
                 gtin=gtin,
                 sku=comp.get("sku"),
                 name=title,
@@ -394,49 +443,63 @@ def build_project_xlsx(
             )
             _row_style(ws, current_row, fill=None, bold=False)
             current_row += 1
+        last_comp_row = current_row - 1 if comps else None
+
+        # Заполняем comp-строку, имея на руках диапазон компонентов.
+        _write_comp_row(
+            ws,
+            comp_row,
+            pos_num=pos_num,
+            name=comp_name,
+            qty=comp_qty,
+            first_comp_row=first_comp_row,
+            last_comp_row=last_comp_row,
+        )
+        _row_style(ws, comp_row, fill=_COMP_ROW_FILL, bold=True)
 
     last_data_row = current_row - 1
 
     # --- SUM и маржа (если данных не было — блок пустой) ---
-    if last_data_row >= 4:
+    if comp_rows:
         sum_row = last_data_row + 2
         pct_row = sum_row + 2
         abs_row = pct_row + 1
 
-        ws[f"F{sum_row}"] = "Итого:"
-        _apply_font(ws[f"F{sum_row}"], bold=True)
-        _apply_align(ws[f"F{sum_row}"], horizontal="right")
+        # ИТОГО — суммируем ТОЛЬКО по строкам системных блоков,
+        # чтобы не удваивать за счёт подкомпонентов.
+        g_refs = ",".join(f"G{r}" for r in comp_rows)
+        j_refs = ",".join(f"J{r}" for r in comp_rows)
 
-        ws[f"G{sum_row}"] = f"=SUM(G4:G{last_data_row})"
-        ws[f"G{sum_row}"].number_format = _FMT_RUB
-        _apply_font(ws[f"G{sum_row}"], bold=True)
-        _apply_align(ws[f"G{sum_row}"], horizontal="right")
+        def _styled(coord: str, *, bold: bool = True, fmt: str | None = None) -> None:
+            cell = ws[coord]
+            _apply_font(cell, bold=bold)
+            _apply_align(cell, horizontal="right")
+            cell.border = _CELL_BORDER
+            if fmt:
+                cell.number_format = fmt
+
+        ws[f"F{sum_row}"] = "Итого:"
+        _styled(f"F{sum_row}")
+
+        ws[f"G{sum_row}"] = f"=SUM({g_refs})"
+        _styled(f"G{sum_row}", fmt=_FMT_RUB)
 
         ws[f"I{sum_row}"] = "Закупка ₽:"
-        _apply_font(ws[f"I{sum_row}"], bold=True)
-        _apply_align(ws[f"I{sum_row}"], horizontal="right")
+        _styled(f"I{sum_row}")
 
-        ws[f"J{sum_row}"] = f"=SUM(J4:J{last_data_row})"
-        ws[f"J{sum_row}"].number_format = _FMT_RUB
-        _apply_font(ws[f"J{sum_row}"], bold=True)
-        _apply_align(ws[f"J{sum_row}"], horizontal="right")
+        ws[f"J{sum_row}"] = f"=SUM({j_refs})"
+        _styled(f"J{sum_row}", fmt=_FMT_RUB)
 
         # Блок маржи
         ws[f"I{pct_row}"] = "Маржа %"
-        _apply_font(ws[f"I{pct_row}"], bold=True)
-        _apply_align(ws[f"I{pct_row}"], horizontal="right")
+        _styled(f"I{pct_row}")
         ws[f"J{pct_row}"] = f"=IFERROR(G{sum_row}/J{sum_row}-1,0)"
-        ws[f"J{pct_row}"].number_format = _FMT_PCT
-        _apply_font(ws[f"J{pct_row}"], bold=True)
-        _apply_align(ws[f"J{pct_row}"], horizontal="right")
+        _styled(f"J{pct_row}", fmt=_FMT_PCT)
 
         ws[f"I{abs_row}"] = "Маржа ₽"
-        _apply_font(ws[f"I{abs_row}"], bold=True)
-        _apply_align(ws[f"I{abs_row}"], horizontal="right")
+        _styled(f"I{abs_row}")
         ws[f"J{abs_row}"] = f"=G{sum_row}-J{sum_row}"
-        ws[f"J{abs_row}"].number_format = _FMT_RUB
-        _apply_font(ws[f"J{abs_row}"], bold=True)
-        _apply_align(ws[f"J{abs_row}"], horizontal="right")
+        _styled(f"J{abs_row}", fmt=_FMT_RUB)
 
     buf = BytesIO()
     wb.save(buf)

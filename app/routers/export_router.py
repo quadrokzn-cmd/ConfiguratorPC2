@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from io import BytesIO
 from typing import List, Optional
 from urllib.parse import quote
@@ -57,6 +58,30 @@ def _content_disposition(filename: str, *, ascii_fallback: str) -> str:
     return f"attachment; filename=\"{ascii_fallback}\"; filename*=UTF-8''{quoted}"
 
 
+# Запрещённые в Windows-именах символы.
+_WIN_FORBIDDEN_RE = re.compile(r'[<>:"/\\|?*]')
+_FILENAME_MAX_LEN = 150
+
+
+def _safe_project_filename(project_name: str | None, project_id: int) -> str:
+    """Санитизирует имя проекта для использования в имени файла.
+
+    Правила:
+      - запрещённые в Windows символы (< > : " / \\ | ? *) → _;
+      - обрезаются пробелы и точки в конце;
+      - длина обрезается до 150 символов (запас под расширение/путь);
+      - пустое имя после санитизации → fallback "project_{id}".
+    """
+    raw = (project_name or "").strip()
+    cleaned = _WIN_FORBIDDEN_RE.sub("_", raw)
+    cleaned = cleaned.rstrip(" .")
+    if len(cleaned) > _FILENAME_MAX_LEN:
+        cleaned = cleaned[:_FILENAME_MAX_LEN].rstrip(" .")
+    if not cleaned:
+        return f"project_{project_id}"
+    return cleaned
+
+
 @router.get("/project/{project_id}/export/excel")
 def export_excel(
     project_id: int,
@@ -90,12 +115,10 @@ def export_excel(
         rate_date=rate_date,
     )
 
-    created = project["created_at"]
-    # Русские буквы и пробелы в имени допустимы — их кодирует
-    # _content_disposition через filename*=UTF-8''… Иначе хелпер
-    # бы сам сложил пробелы в %20.
-    safe_name = (project["name"] or "project").replace("/", "_").replace("\\", "_")
-    filename = f"{safe_name}_{created.strftime('%Y-%m-%d_%H%M')}.xlsx"
+    # Имя файла — только санитизированное имя проекта (дата уже в
+    # самом имени проекта, дублировать суффиксом не нужно).
+    safe_name = _safe_project_filename(project["name"], project_id)
+    filename = f"{safe_name}.xlsx"
 
     return StreamingResponse(
         BytesIO(xlsx_bytes),
@@ -139,9 +162,8 @@ def export_kp(
             detail="Не удалось получить курс ЦБ РФ и нет локального кэша.",
         )
 
-    created = project["created_at"]
-    safe_name = (project["name"] or "project").replace("/", "_").replace("\\", "_")
-    filename = f"{safe_name}_{created.strftime('%Y-%m-%d_%H%M')}.docx"
+    safe_name = _safe_project_filename(project["name"], project_id)
+    filename = f"{safe_name}.docx"
 
     return StreamingResponse(
         BytesIO(data),
