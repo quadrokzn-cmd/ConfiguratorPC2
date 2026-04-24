@@ -11,7 +11,7 @@ BEGIN;
 UPDATE motherboards SET memory_type = NULL, has_m2_slot = NULL WHERE id = 378;
 UPDATE motherboards SET memory_type = NULL, has_m2_slot = NULL WHERE id = 379;
 
--- ============ gpu (gpus): 255 rows ============
+-- ============ gpu (gpus): 246 rows ============
 UPDATE gpus SET tdp_watts = 145, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = 28000, vram_gb = 8, vram_type = 'GDDR7' WHERE id = 114;
 UPDATE gpus SET tdp_watts = 250, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = 28000, vram_gb = 12, vram_type = 'GDDR7' WHERE id = 117;
 UPDATE gpus SET tdp_watts = 145, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = 28000, vram_gb = 8, vram_type = 'GDDR7' WHERE id = 125;
@@ -95,43 +95,34 @@ UPDATE gpus SET tdp_watts = 40, needs_extra_power = FALSE, video_outputs = 'Mini
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = NULL, vram_type = 'DDR3' WHERE id = 321;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR3' WHERE id = 322;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'DDR4' WHERE id = 323;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 324;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 325;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 326;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR6' WHERE id = 327;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 328;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 10, vram_type = 'GDDR6' WHERE id = 329;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 12, vram_type = 'GDDR6' WHERE id = 330;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 331;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 332;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 333;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 16, vram_type = 'GDDR6' WHERE id = 334;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 16, vram_type = 'GDDR6' WHERE id = 335;
+UPDATE gpus SET tdp_watts = 75, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1290, memory_clock_mhz = 7000, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 324;
+UPDATE gpus SET tdp_watts = 175, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1470, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 325;
+UPDATE gpus SET tdp_watts = 170, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1320, memory_clock_mhz = 15000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 326;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'GDDR5' WHERE id = 336;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'GDDR5' WHERE id = 337;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'GDDR5' WHERE id = 338;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 339;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 340;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 341;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 16, vram_type = 'GDDR7' WHERE id = 342;
+UPDATE gpus SET tdp_watts = 70, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1040, memory_clock_mhz = 14000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 339;
+UPDATE gpus SET tdp_watts = 130, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1550, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 340;
+UPDATE gpus SET tdp_watts = 70, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1040, memory_clock_mhz = 14000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 341;
+UPDATE gpus SET tdp_watts = 360, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 2300, memory_clock_mhz = 30000, vram_gb = 16, vram_type = 'GDDR7' WHERE id = 342;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 343;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR5' WHERE id = 344;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 345;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 346;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 347;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 348;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 349;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 350;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 351;
+UPDATE gpus SET tdp_watts = 75, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1290, memory_clock_mhz = 7000, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 345;
+UPDATE gpus SET tdp_watts = 75, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1354, memory_clock_mhz = 7000, vram_gb = 4, vram_type = 'GDDR5' WHERE id = 346;
+UPDATE gpus SET tdp_watts = 125, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1530, memory_clock_mhz = 14000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 347;
+UPDATE gpus SET tdp_watts = 120, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1500, memory_clock_mhz = 12000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 348;
+UPDATE gpus SET tdp_watts = 175, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1470, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 349;
+UPDATE gpus SET tdp_watts = 200, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1410, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 350;
+UPDATE gpus SET tdp_watts = 220, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1500, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 351;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'DDR3' WHERE id = 352;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 353;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 354;
+UPDATE gpus SET tdp_watts = 170, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1320, memory_clock_mhz = 15000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 353;
+UPDATE gpus SET tdp_watts = 165, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = 18000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 354;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'DDR3' WHERE id = 355;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 2, vram_type = 'DDR4' WHERE id = 356;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 4, vram_type = 'DDR4' WHERE id = 357;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 358;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 359;
-UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 360;
+UPDATE gpus SET tdp_watts = 70, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1040, memory_clock_mhz = 14000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 358;
+UPDATE gpus SET tdp_watts = 70, needs_extra_power = FALSE, video_outputs = NULL, core_clock_mhz = 1040, memory_clock_mhz = 14000, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 359;
+UPDATE gpus SET tdp_watts = 130, needs_extra_power = TRUE, video_outputs = NULL, core_clock_mhz = 1550, memory_clock_mhz = 14000, vram_gb = 8, vram_type = 'GDDR6' WHERE id = 360;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 361;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 6, vram_type = 'GDDR6' WHERE id = 362;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 16, vram_type = 'GDDR6' WHERE id = 363;
@@ -268,7 +259,15 @@ UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 16, vram_type = 'GDDR7' WHERE id = 494;
 UPDATE gpus SET tdp_watts = NULL, needs_extra_power = NULL, video_outputs = NULL, core_clock_mhz = NULL, memory_clock_mhz = NULL, vram_gb = 24, vram_type = 'GDDR6' WHERE id = 495;
 
--- ============ case (cases): 826 rows ============
+-- ============ storage (storages): 6 rows ============
+UPDATE storages SET storage_type = 'SSD', form_factor = NULL, interface = NULL, capacity_gb = 1000 WHERE id = 216;
+UPDATE storages SET storage_type = 'SSD', form_factor = NULL, interface = NULL, capacity_gb = 1000 WHERE id = 217;
+UPDATE storages SET storage_type = 'SSD', form_factor = NULL, interface = NULL, capacity_gb = 2000 WHERE id = 218;
+UPDATE storages SET storage_type = 'SSD', form_factor = NULL, interface = NULL, capacity_gb = 2000 WHERE id = 219;
+UPDATE storages SET storage_type = 'SSD', form_factor = NULL, interface = 'SATA', capacity_gb = 240 WHERE id = 230;
+UPDATE storages SET storage_type = 'SSD', form_factor = '2.5"', interface = 'SATA', capacity_gb = NULL WHERE id = 782;
+
+-- ============ case (cases): 825 rows ============
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 50;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['mATX']::text[], included_psu_watts = NULL WHERE id = 63;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 66;
@@ -686,7 +685,7 @@ UPDATE cases SET has_psu_included = FALSE, supported_form_factors = NULL, includ
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 518;
 UPDATE cases SET has_psu_included = NULL, supported_form_factors = ARRAY['E-ATX']::text[], included_psu_watts = NULL WHERE id = 519;
 UPDATE cases SET has_psu_included = NULL, supported_form_factors = NULL, included_psu_watts = NULL WHERE id = 520;
-UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = NULL WHERE id = 521;
+UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 2000 WHERE id = 521;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ITX']::text[], included_psu_watts = NULL WHERE id = 523;
 UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 550 WHERE id = 524;
 UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 1200 WHERE id = 525;
@@ -717,7 +716,7 @@ UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 551;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = NULL, included_psu_watts = NULL WHERE id = 552;
 UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 1600 WHERE id = 553;
-UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = NULL WHERE id = 554;
+UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 2000 WHERE id = 554;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX','MATX','ITX']::text[], included_psu_watts = NULL WHERE id = 555;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['E-ATX','ATX','MATX','ITX']::text[], included_psu_watts = NULL WHERE id = 556;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['E-ATX','ATX','MATX','ITX']::text[], included_psu_watts = NULL WHERE id = 557;
@@ -887,7 +886,7 @@ UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 721;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 722;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 723;
-UPDATE cases SET has_psu_included = FALSE, supported_form_factors = NULL, included_psu_watts = NULL WHERE id = 724;
+UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ITX','MATX','ATX','E-ATX','XL-ATX','SSI-CEB','SSI-EEB']::text[], included_psu_watts = NULL WHERE id = 724;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 725;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['E-ATX']::text[], included_psu_watts = NULL WHERE id = 726;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['E-ATX']::text[], included_psu_watts = NULL WHERE id = 727;
@@ -1094,12 +1093,8 @@ UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 941;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 942;
 UPDATE cases SET has_psu_included = FALSE, supported_form_factors = ARRAY['ATX']::text[], included_psu_watts = NULL WHERE id = 943;
-UPDATE cases SET has_psu_included = TRUE, supported_form_factors = NULL, included_psu_watts = 1600 WHERE id = 944;
 
--- ============ psu (psus): 5 rows ============
-UPDATE psus SET power_watts = NULL WHERE id = 252;
-UPDATE psus SET power_watts = NULL WHERE id = 266;
-UPDATE psus SET power_watts = NULL WHERE id = 274;
+-- ============ psu (psus): 2 rows ============
 UPDATE psus SET power_watts = NULL WHERE id = 282;
 UPDATE psus SET power_watts = NULL WHERE id = 310;
 

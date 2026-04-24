@@ -108,6 +108,8 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "inno3d.com",         # NVIDIA AIB: Twin X2, iChill
     "maxsun.com",         # NVIDIA AIB (глобальный домен)
     "maxsun.com.cn",      # NVIDIA AIB (китайский домен, документация часто только там)
+    # Добавлено на Этапе 2.5В (2026-04-24, проверено WebFetch):
+    "afox-corp.com",      # AFOX International — головной сайт, активный каталог mb/GPU/SSD/PSU (whitelist afox.eu/afox.ru не содержит mining-плат AFHM65/AFB250)
     # Материнские платы (помимо AIB-вендоров выше)
     "supermicro.com",
     # Кулеры
@@ -151,6 +153,8 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     # БП — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
     "fsp-group.com",      # FSP Group — корпоративный сайт
     "fsplifestyle.com",   # FSP Group — потребительская ветка
+    # БП — добавлено на Этапе 2.5В (2026-04-24, проверено WebFetch):
+    "gamerstorm.com",     # GamerStorm — активный суб-бренд Deepcool (серии PN-D/PN-M), для legacy-моделей вроде PN1000D datasheet только здесь
     # Накопители (HDD/SSD) — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
     "kingston.com",       # Kingston: SSD и аксессуары
     "westerndigital.com", # WD: HDD/SSD

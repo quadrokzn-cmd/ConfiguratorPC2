@@ -1,0 +1,52 @@
+{
+  "category": "psu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-04-24T14:05:00Z",
+  "items": [
+    {
+      "id": 252,
+      "fields": {
+        "power_watts": {
+          "value": 12,
+          "source_url": "https://www.ui.com/accessories/poe-adapters"
+        }
+      }
+    },
+    {
+      "id": 266,
+      "fields": {
+        "power_watts": {
+          "value": 550,
+          "source_url": "https://www.fsp-group.com/"
+        }
+      }
+    },
+    {
+      "id": 274,
+      "fields": {
+        "power_watts": {
+          "value": 40,
+          "source_url": "https://www.fsp-group.com/"
+        }
+      }
+    },
+    {
+      "id": 282,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": "about:blank"
+        }
+      }
+    },
+    {
+      "id": 310,
+      "fields": {
+        "power_watts": {
+          "value": 1000,
+          "source_url": "https://www.gamerstorm.com/product/PowerSupply/2024-11/2153_15131.shtml"
+        }
+      }
+    }
+  ]
+}

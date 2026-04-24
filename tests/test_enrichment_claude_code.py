@@ -35,6 +35,26 @@ class TestWhitelist:
             f"Отсутствуют в OFFICIAL_DOMAINS: {added - OFFICIAL_DOMAINS}"
         )
 
+    def test_whitelist_contains_stage_2_5v_additions(self):
+        # Этап 2.5В: afox-corp.com и gamerstorm.com добавлены после
+        # WebFetch-проверки (активные сайты с product catalogs).
+        added = {"afox-corp.com", "gamerstorm.com"}
+        assert added.issubset(OFFICIAL_DOMAINS)
+
+    @pytest.mark.parametrize("url", [
+        "https://www.afox-corp.com/index.php?m=content&c=index&a=lists&catid=55",
+        "https://www.gamerstorm.com/product/PowerSupply/2024-11/2153_15131.shtml",
+    ])
+    def test_new_2_5v_domains_pass(self, url):
+        assert _validate_source_url(url) == url
+
+    def test_afox_shop_subdomain_rejected_if_not_in_whitelist(self):
+        # shop.afox.ru — поддомен afox.ru, whitelist содержит afox.ru → проходит.
+        assert _validate_source_url("https://shop.afox.ru/product") != ""
+        # А вот afoxcn.ru.retailer.com — чужой хост, отклоняется.
+        with pytest.raises(ValidationError):
+            _validate_source_url("https://afoxcn.ru.retailer.com/catalog")
+
     @pytest.mark.parametrize("url", [
         "https://www.asus.com/ru/motherboards/p/x",
         "https://rog.asus.com/graphics-cards/rog-strix",
