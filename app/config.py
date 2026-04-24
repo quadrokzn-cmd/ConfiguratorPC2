@@ -57,5 +57,34 @@ class Settings:
         )
     )
 
+    # --- Этап 8.3: SMTP для отправки писем поставщикам -------------
+    # Дефолты настроены под mail.ru / quadro.tatar. Пароль — приложение-
+    # пароль, создаётся в mail.ru ЛК → Безопасность → Пароли для внешних
+    # приложений (обычный пароль от ящика не подойдёт). Если пусто —
+    # отправка упадёт с понятной ошибкой, чтение/preview продолжат работать.
+    smtp_host: str = field(
+        default_factory=lambda: os.getenv("SMTP_HOST", "smtp.mail.ru")
+    )
+    smtp_port: int = field(
+        default_factory=lambda: int(os.getenv("SMTP_PORT", "465"))
+    )
+    smtp_use_ssl: bool = field(
+        default_factory=lambda: os.getenv("SMTP_USE_SSL", "true").strip().lower()
+        in ("1", "true", "yes", "on")
+    )
+    smtp_user: str = field(
+        default_factory=lambda: os.getenv("SMTP_USER", "quadro@quadro.tatar")
+    )
+    smtp_app_password: str = field(
+        default_factory=lambda: os.getenv("SMTP_APP_PASSWORD", "")
+    )
+    # Архивная копия уходящих писем — чтобы в ящике отправителя оставался след.
+    smtp_bcc: str = field(
+        default_factory=lambda: os.getenv("SMTP_BCC", "quadro@quadro.tatar")
+    )
+    smtp_from_name: str = field(
+        default_factory=lambda: os.getenv("SMTP_FROM_NAME", "КВАДРО-ТЕХ")
+    )
+
 
 settings = Settings()

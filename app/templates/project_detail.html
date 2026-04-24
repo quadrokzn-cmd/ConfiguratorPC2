@@ -126,6 +126,86 @@
           Сформировать КП
         </button>
       </div>
+      <button type="button" id="emails-open-btn"
+              class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition">
+        Запросить цены у поставщиков
+      </button>
+    </div>
+  </div>
+
+  <!-- Модалка запроса цен (этап 8.3) -->
+  <div id="emails-modal" class="hidden fixed inset-0 bg-black/70 z-50 overflow-y-auto">
+    <div class="max-w-5xl mx-auto mt-10 mb-10 bg-zinc-900 border border-zinc-700 rounded-xl p-6 shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold text-zinc-100">Запрос цен поставщикам</h3>
+        <button type="button" id="emails-close-btn"
+                class="text-zinc-400 hover:text-zinc-100 text-2xl leading-none px-2"
+                aria-label="Закрыть">&times;</button>
+      </div>
+
+      <div id="emails-loading" class="text-zinc-400 text-sm">Загрузка черновиков…</div>
+      <div id="emails-empty" class="hidden text-zinc-400 text-sm">
+        По этому проекту нет позиций, для которых известен поставщик с ценой.
+      </div>
+
+      <div id="emails-body" class="hidden">
+        <div class="flex gap-4 items-stretch">
+          <!-- Табы поставщиков -->
+          <div class="w-64 shrink-0 space-y-1" id="emails-tabs">
+            <!-- сюда JS инжектит кнопки-табы -->
+          </div>
+
+          <!-- Панель активного поставщика -->
+          <div class="flex-1 min-w-0 bg-zinc-950 border border-zinc-700 rounded-lg p-4 space-y-3" id="emails-panel">
+            <div id="emails-no-email-warning" class="hidden bg-red-900/60 border border-red-700 text-red-100 text-sm rounded px-3 py-2">
+              Email не задан для этого поставщика, добавьте его в админке.
+            </div>
+
+            <label class="block">
+              <span class="text-xs text-zinc-400">Кому:</span>
+              <input type="text" id="emails-to" readonly
+                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm">
+            </label>
+
+            <label class="block">
+              <span class="text-xs text-zinc-400">Тема:</span>
+              <input type="text" id="emails-subject"
+                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </label>
+
+            <label class="block">
+              <span class="text-xs text-zinc-400">Тело письма (HTML):</span>
+              <textarea id="emails-body-html" rows="14"
+                        class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-zinc-100 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        style="min-height: 300px;"></textarea>
+            </label>
+
+            <details class="text-sm">
+              <summary class="cursor-pointer text-zinc-400 hover:text-zinc-200">HTML-предпросмотр</summary>
+              <iframe id="emails-preview-frame" sandbox=""
+                      class="w-full mt-2 bg-white rounded" style="height: 360px;"></iframe>
+            </details>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center gap-3 flex-wrap justify-between">
+          <div id="emails-status" class="text-sm text-zinc-400 min-w-0"></div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button type="button" id="emails-send-one-btn"
+                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition disabled:bg-zinc-700 disabled:text-zinc-400 disabled:cursor-not-allowed">
+              Отправить этому поставщику
+            </button>
+            <button type="button" id="emails-send-all-btn"
+                    class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition">
+              Отправить всем выбранным
+            </button>
+            <button type="button" id="emails-close-bottom-btn"
+                    class="px-4 py-2 border border-zinc-600 hover:bg-zinc-800 text-zinc-200 rounded-lg transition">
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -167,6 +247,262 @@
       var markup = document.getElementById('markup-input').value;
       var projectId = {{ project.id }};
       window.location.href = '/project/' + projectId + '/export/kp?markup=' + markup;
+    });
+  })();
+</script>
+
+<script>
+  // Этап 8.3: модалка запроса цен у поставщиков.
+  //
+  // Поток: открыть → GET /project/{id}/emails/preview → отрендерить табы и
+  // форму активного поставщика → менеджер правит subject/body → Отправить.
+  //
+  // Серверный эндпоинт сам проверяет, что supplier_id принадлежит проекту,
+  // и логирует каждое письмо в sent_emails — фронту достаточно показать
+  // статусы и заблокировать уже отправленные табы.
+  (function () {
+    var openBtn = document.getElementById('emails-open-btn');
+    if (!openBtn) return;
+
+    var modal = document.getElementById('emails-modal');
+    var loading = document.getElementById('emails-loading');
+    var emptyBox = document.getElementById('emails-empty');
+    var body = document.getElementById('emails-body');
+    var tabsBox = document.getElementById('emails-tabs');
+    var toInput = document.getElementById('emails-to');
+    var subjInput = document.getElementById('emails-subject');
+    var bodyArea = document.getElementById('emails-body-html');
+    var previewFrame = document.getElementById('emails-preview-frame');
+    var noEmailWarn = document.getElementById('emails-no-email-warning');
+    var sendOneBtn = document.getElementById('emails-send-one-btn');
+    var sendAllBtn = document.getElementById('emails-send-all-btn');
+    var statusEl = document.getElementById('emails-status');
+
+    var projectId = {{ project.id }};
+    var drafts = [];       // серверная версия (используется только для сверки)
+    var edits = {};        // supplier_id -> {subject, body_html, selected, sent_status}
+    var activeId = null;
+
+    function csrfToken() {
+      var m = document.querySelector('meta[name="csrf-token"]');
+      return m ? m.getAttribute('content') : '';
+    }
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      loading.classList.remove('hidden');
+      body.classList.add('hidden');
+      emptyBox.classList.add('hidden');
+      statusEl.textContent = '';
+      fetch('/project/' + projectId + '/emails/preview', {
+        credentials: 'same-origin',
+        headers: {'Accept': 'application/json'}
+      }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        drafts = (data && data.items) || [];
+        loading.classList.add('hidden');
+        if (!drafts.length) {
+          emptyBox.classList.remove('hidden');
+          return;
+        }
+        edits = {};
+        drafts.forEach(function (d) {
+          edits[d.supplier_id] = {
+            subject: d.subject,
+            body_html: d.body_html,
+            selected: true,
+            sent_status: null
+          };
+        });
+        body.classList.remove('hidden');
+        renderTabs();
+        activateTab(drafts[0].supplier_id);
+      }).catch(function (err) {
+        loading.classList.add('hidden');
+        statusEl.innerHTML = '<span class="text-red-400">Ошибка загрузки: ' +
+          String(err && err.message || err) + '</span>';
+      });
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+    }
+
+    function renderTabs() {
+      tabsBox.innerHTML = '';
+      drafts.forEach(function (d) {
+        var st = edits[d.supplier_id] || {};
+        var wrap = document.createElement('div');
+        wrap.className = 'flex items-start gap-2 px-2 py-1 rounded ' +
+          (d.supplier_id === activeId
+            ? 'bg-indigo-900/60 border border-indigo-500'
+            : 'bg-zinc-800/70 border border-zinc-700 hover:bg-zinc-800');
+
+        // Чекбокс для «Отправить всем выбранным»
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = !!st.selected;
+        cb.disabled = !d.can_send;
+        cb.className = 'mt-1';
+        cb.addEventListener('change', function (e) {
+          edits[d.supplier_id].selected = e.target.checked;
+          e.stopPropagation();
+        });
+        cb.addEventListener('click', function (e) { e.stopPropagation(); });
+        wrap.appendChild(cb);
+
+        // Кнопка активации таба
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'flex-1 text-left text-sm text-zinc-100 truncate';
+        var status = '';
+        if (st.sent_status === 'sent')        status = ' ✓';
+        else if (st.sent_status === 'failed') status = ' ✗';
+        btn.innerHTML =
+          '<span class="font-medium">' + escapeHtml(d.supplier_name) + status + '</span>' +
+          '<span class="block text-xs text-zinc-400">' +
+          d.items_count + ' позиций' +
+          (!d.can_send ? ' · нет email' : '') +
+          '</span>';
+        btn.addEventListener('click', function () {
+          activateTab(d.supplier_id);
+        });
+        wrap.appendChild(btn);
+
+        tabsBox.appendChild(wrap);
+      });
+    }
+
+    function activateTab(sid) {
+      // Запомнить правки текущего таба, прежде чем переключаться.
+      saveCurrentEdits();
+      activeId = sid;
+      var d = drafts.find(function (x) { return x.supplier_id === sid; });
+      if (!d) return;
+      var st = edits[sid];
+      toInput.value = d.to_email || '';
+      subjInput.value = st.subject;
+      bodyArea.value = st.body_html;
+      noEmailWarn.classList.toggle('hidden', !!d.can_send);
+      sendOneBtn.disabled = !d.can_send || st.sent_status === 'sent';
+      renderTabs();
+      updatePreview();
+    }
+
+    function saveCurrentEdits() {
+      if (activeId === null) return;
+      if (!edits[activeId]) return;
+      edits[activeId].subject = subjInput.value;
+      edits[activeId].body_html = bodyArea.value;
+    }
+
+    function updatePreview() {
+      try {
+        previewFrame.srcdoc = bodyArea.value;
+      } catch (_) {
+        // На совсем древних браузерах srcdoc отсутствует — тихо игнорируем.
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>\"']/g, function (c) {
+        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+      });
+    }
+
+    function sendBatch(supplierIds) {
+      if (!supplierIds.length) return Promise.resolve();
+      saveCurrentEdits();
+      var items = [];
+      supplierIds.forEach(function (sid) {
+        var d = drafts.find(function (x) { return x.supplier_id === sid; });
+        var st = edits[sid];
+        if (!d || !st) return;
+        if (!d.can_send) return;          // без email — не слать
+        if (st.sent_status === 'sent') return;  // уже отправлено
+        items.push({
+          supplier_id: sid,
+          to_email: d.to_email,
+          subject: st.subject,
+          body_html: st.body_html
+        });
+      });
+      if (!items.length) {
+        statusEl.innerHTML = '<span class="text-zinc-400">Нет адресатов для отправки.</span>';
+        return Promise.resolve();
+      }
+      statusEl.innerHTML = '<span class="text-zinc-400">Отправляем ' + items.length + '…</span>';
+      sendAllBtn.disabled = true;
+      sendOneBtn.disabled = true;
+      return fetch('/project/' + projectId + '/emails/send', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-Token': csrfToken()
+        },
+        body: JSON.stringify({items: items})
+      }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        var results = (data && data.results) || [];
+        var parts = [];
+        results.forEach(function (res) {
+          var d = drafts.find(function (x) { return x.supplier_id === res.supplier_id; });
+          var name = d ? d.supplier_name : ('#' + res.supplier_id);
+          if (res.status === 'sent') {
+            edits[res.supplier_id].sent_status = 'sent';
+            edits[res.supplier_id].selected = false;
+            parts.push('<span class="text-emerald-400">' + escapeHtml(name) + ' — отправлено</span>');
+          } else {
+            edits[res.supplier_id].sent_status = 'failed';
+            parts.push('<span class="text-red-400">' + escapeHtml(name) + ' — ошибка: ' +
+                       escapeHtml(res.error_message || 'неизвестно') + '</span>');
+          }
+        });
+        statusEl.innerHTML = parts.join('<br>');
+        renderTabs();
+        // Обновить состояние кнопки «этому» для текущего таба.
+        var cur = drafts.find(function (x) { return x.supplier_id === activeId; });
+        if (cur) {
+          sendOneBtn.disabled = !cur.can_send ||
+            (edits[activeId] && edits[activeId].sent_status === 'sent');
+        }
+      }).catch(function (err) {
+        statusEl.innerHTML = '<span class="text-red-400">Ошибка сети: ' +
+          escapeHtml(String(err && err.message || err)) + '</span>';
+      }).finally(function () {
+        sendAllBtn.disabled = false;
+      });
+    }
+
+    // Обработчики
+    openBtn.addEventListener('click', openModal);
+    document.getElementById('emails-close-btn').addEventListener('click', closeModal);
+    document.getElementById('emails-close-bottom-btn').addEventListener('click', closeModal);
+    subjInput.addEventListener('input', function () {
+      if (activeId !== null) edits[activeId].subject = subjInput.value;
+    });
+    bodyArea.addEventListener('input', function () {
+      if (activeId !== null) edits[activeId].body_html = bodyArea.value;
+      updatePreview();
+    });
+    sendOneBtn.addEventListener('click', function () {
+      if (activeId !== null) sendBatch([activeId]);
+    });
+    sendAllBtn.addEventListener('click', function () {
+      var ids = [];
+      drafts.forEach(function (d) {
+        var st = edits[d.supplier_id];
+        if (st && st.selected && d.can_send && st.sent_status !== 'sent') {
+          ids.push(d.supplier_id);
+        }
+      });
+      sendBatch(ids);
     });
   })();
 </script>
