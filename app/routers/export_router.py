@@ -181,6 +181,12 @@ def export_kp(
 # =====================================================================
 
 
+# Валидация email — простой формат «локал@домен.tld»: минимум один @,
+# минимум одна точка после @, без пробелов. Используется отдельно от
+# Pydantic, чтобы вернуть 400 с понятным русским описанием.
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
 class EmailSendItem(BaseModel):
     """Один элемент POST /emails/send — что отправить конкретному поставщику."""
     model_config = ConfigDict(extra="forbid")
@@ -271,6 +277,20 @@ def send_emails(
     """
     _verify_csrf_ajax(request)
     _load_project_or_raise(db, project_id=project_id, user=user)
+
+    # Этап 8.6: поле «Кому» в модалке стало редактируемым — менеджер мог
+    # вписать произвольный адрес для разовой отправки. Серверная валидация
+    # должна не пустить заведомо невалидное значение в SMTP.
+    for it in payload.items:
+        addr = (it.to_email or "").strip()
+        if not _EMAIL_RE.match(addr):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Некорректный email адрес для поставщика #{it.supplier_id}: "
+                    f"{it.to_email!r}. Ожидается формат name@domain.tld."
+                ),
+            )
 
     try:
         drafts = email_composer.build_supplier_emails(

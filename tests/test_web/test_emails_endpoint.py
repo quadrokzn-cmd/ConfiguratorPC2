@@ -361,3 +361,139 @@ def test_send_without_csrf_is_rejected(
         json={"items": []},
     )
     assert r.status_code == 400
+
+
+# =============================================================================
+# Этап 8.6 — поле «Кому» редактируемое: payload.to_email используется как
+# фактический адрес отправки, suppliers.email в БД не меняется, невалидный
+# email возвращает 400.
+# =============================================================================
+
+def test_emails_send_uses_payload_to_email_not_suppliers_email(
+    db_session, manager_client, manager_user,
+):
+    """to_email из payload — это адрес отправки. suppliers.email не трогаем.
+
+    Сценарий: у поставщика в БД email = a@sup.ru, но менеджер
+    разово изменил «Кому» на manager-override@sup.ru. SMTP должен
+    получить именно введённый адрес, а БД остаться неизменной.
+    """
+    from app.services import spec_service
+
+    sid = _insert_supplier(db_session, name="Override-Sup", email="a@sup.ru")
+    pid = spec_service.create_empty_project(
+        db_session, user_id=manager_user["id"], name="To-Override",
+    )
+    cpu_id = _insert_cpu(db_session, sku="cpu-override")
+    _insert_supplier_price(
+        db_session, supplier_id=sid, component_id=cpu_id, price=10000,
+        supplier_sku="ov-cpu",
+    )
+    qid = _make_query_with_cpu(
+        db_session, project_id=pid, user_id=manager_user["id"], cpu_id=cpu_id,
+    )
+    spec_service.select_variant(db_session, project_id=pid, query_id=qid,
+                                manufacturer="Intel", quantity=1)
+
+    csrf = _get_csrf_token(manager_client)
+
+    with _mock_rate(), patch(
+        "app.routers.export_router.email_sender.send_email",
+        return_value=None,
+    ) as send_mock:
+        r = manager_client.post(
+            f"/project/{pid}/emails/send",
+            headers={"X-CSRF-Token": csrf, "Content-Type": "application/json"},
+            json={"items": [{
+                "supplier_id": sid,
+                "to_email": "manager-override@sup.ru",
+                "subject":  "Override",
+                "body_html": "<p>Override</p>",
+            }]},
+        )
+
+    assert r.status_code == 200, r.text[:400]
+    # SMTP вызван c override-адресом, не с suppliers.email.
+    send_mock.assert_called_once()
+    kwargs = send_mock.call_args.kwargs
+    assert kwargs["to_email"] == "manager-override@sup.ru"
+
+    # suppliers.email в БД остался прежним.
+    db_session.expire_all()
+    sup_row = db_session.execute(
+        _t("SELECT email FROM suppliers WHERE id = :id"), {"id": sid},
+    ).first()
+    assert sup_row.email == "a@sup.ru"
+
+    # В sent_emails записан фактический адрес отправки.
+    rec = db_session.execute(
+        _t("SELECT to_email FROM sent_emails WHERE project_id = :p"),
+        {"p": pid},
+    ).first()
+    assert rec.to_email == "manager-override@sup.ru"
+
+
+def test_emails_send_validates_to_email_returns_400(
+    db_session, manager_client, manager_user,
+):
+    """Невалидный to_email → 400, SMTP не вызывается, suppliers.email цел."""
+    from app.services import spec_service
+
+    sid = _insert_supplier(db_session, name="Valid-Sup", email="real@sup.ru")
+    pid = spec_service.create_empty_project(
+        db_session, user_id=manager_user["id"], name="Bad-Email",
+    )
+    cpu_id = _insert_cpu(db_session, sku="cpu-bad-email")
+    _insert_supplier_price(
+        db_session, supplier_id=sid, component_id=cpu_id, price=10000,
+        supplier_sku="be-cpu",
+    )
+    qid = _make_query_with_cpu(
+        db_session, project_id=pid, user_id=manager_user["id"], cpu_id=cpu_id,
+    )
+    spec_service.select_variant(db_session, project_id=pid, query_id=qid,
+                                manufacturer="Intel", quantity=1)
+
+    csrf = _get_csrf_token(manager_client)
+
+    with _mock_rate(), patch(
+        "app.routers.export_router.email_sender.send_email",
+        return_value=None,
+    ) as send_mock:
+        r = manager_client.post(
+            f"/project/{pid}/emails/send",
+            headers={"X-CSRF-Token": csrf, "Content-Type": "application/json"},
+            json={"items": [{
+                "supplier_id": sid,
+                "to_email": "не email",
+                "subject":  "Тема",
+                "body_html": "<p>Текст</p>",
+            }]},
+        )
+
+    assert r.status_code == 400, r.text[:400]
+    # SMTP не вызывался.
+    send_mock.assert_not_called()
+    # suppliers.email в БД остался прежним.
+    db_session.expire_all()
+    sup_row = db_session.execute(
+        _t("SELECT email FROM suppliers WHERE id = :id"), {"id": sid},
+    ).first()
+    assert sup_row.email == "real@sup.ru"
+
+
+def test_emails_modal_to_input_not_readonly():
+    """Шаблон project_detail.html: input id=emails-to не имеет readonly."""
+    from pathlib import Path
+    tpl = Path(__file__).resolve().parents[2] / "app" / "templates" / "project_detail.html"
+    text = tpl.read_text(encoding="utf-8")
+    # Найдём фрагмент c id="emails-to" и убедимся, что в нём нет readonly.
+    import re
+    m = re.search(r'<input[^>]*id="emails-to"[^>]*>', text)
+    assert m, "Не найден input id=emails-to в шаблоне"
+    tag = m.group(0)
+    assert "readonly" not in tag.lower(), (
+        f"input id=emails-to не должен быть readonly: {tag}"
+    )
+    # И проверим, что type="email".
+    assert 'type="email"' in tag, f"input id=emails-to должен быть type=email: {tag}"

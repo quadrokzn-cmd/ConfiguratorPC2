@@ -270,8 +270,9 @@ def test_build_xlsx_empty_spec_still_has_header(db_session):
     ws = wb.active
     assert "Пустой" in (ws["A1"].value or "")
     assert ws["O1"].value == "13.04.2026"
-    # В строке 3 (первая строка данных) данных быть не должно.
-    assert ws["D3"].value in (None, "")
+    # Этап 8.6: row 3 — заголовки таблицы, row 4 — первая строка данных.
+    # У пустого проекта в D4 данных быть не должно.
+    assert ws["D4"].value in (None, "")
 
 
 # ---- тесты export_router -----------------------------------------------

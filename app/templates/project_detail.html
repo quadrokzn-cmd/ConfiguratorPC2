@@ -163,8 +163,9 @@
 
             <label class="block">
               <span class="text-xs text-zinc-400">Кому:</span>
-              <input type="text" id="emails-to" readonly
-                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm">
+              <input type="email" id="emails-to"
+                     placeholder="email поставщика"
+                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </label>
 
             <label class="block">
@@ -320,6 +321,7 @@
         edits = {};
         drafts.forEach(function (d) {
           edits[d.supplier_id] = {
+            to_email: d.to_email || '',
             subject: d.subject,
             body_html: d.body_html,
             selected: true,
@@ -394,17 +396,19 @@
       var d = drafts.find(function (x) { return x.supplier_id === sid; });
       if (!d) return;
       var st = edits[sid];
-      toInput.value = d.to_email || '';
+      toInput.value = st.to_email || '';
       subjInput.value = st.subject;
       bodyEditor.innerHTML = st.body_html;
       noEmailWarn.classList.toggle('hidden', !!d.can_send);
-      sendOneBtn.disabled = !d.can_send || st.sent_status === 'sent';
+      // Кнопка «отправить этому» доступна, если есть валидно введённый адрес.
+      sendOneBtn.disabled = !toInput.value.trim() || st.sent_status === 'sent';
       renderTabs();
     }
 
     function saveCurrentEdits() {
       if (activeId === null) return;
       if (!edits[activeId]) return;
+      edits[activeId].to_email = toInput.value;
       edits[activeId].subject = subjInput.value;
       edits[activeId].body_html = bodyEditor.innerHTML;
     }
@@ -423,11 +427,12 @@
         var d = drafts.find(function (x) { return x.supplier_id === sid; });
         var st = edits[sid];
         if (!d || !st) return;
-        if (!d.can_send) return;          // без email — не слать
         if (st.sent_status === 'sent') return;  // уже отправлено
+        var to = (st.to_email || '').trim();
+        if (!to) return;                  // пустой email — не слать
         items.push({
           supplier_id: sid,
-          to_email: d.to_email,
+          to_email: to,
           subject: st.subject,
           body_html: st.body_html
         });
@@ -487,6 +492,12 @@
     openBtn.addEventListener('click', openModal);
     document.getElementById('emails-close-btn').addEventListener('click', closeModal);
     document.getElementById('emails-close-bottom-btn').addEventListener('click', closeModal);
+    toInput.addEventListener('input', function () {
+      if (activeId === null) return;
+      edits[activeId].to_email = toInput.value;
+      var st = edits[activeId];
+      sendOneBtn.disabled = !toInput.value.trim() || st.sent_status === 'sent';
+    });
     subjInput.addEventListener('input', function () {
       if (activeId !== null) edits[activeId].subject = subjInput.value;
     });
@@ -511,10 +522,12 @@
       if (activeId !== null) sendBatch([activeId]);
     });
     sendAllBtn.addEventListener('click', function () {
+      saveCurrentEdits();
       var ids = [];
       drafts.forEach(function (d) {
         var st = edits[d.supplier_id];
-        if (st && st.selected && d.can_send && st.sent_status !== 'sent') {
+        if (st && st.selected && st.sent_status !== 'sent'
+            && (st.to_email || '').trim()) {
           ids.push(d.supplier_id);
         }
       });

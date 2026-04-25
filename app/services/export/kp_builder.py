@@ -1,21 +1,26 @@
-# Генератор коммерческого предложения (docx) по шаблону KP (этап 8.2).
+# Генератор коммерческого предложения (docx) на основе шаблона KP.
 #
-# Берёт app/templates/export/kp_template.docx как основу, сохраняет её
-# структуру (шапку с реквизитами, внешнюю таблицу-обложку «Коммерческое
-# предложение», подпись директора и печать), а заполняет только:
-#   - дату в параграфе «№ б/н от DD.MM.YYYYг.» (ставится сегодняшняя);
-#   - строки внутренней таблицы: №, наименование, цена за шт., количество,
-#     сумма (по одной строке на каждую конфигурацию проекта);
-#   - поле ИТОГО в последней строке таблицы.
+# Этап 8.6: внутренняя таблица КП теперь строится с нуля программно через
+# lxml. Шаблон kp_template.docx сохраняет верхнюю часть (реквизиты,
+# изображения с подписью директора и печатью) и внешнюю таблицу-обложку.
+# Внутренняя таблица из шаблона полностью заменяется на свежую с
+# гарантированной структурой:
+#   - 5 колонок: № п/п, Наименование, Кол-во, Цена с НДС (руб.),
+#     Сумма с НДС (руб.).
+#   - Стиль: тонкие чёрные границы со всех сторон (TableGrid).
+#   - Шапка таблицы: bold, серая заливка #E0E0E0.
+#   - Данные: имя — слева, числа — по правому краю.
+#   - Финальная строка ИТОГО: 4 первые ячейки объединены через gridSpan,
+#     текст «ИТОГО» bold по правому краю; 5-я ячейка — сумма bold.
 #
-# Цены считаются из unit_usd конфигурации (снимок закупочной цены в $,
-# сохранённый в specification_items при выборе варианта — тот же слой,
-# что использует excel_builder) × курс ЦБ × (1 + наценка / 100). На каждом
-# шаге применяется math.ceil, чтобы в итоговом документе не было копеек.
+# Замена шаблонной таблицы лечит баг 8.4, когда после клонирования
+# tcPr и наличия «лишних» gridCol справа значение ИТОГО оказывалось в
+# ячейке-«хвосте» с шириной 3545 twips (далеко за пределами видимой
+# колонки «Сумма с НДС» шириной 1417), и пользователю казалось, что
+# поле пустое.
 
 from __future__ import annotations
 
-import copy
 import math
 import re
 from datetime import date
@@ -54,6 +59,17 @@ _MARKUP_MIN = 0
 _MARKUP_MAX = 500
 
 
+# --- Геометрия таблицы (в twips, 1/20 пункта; 1 см = 567 twips) -------------
+
+_COL_W_NUM   = 567    # № п/п       — 1.0 см
+_COL_W_NAME  = 5670   # Наименование — 10.0 см
+_COL_W_QTY   = 850    # Кол-во      — 1.5 см
+_COL_W_PRICE = 1418   # Цена        — 2.5 см
+_COL_W_SUM   = 1418   # Сумма       — 2.5 см
+
+_GRID_WIDTHS = (_COL_W_NUM, _COL_W_NAME, _COL_W_QTY, _COL_W_PRICE, _COL_W_SUM)
+
+
 # ---------------------------------------------------------------------
 # Арифметика цен
 # ---------------------------------------------------------------------
@@ -69,11 +85,7 @@ def _compute_prices(
     markup_percent: int,
     qty: int,
 ) -> tuple[int, int, int]:
-    """Возвращает (base_rub_per_unit, sell_rub_per_unit, line_total).
-
-    Все промежуточные вычисления — в Decimal, округление math.ceil до
-    целого рубля на каждом шаге.
-    """
+    """Возвращает (base_rub_per_unit, sell_rub_per_unit, line_total)."""
     unit_usd_dec = Decimal(str(unit_usd))
     base = _ceil_rub(unit_usd_dec * rate)
     multiplier = Decimal(100 + markup_percent) / Decimal(100)
@@ -85,25 +97,17 @@ def _compute_prices(
 def _format_rub(value: int) -> str:
     """14500 → '14 500'. Пробел как разделитель тысяч, без копеек.
 
-    «руб.» больше не добавляем — после живой проверки этапа 8.4
-    менеджер попросил убрать дублирующую единицу измерения: она
-    уже есть в заголовках колонок «Цена c НДС (руб.)» / «Сумма с НДС (руб.)».
+    «руб.» не добавляем — единица уже в заголовках колонок.
     """
     return f"{value:,}".replace(",", " ")
 
 
 # ---------------------------------------------------------------------
-# Манипуляции с XML шаблона
+# Замена даты в верхней шапке КП
 # ---------------------------------------------------------------------
 
 def _replace_date_in_header(doc, new_date: str) -> None:
-    """Меняет дату в параграфе «№ б/н от DD.MM.YYYYг.» на переданную.
-
-    Поиск: первый параграф документа, содержащий «№» и дату вида
-    DD.MM.YYYY. Текст может быть разбит на несколько runs — собираем
-    полный текст, заменяем дату регэкспом, кладём результат в первый
-    run, удаляем остальные.
-    """
+    """Меняет дату в параграфе «№ б/н от DD.MM.YYYYг.» на переданную."""
     for p in doc.paragraphs:
         if "№" not in p.text or not _DATE_RE.search(p.text):
             continue
@@ -118,8 +122,167 @@ def _replace_date_in_header(doc, new_date: str) -> None:
         return
 
 
-def _find_inner_kp_table(doc) -> "docx.table.Table":
-    """Находит внутреннюю таблицу в обложке «Коммерческое предложение»."""
+# ---------------------------------------------------------------------
+# Сборка таблицы из XML (lxml)
+# ---------------------------------------------------------------------
+
+def _make_pPr(*, jc: str | None = None) -> etree._Element:
+    pPr = etree.Element(_w("pPr"))
+    # Без spacing — параграф ляжет компактно в ячейку.
+    spacing = etree.SubElement(pPr, _w("spacing"))
+    spacing.set(_w("before"), "0")
+    spacing.set(_w("after"), "0")
+    spacing.set(_w("line"), "240")
+    spacing.set(_w("lineRule"), "auto")
+    if jc:
+        jc_el = etree.SubElement(pPr, _w("jc"))
+        jc_el.set(_w("val"), jc)
+    return pPr
+
+
+def _make_rPr(*, bold: bool = False) -> etree._Element:
+    rPr = etree.Element(_w("rPr"))
+    # Times New Roman / 11pt — стандарт документа КП.
+    rFonts = etree.SubElement(rPr, _w("rFonts"))
+    rFonts.set(_w("ascii"), "Times New Roman")
+    rFonts.set(_w("hAnsi"), "Times New Roman")
+    rFonts.set(_w("cs"), "Times New Roman")
+    if bold:
+        etree.SubElement(rPr, _w("b"))
+        etree.SubElement(rPr, _w("bCs"))
+    sz = etree.SubElement(rPr, _w("sz"))
+    sz.set(_w("val"), "22")
+    szCs = etree.SubElement(rPr, _w("szCs"))
+    szCs.set(_w("val"), "22")
+    return rPr
+
+
+def _make_paragraph(text: str, *, jc: str = "left", bold: bool = False) -> etree._Element:
+    p = etree.Element(_w("p"))
+    p.append(_make_pPr(jc=jc))
+    r = etree.SubElement(p, _w("r"))
+    r.append(_make_rPr(bold=bold))
+    t = etree.SubElement(r, _w("t"))
+    t.text = text
+    t.set(f"{{{_XML}}}space", "preserve")
+    return p
+
+
+def _make_tcPr(
+    *,
+    width: int,
+    grid_span: int = 1,
+    fill: str | None = None,
+) -> etree._Element:
+    tcPr = etree.Element(_w("tcPr"))
+    tcW = etree.SubElement(tcPr, _w("tcW"))
+    tcW.set(_w("w"), str(width))
+    tcW.set(_w("type"), "dxa")
+    if grid_span > 1:
+        gs = etree.SubElement(tcPr, _w("gridSpan"))
+        gs.set(_w("val"), str(grid_span))
+    if fill:
+        shd = etree.SubElement(tcPr, _w("shd"))
+        shd.set(_w("val"), "clear")
+        shd.set(_w("color"), "auto")
+        shd.set(_w("fill"), fill)
+    vAlign = etree.SubElement(tcPr, _w("vAlign"))
+    vAlign.set(_w("val"), "center")
+    return tcPr
+
+
+def _make_tc(
+    text: str,
+    *,
+    width: int,
+    grid_span: int = 1,
+    fill: str | None = None,
+    jc: str = "left",
+    bold: bool = False,
+) -> etree._Element:
+    tc = etree.Element(_w("tc"))
+    tc.append(_make_tcPr(width=width, grid_span=grid_span, fill=fill))
+    tc.append(_make_paragraph(text, jc=jc, bold=bold))
+    return tc
+
+
+def _make_tbl_borders() -> etree._Element:
+    """Тонкие чёрные границы со всех сторон, включая внутренние."""
+    borders = etree.Element(_w("tblBorders"))
+    for side in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        b = etree.SubElement(borders, _w(side))
+        b.set(_w("val"), "single")
+        b.set(_w("sz"), "4")          # 0.5 pt
+        b.set(_w("space"), "0")
+        b.set(_w("color"), "000000")
+    return borders
+
+
+def _make_inner_tbl(
+    rows_data: list[dict],
+    total_rub: int,
+) -> etree._Element:
+    """Собирает <w:tbl> с шапкой, строками данных и ИТОГО."""
+    tbl = etree.Element(_w("tbl"))
+
+    # tblPr
+    tblPr = etree.SubElement(tbl, _w("tblPr"))
+    tblW = etree.SubElement(tblPr, _w("tblW"))
+    tblW.set(_w("w"), str(sum(_GRID_WIDTHS)))
+    tblW.set(_w("type"), "dxa")
+    tblPr.append(_make_tbl_borders())
+    layout = etree.SubElement(tblPr, _w("tblLayout"))
+    layout.set(_w("type"), "fixed")
+    look = etree.SubElement(tblPr, _w("tblLook"))
+    look.set(_w("val"), "04A0")
+
+    # tblGrid
+    grid = etree.SubElement(tbl, _w("tblGrid"))
+    for w in _GRID_WIDTHS:
+        gc = etree.SubElement(grid, _w("gridCol"))
+        gc.set(_w("w"), str(w))
+
+    # ── Шапка ──────────────────────────────────────────────────────────
+    header = etree.SubElement(tbl, _w("tr"))
+    trPr_h = etree.SubElement(header, _w("trPr"))
+    etree.SubElement(trPr_h, _w("cantSplit"))
+    th_titles = ("№ п/п", "Наименование", "Кол-во",
+                 "Цена c НДС (руб.)", "Сумма с НДС (руб.)")
+    th_jc = ("center", "center", "center", "center", "center")
+    for title, w, jc in zip(th_titles, _GRID_WIDTHS, th_jc):
+        header.append(_make_tc(
+            title, width=w, fill="E0E0E0", jc=jc, bold=True,
+        ))
+
+    # ── Строки данных ──────────────────────────────────────────────────
+    for i, drow in enumerate(rows_data, start=1):
+        tr = etree.SubElement(tbl, _w("tr"))
+        tr.append(_make_tc(str(i), width=_COL_W_NUM, jc="center"))
+        tr.append(_make_tc(drow["name"], width=_COL_W_NAME, jc="left"))
+        tr.append(_make_tc(str(drow["qty"]), width=_COL_W_QTY, jc="center"))
+        tr.append(_make_tc(_format_rub(drow["price_rub"]),
+                           width=_COL_W_PRICE, jc="right"))
+        tr.append(_make_tc(_format_rub(drow["total_rub"]),
+                           width=_COL_W_SUM, jc="right"))
+
+    # ── Строка ИТОГО ───────────────────────────────────────────────────
+    itogo = etree.SubElement(tbl, _w("tr"))
+    itogo_label_w = _COL_W_NUM + _COL_W_NAME + _COL_W_QTY + _COL_W_PRICE
+    itogo.append(_make_tc(
+        "ИТОГО", width=itogo_label_w, grid_span=4, jc="right", bold=True,
+    ))
+    itogo.append(_make_tc(
+        _format_rub(total_rub), width=_COL_W_SUM, jc="right", bold=True,
+    ))
+
+    return tbl
+
+
+def _replace_inner_table(doc, new_tbl: etree._Element) -> None:
+    """Находит шаблонную внутреннюю таблицу и заменяет её на new_tbl.
+
+    Шаблон: внешняя таблица 1×2, внутренняя — в первой ячейке внешней.
+    """
     if not doc.tables:
         raise RuntimeError("В шаблоне KP нет ни одной таблицы.")
     outer = doc.tables[0]
@@ -128,135 +291,9 @@ def _find_inner_kp_table(doc) -> "docx.table.Table":
     cell0 = outer.rows[0].cells[0]
     if not cell0.tables:
         raise RuntimeError("Внутренняя таблица KP не найдена.")
-    return cell0.tables[0]
-
-
-def _tcs_of_row(tr: etree._Element) -> list[etree._Element]:
-    """Возвращает все <w:tc> элементы строки."""
-    return tr.findall(_w("tc"))
-
-
-def _set_tc_text(tc: etree._Element, text: str, rpr_template: etree._Element | None) -> None:
-    """Ставит в ячейке ровно один параграф с одним run, в котором лежит text.
-
-    Сохраняет первый <w:p> ячейки (его pPr — выравнивание/отступы),
-    удаляет любые другие параграфы. В первый параграф кладёт одиночный
-    <w:r>, опционально с копией rpr_template (чтобы новые ячейки
-    получили единый шрифт — иначе брали бы default документа).
-    """
-    # Оставляем только первый параграф.
-    ps = tc.findall(_w("p"))
-    if ps:
-        p = ps[0]
-        for extra in ps[1:]:
-            tc.remove(extra)
-    else:
-        p = etree.SubElement(tc, _w("p"))
-
-    # Удаляем все существующие runs.
-    for r in p.findall(_w("r")):
-        p.remove(r)
-
-    # Создаём один новый run.
-    r = etree.SubElement(p, _w("r"))
-    if rpr_template is not None:
-        r.append(copy.deepcopy(rpr_template))
-
-    t = etree.SubElement(r, _w("t"))
-    t.text = text
-    t.set(f"{{{_XML}}}space", "preserve")
-
-
-def _extract_data_row_rpr(template_tr: etree._Element) -> etree._Element | None:
-    """Берёт rPr из первого run первой ячейки шаблонной строки — оттуда
-    «наследуют» форматирование все ячейки сгенерированной строки."""
-    tcs = _tcs_of_row(template_tr)
-    if not tcs:
-        return None
-    first_run = tcs[0].find(f".//{_w('r')}")
-    if first_run is None:
-        return None
-    rpr = first_run.find(_w("rPr"))
-    return rpr  # может быть None — тогда просто без rPr
-
-
-def _fill_data_row_tr(
-    tr: etree._Element,
-    *,
-    pos_num: int,
-    name: str,
-    price_rub: int,
-    qty: int,
-    total_rub: int,
-    rpr_template: etree._Element | None,
-) -> None:
-    """Заливает в склонированную строку данные.
-
-    Новый порядок (этап 8.4): №, Наименование, Кол-во, Цена c НДС, Сумма.
-    """
-    tcs = _tcs_of_row(tr)
-    if len(tcs) < 5:
-        raise RuntimeError(
-            f"Шаблон строки данных KP ожидает 5 ячеек, получено {len(tcs)}."
-        )
-    _set_tc_text(tcs[0], str(pos_num), rpr_template)
-    _set_tc_text(tcs[1], name, rpr_template)
-    _set_tc_text(tcs[2], str(qty), rpr_template)
-    _set_tc_text(tcs[3], _format_rub(price_rub), rpr_template)
-    _set_tc_text(tcs[4], _format_rub(total_rub), rpr_template)
-
-
-def _update_header_row(header_tr: etree._Element) -> None:
-    """Перестраивает заголовочную строку под новый порядок колонок.
-
-    Было: №, Наименование, Цена c НДС (руб.), Кол-во, Сумма с НДС (руб.).
-    Надо: №, Наименование, Кол-во, Цена c НДС (руб.), Сумма с НДС (руб.).
-
-    Меняем только текст в tcs[2] и tcs[3]; rPr/стиль ячеек не трогаем.
-    """
-    tcs = _tcs_of_row(header_tr)
-    if len(tcs) < 5:
-        return
-    # Берём rPr из существующего run в tcs[2], чтобы сохранить
-    # жирность/шрифт заголовка.
-    src_run = tcs[2].find(f".//{_w('r')}")
-    rpr = src_run.find(_w("rPr")) if src_run is not None else None
-    _set_tc_text(tcs[2], "Кол-во", rpr)
-    _set_tc_text(tcs[3], "Цена c НДС (руб.)", rpr)
-
-
-def _force_bold(rpr: etree._Element | None) -> etree._Element:
-    """Возвращает копию rpr с принудительным <w:b/>.
-
-    Если rpr — None, создаёт новый <w:rPr> только с bold-атрибутом.
-    Используется в ИТОГО, чтобы значение было жирным независимо от
-    того, что лежало в шаблоне.
-    """
-    if rpr is None:
-        rpr_out = etree.Element(_w("rPr"))
-    else:
-        rpr_out = copy.deepcopy(rpr)
-    # Удаляем имеющиеся <w:b>/<w:bCs> и добавляем заново один раз.
-    for tag in ("b", "bCs"):
-        for el in rpr_out.findall(_w(tag)):
-            rpr_out.remove(el)
-    etree.SubElement(rpr_out, _w("b"))
-    etree.SubElement(rpr_out, _w("bCs"))
-    return rpr_out
-
-
-def _update_itogo(itogo_tr: etree._Element, total_rub: int) -> None:
-    """Обновляет сумму в последней ячейке строки ИТОГО. Значение всегда
-    жирное — подстраховка, если в шаблоне rPr оказался не bold."""
-    tcs = _tcs_of_row(itogo_tr)
-    if not tcs:
-        raise RuntimeError("В строке ИТОГО нет ячеек.")
-    value_tc = tcs[-1]
-    # В этой ячейке уже есть run с жирным форматированием — сохраняем его
-    # как базу, но принудительно гарантируем <w:b/>.
-    existing_run = value_tc.find(f".//{_w('r')}")
-    rpr_src = existing_run.find(_w("rPr")) if existing_run is not None else None
-    _set_tc_text(value_tc, _format_rub(total_rub), _force_bold(rpr_src))
+    old_tbl = cell0.tables[0]._tbl
+    parent = old_tbl.getparent()
+    parent.replace(old_tbl, new_tbl)
 
 
 # ---------------------------------------------------------------------
@@ -268,14 +305,7 @@ def build_kp_docx(
     markup_percent: int,
     db: Session,
 ) -> bytes:
-    """Собирает docx коммерческого предложения по проекту.
-
-    markup_percent — целое 0..500, интерпретируется как +X% к закупочной
-    цене в рублях. За пределами диапазона → ValueError.
-
-    Курс берётся через exchange_rate.get_usd_rate(); если курс недоступен
-    и нет кэша — пробрасывается RuntimeError (роутер отдаёт 503).
-    """
+    """Собирает docx коммерческого предложения по проекту."""
     if not isinstance(markup_percent, int) or isinstance(markup_percent, bool):
         raise ValueError(
             "Наценка должна быть целым числом процентов (0..500)."
@@ -287,12 +317,8 @@ def build_kp_docx(
         )
 
     rate, _rate_date, _source = exchange_rate.get_usd_rate()
-
-    # Спецификация проекта (доступ/существование проверяет роутер через
-    # _load_project_or_raise — здесь это чистая функция над БД).
     spec_items = spec_service.list_spec_items(db, project_id=project_id)
 
-    # Считаем строки + общий итог.
     data_rows: list[dict] = []
     grand_total = 0
     for item in spec_items:
@@ -312,51 +338,11 @@ def build_kp_docx(
             "total_rub": line_total,
         })
 
-    # Открываем шаблон.
     doc = docx.Document(str(_TEMPLATE_PATH))
-
-    # Заменяем дату на сегодняшнюю.
     _replace_date_in_header(doc, date.today().strftime("%d.%m.%Y"))
 
-    # Достаём внутреннюю таблицу (№/Наименование/Цена/Кол-во/Сумма + ИТОГО).
-    inner = _find_inner_kp_table(doc)
-    tbl_el = inner._tbl
-
-    rows = tbl_el.findall(_w("tr"))
-    if len(rows) < 3:
-        raise RuntimeError(
-            f"Шаблон KP: ожидалось >=3 строк во внутренней таблице, {len(rows)}."
-        )
-    header_tr = rows[0]      # «№ п/п, Наименование, Цена, Кол-во, Сумма»
-    template_tr = rows[1]    # шаблонная строка с «1» и пустыми ячейками.
-    itogo_tr = rows[-1]      # строка «ИТОГО».
-
-    # Переставляем местами заголовки «Цена» и «Кол-во» — теперь «Кол-во»
-    # идёт раньше, а цена — ближе к итоговой сумме.
-    _update_header_row(header_tr)
-
-    rpr_template = _extract_data_row_rpr(template_tr)
-
-    # Вставляем сгенерированные строки ПЕРЕД ИТОГО — каждая клонируется
-    # из шаблонной, чтобы унаследовать границы/ширину/заливку.
-    for i, drow in enumerate(data_rows, start=1):
-        new_tr = copy.deepcopy(template_tr)
-        _fill_data_row_tr(
-            new_tr,
-            pos_num=i,
-            name=drow["name"],
-            price_rub=drow["price_rub"],
-            qty=drow["qty"],
-            total_rub=drow["total_rub"],
-            rpr_template=rpr_template,
-        )
-        itogo_tr.addprevious(new_tr)
-
-    # Убираем «болванку» (исходную шаблонную строку с «1»).
-    tbl_el.remove(template_tr)
-
-    # Обновляем ИТОГО.
-    _update_itogo(itogo_tr, grand_total)
+    new_tbl = _make_inner_tbl(data_rows, grand_total)
+    _replace_inner_table(doc, new_tbl)
 
     buf = BytesIO()
     doc.save(buf)

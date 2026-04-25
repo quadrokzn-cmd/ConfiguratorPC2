@@ -120,38 +120,38 @@ def _build_xlsx_with_fake_data(item_name: str = "Системный блок"):
 def test_excel_no_cell_a2_after_polish():
     wb = _build_xlsx_with_fake_data()
     ws = wb.active
-    # После удаления «Создан: …» в A2 уже заголовки таблицы — но
-    # слова «Создан» в A2 больше быть не должно.
+    # A2 пустая (нет «Создан: …»), но строка существует — иначе
+    # N2/O2 курса съезжают (см. этап 8.6).
     a2 = ws["A2"].value
     assert not (a2 and "Создан" in str(a2)), (
-        f"A2 должен быть заголовком таблицы, не меткой «Создан»: {a2!r}"
+        f"A2 не должен содержать «Создан»: {a2!r}"
     )
 
 
-def test_excel_headers_moved_to_row_2():
+def test_excel_headers_in_row_3():
+    """Этап 8.6: заголовки таблицы — в строке 3 (после шапки и пустой
+    компактной строки 2 для ячеек курса)."""
     wb = _build_xlsx_with_fake_data()
     ws = wb.active
-    # В шаблоне заголовок колонки D — «Наименование».
-    assert (ws["D2"].value or "").startswith("Наименование") or \
-           "аим" in (ws["D2"].value or "")  # допускаем разную формулировку
+    assert (ws["D3"].value or "").startswith("Наименование") or \
+           "аим" in (ws["D3"].value or "")
 
 
 def test_excel_n_formula_on_comp_row_is_sum_of_components():
     wb = _build_xlsx_with_fake_data()
     ws = wb.active
-    # Comp-строка — первая строка данных (row 3). Компоненты — 4 и 5.
-    n_comp = ws["N3"].value
+    # Раскладка 8.6: row 3 — заголовки, row 4 — comp, rows 5-6 — компоненты.
+    n_comp = ws["N4"].value
     assert isinstance(n_comp, str) and n_comp.startswith("=SUM(N"), (
-        f"В N3 должна быть формула SUM по N компонентов, получили {n_comp!r}"
+        f"В N4 должна быть формула SUM по N компонентов, получили {n_comp!r}"
     )
-    assert "N4" in n_comp and "N5" in n_comp
-    # Компоненты сами содержат числа (реальные цены).
-    assert ws["N4"].value == 180.0
-    assert ws["N5"].value == 10.0
+    assert "N5" in n_comp and "N6" in n_comp
+    assert ws["N5"].value == 180.0
+    assert ws["N6"].value == 10.0
 
 
 def test_excel_totals_sum_only_comp_rows():
-    # Два конфигурации — должно быть =SUM(J<comp1>, J<comp2>),
+    # Две конфигурации — должно быть =SUM(J<comp1>, J<comp2>),
     # не включая строки компонентов.
     item1 = {
         "id": 1, "query_id": 101, "variant_manufacturer": "Intel",
@@ -192,26 +192,25 @@ def test_excel_totals_sum_only_comp_rows():
         )
     wb = load_workbook(BytesIO(xlsx))
     ws = wb.active
-    # Раскладка: row 3 comp A, row 4 CPU A, row 5 comp B, row 6 CPU B.
-    # last_data_row=6 → sum_row=8. Формулы должны ссылаться на 3 и 5.
-    g_formula = ws["G8"].value
-    j_formula = ws["J8"].value
-    assert g_formula == "=SUM(G3,G5)", f"Got {g_formula!r}"
-    assert j_formula == "=SUM(J3,J5)", f"Got {j_formula!r}"
+    # Раскладка 8.6: row 3 заголовки, row 4 comp A, row 5 CPU A,
+    # row 6 comp B, row 7 CPU B. last_data_row=7 → sum_row=9.
+    g_formula = ws["G9"].value
+    j_formula = ws["J9"].value
+    assert g_formula == "=SUM(G4,G6)", f"Got {g_formula!r}"
+    assert j_formula == "=SUM(J4,J6)", f"Got {j_formula!r}"
 
 
 def test_excel_non_comp_rows_have_no_fill():
     wb = _build_xlsx_with_fake_data()
     ws = wb.active
-    # Компонентные строки (4, 5) — без заливки.
-    for r in (4, 5):
+    # Компонентные строки (5, 6) — без заливки.
+    for r in (5, 6):
         for col in "BCDEFGHIJKLMN":
             cell = ws[f"{col}{r}"]
             fg = cell.fill.fgColor
-            # fgColor.rgb у «прозрачных» ячеек либо None, либо '00000000'.
             rgb = getattr(fg, "rgb", None) if fg else None
             if isinstance(rgb, str) and rgb != "00000000":
-                # Допустимо только в comp-строке (row 3) — на ней голубая.
+                # Допустимо только в comp-строке (row 4) — на ней голубая.
                 assert False, (
                     f"Неожиданная заливка в {col}{r}: {rgb!r}"
                 )
@@ -220,11 +219,75 @@ def test_excel_non_comp_rows_have_no_fill():
 def test_excel_totals_cells_have_borders():
     wb = _build_xlsx_with_fake_data()
     ws = wb.active
-    # last_data_row = 5, sum_row = 7, pct_row = 9, abs_row = 10.
-    for coord in ("F7", "G7", "I7", "J7", "I9", "J9", "I10", "J10"):
+    # Раскладка 8.6: last_data_row=6 → sum_row=8, pct_row=10, abs_row=11.
+    for coord in ("F8", "G8", "I8", "J8", "I10", "J10", "I11", "J11"):
         b = ws[coord].border
         assert b.left and b.left.style, f"{coord}: нет левой границы"
         assert b.right and b.right.style, f"{coord}: нет правой границы"
+
+
+# =============================================================================
+# Этап 8.6 — Excel: курс, видимые границы, заголовки не на строке курса
+# =============================================================================
+
+def test_excel_kurs_position():
+    """N1/O1 — «Курс на» + дата; N2/O2 — «Курс ЦБ» + число."""
+    wb = _build_xlsx_with_fake_data()
+    ws = wb.active
+    n1 = (ws["N1"].value or "").strip()
+    o1 = ws["O1"].value
+    n2 = (ws["N2"].value or "").strip()
+    o2 = ws["O2"].value
+    assert "Курс" in n1, f"N1 должен содержать 'Курс …', получили {n1!r}"
+    assert isinstance(o1, str) and "2026" in o1, f"O1 должна быть датой, {o1!r}"
+    assert "Курс ЦБ" in n2, f"N2 должен быть 'Курс ЦБ', {n2!r}"
+    assert isinstance(o2, (int, float)) and float(o2) > 0, (
+        f"O2 должна быть числом курса, {o2!r}"
+    )
+
+
+def test_excel_no_kurs_in_header_row():
+    """Заголовки таблицы (row 3) не должны иметь курс справа.
+
+    После 8.6 курс лежит в N1/O1/N2/O2 — выше заголовков. Соответственно
+    в N3/O3 должны быть либо None, либо текстовые заголовки колонок,
+    но НЕ числовое значение курса и НЕ дата курса.
+    """
+    wb = _build_xlsx_with_fake_data()
+    ws = wb.active
+    n3 = ws["N3"].value
+    o3 = ws["O3"].value
+    # Числового значения курса в строке заголовков быть не должно.
+    assert not isinstance(n3, (int, float)), f"N3 не должна быть числом, {n3!r}"
+    assert not isinstance(o3, (int, float)), f"O3 не должна быть числом, {o3!r}"
+    # Дата вида «дд.мм.гггг» в строке заголовков быть не должна.
+    for v in (n3, o3):
+        if isinstance(v, str):
+            assert "2026" not in v, (
+                f"В заголовках не должно быть даты курса: {v!r}"
+            )
+
+
+def test_excel_borders_visible_thin_black():
+    """Этап 8.6: видимые границы — thin + чёрный по всем ячейкам таблицы."""
+    wb = _build_xlsx_with_fake_data()
+    ws = wb.active
+    # Покрываем заголовки + данные (первые 3 строки данных).
+    for row in (3, 4, 5, 6):
+        for col in "ABCDEFGHIJKLMNO":
+            cell = ws[f"{col}{row}"]
+            for side_name in ("left", "right", "top", "bottom"):
+                side = getattr(cell.border, side_name)
+                assert side and side.style == "thin", (
+                    f"{col}{row} side={side_name}: ожидался thin, получили {side.style!r}"
+                )
+                # Цвет — чёрный (FF000000) либо в формате 000000.
+                rgb = getattr(side.color, "rgb", None) if side.color else None
+                # Пустой rgb недопустим — проверяем только если задан.
+                if rgb:
+                    assert rgb.upper().endswith("000000"), (
+                        f"{col}{row} side={side_name}: ожидался чёрный, {rgb!r}"
+                    )
 
 
 # =============================================================================
@@ -325,6 +388,79 @@ def test_kp_itogo_is_bold():
     assert rpr is not None, "У run-а ИТОГО нет rPr — нельзя гарантировать bold"
     b_el = rpr.find(f"{_NS}b")
     assert b_el is not None, "В ИТОГО значение должно быть жирным (<w:b/>)"
+
+
+# =============================================================================
+# Этап 8.6 — KP: ИТОГО заполняется в правой нижней ячейке, ширины колонок,
+# программно построенная таблица с 5 колонками
+# =============================================================================
+
+def test_kp_itogo_value_filled_in_last_cell():
+    """Этап 8.6: значение ИТОГО — в последней ячейке последней строки.
+
+    Раньше (после 8.4) шаблон содержал «лишние» gridCol-ы справа, и
+    значение ИТОГО уходило в ячейку шириной 3545 twips за пределами
+    видимой колонки «Сумма» — пользователь видел пустое поле.
+    """
+    doc = _build_kp_with_fake([(100.0, 2, "x")])
+    inner = _kp_inner_table(doc)
+    rows = inner._tbl.findall(f"{_NS}tr")
+    itogo_tcs = rows[-1].findall(f"{_NS}tc")
+    # В новой реализации ровно 2 ячейки: «ИТОГО» (gridSpan=4) + значение.
+    assert len(itogo_tcs) == 2, (
+        f"Ожидалось 2 ячейки в строке ИТОГО, получено {len(itogo_tcs)}"
+    )
+    value_tc = itogo_tcs[-1]
+    text = "".join(t.text or "" for t in value_tc.findall(f".//{_NS}t"))
+    assert text.strip(), "Значение ИТОГО пустое"
+    # 100*90=9000 → +15% = 10350 → ×2 = 20700.
+    assert "20 700" in text, f"Ожидалось «20 700» в ИТОГО, получили {text!r}"
+
+
+def test_kp_itogo_label_uses_grid_span_4():
+    """Левая часть ИТОГО объединяет 4 колонки через gridSpan=4."""
+    doc = _build_kp_with_fake([(50.0, 1, "single")])
+    inner = _kp_inner_table(doc)
+    rows = inner._tbl.findall(f"{_NS}tr")
+    label_tc = rows[-1].findall(f"{_NS}tc")[0]
+    tcPr = label_tc.find(f"{_NS}tcPr")
+    grid_span = tcPr.find(f"{_NS}gridSpan") if tcPr is not None else None
+    assert grid_span is not None and grid_span.get(f"{_NS}val") == "4", (
+        "Ячейка «ИТОГО» должна объединять 4 колонки через gridSpan=4"
+    )
+
+
+def test_kp_table_columns_widths_for_price_and_sum():
+    """Колонки «Цена» и «Сумма» — не уже 2.4 см (1361 twip).
+
+    Иначе число вида «40 943» переносится на новую строку (живой баг 8.4).
+    """
+    doc = _build_kp_with_fake([(100.0, 1, "x")])
+    inner = _kp_inner_table(doc)
+    grid = inner._tbl.find(f"{_NS}tblGrid")
+    cols = grid.findall(f"{_NS}gridCol")
+    assert len(cols) == 5, f"Ожидалось 5 колонок в gridGrid, получено {len(cols)}"
+    # cols: 0=№, 1=Наименование, 2=Кол-во, 3=Цена, 4=Сумма.
+    price_w = int(cols[3].get(f"{_NS}w"))
+    sum_w   = int(cols[4].get(f"{_NS}w"))
+    # 2.4 см = 1361 twips (1 см ≈ 567 twips).
+    assert price_w >= 1361, f"Колонка «Цена» {price_w} twips < 2.4см"
+    assert sum_w   >= 1361, f"Колонка «Сумма» {sum_w} twips < 2.4см"
+
+
+def test_kp_table_has_visible_borders():
+    """Таблица КП имеет тонкие границы single со всех сторон."""
+    doc = _build_kp_with_fake([(100.0, 1, "x")])
+    inner = _kp_inner_table(doc)
+    tbl_pr = inner._tbl.find(f"{_NS}tblPr")
+    borders = tbl_pr.find(f"{_NS}tblBorders")
+    assert borders is not None, "В tblPr должны быть tblBorders"
+    for side in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        b = borders.find(f"{_NS}{side}")
+        assert b is not None, f"Граница {side} отсутствует"
+        assert b.get(f"{_NS}val") == "single", (
+            f"Граница {side}: ожидался single, {b.get(f'{_NS}val')!r}"
+        )
 
 
 # =============================================================================
