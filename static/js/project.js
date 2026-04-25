@@ -36,6 +36,23 @@
       .replace(/"/g, '&quot;');
   }
 
+  // 9А.1.2: запомненное состояние спецификации между рендерами,
+  // чтобы определять — какие цифры реально изменились и подсветить
+  // их через .num-flip (animated numbers по ТЗ).
+  // ключ — item.id, значение — { quantity, total_usd, total_rub }.
+  // initialized=false на первый рендер — чтобы при загрузке страницы
+  // не флипало пред-существующие позиции.
+  var lastSpec = { items: {}, total_usd: null, initialized: false };
+
+  function flip(el) {
+    if (!el) return;
+    el.classList.remove('num-flip');
+    // Триггер reflow, чтобы класс снова сработал, даже если только
+    // что был на этом элементе.
+    void el.offsetWidth;
+    el.classList.add('num-flip');
+  }
+
   async function post(url, payload) {
     var r = await fetch(url, {
       method: 'POST',
@@ -61,6 +78,9 @@
     var wrap = document.getElementById('kt-spec-wrap');
     if (!tbody || !total) return;
 
+    var newItemsMap = {};
+    var changedIds = {};
+
     if (!data.items || data.items.length === 0) {
       tbody.innerHTML = '';
       if (empty) empty.classList.remove('hidden');
@@ -71,6 +91,15 @@
       var html = '';
       for (var i = 0; i < data.items.length; i++) {
         var it = data.items[i];
+        var prev = lastSpec.items[it.id];
+        if (!prev || prev.quantity !== it.quantity || prev.total_usd !== it.total_usd) {
+          changedIds[it.id] = true;
+        }
+        newItemsMap[it.id] = {
+          quantity: it.quantity,
+          total_usd: it.total_usd,
+          total_rub: it.total_rub
+        };
         html +=
           '<tr data-item-id="' + it.id + '">' +
             '<td class="px-2 py-2.5 text-ink-muted tabular-nums">' + it.position + '</td>' +
@@ -80,10 +109,10 @@
                 fmtUsd(it.unit_usd) + ' / шт · ' + rub(it.unit_rub) + ' ₽' +
               '</div>' +
             '</td>' +
-            '<td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums">' +
+            '<td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums kt-spec-qty-cell">' +
               it.quantity +
             '</td>' +
-            '<td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap">' +
+            '<td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap kt-spec-sum-cell">' +
               fmtUsd(it.total_usd) +
               '<div class="text-caption text-ink-secondary font-normal">' +
                 rub(it.total_rub) + ' ₽</div>' +
@@ -92,10 +121,30 @@
       }
       tbody.innerHTML = html;
     }
+    var totalChanged = lastSpec.total_usd !== null && lastSpec.total_usd !== data.total_usd;
     total.innerHTML =
       '<span class="text-h2 text-ink-primary">' + fmtUsd(data.total_usd) + '</span>' +
       '<div class="text-caption text-ink-secondary font-normal">' +
         rub(data.total_rub) + ' ₽</div>';
+
+    // Подсветка изменившихся цифр через num-flip — только после
+    // первого реального обновления (не флипаем то, что уже было
+    // на странице на момент загрузки).
+    if (lastSpec.initialized) {
+      Object.keys(changedIds).forEach(function (id) {
+        var tr = tbody.querySelector('tr[data-item-id="' + id + '"]');
+        if (!tr) return;
+        flip(tr.querySelector('.kt-spec-qty-cell'));
+        flip(tr.querySelector('.kt-spec-sum-cell'));
+      });
+      if (totalChanged) flip(total);
+    }
+
+    lastSpec = {
+      items: newItemsMap,
+      total_usd: data.total_usd,
+      initialized: true
+    };
   }
 
   // На /query/{id} нет панели спецификации — рендер пропустим,

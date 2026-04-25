@@ -392,7 +392,13 @@
     }
 
     function closeModal() {
-      modal.classList.add('hidden');
+      // 9А.1.2: проигрываем leave-анимацию (150мс), затем прячем.
+      // prefers-reduced-motion обнулит длительность через CSS-правило.
+      modal.classList.add('modal-leaving');
+      setTimeout(function () {
+        modal.classList.add('hidden');
+        modal.classList.remove('modal-leaving');
+      }, 150);
     }
 
     function renderTabs() {

@@ -103,42 +103,91 @@
 
 @layer components {
 
-  /* === Кнопки ======================================================== */
+  /* === Кнопки ========================================================
+     9А.1.2: микроанимации hover/active. Базово все .btn получают
+     transition по color/background/border/shadow/transform за 150мс
+     ease-out — короткий enterprise-тайминг, без bounce. */
   .btn {
     @apply inline-flex items-center justify-center gap-2
            font-medium text-small rounded-lg
-           transition-colors duration-120
            disabled:opacity-50 disabled:cursor-not-allowed
            focus:outline-none;
     letter-spacing: 0.005em;
+    transition: background-color 150ms ease-out,
+                border-color 150ms ease-out,
+                color 150ms ease-out,
+                box-shadow 150ms ease-out,
+                transform 150ms ease-out;
   }
   .btn-sm  { @apply px-3 py-1.5 text-small; }
   .btn-md  { @apply px-4 py-2   text-small; }
   .btn-lg  { @apply px-5 py-2.5 text-body;  }
 
   /* primary — единственный «громкий» акцент на экране,
-     используется одной-двумя штуками. */
+     используется одной-двумя штуками.
+     9А.1.2: на hover — насыщеннее + glow-brand; при active —
+     translateY(1px) (нажатие). */
   .btn-primary {
     @apply bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700
            shadow-elev-1;
   }
+  .btn-primary:hover {
+    box-shadow: theme('boxShadow.glow-brand');
+  }
+  .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: theme('boxShadow.elev-1');
+  }
   /* secondary — основная рабочая лошадка после правок 9А.1.1:
      тёмная плашка surface-2 + тонкая белая граница, без сплошной
-     цветной заливки. На hover — граница ярче, чуть-чуть приподнимается.
-     Используем для большинства действий-кнопок (включая экспорт). */
+     цветной заливки. На hover — граница ярче, translateY(-1px),
+     glow-soft появляется. При active — translateY обратно. */
   .btn-secondary {
-    @apply bg-surface-2 text-ink-primary
-           transition-all duration-180;
+    @apply bg-surface-2 text-ink-primary;
     border: 1px solid theme('colors.line.soft');
   }
   .btn-secondary:hover {
     background-color: theme('colors.surface.3');
     border-color: theme('colors.line.softer');
     box-shadow: theme('boxShadow.glow-soft');
+    transform: translateY(-1px);
   }
+  .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: theme('boxShadow.elev-1');
+  }
+  /* ghost — текстовые ссылки типа «Открыть →».
+     9А.1.2: подчёркивание выезжает слева направо за 200мс
+     (псевдоэлемент ::after с width 0 → 100%). */
   .btn-ghost {
     @apply bg-transparent text-ink-secondary
            hover:bg-surface-2 hover:text-ink-primary;
+  }
+  .btn-link {
+    @apply inline-flex items-center gap-1
+           text-brand-300 hover:text-brand-200
+           text-small font-medium;
+    position: relative;
+    padding-bottom: 1px;
+    transition: color 150ms ease-out;
+  }
+  .btn-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    transition: width 200ms ease-out;
+  }
+  .btn-link:hover::after { width: 100%; }
+  .btn-link .btn-link-arrow {
+    display: inline-block;
+    transition: transform 200ms ease-out;
+  }
+  .btn-link:hover .btn-link-arrow {
+    transform: translateX(3px);
   }
   .btn-danger {
     @apply bg-danger-500 text-white hover:bg-danger-600;
@@ -218,22 +267,47 @@
      9А.1.1: «свет, а не заливка». Граница — полупрозрачная белая
      ~6%, на hover чуть ярче с едва заметным glow-soft.
      Активное состояние (.card-active) — тонкая синяя граница и
-     синее свечение (используется на выбранной конфигурации). */
+     синее свечение (используется на выбранной конфигурации).
+     9А.1.2: hover «выезжает» translateY(-2px) за 200мс ease-out;
+     возврат — 150мс ease-out (быстрее, стандарт appearance-pattern). */
   .card {
-    @apply bg-surface-1 rounded-xl transition-all duration-180;
+    @apply bg-surface-1 rounded-xl;
     border: 1px solid theme('colors.line.soft');
+    transition: border-color 150ms ease-out,
+                box-shadow 150ms ease-out,
+                transform 150ms ease-out;
   }
   .card:hover {
     border-color: theme('colors.line.softer');
     box-shadow: theme('boxShadow.glow-soft');
+    transform: translateY(-2px);
+    transition: border-color 200ms ease-out,
+                box-shadow 200ms ease-out,
+                transform 200ms ease-out;
   }
   .card-active {
     border-color: rgba(64,120,255,0.45);
     box-shadow: theme('boxShadow.glow-brand');
+    animation: kt-card-pulse 4s ease-in-out infinite;
   }
   .card-active:hover {
     border-color: rgba(64,120,255,0.55);
     box-shadow: theme('boxShadow.glow-brand');
+  }
+  /* Едва уловимое «дыхание» glow-brand: интенсивность тени
+     меняется на ~15% каждые 4 секунды. Заметно только если
+     задержать взгляд — мелькание не должно отвлекать. */
+  @keyframes kt-card-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(64,120,255,0.35),
+        0 0 22px -6px rgba(32,82,232,0.55);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(64,120,255,0.42),
+        0 0 26px -6px rgba(32,82,232,0.62);
+    }
   }
   .card-pad-sm { @apply p-4; }
   .card-pad    { @apply p-5; }
@@ -301,18 +375,25 @@
      9А.1.1: активный пункт — без сплошной синей заливки.
      Вместо неё — тонкая вертикальная синяя полоса слева и
      едва заметная подсветка фона + glow-rail. Текст и иконка
-     слегка ярчают. */
+     слегка ярчают.
+     9А.1.2: на hover иконка смещается на 2px вправо (намёк
+     «кликни сюда»); фон меняется плавно. */
   .nav-item {
     @apply flex items-center gap-3 px-3 py-2 rounded-lg
            text-small font-medium text-ink-secondary
-           transition-colors duration-120
            hover:text-ink-primary hover:bg-surface-2;
     position: relative;
+    transition: background-color 150ms ease-out,
+                color 150ms ease-out;
   }
   .nav-item-icon {
-    @apply w-5 h-5 shrink-0 text-ink-muted transition-colors duration-120;
+    @apply w-5 h-5 shrink-0 text-ink-muted;
+    transition: color 200ms ease-out, transform 200ms ease-out;
   }
-  .nav-item:hover .nav-item-icon { @apply text-ink-primary; }
+  .nav-item:hover .nav-item-icon {
+    @apply text-ink-primary;
+    transform: translateX(2px);
+  }
   .nav-item-active {
     @apply text-ink-primary;
     background-color: theme('colors.surface.2');
@@ -327,8 +408,24 @@
     border-radius: 0 2px 2px 0;
     background: theme('colors.brand.500');
     box-shadow: 0 0 12px 0 rgba(32,82,232,0.55);
+    transform-origin: top;
+    animation: kt-nav-rail-in 250ms ease-out;
   }
-  .nav-item-active .nav-item-icon { @apply text-brand-400; }
+  .nav-item-active .nav-item-icon {
+    @apply text-brand-400;
+    animation: kt-nav-icon-in 200ms ease-out;
+  }
+  /* При появлении активного пункта (после перехода на новую
+     страницу) синяя полоса выезжает сверху вниз, иконка плавно
+     приобретает brand-цвет. */
+  @keyframes kt-nav-rail-in {
+    from { transform: scaleY(0); opacity: 0; }
+    to   { transform: scaleY(1); opacity: 1; }
+  }
+  @keyframes kt-nav-icon-in {
+    from { color: theme('colors.ink.muted'); }
+    to   { color: theme('colors.brand.400'); }
+  }
 
   .nav-section-label {
     @apply px-3 pb-1.5 pt-3 text-caption uppercase tracking-wider
@@ -359,16 +456,46 @@
   .alert-info    { @apply border-info-500/40    bg-info-bg    text-info-500;    }
   .alert-success { @apply border-success-500/40 bg-success-bg text-success-500; }
 
-  /* === Модалка ====================================================== */
+  /* === Модалка ======================================================
+     9А.1.2: оверлей появляется fade 200мс ease-out; контейнер —
+     scale 0.96 → 1 + opacity за 250мс с «spring out» easing
+     (cubic-bezier(0.16, 1, 0.3, 1) — стандарт Apple HIG/Linear/Vercel). */
   .modal-overlay {
     @apply fixed inset-0 z-50 overflow-y-auto;
     background: rgba(4, 6, 10, 0.72);
     backdrop-filter: blur(4px);
+    animation: kt-modal-overlay-in 200ms ease-out;
   }
   .modal-container {
     @apply mx-auto my-10 max-w-5xl
            bg-surface-1 rounded-2xl shadow-elev-3;
     border: 1px solid theme('colors.line.softer');
+    animation: kt-modal-container-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes kt-modal-overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes kt-modal-container-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  /* 9А.1.2: при закрытии — обратные анимации, на 100мс быстрее
+     открытия (стандарт UX: «open feels generous, close feels snappy»).
+     JS-код добавляет класс .modal-leaving на 150мс перед скрытием. */
+  .modal-overlay.modal-leaving {
+    animation: kt-modal-overlay-out 150ms ease-out forwards;
+  }
+  .modal-leaving .modal-container {
+    animation: kt-modal-container-out 150ms ease-out forwards;
+  }
+  @keyframes kt-modal-overlay-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes kt-modal-container-out {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(0.97); }
   }
 
   /* === Toggle-переключатель (используется для «В спецификацию») ====
@@ -501,5 +628,44 @@
   .hairline {
     height: 1px;
     background: theme('colors.line.soft');
+  }
+
+  /* 9А.1.2: animated numbers. Класс добавляется JS-кодом
+     на короткое время (≈250мс), чтобы значение «перелистнулось»
+     через лёгкий fade + сдвиг по Y. Только для ИТОГО / сумм
+     в спецификации / цен в карточках конфигураций. */
+  .num-flip {
+    animation: kt-num-flip 250ms ease-out;
+  }
+  @keyframes kt-num-flip {
+    0%  { opacity: 0; transform: translateY(-2px); }
+    40% { opacity: 0; transform: translateY(-2px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------- prefers-reduced-motion ------------------------------------
+   9А.1.2: уважаем системную настройку. Полностью убираем длинные
+   transitions/animations: hover-translateY, пульсация активной
+   карточки, выезд rail в сайдбаре, scale модалок — всё отключено.
+   Цвет/граница продолжают меняться (это нужно для UX и нагрузки нет). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .card:hover,
+  .btn-secondary:hover,
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: none !important;
+  }
+  .nav-item:hover .nav-item-icon {
+    transform: none !important;
+  }
+  .card-active {
+    animation: none !important;
   }
 }
