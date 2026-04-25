@@ -195,7 +195,7 @@ def list_spec_items(session: Session, *, project_id: int) -> list[dict]:
         text(
             "SELECT id, query_id, variant_manufacturer, quantity, position, "
             "       auto_name, custom_name, unit_usd, unit_rub, total_usd, total_rub, "
-            "       created_at, updated_at "
+            "       created_at, updated_at, recalculated_at "
             "FROM specification_items "
             "WHERE project_id = :pid "
             "ORDER BY position ASC, id ASC"
@@ -223,6 +223,7 @@ def _spec_row_to_dict(r) -> dict:
         "total_rub":            _num(r.total_rub),
         "created_at":           r.created_at,
         "updated_at":           r.updated_at,
+        "recalculated_at":      getattr(r, "recalculated_at", None),
     }
 
 

@@ -233,17 +233,36 @@ def list_components(
             )
         else:
             skel_expr = "FALSE"
-        # has_price — есть ли хотя бы одна позиция в supplier_prices с stock>0
-        # или transit>0; считаем простым EXISTS
+        # supplier_count и min_price_usd: сколько активных поставщиков
+        # отдают этот компонент (с stock>0 или transit>0) и какая
+        # минимальная цена в USD среди них (RUB переводим по курсу 90).
+        # supplier_min_name — имя поставщика с минимальной ценой
+        # (для случая «$X у Merlion», когда поставщик ровно один или
+        # хотим показать «от X у …»).
         sub_sql = (
             f"SELECT '{cat}' AS category, "
             f"       c.id, c.model, c.manufacturer, c.sku, c.gtin, "
             f"       c.is_hidden, "
             f"       {skel_expr} AS is_skeleton, "
-            f"       EXISTS (SELECT 1 FROM supplier_prices sp "
-            f"               WHERE sp.category = '{cat}' AND sp.component_id = c.id "
-            f"               AND (sp.stock_qty > 0 OR sp.transit_qty > 0)) AS has_price "
+            f"       COALESCE(p.supplier_count, 0) AS supplier_count, "
+            f"       p.min_price_usd AS min_price_usd, "
+            f"       p.supplier_min_name AS supplier_min_name "
             f"FROM {table} c "
+            f"LEFT JOIN ( "
+            f"    SELECT sp.component_id, "
+            f"           COUNT(DISTINCT sp.supplier_id) AS supplier_count, "
+            f"           MIN(CASE WHEN sp.currency = 'USD' THEN sp.price "
+            f"                    ELSE sp.price / 90.0 END) AS min_price_usd, "
+            f"           (ARRAY_AGG(s.name ORDER BY "
+            f"                     CASE WHEN sp.currency = 'USD' THEN sp.price "
+            f"                          ELSE sp.price / 90.0 END ASC))[1] AS supplier_min_name "
+            f"    FROM supplier_prices sp "
+            f"    JOIN suppliers s ON s.id = sp.supplier_id "
+            f"    WHERE sp.category = '{cat}' "
+            f"      AND s.is_active = TRUE "
+            f"      AND (sp.stock_qty > 0 OR sp.transit_qty > 0) "
+            f"    GROUP BY sp.component_id "
+            f") p ON p.component_id = c.id "
             "WHERE 1=1 "
         )
         if search:
@@ -271,17 +290,22 @@ def list_components(
     total = int(session.execute(text(count_sql), params).scalar() or 0)
 
     for r in rows:
+        sup_count = int(r["supplier_count"] or 0)
+        min_price = r["min_price_usd"]
         items.append({
-            "category":     r["category"],
-            "category_label": CATEGORY_LABELS.get(r["category"], r["category"]),
-            "id":           int(r["id"]),
-            "model":        r["model"],
-            "manufacturer": r["manufacturer"],
-            "sku":          r["sku"],
-            "gtin":         r["gtin"],
-            "is_hidden":    bool(r["is_hidden"]),
-            "is_skeleton":  bool(r["is_skeleton"]),
-            "has_price":    bool(r["has_price"]),
+            "category":          r["category"],
+            "category_label":    CATEGORY_LABELS.get(r["category"], r["category"]),
+            "id":                int(r["id"]),
+            "model":              r["model"],
+            "manufacturer":       r["manufacturer"],
+            "sku":                r["sku"],
+            "gtin":               r["gtin"],
+            "is_hidden":          bool(r["is_hidden"]),
+            "is_skeleton":        bool(r["is_skeleton"]),
+            "has_price":          sup_count > 0,
+            "supplier_count":     sup_count,
+            "min_price_usd":      float(min_price) if min_price is not None else None,
+            "supplier_min_name":  r["supplier_min_name"],
         })
 
     total_pages = max(1, (total + per_page - 1) // per_page)
@@ -299,6 +323,64 @@ def list_components(
 
 
 # --- Детальная карточка ---------------------------------------------------
+
+def list_supplier_prices_for_component(
+    session: Session,
+    *,
+    category: str,
+    component_id: int,
+) -> list[dict]:
+    """Все supplier_prices для компонента (включая неактивных поставщиков).
+
+    Возвращает список dict-ов:
+      {supplier_id, supplier_name, supplier_active, supplier_sku,
+       price, currency, price_usd, price_rub, stock_qty, transit_qty,
+       updated_at}.
+    Активные поставщики идут сначала, дальше — по цене.
+    """
+    rows = session.execute(
+        text(
+            "SELECT s.id            AS supplier_id, "
+            "       s.name          AS supplier_name, "
+            "       s.is_active     AS supplier_active, "
+            "       sp.supplier_sku AS supplier_sku, "
+            "       sp.price        AS price, "
+            "       sp.currency     AS currency, "
+            "       sp.stock_qty    AS stock_qty, "
+            "       sp.transit_qty  AS transit_qty, "
+            "       sp.updated_at   AS updated_at "
+            "FROM supplier_prices sp "
+            "JOIN suppliers s ON s.id = sp.supplier_id "
+            "WHERE sp.category = :cat AND sp.component_id = :cid "
+            "ORDER BY s.is_active DESC, sp.price ASC"
+        ),
+        {"cat": category, "cid": int(component_id)},
+    ).mappings().all()
+    out: list[dict] = []
+    for r in rows:
+        price = float(r["price"]) if r["price"] is not None else 0.0
+        currency = (r["currency"] or "RUB").upper()
+        if currency == "USD":
+            price_usd = price
+            price_rub = price * 90.0
+        else:
+            price_rub = price
+            price_usd = price / 90.0
+        out.append({
+            "supplier_id":     int(r["supplier_id"]),
+            "supplier_name":   r["supplier_name"],
+            "supplier_active": bool(r["supplier_active"]),
+            "supplier_sku":    r["supplier_sku"],
+            "price":           round(price, 2),
+            "currency":        currency,
+            "price_usd":       round(price_usd, 2),
+            "price_rub":       round(price_rub, 2),
+            "stock_qty":       int(r["stock_qty"] or 0),
+            "transit_qty":     int(r["transit_qty"] or 0),
+            "updated_at":      r["updated_at"],
+        })
+    return out
+
 
 def get_component(
     session: Session,

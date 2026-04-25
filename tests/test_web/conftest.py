@@ -46,6 +46,7 @@ _MIGRATIONS = [
     "011_email_support.sql",
     "012_supplier_contact_person.sql",
     "013_components_is_hidden.sql",
+    "014_specification_recalculated_at.sql",
 ]
 
 

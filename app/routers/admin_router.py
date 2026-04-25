@@ -469,15 +469,19 @@ def component_detail(
     item = component_service.get_component(db, category=cat, component_id=component_id)
     if item is None:
         raise HTTPException(status_code=404, detail="Компонент не найден.")
+    supplier_prices = component_service.list_supplier_prices_for_component(
+        db, category=cat, component_id=component_id,
+    )
     return templates.TemplateResponse(
         request,
         "admin/component_detail.html",
         {
-            "user":       user,
-            "csrf_token": get_csrf_token(request),
-            "item":       item,
-            "info":       request.session.pop("flash_info",  None),
-            "error":      request.session.pop("flash_error", None),
+            "user":            user,
+            "csrf_token":      get_csrf_token(request),
+            "item":            item,
+            "supplier_prices": supplier_prices,
+            "info":            request.session.pop("flash_info",  None),
+            "error":           request.session.pop("flash_error", None),
         },
     )
 

@@ -3,6 +3,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="526px" height="421.087px" viewBox="0 0 526 421.087" enable-background="new 0 0 526 421.087" xml:space="preserve">
+<style type="text/css">
+  /* Этап 9А.2.1: буквы UADRO в исходном SVG нарисованы без fill — на тёмной
+     теме они получились бы невидимо-чёрными. Делаем все path без явного
+     атрибута fill белыми. Знак «Q» имеет fill="#0000FF" и не затрагивается. */
+  path:not([fill]) { fill: #FFFFFF; }
+</style>
 <g>
 	<g>
 		<path d="M237.58,223.938c1.659,0,3.132-0.193,4.416-0.58c1.283-0.387,2.404-0.932,3.358-1.637c0.955-0.704,1.751-1.551,2.388-2.54

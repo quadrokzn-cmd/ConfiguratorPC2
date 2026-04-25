@@ -1,5 +1,5 @@
 {#
-  Панель спецификации — этап 6.2 + редизайн 9А.1.
+  Панель спецификации — этап 6.2 + редизайн 9А.1 + пересчёт 9А.2.1.
   Раньше: широкий блок в конце страницы.
   Теперь: компактная карточка для правой sticky-колонки страницы
   проекта; на /query/{id} макрос можно не вызывать.
@@ -12,6 +12,7 @@
     items   — список спец-позиций (list_spec_items).
     totals  — dict {total_usd, total_rub}.
 #}
+{% from "_macros/icons.html" import icon %}
 
 {% macro _rub(value) -%}
   {{ '{:,.0f}'.format(value|default(0)).replace(',', ' ') }}
@@ -30,6 +31,20 @@
     </span>
   </header>
 
+  {# Кнопка «Пересчитать цены» — пересчёт по актуальным supplier_prices.
+     Доступна только при непустой спецификации; обработчик в project.js. #}
+  {% if items %}
+  <div class="mb-3">
+    <button type="button" id="kt-spec-recalc-btn"
+            class="btn btn-sm btn-secondary w-full">
+      {{ icon('refresh-cw', class='w-4 h-4') }}
+      Пересчитать цены
+    </button>
+    <p id="kt-spec-recalc-hint"
+       class="help-text mt-1.5 text-ink-muted hidden"></p>
+  </div>
+  {% endif %}
+
   <div id="kt-spec-empty" class="text-small text-ink-muted py-4
        {% if items %}hidden{% endif %}">
     Пока ничего не выбрано. Отметьте чекбоксом «В спецификацию» нужный вариант слева.
@@ -44,26 +59,43 @@
           <th class="text-left font-medium px-2 py-2">Название</th>
           <th class="text-right font-medium px-2 py-2 w-9">Кол.</th>
           <th class="text-right font-medium px-2 py-2 w-20">Сумма</th>
+          <th class="text-right font-medium px-2 py-2 w-7"></th>
         </tr>
       </thead>
       <tbody id="kt-spec-tbody" class="divide-y divide-line-subtle">
         {% for it in items %}
         <tr data-item-id="{{ it.id }}">
-          <td class="px-2 py-2.5 text-ink-muted tabular-nums">{{ it.position }}</td>
+          <td class="px-2 py-2.5 text-ink-muted tabular-nums align-top">{{ it.position }}</td>
           <td class="px-2 py-2.5 text-ink-primary break-words">
             <div>{{ it.display_name }}</div>
             <div class="text-caption text-ink-muted tabular-nums">
               ${{ '%.0f'|format(it.unit_usd) }} / шт · {{ _rub(it.unit_rub) }} ₽
             </div>
+            {% if it.recalculated_at %}
+            <div class="text-caption text-ink-muted kt-spec-recalc-stamp"
+                 data-iso="{{ it.recalculated_at.isoformat() if it.recalculated_at.isoformat is defined else it.recalculated_at }}">
+              обновлено {{ it.recalculated_at.strftime('%d.%m %H:%M') }}
+            </div>
+            {% endif %}
           </td>
-          <td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums">
+          <td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums align-top">
             {{ it.quantity }}
           </td>
-          <td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap">
+          <td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap align-top">
             ${{ '%.0f'|format(it.total_usd) }}
             <div class="text-caption text-ink-secondary font-normal">
               {{ _rub(it.total_rub) }} ₽
             </div>
+          </td>
+          <td class="px-1 py-2.5 text-right align-top">
+            <button type="button"
+                    class="kt-spec-recalc-row p-1 rounded hover:bg-surface-2
+                           text-ink-muted hover:text-brand-400
+                           transition-colors duration-120"
+                    title="Пересчитать цену этой позиции"
+                    aria-label="Пересчитать цену">
+              {{ icon('refresh-cw', class='w-3.5 h-3.5') }}
+            </button>
           </td>
         </tr>
         {% endfor %}
@@ -73,7 +105,7 @@
           <td colspan="3" class="px-2 py-3 text-right text-ink-secondary text-small">
             ИТОГО:
           </td>
-          <td class="px-2 py-3 text-right tabular-nums whitespace-nowrap"
+          <td colspan="2" class="px-2 py-3 text-right tabular-nums whitespace-nowrap"
               id="kt-spec-total">
             <span class="text-h2 text-ink-primary">${{ '%.0f'|format(totals.total_usd) }}</span>
             <div class="text-caption text-ink-secondary font-normal">

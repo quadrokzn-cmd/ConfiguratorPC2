@@ -91,7 +91,7 @@
           <th class="text-left">Модель</th>
           <th class="text-left w-40">MPN / SKU</th>
           <th class="text-left w-32">GTIN</th>
-          <th class="text-left w-32">Цена</th>
+          <th class="text-left w-44">Цены</th>
           <th class="text-left w-32">Статус</th>
           <th class="text-right w-32"></th>
         </tr>
@@ -110,11 +110,15 @@
           </td>
           <td class="text-caption text-ink-secondary">{{ it.sku or '—' }}</td>
           <td class="text-caption text-ink-muted">{{ it.gtin or '—' }}</td>
-          <td>
-            {% if it.has_price %}
-              <span class="badge badge-success">в наличии</span>
+          <td class="text-small">
+            {% if it.supplier_count == 0 %}
+              <span class="badge badge-danger">нет цен</span>
+            {% elif it.supplier_count == 1 %}
+              <span class="text-ink-primary tabular-nums">${{ '%.0f'|format(it.min_price_usd) }}</span>
+              <span class="text-caption text-ink-muted">у {{ it.supplier_min_name }}</span>
             {% else %}
-              <span class="badge badge-neutral">нет цены</span>
+              <span class="text-ink-primary tabular-nums">от ${{ '%.0f'|format(it.min_price_usd) }}</span>
+              <span class="text-caption text-ink-muted">({{ it.supplier_count }} поставщ.)</span>
             {% endif %}
           </td>
           <td>

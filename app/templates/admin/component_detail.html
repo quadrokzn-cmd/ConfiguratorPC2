@@ -103,6 +103,56 @@
     </div>
   </form>
 
+  {# === Цены поставщиков === #}
+  <section class="card card-pad">
+    <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-3">
+      Цены поставщиков
+    </div>
+    {% if not supplier_prices %}
+    <p class="text-small text-ink-muted">Ни один поставщик не отдаёт этот компонент.</p>
+    {% else %}
+    <div class="overflow-hidden rounded-lg border border-line-subtle">
+      <table class="kt-table kt-table-compact">
+        <thead>
+          <tr>
+            <th class="text-left">Поставщик</th>
+            <th class="text-right w-28">Цена USD</th>
+            <th class="text-right w-32">Цена RUB</th>
+            <th class="text-left w-40">Артикул поставщика</th>
+            <th class="text-right w-24">Остаток</th>
+            <th class="text-left w-32">Обновлено</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sp in supplier_prices %}
+          <tr {% if not sp.supplier_active %}class="opacity-60"{% endif %}>
+            <td>
+              <span class="text-ink-primary">{{ sp.supplier_name }}</span>
+              {% if not sp.supplier_active %}
+                <span class="badge badge-neutral ml-1">неактивен</span>
+              {% endif %}
+            </td>
+            <td class="text-right tabular-nums text-ink-primary">
+              ${{ '%.2f'|format(sp.price_usd) }}
+            </td>
+            <td class="text-right tabular-nums text-ink-secondary">
+              {{ '{:,.0f}'.format(sp.price_rub).replace(',', ' ') }} ₽
+            </td>
+            <td class="text-caption text-ink-secondary">{{ sp.supplier_sku or '—' }}</td>
+            <td class="text-right tabular-nums text-ink-secondary">
+              {{ sp.stock_qty }}{% if sp.transit_qty %} <span class="text-caption text-ink-muted">+{{ sp.transit_qty }} тр.</span>{% endif %}
+            </td>
+            <td class="text-caption text-ink-muted">
+              {% if sp.updated_at %}{{ sp.updated_at.strftime('%d.%m.%Y') }}{% else %}—{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </section>
+
   {# === Скрыть/показать === #}
   <section class="card card-pad">
     <div class="flex items-start gap-4 flex-wrap">

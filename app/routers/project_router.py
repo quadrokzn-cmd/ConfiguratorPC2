@@ -27,7 +27,7 @@ from app.routers.main_router import (
     _CATEGORY_ORDER,
     _prepare_variants,
 )
-from app.services import budget_guard, spec_service, web_service
+from app.services import budget_guard, spec_recalc, spec_service, web_service
 from app.services.nlu import process_query
 from app.services.web_result_view import enrich_variants_with_specs
 
@@ -85,6 +85,8 @@ def _spec_payload(db: Session, project_id: int) -> dict:
                 "unit_rub":             it["unit_rub"],
                 "total_usd":            it["total_usd"],
                 "total_rub":            it["total_rub"],
+                "recalculated_at":      it.get("recalculated_at").isoformat()
+                                        if it.get("recalculated_at") else None,
             }
             for it in items
         ],
@@ -448,6 +450,66 @@ def project_update_quantity(
         raise HTTPException(status_code=400, detail=str(e))
 
     return JSONResponse(_spec_payload(db, project_id))
+
+
+# ---------------------------------------------------------------------
+# Этап 9А.2.1: пересчёт цен в спецификации проекта
+# ---------------------------------------------------------------------
+
+@router.post("/project/{project_id}/spec/recalc")
+def project_spec_recalc(
+    project_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Полный пересчёт цен всех позиций спецификации проекта.
+
+    Возвращает JSON со списком дельт по каждой позиции и сводкой:
+    {ok, items: [...], changed_count, total_count, totals}.
+    """
+    _verify_csrf_ajax(request)
+    _load_project_or_raise(db, project_id=project_id, user=user)
+
+    result = spec_recalc.recalc_specification(db, project_id=project_id)
+    payload = _spec_payload(db, project_id)
+    payload["recalc"] = {
+        "items":         [spec_recalc.delta_to_dict(d) for d in result.items],
+        "changed_count": result.changed_count,
+        "total_count":   result.total_count,
+    }
+    return JSONResponse(payload)
+
+
+@router.post("/project/{project_id}/spec/{item_id}/recalc")
+def project_spec_item_recalc(
+    project_id: int,
+    item_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Точечный пересчёт одной позиции спецификации."""
+    _verify_csrf_ajax(request)
+    _load_project_or_raise(db, project_id=project_id, user=user)
+
+    # Проверяем, что item принадлежит этому проекту (защита от
+    # подмены item_id в URL).
+    from sqlalchemy import text as _t
+    row = db.execute(
+        _t("SELECT project_id FROM specification_items WHERE id = :id"),
+        {"id": item_id},
+    ).first()
+    if row is None or int(row.project_id) != int(project_id):
+        raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
+
+    delta = spec_recalc.recalc_specification_item(db, item_id=item_id)
+    if delta is None:
+        raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
+
+    payload = _spec_payload(db, project_id)
+    payload["recalc_item"] = spec_recalc.delta_to_dict(delta)
+    return JSONResponse(payload)
 
 
 # Задел на этап 7 — перестановка позиций вручную (drag & drop).

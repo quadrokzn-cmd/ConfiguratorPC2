@@ -188,16 +188,17 @@ def test_compiled_main_css_exists():
 # --------------------- 9А.1.1: новые правила дизайн-системы ----------
 
 def test_logo_uses_brand_asset(manager_client):
-    """В сайдбаре подключён настоящий логотип бренда (PNG из brand/),
-    а не тёмно-синий SVG-плейсхолдер с буквой Q."""
+    """В сайдбаре подключён настоящий логотип бренда.
+    9А.2.1: ассет переехал на векторный SVG (без зернистости при
+    масштабировании); подпись «Конфигуратор» под ним сохранена."""
     r = manager_client.get("/")
     assert r.status_code == 200
     html = r.text
-    # Реальный ассет лежит в репозитории
-    asset = _project_root() / "static" / "img" / "brand" / "quadro-logo-white.png"
+    # Реальный SVG-ассет лежит в репозитории
+    asset = _project_root() / "static" / "img" / "brand" / "quadro-logo.svg"
     assert asset.exists(), f"Не найден ассет логотипа: {asset}"
     # И подключён в HTML страницы (через макрос brand_mark)
-    assert "/static/img/brand/quadro-logo-white.png" in html
+    assert "/static/img/brand/quadro-logo.svg" in html
     # Подпись «Конфигуратор» под логотипом — из brand-caption
     assert "brand-caption" in html
     # Плейсхолдера со старым data:image-icon больше нет

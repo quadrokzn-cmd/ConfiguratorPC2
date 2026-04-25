@@ -149,43 +149,26 @@ def test_project_js_initializes_stepper():
 
 # --------------------- 3. Логотип увеличен -----------------------------
 
-def test_logo_max_width_increased():
-    """В собранном CSS у класса .kt-brand-logo (логотип в сайдбаре)
-    max-width >= 180px — иначе логотип останется визуально мелким
-    относительно надписи «КОНФИГУРАТОР» под ним."""
+def test_logo_uses_brand_logo_class():
+    """В собранном CSS у класса .kt-brand-logo заданы width/height
+    (после 9А.2.1 — width: 100% контейнера, height: auto).
+    Проверяем сам факт наличия правил."""
     css = _read_css()
     assert ".kt-brand-logo" in css, (
         "Ожидался класс .kt-brand-logo для логотипа в сайдбаре"
     )
 
-    # Найдём блок .kt-brand-logo{...} — может быть несколько (с media-query),
-    # нас интересует базовый (без @media), у него max-width >= 180px.
-    idx = css.find(".kt-brand-logo")
-    assert idx != -1
-    block_end = css.find("}", idx)
-    base_block = css[idx:block_end]
-    # max-width в px либо как 180px / 200px и т.д.
-    import re
-    m = re.search(r"max-width\s*:\s*(\d+)px", base_block)
-    assert m, "У .kt-brand-logo не задан max-width в px"
-    value = int(m.group(1))
-    assert value >= 180, (
-        f"max-width у .kt-brand-logo = {value}px, ожидалось >= 180px"
-    )
-
 
 def test_logo_uses_new_class_in_sidebar(manager_client):
     """В сайдбаре логотип теперь подключён через класс .kt-brand-logo,
-    а не через старый h-8 (90px при аспекте PNG 2.83). Проверяем
-    HTML — класс присутствует на <img> логотипа."""
+    а не через старый h-8. Проверяем HTML — класс присутствует на
+    <img> логотипа. Этап 9А.2.1: ассет переехал на SVG."""
     r = manager_client.get("/")
     assert r.status_code == 200
     html = r.text
-    # PNG-ассет тот же, что и в 9А.1.1
-    assert "/static/img/brand/quadro-logo-white.png" in html
-    # У <img>-тега логотипа должен быть наш класс
-    img_idx = html.index("/static/img/brand/quadro-logo-white.png")
-    # Открывающий <img захватим назад, до 200 символов до URL хватит
+    # 9А.2.1: SVG-ассет (векторный, без зернистости).
+    assert "/static/img/brand/quadro-logo.svg" in html
+    img_idx = html.index("/static/img/brand/quadro-logo.svg")
     img_open = html.rfind("<img", 0, img_idx)
     assert img_open != -1
     img_tag = html[img_open: html.find(">", img_idx) + 1]

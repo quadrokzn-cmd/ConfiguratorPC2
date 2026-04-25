@@ -31,16 +31,20 @@
   {# === Сайдбар =========================================================== #}
   <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle flex flex-col">
     <div class="px-5 pt-5 pb-4">
-      <a href="/" class="block group" aria-label="QUADRO — главная">
-        {# 9А.1.1: настоящий логотип бренда (white-letters PNG) +
-           подпись «КОНФИГУРАТОР» под ним для enterprise-вкуса.
-           Знак Q — синий, надпись UADRO — белая, фон прозрачный.
-           9А.1.3: логотип увеличен с h-8 (~90px) до max-w 180px,
-           чтобы по ширине совпадал с надписью «КОНФИГУРАТОР» под
-           ним; на сжатом мобильном сайдбаре max-width 100% не даёт
-           вылезти за рамки. #}
+      <a href="/" class="block group kt-brand-wrap" aria-label="QUADRO — главная">
+        {# 9А.2.1: векторный SVG (полностью масштабируется) + подпись
+           «КОНФИГУРАТОР» под ним. Контейнер фиксированной ширины
+           kt-brand-wrap; и логотип, и caption растягиваются в ширину
+           родителя — оба элемента строго одинаковой ширины (что и
+           просил заказчик). Caption использует flex со
+           space-between по символам, поэтому слово «КОНФИГУРАТОР»
+           распределяется ровно по всей ширине логотипа без подбора
+           letter-spacing. #}
         {{ brand_mark(class='kt-brand-logo') }}
-        <div class="brand-caption mt-2 ml-0.5">Конфигуратор</div>
+        <div class="brand-caption mt-2"
+             aria-label="Конфигуратор">{#
+          #}<span>К</span><span>О</span><span>Н</span><span>Ф</span><span>И</span><span>Г</span><span>У</span><span>Р</span><span>А</span><span>Т</span><span>О</span><span>Р</span>
+        </div>
       </a>
     </div>
 
