@@ -60,14 +60,24 @@ _MARKUP_MAX = 500
 
 
 # --- Геометрия таблицы (в twips, 1/20 пункта; 1 см = 567 twips) -------------
+#
+# Ширины подобраны под доступную ширину A4 при полях 25 мм слева и справа:
+# 210 - 25*2 = 160 мм = 16 см ≈ 9072 twips. Сумма колонок ниже даёт ровно
+# эту ширину, чтобы Word не запускал auto-redistribute (даже при включённом
+# tblLayout=fixed Word может «поджать» колонки, если их сумма больше
+# доступной ширины страницы).
 
-_COL_W_NUM   = 567    # № п/п       — 1.0 см
-_COL_W_NAME  = 5670   # Наименование — 10.0 см
-_COL_W_QTY   = 850    # Кол-во      — 1.5 см
-_COL_W_PRICE = 1418   # Цена        — 2.5 см
-_COL_W_SUM   = 1418   # Сумма       — 2.5 см
+_COL_W_NUM   = 454    # № п/п                 — 0.8 см
+_COL_W_NAME  = 4819   # Наименование          — 8.5 см
+_COL_W_QTY   = 680    # Кол-во                — 1.2 см
+_COL_W_PRICE = 1531   # Цена с НДС (руб.)     — 2.7 см
+_COL_W_SUM   = 1588   # Сумма с НДС (руб.)    — 2.8 см
 
 _GRID_WIDTHS = (_COL_W_NUM, _COL_W_NAME, _COL_W_QTY, _COL_W_PRICE, _COL_W_SUM)
+
+# Высота строки ИТОГО (в twips). 0.7 см ≈ 397 twips — чтобы строка
+# выглядела заметнее обычных data-строк.
+_TOTAL_ROW_MIN_HEIGHT = 397
 
 
 # ---------------------------------------------------------------------
@@ -140,7 +150,7 @@ def _make_pPr(*, jc: str | None = None) -> etree._Element:
     return pPr
 
 
-def _make_rPr(*, bold: bool = False) -> etree._Element:
+def _make_rPr(*, bold: bool = False, sz_half_pt: int = 22) -> etree._Element:
     rPr = etree.Element(_w("rPr"))
     # Times New Roman / 11pt — стандарт документа КП.
     rFonts = etree.SubElement(rPr, _w("rFonts"))
@@ -151,17 +161,23 @@ def _make_rPr(*, bold: bool = False) -> etree._Element:
         etree.SubElement(rPr, _w("b"))
         etree.SubElement(rPr, _w("bCs"))
     sz = etree.SubElement(rPr, _w("sz"))
-    sz.set(_w("val"), "22")
+    sz.set(_w("val"), str(sz_half_pt))
     szCs = etree.SubElement(rPr, _w("szCs"))
-    szCs.set(_w("val"), "22")
+    szCs.set(_w("val"), str(sz_half_pt))
     return rPr
 
 
-def _make_paragraph(text: str, *, jc: str = "left", bold: bool = False) -> etree._Element:
+def _make_paragraph(
+    text: str,
+    *,
+    jc: str = "left",
+    bold: bool = False,
+    sz_half_pt: int = 22,
+) -> etree._Element:
     p = etree.Element(_w("p"))
     p.append(_make_pPr(jc=jc))
     r = etree.SubElement(p, _w("r"))
-    r.append(_make_rPr(bold=bold))
+    r.append(_make_rPr(bold=bold, sz_half_pt=sz_half_pt))
     t = etree.SubElement(r, _w("t"))
     t.text = text
     t.set(f"{{{_XML}}}space", "preserve")
@@ -173,6 +189,7 @@ def _make_tcPr(
     width: int,
     grid_span: int = 1,
     fill: str | None = None,
+    no_wrap: bool = False,
 ) -> etree._Element:
     tcPr = etree.Element(_w("tcPr"))
     tcW = etree.SubElement(tcPr, _w("tcW"))
@@ -186,8 +203,15 @@ def _make_tcPr(
         shd.set(_w("val"), "clear")
         shd.set(_w("color"), "auto")
         shd.set(_w("fill"), fill)
+    if no_wrap:
+        # noWrap: запрет переноса текста внутри ячейки. Word всё равно
+        # уважает заданную ширину tcW, но если строка не помещается — он
+        # её усечёт, а не разобьёт на две. Применяем для заголовков и
+        # числовых ячеек, где перенос «42 / 064» выглядит хуже сжатого
+        # шрифта.
+        etree.SubElement(tcPr, _w("noWrap"))
     vAlign = etree.SubElement(tcPr, _w("vAlign"))
-    vAlign.set(_w("val"), "center")
+    vAlign.set(_w("val"), "top")
     return tcPr
 
 
@@ -199,10 +223,14 @@ def _make_tc(
     fill: str | None = None,
     jc: str = "left",
     bold: bool = False,
+    no_wrap: bool = False,
+    sz_half_pt: int = 22,
 ) -> etree._Element:
     tc = etree.Element(_w("tc"))
-    tc.append(_make_tcPr(width=width, grid_span=grid_span, fill=fill))
-    tc.append(_make_paragraph(text, jc=jc, bold=bold))
+    tc.append(_make_tcPr(
+        width=width, grid_span=grid_span, fill=fill, no_wrap=no_wrap,
+    ))
+    tc.append(_make_paragraph(text, jc=jc, bold=bold, sz_half_pt=sz_half_pt))
     return tc
 
 
@@ -243,36 +271,53 @@ def _make_inner_tbl(
         gc.set(_w("w"), str(w))
 
     # ── Шапка ──────────────────────────────────────────────────────────
+    # Заголовки — 10pt (sz=20) и noWrap, чтобы «Кол-во», «Цена с НДС
+    # (руб.)», «Сумма с НДС (руб.)» помещались в одну строку и не
+    # рвались на «ол-во» / «Цен/а с НДС/(руб.)».
     header = etree.SubElement(tbl, _w("tr"))
     trPr_h = etree.SubElement(header, _w("trPr"))
     etree.SubElement(trPr_h, _w("cantSplit"))
     th_titles = ("№ п/п", "Наименование", "Кол-во",
-                 "Цена c НДС (руб.)", "Сумма с НДС (руб.)")
-    th_jc = ("center", "center", "center", "center", "center")
-    for title, w, jc in zip(th_titles, _GRID_WIDTHS, th_jc):
+                 "Цена с НДС (руб.)", "Сумма с НДС (руб.)")
+    for title, w in zip(th_titles, _GRID_WIDTHS):
         header.append(_make_tc(
-            title, width=w, fill="E0E0E0", jc=jc, bold=True,
+            title, width=w, fill="E0E0E0", jc="center", bold=True,
+            no_wrap=True, sz_half_pt=20,
         ))
 
     # ── Строки данных ──────────────────────────────────────────────────
+    # noWrap для числовых колонок (Цена/Сумма) — числа вида «1 234 567»
+    # не должны рваться на две строки.
     for i, drow in enumerate(rows_data, start=1):
         tr = etree.SubElement(tbl, _w("tr"))
         tr.append(_make_tc(str(i), width=_COL_W_NUM, jc="center"))
         tr.append(_make_tc(drow["name"], width=_COL_W_NAME, jc="left"))
         tr.append(_make_tc(str(drow["qty"]), width=_COL_W_QTY, jc="center"))
-        tr.append(_make_tc(_format_rub(drow["price_rub"]),
-                           width=_COL_W_PRICE, jc="right"))
-        tr.append(_make_tc(_format_rub(drow["total_rub"]),
-                           width=_COL_W_SUM, jc="right"))
+        tr.append(_make_tc(
+            _format_rub(drow["price_rub"]),
+            width=_COL_W_PRICE, jc="right", no_wrap=True,
+        ))
+        tr.append(_make_tc(
+            _format_rub(drow["total_rub"]),
+            width=_COL_W_SUM, jc="right", no_wrap=True,
+        ))
 
     # ── Строка ИТОГО ───────────────────────────────────────────────────
+    # Минимальная высота 0.7 см — чтобы строка визуально выделялась.
     itogo = etree.SubElement(tbl, _w("tr"))
+    trPr_t = etree.SubElement(itogo, _w("trPr"))
+    trHeight = etree.SubElement(trPr_t, _w("trHeight"))
+    trHeight.set(_w("val"), str(_TOTAL_ROW_MIN_HEIGHT))
+    trHeight.set(_w("hRule"), "atLeast")
+    etree.SubElement(trPr_t, _w("cantSplit"))
     itogo_label_w = _COL_W_NUM + _COL_W_NAME + _COL_W_QTY + _COL_W_PRICE
     itogo.append(_make_tc(
         "ИТОГО", width=itogo_label_w, grid_span=4, jc="right", bold=True,
+        no_wrap=True,
     ))
     itogo.append(_make_tc(
-        _format_rub(total_rub), width=_COL_W_SUM, jc="right", bold=True,
+        _format_rub(total_rub),
+        width=_COL_W_SUM, jc="right", bold=True, no_wrap=True,
     ))
 
     return tbl
