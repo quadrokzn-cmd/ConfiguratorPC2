@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Поставщики — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Поставщики</span>
+{% endblock %}
+
+{% block topbar_extra %}
+<a href="/admin/suppliers/new" class="btn btn-md btn-primary">
+  {{ icon('plus', class='w-4 h-4') }}
+  Добавить поставщика
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Поставщики</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Справочник дистрибьюторов: имя, email для запросов цен, контактное лицо.
+      Деактивированные поставщики не участвуют в подборе цен и в рассылке КП.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {% if not items %}
+  <section class="card card-pad-lg text-center">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                bg-surface-2 text-ink-muted mb-3">
+      {{ icon('truck', class='w-5 h-5') }}
+    </div>
+    <p class="text-body text-ink-secondary">Поставщиков ещё нет.</p>
+    <a href="/admin/suppliers/new" class="btn btn-md btn-primary mt-4">
+      {{ icon('plus', class='w-4 h-4') }}
+      Добавить первого
+    </a>
+  </section>
+  {% else %}
+  <section class="card overflow-hidden">
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Имя</th>
+          <th class="text-left">Email</th>
+          <th class="text-left">Контактное лицо</th>
+          <th class="text-left w-44">Телефон</th>
+          <th class="text-left w-32">Статус</th>
+          <th class="text-right w-44">Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in items %}
+        <tr class="{% if not s.is_active %}opacity-60{% endif %}">
+          <td class="text-ink-primary font-medium">{{ s.name }}</td>
+          <td class="text-ink-secondary">
+            {% if s.email %}
+              <a href="mailto:{{ s.email }}" class="hover:text-brand-400 inline-flex items-center gap-1">
+                {{ icon('mail', class='w-3.5 h-3.5') }} {{ s.email }}
+              </a>
+            {% else %}
+              <span class="text-ink-muted">—</span>
+            {% endif %}
+          </td>
+          <td class="text-ink-secondary">{{ s.contact_person or '—' }}</td>
+          <td class="text-ink-secondary whitespace-nowrap">
+            {% if s.contact_phone %}
+              <span class="inline-flex items-center gap-1">
+                {{ icon('phone', class='w-3.5 h-3.5') }} {{ s.contact_phone }}
+              </span>
+            {% else %}
+              <span class="text-ink-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if s.is_active %}
+              <span class="badge badge-success">активен</span>
+            {% else %}
+              <span class="badge badge-neutral">отключён</span>
+            {% endif %}
+          </td>
+          <td class="text-right">
+            <div class="inline-flex items-center gap-2">
+              <a href="/admin/suppliers/{{ s.id }}/edit" class="btn btn-sm btn-secondary">
+                {{ icon('edit', class='w-3.5 h-3.5') }}
+                Изменить
+              </a>
+              <form method="post" action="/admin/suppliers/{{ s.id }}/toggle" class="inline m-0">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="submit"
+                        class="btn btn-sm {% if s.is_active %}btn-ghost text-ink-secondary hover:text-danger-500{% else %}btn-secondary{% endif %}"
+                        title="{% if s.is_active %}Отключить{% else %}Включить{% endif %}"
+                        aria-label="{% if s.is_active %}Отключить{% else %}Включить{% endif %}">
+                  {{ icon('power', class='w-3.5 h-3.5') }}
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% set is_new = supplier is none %}
+{% set form_action = '/admin/suppliers/new' if is_new else '/admin/suppliers/' ~ supplier.id ~ '/edit' %}
+{% set form_title = 'Новый поставщик' if is_new else 'Редактирование поставщика' %}
+
+{% block title %}{{ form_title }} — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/admin/suppliers">Поставщики</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">{{ form_title }}</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">{{ form_title }}</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Имя — обязательное. Email используется для рассылки запроса цен,
+      контактное лицо подставляется в шапку письма.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+
+  <form method="post" action="{{ form_action }}" class="card card-pad-lg space-y-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <div>
+      <label class="label" for="s-name">Название поставщика *</label>
+      <input id="s-name" name="name" type="text" maxlength="200" required class="input"
+             value="{{ supplier.name if supplier else '' }}"
+             placeholder="например, OCS / Merlion / Treolan">
+    </div>
+
+    <div>
+      <label class="label" for="s-email">Email для запросов цен</label>
+      <input id="s-email" name="email" type="email" maxlength="255" class="input"
+             value="{{ supplier.email if supplier and supplier.email else '' }}"
+             placeholder="prices@supplier.ru">
+      <p class="help-text">
+        На этот адрес отправляются КП и запросы цен из карточки проекта.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="label" for="s-person">Контактное лицо</label>
+        <input id="s-person" name="contact_person" type="text" maxlength="255" class="input"
+               value="{{ supplier.contact_person if supplier and supplier.contact_person else '' }}"
+               placeholder="Иван Иванов">
+      </div>
+      <div>
+        <label class="label" for="s-phone">Телефон</label>
+        <input id="s-phone" name="contact_phone" type="text" maxlength="50" class="input"
+               value="{{ supplier.contact_phone if supplier and supplier.contact_phone else '' }}"
+               placeholder="+7 999 000-00-00">
+      </div>
+    </div>
+
+    <label class="flex items-center gap-3 cursor-pointer">
+      <input type="checkbox" class="toggle" name="is_active"
+             {% if is_new or (supplier and supplier.is_active) %}checked{% endif %}>
+      <span class="text-small text-ink-primary">
+        Активен — участвует в подборе цен и рассылке КП
+      </span>
+    </label>
+
+    <div class="flex items-center gap-3 pt-2 border-t border-line-subtle">
+      <button type="submit" class="btn btn-md btn-primary">
+        {{ icon('save', class='w-4 h-4') }}
+        {{ 'Создать' if is_new else 'Сохранить' }}
+      </button>
+      <a href="/admin/suppliers" class="btn btn-md btn-ghost">отмена</a>
+
+      {% if not is_new %}
+      <div class="ml-auto">
+        <form method="post" action="/admin/suppliers/{{ supplier.id }}/delete"
+              onsubmit="return confirm('Удалить поставщика «{{ supplier.name }}»? Действие необратимо.');"
+              class="inline m-0">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button type="submit" class="btn btn-md btn-ghost text-ink-muted hover:text-danger-500">
+            {{ icon('trash', class='w-4 h-4') }}
+            Удалить
+          </button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </form>
+
+</div>
+{% endblock %}

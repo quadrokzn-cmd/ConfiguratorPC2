@@ -1,99 +1,114 @@
 {% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
 {% block title %}Пользователи — КВАДРО-ТЕХ{% endblock %}
 
+{% block breadcrumbs %}
+<span class="crumb-current">Пользователи</span>
+{% endblock %}
+
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">Пользователи</h1>
-    <a href="/admin" class="text-indigo-400 hover:text-indigo-300 text-sm">← в админку</a>
-  </div>
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  {% if error %}
-  <div class="bg-red-900/40 border border-red-800 text-red-200
-              text-sm px-4 py-3 rounded-lg">{{ error }}</div>
-  {% endif %}
-  {% if info %}
-  <div class="bg-emerald-900/30 border border-emerald-800 text-emerald-200
-              text-sm px-4 py-3 rounded-lg">{{ info }}</div>
-  {% endif %}
+  <header>
+    <h1 class="text-display text-ink-primary">Пользователи</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Список менеджеров. Здесь добавляются учётные записи и отключаются неактивные.
+    </p>
+  </header>
 
-  <!-- Форма создания -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-    <h2 class="text-lg font-semibold mb-4">Создать менеджера</h2>
-    <form method="post" action="/admin/users" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {# === Создание нового менеджера === #}
+  <section class="card card-pad">
+    <h2 class="text-h3 text-ink-primary mb-4">Создать менеджера</h2>
+    <form method="post" action="/admin/users"
+          class="grid grid-cols-1 md:grid-cols-4 gap-3">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
-      <input name="login" required placeholder="Логин" maxlength="50"
-             class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
-      <input name="name" required placeholder="Отображаемое имя" maxlength="100"
-             class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
-      <input name="password" required placeholder="Пароль (мин. 6 симв.)" type="text"
-             class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-zinc-100
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500">
-      <button type="submit"
-              class="bg-indigo-600 hover:bg-indigo-500 text-white
-                     font-medium px-4 py-2 rounded-lg transition">
-        Создать
-      </button>
+      <div>
+        <label class="label" for="u-login">Логин</label>
+        <input id="u-login" name="login" required maxlength="50" class="input"
+               placeholder="ivanov">
+      </div>
+      <div>
+        <label class="label" for="u-name">Имя</label>
+        <input id="u-name" name="name" required maxlength="100" class="input"
+               placeholder="Иван Иванов">
+      </div>
+      <div>
+        <label class="label" for="u-pass">Пароль</label>
+        <input id="u-pass" name="password" required type="text" class="input"
+               placeholder="мин. 6 символов">
+      </div>
+      <div class="flex items-end">
+        <button type="submit" class="btn btn-md btn-primary w-full">
+          {{ icon('plus', class='w-4 h-4') }}
+          Создать
+        </button>
+      </div>
     </form>
-    <p class="mt-2 text-xs text-zinc-500">
-      Пароль задаётся админом и передаётся сотруднику лично. Функция смены
-      пароля сотрудником появится на следующих этапах.
+    <p class="help-text">
+      Пароль задаётся админом и передаётся сотруднику лично. Самостоятельная
+      смена пароля появится в следующих этапах.
     </p>
-  </div>
+  </section>
 
-  <!-- Таблица пользователей -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-zinc-900/60 text-zinc-500">
+  {# === Таблица пользователей === #}
+  <section class="card overflow-hidden">
+    <table class="kt-table">
+      <thead>
         <tr>
-          <th class="text-left font-normal px-4 py-3">Логин</th>
-          <th class="text-left font-normal px-4 py-3">Имя</th>
-          <th class="text-left font-normal px-4 py-3">Роль</th>
-          <th class="text-left font-normal px-4 py-3">Статус</th>
-          <th class="text-left font-normal px-4 py-3">Создан</th>
-          <th class="text-right font-normal px-4 py-3">Действие</th>
+          <th class="text-left">Логин</th>
+          <th class="text-left">Имя</th>
+          <th class="text-left w-32">Роль</th>
+          <th class="text-left w-32">Статус</th>
+          <th class="text-left w-32">Создан</th>
+          <th class="text-right w-40">Действие</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-zinc-700">
+      <tbody>
         {% for u in users %}
-        <tr class="hover:bg-zinc-900/40">
-          <td class="px-4 py-3 text-zinc-100">{{ u.login }}</td>
-          <td class="px-4 py-3 text-zinc-300">{{ u.name }}</td>
-          <td class="px-4 py-3">
+        <tr class="{% if not u.is_active %}opacity-60{% endif %}">
+          <td class="text-ink-primary font-medium">{{ u.login }}</td>
+          <td class="text-ink-secondary">{{ u.name }}</td>
+          <td>
             {% if u.role == 'admin' %}
-              <span class="text-indigo-400">admin</span>
+              <span class="badge badge-brand">админ</span>
             {% else %}
-              <span class="text-zinc-400">manager</span>
+              <span class="badge badge-neutral">менеджер</span>
             {% endif %}
           </td>
-          <td class="px-4 py-3">
+          <td>
             {% if u.is_active %}
-              <span class="text-emerald-400">активен</span>
+              <span class="badge badge-success">активен</span>
             {% else %}
-              <span class="text-zinc-500">отключён</span>
+              <span class="badge badge-neutral">отключён</span>
             {% endif %}
           </td>
-          <td class="px-4 py-3 text-zinc-500">{{ u.created_at.strftime('%d.%m.%Y') }}</td>
-          <td class="px-4 py-3 text-right">
+          <td class="text-ink-muted whitespace-nowrap">
+            {{ u.created_at.strftime('%d.%m.%Y') }}
+          </td>
+          <td class="text-right">
             {% if u.id != user.id %}
             <form method="post" action="/admin/users/{{ u.id }}/toggle" class="inline">
               <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
               <button type="submit"
-                      class="text-zinc-400 hover:text-red-400 text-sm transition">
-                {% if u.is_active %}отключить{% else %}включить{% endif %}
+                      class="btn btn-sm {% if u.is_active %}btn-ghost text-ink-secondary hover:text-danger-500{% else %}btn-secondary{% endif %}">
+                {{ icon('power', class='w-3.5 h-3.5') }}
+                {% if u.is_active %}Отключить{% else %}Включить{% endif %}
               </button>
             </form>
             {% else %}
-              <span class="text-zinc-600 text-xs">(это вы)</span>
+              <span class="text-caption text-ink-muted">это вы</span>
             {% endif %}
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-  </div>
+  </section>
+
 </div>
 {% endblock %}

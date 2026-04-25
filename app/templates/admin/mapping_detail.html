@@ -1,153 +1,172 @@
 {% extends "base.html" %}
-{% block title %}Разбор записи #{{ row.id }} — Сопоставление{% endblock %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Разбор записи #{{ row.id }} — Очередь маппинга{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/admin/mapping">Очередь маппинга</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">Запись #{{ row.id }}</span>
+{% endblock %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 py-10 space-y-6">
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">Разбор записи #{{ row.id }}</h1>
-    <a href="/admin/mapping" class="text-sm text-indigo-400 hover:text-indigo-300">← к списку</a>
-  </div>
+  <header>
+    <h1 class="text-display text-ink-primary">Разбор записи #{{ row.id }}</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Сравните позицию поставщика с похожими компонентами в БД и решите,
+      что с ней делать: объединить, подтвердить как новый товар или отложить.
+    </p>
+  </header>
 
-  <!-- Карточка товара от поставщика -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5 space-y-3">
-    <div class="flex items-baseline gap-3">
-      <span class="text-xs text-zinc-500 uppercase">{{ row.supplier_name }}</span>
-      <span class="text-xs px-2 py-0.5 rounded
-                   {% if row.status == 'pending' %}bg-amber-900/60 text-amber-300{% elif row.status == 'created_new' %}bg-sky-900/60 text-sky-300{% else %}bg-zinc-900 text-zinc-300{% endif %}">
-        {{ row.status }}
-      </span>
+  {# === Карточка товара от поставщика === #}
+  <section class="card card-pad space-y-3">
+    <div class="flex items-center gap-3 flex-wrap">
+      <span class="badge badge-neutral">{{ row.supplier_name }}</span>
+      {% if row.status == 'pending' %}
+        <span class="badge badge-warning">{{ row.status }}</span>
+      {% elif row.status == 'created_new' %}
+        <span class="badge badge-info">{{ row.status }}</span>
+      {% else %}
+        <span class="badge badge-neutral">{{ row.status }}</span>
+      {% endif %}
     </div>
-    <h2 class="text-xl font-semibold text-zinc-100">{{ row.raw_name }}</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+    <h2 class="text-h2 text-ink-primary">{{ row.raw_name }}</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 text-small">
       <div>
-        <div class="text-zinc-500">Supplier SKU</div>
-        <div class="text-zinc-200">{{ row.supplier_sku }}</div>
+        <div class="text-caption text-ink-muted">Supplier SKU</div>
+        <div class="text-ink-primary">{{ row.supplier_sku }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">MPN</div>
-        <div class="text-zinc-200">{{ row.mpn or '—' }}</div>
+        <div class="text-caption text-ink-muted">MPN</div>
+        <div class="text-ink-primary">{{ row.mpn or '—' }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">GTIN</div>
-        <div class="text-zinc-200">{{ row.gtin or '—' }}</div>
+        <div class="text-caption text-ink-muted">GTIN</div>
+        <div class="text-ink-primary">{{ row.gtin or '—' }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">Бренд</div>
-        <div class="text-zinc-200">{{ row.brand or '—' }}</div>
+        <div class="text-caption text-ink-muted">Бренд</div>
+        <div class="text-ink-primary">{{ row.brand or '—' }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">Категория поставщика</div>
-        <div class="text-zinc-300 text-xs">{{ row.raw_category }}</div>
+        <div class="text-caption text-ink-muted">Категория поставщика</div>
+        <div class="text-ink-secondary text-caption">{{ row.raw_category }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">Наша категория</div>
-        <div class="text-zinc-200">{{ row.guessed_category or '—' }}</div>
+        <div class="text-caption text-ink-muted">Наша категория</div>
+        <div class="text-ink-primary">{{ row.guessed_category or '—' }}</div>
       </div>
       <div>
-        <div class="text-zinc-500">Цена</div>
-        <div class="text-zinc-200">
+        <div class="text-caption text-ink-muted">Цена</div>
+        <div class="text-ink-primary tabular-nums">
           {{ '%.2f'|format(row.price) if row.price is not none else '—' }} {{ row.currency or '' }}
         </div>
       </div>
       <div>
-        <div class="text-zinc-500">Остаток / Транзит</div>
-        <div class="text-zinc-200">{{ row.stock }} / {{ row.transit }}</div>
+        <div class="text-caption text-ink-muted">Остаток / Транзит</div>
+        <div class="text-ink-primary tabular-nums">{{ row.stock }} / {{ row.transit }}</div>
       </div>
     </div>
+
     {% if row.notes %}
-    <div class="mt-2 text-xs bg-zinc-900/60 border border-zinc-700 rounded p-3 text-zinc-400">
+    <div class="text-caption text-ink-secondary bg-surface-2 border border-line-soft rounded-lg p-3">
       {{ row.notes }}
     </div>
     {% endif %}
     {% if row.resolved_component_id %}
-    <div class="text-xs text-zinc-500">
+    <div class="text-caption text-ink-muted">
       Сейчас привязано к компоненту id={{ row.resolved_component_id }}.
     </div>
     {% endif %}
-  </div>
+  </section>
 
   {% if flash_error %}
-  <div class="bg-rose-900/40 border border-rose-700 rounded-xl p-3 text-rose-200 text-sm">
-    {{ flash_error }}
-  </div>
+  <div class="alert alert-danger">{{ flash_error }}</div>
   {% endif %}
 
-  <!-- Единая группа действий: confirm / defer / merge.
-       Форма merge висит ниже (оборачивает таблицу кандидатов), но
-       кнопка submit связана с ней через form="merge-form" — это позволяет
-       держать все три кнопки рядом, в верхней части страницы. -->
+  {# === Действия === #}
   <div class="flex gap-3 flex-wrap">
     <form method="post" action="/admin/mapping/{{ row.id }}/confirm_as_new" class="inline">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit"
-              class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded px-4 py-2 text-sm">
+      <button type="submit" class="btn btn-md btn-success">
+        {{ icon('check', class='w-4 h-4') }}
         Это точно новый товар
       </button>
     </form>
     <form method="post" action="/admin/mapping/{{ row.id }}/defer" class="inline">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit"
-              class="bg-zinc-700 hover:bg-zinc-600 text-zinc-200 font-medium rounded px-4 py-2 text-sm">
+      <button type="submit" class="btn btn-md btn-secondary">
         Разобраться потом
       </button>
     </form>
     {% if candidates %}
     <button type="submit" form="merge-form" id="merge-submit"
             {% if best_id is none %}disabled{% endif %}
-            class="bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-900 disabled:text-indigo-300 disabled:cursor-not-allowed text-white font-medium rounded px-5 py-2 text-sm">
+            class="btn btn-md btn-primary">
+      {{ icon('merge', class='w-4 h-4') }}
       Объединить с выбранным
     </button>
     {% endif %}
   </div>
 
-  <!-- Кандидаты в БД -->
-  <div>
-    <h2 class="text-lg font-semibold mb-3">Похожие компоненты в БД</h2>
+  {# === Кандидаты === #}
+  <section>
+    <h2 class="text-h2 text-ink-primary mb-3">Похожие компоненты в БД</h2>
     {% if not candidates %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5 text-zinc-400 text-sm">
-      В категории «{{ row.guessed_category or '—' }}» ничего похожего не нашлось.
-      Можно подтвердить товар как новый.
+    <div class="card card-pad-lg text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                  bg-surface-2 text-ink-muted mb-3">
+        {{ icon('search', class='w-5 h-5') }}
+      </div>
+      <p class="text-body text-ink-secondary">
+        В категории «{{ row.guessed_category or '—' }}» ничего похожего не нашлось.
+      </p>
+      <p class="text-small text-ink-muted mt-1">
+        Можно подтвердить товар как новый.
+      </p>
     </div>
     {% else %}
-    <form method="post" action="/admin/mapping/{{ row.id }}/merge" id="merge-form" class="space-y-3">
+    <form method="post" action="/admin/mapping/{{ row.id }}/merge" id="merge-form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-        <table class="w-full text-sm" id="candidates-table">
-          <thead class="bg-zinc-900/60 text-zinc-500">
+      <div class="card overflow-hidden">
+        <table class="kt-table kt-table-compact" id="candidates-table">
+          <thead>
             <tr>
-              <th class="text-left font-normal px-3 py-3 w-8"></th>
-              <th class="text-right font-normal px-3 py-3 w-16">Score</th>
-              <th class="text-left font-normal px-3 py-3 w-48">Причина</th>
-              <th class="text-left font-normal px-3 py-3">Модель</th>
-              <th class="text-left font-normal px-3 py-3">SKU / MPN</th>
-              <th class="text-left font-normal px-3 py-3">GTIN</th>
-              <th class="text-left font-normal px-3 py-3">Производитель</th>
-              <th class="text-right font-normal px-3 py-3">Мин. цена</th>
-              <th class="text-right font-normal px-3 py-3">id</th>
+              <th class="text-left w-8"></th>
+              <th class="text-right w-16">Score</th>
+              <th class="text-left w-48">Причина</th>
+              <th class="text-left">Модель</th>
+              <th class="text-left">SKU / MPN</th>
+              <th class="text-left">GTIN</th>
+              <th class="text-left">Производитель</th>
+              <th class="text-right">Мин. цена</th>
+              <th class="text-right">id</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-700">
+          <tbody>
             {% for c in candidates %}
             {% set is_best = (best_id is not none and c.id == best_id) %}
             <tr data-row-for="{{ c.id }}"
-                class="{% if is_best %}bg-indigo-900/20 border-l-2 border-indigo-500{% endif %}">
-              <td class="px-3 py-3">
-                <input type="radio" name="target_component_id"
+                class="{% if is_best %}bg-brand-500/[0.06]{% endif %}">
+              <td>
+                <input type="radio" class="radio" name="target_component_id"
                        value="{{ c.id }}" {% if is_best %}checked{% endif %}>
               </td>
-              <td class="px-3 py-3 text-right {% if c.score >= 50 %}text-amber-300 font-semibold{% else %}text-zinc-400{% endif %}">
+              <td class="text-right tabular-nums {% if c.score >= 50 %}text-warning-500 font-semibold{% else %}text-ink-secondary{% endif %}">
                 {{ c.score }}
               </td>
-              <td class="px-3 py-3 text-xs text-zinc-400">{{ c.reason }}</td>
-              <td class="px-3 py-3 text-zinc-100">{{ c.model }}</td>
-              <td class="px-3 py-3 text-zinc-300">{{ c.sku or '—' }}</td>
-              <td class="px-3 py-3 text-zinc-300">{{ c.gtin or '—' }}</td>
-              <td class="px-3 py-3 text-zinc-300">{{ c.manufacturer or '—' }}</td>
-              <td class="px-3 py-3 text-right text-zinc-300">
+              <td class="text-caption text-ink-secondary">{{ c.reason }}</td>
+              <td class="text-ink-primary">{{ c.model }}</td>
+              <td class="text-ink-secondary">{{ c.sku or '—' }}</td>
+              <td class="text-ink-secondary">{{ c.gtin or '—' }}</td>
+              <td class="text-ink-secondary">{{ c.manufacturer or '—' }}</td>
+              <td class="text-right text-ink-secondary tabular-nums">
                 {{ '%.2f'|format(c.min_price) if c.min_price else '—' }}
               </td>
-              <td class="px-3 py-3 text-right text-zinc-500">{{ c.id }}</td>
+              <td class="text-right text-ink-muted">{{ c.id }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -161,25 +180,21 @@
         var form = document.getElementById('merge-form');
         var btn  = document.getElementById('merge-submit');
         if (!form || !btn) return;
-        var highlightClasses = ['bg-indigo-900/20', 'border-l-2', 'border-indigo-500'];
+        var highlight = 'bg-brand-500/[0.06]';
         form.addEventListener('change', function (ev) {
           var t = ev.target;
           if (!t || t.name !== 'target_component_id') return;
           btn.disabled = false;
-          // Снимаем подсветку со всех строк, ставим на выбранную.
-          var rows = form.querySelectorAll('tr[data-row-for]');
-          rows.forEach(function (r) {
-            highlightClasses.forEach(function (cls) { r.classList.remove(cls); });
+          form.querySelectorAll('tr[data-row-for]').forEach(function (r) {
+            r.classList.remove(highlight);
           });
           var selected = form.querySelector('tr[data-row-for="' + t.value + '"]');
-          if (selected) {
-            highlightClasses.forEach(function (cls) { selected.classList.add(cls); });
-          }
+          if (selected) selected.classList.add(highlight);
         });
       })();
     </script>
     {% endif %}
-  </div>
+  </section>
 
 </div>
 {% endblock %}

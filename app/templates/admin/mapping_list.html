@@ -1,44 +1,54 @@
 {% extends "base.html" %}
-{% block title %}Сопоставление — Админка{% endblock %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Очередь маппинга — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Очередь маппинга</span>
+{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-10 space-y-6">
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">
-      Ручное сопоставление
-    </h1>
-    <a href="/admin" class="text-sm text-indigo-400 hover:text-indigo-300">← в админку</a>
-  </div>
+  <header>
+    <h1 class="text-display text-ink-primary">Ручное сопоставление</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Очередь товаров поставщиков, которые не удалось автоматически сопоставить
+      с компонентами в БД. Разберите вручную: объедините с существующим компонентом
+      или подтвердите как новый товар.
+    </p>
+  </header>
 
-  {# Счётчик по score (этап 7.1) — помогает понять масштаб очереди #}
-  <div class="text-sm text-zinc-400 flex gap-4 flex-wrap">
-    <span>
-      Подозрительных:
-      <span class="text-amber-300 font-semibold">{{ score_counts.suspicious }}</span>
-    </span>
-    <span>
-      Вероятно новых:
-      <span class="text-sky-300 font-semibold">{{ score_counts.new }}</span>
-    </span>
-    <span class="text-zinc-500">
-      Всего активных: {{ score_counts.total }}
-    </span>
-  </div>
+  {# === Счётчики === #}
+  <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="card card-pad">
+      <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-2">
+        Подозрительных
+      </div>
+      <div class="text-h1 text-warning-500 tabular-nums">{{ score_counts.suspicious }}</div>
+      <div class="mt-1 text-caption text-ink-muted">требуют внимания</div>
+    </div>
+    <div class="card card-pad">
+      <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-2">
+        Вероятно новых
+      </div>
+      <div class="text-h1 text-info-500 tabular-nums">{{ score_counts.new }}</div>
+      <div class="mt-1 text-caption text-ink-muted">кандидаты на confirm-as-new</div>
+    </div>
+    <div class="card card-pad">
+      <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-2">
+        Всего активных
+      </div>
+      <div class="text-h1 text-ink-primary tabular-nums">{{ score_counts.total }}</div>
+      <div class="mt-1 text-caption text-ink-muted">в очереди разбора</div>
+    </div>
+  </section>
 
-  {% if flash_info %}
-  <div class="bg-emerald-900/40 border border-emerald-700 text-emerald-200 rounded-lg px-4 py-3 text-sm">
-    {{ flash_info }}
-  </div>
-  {% endif %}
-  {% if flash_error %}
-  <div class="bg-red-900/40 border border-red-700 text-red-200 rounded-lg px-4 py-3 text-sm">
-    {{ flash_error }}
-  </div>
-  {% endif %}
+  {% if flash_info %}<div class="alert alert-success">{{ flash_info }}</div>{% endif %}
+  {% if flash_error %}<div class="alert alert-danger">{{ flash_error }}</div>{% endif %}
 
-  {# Переключатель режима: suspicious | new | all #}
-  <div class="flex gap-2 text-sm">
+  {# === Переключатель режима === #}
+  <div class="flex gap-2 flex-wrap text-small">
     {% set _filter_labels = [
       (score_filter_suspicious, 'Подозрительные'),
       (score_filter_new,        'Вероятно новые'),
@@ -47,139 +57,143 @@
     {% for code, label in _filter_labels %}
       {% set active = (filter_score == code) %}
       <a href="?score={{ code }}{% if filter_supplier %}&supplier={{ filter_supplier }}{% endif %}{% if filter_category %}&category={{ filter_category }}{% endif %}"
-         class="px-3 py-1.5 rounded border
-                {% if active %}bg-indigo-600 border-indigo-500 text-white
-                {% else %}bg-zinc-800 border-zinc-700 text-zinc-300 hover:bg-zinc-700{% endif %}">
+         class="btn btn-sm {% if active %}btn-primary{% else %}btn-secondary{% endif %}">
         {{ label }}
       </a>
     {% endfor %}
   </div>
 
-  <!-- Фильтры -->
-  <form method="get" action="/admin/mapping" class="flex items-end gap-3 text-sm">
+  {# === Фильтры === #}
+  <form method="get" action="/admin/mapping" class="card card-pad-sm">
     <input type="hidden" name="score" value="{{ filter_score }}">
-    <div>
-      <label class="block text-zinc-500 mb-1">Поставщик</label>
-      <select name="supplier" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2">
-        <option value="">— все —</option>
-        {% for s in suppliers %}
-        <option value="{{ s.id }}" {% if filter_supplier == s.id %}selected{% endif %}>{{ s.name }}</option>
-        {% endfor %}
-      </select>
+    <div class="flex items-end gap-3 flex-wrap">
+      <div class="min-w-[12rem]">
+        <label class="label" for="f-supplier">Поставщик</label>
+        <select id="f-supplier" name="supplier" class="select">
+          <option value="">— все —</option>
+          {% for s in suppliers %}
+          <option value="{{ s.id }}" {% if filter_supplier == s.id %}selected{% endif %}>{{ s.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="min-w-[12rem]">
+        <label class="label" for="f-cat">Категория</label>
+        <select id="f-cat" name="category" class="select">
+          <option value="">— все —</option>
+          {% for code, label in categories %}
+          <option value="{{ code }}" {% if filter_category == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-md btn-primary">
+        {{ icon('filter', class='w-4 h-4') }}
+        Применить
+      </button>
+      <a href="/admin/mapping?score={{ filter_score }}" class="btn btn-md btn-ghost">сбросить</a>
     </div>
-    <div>
-      <label class="block text-zinc-500 mb-1">Категория</label>
-      <select name="category" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2">
-        <option value="">— все —</option>
-        {% for code, label in categories %}
-        <option value="{{ code }}" {% if filter_category == code %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <button type="submit"
-            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-4 py-2">
-      Применить
-    </button>
-    <a href="/admin/mapping?score={{ filter_score }}" class="text-zinc-400 hover:text-zinc-200 px-3 py-2">сбросить</a>
   </form>
 
-  {# Массовое действие: появляется только в режиме «вероятно новые» #}
+  {# === Массовое подтверждение === #}
   {% if filter_score == score_filter_new and score_counts.new > 0 %}
   <form method="post" action="/admin/mapping/bulk_confirm_new"
         onsubmit="return confirm('Будет подтверждено {{ score_counts.new }} товаров как новые. Вы уверены?');"
-        class="bg-zinc-900/60 border border-zinc-700 rounded-lg px-4 py-3 flex items-center justify-between">
-    <div class="text-sm text-zinc-300">
-      Подтвердить все «вероятно новые» ({{ score_counts.new }}) как новые товары.
-      Применится только к статусу «новый» со score ниже {{ 50 }}.
+        class="card card-pad flex items-center justify-between gap-4 flex-wrap">
+    <div class="text-small text-ink-secondary min-w-0">
+      Подтвердить все «вероятно новые» (<span class="text-ink-primary font-medium">{{ score_counts.new }}</span>) как новые товары.
+      Применится только к статусу «новый» со score ниже 50.
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     {% if filter_supplier %}<input type="hidden" name="supplier" value="{{ filter_supplier }}">{% endif %}
     {% if filter_category %}<input type="hidden" name="category" value="{{ filter_category }}">{% endif %}
-    <button type="submit"
-            class="bg-sky-600 hover:bg-sky-500 text-white font-medium rounded px-4 py-2 text-sm">
+    <button type="submit" class="btn btn-md btn-success">
+      {{ icon('check', class='w-4 h-4') }}
       Подтвердить все как новые
     </button>
   </form>
   {% endif %}
 
   {% if not rows %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
-    Нет активных записей на сопоставлении.
+  <div class="card card-pad-lg text-center">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                bg-surface-2 text-success-500 mb-3">
+      {{ icon('check-circle', class='w-5 h-5') }}
+    </div>
+    <p class="text-body text-ink-secondary">Очередь пуста.</p>
+    <p class="text-small text-ink-muted mt-1">Все позиции разобраны.</p>
   </div>
   {% else %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-zinc-900/60 text-zinc-500">
+  <section class="card overflow-hidden">
+    <table class="kt-table kt-table-compact">
+      <thead>
         <tr>
-          <th class="text-right font-normal px-3 py-3 w-16">Score</th>
-          <th class="text-left font-normal px-3 py-3">Поставщик</th>
-          <th class="text-left font-normal px-3 py-3">Категория</th>
-          <th class="text-left font-normal px-3 py-3">Товар от поставщика</th>
-          <th class="text-left font-normal px-3 py-3">MPN / GTIN</th>
-          <th class="text-right font-normal px-3 py-3">Цена</th>
-          <th class="text-left font-normal px-3 py-3">Статус</th>
-          <th class="text-left font-normal px-3 py-3">Похожие в БД</th>
-          <th class="text-left font-normal px-3 py-3">Действия</th>
+          <th class="text-right w-16">Score</th>
+          <th class="text-left">Поставщик</th>
+          <th class="text-left">Категория</th>
+          <th class="text-left">Товар от поставщика</th>
+          <th class="text-left">MPN / GTIN</th>
+          <th class="text-right">Цена</th>
+          <th class="text-left w-28">Статус</th>
+          <th class="text-left">Похожие в БД</th>
+          <th class="text-left w-32"></th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-zinc-700">
+      <tbody>
         {% for r in rows %}
-        <tr class="hover:bg-zinc-900/40 align-top">
-          <td class="px-3 py-3 text-right whitespace-nowrap">
+        <tr class="align-top">
+          <td class="text-right whitespace-nowrap">
             {% if r.best_candidate_score is not none %}
               {% if r.best_candidate_score >= 50 %}
-                <span class="text-amber-300 font-semibold">{{ r.best_candidate_score }}</span>
+                <span class="text-warning-500 font-semibold tabular-nums">{{ r.best_candidate_score }}</span>
               {% else %}
-                <span class="text-zinc-500">{{ r.best_candidate_score }}</span>
+                <span class="text-ink-muted tabular-nums">{{ r.best_candidate_score }}</span>
               {% endif %}
             {% else %}
-              <span class="text-zinc-600">—</span>
+              <span class="text-ink-muted">—</span>
             {% endif %}
           </td>
-          <td class="px-3 py-3 text-zinc-300 whitespace-nowrap">{{ r.supplier_name }}</td>
-          <td class="px-3 py-3 text-zinc-400">
-            <div class="text-zinc-300">{{ r.guessed_category or '—' }}</div>
-            <div class="text-xs text-zinc-500">{{ r.raw_category }}</div>
+          <td class="text-ink-secondary whitespace-nowrap">{{ r.supplier_name }}</td>
+          <td>
+            <div class="text-ink-secondary">{{ r.guessed_category or '—' }}</div>
+            <div class="text-caption text-ink-muted">{{ r.raw_category }}</div>
           </td>
-          <td class="px-3 py-3">
-            <div class="text-zinc-100">{{ r.raw_name }}</div>
-            <div class="text-xs text-zinc-500">
+          <td>
+            <div class="text-ink-primary">{{ r.raw_name }}</div>
+            <div class="text-caption text-ink-muted">
               sku: {{ r.supplier_sku }}
               {% if r.brand %}· {{ r.brand }}{% endif %}
             </div>
           </td>
-          <td class="px-3 py-3 text-xs text-zinc-400">
+          <td class="text-caption text-ink-secondary">
             <div>MPN: {{ r.mpn or '—' }}</div>
             <div>GTIN: {{ r.gtin or '—' }}</div>
           </td>
-          <td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">
+          <td class="text-right text-ink-secondary whitespace-nowrap tabular-nums">
             {{ '%.2f'|format(r.price) if r.price is not none else '—' }} {{ r.currency or '' }}
           </td>
-          <td class="px-3 py-3 text-zinc-300">
+          <td>
             {% if r.status == 'pending' %}
-              <span class="text-amber-400">ambiguous</span>
+              <span class="badge badge-warning">ambiguous</span>
             {% elif r.status == 'created_new' %}
-              <span class="text-sky-400">новый</span>
+              <span class="badge badge-info">новый</span>
             {% else %}
-              {{ r.status }}
+              <span class="badge badge-neutral">{{ r.status }}</span>
             {% endif %}
           </td>
-          <td class="px-3 py-3">
+          <td>
             {% if r.best_candidate_model %}
               <a href="/admin/mapping/{{ r.id }}"
-                 class="text-indigo-300 hover:text-indigo-200 text-xs">
+                 class="text-brand-300 hover:text-brand-200 text-caption">
                 {{ r.best_candidate_model }}
               </a>
               {% if r.best_candidate_component_id %}
-                <div class="text-xs text-zinc-500">id={{ r.best_candidate_component_id }}</div>
+                <div class="text-caption text-ink-muted">id={{ r.best_candidate_component_id }}</div>
               {% endif %}
             {% else %}
-              <span class="text-zinc-600 text-xs">—</span>
+              <span class="text-ink-muted text-caption">—</span>
             {% endif %}
           </td>
-          <td class="px-3 py-3 whitespace-nowrap">
-            <a href="/admin/mapping/{{ r.id }}"
-               class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded px-3 py-1.5 text-xs inline-block">
+          <td class="whitespace-nowrap">
+            <a href="/admin/mapping/{{ r.id }}" class="btn btn-sm btn-secondary">
               Разобрать
             </a>
           </td>
@@ -187,7 +201,7 @@
         {% endfor %}
       </tbody>
     </table>
-  </div>
+  </section>
   {% endif %}
 
 </div>

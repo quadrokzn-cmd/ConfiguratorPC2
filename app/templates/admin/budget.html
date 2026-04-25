@@ -1,67 +1,96 @@
 {% extends "base.html" %}
-{% block title %}Бюджет — КВАДРО-ТЕХ{% endblock %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Бюджет OpenAI — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Бюджет OpenAI</span>
+{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">Бюджет OpenAI</h1>
-    <a href="/admin" class="text-indigo-400 hover:text-indigo-300 text-sm">← в админку</a>
-  </div>
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <!-- Сегодня -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5
-              {% if budget.is_blocked %}border-red-800{% elif budget.is_warning %}border-amber-700{% endif %}">
-    <div class="text-sm text-zinc-500">Сегодня</div>
-    <div class="text-3xl font-semibold mt-1">
+  <header>
+    <h1 class="text-display text-ink-primary">Бюджет OpenAI</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Дневной лимит расходов на OpenAI и история по дням за последние 30 дней.
+    </p>
+  </header>
+
+  {# === Сегодня === #}
+  <section class="card card-pad
+              {% if budget.is_blocked %}border-danger-500/30
+              {% elif budget.is_warning %}border-warning-500/30{% endif %}">
+    <div class="flex items-baseline justify-between gap-3 mb-3">
+      <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+        Сегодня
+      </div>
+      <span class="text-small text-ink-muted tabular-nums">{{ budget.percent }}%</span>
+    </div>
+    <div class="text-display text-ink-primary tabular-nums">
       {{ '%.2f'|format(budget.spent_rub) }} ₽
-      <span class="text-zinc-500 text-base">/ {{ '%.0f'|format(budget.limit_rub) }} ₽</span>
-      <span class="text-sm text-zinc-500">({{ budget.percent }}%)</span>
+      <span class="text-h2 text-ink-muted">/ {{ '%.0f'|format(budget.limit_rub) }} ₽</span>
     </div>
-    <div class="mt-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-      <div class="h-2 {% if budget.is_blocked %}bg-red-500{% elif budget.is_warning %}bg-amber-500{% else %}bg-indigo-500{% endif %}"
-           style="width: {{ [budget.percent, 100]|min }}%"></div>
+    <div class="mt-3 h-1.5 bg-surface-2 rounded-full overflow-hidden">
+      {% set pct = [budget.percent, 100]|min %}
+      <div class="h-full {% if budget.is_blocked %}bg-danger-500
+                        {% elif budget.is_warning %}bg-warning-500
+                        {% else %}bg-brand-500{% endif %}"
+           style="width: {{ pct }}%"></div>
     </div>
-  </div>
+    {% if budget.is_blocked %}
+    <div class="mt-2 text-small text-danger-500">
+      Лимит исчерпан — новые запросы блокируются до полуночи.
+    </div>
+    {% endif %}
+  </section>
 
-  <!-- Общая сумма за месяц -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-    <div class="text-sm text-zinc-500">За текущий месяц (всего)</div>
-    <div class="text-2xl font-semibold mt-1">
+  {# === Месяц === #}
+  <section class="card card-pad">
+    <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-3">
+      За текущий месяц
+    </div>
+    <div class="text-display text-ink-primary tabular-nums">
       {{ '%.2f'|format(month_total) }} ₽
     </div>
-  </div>
+  </section>
 
-  <!-- По дням -->
-  <div>
-    <h2 class="text-lg font-semibold mb-3">За последние 30 дней</h2>
+  {# === Таблица по дням === #}
+  <section>
+    <h2 class="text-h2 text-ink-primary mb-3">За последние 30 дней</h2>
     {% if not by_day %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
-      Пока нет данных о расходах.
+    <div class="card card-pad-lg text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                  bg-surface-2 text-ink-muted mb-3">
+        {{ icon('coins', class='w-5 h-5') }}
+      </div>
+      <p class="text-body text-ink-secondary">Пока нет данных о расходах.</p>
     </div>
     {% else %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-zinc-900/60 text-zinc-500">
+    <div class="card overflow-hidden">
+      <table class="kt-table">
+        <thead>
           <tr>
-            <th class="text-left font-normal px-4 py-3">Дата</th>
-            <th class="text-right font-normal px-4 py-3">Вызовов</th>
-            <th class="text-right font-normal px-4 py-3">Расход, ₽</th>
-            <th class="text-right font-normal px-4 py-3">Расход, $</th>
+            <th class="text-left">Дата</th>
+            <th class="text-right w-28">Вызовов</th>
+            <th class="text-right w-32">Расход, ₽</th>
+            <th class="text-right w-32">Расход, $</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-zinc-700">
+        <tbody>
           {% for row in by_day %}
-          <tr class="hover:bg-zinc-900/40">
-            <td class="px-4 py-3 text-zinc-300">{{ row.date.strftime('%d.%m.%Y') }}</td>
-            <td class="px-4 py-3 text-right text-zinc-400">{{ row.calls }}</td>
-            <td class="px-4 py-3 text-right text-zinc-100">{{ '%.2f'|format(row.cost_rub) }}</td>
-            <td class="px-4 py-3 text-right text-zinc-400">{{ '%.4f'|format(row.cost_usd) }}</td>
+          <tr>
+            <td class="text-ink-primary whitespace-nowrap">{{ row.date.strftime('%d.%m.%Y') }}</td>
+            <td class="text-right text-ink-secondary tabular-nums">{{ row.calls }}</td>
+            <td class="text-right text-ink-primary tabular-nums">{{ '%.2f'|format(row.cost_rub) }}</td>
+            <td class="text-right text-ink-secondary tabular-nums">{{ '%.4f'|format(row.cost_usd) }}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
     {% endif %}
-  </div>
+  </section>
+
 </div>
 {% endblock %}

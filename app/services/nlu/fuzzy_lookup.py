@@ -169,8 +169,13 @@ def _table_for(category: str) -> str:
 
 
 def _search_by_sku(session, table: str, sku: str) -> dict | None:
+    # 9А.2: is_hidden = FALSE — скрытые компоненты не находятся ни через
+    # NLU (этот путь), ни через подбор (configurator/candidates.py).
     row = session.execute(
-        text(f"SELECT id, model, sku FROM {table} WHERE UPPER(sku) = UPPER(:q) LIMIT 1"),
+        text(
+            f"SELECT id, model, sku FROM {table} "
+            f"WHERE UPPER(sku) = UPPER(:q) AND is_hidden = FALSE LIMIT 1"
+        ),
         {"q": sku},
     ).mappings().first()
     return dict(row) if row else None
@@ -193,13 +198,15 @@ def _search_by_tokens(
         params[key] = f"%{tok}%"
     params["cat"] = category
     where = " AND ".join(where_parts)
+    # 9А.2: c.is_hidden = FALSE — скрытые из подбора компоненты не должны
+    # попадаться и при NLU-сопоставлении.
     sql = (
         f"SELECT c.id, c.model, c.sku, "
         f"       MIN(sp.price) FILTER (WHERE sp.stock_qty > 0) AS min_price "
         f"FROM {table} c "
         f"LEFT JOIN supplier_prices sp "
         f"  ON sp.category = :cat AND sp.component_id = c.id "
-        f"WHERE {where} "
+        f"WHERE c.is_hidden = FALSE AND {where} "
         f"GROUP BY c.id, c.model, c.sku "
         f"ORDER BY min_price NULLS LAST, c.id "
         f"LIMIT {int(limit)}"

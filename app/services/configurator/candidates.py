@@ -27,6 +27,13 @@ _INTEL_PATTERN = "Intel%"
 _AMD_VALUE = "AMD"
 
 
+# 9А.2: фильтр скрытых компонентов. Применяем как обязательное условие во
+# всех 8 _get_*-функциях; UI на /admin/components позволяет админу выставлять
+# is_hidden=TRUE на сломанные/несовместимые карточки (Netac USB-C SSD и т.п.).
+def _hidden_filter(alias: str) -> str:
+    return f"{alias}.is_hidden = FALSE"
+
+
 def _price_in_usd_sql(alias: str, param_name: str = "usd_rub") -> str:
     """SQL-выражение: минимальная цена компонента в USD среди поставщиков.
 
@@ -69,7 +76,7 @@ def get_cpu_candidates(
     (без проверки min_* — зафиксированный выбор пользователя важнее).
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("c")]
 
     fixed = req.cpu.fixed
     if fixed and fixed.is_set():
@@ -162,7 +169,7 @@ def get_cheapest_motherboard(
     из подходящих по сокету, с NOT NULL на form_factor и memory_type.
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("mb")]
 
     if fixed and fixed.is_set():
         if fixed.id is not None:
@@ -238,7 +245,8 @@ def get_ram_candidates(
         FROM rams r
         JOIN supplier_prices sp
           ON sp.category = 'ram' AND sp.component_id = r.id
-        WHERE r.memory_type = :mem_type
+        WHERE {_hidden_filter("r")}
+          AND r.memory_type = :mem_type
           AND r.form_factor = 'DIMM'
           AND r.module_size_gb IS NOT NULL
           AND r.frequency_mhz IS NOT NULL
@@ -270,7 +278,7 @@ def get_cheapest_gpu(
     с vram_gb >= min_vram_gb (если задано).
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("g")]
 
     if fixed and fixed.is_set():
         if fixed.id is not None:
@@ -323,6 +331,7 @@ def get_cheapest_storage(
     """Самый дешёвый накопитель по требованиям."""
     params: dict[str, Any] = {"usd_rub": usd_rub}
     conditions: list[str] = [
+        _hidden_filter("s"),
         "s.storage_type IS NOT NULL",
         "s.capacity_gb IS NOT NULL",
     ]
@@ -373,7 +382,7 @@ def get_cheapest_psu(
     Этап 7.1: в builder этот параметр передаётся всегда (= 400 по умолчанию).
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("p")]
 
     if fixed and fixed.is_set():
         if fixed.id is not None:
@@ -434,7 +443,7 @@ def get_cheapest_case(
     Если fixed — scenario игнорируется (как и раньше, приоритет у пользователя).
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("cs")]
 
     if fixed and fixed.is_set():
         if fixed.id is not None:
@@ -506,7 +515,7 @@ def get_cheapest_cooler(
     нельзя гарантировать «запас 30%» без данных.
     """
     params: dict[str, Any] = {"usd_rub": usd_rub}
-    conditions: list[str] = []
+    conditions: list[str] = [_hidden_filter("cl")]
 
     if fixed and fixed.is_set():
         if fixed.id is not None:

@@ -444,6 +444,17 @@
     @apply bg-surface-2/40;
   }
   .kt-table tbody tr:last-child td { @apply border-b-0; }
+  /* 9А.2: вся строка кликабельна как ссылка (JS навешивает переход) */
+  .kt-table tbody tr.kt-row-link { cursor: pointer; }
+
+  /* 9А.2: компактный вариант таблицы для админки.
+     Те же бордеры/hover, но мельче padding и шрифт. */
+  .kt-table-compact thead th {
+    @apply px-3 py-2 text-micro;
+  }
+  .kt-table-compact tbody td {
+    @apply px-3 py-2 text-small;
+  }
 
   /* === Сайдбар: ссылка-пункт ========================================
      9А.1.1: активный пункт — без сплошной синей заливки.

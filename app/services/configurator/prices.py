@@ -40,6 +40,8 @@ def fetch_offers(
     transit > 0 (флаг in_transit=True). Список отсортирован по цене в USD
     по возрастанию.
     """
+    # 9А.2: s.is_active = TRUE — деактивированный поставщик не участвует
+    # в подборе (закрытие техдолга 8.3, теперь с UI-фильтром).
     query = text(
         """
         SELECT s.name           AS supplier,
@@ -52,6 +54,7 @@ def fetch_offers(
         JOIN suppliers s ON s.id = sp.supplier_id
         WHERE sp.category     = :cat
           AND sp.component_id = :cid
+          AND s.is_active     = TRUE
           AND (sp.stock_qty > 0 OR (:allow_tr AND sp.transit_qty > 0))
         """
     )

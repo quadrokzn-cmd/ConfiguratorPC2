@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}{{ item.model }} — Компоненты{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/admin/components">Компоненты</a>
+<span class="crumb-sep">/</span>
+<a href="/admin/components?category={{ item.category }}">{{ item.category_label }}</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">{{ item.model }}</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-6">
+
+  <header>
+    <div class="flex items-center gap-2 flex-wrap mb-2">
+      <span class="badge badge-neutral">{{ item.category_label }}</span>
+      {% if item.is_hidden %}<span class="badge badge-danger">скрыт из подбора</span>{% endif %}
+    </div>
+    <h1 class="text-display text-ink-primary break-words">{{ item.model }}</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      {{ item.manufacturer }}
+      {% if item.sku %}· SKU/MPN: {{ item.sku }}{% endif %}
+      {% if item.gtin %}· GTIN: {{ item.gtin }}{% endif %}
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {# === Базовая информация (read-only) === #}
+  <section class="card card-pad">
+    <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-3">
+      Базовая информация
+    </div>
+    <dl class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 text-small">
+      <div>
+        <dt class="text-caption text-ink-muted">ID</dt>
+        <dd class="text-ink-primary tabular-nums">{{ item.id }}</dd>
+      </div>
+      <div>
+        <dt class="text-caption text-ink-muted">Производитель</dt>
+        <dd class="text-ink-primary">{{ item.manufacturer or '—' }}</dd>
+      </div>
+      <div>
+        <dt class="text-caption text-ink-muted">SKU / MPN</dt>
+        <dd class="text-ink-primary">{{ item.sku or '—' }}</dd>
+      </div>
+      <div>
+        <dt class="text-caption text-ink-muted">GTIN</dt>
+        <dd class="text-ink-primary">{{ item.gtin or '—' }}</dd>
+      </div>
+    </dl>
+    <p class="help-text">
+      Эти поля редактируются только через прайс-листы и не правятся вручную.
+    </p>
+  </section>
+
+  {# === Редактирование характеристик === #}
+  <form method="post" action="/admin/components/{{ item.category }}/{{ item.id }}/edit"
+        class="card card-pad space-y-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <h2 class="text-h3 text-ink-primary">Характеристики</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for f in item.fields %}
+      <div>
+        <label class="label" for="cf-{{ f.name }}">{{ f.label }}</label>
+        {% if f.type == 'bool' %}
+          <label class="flex items-center gap-3 cursor-pointer mt-1">
+            <input type="checkbox" id="cf-{{ f.name }}" name="{{ f.name }}" class="toggle"
+                   {% if f.value %}checked{% endif %}>
+            <span class="text-small text-ink-secondary">
+              {% if f.value %}да{% else %}нет{% endif %}
+            </span>
+          </label>
+        {% elif f.type == 'int' %}
+          <input id="cf-{{ f.name }}" name="{{ f.name }}" type="number" step="1" class="input"
+                 value="{{ f.value if f.value is not none else '' }}">
+        {% elif f.type == 'float' %}
+          <input id="cf-{{ f.name }}" name="{{ f.name }}" type="number" step="0.01" class="input"
+                 value="{{ f.value if f.value is not none else '' }}">
+        {% elif f.type == 'array' %}
+          <input id="cf-{{ f.name }}" name="{{ f.name }}" type="text" class="input"
+                 value="{{ f.value | join(', ') if f.value else '' }}">
+          <p class="help-text">Через запятую</p>
+        {% else %}
+          <input id="cf-{{ f.name }}" name="{{ f.name }}" type="text" class="input"
+                 value="{{ f.value if f.value is not none else '' }}">
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="flex items-center gap-3 pt-2 border-t border-line-subtle">
+      <button type="submit" class="btn btn-md btn-primary">
+        {{ icon('save', class='w-4 h-4') }}
+        Сохранить
+      </button>
+      <a href="/admin/components" class="btn btn-md btn-ghost">отмена</a>
+    </div>
+  </form>
+
+  {# === Скрыть/показать === #}
+  <section class="card card-pad">
+    <div class="flex items-start gap-4 flex-wrap">
+      <div class="min-w-0 flex-1">
+        <h3 class="text-h3 text-ink-primary mb-1">
+          {% if item.is_hidden %}Скрыт из подбора{% else %}Виден в подборе{% endif %}
+        </h3>
+        <p class="text-small text-ink-secondary">
+          {% if item.is_hidden %}
+            Компонент сейчас не появляется в результатах подбора и поиска по
+            запросу менеджера. Существующие спецификации, где он уже использован,
+            не меняются.
+          {% else %}
+            Скройте компонент, если у него ошибочные характеристики, и его
+            не должно быть в результатах подбора (например, скелеты или товары
+            не из основной матрицы).
+          {% endif %}
+        </p>
+      </div>
+      <form method="post"
+            action="/admin/components/{{ item.category }}/{{ item.id }}/toggle-hidden"
+            class="m-0">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit"
+                class="btn btn-md {% if item.is_hidden %}btn-secondary{% else %}btn-ghost text-ink-secondary hover:text-danger-500{% endif %}">
+          {% if item.is_hidden %}
+            {{ icon('eye', class='w-4 h-4') }}
+            Показать в подборе
+          {% else %}
+            {{ icon('eye-off', class='w-4 h-4') }}
+            Скрыть из подбора
+          {% endif %}
+        </button>
+      </form>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

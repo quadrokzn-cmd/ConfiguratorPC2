@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Компоненты — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Компоненты</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Компоненты</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Все компоненты во всех категориях. Найдите карточку, чтобы вручную
+      проставить характеристики или скрыть из подбора.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {# === Фильтры === #}
+  <form method="get" action="/admin/components" class="card card-pad-sm">
+    <div class="flex items-end gap-3 flex-wrap">
+      <div class="min-w-[14rem]">
+        <label class="label" for="f-cat">Категория</label>
+        <select id="f-cat" name="category" class="select">
+          <option value="">— все —</option>
+          {% for code, label in categories.items() %}
+          <option value="{{ code }}" {% if category == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="flex-1 min-w-[16rem]">
+        <label class="label" for="f-q">Поиск</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none">
+            {{ icon('search', class='w-4 h-4') }}
+          </span>
+          <input id="f-q" type="search" name="q" value="{{ search }}"
+                 placeholder="модель, производитель, MPN, GTIN…" class="input pl-10">
+        </div>
+      </div>
+      <div class="flex items-center gap-3 pb-1">
+        <label class="flex items-center gap-2 cursor-pointer text-small text-ink-secondary">
+          <input type="checkbox" class="check" name="skeletons" value="1"
+                 {% if only_skel %}checked{% endif %}>
+          Только скелеты
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer text-small text-ink-secondary">
+          <input type="checkbox" class="check" name="hidden" value="1"
+                 {% if only_hidden %}checked{% endif %}>
+          Только скрытые
+        </label>
+      </div>
+      <div class="flex gap-2 pb-1">
+        <button type="submit" class="btn btn-md btn-primary">
+          {{ icon('filter', class='w-4 h-4') }}
+          Применить
+        </button>
+        <a href="/admin/components" class="btn btn-md btn-ghost">сбросить</a>
+      </div>
+    </div>
+  </form>
+
+  <div class="text-small text-ink-muted">
+    Найдено: <span class="text-ink-primary tabular-nums">{{ result.total }}</span>
+    {% if result.total_pages > 1 %}
+      · стр. {{ result.page }} из {{ result.total_pages }}
+    {% endif %}
+  </div>
+
+  {% if not result.rows %}
+  <div class="card card-pad-lg text-center">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                bg-surface-2 text-ink-muted mb-3">
+      {{ icon('cpu', class='w-5 h-5') }}
+    </div>
+    <p class="text-body text-ink-secondary">Ничего не найдено.</p>
+    <p class="text-small text-ink-muted mt-1">Смягчите фильтры или сбросьте поиск.</p>
+  </div>
+  {% else %}
+  <section class="card overflow-hidden">
+    <table class="kt-table kt-table-compact">
+      <thead>
+        <tr>
+          <th class="text-left w-32">Категория</th>
+          <th class="text-left w-32">Производитель</th>
+          <th class="text-left">Модель</th>
+          <th class="text-left w-40">MPN / SKU</th>
+          <th class="text-left w-32">GTIN</th>
+          <th class="text-left w-32">Цена</th>
+          <th class="text-left w-32">Статус</th>
+          <th class="text-right w-32"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for it in result.rows %}
+        <tr class="kt-row-link"
+            data-href="/admin/components/{{ it.category }}/{{ it.id }}">
+          <td>
+            <span class="badge badge-neutral">{{ it.category_label }}</span>
+          </td>
+          <td class="text-ink-secondary">{{ it.manufacturer or '—' }}</td>
+          <td class="text-ink-primary">
+            <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+               class="hover:text-brand-400">{{ it.model }}</a>
+          </td>
+          <td class="text-caption text-ink-secondary">{{ it.sku or '—' }}</td>
+          <td class="text-caption text-ink-muted">{{ it.gtin or '—' }}</td>
+          <td>
+            {% if it.has_price %}
+              <span class="badge badge-success">в наличии</span>
+            {% else %}
+              <span class="badge badge-neutral">нет цены</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if it.is_hidden %}
+              <span class="badge badge-danger">скрыт</span>
+            {% elif it.is_skeleton %}
+              <span class="badge badge-warning">скелет</span>
+            {% else %}
+              <span class="badge badge-success">полная</span>
+            {% endif %}
+          </td>
+          <td class="text-right">
+            <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+               class="btn btn-sm btn-secondary">Открыть</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  {# === Пагинация === #}
+  {% if result.total_pages > 1 %}
+  <nav class="flex items-center justify-between text-small text-ink-secondary">
+    <div>
+      Стр. <span class="text-ink-primary tabular-nums">{{ result.page }}</span>
+      из <span class="text-ink-primary tabular-nums">{{ result.total_pages }}</span>
+    </div>
+    {% set base = '?category=' ~ category ~ '&q=' ~ search ~ ('&skeletons=1' if only_skel else '') ~ ('&hidden=1' if only_hidden else '') %}
+    <div class="flex gap-2">
+      {% if result.page > 1 %}
+      <a href="{{ base }}&page={{ result.page - 1 }}" class="btn btn-sm btn-secondary">
+        ← назад
+      </a>
+      {% else %}
+      <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">← назад</span>
+      {% endif %}
+      {% if result.page < result.total_pages %}
+      <a href="{{ base }}&page={{ result.page + 1 }}" class="btn btn-sm btn-secondary">
+        вперёд →
+      </a>
+      {% else %}
+      <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">вперёд →</span>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
+    tr.addEventListener('click', function (e) {
+      if (e.target.closest('a, button, input, label, form')) return;
+      var href = tr.getAttribute('data-href');
+      if (href) window.location = href;
+    });
+  });
+</script>
+{% endblock %}

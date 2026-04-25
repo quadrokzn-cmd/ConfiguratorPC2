@@ -1,42 +1,114 @@
 {% extends "base.html" %}
-{% block title %}Админка — КВАДРО-ТЕХ{% endblock %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Дашборд — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Дашборд</span>
+{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">Админка</h1>
-    <div class="flex gap-4 text-sm">
-      <a href="/admin/users" class="text-indigo-400 hover:text-indigo-300">Пользователи</a>
-      <a href="/admin/queries" class="text-indigo-400 hover:text-indigo-300">Все запросы</a>
-      <a href="/admin/budget" class="text-indigo-400 hover:text-indigo-300">Бюджет</a>
-      <a href="/admin/mapping" class="text-indigo-400 hover:text-indigo-300">
-        Сопоставление{% if mapping_count and mapping_count > 0 %}
-          <span class="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 rounded-full bg-amber-600/80 text-white text-xs">
-            {{ mapping_count }}
-          </span>
-        {% endif %}
-      </a>
+  <header>
+    <h1 class="text-display text-ink-primary">Дашборд</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Сводка ключевых метрик системы и быстрые ссылки на разделы админки.
+    </p>
+  </header>
+
+  {# === Сетка метрик ============================================== #}
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+    {# Всего запросов #}
+    <div class="card card-pad">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+          Всего запросов
+        </div>
+        <div class="w-8 h-8 rounded-md bg-surface-2 text-brand-300 flex items-center justify-center">
+          {{ icon('inbox', class='w-4 h-4') }}
+        </div>
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">{{ total_queries }}</div>
+      <div class="mt-1 text-caption text-ink-muted">за всё время</div>
     </div>
-  </div>
 
-  <!-- Виджеты расходов -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <!-- Сегодня -->
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5
-                {% if budget.is_blocked %}border-red-800{% elif budget.is_warning %}border-amber-700{% endif %}">
-      <div class="text-sm text-zinc-500">Расход OpenAI — сегодня</div>
-      <div class="text-3xl font-semibold mt-1">
+    {# Всего проектов #}
+    <div class="card card-pad">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+          Всего проектов
+        </div>
+        <div class="w-8 h-8 rounded-md bg-surface-2 text-brand-300 flex items-center justify-center">
+          {{ icon('folder', class='w-4 h-4') }}
+        </div>
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">{{ total_projects }}</div>
+      <div class="mt-1 text-caption text-ink-muted">создано в системе</div>
+    </div>
+
+    {# Активные пользователи #}
+    <div class="card card-pad">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+          Активных пользователей
+        </div>
+        <div class="w-8 h-8 rounded-md bg-surface-2 text-brand-300 flex items-center justify-center">
+          {{ icon('users', class='w-4 h-4') }}
+        </div>
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">{{ active_users }}</div>
+      <div class="mt-1 text-caption text-ink-muted">включая админа</div>
+    </div>
+
+    {# Очередь маппинга #}
+    <div class="card card-pad">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+          Очередь маппинга
+        </div>
+        <div class="w-8 h-8 rounded-md bg-surface-2 text-warning-500 flex items-center justify-center">
+          {{ icon('merge', class='w-4 h-4') }}
+        </div>
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">{{ mapping_count or 0 }}</div>
+      {% if mapping_count and mapping_count > 0 %}
+      <a href="/admin/mapping" class="mt-1 inline-block text-caption text-brand-400 hover:text-brand-300">
+        Разобрать →
+      </a>
+      {% else %}
+      <div class="mt-1 text-caption text-ink-muted">всё разобрано</div>
+      {% endif %}
+    </div>
+  </section>
+
+  {# === Бюджет OpenAI ============================================== #}
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="card card-pad
+                {% if budget.is_blocked %}border-danger-500/30
+                {% elif budget.is_warning %}border-warning-500/30{% endif %}">
+      <div class="flex items-baseline justify-between gap-3 mb-3">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold">
+          Расход OpenAI — сегодня
+        </div>
+        <span class="text-small text-ink-muted tabular-nums">{{ budget.percent }}%</span>
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">
         {{ '%.2f'|format(budget.spent_rub) }} ₽
-        <span class="text-zinc-500 text-base">/ {{ '%.0f'|format(budget.limit_rub) }} ₽</span>
+        <span class="text-h2 text-ink-muted">/ {{ '%.0f'|format(budget.limit_rub) }} ₽</span>
       </div>
-      <!-- Прогресс-бар -->
-      <div class="mt-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-        <div class="h-2 {% if budget.is_blocked %}bg-red-500{% elif budget.is_warning %}bg-amber-500{% else %}bg-indigo-500{% endif %}"
-             style="width: {{ [budget.percent, 100]|min }}%"></div>
+      <div class="mt-3 h-1.5 bg-surface-2 rounded-full overflow-hidden">
+        {% set pct = [budget.percent, 100]|min %}
+        <div class="h-full {% if budget.is_blocked %}bg-danger-500
+                          {% elif budget.is_warning %}bg-warning-500
+                          {% else %}bg-brand-500{% endif %}"
+             style="width: {{ pct }}%"></div>
       </div>
-      <div class="mt-2 text-sm
-                  {% if budget.is_blocked %}text-red-400{% elif budget.is_warning %}text-amber-400{% else %}text-zinc-400{% endif %}">
+      <div class="mt-2 text-small
+                  {% if budget.is_blocked %}text-danger-500
+                  {% elif budget.is_warning %}text-warning-500
+                  {% else %}text-ink-secondary{% endif %}">
         {% if budget.is_blocked %}
           Лимит исчерпан — новые запросы блокируются до завтра.
         {% elif budget.is_warning %}
@@ -47,54 +119,80 @@
       </div>
     </div>
 
-    <!-- За месяц -->
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-      <div class="text-sm text-zinc-500">Расход OpenAI — за месяц</div>
-      <div class="text-3xl font-semibold mt-1">
+    <div class="card card-pad">
+      <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-3">
+        Расход OpenAI — за месяц
+      </div>
+      <div class="text-display text-ink-primary tabular-nums">
         {{ '%.2f'|format(month_total) }} ₽
       </div>
-      <div class="mt-2 text-sm text-zinc-400">
-        Детализация по дням — на странице «Бюджет».
-      </div>
+      <a href="/admin/budget"
+         class="mt-3 inline-flex items-center text-small text-brand-400 hover:text-brand-300">
+        Детализация по дням →
+      </a>
+      {# TODO 9А.3: добавить мини-график расходов по дням, когда наберётся
+         статистика и появится визуализация (Chart.js / inline SVG sparkline). #}
     </div>
-  </div>
+  </section>
 
-  <!-- Последние запросы -->
-  <div>
+  {# === Последние запросы ========================================= #}
+  <section>
     <div class="flex items-baseline justify-between mb-3">
-      <h2 class="text-lg font-semibold">Последние запросы</h2>
-      <a href="/admin/queries" class="text-sm text-indigo-400 hover:text-indigo-300">все →</a>
+      <h2 class="text-h2 text-ink-primary">Последние запросы</h2>
+      <a href="/admin/queries" class="text-small text-brand-400 hover:text-brand-300">
+        все →
+      </a>
     </div>
+
     {% if not recent %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
-      Запросов пока нет.
+    <div class="card card-pad-lg text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                  bg-surface-2 text-ink-muted mb-3">
+        {{ icon('inbox', class='w-5 h-5') }}
+      </div>
+      <p class="text-body text-ink-secondary">Запросов пока нет.</p>
     </div>
     {% else %}
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-zinc-900/60 text-zinc-500">
+    <div class="card overflow-hidden">
+      <table class="kt-table">
+        <thead>
           <tr>
-            <th class="text-left font-normal px-4 py-3">Дата</th>
-            <th class="text-left font-normal px-4 py-3">Автор</th>
-            <th class="text-left font-normal px-4 py-3">Проект</th>
-            <th class="text-left font-normal px-4 py-3">Статус</th>
-            <th class="text-right font-normal px-4 py-3">Стоимость</th>
+            <th class="text-left w-44">Дата</th>
+            <th class="text-left w-48">Автор</th>
+            <th class="text-left">Проект</th>
+            <th class="text-left w-32">Статус</th>
+            <th class="text-right w-32">Стоимость</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-zinc-700">
+        <tbody>
           {% for it in recent %}
-          <tr class="hover:bg-zinc-900/40">
-            <td class="px-4 py-3 text-zinc-400 whitespace-nowrap">
-              <a href="/query/{{ it.id }}" class="hover:text-indigo-400">
-                {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+          <tr class="kt-row-link" data-href="/query/{{ it.id }}">
+            <td class="text-ink-secondary whitespace-nowrap">
+              {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+            </td>
+            <td class="text-ink-secondary truncate max-w-[16rem]">
+              {{ it.author_name }}
+              <span class="text-caption text-ink-muted">({{ it.author_login }})</span>
+            </td>
+            <td>
+              <a href="/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400 truncate inline-block max-w-full">
+                {{ it.project_name }}
               </a>
             </td>
-            <td class="px-4 py-3 text-zinc-300">{{ it.author_name }} <span class="text-zinc-600">({{ it.author_login }})</span></td>
-            <td class="px-4 py-3">
-              <a href="/query/{{ it.id }}" class="text-zinc-100 hover:text-indigo-400">{{ it.project_name }}</a>
+            <td>
+              {% if it.status == 'ok' %}
+                <span class="badge badge-success">OK</span>
+              {% elif it.status == 'partial' %}
+                <span class="badge badge-warning">Частично</span>
+              {% elif it.status == 'empty' %}
+                <span class="badge badge-neutral">Пусто</span>
+              {% elif it.status in ('failed', 'error') %}
+                <span class="badge badge-danger">{{ 'Не найдено' if it.status == 'failed' else 'Ошибка' }}</span>
+              {% else %}
+                <span class="badge badge-neutral">{{ it.status }}</span>
+              {% endif %}
             </td>
-            <td class="px-4 py-3 text-zinc-300">{{ it.status }}</td>
-            <td class="px-4 py-3 text-right text-zinc-400 whitespace-nowrap">
+            <td class="text-right text-ink-secondary whitespace-nowrap tabular-nums">
               {{ '%.2f'|format(it.cost_rub) }} ₽
             </td>
           </tr>
@@ -103,6 +201,19 @@
       </table>
     </div>
     {% endif %}
-  </div>
+  </section>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
+    tr.addEventListener('click', function (e) {
+      if (e.target.closest('a, button, input, label, form')) return;
+      var href = tr.getAttribute('data-href');
+      if (href) window.location = href;
+    });
+  });
+</script>
 {% endblock %}

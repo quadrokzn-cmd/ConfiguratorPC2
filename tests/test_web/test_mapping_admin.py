@@ -107,10 +107,10 @@ def test_admin_sees_mapping_list(admin_client, db_session):
     r = admin_client.get("/admin/mapping?score=all")
     assert r.status_code == 200
     assert "Ryzen 5 7600 6-core" in r.text
-    # Счётчик по score в шапке
-    assert "Всего активных: 1" in r.text
-    # И в «вероятно новых» именно 1 (score < 50)
-    assert "Вероятно новых:" in r.text
+    # 9А.2: счётчики по score теперь в карточках. Проверяем и подпись,
+    # и наличие цифры «1» в тексте страницы.
+    assert "Всего активных" in r.text
+    assert "Вероятно новых" in r.text
 
 
 def test_manager_cannot_access_mapping(manager_client, db_session):

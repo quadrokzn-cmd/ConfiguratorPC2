@@ -1,68 +1,151 @@
 {% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
 {% block title %}Все запросы — КВАДРО-ТЕХ{% endblock %}
 
+{% block breadcrumbs %}
+<span class="crumb-current">Все запросы</span>
+{% endblock %}
+
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
-  <div class="flex items-baseline justify-between">
-    <h1 class="text-2xl font-semibold">Все запросы</h1>
-    <a href="/admin" class="text-indigo-400 hover:text-indigo-300 text-sm">← в админку</a>
-  </div>
+<div class="max-w-screen-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Все запросы</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Все запросы менеджеров с фильтрами по автору, статусу и тексту.
+    </p>
+  </header>
+
+  {% if items %}
+  {# === Панель фильтров (фронтовая) === #}
+  <section class="card card-pad-sm">
+    <div class="flex items-center gap-3 flex-wrap">
+      <div class="relative flex-1 min-w-[16rem] max-w-md">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none">
+          {{ icon('search', class='w-4 h-4') }}
+        </span>
+        <input id="kt-q-search" type="search"
+               placeholder="Поиск по тексту запроса, автору, проекту…"
+               class="input pl-10" autocomplete="off">
+      </div>
+      <label class="flex items-center gap-2 text-small text-ink-secondary">
+        Статус
+        <select id="kt-q-status" class="select max-w-[12rem]">
+          <option value="">— все —</option>
+          <option value="ok">Успех</option>
+          <option value="partial">Частично</option>
+          <option value="empty">Пусто</option>
+          <option value="failed">Не найдено</option>
+          <option value="error">Ошибка</option>
+        </select>
+      </label>
+    </div>
+  </section>
+  {% endif %}
 
   {% if not items %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
-    Запросов пока нет.
+  <div class="card card-pad-lg text-center">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                bg-surface-2 text-ink-muted mb-3">
+      {{ icon('inbox', class='w-5 h-5') }}
+    </div>
+    <p class="text-body text-ink-secondary">Запросов пока нет.</p>
   </div>
   {% else %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-zinc-900/60 text-zinc-500">
+  <section class="card overflow-hidden">
+    <table class="kt-table" id="kt-q-table">
+      <thead>
         <tr>
-          <th class="text-left font-normal px-4 py-3">Дата</th>
-          <th class="text-left font-normal px-4 py-3">Автор</th>
-          <th class="text-left font-normal px-4 py-3">Проект</th>
-          <th class="text-left font-normal px-4 py-3">Запрос</th>
-          <th class="text-left font-normal px-4 py-3">Статус</th>
-          <th class="text-right font-normal px-4 py-3">Стоимость</th>
+          <th class="text-left w-44">Дата</th>
+          <th class="text-left w-48">Автор</th>
+          <th class="text-left w-48">Проект</th>
+          <th class="text-left">Запрос</th>
+          <th class="text-left w-32">Статус</th>
+          <th class="text-right w-32">Стоимость</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-zinc-700">
+      <tbody>
         {% for it in items %}
-        <tr class="hover:bg-zinc-900/40">
-          <td class="px-4 py-3 text-zinc-400 whitespace-nowrap">
-            <a href="/query/{{ it.id }}" class="hover:text-indigo-400">
-              {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+        <tr class="kt-row-link"
+            data-href="/query/{{ it.id }}"
+            data-status="{{ it.status }}"
+            data-search="{{ ((it.short_text or '') ~ ' ' ~ (it.project_name or '') ~ ' ' ~ (it.author_name or '') ~ ' ' ~ (it.author_login or ''))|lower }}">
+          <td class="text-ink-secondary whitespace-nowrap">
+            {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+          </td>
+          <td class="text-ink-secondary truncate max-w-[16rem]">
+            {{ it.author_name }}
+            <span class="text-caption text-ink-muted">({{ it.author_login }})</span>
+          </td>
+          <td class="truncate max-w-[16rem]">
+            <a href="/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400">
+              {{ it.project_name }}
             </a>
           </td>
-          <td class="px-4 py-3 text-zinc-300 whitespace-nowrap">
-            {{ it.author_name }} <span class="text-zinc-600">({{ it.author_login }})</span>
-          </td>
-          <td class="px-4 py-3">
-            <a href="/query/{{ it.id }}" class="text-zinc-100 hover:text-indigo-400">{{ it.project_name }}</a>
-          </td>
-          <td class="px-4 py-3 text-zinc-400">{{ it.short_text }}</td>
-          <td class="px-4 py-3">
+          <td class="text-ink-secondary truncate max-w-[40rem]">{{ it.short_text }}</td>
+          <td>
             {% if it.status == 'ok' %}
-              <span class="text-emerald-400">OK</span>
+              <span class="badge badge-success">OK</span>
             {% elif it.status == 'partial' %}
-              <span class="text-amber-400">частично</span>
+              <span class="badge badge-warning">Частично</span>
             {% elif it.status == 'empty' %}
-              <span class="text-zinc-500">пусто</span>
-            {% elif it.status == 'failed' %}
-              <span class="text-red-400">не найдено</span>
-            {% elif it.status == 'error' %}
-              <span class="text-red-400">ошибка</span>
+              <span class="badge badge-neutral">Пусто</span>
+            {% elif it.status in ('failed', 'error') %}
+              <span class="badge badge-danger">{{ 'Не найдено' if it.status == 'failed' else 'Ошибка' }}</span>
             {% else %}
-              <span class="text-zinc-500">{{ it.status }}</span>
+              <span class="badge badge-neutral">{{ it.status }}</span>
             {% endif %}
           </td>
-          <td class="px-4 py-3 text-right text-zinc-400 whitespace-nowrap">
+          <td class="text-right text-ink-secondary whitespace-nowrap tabular-nums">
             {{ '%.2f'|format(it.cost_rub) }} ₽
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+  </section>
+  <div id="kt-q-empty" class="hidden card card-pad text-center text-body text-ink-secondary">
+    По выбранным фильтрам ничего не найдено.
   </div>
   {% endif %}
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
+    tr.addEventListener('click', function (e) {
+      if (e.target.closest('a, button, input, label, form')) return;
+      var href = tr.getAttribute('data-href');
+      if (href) window.location = href;
+    });
+  });
+
+  (function () {
+    var search = document.getElementById('kt-q-search');
+    var status = document.getElementById('kt-q-status');
+    if (!search || !status) return;
+    var rows = Array.prototype.slice.call(
+      document.querySelectorAll('#kt-q-table tbody tr')
+    );
+    var emptyBox = document.getElementById('kt-q-empty');
+    function refilter() {
+      var q = search.value.trim().toLowerCase();
+      var s = status.value;
+      var visible = 0;
+      rows.forEach(function (tr) {
+        var hay = tr.getAttribute('data-search') || '';
+        var st  = tr.getAttribute('data-status') || '';
+        var ok = (!q || hay.indexOf(q) >= 0) && (!s || st === s);
+        tr.classList.toggle('hidden', !ok);
+        if (ok) visible++;
+      });
+      if (emptyBox) emptyBox.classList.toggle('hidden', visible > 0);
+    }
+    search.addEventListener('input', refilter);
+    status.addEventListener('change', refilter);
+  })();
+</script>
 {% endblock %}

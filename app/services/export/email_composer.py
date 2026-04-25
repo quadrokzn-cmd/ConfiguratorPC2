@@ -90,6 +90,9 @@ def _load_winners(
     cids = sorted({k[1] for k in keys})
     rows = db.execute(
         text(
+            # 9А.2: s.is_active = TRUE — не предлагаем письмо отключённому
+            # поставщику. Если все поставщики позиции деактивированы, она
+            # выпадет из черновика как «нет цены», что и нужно.
             "SELECT sp.category, sp.component_id, sp.supplier_id, "
             "       sp.supplier_sku, sp.price, sp.currency, "
             "       s.name AS supplier_name, s.email AS supplier_email "
@@ -97,6 +100,7 @@ def _load_winners(
             "JOIN suppliers s ON s.id = sp.supplier_id "
             "WHERE sp.category = ANY(:cats) "
             "  AND sp.component_id = ANY(:cids) "
+            "  AND s.is_active = TRUE "
             "  AND sp.price IS NOT NULL"
         ),
         {"cats": cats, "cids": cids},

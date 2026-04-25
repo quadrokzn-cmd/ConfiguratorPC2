@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "_macros/configuration_block.html" import configuration_block %}
+{% from "_macros/icons.html" import icon %}
 
 {% block title %}{{ q.project_name }} — КВАДРО-ТЕХ{% endblock %}
 
@@ -8,69 +9,79 @@
 <meta name="kt-project-id" content="{{ q.project_id }}">
 {% endblock %}
 
+{% block breadcrumbs %}
+<a href="/history">История</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">{{ q.project_name }}</span>
+{% endblock %}
+
+{% block topbar_extra %}
+<a href="/project/{{ q.project_id }}" class="btn btn-md btn-secondary">
+  {{ icon('folder', class='w-4 h-4') }}
+  Открыть проект
+</a>
+<a href="/" class="btn btn-md btn-primary">
+  {{ icon('plus', class='w-4 h-4') }}
+  Новый запрос
+</a>
+{% endblock %}
+
 {% block content %}
-<div class="max-w-screen-2xl mx-auto px-4 py-10 space-y-6">
+<div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <!-- Заголовок -->
-  <div class="flex items-start justify-between gap-4 flex-wrap">
-    <div>
-      <h1 class="text-2xl font-semibold">{{ q.project_name }}</h1>
-      <div class="text-sm text-zinc-500 mt-1">
-        {{ q.created_at.strftime('%d.%m.%Y %H:%M') }}
-        {% if user.is_admin and q.author_login %}
-          · автор: {{ q.author_name }} <span class="text-zinc-600">({{ q.author_login }})</span>
-        {% endif %}
-      </div>
+  {# === Заголовок ====================================================== #}
+  <header>
+    <h1 class="text-display text-ink-primary break-words">{{ q.project_name }}</h1>
+    <div class="mt-2 flex items-center gap-2 flex-wrap text-caption text-ink-muted">
+      <span>{{ q.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+      {% if user.is_admin and q.author_login %}
+      <span>· автор: {{ q.author_name }} ({{ q.author_login }})</span>
+      {% endif %}
+      {% if q.cost_rub and q.cost_rub > 0 %}
+      <span>· OpenAI ≈ {{ '%.2f'|format(q.cost_rub) }} ₽</span>
+      {% endif %}
     </div>
-    <div class="flex items-center gap-2">
-      <a href="/project/{{ q.project_id }}"
-         class="text-sm text-indigo-400 hover:text-indigo-300 border border-indigo-800
-                hover:bg-indigo-900/30 px-3 py-2 rounded-lg transition">
-        Открыть проект
-      </a>
-      <a href="/"
-         class="bg-indigo-600 hover:bg-indigo-500 text-white
-                font-medium px-4 py-2 rounded-lg transition">
-        Новый запрос
-      </a>
+  </header>
+
+  {# === Запрос менеджера =============================================== #}
+  <section class="card card-pad">
+    <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-2">
+      Запрос менеджера
     </div>
-  </div>
+    <div class="whitespace-pre-wrap text-body text-ink-primary">{{ q.raw_text }}</div>
+  </section>
 
-  <!-- Исходный запрос -->
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-    <div class="text-xs uppercase tracking-wide text-zinc-500 mb-2">Запрос менеджера</div>
-    <div class="whitespace-pre-wrap text-zinc-200">{{ q.raw_text }}</div>
-  </div>
-
-  <!-- Ошибка (если была) -->
+  {# === Ошибка ========================================================= #}
   {% if q.status == 'error' %}
-  <div class="bg-red-900/40 border border-red-800 rounded-xl p-5">
-    <div class="text-red-200 font-medium mb-1">Не удалось обработать запрос</div>
-    <div class="text-red-200/80 text-sm">{{ q.error_msg }}</div>
+  <div class="alert alert-danger">
+    <div class="font-medium mb-1">Не удалось обработать запрос</div>
+    <div class="text-small">{{ q.error_msg }}</div>
   </div>
   {% endif %}
 
-  <!-- Интерпретация -->
+  {# === Интерпретация NLU ============================================== #}
   {% if q.interpretation %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-    <div class="text-xs uppercase tracking-wide text-zinc-500 mb-2">Понял запрос как</div>
-    <div class="text-zinc-100">{{ q.interpretation }}</div>
-  </div>
+  <section class="card card-pad">
+    <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-2">
+      Распознанный запрос
+    </div>
+    <div class="text-body text-ink-primary">{{ q.interpretation }}</div>
+  </section>
   {% endif %}
 
-  <!-- Уточняющие вопросы при пустом запросе -->
+  {# === Уточняющие вопросы при пустом запросе ========================== #}
   {% if q.status == 'empty' and q.parsed and q.parsed.clarifying_questions %}
-  <div class="bg-amber-900/30 border border-amber-800 rounded-xl p-5">
-    <div class="text-amber-200 font-medium mb-2">Запрос слишком общий. Уточните:</div>
-    <ul class="list-disc list-inside text-amber-100/90 space-y-1">
+  <div class="alert alert-warning">
+    <div class="font-medium mb-2">Запрос слишком общий. Уточните:</div>
+    <ul class="list-disc list-inside space-y-1 text-small">
       {% for question in q.parsed.clarifying_questions %}
-        <li>{{ question }}</li>
+      <li>{{ question }}</li>
       {% endfor %}
     </ul>
   </div>
   {% endif %}
 
-  <!-- Варианты сборок: блок конфигурации с чекбоксами «в спецификацию» -->
+  {# === Варианты сборок ================================================ #}
   {% if variants %}
     {% set cfg = {
          'id':             q.id,
@@ -89,37 +100,34 @@
          csrf_token=csrf_token,
        ) }}
   {% elif refusal %}
-    <!-- Отказ подбора -->
-    <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-5">
-      <div class="text-zinc-200 font-medium mb-2">Подбор не удался</div>
-      <ul class="list-disc list-inside text-zinc-300 text-sm space-y-1">
-        {% for key, msg in refusal.items() %}
-          <li><span class="text-zinc-400">{{ key }}:</span> {{ msg }}</li>
-        {% endfor %}
-      </ul>
-      <p class="text-sm text-zinc-400 mt-3">
-        Попробуйте увеличить бюджет или смягчить требования.
-      </p>
+  <section class="card card-pad">
+    <div class="flex items-start gap-3">
+      <div class="inline-flex items-center justify-center w-10 h-10 rounded-full
+                  bg-warning-500/10 text-warning-500 shrink-0">
+        {{ icon('alert-triangle', class='w-5 h-5') }}
+      </div>
+      <div class="min-w-0">
+        <div class="text-h3 text-ink-primary mb-2">Подбор не удался</div>
+        <ul class="space-y-1 text-small text-ink-secondary">
+          {% for key, msg in refusal.items() %}
+          <li><span class="text-ink-muted">{{ key }}:</span> {{ msg }}</li>
+          {% endfor %}
+        </ul>
+        <p class="text-small text-ink-muted mt-3">
+          Попробуйте увеличить бюджет или смягчить требования.
+        </p>
+      </div>
     </div>
+  </section>
   {% endif %}
 
-  <!-- Общие предупреждения (fuzzy-замены моделей и пр.) -->
+  {# === Предупреждения ================================================= #}
   {% if q.warnings %}
-  <aside class="bg-amber-900/20 border border-amber-700/60 rounded-xl p-5">
-    <div class="text-xs uppercase tracking-wide text-amber-300 font-medium mb-2">
-      Предупреждения
-    </div>
-    <ul class="list-disc list-inside text-amber-200/90 text-sm space-y-1">
+  <div class="alert alert-warning">
+    <div class="font-medium mb-2">Предупреждения</div>
+    <ul class="list-disc list-inside space-y-1 text-small">
       {% for w in q.warnings %}<li>{{ w }}</li>{% endfor %}
     </ul>
-  </aside>
-  {% endif %}
-
-  <!-- Стоимость вызова -->
-  {% if q.cost_rub and q.cost_rub > 0 %}
-  <div class="text-xs text-zinc-600">
-    Стоимость вызова OpenAI: ≈ {{ '%.2f'|format(q.cost_rub) }} ₽
-    (${{ '%.4f'|format(q.cost_usd) }}).
   </div>
   {% endif %}
 
