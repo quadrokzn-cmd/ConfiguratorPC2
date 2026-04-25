@@ -143,14 +143,38 @@
             <label for="markup-input" class="label !mb-0">
               Наценка для коммерческого предложения
             </label>
-            <div class="relative">
+            {# 9А.1.3: обёртка-stepper c кастомными стрелками. Символ «%»
+               сдвинут левее — стандартный right-3 теперь занят колонкой
+               кнопок (≈1.5rem), поэтому суффикс размещён в right-7,
+               перед stepper'ом. Padding-right у input'а: 3.25rem
+               (символ + кнопки + воздух). #}
+            <span class="kt-num-stepper relative block">
               <input type="number" id="markup-input"
                      value="15" min="0" max="500" step="1"
-                     class="input pr-7"
+                     class="kt-num-stepper-input input"
+                     style="padding-right: 3.25rem;"
                      aria-label="Наценка в процентах">
-              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted
+              <span class="absolute right-7 top-1/2 -translate-y-1/2 text-ink-muted
                            text-small pointer-events-none">%</span>
-            </div>
+              <span class="kt-num-stepper-buttons" aria-hidden="true">
+                <button type="button" class="kt-num-stepper-up" tabindex="-1"
+                        aria-label="Увеличить">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                       stroke="currentColor" stroke-linecap="round"
+                       stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M6 15l6-6 6 6"/>
+                  </svg>
+                </button>
+                <button type="button" class="kt-num-stepper-down" tabindex="-1"
+                        aria-label="Уменьшить">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                       stroke="currentColor" stroke-linecap="round"
+                       stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+              </span>
+            </span>
             <button id="kp-generate-btn" type="button"
                     class="btn btn-md btn-secondary w-full">
               {{ icon('file-text', class='w-4 h-4') }}

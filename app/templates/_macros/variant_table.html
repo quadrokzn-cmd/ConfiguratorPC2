@@ -136,12 +136,35 @@
         </label>
         <label class="inline-flex items-center gap-1.5 text-caption text-ink-muted">
           <span>×</span>
-          <input type="number" min="1"
-                 class="kt-spec-qty w-16 input py-1 px-2 text-center disabled:opacity-40"
-                 value="{{ select_ctx.sel.quantity if is_selected else 1 }}"
-                 data-query-id="{{ select_ctx.query_id }}"
-                 data-manufacturer="{{ v.manufacturer }}"
-                 {% if not is_selected %}disabled{% endif %}>
+          {# 9А.1.3: обёртка-stepper c кастомными стрелками вверх/вниз
+             вместо нативных. Минимальная ширина w-20 — чтобы цифра не
+             сжималась под колонкой кнопок (1.5rem). #}
+          <span class="kt-num-stepper inline-block w-20">
+            <input type="number" min="1"
+                   class="kt-spec-qty kt-num-stepper-input w-full input py-1 pl-2 text-center disabled:opacity-40"
+                   value="{{ select_ctx.sel.quantity if is_selected else 1 }}"
+                   data-query-id="{{ select_ctx.query_id }}"
+                   data-manufacturer="{{ v.manufacturer }}"
+                   {% if not is_selected %}disabled{% endif %}>
+            <span class="kt-num-stepper-buttons" aria-hidden="true">
+              <button type="button" class="kt-num-stepper-up" tabindex="-1"
+                      aria-label="Увеличить">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                     stroke="currentColor" stroke-linecap="round"
+                     stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M6 15l6-6 6 6"/>
+                </svg>
+              </button>
+              <button type="button" class="kt-num-stepper-down" tabindex="-1"
+                      aria-label="Уменьшить">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                     stroke="currentColor" stroke-linecap="round"
+                     stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+            </span>
+          </span>
         </label>
       </div>
       {% endif %}

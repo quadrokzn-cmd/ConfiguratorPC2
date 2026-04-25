@@ -231,4 +231,44 @@
     });
   });
 
+  // 9А.1.3: кастомный stepper для input[type=number]. Нативные стрелки
+  // браузера скрыты глобально в CSS (выглядят чужеродно на тёмной теме);
+  // взамен — пара кнопок вверх/вниз внутри обёртки .kt-num-stepper.
+  // Клик по кнопке меняет input.value и диспатчит 'input' + 'change',
+  // чтобы внешняя логика (обновление спецификации, генерация КП и т.д.)
+  // подхватила изменение как при ручном вводе.
+  document.querySelectorAll('.kt-num-stepper').forEach(function (wrap) {
+    var input = wrap.querySelector('input[type="number"]');
+    var upBtn = wrap.querySelector('.kt-num-stepper-up');
+    var downBtn = wrap.querySelector('.kt-num-stepper-down');
+    if (!input || !upBtn || !downBtn) return;
+
+    function step(delta) {
+      if (input.disabled) return;
+      var current = parseFloat(input.value);
+      if (!isFinite(current)) current = 0;
+      var stepAttr = parseFloat(input.step);
+      var stepSize = isFinite(stepAttr) && stepAttr > 0 ? stepAttr : 1;
+      var next = current + delta * stepSize;
+      var minAttr = parseFloat(input.min);
+      if (isFinite(minAttr) && next < minAttr) next = minAttr;
+      var maxAttr = parseFloat(input.max);
+      if (isFinite(maxAttr) && next > maxAttr) next = maxAttr;
+      // Округляем мелкие плавающие хвосты, шаг у нас всегда целый.
+      next = Math.round(next * 1e6) / 1e6;
+      input.value = String(next);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    upBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      step(1);
+    });
+    downBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      step(-1);
+    });
+  });
+
 })();
