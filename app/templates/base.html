@@ -4,57 +4,129 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}КВАДРО-ТЕХ: конфигуратор ПК{% endblock %}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/dist/main.css">
+  <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%231F58D6'/%3E%3Cpath fill='%23FFFFFF' d='M20 11.5c-4.8 0-8.6 3.6-8.6 8.5s3.8 8.5 8.6 8.5c1.8 0 3.5-.5 4.9-1.5l2.7 2.7 2.4-2.4-2.6-2.6c1-1.4 1.6-3.1 1.6-4.7 0-4.9-3.8-8.5-8.6-8.5zm0 13.6c-2.9 0-5.2-2.3-5.2-5.1s2.3-5.1 5.2-5.1 5.2 2.3 5.2 5.1-2.3 5.1-5.2 5.1z'/%3E%3C/svg%3E">
   {% block extra_head %}{% endblock %}
-  <style>
-    /* Простой спиннер для индикатора «обрабатываем запрос» */
-    .kt-spinner {
-      width: 1rem; height: 1rem;
-      border: 2px solid rgba(255,255,255,0.25);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: kt-spin 0.8s linear infinite;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    @keyframes kt-spin { to { transform: rotate(360deg); } }
-  </style>
 </head>
-<body class="bg-zinc-900 text-zinc-100 min-h-screen antialiased">
-  <header class="bg-zinc-950 border-b border-zinc-800">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2 text-zinc-100 hover:text-indigo-400 transition">
-        <span class="text-indigo-400 font-semibold">КВАДРО-ТЕХ</span>
-        <span class="text-zinc-500 text-sm">/ конфигуратор ПК</span>
+<body class="min-h-screen">
+
+{% from "_macros/icons.html" import icon, brand_mark %}
+
+{% if user %}
+{# ----------- Авторизованная раскладка: сайдбар + контент ----------- #}
+{% set _path = request.url.path if request is defined else '' %}
+{% macro _nav_link(href, label, icon_name, is_active) -%}
+  <a href="{{ href }}"
+     class="nav-item{% if is_active %} nav-item-active{% endif %}"
+     {% if is_active %}aria-current="page"{% endif %}>
+    {{ icon(icon_name, class='nav-item-icon') }}
+    <span>{{ label }}</span>
+  </a>
+{%- endmacro %}
+
+<div class="grid-app">
+  {# === Сайдбар =========================================================== #}
+  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle flex flex-col">
+    <div class="px-5 pt-5 pb-4">
+      <a href="/" class="flex items-center gap-3 group">
+        {{ brand_mark(class='w-9 h-9 shrink-0') }}
+        <div class="leading-tight min-w-0">
+          <div class="text-h3 text-ink-primary tracking-tight">КВАДРО-ТЕХ</div>
+          <div class="text-caption text-ink-muted">конфигуратор</div>
+        </div>
       </a>
-      {% if user %}
-      <nav class="flex items-center gap-4 text-sm">
-        <a href="/" class="text-zinc-300 hover:text-indigo-400">Новый запрос</a>
-        <a href="/projects" class="text-zinc-300 hover:text-indigo-400">Проекты</a>
-        <a href="/history" class="text-zinc-300 hover:text-indigo-400">История</a>
-        {% if user.is_admin %}
-        <a href="/admin" class="text-zinc-300 hover:text-indigo-400">Админка</a>
-        {% endif %}
-        <span class="text-zinc-500">|</span>
-        <span class="text-zinc-400">{{ user.name }} <span class="text-zinc-600">({{ user.login }})</span></span>
-        <form method="post" action="/logout" class="inline">
+    </div>
+
+    <nav class="px-3 flex-1 overflow-y-auto" aria-label="Главная навигация">
+      <div class="space-y-0.5">
+        {{ _nav_link('/',         'Новый запрос',     'sparkle',
+                      _path == '/' or _path.startswith('/query')) }}
+        {{ _nav_link('/projects', 'Проекты',          'folder',
+                      _path.startswith('/projects') or _path.startswith('/project')) }}
+        {{ _nav_link('/history',  'История запросов', 'clock',
+                      _path.startswith('/history')) }}
+      </div>
+
+      {% if user.is_admin %}
+      <div class="mt-2 border-t border-line-subtle pt-2">
+        <div class="nav-section-label">Админ</div>
+        <div class="space-y-0.5">
+          {# Поставщики и Компоненты — отдельных роутов пока нет (Этап 9А.2/3
+             добавит); пока ведут на дашборд админки. #}
+          {{ _nav_link('/admin',          'Поставщики',       'truck',
+                        _path == '/admin/suppliers') }}
+          {{ _nav_link('/admin',          'Компоненты',       'cpu',
+                        _path == '/admin/components') }}
+          {{ _nav_link('/admin/mapping',  'Очередь маппинга', 'merge',
+                        _path.startswith('/admin/mapping')) }}
+          {{ _nav_link('/admin/budget',   'Бюджет OpenAI',    'coins',
+                        _path.startswith('/admin/budget')) }}
+          {{ _nav_link('/admin/users',    'Пользователи',     'users',
+                        _path.startswith('/admin/users')) }}
+          {{ _nav_link('/admin/queries',  'Все запросы',      'inbox',
+                        _path.startswith('/admin/queries')) }}
+          {{ _nav_link('/admin',          'Дашборд',          'file-text',
+                        _path == '/admin') }}
+        </div>
+      </div>
+      {% endif %}
+    </nav>
+
+    {# Карточка пользователя внизу #}
+    <div class="p-3 border-t border-line-subtle">
+      <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
+        <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
+                    flex items-center justify-center text-small font-semibold shrink-0">
+          {{ (user.name or user.login)[:1]|upper }}
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
+          <div class="text-caption text-ink-muted truncate">
+            {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+          </div>
+        </div>
+        <form method="post" action="/logout" class="shrink-0">
           <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
           <button type="submit"
-                  class="text-zinc-400 hover:text-red-400 transition">
-            Выйти
+                  class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
+                         hover:bg-surface-3 transition-colors duration-120"
+                  title="Выйти" aria-label="Выйти">
+            {{ icon('log-out', class='w-4 h-4') }}
           </button>
         </form>
-      </nav>
-      {% endif %}
+      </div>
     </div>
-  </header>
+  </aside>
 
-  <main>
-    {% block content %}{% endblock %}
-  </main>
+  {# === Контент =========================================================== #}
+  <div class="min-w-0 flex flex-col">
+    <header class="kt-topbar h-14 px-8 border-b border-line-subtle
+                   bg-surface-base/80 backdrop-blur-sm
+                   flex items-center justify-between gap-4 sticky top-0 z-30">
+      <nav class="breadcrumbs min-w-0" aria-label="Хлебные крошки">
+        {% block breadcrumbs %}
+          <span class="crumb-current">Главная</span>
+        {% endblock %}
+      </nav>
+      <div class="flex items-center gap-2 shrink-0">
+        {% block topbar_extra %}{% endblock %}
+      </div>
+    </header>
 
-  <footer class="max-w-6xl mx-auto px-4 py-6 text-xs text-zinc-600">
-    КВАДРО-ТЕХ · внутренний сервис подбора ПК
-  </footer>
+    <main class="flex-1 px-8 py-6">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+
+{% else %}
+{# ----------- Без user: страница без сайдбара (на случай рендеров до логина) #}
+<main class="min-h-screen">
+  {% block content_anon %}{% endblock %}
+</main>
+{% endif %}
+
+{% block scripts %}{% endblock %}
 </body>
 </html>

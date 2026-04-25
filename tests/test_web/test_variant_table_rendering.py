@@ -105,9 +105,10 @@ def test_variant_table_rows_and_tailwind_classes(manager_client, mock_process_qu
     # Поставщики.
     assert "OCS" in html and "Merlion" in html
     # Стилевые классы, которые ожидает ТЗ от variant_table.
+    # Этап 9А.1: zinc-* → дизайн-токены line/surface/ink.
     assert "table-auto" in html
-    assert "border-b border-zinc-800" in html
-    assert "hover:bg-zinc-800/40" in html
+    assert "border-b border-line-subtle" in html
+    assert "hover:bg-surface-2/40" in html
     assert "font-mono" in html   # артикулы моноширинным
     # Транзит отмечен внутри ячейки Название.
     assert "транзит" in html

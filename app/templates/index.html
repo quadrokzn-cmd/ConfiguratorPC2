@@ -1,63 +1,174 @@
 {% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
 {% block title %}Новый запрос — КВАДРО-ТЕХ{% endblock %}
 
+{% block breadcrumbs %}
+  <span class="crumb-current">Новый запрос</span>
+{% endblock %}
+
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 py-10">
-  <h1 class="text-2xl font-semibold mb-6">Новый запрос</h1>
+<div class="mx-auto max-w-screen-xl">
 
-  {% if error %}
-  <div class="bg-red-900/40 border border-red-800 text-red-200
-              text-sm px-3 py-2 rounded-lg mb-4">
-    {{ error }}
+  <div class="mb-6">
+    <h1 class="text-display text-ink-primary">Новый запрос</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Опишите задачу клиента — ИИ подберёт совместимые комплектующие у трёх поставщиков.
+    </p>
   </div>
-  {% endif %}
 
-  <form method="post" action="/query" id="query-form"
-        class="space-y-4 bg-zinc-800 p-6 rounded-xl border border-zinc-700">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <div class="grid grid-cols-1 {% if user.is_admin %}xl:grid-cols-[minmax(0,1fr)_320px]{% endif %} gap-6">
 
-    <div>
-      <label class="block text-sm text-zinc-400 mb-1">
-        Название проекта <span class="text-zinc-600">(необязательно)</span>
-      </label>
-      <input name="project_name" type="text" maxlength="200"
-             placeholder="Например: ПК для бухгалтерии"
-             class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
-                    px-3 py-2 text-zinc-100 focus:outline-none
-                    focus:ring-2 focus:ring-indigo-500">
+    {# === Левая колонка — форма + последние запросы =================== #}
+    <div class="space-y-6">
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/query" id="query-form"
+            class="card card-pad-lg card-elev space-y-5">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <div>
+          <label class="label" for="qf-name">
+            Название проекта <span class="text-ink-muted">— необязательно</span>
+          </label>
+          <input id="qf-name" name="project_name" type="text" maxlength="200"
+                 placeholder="Например: ПК для бухгалтерии"
+                 class="input">
+        </div>
+
+        <div>
+          <label class="label" for="qf-text">Текст запроса</label>
+          <textarea id="qf-text" name="raw_text" rows="6" required
+                    placeholder="Например: нужен офисный ПК, 16 ГБ RAM, бюджет 50 000 ₽. Или: игровой ПК до 100 тысяч, RTX 4060, Ryzen 5."
+                    class="textarea text-body-lg"></textarea>
+          <p class="help-text">
+            Свободным текстом: назначение, бюджет, желаемые компоненты, ограничения.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between gap-4 flex-wrap pt-1">
+          <span id="submit-hint" class="text-small text-ink-muted hidden">
+            Обрабатываем запрос, это займёт 5–15 секунд…
+          </span>
+          <button id="submit-btn" type="submit" class="btn btn-lg btn-primary ml-auto">
+            <span id="submit-label">Подобрать конфигурацию</span>
+            <span id="submit-spinner" class="kt-spinner hidden"></span>
+          </button>
+        </div>
+      </form>
+
+      {# Последние ваши запросы #}
+      <section class="card card-pad">
+        <header class="flex items-baseline justify-between mb-3">
+          <h2 class="text-h2 text-ink-primary">Последние ваши запросы</h2>
+          {% if recent_queries %}
+          <a href="/history" class="text-small text-brand-400 hover:text-brand-300 transition-colors duration-120">
+            Вся история →
+          </a>
+          {% endif %}
+        </header>
+
+        {% if not recent_queries %}
+        <div class="py-8 text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                      bg-surface-2 text-ink-muted mb-3">
+            {{ icon('clock', class='w-5 h-5') }}
+          </div>
+          <p class="text-small text-ink-secondary">
+            Здесь будут ваши последние запросы.
+          </p>
+          <p class="text-caption text-ink-muted mt-1">
+            Отправьте первый запрос — он появится в этом списке.
+          </p>
+        </div>
+        {% else %}
+        <ul class="divide-y divide-line-subtle -mx-1">
+          {% for q in recent_queries %}
+          <li>
+            <a href="/query/{{ q.id }}"
+               class="flex items-start gap-3 px-2 py-3 rounded-lg hover:bg-surface-2 transition-colors duration-120 group">
+              <div class="w-8 h-8 rounded-md bg-surface-2 text-ink-muted shrink-0
+                          flex items-center justify-center
+                          group-hover:text-brand-400 group-hover:bg-brand-500/10 transition-colors duration-120">
+                {{ icon('message', class='w-4 h-4') }}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-small text-ink-primary truncate">
+                  {{ q.short_text or q.raw_text or 'Запрос #' ~ q.id }}
+                </div>
+                <div class="text-caption text-ink-muted mt-0.5 truncate">
+                  {{ q.project_name }} · {{ q.created_at.strftime('%d.%m.%Y %H:%M') }}
+                </div>
+              </div>
+              <span class="text-small text-ink-muted group-hover:text-brand-400 shrink-0
+                           transition-colors duration-120 mt-1">
+                Открыть →
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </section>
     </div>
 
-    <div>
-      <label class="block text-sm text-zinc-400 mb-1">Запрос</label>
-      <textarea name="raw_text" rows="7" required
-                placeholder="Например: игровой ПК до 100 тысяч, RTX 4060, Ryzen 5"
-                class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
-                       px-3 py-2 text-zinc-100 focus:outline-none
-                       focus:ring-2 focus:ring-indigo-500"></textarea>
-      <p class="mt-2 text-xs text-zinc-500">
-        Пишите свободным текстом: назначение, бюджет, желаемые компоненты.
-      </p>
-    </div>
+    {# === Правая панель — мини-сводка (только админ) =================== #}
+    {% if user.is_admin %}
+    <aside class="space-y-4 xl:sticky xl:top-20 xl:self-start">
+      <div class="card card-pad">
+        <div class="text-caption uppercase tracking-wider text-ink-muted font-semibold mb-3">
+          Сводка
+        </div>
 
-    <div class="flex items-center gap-4">
-      <button id="submit-btn" type="submit"
-              class="bg-indigo-600 hover:bg-indigo-500 text-white
-                     font-medium px-5 py-2 rounded-lg transition
-                     disabled:opacity-50 disabled:cursor-not-allowed
-                     flex items-center gap-2">
-        <span id="submit-label">Подобрать</span>
-        <span id="submit-spinner" class="kt-spinner hidden"></span>
-      </button>
-      <span id="submit-hint" class="text-sm text-zinc-500 hidden">
-        Обрабатываем запрос, это займёт 5-15 секунд…
-      </span>
-    </div>
-  </form>
+        <dl class="space-y-3.5">
+          <div class="flex items-baseline justify-between gap-2">
+            <dt class="text-small text-ink-secondary">Всего проектов</dt>
+            <dd class="text-h2 text-ink-primary tabular-nums">
+              {{ admin_summary.total_projects }}
+            </dd>
+          </div>
+          <div class="flex items-baseline justify-between gap-2">
+            <dt class="text-small text-ink-secondary">Запросов сегодня</dt>
+            <dd class="text-h2 text-ink-primary tabular-nums">
+              {{ admin_summary.today_queries }}
+            </dd>
+          </div>
+          <div class="pt-3 border-t border-line-subtle">
+            <div class="flex items-baseline justify-between gap-2 mb-2">
+              <dt class="text-small text-ink-secondary">Бюджет OpenAI</dt>
+              <dd class="text-small text-ink-primary tabular-nums">
+                {{ '%.0f'|format(admin_summary.budget.spent_rub) }} / {{ '%.0f'|format(admin_summary.budget.limit_rub) }} ₽
+              </dd>
+            </div>
+            <div class="h-1.5 bg-surface-2 rounded-full overflow-hidden">
+              {% set pct = [admin_summary.budget.percent, 100]|min %}
+              <div class="h-full
+                          {% if admin_summary.budget.is_blocked %}bg-danger-500
+                          {% elif admin_summary.budget.is_warning %}bg-warning-500
+                          {% else %}bg-brand-500{% endif %}"
+                   style="width: {{ pct }}%"></div>
+            </div>
+          </div>
+        </dl>
+
+        <a href="/admin"
+           class="mt-4 btn btn-md btn-secondary w-full justify-center">
+          Открыть админку
+        </a>
+      </div>
+    </aside>
+    {% endif %}
+  </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
 <script>
-  // Минимальный фронт: блокируем кнопку и показываем спиннер, чтобы
-  // менеджер не нажимал отправить повторно, пока идёт запрос к OpenAI.
+  // Блокируем кнопку и показываем спиннер, чтобы менеджер не нажимал
+  // отправить повторно, пока идёт OpenAI-запрос.
   (function () {
     var form    = document.getElementById('query-form');
     var btn     = document.getElementById('submit-btn');

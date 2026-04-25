@@ -47,15 +47,43 @@ _CATEGORY_ORDER = ["cpu", "cooler", "motherboard", "ram", "storage", "gpu", "cas
 def index(
     request: Request,
     user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
 ):
-    """Главная страница с формой запроса."""
+    """Главная страница с формой запроса.
+    Этап 9А.1: добавлен блок «Последние ваши запросы» и боковая
+    мини-сводка для админа (без новых эндпоинтов — данные собираем
+    из существующих сервисов)."""
+    recent_queries = web_service.list_user_queries(db, user_id=user.id, limit=4)
+
+    admin_summary = None
+    if user.is_admin:
+        # Сводка для админа: число проектов, запросов сегодня, бюджет.
+        # Используем уже существующие сервисы — никакой новой логики.
+        from sqlalchemy import text as _t
+        total_projects = db.execute(
+            _t("SELECT COUNT(*) AS c FROM projects")
+        ).scalar() or 0
+        today_queries = db.execute(
+            _t(
+                "SELECT COUNT(*) AS c FROM queries "
+                "WHERE created_at::date = CURRENT_DATE"
+            )
+        ).scalar() or 0
+        admin_summary = {
+            "total_projects": int(total_projects),
+            "today_queries":  int(today_queries),
+            "budget":         budget_guard.check_budget(db),
+        }
+
     return templates.TemplateResponse(
         request,
         "index.html",
         {
-            "user":       user,
-            "csrf_token": get_csrf_token(request),
-            "error":      request.session.pop("flash_error", None),
+            "user":           user,
+            "csrf_token":     get_csrf_token(request),
+            "error":          request.session.pop("flash_error", None),
+            "recent_queries": recent_queries,
+            "admin_summary":  admin_summary,
         },
     )
 

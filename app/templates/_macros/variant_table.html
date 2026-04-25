@@ -1,19 +1,22 @@
 {#
-  Компактная таблица варианта сборки (этап 6.2, правка после
-  live-проверки).
+  Карточка одного варианта сборки.
+  Этап 6.2: компактная таблица вместо карточек, на узких экранах раньше
+  страница получалась неприемлемо длинной.
+  Этап 9А.1: перешли на новые дизайн-токены, шапку объединили с
+  чекбоксом «в спецификацию» (когда передан select_ctx).
 
   Используется:
-    - на /project/{id} — при нескольких конфигурациях страница с
-      карточками получалась неприемлемо длинной;
-    - на /query/{id} — сразу после добавления конфигурации в проект.
+    - на /project/{id} — при выборе варианта в спецификацию;
+    - на /query/{id} — сразу после добавления конфигурации.
 
-  Старый макрос variant_block.html (карточный вид) оставлен рядом
-  для возможного переиспользования в дашбордах.
-
-  variant_table рендерит заголовок варианта (модель/цена), таблицу
-  компонентов и блок warnings под таблицей. Ширина — на всю ширину
-  контейнера; горизонтального скролла не предполагается (на экранах
-  от 1280px колонки умещаются за счёт truncate по ключевым колонкам).
+  Параметры:
+    v               — dict варианта (manufacturer, total_usd, total_rub,
+                      components, warnings, used_transit, …).
+    category_order  — список категорий в бизнес-порядке (cpu, cooler, …).
+    category_label  — dict категория → подпись.
+    select_ctx      — опциональный dict {query_id, sel, is_selected, position}
+                      для чекбокса «в спецификацию» в шапке. Если None —
+                      контролов выбора в шапке нет.
 #}
 
 
@@ -22,32 +25,30 @@
 {%- endmacro %}
 
 
-{# Одна строка таблицы — один компонент сборки.
-   c — dict компонента (см. variant_block.component_card).
-   label — человекочитаемая подпись категории (CPU / Видеокарта / …). #}
+{# Одна строка таблицы — один компонент сборки. #}
 {% macro _component_row(c, label) -%}
-<tr class="border-b border-zinc-800 hover:bg-zinc-800/40 align-top">
+<tr class="border-b border-line-subtle hover:bg-surface-2/40 align-top">
   {# Категория: узкая колонка, uppercase #}
-  <td class="px-3 py-2 w-28 text-xs uppercase tracking-wide text-zinc-400">
+  <td class="px-3 py-2 w-28 text-caption uppercase tracking-wider text-ink-muted">
     {{ label }}
   </td>
 
   {# Название + характеристики: основная ширина. В title — полная
      модель (на hover), если она не помещается в одну строку. #}
   <td class="px-3 py-2 w-auto">
-    <div class="text-sm text-zinc-100 break-words" title="{{ c.model }}">
+    <div class="text-small text-ink-primary break-words" title="{{ c.model }}">
       {{ c.model }}{% if c.quantity and c.quantity > 1 %}
-        <span class="text-zinc-500 text-xs">×{{ c.quantity }}</span>
+        <span class="text-ink-muted text-caption">×{{ c.quantity }}</span>
       {% endif %}
     </div>
     {% if c.specs_short %}
-      <div class="text-xs text-zinc-400 mt-0.5">{{ c.specs_short }}</div>
+      <div class="text-caption text-ink-secondary mt-0.5">{{ c.specs_short }}</div>
     {% endif %}
     {% if c.in_transit %}
-      <div class="text-xs text-amber-400 mt-0.5">· транзит</div>
+      <div class="text-caption text-warning-500 mt-0.5">· транзит</div>
     {% endif %}
     {% if c.also_available_at %}
-      <div class="text-xs text-zinc-400 mt-0.5">
+      <div class="text-caption text-ink-secondary mt-0.5">
         также у:
         {%- for o in c.also_available_at %}
           {{ o.supplier }} ${{ '%.0f'|format(o.price_usd or 0) }}{% if not loop.last %},{% endif %}
@@ -56,94 +57,143 @@
     {% endif %}
   </td>
 
-  {# Артикул: обрезаем многоточием; полный — в title. #}
-  <td class="px-3 py-2 w-40 font-mono text-xs text-zinc-500 truncate max-w-[10rem]"
+  {# Артикул #}
+  <td class="px-3 py-2 w-40 font-mono text-caption text-ink-muted truncate max-w-[10rem]"
       title="{{ c.sku or '' }}">
     {{ c.sku or '—' }}
   </td>
 
-  {# Поставщик + номер: «OCS · № 1000815468» (компактно). #}
-  <td class="px-3 py-2 w-36 text-xs text-zinc-400 truncate max-w-[9rem]"
+  {# Поставщик + supplier_sku #}
+  <td class="px-3 py-2 w-36 text-caption text-ink-secondary truncate max-w-[9rem]"
       title="{{ c.supplier or '' }}{% if c.supplier_sku %} · № {{ c.supplier_sku }}{% endif %}">
     {{ c.supplier or '—' }}{% if c.supplier_sku %}
-      <span class="text-zinc-500">· №</span>
-      <span class="font-mono text-zinc-500">{{ c.supplier_sku }}</span>
+      <span class="text-ink-muted">· №</span>
+      <span class="font-mono text-ink-muted">{{ c.supplier_sku }}</span>
     {% endif %}
   </td>
 
-  {# Цена $: целое число, выделено. Учитывает quantity. #}
-  <td class="px-3 py-2 w-20 text-right text-zinc-100 font-semibold whitespace-nowrap">
+  {# Цена $ — целое, выделено #}
+  <td class="px-3 py-2 w-20 text-right text-ink-primary font-semibold tabular-nums whitespace-nowrap">
     ${{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
   </td>
 
-  {# Цена ₽: второстепенно. #}
-  <td class="px-3 py-2 w-24 text-right text-xs text-zinc-400 whitespace-nowrap">
+  {# Цена ₽ #}
+  <td class="px-3 py-2 w-24 text-right text-caption text-ink-secondary tabular-nums whitespace-nowrap">
     {{ _rub((c.price_rub or 0) * (c.quantity or 1)) }} ₽
   </td>
 </tr>
 {%- endmacro %}
 
 
-{# Блок одной конфигурации: заголовок + таблица компонентов +
-   предупреждения. Контракт параметров тот же, что у variant_block,
-   чтобы макросы были взаимозаменяемы в шаблонах. #}
-{% macro variant_table(v, category_order, category_label) -%}
-<section class="bg-zinc-900/40 border border-zinc-700 rounded-xl p-5">
+{# Карточка одного варианта: шапка (название, цена, чекбокс «в
+   спецификацию» если select_ctx) + таблица компонентов + warnings. #}
+{% macro variant_table(v, category_order, category_label, select_ctx=None) -%}
+{%- set is_selected = select_ctx and select_ctx.is_selected -%}
+<section class="card card-pad{% if is_selected %} ring-1 ring-brand-500/40{% endif %}">
 
-  {# Заголовок варианта #}
-  <header class="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
-    <h2 class="text-lg font-semibold">
-      Вариант <span class="text-indigo-400">{{ v.manufacturer }}</span>
-    </h2>
-    <div class="text-right">
-      <div class="text-2xl font-semibold text-zinc-100">
-        ${{ '%.0f'|format(v.total_usd or 0) }}
+  {# Шапка варианта #}
+  <header class="flex items-center justify-between gap-4 mb-4 flex-wrap">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-9 h-9 rounded-lg bg-brand-500/10 text-brand-300
+                  flex items-center justify-center font-semibold text-small shrink-0">
+        {{ (v.manufacturer or '?')[:1]|upper }}
       </div>
-      <div class="text-sm text-zinc-400">
-        ≈ {{ _rub(v.total_rub) }} ₽
+      <div class="min-w-0">
+        <div class="text-h3 text-ink-primary truncate">
+          Вариант <span class="text-brand-400">{{ v.manufacturer }}</span>
+        </div>
+        <div class="text-caption text-ink-muted">
+          {{ (v.components|length) if v.components else 0 }} компонентов
+          {% if v.used_transit %}<span class="text-warning-500"> · транзит</span>{% endif %}
+        </div>
       </div>
+    </div>
+
+    <div class="flex items-center gap-4 shrink-0">
+      <div class="text-right">
+        <div class="text-h2 text-ink-primary tabular-nums">
+          ${{ '%.0f'|format(v.total_usd or 0) }}
+        </div>
+        <div class="text-caption text-ink-secondary tabular-nums">
+          ≈ {{ _rub(v.total_rub) }} ₽
+        </div>
+      </div>
+
+      {% if select_ctx %}
+      <div class="flex items-center gap-3 pl-4 border-l border-line-subtle">
+        <label class="inline-flex items-center gap-2 cursor-pointer">
+          <input type="checkbox"
+                 class="kt-spec-check check"
+                 data-query-id="{{ select_ctx.query_id }}"
+                 data-manufacturer="{{ v.manufacturer }}"
+                 {% if is_selected %}checked{% endif %}>
+          <span class="text-small text-ink-secondary">В спецификацию</span>
+        </label>
+        <label class="inline-flex items-center gap-1.5 text-caption text-ink-muted">
+          <span>×</span>
+          <input type="number" min="1"
+                 class="kt-spec-qty w-16 input py-1 px-2 text-center disabled:opacity-40"
+                 value="{{ select_ctx.sel.quantity if is_selected else 1 }}"
+                 data-query-id="{{ select_ctx.query_id }}"
+                 data-manufacturer="{{ v.manufacturer }}"
+                 {% if not is_selected %}disabled{% endif %}>
+        </label>
+      </div>
+      {% endif %}
     </div>
   </header>
 
-  {% if v.used_transit %}
-    <div class="mb-3 text-xs text-amber-400">
-      Включает позиции из транзита (не на складе).
-    </div>
+  {% if select_ctx and is_selected %}
+  <div class="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md
+              bg-brand-500/10 text-brand-300 text-caption font-medium">
+    Позиция #{{ select_ctx.sel.position }} в спецификации
+  </div>
   {% endif %}
 
-  <table class="w-full table-auto text-sm border-collapse">
-    <thead>
-      <tr class="text-xs uppercase tracking-wide text-zinc-500
-                 border-b border-zinc-700">
-        <th class="px-3 py-2 w-28 text-left font-normal">Категория</th>
-        <th class="px-3 py-2 w-auto text-left font-normal">Название</th>
-        <th class="px-3 py-2 w-40 text-left font-normal">Артикул</th>
-        <th class="px-3 py-2 w-36 text-left font-normal">Поставщик</th>
-        <th class="px-3 py-2 w-20 text-right font-normal">Цена $</th>
-        <th class="px-3 py-2 w-24 text-right font-normal">Цена ₽</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for cat in category_order %}
-        {% set c = v.components.get(cat) %}
-        {% if c %}
-          {{ _component_row(c, category_label.get(cat, cat)) }}
-        {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
+  {# Таблица компонентов — кастомные классы (не .kt-table, чтобы не
+     путать со списочными таблицами; здесь рендеринг компонентный). #}
+  <div class="-mx-1">
+    <table class="w-full table-auto text-small border-collapse">
+      <thead>
+        <tr class="text-caption uppercase tracking-wider text-ink-muted
+                   border-b border-line-default">
+          <th class="px-3 py-2 w-28 text-left font-medium">Категория</th>
+          <th class="px-3 py-2 w-auto text-left font-medium">Название</th>
+          <th class="px-3 py-2 w-40 text-left font-medium">Артикул</th>
+          <th class="px-3 py-2 w-36 text-left font-medium">Поставщик</th>
+          <th class="px-3 py-2 w-20 text-right font-medium">Цена $</th>
+          <th class="px-3 py-2 w-24 text-right font-medium">Цена ₽</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cat in category_order %}
+          {% set c = v.components.get(cat) %}
+          {% if c %}
+            {{ _component_row(c, category_label.get(cat, cat)) }}
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-  {# Предупреждения по сборке: отдельная карточка с жёлтой рамкой. #}
+  {# Предупреждения по сборке #}
   {% if v.warnings %}
-    <aside class="mt-4 bg-amber-900/20 border border-amber-700/60
-                  rounded-xl p-4">
-      <div class="text-xs uppercase tracking-wide text-amber-300
-                  font-medium mb-2">
-        Предупреждения по сборке
+    <aside class="mt-4 alert alert-warning">
+      <div class="flex items-start gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 shrink-0"
+             fill="none" stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 3 2 21h20z"/><path d="M12 9v5M12 17.5v.5"/>
+        </svg>
+        <div class="min-w-0">
+          <div class="text-caption uppercase tracking-wider font-semibold mb-1">
+            Предупреждения по сборке
+          </div>
+          <ul class="list-disc list-inside text-small space-y-0.5">
+            {% for w in v.warnings %}<li>{{ w }}</li>{% endfor %}
+          </ul>
+        </div>
       </div>
-      <ul class="list-disc list-inside text-sm text-amber-200/90 space-y-1">
-        {% for w in v.warnings %}<li>{{ w }}</li>{% endfor %}
-      </ul>
     </aside>
   {% endif %}
 

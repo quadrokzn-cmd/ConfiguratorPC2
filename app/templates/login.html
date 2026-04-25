@@ -4,45 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Вход — КВАДРО-ТЕХ</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/dist/main.css">
 </head>
-<body class="bg-zinc-900 text-zinc-100 min-h-screen flex items-center justify-center">
+<body class="min-h-screen flex items-center justify-center px-4">
+  {% from "_macros/icons.html" import brand_mark %}
   <div class="w-full max-w-sm">
-    <div class="text-center mb-6">
-      <div class="text-indigo-400 font-semibold text-lg">КВАДРО-ТЕХ</div>
-      <div class="text-zinc-500 text-sm">конфигуратор ПК</div>
+    <div class="text-center mb-8 flex flex-col items-center">
+      {{ brand_mark(class='w-12 h-12 mb-3') }}
+      <div class="text-h1 text-ink-primary">КВАДРО-ТЕХ</div>
+      <div class="text-small text-ink-muted">конфигуратор ПК</div>
     </div>
 
-    <form method="post" action="/login"
-          class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 space-y-4">
+    <form method="post" action="/login" class="card card-pad-lg space-y-4">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
       {% if error %}
-      <div class="bg-red-900/40 border border-red-800 text-red-200
-                  text-sm px-3 py-2 rounded-lg">
-        {{ error }}
-      </div>
+      <div class="alert alert-danger">{{ error }}</div>
       {% endif %}
 
       <div>
-        <label class="block text-sm text-zinc-400 mb-1">Логин</label>
-        <input type="text" name="login" autofocus required
-               class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
-                      px-3 py-2 text-zinc-100 focus:outline-none
-                      focus:ring-2 focus:ring-indigo-500">
+        <label class="label" for="lf-login">Логин</label>
+        <input id="lf-login" type="text" name="login" autofocus required class="input">
       </div>
       <div>
-        <label class="block text-sm text-zinc-400 mb-1">Пароль</label>
-        <input type="password" name="password" required
-               class="w-full bg-zinc-900 border border-zinc-700 rounded-lg
-                      px-3 py-2 text-zinc-100 focus:outline-none
-                      focus:ring-2 focus:ring-indigo-500">
+        <label class="label" for="lf-pass">Пароль</label>
+        <input id="lf-pass" type="password" name="password" required class="input">
       </div>
-      <button type="submit"
-              class="w-full bg-indigo-600 hover:bg-indigo-500 text-white
-                     font-medium px-4 py-2 rounded-lg transition">
-        Войти
-      </button>
+      <button type="submit" class="btn btn-lg btn-primary w-full">Войти</button>
     </form>
   </div>
 </body>

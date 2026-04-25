@@ -73,26 +73,28 @@
         var it = data.items[i];
         html +=
           '<tr data-item-id="' + it.id + '">' +
-            '<td class="px-3 py-3 text-zinc-500">' + it.position + '</td>' +
-            '<td class="px-3 py-3 text-zinc-100 break-words">' +
-              escapeHtml(it.display_name) +
+            '<td class="px-2 py-2.5 text-ink-muted tabular-nums">' + it.position + '</td>' +
+            '<td class="px-2 py-2.5 text-ink-primary break-words">' +
+              '<div>' + escapeHtml(it.display_name) + '</div>' +
+              '<div class="text-caption text-ink-muted tabular-nums">' +
+                fmtUsd(it.unit_usd) + ' / шт · ' + rub(it.unit_rub) + ' ₽' +
+              '</div>' +
             '</td>' +
-            '<td class="px-3 py-3 text-right text-zinc-300">' + it.quantity + '</td>' +
-            '<td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">' +
-              fmtUsd(it.unit_usd) +
-              '<div class="text-xs text-zinc-500">' + rub(it.unit_rub) + ' ₽</div>' +
+            '<td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums">' +
+              it.quantity +
             '</td>' +
-            '<td class="px-3 py-3 text-right text-zinc-100 whitespace-nowrap">' +
+            '<td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap">' +
               fmtUsd(it.total_usd) +
-              '<div class="text-xs text-zinc-400">' + rub(it.total_rub) + ' ₽</div>' +
+              '<div class="text-caption text-ink-secondary font-normal">' +
+                rub(it.total_rub) + ' ₽</div>' +
             '</td>' +
           '</tr>';
       }
       tbody.innerHTML = html;
     }
     total.innerHTML =
-      fmtUsd(data.total_usd) +
-      '<div class="text-xs text-zinc-400 font-normal">' +
+      '<span class="text-h2 text-ink-primary">' + fmtUsd(data.total_usd) + '</span>' +
+      '<div class="text-caption text-ink-secondary font-normal">' +
         rub(data.total_rub) + ' ₽</div>';
   }
 

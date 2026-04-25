@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "_macros/configuration_block.html" import configuration_block %}
 {% from "_macros/specification_panel.html" import specification_panel %}
+{% from "_macros/icons.html" import icon %}
 
 {% block title %}{{ project.name }} — КВАДРО-ТЕХ{% endblock %}
 
@@ -9,208 +10,247 @@
 <meta name="kt-project-id" content="{{ project.id }}">
 {% endblock %}
 
-{% block content %}
-<div class="max-w-screen-2xl mx-auto px-4 py-10 space-y-6">
+{% block breadcrumbs %}
+<a href="/projects">Проекты</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">{{ project.name }}</span>
+{% endblock %}
 
-  <!-- Заголовок проекта -->
-  <div class="flex items-start justify-between gap-4 flex-wrap">
+{% block topbar_extra %}
+<a href="/project/{{ project.id }}/new_query"
+   class="btn btn-md btn-primary">
+  {{ icon('plus', class='w-4 h-4') }}
+  Добавить конфигурацию
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto">
+
+  {# ========= Заголовок проекта ========= #}
+  <header class="mb-6 flex items-start justify-between gap-4 flex-wrap">
     <div class="min-w-0">
-      <div class="flex items-center gap-2 flex-wrap">
-        <h1 class="text-2xl font-semibold break-words" id="kt-project-name">
-          {{ project.name }}
-        </h1>
+      <div class="flex items-center gap-3 flex-wrap">
+        <h1 class="text-display text-ink-primary break-words"
+            id="kt-project-name">{{ project.name }}</h1>
         <button type="button" id="kt-rename-toggle"
-                class="text-xs text-zinc-500 hover:text-indigo-400">
+                class="text-small text-ink-muted hover:text-brand-400
+                       transition-colors duration-120 inline-flex items-center gap-1">
+          {{ icon('edit', class='w-3.5 h-3.5') }}
           переименовать
         </button>
       </div>
-      <div class="text-sm text-zinc-500 mt-1">
-        создан {{ project.created_at.strftime('%d.%m.%Y %H:%M') }}
+
+      <div class="mt-2 flex items-center gap-2 flex-wrap">
+        <span class="badge badge-neutral">
+          {{ queries|length }}
+          {%- if queries|length == 1 %} конфигурация
+          {%- elif queries|length in [2,3,4] %} конфигурации
+          {%- else %} конфигураций
+          {%- endif %}
+        </span>
+        {% if spec_items %}
+        <span class="badge badge-brand">
+          {{ icon('check', class='w-3 h-3') }}
+          {{ spec_items|length }} в спецификации
+        </span>
+        {% endif %}
+        <span class="text-caption text-ink-muted">
+          создан {{ project.created_at.strftime('%d.%m.%Y %H:%M') }}
+        </span>
         {% if user.is_admin and project.author_login %}
-          · автор: {{ project.author_name }}
-          <span class="text-zinc-600">({{ project.author_login }})</span>
+        <span class="text-caption text-ink-muted">
+          · автор: {{ project.author_name }} ({{ project.author_login }})
+        </span>
         {% endif %}
       </div>
 
-      <!-- Inline-форма переименования -->
+      {# Inline-форма переименования #}
       <form method="post" action="/project/{{ project.id }}/rename"
-            id="kt-rename-form" class="hidden mt-3 flex items-center gap-2">
+            id="kt-rename-form" class="hidden mt-3 flex items-center gap-2 flex-wrap">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <input type="text" name="name" value="{{ project.name }}" maxlength="300"
-               class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-1.5
-                      text-zinc-100 text-sm min-w-[20rem]
-                      focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <button type="submit"
-                class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-3 py-1.5 rounded-lg">
-          Сохранить
-        </button>
+               class="input min-w-[20rem] !w-auto py-1.5 text-small">
+        <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
         <button type="button" id="kt-rename-cancel"
-                class="text-sm text-zinc-400 hover:text-zinc-200 px-2">
-          отмена
-        </button>
+                class="btn btn-sm btn-ghost">отмена</button>
       </form>
     </div>
 
     <div class="flex items-center gap-2 shrink-0">
-      <a href="/projects"
-         class="text-sm text-zinc-400 hover:text-indigo-400">
-        ← ко всем проектам
-      </a>
-      <a href="/project/{{ project.id }}/new_query"
-         class="bg-indigo-600 hover:bg-indigo-500 text-white
-                font-medium px-4 py-2 rounded-lg transition">
-        + Добавить конфигурацию
-      </a>
       <form method="post" action="/project/{{ project.id }}/delete"
             onsubmit="return confirm('Удалить проект целиком со всеми конфигурациями и спецификацией?');">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-        <button type="submit"
-                class="text-sm text-zinc-500 hover:text-red-400 px-3 py-2 rounded-lg transition">
+        <button type="submit" class="btn btn-md btn-ghost text-ink-muted hover:text-danger-500">
+          {{ icon('trash', class='w-4 h-4') }}
           Удалить проект
         </button>
       </form>
     </div>
-  </div>
+  </header>
 
-  <!-- Список конфигураций -->
-  {% if not queries %}
-  <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-6 text-zinc-400">
-    В проекте пока нет конфигураций.
-    <a href="/project/{{ project.id }}/new_query" class="text-indigo-400 hover:underline">
-      Добавить первую
-    </a>.
-  </div>
-  {% else %}
-  <div class="space-y-6">
-    {% for cfg in queries %}
-      {{ configuration_block(
-           cfg,
-           selected.get(cfg.id, {}),
-           category_order, category_label,
-           show_delete_btn=true,
-           delete_action="/project/" ~ project.id ~ "/query/" ~ cfg.id ~ "/delete",
-           csrf_token=csrf_token,
-         ) }}
-    {% endfor %}
-  </div>
-  {% endif %}
+  {# ========= 2 колонки: конфигурации (70%) + спецификация (sticky 30%) ========= #}
+  <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)] gap-6 items-start">
 
-  <!-- Спецификация (обычный блок в конце страницы, не sticky) -->
-  {{ specification_panel(spec_items, spec_totals) }}
-
-  {# Блок экспорта: Excel — этап 8.1, КП — этап 8.2 (дозаполнит параллельный чат). #}
-  <div class="mt-6 p-4 border border-zinc-700 rounded-xl bg-zinc-900">
-    <h3 class="text-lg font-semibold text-zinc-100 mb-3">Экспорт проекта</h3>
-    <div class="flex items-center gap-4 flex-wrap">
-      <a href="/project/{{ project.id }}/export/excel"
-         class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition">
-        Скачать Excel
-      </a>
-      <div id="kp-export-placeholder" class="flex items-center gap-2">
-        <label for="markup-input" class="text-gray-200 text-sm">Наценка:</label>
-        <div class="relative">
-          <input type="number"
-                 id="markup-input"
-                 value="15" min="0" max="500" step="1"
-                 class="w-20 pr-6 pl-2 py-1.5 bg-gray-800 text-white border
-                        border-gray-600 rounded focus:border-emerald-500
-                        focus:outline-none"
-                 aria-label="Наценка в процентах">
-          <span class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400
-                       text-sm pointer-events-none">%</span>
+    {# === Левая колонка: конфигурации === #}
+    <div class="space-y-6 min-w-0">
+      {% if not queries %}
+      <div class="card card-pad-lg text-center">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                    bg-surface-2 text-ink-muted mb-3">
+          {{ icon('file-text', class='w-5 h-5') }}
         </div>
-        <button id="kp-generate-btn"
-                type="button"
-                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700
-                       text-white rounded">
-          Сформировать КП
+        <p class="text-body text-ink-secondary">В проекте пока нет конфигураций.</p>
+        <a href="/project/{{ project.id }}/new_query"
+           class="btn btn-md btn-primary mt-4">
+          {{ icon('plus', class='w-4 h-4') }}
+          Добавить первую
+        </a>
+      </div>
+      {% else %}
+        {% for cfg in queries %}
+          {{ configuration_block(
+               cfg,
+               selected.get(cfg.id, {}),
+               category_order, category_label,
+               show_delete_btn=true,
+               delete_action="/project/" ~ project.id ~ "/query/" ~ cfg.id ~ "/delete",
+               csrf_token=csrf_token,
+             ) }}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {# === Правая колонка: sticky спецификация + экспорт === #}
+    <aside class="xl:sticky xl:top-20 xl:self-start space-y-4">
+      {{ specification_panel(spec_items, spec_totals) }}
+
+      {# Экспорт #}
+      <section class="card card-pad">
+        <h3 class="text-h3 text-ink-primary mb-3">Экспорт проекта</h3>
+
+        <div class="space-y-3">
+          <a href="/project/{{ project.id }}/export/excel"
+             class="btn btn-md btn-success w-full">
+            {{ icon('download', class='w-4 h-4') }}
+            Скачать Excel
+          </a>
+
+          <div>
+            <label for="markup-input" class="label">
+              Наценка для коммерческого предложения
+            </label>
+            <div class="flex items-center gap-2">
+              <div class="relative flex-1">
+                <input type="number" id="markup-input"
+                       value="15" min="0" max="500" step="1"
+                       class="input pr-7"
+                       aria-label="Наценка в процентах">
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted
+                             text-small pointer-events-none">%</span>
+              </div>
+              <button id="kp-generate-btn" type="button"
+                      class="btn btn-md btn-primary shrink-0">
+                {{ icon('file-text', class='w-4 h-4') }}
+                Сформировать КП
+              </button>
+            </div>
+          </div>
+
+          <button type="button" id="emails-open-btn"
+                  class="btn btn-md btn-secondary w-full">
+            {{ icon('mail', class='w-4 h-4') }}
+            Запросить цены у поставщиков
+          </button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  {# ========= Модалка запроса цен (этап 8.3) ========= #}
+  <div id="emails-modal" class="hidden modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="text-h2 text-ink-primary">Запрос цен поставщикам</h3>
+        <button type="button" id="emails-close-btn"
+                class="btn btn-sm btn-ghost p-1.5"
+                aria-label="Закрыть">
+          {{ icon('x', class='w-5 h-5') }}
         </button>
       </div>
-      <button type="button" id="emails-open-btn"
-              class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition">
-        Запросить цены у поставщиков
-      </button>
-    </div>
-  </div>
 
-  <!-- Модалка запроса цен (этап 8.3) -->
-  <div id="emails-modal" class="hidden fixed inset-0 bg-black/70 z-50 overflow-y-auto">
-    <div class="max-w-5xl mx-auto mt-10 mb-10 bg-zinc-900 border border-zinc-700 rounded-xl p-6 shadow-xl">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl font-semibold text-zinc-100">Запрос цен поставщикам</h3>
-        <button type="button" id="emails-close-btn"
-                class="text-zinc-400 hover:text-zinc-100 text-2xl leading-none px-2"
-                aria-label="Закрыть">&times;</button>
-      </div>
-
-      <div id="emails-loading" class="text-zinc-400 text-sm">Загрузка черновиков…</div>
-      <div id="emails-empty" class="hidden text-zinc-400 text-sm">
-        По этому проекту нет позиций, для которых известен поставщик с ценой.
-      </div>
-
-      <div id="emails-body" class="hidden">
-        <div class="flex gap-4 items-stretch">
-          <!-- Табы поставщиков -->
-          <div class="w-64 shrink-0 space-y-1" id="emails-tabs">
-            <!-- сюда JS инжектит кнопки-табы -->
-          </div>
-
-          <!-- Панель активного поставщика -->
-          <div class="flex-1 min-w-0 bg-zinc-950 border border-zinc-700 rounded-lg p-4 space-y-3" id="emails-panel">
-            <div id="emails-no-email-warning" class="hidden bg-red-900/60 border border-red-700 text-red-100 text-sm rounded px-3 py-2">
-              Email не задан для этого поставщика, добавьте его в админке.
-            </div>
-
-            <label class="block">
-              <span class="text-xs text-zinc-400">Кому:</span>
-              <input type="email" id="emails-to"
-                     placeholder="email поставщика"
-                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </label>
-
-            <label class="block">
-              <span class="text-xs text-zinc-400">Тема:</span>
-              <input type="text" id="emails-subject"
-                     class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded px-3 py-1.5 text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </label>
-
-            <label class="block">
-              <span class="text-xs text-zinc-400">Тело письма:</span>
-              <div id="emails-body-editor"
-                   contenteditable="true"
-                   spellcheck="false"
-                   class="w-full mt-1 kt-email-editor"
-                   style="background:#F3F4F6;color:#1F2937;padding:24px;min-height:320px;max-height:500px;overflow-y:auto;border:1px solid #4B5563;border-radius:8px;font-family:Arial,sans-serif;font-size:13px;cursor:text;outline:none;"></div>
-            </label>
-            <style>
-              #emails-body-editor:focus { border-color: #3B82F6 !important; outline: none; }
-            </style>
-          </div>
+      <div class="modal-body">
+        <div id="emails-loading" class="text-small text-ink-secondary py-4">
+          Загрузка черновиков…
+        </div>
+        <div id="emails-empty" class="hidden alert alert-info">
+          По этому проекту нет позиций, для которых известен поставщик с ценой.
         </div>
 
-        <div class="mt-4 flex items-center gap-3 flex-wrap justify-between">
-          <div id="emails-status" class="text-sm text-zinc-400 min-w-0"></div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <button type="button" id="emails-send-one-btn"
-                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition disabled:bg-zinc-700 disabled:text-zinc-400 disabled:cursor-not-allowed">
-              Отправить этому поставщику
-            </button>
-            <button type="button" id="emails-send-all-btn"
-                    class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition">
-              Отправить всем выбранным
-            </button>
-            <button type="button" id="emails-close-bottom-btn"
-                    class="px-4 py-2 border border-zinc-600 hover:bg-zinc-800 text-zinc-200 rounded-lg transition">
-              Закрыть
-            </button>
+        <div id="emails-body" class="hidden">
+          <div class="flex gap-4 items-stretch">
+            {# Табы поставщиков #}
+            <div class="w-64 shrink-0 space-y-1.5" id="emails-tabs">
+              {# JS инжектит кнопки-табы #}
+            </div>
+
+            {# Панель активного поставщика #}
+            <div class="flex-1 min-w-0 card card-pad space-y-3" id="emails-panel">
+              <div id="emails-no-email-warning" class="hidden alert alert-danger">
+                Email не задан для этого поставщика, добавьте его в админке.
+              </div>
+
+              <label class="block">
+                <span class="label">Кому</span>
+                <input type="email" id="emails-to"
+                       placeholder="email поставщика"
+                       class="input">
+              </label>
+
+              <label class="block">
+                <span class="label">Тема</span>
+                <input type="text" id="emails-subject" class="input">
+              </label>
+
+              <label class="block">
+                <span class="label">Тело письма</span>
+                <div id="emails-body-editor"
+                     contenteditable="true"
+                     spellcheck="false"
+                     class="kt-email-editor"
+                     style="background:#F3F4F6;color:#1F2937;padding:24px;min-height:320px;max-height:500px;overflow-y:auto;border:1px solid #4B5563;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;cursor:text;outline:none;"></div>
+              </label>
+              <style>
+                #emails-body-editor:focus { border-color: #2F6FF1 !important; outline: none; box-shadow: 0 0 0 3px rgba(47,111,241,0.30); }
+              </style>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div class="modal-footer flex-wrap justify-between gap-3">
+        <div id="emails-status" class="text-small text-ink-secondary min-w-0"></div>
+        <div class="flex items-center gap-2 flex-wrap ml-auto">
+          <button type="button" id="emails-send-one-btn" class="btn btn-md btn-success">
+            {{ icon('mail', class='w-4 h-4') }}
+            Отправить этому поставщику
+          </button>
+          <button type="button" id="emails-send-all-btn" class="btn btn-md btn-primary">
+            {{ icon('mail', class='w-4 h-4') }}
+            Отправить всем выбранным
+          </button>
+          <button type="button" id="emails-close-bottom-btn" class="btn btn-md btn-secondary">
+            Закрыть
+          </button>
         </div>
       </div>
     </div>
   </div>
 
 </div>
+{% endblock %}
 
+{% block scripts %}
 {% if highlight %}
 <script>
   // Плавно подсветить только что добавленную конфигурацию.
@@ -218,9 +258,9 @@
     var el = document.getElementById('query-{{ highlight }}');
     if (!el) return;
     el.scrollIntoView({behavior: 'smooth', block: 'start'});
-    el.classList.add('ring-2', 'ring-indigo-500');
+    el.classList.add('ring-2', 'ring-brand-500');
     setTimeout(function () {
-      el.classList.remove('ring-2', 'ring-indigo-500');
+      el.classList.remove('ring-2', 'ring-brand-500');
     }, 2500);
   })();
 </script>
@@ -278,8 +318,8 @@
     var statusEl = document.getElementById('emails-status');
 
     var projectId = {{ project.id }};
-    var drafts = [];       // серверная версия (используется только для сверки)
-    var edits = {};        // supplier_id -> {subject, body_html, selected, sent_status}
+    var drafts = [];
+    var edits = {};
     var activeId = null;
 
     function csrfToken() {
@@ -287,9 +327,6 @@
       return m ? m.getAttribute('content') : '';
     }
 
-    // Русское склонение: forms = [one, few, many].
-    // plural(1, ['позиция','позиции','позиций']) → 'позиция'
-    // plural(3, ...) → 'позиции'; plural(5, ...) → 'позиций'.
     function plural(n, forms) {
       n = Math.abs(n) % 100;
       var n1 = n % 10;
@@ -333,8 +370,8 @@
         activateTab(drafts[0].supplier_id);
       }).catch(function (err) {
         loading.classList.add('hidden');
-        statusEl.innerHTML = '<span class="text-red-400">Ошибка загрузки: ' +
-          String(err && err.message || err) + '</span>';
+        statusEl.innerHTML = '<span class="text-danger-500">Ошибка загрузки: ' +
+          escapeHtml(String(err && err.message || err)) + '</span>';
       });
     }
 
@@ -347,17 +384,17 @@
       drafts.forEach(function (d) {
         var st = edits[d.supplier_id] || {};
         var wrap = document.createElement('div');
-        wrap.className = 'flex items-start gap-2 px-2 py-1 rounded ' +
+        wrap.className = 'flex items-start gap-2 px-2.5 py-2 rounded-lg cursor-pointer ' +
+          'transition-colors duration-120 ' +
           (d.supplier_id === activeId
-            ? 'bg-indigo-900/60 border border-indigo-500'
-            : 'bg-zinc-800/70 border border-zinc-700 hover:bg-zinc-800');
+            ? 'bg-brand-500/10 border border-brand-500/40'
+            : 'bg-surface-2 border border-line-default hover:bg-surface-3');
 
-        // Чекбокс для «Отправить всем выбранным»
         var cb = document.createElement('input');
         cb.type = 'checkbox';
         cb.checked = !!st.selected;
         cb.disabled = !d.can_send;
-        cb.className = 'mt-1';
+        cb.className = 'check mt-0.5';
         cb.addEventListener('change', function (e) {
           edits[d.supplier_id].selected = e.target.checked;
           e.stopPropagation();
@@ -365,10 +402,9 @@
         cb.addEventListener('click', function (e) { e.stopPropagation(); });
         wrap.appendChild(cb);
 
-        // Кнопка активации таба
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'flex-1 text-left text-sm text-zinc-100 truncate';
+        btn.className = 'flex-1 text-left text-small text-ink-primary truncate';
         var status = '';
         if (st.sent_status === 'sent')        status = ' ✓';
         else if (st.sent_status === 'failed') status = ' ✗';
@@ -376,7 +412,7 @@
         var word = plural(cnt, ['позиция', 'позиции', 'позиций']);
         btn.innerHTML =
           '<span class="font-medium">' + escapeHtml(d.supplier_name) + status + '</span>' +
-          '<span class="block text-xs text-zinc-400">' +
+          '<span class="block text-caption text-ink-muted">' +
           cnt + ' ' + word +
           (!d.can_send ? ' · нет email' : '') +
           '</span>';
@@ -390,7 +426,6 @@
     }
 
     function activateTab(sid) {
-      // Запомнить правки текущего таба, прежде чем переключаться.
       saveCurrentEdits();
       activeId = sid;
       var d = drafts.find(function (x) { return x.supplier_id === sid; });
@@ -400,7 +435,6 @@
       subjInput.value = st.subject;
       bodyEditor.innerHTML = st.body_html;
       noEmailWarn.classList.toggle('hidden', !!d.can_send);
-      // Кнопка «отправить этому» доступна, если есть валидно введённый адрес.
       sendOneBtn.disabled = !toInput.value.trim() || st.sent_status === 'sent';
       renderTabs();
     }
@@ -427,9 +461,9 @@
         var d = drafts.find(function (x) { return x.supplier_id === sid; });
         var st = edits[sid];
         if (!d || !st) return;
-        if (st.sent_status === 'sent') return;  // уже отправлено
+        if (st.sent_status === 'sent') return;
         var to = (st.to_email || '').trim();
-        if (!to) return;                  // пустой email — не слать
+        if (!to) return;
         items.push({
           supplier_id: sid,
           to_email: to,
@@ -438,10 +472,10 @@
         });
       });
       if (!items.length) {
-        statusEl.innerHTML = '<span class="text-zinc-400">Нет адресатов для отправки.</span>';
+        statusEl.innerHTML = '<span class="text-ink-muted">Нет адресатов для отправки.</span>';
         return Promise.resolve();
       }
-      statusEl.innerHTML = '<span class="text-zinc-400">Отправляем ' + items.length + '…</span>';
+      statusEl.innerHTML = '<span class="text-ink-secondary">Отправляем ' + items.length + '…</span>';
       sendAllBtn.disabled = true;
       sendOneBtn.disabled = true;
       return fetch('/project/' + projectId + '/emails/send', {
@@ -465,30 +499,28 @@
           if (res.status === 'sent') {
             edits[res.supplier_id].sent_status = 'sent';
             edits[res.supplier_id].selected = false;
-            parts.push('<span class="text-emerald-400">' + escapeHtml(name) + ' — отправлено</span>');
+            parts.push('<span class="text-success-500">' + escapeHtml(name) + ' — отправлено</span>');
           } else {
             edits[res.supplier_id].sent_status = 'failed';
-            parts.push('<span class="text-red-400">' + escapeHtml(name) + ' — ошибка: ' +
+            parts.push('<span class="text-danger-500">' + escapeHtml(name) + ' — ошибка: ' +
                        escapeHtml(res.error_message || 'неизвестно') + '</span>');
           }
         });
         statusEl.innerHTML = parts.join('<br>');
         renderTabs();
-        // Обновить состояние кнопки «этому» для текущего таба.
         var cur = drafts.find(function (x) { return x.supplier_id === activeId; });
         if (cur) {
           sendOneBtn.disabled = !cur.can_send ||
             (edits[activeId] && edits[activeId].sent_status === 'sent');
         }
       }).catch(function (err) {
-        statusEl.innerHTML = '<span class="text-red-400">Ошибка сети: ' +
+        statusEl.innerHTML = '<span class="text-danger-500">Ошибка сети: ' +
           escapeHtml(String(err && err.message || err)) + '</span>';
       }).finally(function () {
         sendAllBtn.disabled = false;
       });
     }
 
-    // Обработчики
     openBtn.addEventListener('click', openModal);
     document.getElementById('emails-close-btn').addEventListener('click', closeModal);
     document.getElementById('emails-close-bottom-btn').addEventListener('click', closeModal);
@@ -504,7 +536,6 @@
     bodyEditor.addEventListener('input', function () {
       if (activeId !== null) edits[activeId].body_html = bodyEditor.innerHTML;
     });
-    // F4: чистка вставки из буфера — только plain text в позицию курсора.
     bodyEditor.addEventListener('paste', function (e) {
       e.preventDefault();
       var text = (e.clipboardData || window.clipboardData).getData('text/plain');

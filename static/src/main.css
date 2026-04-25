@@ -1,0 +1,316 @@
+/*
+ * КВАДРО-ТЕХ конфигуратор — основной CSS-вход для Tailwind.
+ * Сборка:  npm run build:css   (минифицированный → static/dist/main.css)
+ * Watch:   npm run watch:css
+ *
+ * Дизайн-направление: тёмная enterprise-тема, акцент — синий КВАДРО-ТЕХ.
+ * Палитра и токены — в tailwind.config.js (extend).
+ */
+
+/* ---------- Шрифты (локально, без CDN) -------------------------------- */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/static/fonts/inter/InterVariable.woff2') format('woff2-variations'),
+       url('/static/fonts/inter/InterVariable.woff2') format('woff2');
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Базовые стили --------------------------------------------- */
+
+@layer base {
+  html, body {
+    background-color: theme('colors.surface.base');
+    color: theme('colors.ink.primary');
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* Числа в одну ширину — критично для прайсов и таблиц */
+  table, .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Аккуратный фокус-ринг по проекту: не браузерный outline,
+     а наш брендовый кольцевой shadow. */
+  :focus-visible {
+    outline: none;
+    box-shadow: theme('boxShadow.focus');
+    border-radius: 6px;
+  }
+
+  /* Скроллбар — тонкий, в цвет темы (Webkit + Firefox). */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.line.strong') transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: theme('colors.line.default');
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: theme('colors.line.strong');
+  }
+
+  /* Сглаживание выделения — без неоново-голубого браузерного дефолта. */
+  ::selection {
+    background: rgba(47, 111, 241, 0.32);
+    color: theme('colors.ink.primary');
+  }
+}
+
+/* ---------- Компонентные классы --------------------------------------- */
+
+@layer components {
+
+  /* === Кнопки ======================================================== */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           font-medium text-small rounded-lg
+           transition-colors duration-120
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none;
+    letter-spacing: 0.005em;
+  }
+  .btn-sm  { @apply px-3 py-1.5 text-small; }
+  .btn-md  { @apply px-4 py-2   text-small; }
+  .btn-lg  { @apply px-5 py-2.5 text-body;  }
+
+  .btn-primary {
+    @apply bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700
+           shadow-elev-1;
+  }
+  .btn-secondary {
+    @apply bg-surface-2 text-ink-primary border border-line-default
+           hover:bg-surface-3 hover:border-line-strong;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-ink-secondary
+           hover:bg-surface-2 hover:text-ink-primary;
+  }
+  .btn-danger {
+    @apply bg-danger-500 text-white hover:bg-danger-600;
+  }
+  .btn-success {
+    @apply bg-success-500 text-white hover:bg-success-600;
+  }
+
+  /* === Поля ввода ==================================================== */
+  .input,
+  .select,
+  .textarea {
+    @apply w-full bg-surface-2 border border-line-default
+           text-ink-primary placeholder:text-ink-muted
+           rounded-lg px-3 py-2 text-body
+           transition-colors duration-120
+           focus:outline-none focus:border-brand-500;
+  }
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    box-shadow: theme('boxShadow.focus');
+    border-color: theme('colors.brand.500');
+  }
+  .textarea { resize: vertical; min-height: 6rem; }
+
+  .label {
+    @apply block text-small text-ink-secondary mb-1.5;
+  }
+  .help-text { @apply mt-1.5 text-micro text-ink-muted; }
+  .error-text { @apply mt-1.5 text-micro text-danger-500; }
+
+  .input-error,
+  .textarea-error,
+  .select-error {
+    @apply border-danger-500;
+  }
+
+  /* === Чекбокс / радио (кастомные) =================================== */
+  .check {
+    @apply appearance-none w-4 h-4 rounded
+           bg-surface-2 border border-line-strong
+           transition-colors duration-120
+           cursor-pointer
+           checked:bg-brand-500 checked:border-brand-500
+           focus:outline-none focus:ring-0;
+    box-shadow: none;
+    position: relative;
+  }
+  .check:checked::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M6.4 11.2 3.2 8l1.13-1.13L6.4 8.94l5.27-5.27L12.8 4.8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px;
+  }
+
+  .radio {
+    @apply appearance-none w-4 h-4 rounded-full
+           bg-surface-2 border border-line-strong
+           cursor-pointer
+           checked:border-brand-500
+           focus:outline-none focus:ring-0;
+    position: relative;
+  }
+  .radio:checked::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: theme('colors.brand.500');
+    border-radius: 9999px;
+  }
+
+  /* === Карточка ====================================================== */
+  .card {
+    @apply bg-surface-1 border border-line-subtle rounded-xl;
+  }
+  .card-pad-sm { @apply p-4; }
+  .card-pad    { @apply p-5; }
+  .card-pad-lg { @apply p-6; }
+  .card-elev   { @apply shadow-elev-2; }
+
+  /* === Бейджи ======================================================== */
+  .badge {
+    @apply inline-flex items-center gap-1.5
+           px-2 py-0.5 rounded-md text-caption font-medium
+           border;
+  }
+  .badge-neutral { @apply bg-surface-2 border-line-default text-ink-secondary; }
+  .badge-brand   { @apply border-brand-500/40 text-brand-300;
+                   background: rgba(47,111,241,0.12); }
+  .badge-success { @apply border-success-500/40 text-success-500 bg-success-bg; }
+  .badge-warning { @apply border-warning-500/40 text-warning-500 bg-warning-bg; }
+  .badge-danger  { @apply border-danger-500/40  text-danger-500  bg-danger-bg;  }
+  .badge-info    { @apply border-info-500/40    text-info-500    bg-info-bg;    }
+
+  /* === Таблица ======================================================= */
+  .kt-table {
+    @apply w-full text-small;
+  }
+  .kt-table thead th {
+    @apply text-left font-medium text-micro uppercase tracking-wider
+           text-ink-muted px-3 py-2 border-b border-line-default;
+    letter-spacing: 0.06em;
+  }
+  .kt-table tbody td {
+    @apply px-3 py-2.5 text-ink-primary border-b border-line-subtle;
+  }
+  .kt-table tbody tr:hover td {
+    @apply bg-surface-2/40;
+  }
+  .kt-table tbody tr:last-child td { @apply border-b-0; }
+
+  /* === Сайдбар: ссылка-пункт ======================================== */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg
+           text-small font-medium text-ink-secondary
+           transition-colors duration-120
+           hover:text-ink-primary hover:bg-surface-2;
+  }
+  .nav-item-icon {
+    @apply w-5 h-5 shrink-0 text-ink-muted transition-colors duration-120;
+  }
+  .nav-item:hover .nav-item-icon { @apply text-ink-primary; }
+  .nav-item-active {
+    @apply bg-brand-500/10 text-ink-primary;
+    box-shadow: inset 0 0 0 1px rgba(47,111,241,0.30);
+  }
+  .nav-item-active .nav-item-icon { @apply text-brand-400; }
+
+  .nav-section-label {
+    @apply px-3 pb-1.5 pt-3 text-caption uppercase tracking-wider
+           text-ink-muted font-semibold;
+    letter-spacing: 0.10em;
+  }
+
+  /* === Хлебные крошки =============================================== */
+  .breadcrumbs {
+    @apply flex items-center gap-2 text-small text-ink-muted;
+  }
+  .breadcrumbs a {
+    @apply text-ink-secondary hover:text-ink-primary transition-colors duration-120;
+  }
+  .breadcrumbs .crumb-sep {
+    @apply text-line-strong;
+  }
+  .breadcrumbs .crumb-current {
+    @apply text-ink-primary truncate max-w-[28rem];
+  }
+
+  /* === Алерт ========================================================= */
+  .alert {
+    @apply rounded-lg border px-4 py-3 text-small;
+  }
+  .alert-danger  { @apply border-danger-500/40  bg-danger-bg  text-danger-500;  }
+  .alert-warning { @apply border-warning-500/40 bg-warning-bg text-warning-500; }
+  .alert-info    { @apply border-info-500/40    bg-info-bg    text-info-500;    }
+  .alert-success { @apply border-success-500/40 bg-success-bg text-success-500; }
+
+  /* === Модалка ====================================================== */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 overflow-y-auto;
+    background: rgba(4, 6, 10, 0.72);
+    backdrop-filter: blur(4px);
+  }
+  .modal-container {
+    @apply mx-auto my-10 max-w-5xl
+           bg-surface-1 border border-line-default rounded-2xl
+           shadow-elev-3;
+  }
+  .modal-header {
+    @apply flex items-center justify-between
+           px-6 py-4 border-b border-line-subtle;
+  }
+  .modal-body  { @apply px-6 py-5; }
+  .modal-footer {
+    @apply flex items-center justify-end gap-2
+           px-6 py-4 border-t border-line-subtle;
+  }
+
+  /* === Спиннер ======================================================= */
+  .kt-spinner {
+    width: 1rem; height: 1rem;
+    border: 2px solid rgba(255,255,255,0.20);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: kt-spin 0.7s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  @keyframes kt-spin { to { transform: rotate(360deg); } }
+}
+
+/* ---------- Утилиты, не покрытые токенами Tailwind --------------------- */
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .grid-app {
+    display: grid;
+    grid-template-columns: 248px minmax(0, 1fr);
+    min-height: 100vh;
+  }
+  @media (max-width: 1024px) {
+    .grid-app { grid-template-columns: 72px minmax(0, 1fr); }
+  }
+}

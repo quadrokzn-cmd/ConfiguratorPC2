@@ -26,3 +26,8 @@ enrichment/stale_pending_20260424/
 
 # Локальные дизайн-референсы для Этапа 9 (редизайн UI)
 design_references/
+
+# Frontend pipeline (Этап 9А.1) — собранный CSS под static/dist/ коммитим,
+# зависимости — нет.
+node_modules/
+*.log

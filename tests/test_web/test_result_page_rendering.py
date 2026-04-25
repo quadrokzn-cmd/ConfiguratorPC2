@@ -288,9 +288,10 @@ def test_scenario_c_warnings_block(
     _dump_html("scen_c_warnings", html)
 
     # Блок предупреждений с жёлтой рамкой.
+    # Этап 9А.1: amber → семантический warning из дизайн-токенов.
     assert "Предупреждения по сборке" in html
-    assert "amber-900/20" in html
-    assert "amber-700" in html  # рамка
+    assert "alert-warning" in html
+    assert "warning-500" in html  # рамка/текст #
     # Оба предупреждения попали в вывод.
     assert "близкий вариант" in html
     assert "из транзита" in html

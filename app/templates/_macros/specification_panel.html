@@ -1,7 +1,12 @@
 {#
-  Панель спецификации внизу страницы проекта (этап 6.2).
-  По решению UX — обычный блок в конце страницы, НЕ sticky.
-  Стики-вариант отложен до этапа 8 (финальный дизайн).
+  Панель спецификации — этап 6.2 + редизайн 9А.1.
+  Раньше: широкий блок в конце страницы.
+  Теперь: компактная карточка для правой sticky-колонки страницы
+  проекта; на /query/{id} макрос можно не вызывать.
+
+  Сохранены ID, на которые завязан static/js/project.js:
+    kt-spec-panel, kt-spec-empty, kt-spec-wrap, kt-spec-table,
+    kt-spec-tbody, kt-spec-total.
 
   Параметры:
     items   — список спец-позиций (list_spec_items).
@@ -13,58 +18,65 @@
 {%- endmacro %}
 
 {% macro specification_panel(items, totals) -%}
-<section class="bg-zinc-950/60 border border-zinc-700 rounded-xl p-5"
-         id="kt-spec-panel">
-  <header class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-    <h2 class="text-xl font-semibold text-zinc-100">Спецификация</h2>
-    <div class="text-sm text-zinc-500">
-      Выбранные варианты в порядке галочек. Цены — снимок на момент выбора.
-    </div>
+<section id="kt-spec-panel" class="card card-pad">
+  <header class="flex items-center justify-between mb-3 gap-2">
+    <h2 class="text-h3 text-ink-primary">Спецификация</h2>
+    <span class="badge badge-neutral tabular-nums">
+      {{ items|length }}
+      {%- if items|length == 1 %} позиция
+      {%- elif items|length in [2,3,4] %} позиции
+      {%- else %} позиций
+      {%- endif %}
+    </span>
   </header>
 
-  {% if not items %}
-  <div class="text-sm text-zinc-500 py-4" id="kt-spec-empty">
-    Пока ничего не выбрано. Отметьте галочкой «В спецификацию» нужные варианты выше.
+  <div id="kt-spec-empty" class="text-small text-ink-muted py-4
+       {% if items %}hidden{% endif %}">
+    Пока ничего не выбрано. Отметьте чекбоксом «В спецификацию» нужный вариант слева.
   </div>
-  {% endif %}
 
-  <div class="overflow-x-auto {% if not items %}hidden{% endif %}" id="kt-spec-wrap">
-    <table class="w-full text-sm" id="kt-spec-table">
-      <thead class="text-zinc-500 border-b border-zinc-700">
-        <tr>
-          <th class="text-left font-normal px-3 py-2 w-10">№</th>
-          <th class="text-left font-normal px-3 py-2">Название конфигурации</th>
-          <th class="text-right font-normal px-3 py-2 w-20">Кол-во</th>
-          <th class="text-right font-normal px-3 py-2 w-40">Цена за шт.</th>
-          <th class="text-right font-normal px-3 py-2 w-40">Сумма</th>
+  <div id="kt-spec-wrap" class="-mx-1 {% if not items %}hidden{% endif %}">
+    <table id="kt-spec-table" class="w-full text-small">
+      <thead>
+        <tr class="text-caption uppercase tracking-wider text-ink-muted
+                   border-b border-line-default">
+          <th class="text-left font-medium px-2 py-2 w-7">#</th>
+          <th class="text-left font-medium px-2 py-2">Название</th>
+          <th class="text-right font-medium px-2 py-2 w-9">Кол.</th>
+          <th class="text-right font-medium px-2 py-2 w-20">Сумма</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-zinc-800" id="kt-spec-tbody">
+      <tbody id="kt-spec-tbody" class="divide-y divide-line-subtle">
         {% for it in items %}
         <tr data-item-id="{{ it.id }}">
-          <td class="px-3 py-3 text-zinc-500">{{ it.position }}</td>
-          <td class="px-3 py-3 text-zinc-100 break-words">
-            {{ it.display_name }}
+          <td class="px-2 py-2.5 text-ink-muted tabular-nums">{{ it.position }}</td>
+          <td class="px-2 py-2.5 text-ink-primary break-words">
+            <div>{{ it.display_name }}</div>
+            <div class="text-caption text-ink-muted tabular-nums">
+              ${{ '%.0f'|format(it.unit_usd) }} / шт · {{ _rub(it.unit_rub) }} ₽
+            </div>
           </td>
-          <td class="px-3 py-3 text-right text-zinc-300">{{ it.quantity }}</td>
-          <td class="px-3 py-3 text-right text-zinc-300 whitespace-nowrap">
-            ${{ '%.0f'|format(it.unit_usd) }}
-            <div class="text-xs text-zinc-500">{{ _rub(it.unit_rub) }} ₽</div>
+          <td class="px-2 py-2.5 text-right text-ink-secondary tabular-nums">
+            {{ it.quantity }}
           </td>
-          <td class="px-3 py-3 text-right text-zinc-100 whitespace-nowrap">
+          <td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap">
             ${{ '%.0f'|format(it.total_usd) }}
-            <div class="text-xs text-zinc-400">{{ _rub(it.total_rub) }} ₽</div>
+            <div class="text-caption text-ink-secondary font-normal">
+              {{ _rub(it.total_rub) }} ₽
+            </div>
           </td>
         </tr>
         {% endfor %}
       </tbody>
-      <tfoot class="border-t-2 border-zinc-700">
+      <tfoot class="border-t-2 border-line-default">
         <tr>
-          <td colspan="4" class="px-3 py-3 text-right text-zinc-400">Итого:</td>
-          <td class="px-3 py-3 text-right text-zinc-100 whitespace-nowrap font-semibold"
+          <td colspan="3" class="px-2 py-3 text-right text-ink-secondary text-small">
+            ИТОГО:
+          </td>
+          <td class="px-2 py-3 text-right tabular-nums whitespace-nowrap"
               id="kt-spec-total">
-            ${{ '%.0f'|format(totals.total_usd) }}
-            <div class="text-xs text-zinc-400 font-normal">
+            <span class="text-h2 text-ink-primary">${{ '%.0f'|format(totals.total_usd) }}</span>
+            <div class="text-caption text-ink-secondary font-normal">
               {{ _rub(totals.total_rub) }} ₽
             </div>
           </td>

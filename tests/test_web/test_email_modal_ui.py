@@ -118,10 +118,12 @@ def test_email_modal_script_has_plural_and_paste_handler(
 def test_email_modal_no_html_textarea_label(
     db_session, manager_client, manager_user,
 ):
-    """Заголовок секции тела письма — «Тело письма:», без «(HTML)»."""
+    """Заголовок секции тела письма — «Тело письма», без «(HTML)»."""
     pid = spec_service.create_empty_project(
         db_session, user_id=manager_user["id"], name="UI-label-check",
     )
     r = manager_client.get(f"/project/{pid}")
     assert r.status_code == 200
-    assert "Тело письма:" in r.text
+    # Этап 9А.1: лейблы без trailing-колона (style guide новой дизайн-системы).
+    assert "Тело письма" in r.text
+    assert "(HTML)" not in r.text
