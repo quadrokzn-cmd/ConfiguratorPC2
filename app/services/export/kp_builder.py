@@ -66,14 +66,20 @@ _MARKUP_MAX = 500
 # эту ширину, чтобы Word не запускал auto-redistribute (даже при включённом
 # tblLayout=fixed Word может «поджать» колонки, если их сумма больше
 # доступной ширины страницы).
+#
+# Этап 8.8: «Кол-во» расширили с 1.2 → 1.4 см, потому что при 10pt в 1.2 см
+# заголовок «Кол-во» обрезался в Word до «ол-во». Соответственно «Наименование»
+# сократили с 8.5 → 8.3 см, чтобы суммарная ширина не уехала за пределы
+# полезной ширины страницы.
 
 _COL_W_NUM   = 454    # № п/п                 — 0.8 см
-_COL_W_NAME  = 4819   # Наименование          — 8.5 см
-_COL_W_QTY   = 680    # Кол-во                — 1.2 см
+_COL_W_NAME  = 4706   # Наименование          — 8.3 см
+_COL_W_QTY   = 794    # Кол-во                — 1.4 см
 _COL_W_PRICE = 1531   # Цена с НДС (руб.)     — 2.7 см
 _COL_W_SUM   = 1588   # Сумма с НДС (руб.)    — 2.8 см
 
 _GRID_WIDTHS = (_COL_W_NUM, _COL_W_NAME, _COL_W_QTY, _COL_W_PRICE, _COL_W_SUM)
+_INNER_TBL_WIDTH = sum(_GRID_WIDTHS)  # 9073 twips
 
 # Высота строки ИТОГО (в twips). 0.7 см ≈ 397 twips — чтобы строка
 # выглядела заметнее обычных data-строк.
@@ -210,8 +216,11 @@ def _make_tcPr(
         # числовых ячеек, где перенос «42 / 064» выглядит хуже сжатого
         # шрифта.
         etree.SubElement(tcPr, _w("noWrap"))
+    # Этап 8.8: вертикальное выравнивание по центру для всех ячеек таблицы
+    # (по запросу пользователя — числа в data-строках смотрелись прибитыми
+    # к верху и не совпадали по высоте с шапкой).
     vAlign = etree.SubElement(tcPr, _w("vAlign"))
-    vAlign.set(_w("val"), "top")
+    vAlign.set(_w("val"), "center")
     return tcPr
 
 
@@ -323,8 +332,72 @@ def _make_inner_tbl(
     return tbl
 
 
+def _normalize_outer_table(outer_tbl: etree._Element) -> None:
+    """Чистит обёрточную таблицу шаблона: убирает паразитные gridCol-ы,
+    отрицательный tblInd и нормализует tblW/tcW под фактическую ширину
+    внутренней КП-таблицы.
+
+    Этап 8.8: исходный kp_template.docx содержит внешнюю таблицу 1×2 с
+    gridCol [10490, 284], tblW=10774 и tblInd=-743. Сумма gridCol уезжает
+    за полезную ширину A4 (9072 twips), а отрицательный отступ слева
+    смещает таблицу за поля. На печати Word при этом дезорганизует
+    раскладку внутренней таблицы: заголовок «Кол-во» обрезается до
+    «ол-во», цифра quantity рендерится как «0», числа Цена/Сумма
+    переносятся на вторую строку. После нормализации внешняя таблица
+    становится одноколоночной шириной ровно как внутренняя — Word больше
+    не пытается «разъехаться».
+    """
+    inner_w = _INNER_TBL_WIDTH
+
+    # tblPr: убираем tblInd, фиксируем tblW.
+    tblPr = outer_tbl.find(_w("tblPr"))
+    if tblPr is not None:
+        tblInd = tblPr.find(_w("tblInd"))
+        if tblInd is not None:
+            tblPr.remove(tblInd)
+        tblW = tblPr.find(_w("tblW"))
+        if tblW is None:
+            tblW = etree.SubElement(tblPr, _w("tblW"))
+        tblW.set(_w("w"), str(inner_w))
+        tblW.set(_w("type"), "dxa")
+
+    # tblGrid: ровно один gridCol во всю ширину.
+    grid = outer_tbl.find(_w("tblGrid"))
+    if grid is not None:
+        for gc in list(grid.findall(_w("gridCol"))):
+            grid.remove(gc)
+        gc = etree.SubElement(grid, _w("gridCol"))
+        gc.set(_w("w"), str(inner_w))
+
+    # В каждой строке оставляем только первую ячейку, контент дополнительных
+    # переносим в первую (на случай если там вдруг что-то лежит). Tcw
+    # первой ячейки — на полную ширину; gridSpan убираем.
+    for tr in outer_tbl.findall(_w("tr")):
+        tcs = tr.findall(_w("tc"))
+        if not tcs:
+            continue
+        first = tcs[0]
+        for extra in tcs[1:]:
+            for child in list(extra):
+                if child.tag == _w("tcPr"):
+                    continue
+                first.append(child)
+            tr.remove(extra)
+        first_tcPr = first.find(_w("tcPr"))
+        if first_tcPr is not None:
+            tcW = first_tcPr.find(_w("tcW"))
+            if tcW is None:
+                tcW = etree.SubElement(first_tcPr, _w("tcW"))
+            tcW.set(_w("w"), str(inner_w))
+            tcW.set(_w("type"), "dxa")
+            gs = first_tcPr.find(_w("gridSpan"))
+            if gs is not None:
+                first_tcPr.remove(gs)
+
+
 def _replace_inner_table(doc, new_tbl: etree._Element) -> None:
-    """Находит шаблонную внутреннюю таблицу и заменяет её на new_tbl.
+    """Находит шаблонную внутреннюю таблицу и заменяет её на new_tbl,
+    после чего нормализует обёрточную таблицу.
 
     Шаблон: внешняя таблица 1×2, внутренняя — в первой ячейке внешней.
     """
@@ -339,6 +412,7 @@ def _replace_inner_table(doc, new_tbl: etree._Element) -> None:
     old_tbl = cell0.tables[0]._tbl
     parent = old_tbl.getparent()
     parent.replace(old_tbl, new_tbl)
+    _normalize_outer_table(outer._tbl)
 
 
 # ---------------------------------------------------------------------
