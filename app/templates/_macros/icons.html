@@ -62,22 +62,13 @@
 {%- endif -%}
 {%- endmacro %}
 
-{# Логотип КВАДРО-ТЕХ — squircle с буквой Q.
-   TODO: заменить на SVG-логотип, когда заказчик пришлёт исходник.
-   Текущая версия — временный плейсхолдер с фирменным синим. #}
-{% macro brand_mark(class='w-9 h-9') -%}
-<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" viewBox="0 0 40 40" fill="none">
-  <rect x="1" y="1" width="38" height="38" rx="11"
-        fill="#1F58D6"/>
-  <rect x="1" y="1" width="38" height="38" rx="11"
-        fill="url(#kt-brand-grad)" fill-opacity="0.55"/>
-  <defs>
-    <linearGradient id="kt-brand-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4B88FF"/>
-      <stop offset="1" stop-color="#1746B0"/>
-    </linearGradient>
-  </defs>
-  <path d="M20 11.5c-4.8 0-8.6 3.6-8.6 8.5s3.8 8.5 8.6 8.5c1.8 0 3.5-.5 4.9-1.5l2.7 2.7 2.4-2.4-2.6-2.6c1-1.4 1.6-3.1 1.6-4.7 0-4.9-3.8-8.5-8.6-8.5zm0 13.6c-2.9 0-5.2-2.3-5.2-5.1s2.3-5.1 5.2-5.1 5.2 2.3 5.2 5.1-2.3 5.1-5.2 5.1z"
-        fill="#FFFFFF"/>
-</svg>
+{# Логотип QUADRO — официальный, white-letters PNG (этап 9А.1.1).
+   Файл: static/img/brand/quadro-logo-white.png — белые буквы UADRO +
+   синий знак Q на прозрачном фоне, для тёмной темы.
+   Параметр `class` обычно задаёт высоту (h-9, h-12 …). #}
+{% macro brand_mark(class='h-9') -%}
+<img src="/static/img/brand/quadro-logo-white.png"
+     alt="QUADRO"
+     class="{{ class }} w-auto select-none"
+     style="image-rendering: -webkit-optimize-contrast;">
 {%- endmacro %}

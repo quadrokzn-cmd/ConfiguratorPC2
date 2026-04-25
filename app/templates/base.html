@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}КВАДРО-ТЕХ: конфигуратор ПК{% endblock %}</title>
   <link rel="stylesheet" href="/static/dist/main.css">
-  <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%231F58D6'/%3E%3Cpath fill='%23FFFFFF' d='M20 11.5c-4.8 0-8.6 3.6-8.6 8.5s3.8 8.5 8.6 8.5c1.8 0 3.5-.5 4.9-1.5l2.7 2.7 2.4-2.4-2.6-2.6c1-1.4 1.6-3.1 1.6-4.7 0-4.9-3.8-8.5-8.6-8.5zm0 13.6c-2.9 0-5.2-2.3-5.2-5.1s2.3-5.1 5.2-5.1 5.2 2.3 5.2 5.1-2.3 5.1-5.2 5.1z'/%3E%3C/svg%3E">
+  {# 9А.1.1: фавиконка из 200×200 PNG бренда. TODO 9А.2: сгенерировать
+     отдельный icon-only PNG (только знак «Q»), сейчас 200×200 содержит
+     полный логотип и в 32px читается как тёмная плашка. #}
+  <link rel="icon" type="image/png" href="/static/img/favicon.png">
   {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-screen">
@@ -29,12 +31,12 @@
   {# === Сайдбар =========================================================== #}
   <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle flex flex-col">
     <div class="px-5 pt-5 pb-4">
-      <a href="/" class="flex items-center gap-3 group">
-        {{ brand_mark(class='w-9 h-9 shrink-0') }}
-        <div class="leading-tight min-w-0">
-          <div class="text-h3 text-ink-primary tracking-tight">КВАДРО-ТЕХ</div>
-          <div class="text-caption text-ink-muted">конфигуратор</div>
-        </div>
+      <a href="/" class="block group" aria-label="QUADRO — главная">
+        {# 9А.1.1: настоящий логотип бренда (white-letters PNG) +
+           подпись «КОНФИГУРАТОР» под ним для enterprise-вкуса.
+           Знак Q — синий, надпись UADRO — белая, фон прозрачный. #}
+        {{ brand_mark(class='h-8') }}
+        <div class="brand-caption mt-2 ml-0.5">Конфигуратор</div>
       </a>
     </div>
 

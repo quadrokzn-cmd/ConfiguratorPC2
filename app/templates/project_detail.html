@@ -125,36 +125,37 @@
     <aside class="xl:sticky xl:top-20 xl:self-start space-y-4">
       {{ specification_panel(spec_items, spec_totals) }}
 
-      {# Экспорт #}
+      {# Экспорт — все три действия вспомогательные, без яркого primary
+         (9А.1.1): тёмные secondary-кнопки с тонкой границей и
+         outline-иконками. Поле «Наценка» вынесено отдельной плашкой
+         сверху, чтобы не конкурировать с кнопкой «Сформировать КП». #}
       <section class="card card-pad">
         <h3 class="text-h3 text-ink-primary mb-3">Экспорт проекта</h3>
 
         <div class="space-y-3">
           <a href="/project/{{ project.id }}/export/excel"
-             class="btn btn-md btn-success w-full">
+             class="btn btn-md btn-secondary w-full">
             {{ icon('download', class='w-4 h-4') }}
             Скачать Excel
           </a>
 
-          <div>
-            <label for="markup-input" class="label">
+          <div class="space-y-2">
+            <label for="markup-input" class="label !mb-0">
               Наценка для коммерческого предложения
             </label>
-            <div class="flex items-center gap-2">
-              <div class="relative flex-1">
-                <input type="number" id="markup-input"
-                       value="15" min="0" max="500" step="1"
-                       class="input pr-7"
-                       aria-label="Наценка в процентах">
-                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted
-                             text-small pointer-events-none">%</span>
-              </div>
-              <button id="kp-generate-btn" type="button"
-                      class="btn btn-md btn-primary shrink-0">
-                {{ icon('file-text', class='w-4 h-4') }}
-                Сформировать КП
-              </button>
+            <div class="relative">
+              <input type="number" id="markup-input"
+                     value="15" min="0" max="500" step="1"
+                     class="input pr-7"
+                     aria-label="Наценка в процентах">
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted
+                           text-small pointer-events-none">%</span>
             </div>
+            <button id="kp-generate-btn" type="button"
+                    class="btn btn-md btn-secondary w-full">
+              {{ icon('file-text', class='w-4 h-4') }}
+              Сформировать КП
+            </button>
           </div>
 
           <button type="button" id="emails-open-btn"
@@ -214,14 +215,21 @@
 
               <label class="block">
                 <span class="label">Тело письма</span>
-                <div id="emails-body-editor"
-                     contenteditable="true"
-                     spellcheck="false"
-                     class="kt-email-editor"
-                     style="background:#F3F4F6;color:#1F2937;padding:24px;min-height:320px;max-height:500px;overflow-y:auto;border:1px solid #4B5563;border-radius:10px;font-family:Arial,sans-serif;font-size:13px;cursor:text;outline:none;"></div>
+                {# Светлая «бумажная» подложка вокруг редактора (9А.1.1):
+                   отделяет белое тело письма от тёмной модалки тонкой
+                   границей и небольшим внутренним полем — чтобы белое
+                   не упиралось в стенки. #}
+                <div class="rounded-xl p-1.5"
+                     style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                  <div id="emails-body-editor"
+                       contenteditable="true"
+                       spellcheck="false"
+                       class="kt-email-editor"
+                       style="background:#F3F4F6;color:#1F2937;padding:24px;min-height:320px;max-height:500px;overflow-y:auto;border:1px solid #D1D5DB;border-radius:8px;font-family:Arial,sans-serif;font-size:13px;cursor:text;outline:none;"></div>
+                </div>
               </label>
               <style>
-                #emails-body-editor:focus { border-color: #2F6FF1 !important; outline: none; box-shadow: 0 0 0 3px rgba(47,111,241,0.30); }
+                #emails-body-editor:focus { border-color: #2052E8 !important; outline: none; box-shadow: 0 0 0 3px rgba(32,82,232,0.30); }
               </style>
             </div>
           </div>
@@ -258,9 +266,17 @@
     var el = document.getElementById('query-{{ highlight }}');
     if (!el) return;
     el.scrollIntoView({behavior: 'smooth', block: 'start'});
-    el.classList.add('ring-2', 'ring-brand-500');
+    // 9А.1.1: временная подсветка через card-active. Не трогаем
+    // карточки, которые уже подсвечены (выбраны в спецификацию).
+    var cards = [];
+    el.querySelectorAll('.card').forEach(function (c) {
+      if (!c.classList.contains('card-active')) {
+        c.classList.add('card-active');
+        cards.push(c);
+      }
+    });
     setTimeout(function () {
-      el.classList.remove('ring-2', 'ring-brand-500');
+      cards.forEach(function (c) { c.classList.remove('card-active'); });
     }, 2500);
   })();
 </script>
@@ -384,11 +400,8 @@
       drafts.forEach(function (d) {
         var st = edits[d.supplier_id] || {};
         var wrap = document.createElement('div');
-        wrap.className = 'flex items-start gap-2 px-2.5 py-2 rounded-lg cursor-pointer ' +
-          'transition-colors duration-120 ' +
-          (d.supplier_id === activeId
-            ? 'bg-brand-500/10 border border-brand-500/40'
-            : 'bg-surface-2 border border-line-default hover:bg-surface-3');
+        wrap.className = 'supplier-tab' +
+          (d.supplier_id === activeId ? ' supplier-tab-active' : '');
 
         var cb = document.createElement('input');
         cb.type = 'checkbox';

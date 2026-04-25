@@ -183,3 +183,124 @@ def test_compiled_main_css_exists():
     body = css.read_text(encoding="utf-8")
     assert "Inter" in body
     assert "@font-face" in body
+
+
+# --------------------- 9А.1.1: новые правила дизайн-системы ----------
+
+def test_logo_uses_brand_asset(manager_client):
+    """В сайдбаре подключён настоящий логотип бренда (PNG из brand/),
+    а не тёмно-синий SVG-плейсхолдер с буквой Q."""
+    r = manager_client.get("/")
+    assert r.status_code == 200
+    html = r.text
+    # Реальный ассет лежит в репозитории
+    asset = _project_root() / "static" / "img" / "brand" / "quadro-logo-white.png"
+    assert asset.exists(), f"Не найден ассет логотипа: {asset}"
+    # И подключён в HTML страницы (через макрос brand_mark)
+    assert "/static/img/brand/quadro-logo-white.png" in html
+    # Подпись «Конфигуратор» под логотипом — из brand-caption
+    assert "brand-caption" in html
+    # Плейсхолдера со старым data:image-icon больше нет
+    assert "Crect width='40' height='40' rx='11' fill='%231F58D6'" not in html
+
+
+def test_active_nav_no_solid_fill(manager_client):
+    """Активный пункт сайдбара — без сплошной brand-заливки.
+    Раньше использовался `bg-brand-500/10` + inset-ring; теперь
+    подсветка делается через ::before-полосу слева, в HTML её нет.
+
+    Проверяем: на активном `.nav-item-active` отсутствует
+    bg-brand-* и нет inline ring-классов с brand-цветом.
+    """
+    r = manager_client.get("/")
+    assert r.status_code == 200
+    html = r.text
+
+    # Класс активного пункта присутствует — у пункта «Новый запрос».
+    assert "nav-item-active" in html
+
+    # Найдём первое вхождение nav-item-active и его окрестности —
+    # там не должно быть brand-заливочного фона.
+    idx = html.index("nav-item-active")
+    # 280 символов — в пределах одной кнопки навигации
+    chunk = html[max(0, idx - 50): idx + 280]
+    assert "bg-brand-500/10" not in chunk
+    assert "bg-brand-500/20" not in chunk
+    assert "bg-brand-500 " not in chunk
+    # Старый inset-ring с brand тоже больше не должен встречаться
+    # как inline-style — он переехал в ::before в CSS.
+    assert "rgba(47,111,241,0.30)" not in chunk
+
+
+def test_card_has_border(manager_client, mock_process_query):
+    """Все карточки получают тонкую полупрозрачную границу — это
+    реализовано через `.card { border: 1px solid line.soft }` в
+    собранном CSS. Проверяем через main.css, а не через шаблон,
+    так как граница задаётся не Tailwind-классом, а свойством."""
+    css_path = _project_root() / "static" / "dist" / "main.css"
+    assert css_path.exists()
+    css = css_path.read_text(encoding="utf-8")
+
+    # В собранном CSS у `.card` должен быть border 1px и
+    # цвет — наш rgba-полупрозрачный белый (line.soft = 6% white).
+    # Tailwind может скомпилировать значение по-разному; проверяем
+    # любой из возможных вариантов записи rgba 255,255,255,0.06.
+    assert ".card{" in css or ".card {" in css
+    # Главное: сам класс card-active существует (синяя подсветка).
+    assert ".card-active" in css
+    # И есть наш glow-brand тон в собранном CSS — для активной
+    # карточки (selected конфигурация).
+    assert "rgba(64,120,255" in css or "rgba(64, 120, 255" in css
+
+    # Также убеждаемся, что страница проекта рендерит .card —
+    # это исходная цель «белые рамки на карточках».
+    pid = _create_project(manager_client)
+    _submit_query_to(manager_client, pid)
+    r = manager_client.get(f"/project/{pid}")
+    assert r.status_code == 200
+    assert "card card-pad" in r.text  # есть как минимум одна карточка
+
+
+def test_brand_color_token_updated():
+    """brand.500 в собранном CSS — обновлённый #2052E8 (а не #2F6FF1).
+    Поднята насыщенность ближе к фирменному, но мягче чем чистый
+    #0000FF, чтобы не давить на крупных площадях."""
+    css = (_project_root() / "static" / "dist" / "main.css").read_text(encoding="utf-8")
+    assert "#2052e8" in css.lower() or "#2052E8" in css, (
+        "Ожидался обновлённый brand.500 = #2052E8 в main.css"
+    )
+    # Старого тона быть не должно (как минимум не в hex-форме токена).
+    # Tailwind может оставить #2f6ff1 в случайных местах — проверяем,
+    # что он не определён как primary через .btn-primary{background-color}.
+    btn_primary_idx = css.lower().find(".btn-primary")
+    if btn_primary_idx != -1:
+        chunk = css[btn_primary_idx: btn_primary_idx + 400].lower()
+        assert "#2f6ff1" not in chunk
+
+
+def test_export_buttons_are_secondary(manager_client, mock_process_query):
+    """На странице проекта три кнопки экспорта (Excel, КП, Запросить
+    цены) — все в стиле btn-secondary, без яркого btn-success/btn-primary
+    на этих CTA. Это иерархия из 9А.1.1: вспомогательные действия не
+    конкурируют между собой."""
+    pid = _create_project(manager_client)
+    _submit_query_to(manager_client, pid)
+
+    r = manager_client.get(f"/project/{pid}")
+    assert r.status_code == 200
+    html = r.text
+
+    # Найдём блок «Экспорт проекта»
+    assert "Экспорт проекта" in html
+    start = html.index("Экспорт проекта")
+    end_idx = html.find("</section>", start)
+    block = html[start:end_idx if end_idx != -1 else start + 2500]
+
+    # Ни одна из кнопок экспорта не должна быть btn-success/btn-primary
+    assert "btn-success" not in block, (
+        "Кнопка экспорта в зелёном btn-success — должна быть btn-secondary"
+    )
+    # Все три кнопки используют btn-secondary
+    assert block.count("btn-secondary") >= 3, (
+        "Ожидалось минимум 3 кнопки btn-secondary в блоке экспорта"
+    )

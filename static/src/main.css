@@ -36,6 +36,27 @@
     font-feature-settings: 'cv11', 'ss01';
   }
 
+  /* 9А.1.1: едва заметный «свет из угла» по фидбэку «добавить
+     красивости» — radial-gradient с brand-500 на ~5% прозрачности.
+     fixed-attachment, чтобы при скролле не плыл; pointer-events:none,
+     чтобы не перехватывать клики. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(circle at 0% 0%,
+        rgba(32,82,232,0.10) 0%,
+        rgba(32,82,232,0.05) 18%,
+        transparent 45%),
+      radial-gradient(circle at 100% 100%,
+        rgba(32,82,232,0.04) 0%,
+        transparent 35%);
+  }
+  body > * { position: relative; z-index: 1; }
+
   /* Числа в одну ширину — критично для прайсов и таблиц */
   table, .tabular-nums {
     font-variant-numeric: tabular-nums;
@@ -73,7 +94,7 @@
 
   /* Сглаживание выделения — без неоново-голубого браузерного дефолта. */
   ::selection {
-    background: rgba(47, 111, 241, 0.32);
+    background: rgba(32, 82, 232, 0.32);
     color: theme('colors.ink.primary');
   }
 }
@@ -95,13 +116,25 @@
   .btn-md  { @apply px-4 py-2   text-small; }
   .btn-lg  { @apply px-5 py-2.5 text-body;  }
 
+  /* primary — единственный «громкий» акцент на экране,
+     используется одной-двумя штуками. */
   .btn-primary {
     @apply bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700
            shadow-elev-1;
   }
+  /* secondary — основная рабочая лошадка после правок 9А.1.1:
+     тёмная плашка surface-2 + тонкая белая граница, без сплошной
+     цветной заливки. На hover — граница ярче, чуть-чуть приподнимается.
+     Используем для большинства действий-кнопок (включая экспорт). */
   .btn-secondary {
-    @apply bg-surface-2 text-ink-primary border border-line-default
-           hover:bg-surface-3 hover:border-line-strong;
+    @apply bg-surface-2 text-ink-primary
+           transition-all duration-180;
+    border: 1px solid theme('colors.line.soft');
+  }
+  .btn-secondary:hover {
+    background-color: theme('colors.surface.3');
+    border-color: theme('colors.line.softer');
+    box-shadow: theme('boxShadow.glow-soft');
   }
   .btn-ghost {
     @apply bg-transparent text-ink-secondary
@@ -181,28 +214,71 @@
     border-radius: 9999px;
   }
 
-  /* === Карточка ====================================================== */
+  /* === Карточка ======================================================
+     9А.1.1: «свет, а не заливка». Граница — полупрозрачная белая
+     ~6%, на hover чуть ярче с едва заметным glow-soft.
+     Активное состояние (.card-active) — тонкая синяя граница и
+     синее свечение (используется на выбранной конфигурации). */
   .card {
-    @apply bg-surface-1 border border-line-subtle rounded-xl;
+    @apply bg-surface-1 rounded-xl transition-all duration-180;
+    border: 1px solid theme('colors.line.soft');
+  }
+  .card:hover {
+    border-color: theme('colors.line.softer');
+    box-shadow: theme('boxShadow.glow-soft');
+  }
+  .card-active {
+    border-color: rgba(64,120,255,0.45);
+    box-shadow: theme('boxShadow.glow-brand');
+  }
+  .card-active:hover {
+    border-color: rgba(64,120,255,0.55);
+    box-shadow: theme('boxShadow.glow-brand');
   }
   .card-pad-sm { @apply p-4; }
   .card-pad    { @apply p-5; }
   .card-pad-lg { @apply p-6; }
   .card-elev   { @apply shadow-elev-2; }
 
-  /* === Бейджи ======================================================== */
+  /* === Бейджи ========================================================
+     9А.1.1: outline-стиль вместо filled — фон почти прозрачный
+     (≈8%), цвет границы и текста — в семантическом тоне.
+     Так бейдж не давит на крупных площадях. */
   .badge {
     @apply inline-flex items-center gap-1.5
            px-2 py-0.5 rounded-md text-caption font-medium
            border;
   }
-  .badge-neutral { @apply bg-surface-2 border-line-default text-ink-secondary; }
-  .badge-brand   { @apply border-brand-500/40 text-brand-300;
-                   background: rgba(47,111,241,0.12); }
-  .badge-success { @apply border-success-500/40 text-success-500 bg-success-bg; }
-  .badge-warning { @apply border-warning-500/40 text-warning-500 bg-warning-bg; }
-  .badge-danger  { @apply border-danger-500/40  text-danger-500  bg-danger-bg;  }
-  .badge-info    { @apply border-info-500/40    text-info-500    bg-info-bg;    }
+  .badge-neutral {
+    border-color: theme('colors.line.soft');
+    color: theme('colors.ink.secondary');
+    background: transparent;
+  }
+  .badge-brand {
+    border-color: rgba(64,120,255,0.40);
+    color: theme('colors.brand.300');
+    background: rgba(32,82,232,0.08);
+  }
+  .badge-success {
+    border-color: rgba(16,185,129,0.40);
+    color: theme('colors.success.500');
+    background: rgba(16,185,129,0.06);
+  }
+  .badge-warning {
+    border-color: rgba(245,158,11,0.40);
+    color: theme('colors.warning.500');
+    background: rgba(245,158,11,0.06);
+  }
+  .badge-danger {
+    border-color: rgba(239,68,68,0.40);
+    color: theme('colors.danger.500');
+    background: rgba(239,68,68,0.06);
+  }
+  .badge-info {
+    border-color: rgba(6,182,212,0.40);
+    color: theme('colors.info.500');
+    background: rgba(6,182,212,0.06);
+  }
 
   /* === Таблица ======================================================= */
   .kt-table {
@@ -221,20 +297,36 @@
   }
   .kt-table tbody tr:last-child td { @apply border-b-0; }
 
-  /* === Сайдбар: ссылка-пункт ======================================== */
+  /* === Сайдбар: ссылка-пункт ========================================
+     9А.1.1: активный пункт — без сплошной синей заливки.
+     Вместо неё — тонкая вертикальная синяя полоса слева и
+     едва заметная подсветка фона + glow-rail. Текст и иконка
+     слегка ярчают. */
   .nav-item {
     @apply flex items-center gap-3 px-3 py-2 rounded-lg
            text-small font-medium text-ink-secondary
            transition-colors duration-120
            hover:text-ink-primary hover:bg-surface-2;
+    position: relative;
   }
   .nav-item-icon {
     @apply w-5 h-5 shrink-0 text-ink-muted transition-colors duration-120;
   }
   .nav-item:hover .nav-item-icon { @apply text-ink-primary; }
   .nav-item-active {
-    @apply bg-brand-500/10 text-ink-primary;
-    box-shadow: inset 0 0 0 1px rgba(47,111,241,0.30);
+    @apply text-ink-primary;
+    background-color: theme('colors.surface.2');
+  }
+  .nav-item-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    border-radius: 0 2px 2px 0;
+    background: theme('colors.brand.500');
+    box-shadow: 0 0 12px 0 rgba(32,82,232,0.55);
   }
   .nav-item-active .nav-item-icon { @apply text-brand-400; }
 
@@ -275,8 +367,79 @@
   }
   .modal-container {
     @apply mx-auto my-10 max-w-5xl
-           bg-surface-1 border border-line-default rounded-2xl
-           shadow-elev-3;
+           bg-surface-1 rounded-2xl shadow-elev-3;
+    border: 1px solid theme('colors.line.softer');
+  }
+
+  /* === Toggle-переключатель (используется для «В спецификацию») ====
+     В отличие от обычного `.check`, выглядит как iOS-стиля свитч —
+     заметнее как «активность через свет». */
+  .toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 36px;
+    height: 20px;
+    border-radius: 9999px;
+    background: theme('colors.surface.3');
+    border: 1px solid theme('colors.line.soft');
+    position: relative;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease,
+                box-shadow 180ms ease;
+    flex-shrink: 0;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: theme('colors.ink.secondary');
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+  .toggle:checked {
+    background: theme('colors.brand.500');
+    border-color: theme('colors.brand.500');
+    box-shadow: 0 0 12px -2px rgba(32,82,232,0.55);
+  }
+  .toggle:checked::after {
+    transform: translateX(16px);
+    background: #fff;
+  }
+  .toggle:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Активный таб поставщика в email-модалке (9А.1.1):
+     не сплошной синий фон, а вертикальная полоса слева. */
+  .supplier-tab {
+    @apply flex items-start gap-2 px-3 py-2.5 rounded-lg cursor-pointer
+           transition-colors duration-120
+           bg-surface-2;
+    border: 1px solid theme('colors.line.soft');
+    position: relative;
+  }
+  .supplier-tab:hover {
+    background-color: theme('colors.surface.3');
+    border-color: theme('colors.line.softer');
+  }
+  .supplier-tab-active {
+    background-color: theme('colors.surface.3');
+    border-color: rgba(64,120,255,0.30);
+  }
+  .supplier-tab-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    border-radius: 0 2px 2px 0;
+    background: theme('colors.brand.500');
+    box-shadow: 0 0 10px 0 rgba(32,82,232,0.50);
   }
   .modal-header {
     @apply flex items-center justify-between
@@ -312,5 +475,31 @@
   }
   @media (max-width: 1024px) {
     .grid-app { grid-template-columns: 72px minmax(0, 1fr); }
+  }
+
+  /* 9А.1.1: подложка под логотипом — едва заметный градиент-«свет»,
+     squircle-радиус как у нативных контейнеров иконок. */
+  .brand-frame {
+    background:
+      linear-gradient(135deg, rgba(64,120,255,0.10), rgba(15,48,158,0.04));
+    border: 1px solid theme('colors.line.soft');
+    border-radius: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Каплейн под логотипом: «КОНФИГУРАТОР» — даёт enterprise-вкус. */
+  .brand-caption {
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: theme('colors.ink.muted');
+    font-weight: 600;
+  }
+
+  /* Тонкая горизонтальная разделительная линия секций. */
+  .hairline {
+    height: 1px;
+    background: theme('colors.line.soft');
   }
 }

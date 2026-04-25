@@ -89,7 +89,7 @@
    спецификацию» если select_ctx) + таблица компонентов + warnings. #}
 {% macro variant_table(v, category_order, category_label, select_ctx=None) -%}
 {%- set is_selected = select_ctx and select_ctx.is_selected -%}
-<section class="card card-pad{% if is_selected %} ring-1 ring-brand-500/40{% endif %}">
+<section class="card card-pad{% if is_selected %} card-active{% endif %}">
 
   {# Шапка варианта #}
   <header class="flex items-center justify-between gap-4 mb-4 flex-wrap">
@@ -120,14 +120,19 @@
       </div>
 
       {% if select_ctx %}
+      {# 9А.1.1: чекбокс «В спецификацию» оформлен toggle-свитчем —
+         заметнее, чем мелкий чек, и хорошо читается как «активность
+         через свет» (синяя подсветка при on). #}
       <div class="flex items-center gap-3 pl-4 border-l border-line-subtle">
         <label class="inline-flex items-center gap-2 cursor-pointer">
           <input type="checkbox"
-                 class="kt-spec-check check"
+                 class="kt-spec-check toggle"
                  data-query-id="{{ select_ctx.query_id }}"
                  data-manufacturer="{{ v.manufacturer }}"
                  {% if is_selected %}checked{% endif %}>
-          <span class="text-small text-ink-secondary">В спецификацию</span>
+          <span class="text-small {% if is_selected %}text-ink-primary font-medium{% else %}text-ink-secondary{% endif %}">
+            В спецификацию
+          </span>
         </label>
         <label class="inline-flex items-center gap-1.5 text-caption text-ink-muted">
           <span>×</span>
