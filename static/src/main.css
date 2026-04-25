@@ -738,18 +738,63 @@
     }
   }
 
-  /* 9А.2.1: логотип в сайдбаре — векторный SVG, заполняет родителя
-     по ширине, высота — пропорционально. */
+  /* 9А.2.2: логотип в сайдбаре — векторный SVG с тугим viewBox
+     (108 161 336 99 — обнимает только содержимое, без полей вокруг).
+     Заполняет родителя по ширине, высота пропорциональна — около
+     53px при ширине 180px. Зрительно теперь логотип и caption
+     «КОНФИГУРАТОР» имеют одинаковую ширину. */
   .kt-brand-logo {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 96px;
   }
-  @media (max-width: 1024px) {
-    .kt-brand-logo {
-      max-height: 32px;
-    }
+
+  /* 9А.2.2: chip активного фильтра (Категория, Статус, Поиск...).
+     Используется в /admin/components: под панелью фильтров видны как
+     теги; крестик внутри сбрасывает конкретный фильтр. */
+  .kt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background-color: theme('colors.surface.2');
+    border: 1px solid theme('colors.line.soft');
+    color: theme('colors.ink.secondary');
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .kt-chip-x {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+    color: theme('colors.ink.muted');
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 120ms ease, background-color 120ms ease;
+  }
+  .kt-chip-x:hover {
+    color: theme('colors.danger.500');
+    background-color: theme('colors.surface.3');
+  }
+
+  /* 9А.2.2: кнопка-заголовок столбца с сортировкой.
+     Просто текст без обводки, цвет меняется при hover. Стрелка ▲/▼
+     рисуется в шаблоне рядом с подписью. */
+  .kt-sort-btn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-transform: inherit;
+    font: inherit;
+    letter-spacing: inherit;
   }
 
   /* Тонкая горизонтальная разделительная линия секций. */

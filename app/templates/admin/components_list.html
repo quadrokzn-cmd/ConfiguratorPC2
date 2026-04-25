@@ -21,16 +21,30 @@
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
   {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
 
-  {# === Фильтры === #}
-  <form method="get" action="/admin/components" class="card card-pad-sm">
+  {# === Фильтры (этап 9А.2.2) ===========================================
+       Без кнопок «Применить»/«Сбросить»: фильтры применяются мгновенно,
+       сортировка — клик по заголовку столбца. Активные фильтры видны
+       chip'ами под панелью с крестиком на каждом. #}
+  <section class="card card-pad-sm" id="kt-components-filters">
     <div class="flex items-end gap-3 flex-wrap">
       <div class="min-w-[14rem]">
         <label class="label" for="f-cat">Категория</label>
-        <select id="f-cat" name="category" class="select">
+        <select id="f-cat" name="category" class="select kt-filter-input">
           <option value="">— все —</option>
           {% for code, label in categories.items() %}
           <option value="{{ code }}" {% if category == code %}selected{% endif %}>{{ label }}</option>
           {% endfor %}
+        </select>
+      </div>
+      <div class="min-w-[14rem]">
+        <label class="label" for="f-status">Статус</label>
+        <select id="f-status" name="status" class="select kt-filter-input">
+          <option value="">— все —</option>
+          <option value="full"       {% if status == 'full'       %}selected{% endif %}>Полные карточки</option>
+          <option value="skeleton"   {% if status == 'skeleton'   %}selected{% endif %}>Скелеты</option>
+          <option value="hidden"     {% if status == 'hidden'     %}selected{% endif %}>Скрытые</option>
+          <option value="with_price" {% if status == 'with_price' %}selected{% endif %}>С ценами</option>
+          <option value="no_price"   {% if status == 'no_price'   %}selected{% endif %}>Без цен</option>
         </select>
       </div>
       <div class="flex-1 min-w-[16rem]">
@@ -40,145 +54,156 @@
             {{ icon('search', class='w-4 h-4') }}
           </span>
           <input id="f-q" type="search" name="q" value="{{ search }}"
-                 placeholder="модель, производитель, MPN, GTIN…" class="input pl-10">
+                 placeholder="модель, производитель, MPN, GTIN…"
+                 class="input pl-10 kt-filter-input" autocomplete="off">
         </div>
       </div>
-      <div class="flex items-center gap-3 pb-1">
-        <label class="flex items-center gap-2 cursor-pointer text-small text-ink-secondary">
-          <input type="checkbox" class="check" name="skeletons" value="1"
-                 {% if only_skel %}checked{% endif %}>
-          Только скелеты
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer text-small text-ink-secondary">
-          <input type="checkbox" class="check" name="hidden" value="1"
-                 {% if only_hidden %}checked{% endif %}>
-          Только скрытые
-        </label>
-      </div>
-      <div class="flex gap-2 pb-1">
-        <button type="submit" class="btn btn-md btn-primary">
-          {{ icon('filter', class='w-4 h-4') }}
-          Применить
-        </button>
-        <a href="/admin/components" class="btn btn-md btn-ghost">сбросить</a>
-      </div>
     </div>
-  </form>
-
-  <div class="text-small text-ink-muted">
-    Найдено: <span class="text-ink-primary tabular-nums">{{ result.total }}</span>
-    {% if result.total_pages > 1 %}
-      · стр. {{ result.page }} из {{ result.total_pages }}
-    {% endif %}
-  </div>
-
-  {% if not result.rows %}
-  <div class="card card-pad-lg text-center">
-    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
-                bg-surface-2 text-ink-muted mb-3">
-      {{ icon('cpu', class='w-5 h-5') }}
-    </div>
-    <p class="text-body text-ink-secondary">Ничего не найдено.</p>
-    <p class="text-small text-ink-muted mt-1">Смягчите фильтры или сбросьте поиск.</p>
-  </div>
-  {% else %}
-  <section class="card overflow-hidden">
-    <table class="kt-table kt-table-compact">
-      <thead>
-        <tr>
-          <th class="text-left w-32">Категория</th>
-          <th class="text-left w-32">Производитель</th>
-          <th class="text-left">Модель</th>
-          <th class="text-left w-40">MPN / SKU</th>
-          <th class="text-left w-32">GTIN</th>
-          <th class="text-left w-44">Цены</th>
-          <th class="text-left w-32">Статус</th>
-          <th class="text-right w-32"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for it in result.rows %}
-        <tr class="kt-row-link"
-            data-href="/admin/components/{{ it.category }}/{{ it.id }}">
-          <td>
-            <span class="badge badge-neutral">{{ it.category_label }}</span>
-          </td>
-          <td class="text-ink-secondary">{{ it.manufacturer or '—' }}</td>
-          <td class="text-ink-primary">
-            <a href="/admin/components/{{ it.category }}/{{ it.id }}"
-               class="hover:text-brand-400">{{ it.model }}</a>
-          </td>
-          <td class="text-caption text-ink-secondary">{{ it.sku or '—' }}</td>
-          <td class="text-caption text-ink-muted">{{ it.gtin or '—' }}</td>
-          <td class="text-small">
-            {% if it.supplier_count == 0 %}
-              <span class="badge badge-danger">нет цен</span>
-            {% elif it.supplier_count == 1 %}
-              <span class="text-ink-primary tabular-nums">${{ '%.0f'|format(it.min_price_usd) }}</span>
-              <span class="text-caption text-ink-muted">у {{ it.supplier_min_name }}</span>
-            {% else %}
-              <span class="text-ink-primary tabular-nums">от ${{ '%.0f'|format(it.min_price_usd) }}</span>
-              <span class="text-caption text-ink-muted">({{ it.supplier_count }} поставщ.)</span>
-            {% endif %}
-          </td>
-          <td>
-            {% if it.is_hidden %}
-              <span class="badge badge-danger">скрыт</span>
-            {% elif it.is_skeleton %}
-              <span class="badge badge-warning">скелет</span>
-            {% else %}
-              <span class="badge badge-success">полная</span>
-            {% endif %}
-          </td>
-          <td class="text-right">
-            <a href="/admin/components/{{ it.category }}/{{ it.id }}"
-               class="btn btn-sm btn-secondary">Открыть</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
   </section>
 
-  {# === Пагинация === #}
-  {% if result.total_pages > 1 %}
-  <nav class="flex items-center justify-between text-small text-ink-secondary">
-    <div>
-      Стр. <span class="text-ink-primary tabular-nums">{{ result.page }}</span>
-      из <span class="text-ink-primary tabular-nums">{{ result.total_pages }}</span>
-    </div>
-    {% set base = '?category=' ~ category ~ '&q=' ~ search ~ ('&skeletons=1' if only_skel else '') ~ ('&hidden=1' if only_hidden else '') %}
-    <div class="flex gap-2">
-      {% if result.page > 1 %}
-      <a href="{{ base }}&page={{ result.page - 1 }}" class="btn btn-sm btn-secondary">
-        ← назад
-      </a>
-      {% else %}
-      <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">← назад</span>
-      {% endif %}
-      {% if result.page < result.total_pages %}
-      <a href="{{ base }}&page={{ result.page + 1 }}" class="btn btn-sm btn-secondary">
-        вперёд →
-      </a>
-      {% else %}
-      <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">вперёд →</span>
-      {% endif %}
-    </div>
-  </nav>
-  {% endif %}
-  {% endif %}
+  {# === Активные фильтры + таблица — обновляется JS-ом без перезагрузки. #}
+  <div id="kt-components-result" class="space-y-4">
+    {% include "admin/_components_table.html" %}
+  </div>
 
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-  document.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
-    tr.addEventListener('click', function (e) {
-      if (e.target.closest('a, button, input, label, form')) return;
-      var href = tr.getAttribute('data-href');
-      if (href) window.location = href;
+  // 9А.2.2: живые фильтры + сортировка по столбцам.
+  // - Любое изменение фильтра / клик по столбцу → перерисовка таблицы
+  //   через GET /admin/components?...&partial=1.
+  // - Поиск с debounce 300мс, остальное — мгновенно.
+  // - URL обновляется через history.pushState — фильтры в адресной
+  //   строке, можно поделиться ссылкой.
+  // - Chip'ы и «Сбросить все» — делегированно по клику.
+  (function () {
+    var fCat    = document.getElementById('f-cat');
+    var fStatus = document.getElementById('f-status');
+    var fQ      = document.getElementById('f-q');
+    var resultBox = document.getElementById('kt-components-result');
+    if (!fCat || !fStatus || !fQ || !resultBox) return;
+
+    function readState() {
+      return {
+        category: fCat.value,
+        status:   fStatus.value,
+        q:        fQ.value,
+        sort:     resultBox.dataset.sort || '',
+      };
+    }
+
+    function buildQs(state) {
+      var qs = new URLSearchParams();
+      if (state.category) qs.set('category', state.category);
+      if (state.status)   qs.set('status',   state.status);
+      if (state.q)        qs.set('q',        state.q);
+      if (state.sort)     qs.set('sort',     state.sort);
+      return qs.toString();
+    }
+
+    function applyState(state, opts) {
+      opts = opts || {};
+      var qs = buildQs(state);
+      var url = '/admin/components' + (qs ? ('?' + qs) : '');
+      var fetchUrl = '/admin/components?' + (qs ? qs + '&' : '') + 'partial=1';
+      // Обновляем URL.
+      if (opts.push !== false) {
+        history.pushState(state, '', url);
+      }
+      resultBox.dataset.sort = state.sort || '';
+      resultBox.classList.add('opacity-50');
+      fetch(fetchUrl, {
+        credentials: 'same-origin',
+        headers: { 'Accept': 'text/html' }
+      }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      }).then(function (html) {
+        resultBox.innerHTML = html;
+        resultBox.classList.remove('opacity-50');
+        wireRowClicks();
+      }).catch(function (err) {
+        resultBox.classList.remove('opacity-50');
+        console.error('components-refresh-fail', err);
+      });
+    }
+
+    var debounceTimer = null;
+    function refilter(opts) {
+      applyState(readState(), opts);
+    }
+    function refilterDebounced() {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(refilter, 300);
+    }
+
+    fCat.addEventListener('change',  function () { refilter(); });
+    fStatus.addEventListener('change', function () { refilter(); });
+    fQ.addEventListener('input',     refilterDebounced);
+
+    // Делегирование: клик по сортировке, по chip-крестику, по «Сбросить все».
+    resultBox.addEventListener('click', function (e) {
+      var sortBtn = e.target.closest('.kt-sort-btn');
+      if (sortBtn) {
+        e.preventDefault();
+        resultBox.dataset.sort = sortBtn.dataset.sort || '';
+        refilter();
+        return;
+      }
+      var chipX = e.target.closest('.kt-chip-x');
+      if (chipX) {
+        e.preventDefault();
+        var which = chipX.dataset.clear;
+        if (which === 'category') fCat.value = '';
+        else if (which === 'status') fStatus.value = '';
+        else if (which === 'q') fQ.value = '';
+        else if (which === 'sort') resultBox.dataset.sort = '';
+        refilter();
+        return;
+      }
+      var clearAll = e.target.closest('#kt-clear-all');
+      if (clearAll) {
+        e.preventDefault();
+        fCat.value = '';
+        fStatus.value = '';
+        fQ.value = '';
+        resultBox.dataset.sort = '';
+        refilter();
+        return;
+      }
     });
-  });
+
+    // Кнопки пагинации остаются обычными ссылками — клик уйдёт на полный
+    // GET /admin/components, что нас устраивает (каноничный URL с фильтрами).
+
+    // popstate — назад/вперёд в истории.
+    window.addEventListener('popstate', function (e) {
+      if (e.state && typeof e.state === 'object') {
+        if (e.state.category != null) fCat.value = e.state.category;
+        if (e.state.status   != null) fStatus.value = e.state.status;
+        if (e.state.q        != null) fQ.value = e.state.q;
+        resultBox.dataset.sort = e.state.sort || '';
+        applyState(readState(), { push: false });
+      }
+    });
+
+    function wireRowClicks() {
+      resultBox.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
+        if (tr._wired) return;
+        tr._wired = true;
+        tr.addEventListener('click', function (e) {
+          if (e.target.closest('a, button, input, label, form')) return;
+          var href = tr.getAttribute('data-href');
+          if (href) window.location = href;
+        });
+      });
+    }
+    wireRowClicks();
+
+    // Инициализируем state-сорт из server-side значения, если он передан.
+    {% if sort %}resultBox.dataset.sort = {{ sort | tojson }};{% endif %}
+  })();
 </script>
 {% endblock %}

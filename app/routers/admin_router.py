@@ -420,39 +420,49 @@ def components_list(
     request: Request,
     category: str = "",
     q: str = "",
-    skeletons: str = "",
-    hidden: str = "",
+    status: str = "",
+    sort: str = "",
+    partial: str = "",
     page: int = 1,
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
+    """Список компонентов с фильтрами и сортировкой.
+
+    9А.2.2: вместо чекбоксов «Только скелеты»/«Только скрытые»
+    единый параметр `status` (full | skeleton | hidden | with_price |
+    no_price). Параметр `sort` — '<column>,<asc|desc>'. При
+    `?partial=1` отдаём только partial-фрагмент (таблицу + чипы +
+    счётчик), чтобы фронт мог обновить таблицу без перезагрузки.
+    """
     cat = category if category in component_service.EDITABLE_FIELDS else ""
-    only_skel = (skeletons == "1")
-    only_hidden = (hidden == "1")
     result = component_service.list_components(
         db,
         category=cat or None,
         search=q.strip(),
-        only_skeletons=only_skel,
-        only_hidden=only_hidden,
+        status=status.strip().lower(),
+        sort=sort.strip(),
         page=int(page or 1),
         per_page=30,
     )
+    ctx = {
+        "user":        user,
+        "csrf_token":  get_csrf_token(request),
+        "result":      result,
+        "category":    cat,
+        "search":      q,
+        "status":      status,
+        "sort":        sort,
+        "categories":  component_service.CATEGORY_LABELS,
+        "info":        request.session.pop("flash_info",  None),
+        "error":       request.session.pop("flash_error", None),
+    }
+    if partial == "1":
+        return templates.TemplateResponse(
+            request, "admin/_components_table.html", ctx
+        )
     return templates.TemplateResponse(
-        request,
-        "admin/components_list.html",
-        {
-            "user":        user,
-            "csrf_token":  get_csrf_token(request),
-            "result":      result,
-            "category":    cat,
-            "search":      q,
-            "only_skel":   only_skel,
-            "only_hidden": only_hidden,
-            "categories":  component_service.CATEGORY_LABELS,
-            "info":        request.session.pop("flash_info",  None),
-            "error":       request.session.pop("flash_error", None),
-        },
+        request, "admin/components_list.html", ctx
     )
 
 

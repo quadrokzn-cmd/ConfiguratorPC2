@@ -1,0 +1,182 @@
+{# Partial-фрагмент таблицы компонентов (этап 9А.2.2).
+   Используется и при первоначальном рендере /admin/components, и
+   при ?partial=1 — JS подменяет содержимое #kt-components-result
+   при изменении фильтров без перезагрузки страницы. #}
+{% from "_macros/icons.html" import icon %}
+
+{% macro _sort_link(column, label) -%}
+  {%- set parts = (sort or '').split(',', 1) -%}
+  {%- set cur_col = (parts[0] | trim) | lower -%}
+  {%- set cur_dir = (parts[1] | trim) | lower if parts | length > 1 else '' -%}
+  {%- if cur_col == column and cur_dir == 'asc' -%}
+    {%- set next_sort = column ~ ',desc' -%}
+    {%- set arrow = '▲' -%}
+  {%- elif cur_col == column and cur_dir == 'desc' -%}
+    {%- set next_sort = '' -%}
+    {%- set arrow = '▼' -%}
+  {%- else -%}
+    {%- set next_sort = column ~ ',asc' -%}
+    {%- set arrow = '' -%}
+  {%- endif -%}
+  <button type="button" class="kt-sort-btn inline-flex items-center gap-1
+                               text-ink-secondary hover:text-ink-primary
+                               transition-colors duration-120"
+          data-sort="{{ next_sort }}">
+    {{ label }}
+    {%- if arrow %}
+    <span class="text-brand-400" aria-hidden="true">{{ arrow }}</span>
+    {%- endif %}
+  </button>
+{%- endmacro %}
+
+{# === Активные фильтры — chip'ы с крестиком ============================ #}
+{% set _has_chips = (category or search or status or sort) %}
+<div id="kt-active-filters"
+     class="flex items-center gap-2 flex-wrap min-h-[1.75rem]
+            {% if not _has_chips %}hidden{% endif %}">
+  {% if category %}
+  <span class="kt-chip">
+    Категория: {{ categories.get(category, category) }}
+    <button type="button" class="kt-chip-x" data-clear="category"
+            aria-label="Сбросить фильтр по категории">×</button>
+  </span>
+  {% endif %}
+  {% if status %}
+  {% set _status_label = {
+       'full':       'Полные карточки',
+       'skeleton':   'Скелеты',
+       'hidden':     'Скрытые',
+       'with_price': 'С ценами',
+       'no_price':   'Без цен',
+     } %}
+  <span class="kt-chip">
+    Статус: {{ _status_label.get(status, status) }}
+    <button type="button" class="kt-chip-x" data-clear="status"
+            aria-label="Сбросить фильтр по статусу">×</button>
+  </span>
+  {% endif %}
+  {% if search %}
+  <span class="kt-chip">
+    Поиск: «{{ search }}»
+    <button type="button" class="kt-chip-x" data-clear="q"
+            aria-label="Сбросить поиск">×</button>
+  </span>
+  {% endif %}
+  {% if sort %}
+  <span class="kt-chip">
+    Сортировка: {{ sort }}
+    <button type="button" class="kt-chip-x" data-clear="sort"
+            aria-label="Сбросить сортировку">×</button>
+  </span>
+  {% endif %}
+  {% if _has_chips %}
+  <button type="button" id="kt-clear-all"
+          class="text-caption text-ink-muted hover:text-brand-400
+                 transition-colors duration-120 underline-offset-2">
+    Сбросить все
+  </button>
+  {% endif %}
+</div>
+
+<div class="text-small text-ink-muted">
+  Найдено: <span class="text-ink-primary tabular-nums">{{ result.total }}</span>
+  {% if result.total_pages > 1 %}
+    · стр. {{ result.page }} из {{ result.total_pages }}
+  {% endif %}
+</div>
+
+{% if not result.rows %}
+<div class="card card-pad-lg text-center">
+  <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+              bg-surface-2 text-ink-muted mb-3">
+    {{ icon('cpu', class='w-5 h-5') }}
+  </div>
+  <p class="text-body text-ink-secondary">Ничего не найдено.</p>
+  <p class="text-small text-ink-muted mt-1">Смягчите фильтры или сбросьте поиск.</p>
+</div>
+{% else %}
+<section class="card overflow-hidden">
+  <table class="kt-table kt-table-compact">
+    <thead>
+      <tr>
+        <th class="text-left w-32">{{ _sort_link('category',     'Категория')    }}</th>
+        <th class="text-left w-32">{{ _sort_link('manufacturer', 'Производитель') }}</th>
+        <th class="text-left">{{ _sort_link('model', 'Модель') }}</th>
+        <th class="text-left w-40">MPN / SKU</th>
+        <th class="text-left w-32">GTIN</th>
+        <th class="text-left w-44">{{ _sort_link('price', 'Цены') }}</th>
+        <th class="text-left w-32">{{ _sort_link('status', 'Статус') }}</th>
+        <th class="text-right w-32"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for it in result.rows %}
+      <tr class="kt-row-link"
+          data-href="/admin/components/{{ it.category }}/{{ it.id }}">
+        <td>
+          <span class="badge badge-neutral">{{ it.category_label }}</span>
+        </td>
+        <td class="text-ink-secondary">{{ it.manufacturer or '—' }}</td>
+        <td class="text-ink-primary">
+          <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+             class="hover:text-brand-400">{{ it.model }}</a>
+        </td>
+        <td class="text-caption text-ink-secondary">{{ it.sku or '—' }}</td>
+        <td class="text-caption text-ink-muted">{{ it.gtin or '—' }}</td>
+        <td class="text-small">
+          {% if it.supplier_count == 0 %}
+            <span class="badge badge-danger">нет цен</span>
+          {% elif it.supplier_count == 1 %}
+            <span class="text-ink-primary tabular-nums">${{ '%.0f'|format(it.min_price_usd) }}</span>
+            <span class="text-caption text-ink-muted">у {{ it.supplier_min_name }}</span>
+          {% else %}
+            <span class="text-ink-primary tabular-nums">от ${{ '%.0f'|format(it.min_price_usd) }}</span>
+            <span class="text-caption text-ink-muted">({{ it.supplier_count }} поставщ.)</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if it.is_hidden %}
+            <span class="badge badge-danger">скрыт</span>
+          {% elif it.is_skeleton %}
+            <span class="badge badge-warning">скелет</span>
+          {% else %}
+            <span class="badge badge-success">полная</span>
+          {% endif %}
+        </td>
+        <td class="text-right">
+          <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+             class="btn btn-sm btn-secondary">Открыть</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+{# === Пагинация === #}
+{% if result.total_pages > 1 %}
+{% set base = '?category=' ~ category ~ '&q=' ~ search ~ ('&status=' ~ status if status else '') ~ ('&sort=' ~ sort if sort else '') %}
+<nav class="flex items-center justify-between text-small text-ink-secondary">
+  <div>
+    Стр. <span class="text-ink-primary tabular-nums">{{ result.page }}</span>
+    из <span class="text-ink-primary tabular-nums">{{ result.total_pages }}</span>
+  </div>
+  <div class="flex gap-2">
+    {% if result.page > 1 %}
+    <a href="{{ base }}&page={{ result.page - 1 }}" class="btn btn-sm btn-secondary">
+      ← назад
+    </a>
+    {% else %}
+    <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">← назад</span>
+    {% endif %}
+    {% if result.page < result.total_pages %}
+    <a href="{{ base }}&page={{ result.page + 1 }}" class="btn btn-sm btn-secondary">
+      вперёд →
+    </a>
+    {% else %}
+    <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">вперёд →</span>
+    {% endif %}
+  </div>
+</nav>
+{% endif %}
+{% endif %}

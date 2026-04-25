@@ -188,6 +188,32 @@ def _allowed_field_names(category: str) -> set[str]:
 
 # --- Список ----------------------------------------------------------------
 
+_SORT_COLUMNS = {
+    "category":     "category",
+    "manufacturer": "manufacturer",
+    "model":        "model",
+    "price":        "min_price_usd",
+    "status":       "status_rank",
+}
+
+
+def _parse_sort(raw: str) -> tuple[str | None, str]:
+    """Разбирает 'column,direction' → (column, 'asc'|'desc') либо (None, '').
+
+    Невалидные значения молча игнорируются — возврат (None, ''), т.е.
+    дефолтная сортировка."""
+    if not raw:
+        return None, ""
+    parts = raw.split(",", 1)
+    col = parts[0].strip().lower()
+    direction = (parts[1].strip().lower() if len(parts) > 1 else "asc")
+    if col not in _SORT_COLUMNS:
+        return None, ""
+    if direction not in ("asc", "desc"):
+        direction = "asc"
+    return col, direction
+
+
 def list_components(
     session: Session,
     *,
@@ -195,6 +221,9 @@ def list_components(
     search: str = "",             # ILIKE по model / manufacturer / sku / gtin
     only_skeletons: bool = False,
     only_hidden: bool = False,
+    status: str = "",             # 9А.2.2: '', 'full', 'skeleton', 'hidden',
+                                  # 'with_price', 'no_price'
+    sort: str = "",               # 9А.2.2: '<column>,<asc|desc>'; пусто = дефолт
     page: int = 1,
     per_page: int = 30,
 ) -> dict:
@@ -203,9 +232,28 @@ def list_components(
     Возвращает {items: [...], total: int, page, per_page, total_pages}.
     Каждый item: {category, id, model, manufacturer, sku, gtin, is_hidden,
                   is_skeleton, has_price (bool)}.
+
+    9А.2.2: единый параметр `status` (приоритетнее старых only_skeletons /
+    only_hidden — если задан, перекрывает их). Параметр `sort` —
+    'column,direction', где column ∈ {category, manufacturer, model,
+    price, status}, direction ∈ {asc, desc}.
     """
     page = max(1, int(page))
     per_page = max(5, min(int(per_page), 200))
+
+    # 9А.2.2: status имеет приоритет над старыми чекбоксами (если придут).
+    status = (status or "").strip().lower()
+    if status == "skeleton":
+        only_skeletons = True
+        only_hidden = False
+    elif status == "hidden":
+        only_skeletons = False
+        only_hidden = True
+    elif status == "full":
+        only_skeletons = False
+        only_hidden = False
+    elif status in ("with_price", "no_price", "all", ""):
+        pass  # обрабатываются ниже отдельно
 
     if category and category != "all":
         cats = [category]
@@ -239,11 +287,18 @@ def list_components(
         # supplier_min_name — имя поставщика с минимальной ценой
         # (для случая «$X у Merlion», когда поставщик ровно один или
         # хотим показать «от X у …»).
+        # 9А.2.2: добавляем status_rank — числовой код статуса для
+        # сортировки по столбцу «Статус». 0 = полная, 1 = скелет,
+        # 2 = скрыт. По возрастанию: сначала полные, затем скелеты,
+        # затем скрытые.
         sub_sql = (
             f"SELECT '{cat}' AS category, "
             f"       c.id, c.model, c.manufacturer, c.sku, c.gtin, "
             f"       c.is_hidden, "
             f"       {skel_expr} AS is_skeleton, "
+            f"       CASE WHEN c.is_hidden THEN 2 "
+            f"            WHEN {skel_expr} THEN 1 "
+            f"            ELSE 0 END AS status_rank, "
             f"       COALESCE(p.supplier_count, 0) AS supplier_count, "
             f"       p.min_price_usd AS min_price_usd, "
             f"       p.supplier_min_name AS supplier_min_name "
@@ -271,13 +326,36 @@ def list_components(
             sub_sql += f"AND {skel_expr} "
         if only_hidden:
             sub_sql += "AND c.is_hidden = TRUE "
+        if status == "full":
+            sub_sql += f"AND NOT {skel_expr} AND c.is_hidden = FALSE "
+        elif status == "with_price":
+            sub_sql += "AND COALESCE(p.supplier_count, 0) > 0 "
+        elif status == "no_price":
+            sub_sql += "AND COALESCE(p.supplier_count, 0) = 0 "
         union_parts.append(sub_sql)
 
     union_sql = " UNION ALL ".join(f"({p})" for p in union_parts)
-    # Сортировка: сначала скелеты+скрытые сверху, потом по category, model
-    order_by = (
-        " ORDER BY is_skeleton DESC, is_hidden DESC, category ASC, model ASC "
-    )
+
+    # 9А.2.2: сортировка по выбранной колонке.
+    # По умолчанию: сначала скелеты+скрытые сверху, потом по category, model.
+    sort_col, sort_dir = _parse_sort(sort)
+    if sort_col is None:
+        order_by = (
+            " ORDER BY is_skeleton DESC, is_hidden DESC, "
+            "          category ASC, model ASC "
+        )
+    else:
+        col_sql = _SORT_COLUMNS[sort_col]
+        dir_sql = "ASC" if sort_dir == "asc" else "DESC"
+        # NULLS LAST для цен — компоненты без цены оказываются в конце
+        # при сортировке asc (логичнее, чем сверху NULL'ы).
+        nulls_clause = ""
+        if sort_col == "price":
+            nulls_clause = " NULLS LAST" if sort_dir == "asc" else " NULLS LAST"
+        order_by = (
+            f" ORDER BY {col_sql} {dir_sql}{nulls_clause}, "
+            f"          category ASC, model ASC "
+        )
     offset = (page - 1) * per_page
     paged_sql = (
         f"SELECT * FROM ({union_sql}) AS u "
