@@ -7,16 +7,15 @@
   <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
 </head>
 <body class="min-h-screen flex items-center justify-center px-4">
-  {% from "_macros/icons.html" import brand_mark %}
   <div class="w-full max-w-sm">
-    <div class="text-center mb-8 flex flex-col items-center">
-      {{ brand_mark(class='w-12 h-12 mb-3') }}
+    <div class="text-center mb-8">
       <div class="text-h1 text-ink-primary">КВАДРО-ТЕХ</div>
-      <div class="text-small text-ink-muted">конфигуратор ПК</div>
+      <div class="text-small text-ink-muted">портал</div>
     </div>
 
     <form method="post" action="/login" class="card card-pad-lg space-y-4">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="next" value="{{ next or '' }}">
 
       {% if error %}
       <div class="alert alert-danger">{{ error }}</div>

@@ -4,26 +4,66 @@
 смотрите код — этот документ держит **верхнеуровневую модель**, которая
 полезна на старте новой задачи или при онбординге.
 
+## Монорепо: два сервиса, общая БД (этап 9Б.1)
+
+С этапа 9Б.1 проект — **монорепо с двумя FastAPI-сервисами**,
+разделяющими PostgreSQL и таблицу `users`:
+
+| Сервис         | Каталог         | URL (прод)              | Что делает                                                           |
+|----------------|-----------------|-------------------------|----------------------------------------------------------------------|
+| Конфигуратор   | `app/`          | `config.quadro.tatar`   | Подбор ПК, проекты, спецификации, экспорт КП, маппинг компонентов   |
+| Портал         | `portal/`       | `app.quadro.tatar`      | Единый вход (login), главная с плитками модулей, /admin/users       |
+
+Оба процесса слушают свой порт и стартуют независимо, но:
+
+- используют одну Postgres-инстанцию (один `DATABASE_URL`);
+- общая таблица `users` — login через портал автоматически валиден
+  для конфигуратора (одинаковые `secret_key` сессии и имя cookie
+  `kt_session`, `domain=.quadro.tatar` в production);
+- общий код — каталог `shared/` (auth, db, permissions, user_repo).
+
+Конфигуратор сам не показывает форму логина — если пользователь
+заходит без сессии, он получает 302 на `${PORTAL_URL}/login?next=...`.
+После логина портал редиректит обратно (только если хост в whitelist
+`ALLOWED_REDIRECT_HOSTS` — защита от open redirect).
+
+Permissions: у каждого пользователя есть `users.permissions` JSONB
+вида `{"configurator": true, ...}`. Admin видит всё всегда; manager
+видит только модули с `true`. Список ключей и helper'ы — в
+`shared/permissions.py`. На этапе 9Б.1 активен только ключ
+`"configurator"`; остальные модули появятся в 9Б.2.
+
 ## Структура репозитория
 
 ```
 ConfiguratorPC2/
-├── app/                ← всё приложение FastAPI
+├── app/                ← конфигуратор: FastAPI-приложение
 │   ├── main.py         ← точка входа, SessionMiddleware, регистрация роутеров
-│   ├── auth.py         ← bcrypt, сессии, current_user / require_login / require_admin
-│   ├── config.py       ← настройки из .env
-│   ├── database.py     ← engine, SessionLocal, get_db
-│   ├── routers/        ← FastAPI-роутеры (auth, main, project, admin, ...)
+│   ├── auth.py         ← реэкспорт shared/auth.py (для совместимости импортов)
+│   ├── config.py       ← настройки из .env (включая PORTAL_URL/CONFIGURATOR_URL)
+│   ├── database.py     ← реэкспорт shared/db.py (для совместимости импортов)
+│   ├── routers/        ← FastAPI-роутеры (main, project, admin, mapping, export)
 │   ├── services/       ← бизнес-логика (см. ниже)
-│   └── templates/      ← Jinja2-шаблоны (наследование от base.html)
-├── migrations/         ← SQL-миграции 001–016 (применяются по порядку)
-├── scripts/            ← CLI-скрипты (загрузка прайсов, бэкфилы, утилиты)
-├── tests/              ← pytest, 721 passed + 2 skipped
-├── static/             ← фронтенд-ассеты
-│   ├── src/            ← исходники (main.css → Tailwind)
-│   ├── dist/           ← собранный CSS (коммитится в репо)
-│   ├── js/             ← AJAX-клиенты (project.js)
-│   └── fonts/inter/    ← локальный шрифт Inter
+│   └── templates/      ← Jinja2-шаблоны конфигуратора
+├── portal/             ← портал: отдельное FastAPI-приложение (этап 9Б.1)
+│   ├── main.py         ← точка входа портала
+│   ├── routers/        ← auth (/login, /logout), home (/), admin_users (/admin/users)
+│   ├── templates/      ← минимальные шаблоны портала (база для дизайна 9Б.2)
+│   └── templating.py   ← Jinja2 portal-инстанция
+├── shared/             ← общий код для конфигуратора и портала (этап 9Б.1)
+│   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
+│   ├── db.py           ← engine, SessionLocal, get_db
+│   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
+│   └── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions)
+├── migrations/         ← SQL-миграции 001–017 (применяются по порядку)
+├── scripts/            ← CLI-скрипты (apply_migrations, bootstrap_admin, и пр.)
+├── tests/              ← pytest, 741 passed + 2 skipped
+│   ├── test_portal/    ← тесты портала (auth, admin_users, permissions)
+│   ├── test_web/       ← тесты конфигуратора
+│   └── test_export/    ← тесты модуля экспорта
+├── static/             ← фронтенд-ассеты (общие, делятся между портал/конфигуратор)
+├── Dockerfile          ← образ конфигуратора (Railway)
+├── Dockerfile.portal   ← образ портала (Railway, этап 9Б.1)
 ├── design_references/  ← локальные референсы дизайна (gitignored)
 ├── docs/               ← техническая документация (этот каталог)
 ├── business/           ← бизнес-контекст КВАДРО-ТЕХ (см. ../business/INDEX.md)

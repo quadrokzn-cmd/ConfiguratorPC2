@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Портал — КВАДРО-ТЕХ{% endblock %}</title>
+  {# 9Б.1: используем тот же main.css, что и конфигуратор, чтобы UI
+     выглядел согласованно. «Поживее» — это 9Б.2. #}
+  <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
+  <link rel="icon" type="image/png" href="/static/img/favicon.png">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen">
+  <div class="max-w-screen-md mx-auto px-6 py-8">
+    {% if user %}
+    <header class="flex items-center justify-between mb-8">
+      <div>
+        <a href="/" class="text-h2 text-ink-primary hover:opacity-80 transition-opacity">
+          КВАДРО-ТЕХ · Портал
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <div class="text-small text-ink-primary">{{ user.name }}</div>
+          <div class="text-caption text-ink-muted">
+            {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+          </div>
+        </div>
+        <form method="post" action="/logout" class="inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button type="submit" class="btn btn-sm btn-ghost">Выйти</button>
+        </form>
+      </div>
+    </header>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

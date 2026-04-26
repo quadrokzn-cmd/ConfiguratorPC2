@@ -1,7 +1,7 @@
 # База данных
 
 PostgreSQL 16, чистый SQL в миграциях (без ORM-моделей). Применённые
-миграции — **001 → 016** (см. [`../migrations/`](../migrations/)).
+миграции — **001 → 017** (см. [`../migrations/`](../migrations/)).
 
 ## Список таблиц
 
@@ -40,7 +40,7 @@ PostgreSQL 16, чистый SQL в миграциях (без ORM-моделей
 
 | Таблица                 | Что хранит                                                |
 |-------------------------|-----------------------------------------------------------|
-| `users`                 | Менеджеры и админ (логин, bcrypt-хэш, role)               |
+| `users`                 | Менеджеры и админ (логин, bcrypt-хэш, role, **permissions** JSONB) |
 | `projects`              | Проекты пользователя (имя, дата, владелец)                |
 | `queries`               | Запросы NLU (свободный текст, BuildRequest, project_id)   |
 | `configurations`        | Конфигурации в проекте (компоненты, цена, query_id)       |
@@ -89,9 +89,33 @@ PostgreSQL 16, чистый SQL в миграциях (без ORM-моделей
 match найдётся по штрихкоду. Backfill GTIN для уже загруженных
 компонентов: `python scripts/backfill_gtin.py --file path/to/OCS_price.xlsx`.
 
+## users.permissions JSONB (этап 9Б.1)
+
+Миграция 017 добавляет в таблицу `users` колонку `permissions JSONB
+NOT NULL DEFAULT '{}'::jsonb`. Назначение — гибкие права на модули
+портала (`app.quadro.tatar`).
+
+Формат: словарь вида `{"configurator": true, "kp_form": false, ...}`.
+Список ключей живёт в `shared/permissions.py:MODULE_KEYS` и сейчас
+включает: `configurator`, `kp_form`, `auctions`, `mail_agent`,
+`dashboard`. В этапе 9Б.1 в UI портала отображается только
+`configurator` — остальные модули зарезервированы для 9Б.2.
+
+Семантика (`shared/permissions.has_permission`):
+
+- `role = 'admin'` → доступ ко всем модулям независимо от
+  `permissions`. У администраторов `permissions` обычно `{}`.
+- `role = 'manager'` → доступ если `permissions[<module_key>]` равно
+  `true`. Отсутствие ключа = отказ.
+
+Существующих пользователей миграция 017 переводит на
+`{"configurator": true}` — пускает в текущий продуктовый модуль.
+Новые менеджеры из формы `/admin/users` создаются с тем же дефолтом
+(см. `shared/user_repo.py:_default_manager_permissions`).
+
 ## Миграции
 
-Применяются по порядку 001 → 016. Список:
+Применяются по порядку 001 → 017. Список:
 
 | #   | Файл                                              | Что делает                                          |
 |-----|---------------------------------------------------|-----------------------------------------------------|
@@ -111,6 +135,7 @@ match найдётся по штрихкоду. Backfill GTIN для уже за
 | 014 | `014_specification_recalculated_at.sql`           | Фиксация момента пересчёта спецификации             |
 | 015 | `015_exchange_rates_table.sql`                    | Таблица курсов ЦБ (Этап 9А.2.3)                     |
 | 016 | `016_specification_items_parsed_query.sql`        | Контекст исходного запроса в позициях спецификации  |
+| 017 | `017_add_user_permissions.sql`                    | `users.permissions` JSONB — права на модули портала (Этап 9Б.1) |
 
 ### Применение миграций
 

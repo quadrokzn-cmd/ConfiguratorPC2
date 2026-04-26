@@ -49,6 +49,7 @@ _MIGRATIONS = [
     "014_specification_recalculated_at.sql",
     "015_exchange_rates_table.sql",
     "016_specification_items_parsed_query.sql",
+    "017_add_user_permissions.sql",
 ]
 
 
@@ -137,13 +138,25 @@ def db_session(db_engine):
 # ---- Пользователи и клиенты -------------------------------------------
 
 def _create_user(session, *, login: str, password: str, role: str, name: str) -> int:
-    from app.auth import hash_password
+    """Создаёт пользователя. С миграцией 017 (этап 9Б.1) у каждого
+    пользователя есть users.permissions JSONB; для тестов конфигуратора
+    выдаём дефолт {"configurator": True}, чтобы менеджеры могли
+    открывать страницы конфигуратора (логин идёт через портал, и портал
+    проверит permissions при заходе на главную; на сами защищённые
+    страницы конфигуратора permissions пока не проверяются — это 9Б.2,
+    но ставим как у production-пользователей)."""
+    import json as _json
+    from shared.auth import hash_password
+    perms = {} if role == "admin" else {"configurator": True}
     row = session.execute(
         text(
-            "INSERT INTO users (login, password_hash, role, name) "
-            "VALUES (:l, :p, :r, :n) RETURNING id"
+            "INSERT INTO users (login, password_hash, role, name, permissions) "
+            "VALUES (:l, :p, :r, :n, CAST(:perms AS JSONB)) RETURNING id"
         ),
-        {"l": login, "p": hash_password(password), "r": role, "n": name},
+        {
+            "l": login, "p": hash_password(password), "r": role, "n": name,
+            "perms": _json.dumps(perms),
+        },
     ).first()
     session.commit()
     return int(row.id)
@@ -170,9 +183,19 @@ def manager2_user(db_session):
     return {"id": uid, "login": "manager2", "password": "manager-pass"}
 
 
+import os as _os
+# Эти env-переменные нужны и порталу (build_session_cookie_kwargs
+# одинаковый), и для редиректа неавторизованных в конфигураторе.
+# Дублируется в tests/test_portal/conftest.py — каждая папка тестов
+# может прогоняться независимо.
+_os.environ.setdefault("PORTAL_URL", "http://localhost:8081")
+_os.environ.setdefault("CONFIGURATOR_URL", "http://localhost:8080")
+_os.environ.setdefault("ALLOWED_REDIRECT_HOSTS", "localhost:8080,localhost:8081")
+
+
 @pytest.fixture()
 def app_client():
-    """TestClient без залогиненного пользователя."""
+    """TestClient конфигуратора без залогиненного пользователя."""
     # Импортируем здесь, чтобы env-переменные уже были подняты.
     from app.main import app
     with TestClient(app, follow_redirects=False) as c:
@@ -180,20 +203,28 @@ def app_client():
 
 
 def _login(client: TestClient, login: str, password: str) -> None:
-    # 1. Достаём CSRF из сессии, посетив /login.
-    r = client.get("/login")
-    assert r.status_code == 200
-    # CSRF лежит в скрытом input на форме — вытащим regex-ом.
-    import re
-    m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
-    assert m, "На странице логина не найден csrf_token"
-    token = m.group(1)
-    # 2. Логинимся
-    r = client.post(
-        "/login",
-        data={"login": login, "password": password, "csrf_token": token},
-    )
-    assert r.status_code in (302, 303), f"Логин не прошёл: {r.status_code} {r.text[:200]}"
+    """Этап 9Б.1: login переехал в портал. Логинимся отдельным
+    portal-клиентом, копируем session-cookie в основной клиент.
+
+    Cookie общая (одинаковые secret_key + cookie name), поэтому
+    конфигуратор корректно её разберёт. Это и есть замысел шаринга
+    сессии между сервисами."""
+    from portal.main import app as portal_app
+    with TestClient(portal_app, follow_redirects=False) as portal_client:
+        r = portal_client.get("/login")
+        assert r.status_code == 200, r.status_code
+        import re
+        m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
+        assert m, "На странице логина не найден csrf_token"
+        token = m.group(1)
+        r = portal_client.post(
+            "/login",
+            data={"login": login, "password": password, "csrf_token": token},
+        )
+        assert r.status_code in (302, 303), f"Логин не прошёл: {r.status_code} {r.text[:200]}"
+        # Переносим session-cookie из портала в клиент конфигуратора.
+        for k, v in portal_client.cookies.items():
+            client.cookies.set(k, v)
 
 
 @pytest.fixture()

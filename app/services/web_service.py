@@ -342,67 +342,19 @@ def _row_to_list_item(r, *, with_author: bool = False) -> dict:
     return item
 
 
-# --- Пользователи (для /admin/users) ------------------------------------
+# --- Пользователи -------------------------------------------------------
+#
+# Этап 9Б.1: реальная реализация переехала в shared/user_repo.py — там же
+# работа с users.permissions (миграция 017). Здесь оставлены реэкспорты
+# для обратной совместимости со старыми импортами в админке конфигуратора
+# и в тестах. Когда последний потребитель уйдёт на shared.user_repo —
+# можно удалить.
 
-def list_users(session: Session) -> list[dict]:
-    rows = session.execute(
-        text(
-            "SELECT id, login, role, name, is_active, created_at "
-            "FROM users ORDER BY created_at ASC"
-        )
-    ).all()
-    return [
-        {
-            "id":         int(r.id),
-            "login":      r.login,
-            "role":       r.role,
-            "name":       r.name,
-            "is_active":  bool(r.is_active),
-            "created_at": r.created_at,
-        }
-        for r in rows
-    ]
-
-
-def create_manager(
-    session: Session,
-    *,
-    login: str,
-    password_hash: str,
-    name: str,
-) -> int:
-    """Создаёт менеджера. Возвращает id. При конфликте логина — поднимает
-    ValueError('login_taken')."""
-    exists = session.execute(
-        text("SELECT 1 FROM users WHERE login = :login"),
-        {"login": login},
-    ).first()
-    if exists:
-        raise ValueError("login_taken")
-    row = session.execute(
-        text(
-            "INSERT INTO users (login, password_hash, role, name) "
-            "VALUES (:login, :ph, 'manager', :name) "
-            "RETURNING id"
-        ),
-        {"login": login, "ph": password_hash, "name": name},
-    ).first()
-    session.commit()
-    return int(row.id)
-
-
-def toggle_user_active(session: Session, user_id: int) -> bool:
-    """Переключает is_active у пользователя. Возвращает новое значение."""
-    row = session.execute(
-        text(
-            "UPDATE users SET is_active = NOT is_active "
-            "WHERE id = :id "
-            "RETURNING is_active"
-        ),
-        {"id": user_id},
-    ).first()
-    session.commit()
-    return bool(row.is_active) if row else False
+from shared.user_repo import (  # noqa: E402,F401
+    create_manager,
+    list_users,
+    toggle_user_active,
+)
 
 
 # --- Статистика бюджета для /admin/budget -------------------------------

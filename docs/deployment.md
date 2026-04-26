@@ -40,11 +40,31 @@
 
 | Переменная | Описание |
 |---|---|
-| `APP_COOKIE_DOMAIN` | На Railway: `.quadro.tatar` (с точкой). Шарит сессию с будущим `app.quadro.tatar`. На локалке оставить пусто. |
+| `APP_COOKIE_DOMAIN` | На Railway: `.quadro.tatar` (с точкой). Шарит сессию между `config.quadro.tatar` и `app.quadro.tatar`. На локалке оставить пусто. |
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Если оба заданы — `scripts/bootstrap_admin.py` создаст администратора при первом старте, если его ещё нет в БД. Не трогает уже существующего пользователя. |
-| `RUN_SCHEDULER` | `1` на инстансе, где должен крутиться APScheduler (обновление курса ЦБ 5 раз в день). На репликах оставлять `0`/пусто. |
+| `RUN_SCHEDULER` | `1` на инстансе, где должен крутиться APScheduler (обновление курса ЦБ 5 раз в день). На репликах оставлять `0`/пусто. На сервисе портала всегда оставлять пустым — scheduler нужен только конфигуратору. |
 | `SMTP_*` | Параметры SMTP для отправки писем поставщикам (этап 8.3). Без `SMTP_APP_PASSWORD` отправка падает, остальные функции работают. |
 | `DAILY_OPENAI_BUDGET_RUB` | Дневной лимит расходов OpenAI. По умолчанию 100 ₽. |
+
+### Этап 9Б.1: межсервисные ссылки конфигуратор ↔ портал
+
+Эти переменные нужны обоим сервисам — и конфигуратору, и порталу.
+На локалке достаточно дефолтов; в production выставляются вручную
+в Railway → Service → Variables (см. ниже «Сервис портала»).
+
+| Переменная | Локально | Production |
+|---|---|---|
+| `PORTAL_URL` | `http://localhost:8081` | `https://app.quadro.tatar` |
+| `CONFIGURATOR_URL` | `http://localhost:8080` | `https://config.quadro.tatar` |
+| `ALLOWED_REDIRECT_HOSTS` | `localhost:8080,localhost:8081` | `config.quadro.tatar,app.quadro.tatar` |
+
+`PORTAL_URL` — куда конфигуратор редиректит неавторизованных
+(`${PORTAL_URL}/login?next=<encoded URL>`). `CONFIGURATOR_URL` —
+куда портал ссылается с плитки «Конфигуратор ПК».
+`ALLOWED_REDIRECT_HOSTS` — whitelist для безопасного post-login
+redirect: значения сравниваются с `netloc` URL (то есть `host:port`).
+Если URL ?next=... указывает на хост вне списка, портал отбрасывает
+его и отправляет пользователя на `/`. Это защита от open redirect.
 
 ### Вспомогательные / по умолчанию
 
@@ -121,6 +141,55 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gcc libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 ```
+
+## Второй сервис на Railway: портал (этап 9Б.1)
+
+С этапа 9Б.1 в репо два Dockerfile:
+
+- `Dockerfile` — конфигуратор (`config.quadro.tatar`, порт 8080),
+  команда: `uvicorn app.main:app`.
+- `Dockerfile.portal` — портал (`app.quadro.tatar`, порт 8081),
+  команда: `uvicorn portal.main:app`.
+
+**Сам Railway-сервис портала разворачивается в подэтапе 9Б.3** — здесь
+описана только готовность кодовой базы, чтобы развёртывание сводилось
+к указанию Dockerfile и переменных окружения.
+
+### Создание сервиса портала на Railway (план для 9Б.3)
+
+1. В том же Railway-проекте, где живёт конфигуратор, нажать
+   «New service → Deploy from GitHub repo» — указать тот же репо.
+2. Settings → Build → **Dockerfile path: `Dockerfile.portal`**.
+3. Settings → Networking → выдать публичный URL, привязать домен
+   `app.quadro.tatar` (CNAME на новом Railway-URL).
+4. В Variables прописать:
+   - `DATABASE_URL` — берём ту же ссылку, что у конфигуратора
+     (Railway → Variables → Reference variable → Postgres plugin).
+   - `APP_ENV=production`.
+   - `APP_SECRET_KEY` — **тот же**, что у конфигуратора (cookie
+     подписаны одним секретом, иначе сессия портала не будет
+     валидна на конфигураторе).
+   - `APP_COOKIE_DOMAIN=.quadro.tatar`.
+   - `PORTAL_URL=https://app.quadro.tatar`.
+   - `CONFIGURATOR_URL=https://config.quadro.tatar`.
+   - `ALLOWED_REDIRECT_HOSTS=config.quadro.tatar,app.quadro.tatar`.
+   - `OPENAI_API_KEY` — нужен только для импорта `app.config`
+     (валидируется на старте); портал OpenAI не вызывает, но
+     обязателен.
+   - `RUN_SCHEDULER` — **не задавать** (scheduler нужен только
+     конфигуратору, иначе курсы будут писаться дважды).
+5. После деплоя на конфигуратор тоже добавить `PORTAL_URL`,
+   `CONFIGURATOR_URL`, `ALLOWED_REDIRECT_HOSTS` — без них
+   конфигуратор будет редиректить неавторизованных на
+   `http://localhost:8081`.
+
+### Применение миграций — общий runner
+
+Оба Dockerfile запускают `python -m scripts.apply_migrations` перед
+uvicorn. Раннер идемпотентен (журнал в таблице `schema_migrations`),
+поэтому неважно, кто из сервисов стартует первым. На уже накатанной
+БД (миграции 001-016 от конфигуратора) первый старт портала просто
+применит 017 и больше ничего.
 
 ### Что отрезает .dockerignore
 

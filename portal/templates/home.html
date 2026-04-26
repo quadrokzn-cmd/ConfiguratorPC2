@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Портал — КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<section class="space-y-6">
+  <header>
+    <h1 class="text-display text-ink-primary">Портал КВАДРО-ТЕХ</h1>
+    <p class="mt-2 text-body text-ink-secondary">
+      Здесь будут все рабочие модули. В этом этапе доступен только конфигуратор ПК.
+    </p>
+  </header>
+
+  {% if tiles %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% for tile in tiles %}
+    <a href="{{ tile.url }}"
+       class="card card-pad-lg hover:opacity-90 transition-opacity block">
+      <div class="text-h2 text-ink-primary">{{ tile.label }}</div>
+      <div class="mt-1 text-small text-ink-muted">Открыть модуль →</div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card card-pad-lg text-ink-secondary">
+    Доступных модулей нет — обратитесь к администратору, чтобы он выдал
+    права в разделе «Пользователи».
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

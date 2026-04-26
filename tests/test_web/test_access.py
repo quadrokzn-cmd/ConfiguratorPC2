@@ -55,17 +55,27 @@ def test_admin_can_view_foreign_query(
 
 
 def test_admin_pages_forbidden_for_manager(manager_client):
+    # /admin/users в конфигураторе теперь — редирект на портал (9Б.1),
+    # поэтому проверка прав делается уже на стороне портала.
     assert manager_client.get("/admin").status_code == 403
-    assert manager_client.get("/admin/users").status_code == 403
     assert manager_client.get("/admin/budget").status_code == 403
     assert manager_client.get("/admin/queries").status_code == 403
 
 
 def test_admin_pages_available_for_admin(admin_client):
     assert admin_client.get("/admin").status_code == 200
-    assert admin_client.get("/admin/users").status_code == 200
     assert admin_client.get("/admin/budget").status_code == 200
     assert admin_client.get("/admin/queries").status_code == 200
+
+
+def test_admin_users_redirects_to_portal(admin_client):
+    """Этап 9Б.1: /admin/users переехал в портал. Конфигуратор отдаёт
+    302 на ${PORTAL_URL}/admin/users — независимо от роли (проверка
+    прав делается уже на портале)."""
+    r = admin_client.get("/admin/users", follow_redirects=False)
+    assert r.status_code == 302
+    assert r.headers["location"].endswith("/admin/users")
+    assert "://" in r.headers["location"]  # абсолютный URL на портал
 
 
 def test_nonexistent_query_returns_404(manager_client):

@@ -21,6 +21,7 @@ from typing import Any
 
 from fastapi.templating import Jinja2Templates
 
+from app.config import settings
 from app.database import SessionLocal
 from app.services.export import exchange_rate
 
@@ -144,5 +145,9 @@ def static_url(rel_path: str) -> str:
 # Регистрируем globals и фильтры на единственном шаблонном движке.
 templates.env.globals["current_exchange_rate"] = current_exchange_rate
 templates.env.globals["static_url"] = static_url
+# Этап 9Б.1: межсервисные ссылки в шаблонах (карточка пользователя →
+# /logout, sidebar → «Пользователи»). На локалке = http://localhost:8081.
+templates.env.globals["portal_url"] = settings.portal_url
+templates.env.globals["configurator_url"] = settings.configurator_url
 templates.env.filters["to_rub"] = to_rub
 templates.env.filters["fmt_rub"] = fmt_rub

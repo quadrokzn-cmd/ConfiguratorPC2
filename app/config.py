@@ -63,9 +63,16 @@ def _resolve_session_secret() -> str:
 def _resolve_cookie_domain() -> str | None:
     """Читает домен сессионных cookie. Пусто/не задано → None
     (текущее однодоменное поведение). На Railway будем выставлять
-    `.quadro.tatar` для шеринга сессии с будущим app.quadro.tatar."""
+    `.quadro.tatar` для шеринга сессии с app.quadro.tatar."""
     raw = os.getenv("APP_COOKIE_DOMAIN", "").strip()
     return raw or None
+
+
+def _split_csv(name: str, default: str) -> list[str]:
+    """Парсит comma-separated env-переменную: 'a, b ,c' → ['a','b','c'].
+    Пустые элементы выкидываются."""
+    raw = os.getenv(name, default)
+    return [item.strip() for item in (raw or "").split(",") if item.strip()]
 
 
 def _bool_env(name: str, default: bool = False) -> bool:
@@ -115,6 +122,31 @@ class Settings:
     # Домен для сессионных cookie. None — текущее однодоменное поведение.
     # На Railway: ".quadro.tatar" чтобы сессия шарилась с app.quadro.tatar.
     cookie_domain: str | None = field(default_factory=_resolve_cookie_domain)
+
+    # --- Этап 9Б.1: межсервисные ссылки конфигуратор ↔ портал ---
+    # PORTAL_URL — куда конфигуратор редиректит неавторизованных
+    # пользователей (`${PORTAL_URL}/login?next=<encoded URL>`).
+    # CONFIGURATOR_URL — куда портал ссылается с плитки «Конфигуратор ПК».
+    # Локально по умолчанию: portal=8081, configurator=8080. В production
+    # выставляются вручную в Railway через env-переменные сервисов
+    # (см. docs/deployment.md, секция «Этап 9Б.1»).
+    portal_url: str = field(
+        default_factory=lambda: os.getenv("PORTAL_URL", "http://localhost:8081").rstrip("/")
+    )
+    configurator_url: str = field(
+        default_factory=lambda: os.getenv("CONFIGURATOR_URL", "http://localhost:8080").rstrip("/")
+    )
+
+    # ALLOWED_REDIRECT_HOSTS — whitelist хостов для безопасного
+    # post-login redirect (?next=). Защита от open redirect: если
+    # next-URL указывает на хост вне списка, портал отбросит его и
+    # отправит пользователя на главную /. Хост сравнивается с netloc
+    # (host:port), так что для локалки нужны именно "localhost:8080".
+    allowed_redirect_hosts: list[str] = field(
+        default_factory=lambda: _split_csv(
+            "ALLOWED_REDIRECT_HOSTS", "localhost:8080,localhost:8081"
+        )
+    )
 
     # --- Этап 10.1: фоновые задачи ---
     # APScheduler стартует только при RUN_SCHEDULER=1. На локалке и

@@ -13,6 +13,7 @@ load_dotenv()
 # ---- Дальше уже можно импортировать app.* ----
 
 import logging
+from urllib.parse import quote
 
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -20,12 +21,11 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.auth import LoginRequiredRedirect
+from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from app.config import settings
 from app.database import SessionLocal
 from app.routers import (
     admin_router,
-    auth_router,
     export_router,
     main_router,
     mapping_router,
@@ -71,35 +71,32 @@ def _shutdown_scheduler() -> None:
     shutdown_scheduler()
 
 
-# Сессии — подписанные cookie. Секрет читается из APP_SECRET_KEY
-# (см. app/config.py); cookie domain — из APP_COOKIE_DOMAIN; флаг
-# secure включается на production.
-_session_kwargs = {
-    "secret_key": settings.session_secret_key,
-    "session_cookie": "kt_session",
-    # 30 дней; менеджер вряд ли хочет логиниться каждую неделю.
-    "max_age": 60 * 60 * 24 * 30,
-    "same_site": "lax",
-    "https_only": settings.is_production,
-}
-if settings.cookie_domain:
-    # Передаём domain только если задан — иначе starlette прокинет None
-    # в Set-Cookie, что в некоторых браузерах ведёт к строке "domain=".
-    _session_kwargs["domain"] = settings.cookie_domain
-app.add_middleware(SessionMiddleware, **_session_kwargs)
+# Сессии — подписанные cookie. Кука и секрет общие с порталом
+# (build_session_cookie_kwargs живёт в shared/auth.py), чтобы login на
+# app.quadro.tatar пускал сразу и сюда.
+app.add_middleware(SessionMiddleware, **build_session_cookie_kwargs(settings))
 
 
 @app.exception_handler(LoginRequiredRedirect)
 def _redirect_to_login(request: Request, exc: LoginRequiredRedirect):
-    """Неавторизованный заход на защищённый роут → /login."""
-    return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
+    """Этап 9Б.1: неавторизованный заход на защищённый роут конфигуратора
+    → 302 на ${PORTAL_URL}/login?next=<encoded full URL>.
+
+    Form логина теперь живёт в портале (portal/routers/auth.py).
+    `next` — полный URL текущего запроса (с query-string), чтобы после
+    логина пользователь попал ровно туда, куда шёл. Защита от open
+    redirect — на стороне портала: ALLOWED_REDIRECT_HOSTS whitelist."""
+    next_url = quote(str(request.url), safe="")
+    target = f"{settings.portal_url}/login?next={next_url}"
+    return RedirectResponse(url=target, status_code=status.HTTP_302_FOUND)
 
 
 # Статические файлы (JS конфигуратора спецификации, картинки и т. п.).
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Роутеры
-app.include_router(auth_router.router)
+# Роутеры. /login и /logout удалены — переехали в портал.
+# /admin/users тоже переехал; в admin_router.py остался только редирект
+# на portal_url для совместимости со старыми ссылками.
 # /admin/mapping раньше /admin, иначе более общий роутер съест префикс.
 app.include_router(mapping_router.router)
 app.include_router(admin_router.router)     # /admin/* — подключаем раньше /

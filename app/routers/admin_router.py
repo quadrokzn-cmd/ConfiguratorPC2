@@ -11,10 +11,10 @@ from sqlalchemy.orm import Session
 from app.auth import (
     AuthUser,
     get_csrf_token,
-    hash_password,
     require_admin,
     verify_csrf,
 )
+from app.config import settings
 from app.database import get_db
 from app.services import (
     budget_guard,
@@ -75,92 +75,14 @@ def dashboard(
 
 
 @router.get("/users")
-def users_list(
-    request: Request,
-    user: AuthUser = Depends(require_admin),
-    db: Session = Depends(get_db),
-):
-    """Список пользователей + форма создания менеджера."""
-    users = web_service.list_users(db)
-    return templates.TemplateResponse(
-        request,
-        "admin/users.html",
-        {
-            "user":       user,
-            "csrf_token": get_csrf_token(request),
-            "users":      users,
-            "error":      request.session.pop("flash_error", None),
-            "info":       request.session.pop("flash_info",  None),
-        },
+def users_redirect_to_portal():
+    """Этап 9Б.1: страница пользователей переехала в портал
+    (portal/admin/users). Здесь оставлен только редирект — старые
+    закладки и ссылки в шаблонах конфигуратора продолжают работать."""
+    return RedirectResponse(
+        url=f"{settings.portal_url}/admin/users",
+        status_code=status.HTTP_302_FOUND,
     )
-
-
-@router.post("/users")
-def users_create(
-    request: Request,
-    login: str = Form(...),
-    name: str = Form(...),
-    password: str = Form(...),
-    csrf_token: str = Form(""),
-    user: AuthUser = Depends(require_admin),
-    db: Session = Depends(get_db),
-):
-    """Создаёт нового менеджера."""
-    if not verify_csrf(request, csrf_token):
-        raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
-
-    login_clean = (login or "").strip()
-    name_clean = (name or "").strip()
-    if not login_clean or not name_clean or not password:
-        request.session["flash_error"] = (
-            "Заполните логин, имя и пароль."
-        )
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
-
-    if len(password) < 6:
-        request.session["flash_error"] = "Пароль должен быть не короче 6 символов."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
-
-    try:
-        web_service.create_manager(
-            db,
-            login=login_clean,
-            password_hash=hash_password(password),
-            name=name_clean,
-        )
-    except ValueError as exc:
-        if str(exc) == "login_taken":
-            request.session["flash_error"] = (
-                f"Логин «{login_clean}» уже занят."
-            )
-        else:
-            request.session["flash_error"] = f"Ошибка создания: {exc}"
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
-
-    request.session["flash_info"] = f"Пользователь «{login_clean}» создан."
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
-
-
-@router.post("/users/{user_id}/toggle")
-def users_toggle(
-    user_id: int,
-    request: Request,
-    csrf_token: str = Form(""),
-    user: AuthUser = Depends(require_admin),
-    db: Session = Depends(get_db),
-):
-    """Активировать / деактивировать пользователя."""
-    if not verify_csrf(request, csrf_token):
-        raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
-    # Нельзя деактивировать самого себя — защита от самоблокировки.
-    if int(user_id) == int(user.id):
-        request.session["flash_error"] = "Нельзя деактивировать собственную учётку."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
-    new_state = web_service.toggle_user_active(db, user_id)
-    request.session["flash_info"] = (
-        f"Пользователь переведён в состояние: {'активен' if new_state else 'отключён'}."
-    )
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
 
 
 @router.get("/budget")

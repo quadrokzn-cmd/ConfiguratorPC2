@@ -12,8 +12,10 @@
 и Word-КП.
 
 Целевые пользователи: 4 менеджера по продажам (B2B), 1 админ.
-Текущий статус: разработка завершена (Этап 9А.2.7), готовится Этап 10
-— деплой на Railway.
+Текущий статус: конфигуратор задеплоен на `config.quadro.tatar`
+(этап 10), идёт **Этап 9Б** — параллельный портал на
+`app.quadro.tatar` (единый вход, плитки модулей). Подэтап **9Б.1**
+(архитектурный скелет) закрыт; в работе 9Б.2 (дизайн) и 9Б.3 (деплой).
 
 ## Карта документации
 
@@ -22,15 +24,18 @@
 - [architecture.md](architecture.md) — общая архитектура, директории,
   ключевые модули (NLU, configurator, price loaders, export, scheduler)
 - [stack.md](stack.md) — стек технологий, зависимости, инструменты
-- [database.md](database.md) — таблицы, миграции 001–016, ключевые
-  инварианты (USD-only, is_active/is_hidden как фильтры)
+- [database.md](database.md) — таблицы, миграции 001–017, ключевые
+  инварианты (USD-only, is_active/is_hidden как фильтры,
+  users.permissions JSONB для портала)
 - [design-decisions.md](design-decisions.md) — ключевые архитектурные
   решения и причины (USD как единственная валюта, шрифт Calibri в Word,
   тёмная enterprise-палитра, программная сборка КП-таблицы)
-- [roadmap.md](roadmap.md) — история этапов 1–9А.2.7 и план следующих
-  (Этап 10 — Railway, Этап 9Б — портал app.quadro.tatar)
-- [deployment.md](deployment.md) — деплой на Railway (этап 10.1):
-  переменные окружения, Procfile, healthcheck, миграции
+- [roadmap.md](roadmap.md) — история этапов 1–9А.2.7 и 10 (Railway),
+  и план Этапа 9Б — портал app.quadro.tatar (9Б.1 ✅, 9Б.2/9Б.3 ⏳)
+- [deployment.md](deployment.md) — деплой на Railway: переменные
+  окружения (включая 9Б.1: PORTAL_URL/CONFIGURATOR_URL/
+  ALLOWED_REDIRECT_HOSTS), Dockerfile/Dockerfile.portal,
+  healthcheck, миграции
 
 ### UI и frontend
 

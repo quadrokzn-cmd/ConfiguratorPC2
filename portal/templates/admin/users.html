@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Пользователи — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<section class="space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Пользователи</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Список менеджеров. Здесь добавляются учётные записи, отключаются неактивные
+      и выдаются права на модули портала.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {# === Создание нового менеджера === #}
+  <section class="card card-pad">
+    <h2 class="text-h3 text-ink-primary mb-4">Создать менеджера</h2>
+    <form method="post" action="/admin/users"
+          class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+      <div>
+        <label class="label" for="u-login">Логин</label>
+        <input id="u-login" name="login" required maxlength="50" class="input"
+               placeholder="ivanov">
+      </div>
+      <div>
+        <label class="label" for="u-name">Имя</label>
+        <input id="u-name" name="name" required maxlength="100" class="input"
+               placeholder="Иван Иванов">
+      </div>
+      <div>
+        <label class="label" for="u-pass">Пароль</label>
+        <input id="u-pass" name="password" required type="text" class="input"
+               placeholder="мин. 6 символов">
+      </div>
+      <div class="flex items-end">
+        <button type="submit" class="btn btn-md btn-primary w-full">Создать</button>
+      </div>
+    </form>
+    <p class="help-text">
+      По умолчанию у нового менеджера открыт модуль «Конфигуратор ПК».
+      Дополнительные модули выдаются ниже в таблице.
+    </p>
+  </section>
+
+  {# === Таблица пользователей === #}
+  <section class="card overflow-hidden">
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Логин</th>
+          <th class="text-left">Имя</th>
+          <th class="text-left w-28">Роль</th>
+          <th class="text-left w-28">Статус</th>
+          {% for key in visible_module_keys %}
+            <th class="text-left">{{ key }}</th>
+          {% endfor %}
+          <th class="text-right w-56">Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr class="{% if not u.is_active %}opacity-60{% endif %}">
+          <td class="text-ink-primary font-medium">{{ u.login }}</td>
+          <td class="text-ink-secondary">{{ u.name }}</td>
+          <td>
+            {% if u.role == 'admin' %}
+              <span class="badge badge-brand">админ</span>
+            {% else %}
+              <span class="badge badge-neutral">менеджер</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if u.is_active %}
+              <span class="badge badge-success">активен</span>
+            {% else %}
+              <span class="badge badge-neutral">отключён</span>
+            {% endif %}
+          </td>
+
+          {# Permissions: одна форма на пользователя, чекбоксы по
+             visible_module_keys + скрытые '1' для невидимых модулей,
+             если они уже стояли в БД — чтобы случайно не сбросить. #}
+          {% if u.role == 'admin' %}
+            {% for key in visible_module_keys %}
+              <td><span class="text-caption text-ink-muted">все</span></td>
+            {% endfor %}
+            <td class="text-right">
+              <span class="text-caption text-ink-muted">— это вы —</span>
+            </td>
+          {% else %}
+            <td colspan="{{ visible_module_keys|length + 1 }}">
+              <form method="post" action="/admin/users/{{ u.id }}/permissions"
+                    class="flex items-center justify-end gap-3">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+                {# Скрытые поля для модулей, не показанных в UI: если в
+                   БД уже стоит true — сохраняем, чтобы UI 9Б.1 не
+                   стирал права на ещё не разработанные модули. #}
+                {% for key in module_keys %}
+                  {% if key not in visible_module_keys and u.permissions.get(key) %}
+                    <input type="hidden" name="permissions[{{ key }}]" value="1">
+                  {% endif %}
+                {% endfor %}
+
+                {# Видимые чекбоксы #}
+                {% for key in visible_module_keys %}
+                  <label class="flex items-center gap-1.5 text-small">
+                    <input type="checkbox" name="permissions[{{ key }}]" value="1"
+                           {% if u.permissions.get(key) %}checked{% endif %}>
+                    {{ key }}
+                  </label>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-sm btn-secondary">Сохранить</button>
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+
+        {# Отдельная строка с кнопкой Toggle, чтобы не путать форму
+           прав и форму активации (две формы в одной строке). #}
+        {% if u.id != user.id %}
+        <tr class="{% if not u.is_active %}opacity-60{% endif %} border-t-0">
+          <td colspan="{{ 4 + visible_module_keys|length }}" class="text-caption text-ink-muted">
+            Создан: {{ u.created_at.strftime('%d.%m.%Y') }}
+          </td>
+          <td class="text-right">
+            <form method="post" action="/admin/users/{{ u.id }}/toggle" class="inline">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="btn btn-sm btn-ghost">
+                {% if u.is_active %}Отключить{% else %}Включить{% endif %}
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+</section>
+{% endblock %}

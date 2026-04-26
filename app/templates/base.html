@@ -72,8 +72,14 @@
                         _path.startswith('/admin/mapping')) }}
           {{ _nav_link('/admin/budget',         'Бюджет OpenAI',    'coins',
                         _path.startswith('/admin/budget')) }}
-          {{ _nav_link('/admin/users',          'Пользователи',     'users',
-                        _path.startswith('/admin/users')) }}
+          {# Этап 9Б.1: страница пользователей переехала в портал.
+             Прямая абсолютная ссылка — конфигуратор сам редиректит
+             /admin/users → portal_url, но прямой линк короче. #}
+          <a href="{{ portal_url }}/admin/users"
+             class="nav-item">
+            {{ icon('users', class='nav-item-icon') }}
+            <span>Пользователи</span>
+          </a>
           {{ _nav_link('/admin/queries',        'Все запросы',      'inbox',
                         _path.startswith('/admin/queries')) }}
         </div>
@@ -113,7 +119,10 @@
               {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
             </div>
           </div>
-          <form method="post" action="/logout" class="shrink-0">
+          {# Этап 9Б.1: logout живёт в портале (общая сессия). Делаем
+             форму с явным action на абсолютный URL — на production
+             это https://app.quadro.tatar/logout. #}
+          <form method="post" action="{{ portal_url }}/logout" class="shrink-0">
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <button type="submit"
                     class="p-1.5 rounded-md text-ink-muted hover:text-danger-500

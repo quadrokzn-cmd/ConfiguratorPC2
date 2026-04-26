@@ -1,0 +1,36 @@
+# КВАДРО-ТЕХ Портал app.quadro.tatar — production образ для Railway
+# (этап 9Б.1). Отдельный сервис от конфигуратора: одна БД, одна
+# кодовая база, две точки входа (uvicorn portal.main:app vs app.main).
+#
+# Содержимое почти 1:1 с основным Dockerfile, но:
+#   - в образ кладём только то, что нужно порталу: portal/, shared/,
+#     app/config.py с зависимостями (минимальный набор), static/,
+#     migrations/, scripts/. Сам конфигуратор (app/routers/, services/,
+#     templates/) тоже копируется — иначе пришлось бы вырезать модули,
+#     от которых зависит app/config.py / app/database.py. На размер
+#     образа это влияет в пределах нескольких мегабайт, не критично;
+#   - команда запуска другая: uvicorn portal.main:app.
+
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 8081
+
+CMD python -m scripts.apply_migrations && \
+    python -m scripts.bootstrap_admin && \
+    uvicorn portal.main:app \
+        --host 0.0.0.0 \
+        --port ${PORT:-8081} \
+        --proxy-headers \
+        --forwarded-allow-ips='*'
