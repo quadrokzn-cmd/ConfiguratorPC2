@@ -72,12 +72,20 @@ _MARKUP_MAX = 500
 # заголовок «Кол-во» обрезался в Word до «ол-во». Соответственно «Наименование»
 # сократили с 8.5 → 8.3 см, чтобы суммарная ширина не уехала за пределы
 # полезной ширины страницы.
+#
+# Этап 9А.2.6: Цена/Сумма расширили с 2.7/2.8 → 3.6/3.7 см. На предыдущей
+# раскладке шестизначные числа («40 156», «31 968») с padding'ом ячейки
+# не помещались по физической ширине, и Word рвал их на «40 15 / 6» даже
+# при заданном <w:noWrap/>. Запас в 0.9 см на каждую колонку покрывает
+# числа до 9 999 999 при шрифте 10pt. Оторвали ширину у «Наименование»
+# (8.3 → 6.5 см) — там длинный auto_name и так переносится на 2-3 строки,
+# колонке без потерь.
 
 _COL_W_NUM   = 454    # № п/п                 — 0.8 см
-_COL_W_NAME  = 4706   # Наименование          — 8.3 см
+_COL_W_NAME  = 3686   # Наименование          — 6.5 см
 _COL_W_QTY   = 794    # Кол-во                — 1.4 см
-_COL_W_PRICE = 1531   # Цена с НДС (руб.)     — 2.7 см
-_COL_W_SUM   = 1588   # Сумма с НДС (руб.)    — 2.8 см
+_COL_W_PRICE = 2041   # Цена с НДС (руб.)     — 3.6 см
+_COL_W_SUM   = 2098   # Сумма с НДС (руб.)    — 3.7 см
 
 _GRID_WIDTHS = (_COL_W_NUM, _COL_W_NAME, _COL_W_QTY, _COL_W_PRICE, _COL_W_SUM)
 _INNER_TBL_WIDTH = sum(_GRID_WIDTHS)  # 9073 twips
@@ -148,19 +156,101 @@ def _normalize_page_margins(doc) -> None:
 # ---------------------------------------------------------------------
 
 def _replace_date_in_header(doc, new_date: str) -> None:
-    """Меняет дату в параграфе «№ б/н от DD.MM.YYYYг.» на переданную."""
+    """Перезаписывает параграф «№ б/н от DD.MM.YYYYг.» одним чистым run'ом.
+
+    Этап 9А.2.6: исходный параграф шаблона содержит 9 разрозненных
+    <w:r> (по 1-2 символа каждый) и два <w:proofErr> между ними
+    (gramStart / gramEnd — пометки граммар-чекера). Старый алгоритм
+    клал склеенный текст в runs[0] и удалял остальные runs, но
+    оставлял proofErr-маркеры; в результате визуально образовывался
+    «тильда»-артефакт у даты, а xml:space="preserve" не выставлялся
+    автоматически — пробел перед датой мог «съедаться» Word.
+
+    Стратегия: вычистить ВСЕ дочерние элементы параграфа кроме pPr,
+    положить ровно один <w:r> с <w:t xml:space="preserve">№ б/н
+    от <date>г.</w:t>. Это гарантирует и пробел перед датой, и
+    отсутствие proofErr-остатков, и стабильную типографику.
+    """
+    target_text = f"№ б/н от {new_date}г."
     for p in doc.paragraphs:
         if "№" not in p.text or not _DATE_RE.search(p.text):
             continue
-        joined = "".join(r.text for r in p.runs)
-        replaced = _DATE_RE.sub(new_date, joined)
-        if replaced == joined:
-            return
-        runs = p.runs
-        runs[0].text = replaced
-        for r in runs[1:]:
-            r._element.getparent().remove(r._element)
+        p_el = p._p
+        # Сохраняем pPr (форматирование параграфа), удаляем всё
+        # остальное — runs, proofErr, hyperlink, bookmarks и т.п.
+        for child in list(p_el):
+            if child.tag != _w("pPr"):
+                p_el.remove(child)
+        # Один свежий run с явным xml:space="preserve".
+        r = etree.SubElement(p_el, _w("r"))
+        r.append(_make_rPr(bold=False, sz_half_pt=22))
+        t = etree.SubElement(r, _w("t"))
+        t.text = target_text
+        t.set(f"{{{_XML}}}space", "preserve")
         return
+
+
+# ---------------------------------------------------------------------
+# Этап 9А.2.6: чистка хвостовых пустых параграфов
+# ---------------------------------------------------------------------
+
+def _strip_trailing_empty_paragraphs(doc) -> None:
+    """Удаляет «хвостовые» пустые параграфы перед sectPr в body.
+
+    В исходном kp_template.docx последним перед sectPr идёт
+    <w:p> с <w:bookmarkStart name="_GoBack"/> и <w:bookmarkEnd/> —
+    автогенерированный Word'ом маркер «последняя точка редактирования».
+    После замены внутренней таблицы и нормализации, этот хвост
+    оказывается визуально под печатью в правом нижнем углу страницы
+    («□»-артефакт).
+
+    Удаляем подряд все пустые параграфы (без runs, без drawing, без
+    значимого контента — только bookmark/pPr) непосредственно перед
+    финальным sectPr. sectPr и параграфы выше с реальным контентом
+    не трогаем.
+    """
+    body = doc.element.body
+    children = list(body)
+    if not children:
+        return
+    # Последний элемент должен быть sectPr (он завершает body).
+    last_idx = len(children) - 1
+    if children[last_idx].tag != _w("sectPr"):
+        return
+    # Идём с конца body вверх по индексу, пропуская sectPr,
+    # удаляя «пустышки» (param p без значимого контента).
+    i = last_idx - 1
+    while i >= 0:
+        ch = children[i]
+        if ch.tag != _w("p"):
+            break
+        # «Значимый» контент в параграфе:
+        #   - <w:r> с непустым текстом или <w:drawing>/<w:pict>;
+        #   - <w:hyperlink> (ссылки);
+        #   - <w:sym> и т.п.
+        has_content = False
+        for r in ch.findall(_w("r")):
+            for t in r.findall(_w("t")):
+                if (t.text or "").strip():
+                    has_content = True
+                    break
+            if has_content:
+                break
+            if r.find(f".//{_w('drawing')}") is not None:
+                has_content = True
+                break
+            if r.find(f".//{_w('pict')}") is not None:
+                has_content = True
+                break
+            if r.find(_w("br")) is not None:
+                has_content = True
+                break
+        if not has_content and ch.find(_w("hyperlink")) is not None:
+            has_content = True
+        if has_content:
+            break
+        body.remove(ch)
+        i -= 1
 
 
 # ---------------------------------------------------------------------
@@ -498,6 +588,9 @@ def build_kp_docx(
 
     new_tbl = _make_inner_tbl(data_rows, grand_total)
     _replace_inner_table(doc, new_tbl)
+    # Этап 9А.2.6: чистим хвостовой пустой параграф (_GoBack-bookmark
+    # из шаблона), который рендерился как «□» под печатью.
+    _strip_trailing_empty_paragraphs(doc)
 
     buf = BytesIO()
     doc.save(buf)
