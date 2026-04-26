@@ -11,8 +11,10 @@
 - **БД**: PostgreSQL 16 как Railway plugin (Add Database → PostgreSQL).
   Подключение проксируется через переменную `DATABASE_URL`, которую
   Railway проставляет автоматически.
-- **Билдер**: Nixpacks (см. `railway.json`). Python и Node.js
-  определяются автоматически по `requirements.txt` / `package.json`.
+- **Билдер**: Nixpacks (см. `railway.json` и `nixpacks.toml`). Гибрид
+  Python + Node явно описан в `nixpacks.toml` — без него Nixpacks
+  по `package.json` определял бы проект только как Node и не ставил
+  Python (билд падал с `pip: command not found`, exit 127).
 
 Архитектурный прицел: на Railway один сервис-конфигуратор, но cookie
 и SECRET_KEY уже учитывают будущую платформу `app.quadro.tatar`
@@ -60,6 +62,32 @@
 
 Полный список с расширенными комментариями — в [`.env.example`](../.env.example).
 
+## Как работает билд на Railway
+
+Билдером выступает **Nixpacks**. Он читает `nixpacks.toml` в корне репо
+и понимает, что нужны и Python, и Node.
+
+Фазы билда:
+
+1. **setup** — из `phases.setup` в `nixpacks.toml` ставятся пакеты:
+   `python311`, `nodejs_18`, `gcc` (последний нужен `psycopg2-binary`
+   и прочим C-расширениям).
+2. **install** — Nixpacks автоматически:
+   - видит `requirements.txt` (python-провайдер) → `pip install -r requirements.txt`;
+   - видит `package.json` + `package-lock.json` (node-провайдер) → `npm ci`.
+   В `nixpacks.toml` install-команды НЕ переопределены, дефолты подходят.
+3. **build** — `npm run build:css` из `phases.build` (компиляция Tailwind
+   в `static/dist/main.css`). На случай, если в репо забыли закоммитить
+   актуальный CSS.
+4. **start** — команда из `railway.json/deploy.startCommand` (см. ниже).
+   В `Procfile` дублируется идентичная команда — это легаси для других
+   PaaS, на Railway приоритет у `railway.json`.
+
+В `railway.json` секция `build` намеренно минимальна (только `builder:
+NIXPACKS`). Раньше там был `buildCommand: "pip install ... && npm ci
+&& npm run build:css"`, но это дублировало то, что Nixpacks делает сам,
+и при этом обходило фазу setup → `pip` ещё не существовал → exit 127.
+
 ## Как стартует сервис
 
 `Procfile` и `railway.json` описывают одинаковую команду запуска:
@@ -106,10 +134,10 @@ Railway дёргает его как liveness probe (`healthcheckPath: /healthz`
 — скомпилированный CSS **коммитится** в `static/dist/main.css`. Это
 страхует прод на случай, если на билде Tailwind что-то сломается.
 
-При этом в `buildCommand` Railway мы всё равно прогоняем `npm run
-build:css` (через `tailwindcss -i ./static/src/main.css -o
-./static/dist/main.css --minify`) — на случай, если в репо забыли
-закоммитить актуальный CSS.
+При этом на билде Railway мы всё равно прогоняем `npm run build:css`
+(через `tailwindcss -i ./static/src/main.css -o ./static/dist/main.css
+--minify`) в `phases.build` `nixpacks.toml` — на случай, если в репо
+забыли закоммитить актуальный CSS.
 
 ## Сессии и cookie
 
