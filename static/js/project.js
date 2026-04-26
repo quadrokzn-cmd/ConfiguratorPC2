@@ -1,10 +1,13 @@
-// Этап 6.2/9А.2.1/9А.2.3: клиентская часть страницы проекта.
+// Этап 6.2/9А.2.1/9А.2.3/9А.2.5: клиентская часть страницы проекта.
 //
 // - Ставит/снимает галочки «в спецификацию».
 // - Меняет количество в активной строке.
 // - Перерисовывает таблицу спецификации без перезагрузки страницы.
-// - 9А.2.3: кнопка «Пересобрать конфигурации» вызывает /spec/reoptimize,
-//   модалка с подтверждением и diff'ом, кнопка «Отменить» (rollback).
+// - 9А.2.5: после reoptimize — короткий toast + компактная модалка
+//   «Результат пересборки» с карточками-строками (имя, старая→новая цена,
+//   количество изменённых компонентов, раскрывающиеся детали). После
+//   закрытия модалки — page reload с восстановлением scroll-позиции
+//   через sessionStorage, чтобы UI сразу показал актуальные конфигурации.
 // - 9А.2.3: toast'ы — в правом нижнем углу (см. .kt-toast-container в CSS).
 //
 // Без фреймворков. CSRF — из <meta name="csrf-token">.
@@ -18,6 +21,8 @@
 
   var CSRF = csrfMeta.content;
   var PROJECT_ID = pidMeta.content;
+  var SCROLL_STORAGE_KEY = 'kt-reopt-scroll-' + PROJECT_ID;
+  var DEFERRED_TOAST_KEY = 'kt-reopt-toast-' + PROJECT_ID;
 
   function fmtUsd(value) {
     return '$' + Math.round(Number(value) || 0).toString();
@@ -374,6 +379,197 @@
     return rows.join('');
   }
 
+  // ---------------------------------------------------------------------
+  // 9А.2.5: компактная модалка «Результат пересборки» + reload по
+  // sessionStorage. AJAX-эндпоинта для variants-фрагмента нет, поэтому
+  // после применения/отката перезагружаем страницу — но сохраняем scroll
+  // position, чтобы UX не «прыгал» вверх.
+  // ---------------------------------------------------------------------
+
+  function reoptimizeCardHtml(d) {
+    var name = escapeHtml(d.config_name);
+    if (d.status === 'unavailable') {
+      return (
+        '<div class="card card-pad border-warning-500/40 bg-warning-bg/20" ' +
+             'data-spec-item-id="' + d.spec_item_id + '">' +
+          '<div class="font-medium text-ink-primary">' + name + '</div>' +
+          '<div class="text-caption text-warning-500 mt-1">' +
+            escapeHtml(d.unavailable_reason || 'Не удалось пересобрать') +
+          '</div>' +
+        '</div>'
+      );
+    }
+    if (d.status === 'no_changes') {
+      return (
+        '<div class="card card-pad opacity-70" ' +
+             'data-spec-item-id="' + d.spec_item_id + '">' +
+          '<div class="font-medium text-ink-primary">' + name + '</div>' +
+          '<div class="text-caption text-ink-muted mt-1">' +
+            'Состав и цены не изменились' +
+          '</div>' +
+        '</div>'
+      );
+    }
+    // status === 'reoptimized'
+    var changes = d.changed_components || [];
+    var arrow = d.delta_pct < 0 ? '▼' : (d.delta_pct > 0 ? '▲' : '·');
+    var deltaCls = d.delta_pct < 0 ? 'text-success-500'
+                  : (d.delta_pct > 0 ? 'text-danger-500' : 'text-ink-muted');
+    var deltaStr = (d.delta_pct > 0 ? '+' : '') + (d.delta_pct || 0).toFixed(1) + '%';
+    var detailsBlock = '';
+    if (changes.length > 0) {
+      detailsBlock =
+        '<button type="button" class="kt-reopt-toggle text-caption ' +
+                'text-brand-400 hover:underline mt-2" aria-expanded="false">' +
+          'Показать детали ▼' +
+        '</button>' +
+        '<div class="kt-reopt-details hidden mt-2 pl-3 space-y-1 ' +
+             'border-l-2 border-line-soft">' +
+          changeListHtml(changes) +
+        '</div>';
+    }
+    return (
+      '<div class="card card-pad" data-spec-item-id="' + d.spec_item_id + '">' +
+        '<div class="flex items-baseline justify-between gap-3 flex-wrap">' +
+          '<div class="font-medium text-ink-primary">' + name + '</div>' +
+          '<div class="text-small tabular-nums">' +
+            '<span class="text-ink-muted">' + fmtUsd(d.old_unit_usd) + '</span>' +
+            '<span class="text-ink-muted"> → </span>' +
+            '<span class="font-medium text-ink-primary">' +
+              fmtUsd(d.new_unit_usd) + '</span>' +
+            '<span class="' + deltaCls + ' ml-2">' +
+              arrow + ' ' + escapeHtml(deltaStr) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mt-2 text-caption text-ink-muted">' +
+          'Изменено компонентов: ' + changes.length +
+        '</div>' +
+        detailsBlock +
+      '</div>'
+    );
+  }
+
+  function ensureReoptimizeModal() {
+    var modal = document.getElementById('reoptimize-modal');
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.id = 'reoptimize-modal';
+    modal.className = 'hidden modal-overlay';
+    modal.innerHTML =
+      '<div class="modal-container max-w-2xl">' +
+        '<div class="modal-header">' +
+          '<h3 class="text-h2 text-ink-primary">Результат пересборки</h3>' +
+          '<button type="button" class="btn btn-sm btn-ghost p-1.5 ' +
+                                       'kt-reopt-modal-close" ' +
+                  'aria-label="Закрыть">×</button>' +
+        '</div>' +
+        '<div class="modal-body">' +
+          '<div id="reoptimize-modal-cards" class="space-y-3"></div>' +
+        '</div>' +
+        '<div class="modal-footer flex-wrap gap-2">' +
+          '<button type="button" id="reoptimize-rollback-btn" ' +
+                  'class="btn btn-md btn-ghost text-danger-500 hidden">' +
+            'Отменить пересборку' +
+          '</button>' +
+          '<button type="button" id="reoptimize-apply-btn" ' +
+                  'class="btn btn-md btn-primary">' +
+            'Применить' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+    return modal;
+  }
+
+  function closeReoptimizeModal(then) {
+    var modal = document.getElementById('reoptimize-modal');
+    if (!modal) { if (then) then(); return; }
+    modal.classList.add('modal-leaving');
+    setTimeout(function () {
+      modal.classList.add('hidden');
+      modal.classList.remove('modal-leaving');
+      if (then) then();
+    }, 150);
+  }
+
+  function showReoptimizeModal(items, opts) {
+    opts = opts || {};
+    var modal = ensureReoptimizeModal();
+    var body = modal.querySelector('#reoptimize-modal-cards');
+    body.innerHTML = (items || []).map(reoptimizeCardHtml).join('');
+    body.querySelectorAll('.kt-reopt-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var details = btn.parentElement.querySelector('.kt-reopt-details');
+        if (!details) return;
+        var hidden = details.classList.toggle('hidden');
+        btn.textContent = hidden ? 'Показать детали ▼' : 'Скрыть детали ▲';
+        btn.setAttribute('aria-expanded', String(!hidden));
+      });
+    });
+    var rollbackBtn = modal.querySelector('#reoptimize-rollback-btn');
+    if (rollbackBtn) {
+      rollbackBtn.classList.toggle('hidden', !opts.canRollback);
+    }
+    modal.classList.remove('hidden');
+
+    // wire close/apply (replace handlers each open).
+    var closeBtn = modal.querySelector('.kt-reopt-modal-close');
+    var applyBtn = modal.querySelector('#reoptimize-apply-btn');
+    function onApply() {
+      // Применить = «увидеть актуальный список конфигураций» —
+      // изменения уже в БД, просто перерисуем страницу.
+      closeReoptimizeModal(reloadKeepingScroll);
+    }
+    function onRollback() {
+      closeReoptimizeModal(function () {
+        rollbackAllAndReload(opts.itemId);
+      });
+    }
+    closeBtn.onclick = onApply;
+    applyBtn.onclick = onApply;
+    if (rollbackBtn) rollbackBtn.onclick = onRollback;
+  }
+
+  function reloadKeepingScroll() {
+    try {
+      sessionStorage.setItem(SCROLL_STORAGE_KEY, String(window.scrollY));
+    } catch (e) {}
+    location.reload();
+  }
+
+  function deferToastAndReload(msg, kind) {
+    try {
+      sessionStorage.setItem(SCROLL_STORAGE_KEY, String(window.scrollY));
+      sessionStorage.setItem(
+        DEFERRED_TOAST_KEY,
+        JSON.stringify({ msg: msg, kind: kind || 'info' })
+      );
+    } catch (e) {}
+    location.reload();
+  }
+
+  // На загрузке страницы — восстановить scroll и показать deferred toast.
+  (function applyDeferredOnLoad() {
+    try {
+      var s = sessionStorage.getItem(SCROLL_STORAGE_KEY);
+      if (s !== null) {
+        sessionStorage.removeItem(SCROLL_STORAGE_KEY);
+        var y = parseInt(s, 10);
+        if (isFinite(y) && y >= 0) {
+          // Сразу прыгаем (без smooth — это восстановление, а не навигация).
+          window.scrollTo(0, y);
+        }
+      }
+      var t = sessionStorage.getItem(DEFERRED_TOAST_KEY);
+      if (t) {
+        sessionStorage.removeItem(DEFERRED_TOAST_KEY);
+        var d = JSON.parse(t);
+        // Делаем toast чуть позже, чтобы DOM/CSS успели прогрузиться.
+        setTimeout(function () { toast(d.msg, { kind: d.kind, ms: 4500 }); }, 50);
+      }
+    } catch (e) {}
+  })();
+
   function showReoptimizeSummary(recalcData) {
     if (!recalcData) return;
     var changed = recalcData.changed_count;
@@ -382,60 +578,36 @@
       toast('Спецификация пуста.', { kind: 'info' });
       return;
     }
-    var unavailable = (recalcData.items || []).filter(function (d) {
+    var items = recalcData.items || [];
+    var unavailable = items.filter(function (d) {
       return d.status === 'unavailable';
     });
     if (changed === 0 && unavailable.length === 0) {
       toast('Все конфигурации уже оптимальны: изменений нет.', { kind: 'info' });
       return;
     }
-    var lines = [];
-    if (changed > 0) {
-      lines.push(
-        '<div class="font-medium mb-1">Пересобрано ' + changed + ' из ' + total + ' конфигураций</div>'
-      );
-      (recalcData.items || []).forEach(function (d) {
-        if (d.status === 'reoptimized') {
-          lines.push('<div class="mt-2">' + deltaSummaryHtml(d) + '</div>');
-          var ch = changeListHtml(d.changed_components);
-          if (ch) lines.push('<div class="mt-1 ml-2 space-y-0.5">' + ch + '</div>');
-        }
-      });
-      lines.push(
-        '<div class="mt-2 pt-2 border-t border-line-subtle">' +
-          '<button type="button" id="kt-rollback-all-btn" ' +
-                  'class="text-caption text-warning-500 underline">' +
-            'Отменить пересбор' +
-          '</button>' +
-        '</div>'
-      );
-    }
-    if (unavailable.length > 0) {
-      lines.push(
-        '<div class="mt-2 pt-2 border-t border-line-subtle text-warning-500 ' +
-        'font-medium">' + unavailable.length + ' нельзя пересобрать</div>'
-      );
-      unavailable.forEach(function (d) {
-        lines.push(
-          '<div class="text-caption text-warning-500">' +
-          escapeHtml(d.config_name) + ': ' +
-          escapeHtml(d.unavailable_reason || 'не удалось пересобрать') +
-          '</div>'
-        );
-      });
-    }
-    var t = toast(lines.join(''), {
-      kind: unavailable.length > 0 ? 'warn' : 'success',
-      ms: 12000,
+    // Короткий toast (1 строка); подробности — в модалке.
+    var toastMsg = changed > 0
+      ? 'Пересобрано ' + changed +
+        (total > changed ? ' из ' + total : '') + ' ' +
+        pluralRu(changed, ['конфигурация', 'конфигурации', 'конфигураций'])
+      : unavailable.length + ' ' +
+        pluralRu(unavailable.length, ['позиция', 'позиции', 'позиций']) +
+        ' не удалось пересобрать';
+    toast(toastMsg, {
+      kind: unavailable.length > 0 && changed === 0 ? 'warn' : 'success',
+      ms: 4500,
     });
-    var rollback = t.querySelector('#kt-rollback-all-btn');
-    if (rollback) {
-      rollback.addEventListener('click', function (e) {
-        e.preventDefault();
-        rollbackAll();
-        t.querySelector('.kt-toast-close').click();
-      });
-    }
+    showReoptimizeModal(items, { canRollback: changed > 0 });
+  }
+
+  function pluralRu(n, forms) {
+    var abs = Math.abs(n) % 100;
+    var n1 = abs % 10;
+    if (abs > 10 && abs < 20) return forms[2];
+    if (n1 > 1 && n1 < 5) return forms[1];
+    if (n1 === 1) return forms[0];
+    return forms[2];
   }
 
   async function reoptimizeFull() {
@@ -478,60 +650,33 @@
       var d = data.recalc_item;
       if (!d) return;
       if (d.status === 'unavailable') {
-        toast(
-          '<div class="font-medium">Невозможно пересобрать</div>' +
-          '<div class="text-caption">' + escapeHtml(d.config_name) + ': ' +
-          escapeHtml(d.unavailable_reason || 'компонент недоступен') + '</div>',
-          { kind: 'warn', ms: 8000 }
-        );
+        toast('Не удалось пересобрать «' + escapeHtml(d.config_name) + '»',
+          { kind: 'warn', ms: 5000 });
+        showReoptimizeModal([d], { canRollback: false, itemId: itemId });
         return;
       }
       if (d.status === 'no_changes') {
         toast('Конфигурация уже оптимальна — изменений нет.', { kind: 'info' });
         return;
       }
-      var html = deltaSummaryHtml(d);
-      var ch = changeListHtml(d.changed_components);
-      if (ch) html += '<div class="mt-1 space-y-0.5">' + ch + '</div>';
-      html += '<div class="mt-2 pt-2 border-t border-line-subtle">' +
-        '<button type="button" data-rollback-id="' + d.spec_item_id + '" ' +
-                'class="kt-rollback-one-btn text-caption text-warning-500 underline">' +
-          'Отменить' +
-        '</button>' +
-      '</div>';
-      var t = toast(html, { kind: 'success', ms: 10000 });
-      var rb = t.querySelector('.kt-rollback-one-btn');
-      if (rb) {
-        rb.addEventListener('click', function (e) {
-          e.preventDefault();
-          rollbackOne(parseInt(rb.dataset.rollbackId, 10));
-          t.querySelector('.kt-toast-close').click();
-        });
-      }
+      toast('Пересобрана 1 конфигурация', { kind: 'success', ms: 4500 });
+      showReoptimizeModal([d], { canRollback: true, itemId: itemId });
     } catch (e) {
       console.error(e);
       toast('Не удалось пересобрать позицию.', { kind: 'error' });
     }
   }
 
-  async function rollbackAll() {
+  async function rollbackAllAndReload(itemId) {
+    var url = itemId
+      ? '/project/' + PROJECT_ID + '/spec/' + itemId + '/rollback'
+      : '/project/' + PROJECT_ID + '/spec/rollback';
     try {
-      var data = await post('/project/' + PROJECT_ID + '/spec/rollback', {});
-      renderSpec(data);
-      toast('Отменено: возвращён предыдущий состав.', { kind: 'info' });
-    } catch (e) {
-      console.error(e);
-      toast('Не удалось откатить пересбор.', { kind: 'error' });
-    }
-  }
-
-  async function rollbackOne(itemId) {
-    try {
-      var data = await post(
-        '/project/' + PROJECT_ID + '/spec/' + itemId + '/rollback', {}
+      await post(url, {});
+      deferToastAndReload(
+        'Пересборка отменена, исходная конфигурация восстановлена.',
+        'info'
       );
-      renderSpec(data);
-      toast('Отменено: возвращён предыдущий состав.', { kind: 'info' });
     } catch (e) {
       console.error(e);
       toast('Не удалось откатить пересбор.', { kind: 'error' });

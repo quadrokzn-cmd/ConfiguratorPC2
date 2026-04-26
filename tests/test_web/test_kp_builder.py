@@ -140,7 +140,10 @@ def _inner_table(doc):
 
 def _data_rows_texts(doc):
     """Возвращает список списков tc.text для строк данных таблицы KP
-    (кроме заголовка и строки ИТОГО)."""
+    (кроме заголовка и строки ИТОГО). Этап 9А.2.5: разделитель тысяч
+    в числах теперь — non-breaking space (U+00A0); чтобы существующие
+    ассерты остались читаемыми с обычным пробелом, нормализуем NBSP→
+    обычный пробел при чтении из документа."""
     ns = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
     inner = _inner_table(doc)
     rows = inner._tbl.findall(f"{ns}tr")
@@ -150,19 +153,20 @@ def _data_rows_texts(doc):
         texts = []
         for tc in tcs:
             ts = [t.text or "" for t in tc.findall(f".//{ns}t")]
-            texts.append("".join(ts))
+            texts.append("".join(ts).replace(" ", " "))
         out.append(texts)
     return out
 
 
 def _itogo_value(doc) -> str:
-    """Возвращает текст последней ячейки строки ИТОГО."""
+    """Возвращает текст последней ячейки строки ИТОГО (NBSP → пробел,
+    см. комментарий выше)."""
     ns = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
     inner = _inner_table(doc)
     rows = inner._tbl.findall(f"{ns}tr")
     itogo_tcs = rows[-1].findall(f"{ns}tc")
     ts = [t.text or "" for t in itogo_tcs[-1].findall(f".//{ns}t")]
-    return "".join(ts)
+    return "".join(ts).replace(" ", " ")
 
 
 def _header_date(doc) -> str | None:

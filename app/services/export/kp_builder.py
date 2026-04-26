@@ -29,6 +29,7 @@ from io import BytesIO
 from pathlib import Path
 
 import docx
+from docx.shared import Cm
 from lxml import etree
 from sqlalchemy.orm import Session
 
@@ -111,11 +112,35 @@ def _compute_prices(
 
 
 def _format_rub(value: int) -> str:
-    """14500 → '14 500'. Пробел как разделитель тысяч, без копеек.
+    """14500 → '14 500'. Между разрядами — non-breaking space (U+00A0),
+    чтобы Word не рвал «37 338» на две строки в узких ячейках Цена/Сумма.
 
     «руб.» не добавляем — единица уже в заголовках колонок.
     """
-    return f"{value:,}".replace(",", " ")
+    return f"{value:,}".replace(",", " ")
+
+
+# ---------------------------------------------------------------------
+# Этап 9А.2.5: нормализация полей страницы
+# ---------------------------------------------------------------------
+
+def _normalize_page_margins(doc) -> None:
+    """Жёстко переписывает поля страницы во всех секциях документа.
+
+    Исходный kp_template.docx имеет ассиметричные поля
+    (top=284, right=140, bottom=0, left=1701 twips), из-за которых
+    заголовок и таблица сдвинуты влево, а правое поле почти отсутствует.
+    Word при таком текстовом поле жмёт ячейки и переносит числа.
+
+    Сбрасываем к симметричным 2.0 / 2.0 / 2.0 / 1.5 см (top/bottom/left/
+    right). На A4 (210×297мм) это даёт полезную ширину 175 мм — таблица
+    160 мм (9073 twips) укладывается с запасом.
+    """
+    for section in doc.sections:
+        section.top_margin = Cm(2.0)
+        section.bottom_margin = Cm(2.0)
+        section.left_margin = Cm(2.0)
+        section.right_margin = Cm(1.5)
 
 
 # ---------------------------------------------------------------------
@@ -349,7 +374,10 @@ def _normalize_outer_table(outer_tbl: etree._Element) -> None:
     """
     inner_w = _INNER_TBL_WIDTH
 
-    # tblPr: убираем tblInd, фиксируем tblW.
+    # tblPr: убираем tblInd, фиксируем tblW и центрируем таблицу
+    # относительно текстовой зоны (этап 9А.2.5 — после нормализации полей
+    # 2.0/1.5 текстовая зона ≈ 17.5 см, таблица 16 см должна стоять по
+    # центру, а не у левого края).
     tblPr = outer_tbl.find(_w("tblPr"))
     if tblPr is not None:
         tblInd = tblPr.find(_w("tblInd"))
@@ -360,6 +388,10 @@ def _normalize_outer_table(outer_tbl: etree._Element) -> None:
             tblW = etree.SubElement(tblPr, _w("tblW"))
         tblW.set(_w("w"), str(inner_w))
         tblW.set(_w("type"), "dxa")
+        tblJc = tblPr.find(_w("jc"))
+        if tblJc is None:
+            tblJc = etree.SubElement(tblPr, _w("jc"))
+        tblJc.set(_w("val"), "center")
 
     # tblGrid: ровно один gridCol во всю ширину.
     grid = outer_tbl.find(_w("tblGrid"))
@@ -458,6 +490,10 @@ def build_kp_docx(
         })
 
     doc = docx.Document(str(_TEMPLATE_PATH))
+    # Этап 9А.2.5: исправляем «кривые» поля шаблона до любых правок —
+    # дальше все вычисления раскладки опираются на симметричную ширину
+    # текстовой зоны.
+    _normalize_page_margins(doc)
     _replace_date_in_header(doc, date.today().strftime("%d.%m.%Y"))
 
     new_tbl = _make_inner_tbl(data_rows, grand_total)

@@ -370,7 +370,10 @@ def test_kp_itogo_filled_for_single_item():
     inner = _kp_inner_table(doc)
     rows = inner._tbl.findall(f"{_NS}tr")
     itogo_tc = rows[-1].findall(f"{_NS}tc")[-1]
-    text = "".join(t.text or "" for t in itogo_tc.findall(f".//{_NS}t"))
+    # 9А.2.5: разделитель тысяч теперь NBSP, нормализуем для сравнения.
+    text = "".join(t.text or "" for t in itogo_tc.findall(f".//{_NS}t")).replace(
+        " ", " "
+    )
     assert text.strip(), "ИТОГО не должно быть пустым даже при одной позиции"
     # 50*90=4500 → +15% = 5175
     assert "5 175" in text
@@ -411,7 +414,9 @@ def test_kp_itogo_value_filled_in_last_cell():
         f"Ожидалось 2 ячейки в строке ИТОГО, получено {len(itogo_tcs)}"
     )
     value_tc = itogo_tcs[-1]
-    text = "".join(t.text or "" for t in value_tc.findall(f".//{_NS}t"))
+    text = "".join(t.text or "" for t in value_tc.findall(f".//{_NS}t")).replace(
+        " ", " "
+    )
     assert text.strip(), "Значение ИТОГО пустое"
     # 100*90=9000 → +15% = 10350 → ×2 = 20700.
     assert "20 700" in text, f"Ожидалось «20 700» в ИТОГО, получили {text!r}"
