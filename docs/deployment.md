@@ -171,14 +171,107 @@ cookie секретом из `APP_SECRET_KEY`. На production:
 
 ## Что делать после первого деплоя
 
-> Этот раздел заполнится в этапе 10.2 (первый успешный деплой).
-> Сейчас в коде только подготовлена почва.
-
-Заглушка для будущих шагов:
+После успешного деплоя сервиса (этап 10.2):
 
 1. Привязать домен `config.quadro.tatar` (CNAME на Railway URL).
 2. Перенести dev-БД в Railway-Postgres через `pg_dump`/`pg_restore`
-   (этап 10.3, вариант А из roadmap-а).
+   (этап 10.3, см. раздел ниже).
 3. Прописать секреты в Railway → Variables.
 4. Проверить healthcheck в Railway-дашборде.
 5. Сделать smoke-логин в UI и сабмит тестового запроса.
+
+## Перенос данных через pg_dump / pg_restore (этап 10.3)
+
+После того как Railway-сервис поднялся на пустой БД (накатились
+миграции 001-016, `bootstrap_admin.py` создал учётку), нужно перелить
+содержимое локальной dev-БД (`kvadro_tech`) в Railway. Это разовая
+операция; в дальнейшем источником истины будет именно Railway-БД.
+
+### Что и почему мы делаем
+
+- **Дамп — `--format=custom`**: бинарный формат `pg_dump`, гибкий для
+  частичного восстановления (`pg_restore --list` даёт TOC, можно
+  пересобрать порядок объектов или исключить таблицы). plain-SQL дамп
+  проигрывает по контролю и по объёму.
+- **Восстановление — `--data-only`**: схему НЕ трогаем. На Railway
+  миграции уже применены раннером, повторный `CREATE TABLE` сломает
+  всё. Нужны только данные.
+- **`--disable-triggers`**: льём за один проход, порядок таблиц не
+  контролируем — FK-триггеры временно отключаются, чтобы вставка
+  родительских и дочерних строк не зависела от порядка.
+- **`--no-owner --no-acl`**: на Railway свой `postgres`-пользователь,
+  команды `ALTER OWNER ... TO postgres` и `GRANT` из дампа на нём не
+  имеют смысла (и часто отвергаются).
+- **TRUNCATE перед заливкой, кроме `schema_migrations`**: Railway-БД
+  на момент переноса уже не была абсолютно пустой (`bootstrap_admin`
+  создал admin, scheduler успел записать курс ЦБ, на UI могли
+  появиться 1-2 supplier-а). TRUNCATE с `RESTART IDENTITY CASCADE`
+  обнуляет всё, кроме журнала миграций — журнал должен остаться
+  нетронутым, иначе раннер при следующем рестарте попытается
+  переприменить миграции и упадёт на существующих таблицах.
+- **`reset_admin_password.py` после восстановления**: в дампе у
+  `users.admin` локальный bcrypt-хеш. На production нужен другой
+  пароль — скрипт делает upsert по `ADMIN_USERNAME`/`ADMIN_PASSWORD`.
+
+### Артефакты переноса
+
+Все промежуточные файлы лежат в `db_dumps/` (она в `.gitignore` —
+никогда не коммитим, содержит реальные данные пользователей):
+
+- `kvadro_tech_<timestamp>.dump` — сам дамп (custom format).
+- `dump_toc.txt` — оглавление дампа (`pg_restore --list`).
+- `snapshot_local_before.txt` / `snapshot_railway_before.txt` /
+  `snapshot_railway_after.txt` — слепки счётчиков строк.
+- `restore_log.txt` — verbose-вывод `pg_restore`.
+- `truncate_log.txt` — лог TRUNCATE-DO-блока.
+
+### Команды (Windows / PowerShell)
+
+```powershell
+# 1. Дамп локальной БД
+$env:PGPASSWORD = "postgres"
+& "C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" `
+    --host=localhost --port=5432 --username=postgres `
+    --format=custom --no-owner --no-acl `
+    --file="db_dumps\kvadro_tech_$(Get-Date -Format 'yyyyMMdd_HHmmss').dump" `
+    kvadro_tech
+
+# 2. TRUNCATE на Railway (DO-блок, исключающий schema_migrations)
+& "C:\Program Files\PostgreSQL\16\bin\psql.exe" `
+    --dbname=$env:DATABASE_PUBLIC_URL `
+    --file=db_dumps\truncate_railway.sql
+
+# 3. Восстановление данных
+& "C:\Program Files\PostgreSQL\16\bin\pg_restore.exe" `
+    --dbname=$env:DATABASE_PUBLIC_URL `
+    --data-only --no-owner --no-acl --disable-triggers --verbose `
+    db_dumps\kvadro_tech_<timestamp>.dump
+
+# 4. Сброс пароля admin
+$env:DATABASE_URL = $env:DATABASE_PUBLIC_URL
+$env:ADMIN_USERNAME = "admin"
+$env:ADMIN_PASSWORD = "<production-пароль>"
+python -m scripts.reset_admin_password
+```
+
+### Sequences
+
+`pg_dump --format=custom` сохраняет в TOC отдельные `SEQUENCE SET`-
+команды (по одной на каждую auto-increment-колонку). При
+`pg_restore --data-only` они выполняются автоматически, поэтому
+после заливки `last_value` у sequence-ов сразу совпадает с MAX(id) из
+данных. Ручной `setval(...)` не требуется — только убедиться по
+снимку, что все sequences не пустые.
+
+### Верификация
+
+После заливки сравниваем счётчики строк по всем таблицам с локальным
+снимком — должны совпасть один в один. Дополнительно: общее число
+компонентов по 8 таблицам (`cpus + motherboards + rams + gpus +
+storages + psus + cases + coolers`) должно быть ~5116, число скрытых
+(`is_hidden = TRUE`) — порядка 60 (корпусные вентиляторы, миграция
+013).
+
+После всего — **перезапустить сервис ConfiguratorPC2 в Railway**,
+чтобы приложение перечитало sequences и убедилось, что bootstrap-admin
+не попытается ничего менять (admin уже существует с ролью admin).

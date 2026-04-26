@@ -100,11 +100,14 @@ brand=#2052E8. **10 подэтапов** 9А.1 → 9А.2.7. Тестов: **576 
 
 ## Текущий статус
 
-**Этап 10.1 — подготовка репозитория к деплою — завершён.** Состояние:
+**Этап 10.3 — перенос БД на Railway — завершён.** Состояние:
 
-- Тесты: **721+** passed (плюс новые на /healthz и bootstrap_admin).
-- Миграции: **001–016** применены.
-- Готов к **Этапу 10.2** — первый деплой на Railway.
+- Тесты: **727 passed + 2 skipped** локально.
+- Миграции: **001–016** применены и на локальной dev-БД, и на
+  Railway-БД.
+- На Railway залит каталог: 5116 компонентов, ~60 скрытых,
+  6434 supplier_prices, 2082 unmapped, история курсов ЦБ.
+- Готов к продуктивной работе на `config.quadro.tatar`.
 
 ## Предстоящие этапы
 
@@ -125,14 +128,40 @@ brand=#2052E8. **10 подэтапов** 9А.1 → 9А.2.7. Тестов: **576 
 - `.env.example` переписан под новый набор переменных,
   [`docs/deployment.md`](deployment.md) описывает деплой.
 
-#### Этап 10.2 — первый деплой ⏳
+#### Этап 10.1.1 — фикс Nixpacks ✅
 
-- Привязать `config.quadro.tatar`, прописать секреты в Railway,
-  убедиться что healthcheck зелёный.
+Явный `providers = ["python", "node"]` + `nixPkgs = [...]` в
+`nixpacks.toml`, чтобы сборка не падала на гибридной структуре
+проекта (Python + Node для Tailwind).
 
-#### Этап 10.3 — перенос БД (вариант А) ⏳
+#### Этап 10.1.2 — переход на Dockerfile ✅
 
-- `pg_dump` локальной БД → `pg_restore` в Railway-Postgres.
+Nixpacks конфликтовал с явным `nodejs_18` (дубль `bin/npx`,
+exit 100). Перешли на собственный `Dockerfile` — полный контроль,
+никакой автодетекции. Подробности — `docs/deployment.md` раздел
+«Сборка через Dockerfile».
+
+#### Этап 10.2 — первый деплой ✅
+
+- `config.quadro.tatar` привязан (CNAME на Railway-инстанс).
+- Прописаны секреты в Railway → Variables.
+- Healthcheck `/healthz` зелёный.
+- На пустую БД накатились миграции 001–016, `bootstrap_admin.py`
+  создал учётку `admin`.
+
+#### Этап 10.3 — перенос БД (вариант А) ✅
+
+- `pg_dump --format=custom --no-owner --no-acl` локальной БД.
+- TRUNCATE Railway-таблиц (кроме `schema_migrations`) с
+  `RESTART IDENTITY CASCADE`.
+- `pg_restore --data-only --disable-triggers` в Railway-Postgres.
+- `scripts/reset_admin_password.py` — переиспользуемый скрипт-upsert
+  админ-пароля из `ADMIN_USERNAME`/`ADMIN_PASSWORD`. После заливки
+  пароль admin перебит на production-вариант.
+- Sequences подтянулись автоматически из `SEQUENCE SET`-команд в
+  TOC дампа, ручной `setval` не понадобился.
+- Подробности — `docs/deployment.md` раздел «Перенос данных через
+  pg_dump / pg_restore».
 
 ### Этап 9Б — портал app.quadro.tatar ⏳
 
