@@ -100,23 +100,39 @@ brand=#2052E8. **10 подэтапов** 9А.1 → 9А.2.7. Тестов: **576 
 
 ## Текущий статус
 
-**Этап 9А полностью завершён.** Состояние:
+**Этап 10.1 — подготовка репозитория к деплою — завершён.** Состояние:
 
-- Тесты: **721 passed + 2 skipped**.
+- Тесты: **721+** passed (плюс новые на /healthz и bootstrap_admin).
 - Миграции: **001–016** применены.
-- Последний коммит master: **e36b6d5** (2026-04-26).
-- Готовится **Этап 10** — деплой.
+- Готов к **Этапу 10.2** — первый деплой на Railway.
 
 ## Предстоящие этапы
 
-### Этап 10 — деплой на Railway ⏳
+### Этап 10 — деплой на Railway
 
-- Платформа: **Railway** (планируется).
-- Поддомен: **config.quadro.tatar**.
-- Dockerfile + healthcheck + автоматическое накатывание миграций
-  при деплое.
-- Production env: переменные через Railway secrets.
-- Логи и метрики: TBD (возможно Sentry).
+#### Этап 10.1 — подготовка репозитория ✅
+
+- `Procfile` и `railway.json` (Nixpacks builder, healthcheck `/healthz`).
+- `scripts/apply_migrations.py` — идемпотентный раннер plain-SQL
+  миграций (Alembic в проекте нет).
+- `scripts/bootstrap_admin.py` — создание админа из `ADMIN_USERNAME`/
+  `ADMIN_PASSWORD` при первом старте, без перезаписи существующего.
+- `app.config.Settings`: новые поля `app_env`, `app_secret_key`,
+  `cookie_domain`, `run_scheduler`, `admin_username`, `admin_password`.
+  На production без `APP_SECRET_KEY` сервис падает на старте.
+- `/healthz` расширен до `SELECT 1` к БД (200/503).
+- APScheduler запускается только при `RUN_SCHEDULER=1`.
+- `.env.example` переписан под новый набор переменных,
+  [`docs/deployment.md`](deployment.md) описывает деплой.
+
+#### Этап 10.2 — первый деплой ⏳
+
+- Привязать `config.quadro.tatar`, прописать секреты в Railway,
+  убедиться что healthcheck зелёный.
+
+#### Этап 10.3 — перенос БД (вариант А) ⏳
+
+- `pg_dump` локальной БД → `pg_restore` в Railway-Postgres.
 
 ### Этап 9Б — портал app.quadro.tatar ⏳
 

@@ -4,33 +4,40 @@ __pycache__/
 .venv/
 venv/
 env/
+
+# Переменные окружения — никогда не коммитим
 .env
+.env.local
+.env.*.local
+
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
 *.log
 
-# Служебные данные Claude Code
+# pytest
+.pytest_cache/
+
+# Служебные файлы Claude Code
 .claude/
 
-# Локальные данные (прайс-листы поставщиков и т.п.)
+# Бизнес-данные (прайс-листы поставщиков и т.п.)
 data/
 
-# Дампы HTML из визуальных тестов (VISUAL_DUMP=1)
+# Дампы HTML для визуальных тестов (VISUAL_DUMP=1)
 visual_samples/
 
-# Архив устаревших pending-батчей (Этап 2.5Б) — локальная резервная копия,
-# перенесена при пересборке pending/ после regex-этапа.
+# Архив stale pending-ключей (этап 2.5б) — локальная резервная копия,
+# перенесена из подкорзины pending/ после regex-этапа.
 enrichment/stale_pending_20260424/
 
-# Локальные дизайн-референсы для Этапа 9 (редизайн UI)
+# Дизайн-референсы для этапа 9 (редизайн UI)
 design_references/
 
-# Frontend pipeline (Этап 9А.1) — собранный CSS под static/dist/ коммитим,
-# зависимости — нет.
+# Frontend pipeline (этап 9А.1) — собранный CSS в static/dist/ коммитим
+# (см. docs/design-decisions.md, решение №3), зависимости — нет.
 node_modules/
-*.log
 
-# Логи scheduler'а (этап 9А.2.3): курс ЦБ, фоновые задачи.
+# Логи scheduler'а (этап 9А.2.3): курсы ЦБ, фоновые задачи.
 logs/

@@ -29,6 +29,8 @@
   тёмная enterprise-палитра, программная сборка КП-таблицы)
 - [roadmap.md](roadmap.md) — история этапов 1–9А.2.7 и план следующих
   (Этап 10 — Railway, Этап 9Б — портал app.quadro.tatar)
+- [deployment.md](deployment.md) — деплой на Railway (этап 10.1):
+  переменные окружения, Procfile, healthcheck, миграции
 
 ### UI и frontend
 
@@ -71,6 +73,7 @@
 | Что уже сделано / что предстоит               | [roadmap.md](roadmap.md)              |
 | Зачем нужен сервис, кто заказчик, бюджеты     | [`../business/INDEX.md`](../business/INDEX.md) |
 | Стартовый запуск проекта (env, миграции, БД)  | [`../README.md`](../README.md)        |
+| Деплой на Railway, переменные окружения       | [deployment.md](deployment.md)        |
 
 ## Ссылки на корень репозитория
 
