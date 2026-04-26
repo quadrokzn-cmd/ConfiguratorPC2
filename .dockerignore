@@ -1,0 +1,57 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.coverage
+htmlcov
+.venv
+.venv-1
+.venv-2
+venv
+env
+
+# Node (нужен только при разработке Tailwind, в образ не идёт)
+node_modules
+npm-debug.log
+
+# Окружение и секреты — категорически не пускаем в образ
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+.claude
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Документация и тесты в production-образе не нужны
+docs
+tests
+*.md
+!README.md
+
+# Бизнес-данные и референсы
+business
+design_references
+data
+visual_samples
+logs
+enrichment/stale_pending_20260424
+
+# Отчёты скриптов (сами scripts/ нужны: apply_migrations, bootstrap_admin)
+scripts/reports
+
+# MCP/инструментальные
+.mcp.json

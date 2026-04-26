@@ -11,10 +11,10 @@
 - **БД**: PostgreSQL 16 как Railway plugin (Add Database → PostgreSQL).
   Подключение проксируется через переменную `DATABASE_URL`, которую
   Railway проставляет автоматически.
-- **Билдер**: Nixpacks (см. `railway.json` и `nixpacks.toml`). Гибрид
-  Python + Node явно описан в `nixpacks.toml` — без него Nixpacks
-  по `package.json` определял бы проект только как Node и не ставил
-  Python (билд падал с `pip: command not found`, exit 127).
+- **Билдер**: `Dockerfile` в корне репо (см. `railway.json`). От
+  Nixpacks отказались — он автодетектил Node по `package.json` и
+  конфликтовал с явно прописанным `nodejs_18` (дубль `bin/npx`,
+  exit 100). Подробнее — раздел «Сборка через Dockerfile».
 
 Архитектурный прицел: на Railway один сервис-конфигуратор, но cookie
 и SECRET_KEY уже учитывают будущую платформу `app.quadro.tatar`
@@ -62,60 +62,82 @@
 
 Полный список с расширенными комментариями — в [`.env.example`](../.env.example).
 
-## Как работает билд на Railway
+## Сборка через Dockerfile
 
-Билдером выступает **Nixpacks**. Он читает `nixpacks.toml` в корне репо
-и понимает, что нужны и Python, и Node.
+### Почему не Nixpacks
 
-Фазы билда:
+Первая попытка использовала Nixpacks (этапы 10.1 / 10.1.1). Проект
+гибридный: Python (FastAPI) + Node (Tailwind для разработки). Nixpacks
+автоопределял Node по `package.json` и игнорировал Python — pip не
+ставился, билд падал с exit 127. Явное `providers = ["python", "node"]`
++ `nixPkgs = ["python311", "nodejs_18", ...]` приводило к новому
+конфликту: Nixpacks-автодетект и наш `nodejs_18` боролись за один
+и тот же `bin/npx` в Nix-профиле, exit 100.
 
-1. **setup** — из `phases.setup` в `nixpacks.toml` ставятся пакеты:
-   `python311`, `nodejs_18`, `gcc` (последний нужен `psycopg2-binary`
-   и прочим C-расширениям).
-2. **install** — Nixpacks автоматически:
-   - видит `requirements.txt` (python-провайдер) → `pip install -r requirements.txt`;
-   - видит `package.json` + `package-lock.json` (node-провайдер) → `npm ci`.
-   В `nixpacks.toml` install-команды НЕ переопределены, дефолты подходят.
-3. **build** — `npm run build:css` из `phases.build` (компиляция Tailwind
-   в `static/dist/main.css`). На случай, если в репо забыли закоммитить
-   актуальный CSS.
-4. **start** — команда из `railway.json/deploy.startCommand` (см. ниже).
-   В `Procfile` дублируется идентичная команда — это легаси для других
-   PaaS, на Railway приоритет у `railway.json`.
+В этапе 10.1.2 перешли на `Dockerfile`. Это даёт полный контроль
+над окружением и убирает магию автодетекта.
 
-В `railway.json` секция `build` намеренно минимальна (только `builder:
-NIXPACKS`). Раньше там был `buildCommand: "pip install ... && npm ci
-&& npm run build:css"`, но это дублировало то, что Nixpacks делает сам,
-и при этом обходило фазу setup → `pip` ещё не существовал → exit 127.
+### Что делает Dockerfile
 
-## Как стартует сервис
+1. **`FROM python:3.11-slim`** — минимальный официальный образ Python
+   3.11 на Debian. Версия зафиксирована (не `latest`, не `3.12`),
+   чтобы совпадать с локальной разработкой.
+2. **ENV-переменные**: `PYTHONDONTWRITEBYTECODE`, `PYTHONUNBUFFERED`,
+   `PIP_NO_CACHE_DIR`, `PIP_DISABLE_PIP_VERSION_CHECK` — стандартные
+   санитарные настройки для контейнерного Python.
+3. **`COPY requirements.txt . && RUN pip install -r requirements.txt`**
+   — отдельным слоем, чтобы Docker мог его кешировать. Если
+   `requirements.txt` не менялся — слой переиспользуется и `pip install`
+   на ребилде не запускается.
+4. **`COPY . .`** — копируем остальной код. Этот слой инвалидируется
+   при любом изменении кода, поэтому идёт после установки зависимостей.
+5. **`CMD`** в shell-форме (а не exec) — чтобы `${PORT}` от Railway
+   раскрылся при старте. Команда: миграции → bootstrap админа → uvicorn
+   с `--proxy-headers --forwarded-allow-ips='*'` (Railway терминирует
+   SSL на своём прокси, без флагов FastAPI генерит http-ссылки вместо
+   https в `request.url_for`).
 
-`Procfile` и `railway.json` описывают одинаковую команду запуска:
+### Почему в образе нет Node
 
+По решению №3 в [`design-decisions.md`](design-decisions.md):
+скомпилированный Tailwind-CSS **коммитится** в `static/dist/main.css`.
+То есть на билде CSS уже готов, его не нужно собирать. Это позволяет
+не ставить `nodejs`/`npm` в образ — экономим размер и убираем целый
+класс проблем (несовпадение версий node, конфликты Nix-провайдеров).
+
+`package.json`, `package-lock.json` и `node_modules/` нужны только
+на машине разработчика для `npm run watch:css` / `npm run build:css`
+перед коммитом.
+
+### psycopg2-binary без gcc
+
+В `requirements.txt` указан `psycopg2-binary>=2.9` — это wheel со
+встроенным libpq. Поэтому в образе НЕ нужны `gcc` и `libpq-dev`.
+Если когда-нибудь перейдём на чистый `psycopg2` или `psycopg`, в
+Dockerfile нужно будет добавить:
+
+```dockerfile
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        gcc libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 ```
-python -m scripts.apply_migrations \
-  && python -m scripts.bootstrap_admin \
-  && uvicorn app.main:app --host 0.0.0.0 --port $PORT \
-       --proxy-headers --forwarded-allow-ips='*'
-```
 
-Что происходит:
+### Что отрезает .dockerignore
 
-1. **`python -m scripts.apply_migrations`** — идемпотентный раннер
-   plain-SQL миграций (этап 10.1). В проекте нет Alembic; миграции
-   лежат как `migrations/NNN_*.sql`. Раннер заводит служебную таблицу
-   `schema_migrations(filename, applied_at)` и применяет только новые
-   файлы. На существующей БД (где уже есть `suppliers`) — помечает
-   все текущие файлы как применённые без повторного `CREATE TABLE`.
-2. **`python -m scripts.bootstrap_admin`** — создаёт пользователя
-   с логином `ADMIN_USERNAME` и паролем `ADMIN_PASSWORD`, если его
-   ещё нет. Идемпотентен; пароль существующего пользователя НЕ
-   меняет. Если переменные пусты — молча выходит.
-3. **`uvicorn app.main:app`** — основной HTTP-сервер.
-   Флаги `--proxy-headers --forwarded-allow-ips='*'` нужны потому,
-   что Railway терминирует SSL на своём прокси: без них FastAPI не
-   видит правильный `scheme`/`host` и формирует http-ссылки вместо
-   https в `request.url_for(...)`.
+Файл `.dockerignore` исключает из контекста сборки:
+
+- `.env` и `.env.*` — **никогда не пускаем секреты в образ**;
+- `.git`, IDE-конфиги (`.vscode`, `.idea`, `.claude`), `node_modules`,
+  виртуальные окружения (`.venv*`) — экономия размера и времени COPY;
+- `tests`, `docs`, `business`, `design_references`, `data`,
+  `visual_samples`, `logs`, `scripts/reports` — в production-образе
+  не нужны;
+- `*.md` (кроме `README.md`) — документация в образе не нужна;
+- `.mcp.json` — локальный MCP-конфиг разработчика.
+
+ВАЖНО: исключаем именно `scripts/reports`, **не** `scripts/` целиком —
+в `scripts/` лежат `apply_migrations.py` и `bootstrap_admin.py`,
+которые запускаются в `CMD`.
 
 ## Healthcheck
 
@@ -127,17 +149,6 @@ python -m scripts.apply_migrations \
 Railway дёргает его как liveness probe (`healthcheckPath: /healthz`,
 таймаут 30 секунд, см. `railway.json`). Перезапуск инстанса —
 `ON_FAILURE` с тремя попытками.
-
-## Статика и Tailwind
-
-Конвенция (см. [`design-decisions.md`](design-decisions.md), решение №3)
-— скомпилированный CSS **коммитится** в `static/dist/main.css`. Это
-страхует прод на случай, если на билде Tailwind что-то сломается.
-
-При этом на билде Railway мы всё равно прогоняем `npm run build:css`
-(через `tailwindcss -i ./static/src/main.css -o ./static/dist/main.css
---minify`) в `phases.build` `nixpacks.toml` — на случай, если в репо
-забыли закоммитить актуальный CSS.
 
 ## Сессии и cookie
 
