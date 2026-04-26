@@ -674,19 +674,23 @@
     vertical-align: middle;
   }
   @keyframes kt-spin { to { transform: rotate(360deg); } }
-}
 
-/* ---------- Утилиты, не покрытые токенами Tailwind --------------------- */
+  /* === Раскладка приложения (9А.2.3 → 9А.2.4) ========================
+     9А.2.4: эти классы держат всю shell-раскладку (sidebar + main) и
+     должны попадать в собранный CSS гарантированно. Раньше лежали в
+     @layer utilities — после минификации браузер мог получить старый
+     кэшированный main.css без них; перенесли в @layer components, где
+     они логически и должны быть (это компоненты, а не утилиты).
+     Также base.html теперь линкует main.css?v=<mtime>, чтобы при любой
+     пересборке кэш браузера сбрасывался автоматически.
 
-@layer utilities {
-  .text-balance { text-wrap: balance; }
-  /* 9А.2.3: фиксированная раскладка app-shell.
-     Раньше .grid-app + min-height:100vh — сайдбар уезжал вверх при
-     прокрутке страниц «Компоненты» и «История запросов». Теперь:
-     - .kt-app-shell flex со 100vh высотой и overflow:hidden;
-     - .kt-sidebar — фиксированной высоты, скроллится только средний nav;
-     - .kt-main — единственная зона с overflow-y:auto.
-     Старый класс grid-app оставлен как алиас для совместимости. */
+     Структура:
+     - .kt-app-shell — flex со 100vh высотой и overflow:hidden;
+     - .kt-sidebar  — фиксированной ширины, column-flex, скроллится
+                      только средний .kt-sidebar-nav;
+     - .kt-main     — единственная зона с overflow-y:auto;
+     - .kt-topbar   — sticky внутри .kt-main.
+     Старый класс .grid-app оставлен как алиас для совместимости. */
   .kt-app-shell {
     display: flex;
     height: 100vh;

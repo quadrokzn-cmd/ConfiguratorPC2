@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}КВАДРО-ТЕХ: конфигуратор ПК{% endblock %}</title>
-  <link rel="stylesheet" href="/static/dist/main.css">
+  {# 9А.2.4: cache-busting через mtime файла. После пересборки CSS
+     значение в ?v= меняется → браузер не подсасывает закэшированный
+     main.css без новых .kt-* классов. #}
+  <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
   {# 9А.1.1: фавиконка из 200×200 PNG бренда. TODO 9А.2: сгенерировать
      отдельный icon-only PNG (только знак «Q»), сейчас 200×200 содержит
      полный логотип и в 32px читается как тёмная плашка. #}
@@ -150,7 +153,7 @@
 </main>
 {% endif %}
 
-<script src="/static/js/common.js" defer></script>
+<script src="{{ static_url('static/js/common.js') }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

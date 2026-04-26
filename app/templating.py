@@ -13,8 +13,10 @@
 from __future__ import annotations
 
 import logging
+import os
 from datetime import datetime, timezone
 from decimal import Decimal
+from pathlib import Path
 from typing import Any
 
 from fastapi.templating import Jinja2Templates
@@ -111,7 +113,36 @@ def fmt_rub(usd: Any) -> str:
     return "{:,.0f}".format(rub).replace(",", " ")
 
 
+_STATIC_ROOT = Path(__file__).resolve().parent.parent / "static"
+
+
+def static_url(rel_path: str) -> str:
+    """Cache-busting URL для статики (этап 9А.2.4).
+
+    На входе — путь относительно корня проекта (например, "static/dist/main.css"
+    или "dist/main.css"). На выходе — "/static/dist/main.css?v=<mtime>", где
+    mtime берётся прямо с файла на диске. После любой пересборки CSS/JS
+    значение mtime меняется → URL меняется → браузер обязательно дотянет
+    свежую версию вместо старого закэшированного main.css.
+
+    Если файл отсутствует (теоретически — до первой сборки CSS) — возвращаем
+    URL без cache-busting, чтобы шаблон всё равно отрендерился."""
+    rel = rel_path.lstrip("/")
+    if rel.startswith("static/"):
+        rel_inside_static = rel[len("static/"):]
+    else:
+        rel_inside_static = rel
+    full = _STATIC_ROOT / rel_inside_static
+    base_url = "/static/" + rel_inside_static
+    try:
+        mtime = int(full.stat().st_mtime)
+    except OSError:
+        return base_url
+    return f"{base_url}?v={mtime}"
+
+
 # Регистрируем globals и фильтры на единственном шаблонном движке.
 templates.env.globals["current_exchange_rate"] = current_exchange_rate
+templates.env.globals["static_url"] = static_url
 templates.env.filters["to_rub"] = to_rub
 templates.env.filters["fmt_rub"] = fmt_rub
