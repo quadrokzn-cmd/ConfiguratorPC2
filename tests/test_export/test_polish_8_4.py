@@ -298,7 +298,9 @@ _NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
 
 def _kp_inner_table(doc):
-    return doc.tables[0].rows[0].cells[0].tables[0]
+    # Этап 9А.2.7: внешняя обёрточная таблица убрана; таблица позиций —
+    # единственная в body.
+    return doc.tables[0]
 
 
 def _kp_header_texts(doc) -> list[str]:

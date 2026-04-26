@@ -73,7 +73,9 @@ def test_kp_column_widths_v2():
     assert sum(expected) == 9073
 
     doc = _build_kp([(2_222.0, 7, "Дорогой блок ради больших чисел")])
-    inner_tbl = doc.tables[0].rows[0].cells[0].tables[0]._tbl
+    # Этап 9А.2.7: внешняя обёрточная таблица убрана; таблица позиций —
+    # единственная в body.
+    inner_tbl = doc.tables[0]._tbl
 
     # tblGrid
     grid = inner_tbl.find(f"{_NS}tblGrid")
@@ -124,7 +126,9 @@ def test_kp_price_column_wider_than_old():
     """Sanity-check: ширина Цена ≥ 2000 twips (≥ 3.5 см). Старая
     раскладка давала 1531 — на ней шестизначные числа рвались."""
     doc = _build_kp([(100.0, 1, "Sanity")])
-    inner_tbl = doc.tables[0].rows[0].cells[0].tables[0]._tbl
+    # Этап 9А.2.7: внешняя обёрточная таблица убрана; таблица позиций —
+    # единственная в body.
+    inner_tbl = doc.tables[0]._tbl
     grid_widths = [
         int(gc.get(f"{_NS}w"))
         for gc in inner_tbl.find(f"{_NS}tblGrid").findall(f"{_NS}gridCol")

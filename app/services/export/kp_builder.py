@@ -1,28 +1,34 @@
-# Генератор коммерческого предложения (docx) на основе шаблона KP.
+# Генератор коммерческого предложения (docx) — программная сборка с нуля.
 #
-# Этап 8.6: внутренняя таблица КП теперь строится с нуля программно через
-# lxml. Шаблон kp_template.docx сохраняет верхнюю часть (реквизиты,
-# изображения с подписью директора и печатью) и внешнюю таблицу-обложку.
-# Внутренняя таблица из шаблона полностью заменяется на свежую с
-# гарантированной структурой:
-#   - 5 колонок: № п/п, Наименование, Кол-во, Цена с НДС (руб.),
-#     Сумма с НДС (руб.).
-#   - Стиль: тонкие чёрные границы со всех сторон (TableGrid).
-#   - Шапка таблицы: bold, серая заливка #E0E0E0.
-#   - Данные: имя — слева, числа — по правому краю.
-#   - Финальная строка ИТОГО: 4 первые ячейки объединены через gridSpan,
-#     текст «ИТОГО» bold по правому краю; 5-я ячейка — сумма bold.
+# Этап 9А.2.7: документ строится программно через python-docx + lxml. От
+# шаблона kp_template.docx остаются только реквизиты «ООО КВАДРО-ТЕХ»
+# (логотип + текстовые строки) и параграф с подписью директора + печатью
+# (inline-картинка). Всё, что между ними — дата, заголовок «Коммерческое
+# предложение» и таблица позиций — генерируется заново.
 #
-# Замена шаблонной таблицы лечит баг 8.4, когда после клонирования
-# tcPr и наличия «лишних» gridCol справа значение ИТОГО оказывалось в
-# ячейке-«хвосте» с шириной 3545 twips (далеко за пределами видимой
-# колонки «Сумма с НДС» шириной 1417), и пользователю казалось, что
-# поле пустое.
+# Зачем переписали: после серии итераций (8.6, 8.7, 8.8, 9А.2.5, 9А.2.6) с
+# заменой внутренней таблицы остались артефакты Word-рендера в узких
+# числовых колонках («ол-во» вместо «Кол-во», обрезание №-позиции, лишние
+# пропуски перед текстом). Корень — Normal-стиль шаблона жёстко прибивал
+# Times New Roman 14pt поверх Calibri-тем, и пересчёт ширин для зрелых
+# чисел шёл «впритык». В этой ревизии Normal-стиль шаблона переведён на
+# Calibri 11pt (sz=22), а каждый параграф/run в таблице получает явный
+# rPr/rFonts с Calibri — никакого наследования.
+#
+# Структура документа (после build_kp_docx):
+#   p[0..N]:  реквизиты (из шаблона, не трогаем)
+#   p:        empty + горизонтальная линия (из шаблона)
+#   p:        «№ б/н от DD.MM.YYYYг.» — программно
+#   p:        spacer
+#   p:        «Коммерческое предложение» (центр, bold, 14pt) — программно
+#   p:        spacer
+#   tbl:      таблица позиций со строкой ИТОГО — программно
+#   p:        подпись директора + печать (inline-картинка из шаблона)
+#   sectPr
 
 from __future__ import annotations
 
 import math
-import re
 from datetime import date
 from decimal import Decimal
 from io import BytesIO
@@ -48,12 +54,10 @@ _TEMPLATE_PATH = (
 _W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 _XML = "http://www.w3.org/XML/1998/namespace"
 
+
 def _w(tag: str) -> str:
     return f"{{{_W}}}{tag}"
 
-
-# Регексп для поиска даты вида 22.04.2026 в параграфе «№ б/н от … г.».
-_DATE_RE = re.compile(r"\d{1,2}\.\d{1,2}\.\d{4}")
 
 # Границы разумной наценки.
 _MARKUP_MIN = 0
@@ -62,24 +66,9 @@ _MARKUP_MAX = 500
 
 # --- Геометрия таблицы (в twips, 1/20 пункта; 1 см = 567 twips) -------------
 #
-# Ширины подобраны под доступную ширину A4 при полях 25 мм слева и справа:
-# 210 - 25*2 = 160 мм = 16 см ≈ 9072 twips. Сумма колонок ниже даёт ровно
-# эту ширину, чтобы Word не запускал auto-redistribute (даже при включённом
-# tblLayout=fixed Word может «поджать» колонки, если их сумма больше
-# доступной ширины страницы).
-#
-# Этап 8.8: «Кол-во» расширили с 1.2 → 1.4 см, потому что при 10pt в 1.2 см
-# заголовок «Кол-во» обрезался в Word до «ол-во». Соответственно «Наименование»
-# сократили с 8.5 → 8.3 см, чтобы суммарная ширина не уехала за пределы
-# полезной ширины страницы.
-#
-# Этап 9А.2.6: Цена/Сумма расширили с 2.7/2.8 → 3.6/3.7 см. На предыдущей
-# раскладке шестизначные числа («40 156», «31 968») с padding'ом ячейки
-# не помещались по физической ширине, и Word рвал их на «40 15 / 6» даже
-# при заданном <w:noWrap/>. Запас в 0.9 см на каждую колонку покрывает
-# числа до 9 999 999 при шрифте 10pt. Оторвали ширину у «Наименование»
-# (8.3 → 6.5 см) — там длинный auto_name и так переносится на 2-3 строки,
-# колонке без потерь.
+# Поля страницы 2.0/2.0/2.0/1.5 (top/bottom/left/right, см) — текстовая зона
+# на A4 = 210 - 2.0 - 1.5 = 16.5 см ≈ 9355 twips. Сумма колонок ниже даёт
+# ровно 16.0 см (9072 twips), таблица помещается с запасом 0.5 см.
 
 _COL_W_NUM   = 454    # № п/п                 — 0.8 см
 _COL_W_NAME  = 3686   # Наименование          — 6.5 см
@@ -88,7 +77,7 @@ _COL_W_PRICE = 2041   # Цена с НДС (руб.)     — 3.6 см
 _COL_W_SUM   = 2098   # Сумма с НДС (руб.)    — 3.7 см
 
 _GRID_WIDTHS = (_COL_W_NUM, _COL_W_NAME, _COL_W_QTY, _COL_W_PRICE, _COL_W_SUM)
-_INNER_TBL_WIDTH = sum(_GRID_WIDTHS)  # 9073 twips
+_INNER_TBL_WIDTH = sum(_GRID_WIDTHS)  # 9073 twips ≈ 16 см
 
 # Высота строки ИТОГО (в twips). 0.7 см ≈ 397 twips — чтобы строка
 # выглядела заметнее обычных data-строк.
@@ -120,30 +109,23 @@ def _compute_prices(
 
 
 def _format_rub(value: int) -> str:
-    """14500 → '14 500'. Между разрядами — non-breaking space (U+00A0),
+    """14500 → '14 500'. Между разрядами — non-breaking space (U+00A0),
     чтобы Word не рвал «37 338» на две строки в узких ячейках Цена/Сумма.
-
-    «руб.» не добавляем — единица уже в заголовках колонок.
-    """
+    «руб.» не добавляем — единица уже в заголовках колонок."""
     return f"{value:,}".replace(",", " ")
 
 
 # ---------------------------------------------------------------------
-# Этап 9А.2.5: нормализация полей страницы
+# Поля страницы
 # ---------------------------------------------------------------------
 
 def _normalize_page_margins(doc) -> None:
     """Жёстко переписывает поля страницы во всех секциях документа.
 
-    Исходный kp_template.docx имеет ассиметричные поля
-    (top=284, right=140, bottom=0, left=1701 twips), из-за которых
-    заголовок и таблица сдвинуты влево, а правое поле почти отсутствует.
-    Word при таком текстовом поле жмёт ячейки и переносит числа.
-
-    Сбрасываем к симметричным 2.0 / 2.0 / 2.0 / 1.5 см (top/bottom/left/
-    right). На A4 (210×297мм) это даёт полезную ширину 175 мм — таблица
-    160 мм (9073 twips) укладывается с запасом.
-    """
+    Исходный kp_template.docx имеет ассиметричные поля. Сбрасываем к
+    симметричным 2.0 / 2.0 / 2.0 / 1.5 см (top/bottom/left/right). На A4
+    (210×297мм) это даёт текстовую зону 165 мм — таблица 160 мм
+    (9073 twips) укладывается с запасом."""
     for section in doc.sections:
         section.top_margin = Cm(2.0)
         section.bottom_margin = Cm(2.0)
@@ -152,132 +134,18 @@ def _normalize_page_margins(doc) -> None:
 
 
 # ---------------------------------------------------------------------
-# Замена даты в верхней шапке КП
+# Конструкторы XML-элементов (lxml)
 # ---------------------------------------------------------------------
-
-def _replace_date_in_header(doc, new_date: str) -> None:
-    """Перезаписывает параграф «№ б/н от DD.MM.YYYYг.» одним чистым run'ом.
-
-    Этап 9А.2.6: исходный параграф шаблона содержит 9 разрозненных
-    <w:r> (по 1-2 символа каждый) и два <w:proofErr> между ними
-    (gramStart / gramEnd — пометки граммар-чекера). Старый алгоритм
-    клал склеенный текст в runs[0] и удалял остальные runs, но
-    оставлял proofErr-маркеры; в результате визуально образовывался
-    «тильда»-артефакт у даты, а xml:space="preserve" не выставлялся
-    автоматически — пробел перед датой мог «съедаться» Word.
-
-    Стратегия: вычистить ВСЕ дочерние элементы параграфа кроме pPr,
-    положить ровно один <w:r> с <w:t xml:space="preserve">№ б/н
-    от <date>г.</w:t>. Это гарантирует и пробел перед датой, и
-    отсутствие proofErr-остатков, и стабильную типографику.
-    """
-    target_text = f"№ б/н от {new_date}г."
-    for p in doc.paragraphs:
-        if "№" not in p.text or not _DATE_RE.search(p.text):
-            continue
-        p_el = p._p
-        # Сохраняем pPr (форматирование параграфа), удаляем всё
-        # остальное — runs, proofErr, hyperlink, bookmarks и т.п.
-        for child in list(p_el):
-            if child.tag != _w("pPr"):
-                p_el.remove(child)
-        # Один свежий run с явным xml:space="preserve".
-        r = etree.SubElement(p_el, _w("r"))
-        r.append(_make_rPr(bold=False, sz_half_pt=22))
-        t = etree.SubElement(r, _w("t"))
-        t.text = target_text
-        t.set(f"{{{_XML}}}space", "preserve")
-        return
-
-
-# ---------------------------------------------------------------------
-# Этап 9А.2.6: чистка хвостовых пустых параграфов
-# ---------------------------------------------------------------------
-
-def _strip_trailing_empty_paragraphs(doc) -> None:
-    """Удаляет «хвостовые» пустые параграфы перед sectPr в body.
-
-    В исходном kp_template.docx последним перед sectPr идёт
-    <w:p> с <w:bookmarkStart name="_GoBack"/> и <w:bookmarkEnd/> —
-    автогенерированный Word'ом маркер «последняя точка редактирования».
-    После замены внутренней таблицы и нормализации, этот хвост
-    оказывается визуально под печатью в правом нижнем углу страницы
-    («□»-артефакт).
-
-    Удаляем подряд все пустые параграфы (без runs, без drawing, без
-    значимого контента — только bookmark/pPr) непосредственно перед
-    финальным sectPr. sectPr и параграфы выше с реальным контентом
-    не трогаем.
-    """
-    body = doc.element.body
-    children = list(body)
-    if not children:
-        return
-    # Последний элемент должен быть sectPr (он завершает body).
-    last_idx = len(children) - 1
-    if children[last_idx].tag != _w("sectPr"):
-        return
-    # Идём с конца body вверх по индексу, пропуская sectPr,
-    # удаляя «пустышки» (param p без значимого контента).
-    i = last_idx - 1
-    while i >= 0:
-        ch = children[i]
-        if ch.tag != _w("p"):
-            break
-        # «Значимый» контент в параграфе:
-        #   - <w:r> с непустым текстом или <w:drawing>/<w:pict>;
-        #   - <w:hyperlink> (ссылки);
-        #   - <w:sym> и т.п.
-        has_content = False
-        for r in ch.findall(_w("r")):
-            for t in r.findall(_w("t")):
-                if (t.text or "").strip():
-                    has_content = True
-                    break
-            if has_content:
-                break
-            if r.find(f".//{_w('drawing')}") is not None:
-                has_content = True
-                break
-            if r.find(f".//{_w('pict')}") is not None:
-                has_content = True
-                break
-            if r.find(_w("br")) is not None:
-                has_content = True
-                break
-        if not has_content and ch.find(_w("hyperlink")) is not None:
-            has_content = True
-        if has_content:
-            break
-        body.remove(ch)
-        i -= 1
-
-
-# ---------------------------------------------------------------------
-# Сборка таблицы из XML (lxml)
-# ---------------------------------------------------------------------
-
-def _make_pPr(*, jc: str | None = None) -> etree._Element:
-    pPr = etree.Element(_w("pPr"))
-    # Без spacing — параграф ляжет компактно в ячейку.
-    spacing = etree.SubElement(pPr, _w("spacing"))
-    spacing.set(_w("before"), "0")
-    spacing.set(_w("after"), "0")
-    spacing.set(_w("line"), "240")
-    spacing.set(_w("lineRule"), "auto")
-    if jc:
-        jc_el = etree.SubElement(pPr, _w("jc"))
-        jc_el.set(_w("val"), jc)
-    return pPr
-
 
 def _make_rPr(*, bold: bool = False, sz_half_pt: int = 22) -> etree._Element:
+    """Calibri явно прописан на всех осях (ascii/hAnsi/cs/eastAsia) —
+    перебивает любые наследования из стилей шаблона. sz_half_pt=22 = 11pt."""
     rPr = etree.Element(_w("rPr"))
-    # Times New Roman / 11pt — стандарт документа КП.
     rFonts = etree.SubElement(rPr, _w("rFonts"))
-    rFonts.set(_w("ascii"), "Times New Roman")
-    rFonts.set(_w("hAnsi"), "Times New Roman")
-    rFonts.set(_w("cs"), "Times New Roman")
+    rFonts.set(_w("ascii"), "Calibri")
+    rFonts.set(_w("hAnsi"), "Calibri")
+    rFonts.set(_w("cs"), "Calibri")
+    rFonts.set(_w("eastAsia"), "Calibri")
     if bold:
         etree.SubElement(rPr, _w("b"))
         etree.SubElement(rPr, _w("bCs"))
@@ -288,15 +156,42 @@ def _make_rPr(*, bold: bool = False, sz_half_pt: int = 22) -> etree._Element:
     return rPr
 
 
+def _make_pPr(
+    *,
+    jc: str | None = None,
+    space_before: int = 0,
+    space_after: int = 0,
+    no_indent: bool = True,
+) -> etree._Element:
+    pPr = etree.Element(_w("pPr"))
+    if no_indent:
+        # Сбрасываем firstLine-отступ из Normal-стиля шаблона (ind:firstLine=720).
+        ind = etree.SubElement(pPr, _w("ind"))
+        ind.set(_w("firstLine"), "0")
+    spacing = etree.SubElement(pPr, _w("spacing"))
+    spacing.set(_w("before"), str(space_before))
+    spacing.set(_w("after"), str(space_after))
+    spacing.set(_w("line"), "240")
+    spacing.set(_w("lineRule"), "auto")
+    if jc:
+        jc_el = etree.SubElement(pPr, _w("jc"))
+        jc_el.set(_w("val"), jc)
+    return pPr
+
+
 def _make_paragraph(
     text: str,
     *,
     jc: str = "left",
     bold: bool = False,
     sz_half_pt: int = 22,
+    space_before: int = 0,
+    space_after: int = 0,
 ) -> etree._Element:
     p = etree.Element(_w("p"))
-    p.append(_make_pPr(jc=jc))
+    p.append(_make_pPr(
+        jc=jc, space_before=space_before, space_after=space_after,
+    ))
     r = etree.SubElement(p, _w("r"))
     r.append(_make_rPr(bold=bold, sz_half_pt=sz_half_pt))
     t = etree.SubElement(r, _w("t"))
@@ -325,15 +220,7 @@ def _make_tcPr(
         shd.set(_w("color"), "auto")
         shd.set(_w("fill"), fill)
     if no_wrap:
-        # noWrap: запрет переноса текста внутри ячейки. Word всё равно
-        # уважает заданную ширину tcW, но если строка не помещается — он
-        # её усечёт, а не разобьёт на две. Применяем для заголовков и
-        # числовых ячеек, где перенос «42 / 064» выглядит хуже сжатого
-        # шрифта.
         etree.SubElement(tcPr, _w("noWrap"))
-    # Этап 8.8: вертикальное выравнивание по центру для всех ячеек таблицы
-    # (по запросу пользователя — числа в data-строках смотрелись прибитыми
-    # к верху и не совпадали по высоте с шапкой).
     vAlign = etree.SubElement(tcPr, _w("vAlign"))
     vAlign.set(_w("val"), "center")
     return tcPr
@@ -380,8 +267,11 @@ def _make_inner_tbl(
     # tblPr
     tblPr = etree.SubElement(tbl, _w("tblPr"))
     tblW = etree.SubElement(tblPr, _w("tblW"))
-    tblW.set(_w("w"), str(sum(_GRID_WIDTHS)))
+    tblW.set(_w("w"), str(_INNER_TBL_WIDTH))
     tblW.set(_w("type"), "dxa")
+    # Центрирование таблицы относительно текстовой зоны.
+    tblJc = etree.SubElement(tblPr, _w("jc"))
+    tblJc.set(_w("val"), "center")
     tblPr.append(_make_tbl_borders())
     layout = etree.SubElement(tblPr, _w("tblLayout"))
     layout.set(_w("type"), "fixed")
@@ -395,9 +285,8 @@ def _make_inner_tbl(
         gc.set(_w("w"), str(w))
 
     # ── Шапка ──────────────────────────────────────────────────────────
-    # Заголовки — 10pt (sz=20) и noWrap, чтобы «Кол-во», «Цена с НДС
-    # (руб.)», «Сумма с НДС (руб.)» помещались в одну строку и не
-    # рвались на «ол-во» / «Цен/а с НДС/(руб.)».
+    # Заголовки — 10pt (sz=20), чтобы «Кол-во», «Цена с НДС (руб.)»,
+    # «Сумма с НДС (руб.)» помещались в одну строку.
     header = etree.SubElement(tbl, _w("tr"))
     trPr_h = etree.SubElement(header, _w("trPr"))
     etree.SubElement(trPr_h, _w("cantSplit"))
@@ -414,20 +303,27 @@ def _make_inner_tbl(
     # не должны рваться на две строки.
     for i, drow in enumerate(rows_data, start=1):
         tr = etree.SubElement(tbl, _w("tr"))
-        tr.append(_make_tc(str(i), width=_COL_W_NUM, jc="center"))
-        tr.append(_make_tc(drow["name"], width=_COL_W_NAME, jc="left"))
-        tr.append(_make_tc(str(drow["qty"]), width=_COL_W_QTY, jc="center"))
+        tr.append(_make_tc(
+            str(i), width=_COL_W_NUM, jc="center", sz_half_pt=20,
+        ))
+        tr.append(_make_tc(
+            drow["name"], width=_COL_W_NAME, jc="left", sz_half_pt=20,
+        ))
+        tr.append(_make_tc(
+            str(drow["qty"]), width=_COL_W_QTY, jc="center", sz_half_pt=20,
+        ))
         tr.append(_make_tc(
             _format_rub(drow["price_rub"]),
-            width=_COL_W_PRICE, jc="right", no_wrap=True,
+            width=_COL_W_PRICE, jc="right", no_wrap=True, sz_half_pt=20,
         ))
         tr.append(_make_tc(
             _format_rub(drow["total_rub"]),
-            width=_COL_W_SUM, jc="right", no_wrap=True,
+            width=_COL_W_SUM, jc="right", no_wrap=True, sz_half_pt=20,
         ))
 
     # ── Строка ИТОГО ───────────────────────────────────────────────────
-    # Минимальная высота 0.7 см — чтобы строка визуально выделялась.
+    # 4 первые ячейки объединены через gridSpan=4, в первой — текст
+    # «ИТОГО» по правому краю; пятая ячейка — сумма по правому краю.
     itogo = etree.SubElement(tbl, _w("tr"))
     trPr_t = etree.SubElement(itogo, _w("trPr"))
     trHeight = etree.SubElement(trPr_t, _w("trHeight"))
@@ -436,105 +332,96 @@ def _make_inner_tbl(
     etree.SubElement(trPr_t, _w("cantSplit"))
     itogo_label_w = _COL_W_NUM + _COL_W_NAME + _COL_W_QTY + _COL_W_PRICE
     itogo.append(_make_tc(
-        "ИТОГО", width=itogo_label_w, grid_span=4, jc="right", bold=True,
-        no_wrap=True,
+        "ИТОГО", width=itogo_label_w, grid_span=4, fill="F8F8F8",
+        jc="right", bold=True, no_wrap=True,
     ))
     itogo.append(_make_tc(
         _format_rub(total_rub),
-        width=_COL_W_SUM, jc="right", bold=True, no_wrap=True,
+        width=_COL_W_SUM, fill="F8F8F8", jc="right", bold=True, no_wrap=True,
     ))
 
     return tbl
 
 
-def _normalize_outer_table(outer_tbl: etree._Element) -> None:
-    """Чистит обёрточную таблицу шаблона: убирает паразитные gridCol-ы,
-    отрицательный tblInd и нормализует tblW/tcW под фактическую ширину
-    внутренней КП-таблицы.
+# ---------------------------------------------------------------------
+# Программная вставка содержимого в шаблон
+# ---------------------------------------------------------------------
 
-    Этап 8.8: исходный kp_template.docx содержит внешнюю таблицу 1×2 с
-    gridCol [10490, 284], tblW=10774 и tblInd=-743. Сумма gridCol уезжает
-    за полезную ширину A4 (9072 twips), а отрицательный отступ слева
-    смещает таблицу за поля. На печати Word при этом дезорганизует
-    раскладку внутренней таблицы: заголовок «Кол-во» обрезается до
-    «ол-во», цифра quantity рендерится как «0», числа Цена/Сумма
-    переносятся на вторую строку. После нормализации внешняя таблица
-    становится одноколоночной шириной ровно как внутренняя — Word больше
-    не пытается «разъехаться».
-    """
-    inner_w = _INNER_TBL_WIDTH
+def _find_signature_paragraph(body) -> etree._Element:
+    """Параграф с inline-картинкой подписи + печати — нижний якорь.
 
-    # tblPr: убираем tblInd, фиксируем tblW и центрируем таблицу
-    # относительно текстовой зоны (этап 9А.2.5 — после нормализации полей
-    # 2.0/1.5 текстовая зона ≈ 17.5 см, таблица 16 см должна стоять по
-    # центру, а не у левого края).
-    tblPr = outer_tbl.find(_w("tblPr"))
-    if tblPr is not None:
-        tblInd = tblPr.find(_w("tblInd"))
-        if tblInd is not None:
-            tblPr.remove(tblInd)
-        tblW = tblPr.find(_w("tblW"))
-        if tblW is None:
-            tblW = etree.SubElement(tblPr, _w("tblW"))
-        tblW.set(_w("w"), str(inner_w))
-        tblW.set(_w("type"), "dxa")
-        tblJc = tblPr.find(_w("jc"))
-        if tblJc is None:
-            tblJc = etree.SubElement(tblPr, _w("jc"))
-        tblJc.set(_w("val"), "center")
-
-    # tblGrid: ровно один gridCol во всю ширину.
-    grid = outer_tbl.find(_w("tblGrid"))
-    if grid is not None:
-        for gc in list(grid.findall(_w("gridCol"))):
-            grid.remove(gc)
-        gc = etree.SubElement(grid, _w("gridCol"))
-        gc.set(_w("w"), str(inner_w))
-
-    # В каждой строке оставляем только первую ячейку, контент дополнительных
-    # переносим в первую (на случай если там вдруг что-то лежит). Tcw
-    # первой ячейки — на полную ширину; gridSpan убираем.
-    for tr in outer_tbl.findall(_w("tr")):
-        tcs = tr.findall(_w("tc"))
-        if not tcs:
+    В шаблоне это единственный параграф body, содержащий
+    <w:drawing>/<wp:inline> (логотип сверху — anchor, поэтому отсеивается)."""
+    WP = "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+    for ch in body:
+        if ch.tag != _w("p"):
             continue
-        first = tcs[0]
-        for extra in tcs[1:]:
-            for child in list(extra):
-                if child.tag == _w("tcPr"):
-                    continue
-                first.append(child)
-            tr.remove(extra)
-        first_tcPr = first.find(_w("tcPr"))
-        if first_tcPr is not None:
-            tcW = first_tcPr.find(_w("tcW"))
-            if tcW is None:
-                tcW = etree.SubElement(first_tcPr, _w("tcW"))
-            tcW.set(_w("w"), str(inner_w))
-            tcW.set(_w("type"), "dxa")
-            gs = first_tcPr.find(_w("gridSpan"))
-            if gs is not None:
-                first_tcPr.remove(gs)
+        if ch.find(f".//{{{WP}}}inline") is not None:
+            return ch
+    raise RuntimeError("Параграф с подписью директора не найден в шаблоне.")
 
 
-def _replace_inner_table(doc, new_tbl: etree._Element) -> None:
-    """Находит шаблонную внутреннюю таблицу и заменяет её на new_tbl,
-    после чего нормализует обёрточную таблицу.
+def _find_top_anchor(body) -> etree._Element:
+    """Параграф «www.quadro.tatar» — нижняя строка реквизитов, верхний якорь.
 
-    Шаблон: внешняя таблица 1×2, внутренняя — в первой ячейке внешней.
-    """
-    if not doc.tables:
-        raise RuntimeError("В шаблоне KP нет ни одной таблицы.")
-    outer = doc.tables[0]
-    if not outer.rows:
-        raise RuntimeError("Внешняя таблица KP пустая.")
-    cell0 = outer.rows[0].cells[0]
-    if not cell0.tables:
-        raise RuntimeError("Внутренняя таблица KP не найдена.")
-    old_tbl = cell0.tables[0]._tbl
-    parent = old_tbl.getparent()
-    parent.replace(old_tbl, new_tbl)
-    _normalize_outer_table(outer._tbl)
+    Содержимое СТРОГО ПОСЛЕ него и до signature-параграфа удаляется и
+    замещается программным контентом."""
+    for ch in body:
+        if ch.tag != _w("p"):
+            continue
+        text = "".join((t.text or "") for t in ch.iter(_w("t")))
+        if "quadro.tatar" in text.lower():
+            return ch
+    raise RuntimeError("Параграф 'www.quadro.tatar' не найден в шаблоне.")
+
+
+def _build_kp_body(doc, data_rows: list[dict], total_rub: int, today_str: str) -> None:
+    """Стирает всё между www.quadro.tatar и подписью, вставляет
+    программно собранные параграфы и таблицу."""
+    body = doc.element.body
+    top_anchor = _find_top_anchor(body)
+    signature_p = _find_signature_paragraph(body)
+
+    children = list(body)
+    top_idx = children.index(top_anchor)
+    sig_idx = children.index(signature_p)
+    if sig_idx <= top_idx:
+        raise RuntimeError("Подпись расположена выше якоря реквизитов — шаблон сломан.")
+
+    # Удаляем всё строго между top_anchor и signature_p.
+    for ch in children[top_idx + 1: sig_idx]:
+        body.remove(ch)
+
+    # Программно собираем элементы для вставки.
+    elems: list[etree._Element] = []
+    # Пустой параграф-разделитель после реквизитов.
+    elems.append(_make_paragraph("", jc="left"))
+    # Дата.
+    date_p = etree.Element(_w("p"))
+    date_p.append(_make_pPr(jc="left", space_before=0, space_after=120))
+    r = etree.SubElement(date_p, _w("r"))
+    r.append(_make_rPr(bold=True, sz_half_pt=22))
+    t = etree.SubElement(r, _w("t"))
+    t.text = f"№ б/н от {today_str}г."
+    t.set(f"{{{_XML}}}space", "preserve")
+    elems.append(date_p)
+    # Заголовок.
+    elems.append(_make_paragraph(
+        "Коммерческое предложение",
+        jc="center", bold=True, sz_half_pt=28,
+        space_before=240, space_after=240,
+    ))
+    # Spacer перед таблицей.
+    elems.append(_make_paragraph("", jc="left"))
+    # Таблица.
+    elems.append(_make_inner_tbl(data_rows, total_rub))
+    # Spacer после таблицы (перед подписью).
+    elems.append(_make_paragraph("", jc="left"))
+
+    # Вставляем перед signature_p.
+    sig_p_el = signature_p  # ещё в дереве, на новом индексе
+    for el in elems:
+        sig_p_el.addprevious(el)
 
 
 # ---------------------------------------------------------------------
@@ -580,17 +467,13 @@ def build_kp_docx(
         })
 
     doc = docx.Document(str(_TEMPLATE_PATH))
-    # Этап 9А.2.5: исправляем «кривые» поля шаблона до любых правок —
-    # дальше все вычисления раскладки опираются на симметричную ширину
-    # текстовой зоны.
     _normalize_page_margins(doc)
-    _replace_date_in_header(doc, date.today().strftime("%d.%m.%Y"))
-
-    new_tbl = _make_inner_tbl(data_rows, grand_total)
-    _replace_inner_table(doc, new_tbl)
-    # Этап 9А.2.6: чистим хвостовой пустой параграф (_GoBack-bookmark
-    # из шаблона), который рендерился как «□» под печатью.
-    _strip_trailing_empty_paragraphs(doc)
+    _build_kp_body(
+        doc,
+        data_rows=data_rows,
+        total_rub=grand_total,
+        today_str=date.today().strftime("%d.%m.%Y"),
+    )
 
     buf = BytesIO()
     doc.save(buf)

@@ -106,7 +106,9 @@ def _build_kp(items_spec, markup=15):
 
 
 def _kp_inner_tbl(doc):
-    return doc.tables[0].rows[0].cells[0].tables[0]._tbl
+    # Этап 9А.2.7: внешняя обёрточная таблица убрана; таблица позиций —
+    # единственная в body.
+    return doc.tables[0]._tbl
 
 
 def test_kp_table_layout_fixed():

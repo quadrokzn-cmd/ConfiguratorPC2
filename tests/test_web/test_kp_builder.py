@@ -135,7 +135,9 @@ def _mock_rate(value: str = "95", rate_date: date | None = None):
 
 
 def _inner_table(doc):
-    return doc.tables[0].rows[0].cells[0].tables[0]
+    # Этап 9А.2.7: после программной сборки КП внешняя обёрточная
+    # таблица убрана из шаблона; таблица позиций — единственная в body.
+    return doc.tables[0]
 
 
 def _data_rows_texts(doc):
@@ -429,3 +431,182 @@ def test_kp_endpoint_404_for_missing_project(manager_client):
     with _router_mock_rate():
         r = manager_client.get("/project/999999/export/kp?markup=15")
     assert r.status_code == 404
+
+
+# ---------- этап 9А.2.7: программная сборка таблицы -----------------------
+
+_NS_W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+
+def _build_doc(items, *, markup=15, rate="95"):
+    with patch(
+        "app.services.export.kp_builder.spec_service.list_spec_items",
+        return_value=items,
+    ), _mock_rate(rate):
+        data = kp_builder.build_kp_docx(
+            project_id=1, markup_percent=markup, db=None,
+        )
+    return _docx.Document(BytesIO(data))
+
+
+def test_kp_builds_5_columns_correctly():
+    """После генерации — 5 колонок с заданными ширинами в tblGrid."""
+    doc = _build_doc(_fake_items([(100.0, 1, "Конф")]))
+    inner = _inner_table(doc)
+    grid = inner._tbl.find(f"{_NS_W}tblGrid")
+    cols = grid.findall(f"{_NS_W}gridCol")
+    assert len(cols) == 5
+    widths = [int(c.get(f"{_NS_W}w")) for c in cols]
+    assert widths == [454, 3686, 794, 2041, 2098]
+
+
+def test_kp_header_row_text():
+    """Шапка содержит ровно 5 заголовков из спецификации."""
+    doc = _build_doc(_fake_items([(100.0, 1, "X")]))
+    inner = _inner_table(doc)
+    rows = inner._tbl.findall(f"{_NS_W}tr")
+    header_tcs = rows[0].findall(f"{_NS_W}tc")
+    titles = []
+    for tc in header_tcs:
+        ts = [t.text or "" for t in tc.findall(f".//{_NS_W}t")]
+        titles.append("".join(ts))
+    assert titles == [
+        "№ п/п", "Наименование", "Кол-во",
+        "Цена с НДС (руб.)", "Сумма с НДС (руб.)",
+    ]
+
+
+def test_kp_data_row_complete():
+    """Каждая data-строка имеет все 5 заполненных ячеек."""
+    items = _fake_items([
+        (100.0, 2, "Конфигурация А"),
+        (200.0, 1, "Конфигурация Б"),
+    ])
+    doc = _build_doc(items, markup=10, rate="90")
+    rows = _data_rows_texts(doc)
+    assert len(rows) == 2
+    for row in rows:
+        assert len(row) == 5
+        for cell in row:
+            assert cell != "", f"Пустая ячейка: {row}"
+
+
+def test_kp_uses_calibri_font():
+    """В каждом run таблицы шрифт явно = Calibri (rPr/rFonts)."""
+    doc = _build_doc(_fake_items([(100.0, 1, "Конф")]))
+    inner = _inner_table(doc)
+    runs = inner._tbl.findall(f".//{_NS_W}r")
+    assert runs, "В таблице нет runs"
+    for r in runs:
+        rfonts = r.find(f"{_NS_W}rPr/{_NS_W}rFonts")
+        assert rfonts is not None, "У run нет rPr/rFonts — шрифт унаследуется"
+        for ax in ("ascii", "hAnsi", "cs", "eastAsia"):
+            val = rfonts.get(f"{_NS_W}{ax}")
+            assert val == "Calibri", f"run uses {ax}={val!r}, expected Calibri"
+
+
+def test_kp_no_inherited_times_new_roman():
+    """Ни в одной ячейке таблицы не наследуется TNR из Normal-стиля."""
+    doc = _build_doc(_fake_items([(100.0, 1, "Конф")]))
+    inner = _inner_table(doc)
+    for rfonts in inner._tbl.findall(f".//{_NS_W}rFonts"):
+        for ax in ("ascii", "hAnsi", "cs", "eastAsia"):
+            val = rfonts.get(f"{_NS_W}{ax}")
+            if val:
+                assert val != "Times New Roman", \
+                    f"в таблице остался TNR на оси {ax}"
+
+
+def test_kp_itogo_gridspan():
+    """Последняя строка имеет 2 видимые ячейки; первая с gridSpan=4."""
+    doc = _build_doc(_fake_items([(100.0, 1, "X")]))
+    inner = _inner_table(doc)
+    rows = inner._tbl.findall(f"{_NS_W}tr")
+    itogo_tcs = rows[-1].findall(f"{_NS_W}tc")
+    assert len(itogo_tcs) == 2
+    gs = itogo_tcs[0].find(f"{_NS_W}tcPr/{_NS_W}gridSpan")
+    assert gs is not None
+    assert gs.get(f"{_NS_W}val") == "4"
+
+
+def test_kp_table_below_kp_title():
+    """Порядок body: реквизиты → дата → «Коммерческое предложение»
+    → таблица → подпись/печать."""
+    doc = _build_doc(_fake_items([(100.0, 1, "Конф")]))
+    body = doc.element.body
+    seq = []
+    for ch in list(body):
+        tag = ch.tag.split("}")[-1]
+        if tag == "p":
+            text = "".join((t.text or "") for t in ch.iter(f"{_NS_W}t"))
+            has_inline = ch.find(
+                ".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}inline"
+            ) is not None
+            if "quadro.tatar" in text.lower():
+                seq.append("requisites_end")
+            elif text.startswith("№ б/н"):
+                seq.append("date")
+            elif "Коммерческое предложение" in text:
+                seq.append("kp_title")
+            elif has_inline:
+                seq.append("signature")
+        elif tag == "tbl":
+            seq.append("table")
+    # Каждый ключевой элемент должен быть на своём месте и в этом порядке.
+    for label in ("requisites_end", "date", "kp_title", "table", "signature"):
+        assert label in seq, f"В порядке body нет {label}: {seq}"
+    indexes = [seq.index(l) for l in
+               ("requisites_end", "date", "kp_title", "table", "signature")]
+    assert indexes == sorted(indexes), \
+        f"Порядок элементов нарушен: {seq}"
+
+
+def test_kp_kp_title_is_centered_bold_14pt():
+    """Заголовок «Коммерческое предложение» — center, bold, 14pt (sz=28)."""
+    doc = _build_doc(_fake_items([(100.0, 1, "X")]))
+    body = doc.element.body
+    for p in body.findall(f"{_NS_W}p"):
+        text = "".join((t.text or "") for t in p.iter(f"{_NS_W}t"))
+        if "Коммерческое предложение" in text:
+            jc = p.find(f"{_NS_W}pPr/{_NS_W}jc")
+            assert jc is not None and jc.get(f"{_NS_W}val") == "center"
+            r = p.find(f"{_NS_W}r")
+            assert r.find(f"{_NS_W}rPr/{_NS_W}b") is not None
+            sz = r.find(f"{_NS_W}rPr/{_NS_W}sz")
+            assert sz is not None and sz.get(f"{_NS_W}val") == "28"
+            return
+    pytest.fail("Заголовок «Коммерческое предложение» не найден")
+
+
+def test_kp_signature_image_preserved():
+    """Inline-картинка подписи/печати сохранена в body."""
+    doc = _build_doc(_fake_items([(100.0, 1, "X")]))
+    body = doc.element.body
+    inline_pics = body.findall(
+        ".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}inline"
+    )
+    assert len(inline_pics) >= 1, "Inline-картинка подписи не сохранилась"
+
+
+def test_kp_normal_style_uses_calibri():
+    """Normal-стиль шаблона переведён на Calibri 11pt (а не TNR 14pt)."""
+    import zipfile
+    from pathlib import Path
+    template = Path(kp_builder._TEMPLATE_PATH)
+    with zipfile.ZipFile(template) as z:
+        styles_xml = z.read("word/styles.xml").decode("utf-8")
+    import re
+    m = re.search(
+        r'<w:style[^>]*w:styleId="a"[^>]*>.*?</w:style>',
+        styles_xml, re.DOTALL,
+    )
+    assert m, "Normal style 'a' не найден в styles.xml"
+    body = m.group(0)
+    rfonts_m = re.search(r'<w:rFonts([^/]*)/?>', body)
+    assert rfonts_m, "В Normal стиле нет rFonts"
+    rfonts_attrs = rfonts_m.group(1)
+    assert 'Calibri' in rfonts_attrs
+    assert 'Times New Roman' not in rfonts_attrs
+    sz_m = re.search(r'<w:sz w:val="(\d+)"/>', body)
+    assert sz_m and sz_m.group(1) == "22", \
+        f"Normal sz={sz_m.group(1) if sz_m else 'None'}, ожидалось 22 (11pt)"

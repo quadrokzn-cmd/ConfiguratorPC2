@@ -155,7 +155,9 @@ def test_kp_numbers_use_nbsp():
     # 100 USD * 90 ₽ * 1.15 = 10 350; qty=4 → итог 41 400. В обоих
     # ячейках появятся пробелы как разделители тысяч.
     doc = _build_kp([(100.0, 4, "ЧислоNBSP")])
-    inner = doc.tables[0].rows[0].cells[0].tables[0]._tbl
+    # Этап 9А.2.7: внешняя обёрточная таблица убрана; таблица позиций —
+    # единственная в body.
+    inner = doc.tables[0]._tbl
     rows = inner.findall(f"{_NS}tr")
     # rows[0] — header, rows[1] — data, rows[-1] — total.
     data_tcs = rows[1].findall(f"{_NS}tc")
