@@ -189,6 +189,23 @@
       }
     });
 
+    // 9А.2.3: «перейти к странице» — input в пагинации.
+    // Делегированно ловим Enter и переход на ?...&page=N.
+    resultBox.addEventListener('keydown', function (e) {
+      var input = e.target.closest('.kt-pagination-jump-input');
+      if (!input) return;
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var n = parseInt(input.value, 10);
+      var max = parseInt(input.getAttribute('max') || '1', 10);
+      if (!n || n < 1) n = 1;
+      if (n > max) n = max;
+      var wrap = input.closest('.kt-pagination-jump');
+      var sep = wrap ? (wrap.dataset.baseSep || '?') : '?';
+      var url = '/admin/components' + sep + 'page=' + n;
+      window.location = url;
+    });
+
     function wireRowClicks() {
       resultBox.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
         if (tr._wired) return;

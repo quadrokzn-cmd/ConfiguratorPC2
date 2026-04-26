@@ -191,15 +191,15 @@ def _seed_project_with_spec(db, manager_user, *, n_items=1) -> int:
 
 
 def test_project_page_has_recalc_button(manager_client, db_session, manager_user):
-    """На странице проекта со спецификацией виден id="kt-spec-recalc-btn"
-    и текст «Пересчитать цены»."""
+    """На странице проекта со спецификацией виден id="kt-spec-recalc-btn".
+    9А.2.3: текст обновился — теперь это «Пересобрать конфигурации»."""
     pid = _seed_project_with_spec(db_session, manager_user, n_items=1)
     r = manager_client.get(f"/project/{pid}")
     assert r.status_code == 200, r.text
     assert 'id="kt-spec-recalc-btn"' in r.text, (
         "Кнопка #kt-spec-recalc-btn должна рендериться при непустой спецификации"
     )
-    assert "Пересчитать цены" in r.text
+    assert "Пересобрать конфигурации" in r.text
 
 
 def test_project_page_has_per_row_recalc_icons(

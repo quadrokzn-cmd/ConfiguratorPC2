@@ -31,3 +31,6 @@ design_references/
 # зависимости — нет.
 node_modules/
 *.log
+
+# Логи scheduler'а (этап 9А.2.3): курс ЦБ, фоновые задачи.
+logs/

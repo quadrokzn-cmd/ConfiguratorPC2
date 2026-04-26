@@ -106,7 +106,7 @@
             {% endif %}
           </td>
           <td class="text-right text-ink-secondary whitespace-nowrap tabular-nums">
-            {{ '%.2f'|format(it.cost_rub) }} ₽
+            {{ '%.2f'|format((it.cost_usd | to_rub) if it.cost_usd else it.cost_rub) }} ₽
           </td>
         </tr>
         {% endfor %}

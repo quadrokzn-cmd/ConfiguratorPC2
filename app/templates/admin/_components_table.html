@@ -1,8 +1,9 @@
-{# Partial-фрагмент таблицы компонентов (этап 9А.2.2).
+{# Partial-фрагмент таблицы компонентов (этап 9А.2.2 + 9А.2.3).
    Используется и при первоначальном рендере /admin/components, и
    при ?partial=1 — JS подменяет содержимое #kt-components-result
    при изменении фильтров без перезагрузки страницы. #}
 {% from "_macros/icons.html" import icon %}
+{% from "_macros/pagination.html" import pagination_block %}
 
 {% macro _sort_link(column, label) -%}
   {%- set parts = (sort or '').split(',', 1) -%}
@@ -153,30 +154,15 @@
   </table>
 </section>
 
-{# === Пагинация === #}
+{# === Пагинация (9А.2.3: по номерам страниц) === #}
 {% if result.total_pages > 1 %}
-{% set base = '?category=' ~ category ~ '&q=' ~ search ~ ('&status=' ~ status if status else '') ~ ('&sort=' ~ sort if sort else '') %}
-<nav class="flex items-center justify-between text-small text-ink-secondary">
+{% set base_qs = 'category=' ~ (category or '') ~ '&q=' ~ (search or '') ~ ('&status=' ~ status if status else '') ~ ('&sort=' ~ sort if sort else '') %}
+<nav class="flex items-center justify-between gap-3 text-small text-ink-secondary">
   <div>
     Стр. <span class="text-ink-primary tabular-nums">{{ result.page }}</span>
     из <span class="text-ink-primary tabular-nums">{{ result.total_pages }}</span>
   </div>
-  <div class="flex gap-2">
-    {% if result.page > 1 %}
-    <a href="{{ base }}&page={{ result.page - 1 }}" class="btn btn-sm btn-secondary">
-      ← назад
-    </a>
-    {% else %}
-    <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">← назад</span>
-    {% endif %}
-    {% if result.page < result.total_pages %}
-    <a href="{{ base }}&page={{ result.page + 1 }}" class="btn btn-sm btn-secondary">
-      вперёд →
-    </a>
-    {% else %}
-    <span class="btn btn-sm btn-secondary opacity-50 cursor-not-allowed">вперёд →</span>
-    {% endif %}
-  </div>
+  {{ pagination_block(result.page, result.total_pages, base_qs=base_qs) }}
 </nav>
 {% endif %}
 {% endif %}

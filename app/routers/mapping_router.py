@@ -8,19 +8,18 @@ import traceback
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, status
 from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 from app.database import get_db
 from app.services import mapping_service
+from app.templating import templates
 
 
 _log = logging.getLogger(__name__)
 
 
 router = APIRouter(prefix="/admin/mapping")
-templates = Jinja2Templates(directory="app/templates")
 
 
 CATEGORY_OPTIONS = [

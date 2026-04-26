@@ -5,7 +5,6 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -24,10 +23,10 @@ from app.services import (
     supplier_service,
     web_service,
 )
+from app.templating import templates
 
 
 router = APIRouter(prefix="/admin")
-templates = Jinja2Templates(directory="app/templates")
 
 
 @router.get("/dashboard")

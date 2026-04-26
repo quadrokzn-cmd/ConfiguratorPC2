@@ -31,14 +31,17 @@
     </span>
   </header>
 
-  {# Кнопка «Пересчитать цены» — пересчёт по актуальным supplier_prices.
-     Доступна только при непустой спецификации; обработчик в project.js. #}
+  {# 9А.2.3: кнопка «Пересобрать конфигурации» — полный reoptimize.
+     Запускает builder.build_config(req) с теми же входами, что были при
+     первоначальном подборе. Состав конфигурации может смениться, если
+     у поставщиков появилось более выгодное оборудование. Откат —
+     отдельной кнопкой /rollback после показа diff'а. #}
   {% if items %}
   <div class="mb-3">
     <button type="button" id="kt-spec-recalc-btn"
             class="btn btn-sm btn-secondary w-full">
-      {{ icon('refresh-cw', class='w-4 h-4') }}
-      Пересчитать цены
+      {{ icon('sparkles', class='w-4 h-4') }}
+      Пересобрать конфигурации
     </button>
     <p id="kt-spec-recalc-hint"
        class="help-text mt-1.5 text-ink-muted hidden"></p>
@@ -69,7 +72,7 @@
           <td class="px-2 py-2.5 text-ink-primary break-words">
             <div>{{ it.display_name }}</div>
             <div class="text-caption text-ink-muted tabular-nums">
-              ${{ '%.0f'|format(it.unit_usd) }} / шт · {{ _rub(it.unit_rub) }} ₽
+              ${{ '%.0f'|format(it.unit_usd) }} / шт · {{ it.unit_usd | fmt_rub }} ₽
             </div>
             {% if it.recalculated_at %}
             <div class="text-caption text-ink-muted kt-spec-recalc-stamp"
@@ -84,7 +87,7 @@
           <td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap align-top">
             ${{ '%.0f'|format(it.total_usd) }}
             <div class="text-caption text-ink-secondary font-normal">
-              {{ _rub(it.total_rub) }} ₽
+              {{ it.total_usd | fmt_rub }} ₽
             </div>
           </td>
           <td class="px-1 py-2.5 text-right align-top">
@@ -92,9 +95,9 @@
                     class="kt-spec-recalc-row p-1 rounded hover:bg-surface-2
                            text-ink-muted hover:text-brand-400
                            transition-colors duration-120"
-                    title="Пересчитать цену этой позиции"
-                    aria-label="Пересчитать цену">
-              {{ icon('refresh-cw', class='w-3.5 h-3.5') }}
+                    title="Пересобрать эту конфигурацию"
+                    aria-label="Пересобрать">
+              {{ icon('sparkles', class='w-3.5 h-3.5') }}
             </button>
           </td>
         </tr>
@@ -109,7 +112,7 @@
               id="kt-spec-total">
             <span class="text-h2 text-ink-primary">${{ '%.0f'|format(totals.total_usd) }}</span>
             <div class="text-caption text-ink-secondary font-normal">
-              {{ _rub(totals.total_rub) }} ₽
+              {{ totals.total_usd | fmt_rub }} ₽
             </div>
           </td>
         </tr>

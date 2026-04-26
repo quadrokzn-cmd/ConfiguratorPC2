@@ -27,9 +27,37 @@ from app.routers import (
     mapping_router,
     project_router,
 )
+from app.scheduler import (
+    ensure_initial_rate,
+    init_scheduler,
+    shutdown_scheduler,
+)
 
 
 app = FastAPI(title="КВАДРО-ТЕХ: сервис-конфигуратор ПК")
+
+
+@app.on_event("startup")
+def _startup_scheduler() -> None:
+    """Запускаем фоновые cron-задачи (обновление курса ЦБ).
+
+    Если init упал (например, неправильный таймзонный конфиг) — логируем,
+    но сервер всё равно стартует. Курс будет браться из БД, а scheduler'у
+    можно перезапустить вручную.
+    """
+    try:
+        ensure_initial_rate()
+        init_scheduler()
+    except Exception as exc:
+        import logging
+        logging.getLogger(__name__).warning(
+            "Не удалось инициализировать scheduler: %s", exc
+        )
+
+
+@app.on_event("shutdown")
+def _shutdown_scheduler() -> None:
+    shutdown_scheduler()
 
 
 # Сессии — подписанные cookie. SESSION_SECRET_KEY задаётся в .env.

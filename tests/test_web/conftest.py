@@ -47,6 +47,8 @@ _MIGRATIONS = [
     "012_supplier_contact_person.sql",
     "013_components_is_hidden.sql",
     "014_specification_recalculated_at.sql",
+    "015_exchange_rates_table.sql",
+    "016_specification_items_parsed_query.sql",
 ]
 
 
@@ -58,6 +60,8 @@ def _drop_all_known_tables(engine) -> None:
     """Дропает все таблицы, которые создают миграции. Без CASCADE не
     обойтись — есть FK между projects/queries/users/specification_items."""
     tables = [
+        # этап 9А.2.3
+        "exchange_rates",
         # этап 8.3
         "sent_emails",
         # этап 7
@@ -113,7 +117,7 @@ def _clean_tables(db_engine):
     with db_engine.begin() as conn:
         conn.execute(text(
             "TRUNCATE TABLE sent_emails, specification_items, queries, "
-            "projects, daily_budget_log, users, api_usage_log "
+            "projects, daily_budget_log, users, api_usage_log, exchange_rates "
             "RESTART IDENTITY CASCADE"
         ))
     yield

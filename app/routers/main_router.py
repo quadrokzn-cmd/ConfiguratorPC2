@@ -7,7 +7,6 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from app.auth import AuthUser, get_csrf_token, require_login, verify_csrf
@@ -15,12 +14,12 @@ from app.database import get_db
 from app.services import budget_guard, web_service
 from app.services.nlu import process_query
 from app.services.web_result_view import enrich_variants_with_specs
+from app.templating import templates
 
 logger = logging.getLogger(__name__)
 
 
 router = APIRouter()
-templates = Jinja2Templates(directory="app/templates")
 
 
 # Человекочитаемые подписи категорий для таблиц результата.

@@ -93,7 +93,7 @@
             {% if it.spec_total_usd > 0 %}
               ${{ '%.0f'|format(it.spec_total_usd) }}
               <span class="text-caption text-ink-muted">
-                ({{ '{:,.0f}'.format(it.spec_total_rub).replace(',', ' ') }} ₽)
+                ({{ it.spec_total_usd | fmt_rub }} ₽)
               </span>
             {% else %}
               <span class="text-ink-muted">—</span>

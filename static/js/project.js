@@ -1,12 +1,13 @@
-// Этап 6.2: клиентская часть спецификации проекта.
+// Этап 6.2/9А.2.1/9А.2.3: клиентская часть страницы проекта.
 //
 // - Ставит/снимает галочки «в спецификацию».
 // - Меняет количество в активной строке.
 // - Перерисовывает таблицу спецификации без перезагрузки страницы.
-// - Вешает alert-заглушки на кнопки экспорта (этап 7).
+// - 9А.2.3: кнопка «Пересобрать конфигурации» вызывает /spec/reoptimize,
+//   модалка с подтверждением и diff'ом, кнопка «Отменить» (rollback).
+// - 9А.2.3: toast'ы — в правом нижнем углу (см. .kt-toast-container в CSS).
 //
-// Без фреймворков. CSRF-токен — из <meta name="csrf-token">,
-// передаём в заголовке X-CSRF-Token.
+// Без фреймворков. CSRF — из <meta name="csrf-token">.
 
 (function () {
   'use strict';
@@ -18,14 +19,13 @@
   var CSRF = csrfMeta.content;
   var PROJECT_ID = pidMeta.content;
 
-  function rub(value) {
-    var n = Math.round(Number(value) || 0);
-    // Разделитель разрядов — неразрывный пробел, как в шаблонах.
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  }
-
   function fmtUsd(value) {
     return '$' + Math.round(Number(value) || 0).toString();
+  }
+
+  function rub(value) {
+    var n = Math.round(Number(value) || 0);
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
   function escapeHtml(s) {
@@ -36,19 +36,27 @@
       .replace(/"/g, '&quot;');
   }
 
-  // 9А.1.2: запомненное состояние спецификации между рендерами,
-  // чтобы определять — какие цифры реально изменились и подсветить
-  // их через .num-flip (animated numbers по ТЗ).
-  // ключ — item.id, значение — { quantity, total_usd, total_rub }.
-  // initialized=false на первый рендер — чтобы при загрузке страницы
-  // не флипало пред-существующие позиции.
+  // Курс из плашки в sidebar — для пересчёта USD→RUB при перерисовке.
+  function readSidebarRate() {
+    var el = document.querySelector('.kt-fx-rate');
+    if (!el) return null;
+    var m = (el.textContent || '').match(/(\d+(?:[.,]\d+)?)/);
+    if (!m) return null;
+    var v = parseFloat(m[1].replace(',', '.'));
+    return isFinite(v) && v > 0 ? v : null;
+  }
+
+  function fmtRubFromUsd(usd) {
+    var rate = readSidebarRate();
+    if (rate == null) return '';
+    return rub(usd * rate);
+  }
+
   var lastSpec = { items: {}, total_usd: null, initialized: false };
 
   function flip(el) {
     if (!el) return;
     el.classList.remove('num-flip');
-    // Триггер reflow, чтобы класс снова сработал, даже если только
-    // что был на этом элементе.
     void el.offsetWidth;
     el.classList.add('num-flip');
   }
@@ -61,7 +69,7 @@
         'Content-Type': 'application/json',
         'X-CSRF-Token': CSRF
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload || {})
     });
     if (!r.ok) {
       var detail = '';
@@ -71,7 +79,6 @@
     return r.json();
   }
 
-  // 9А.2.1: красивая короткая дата для метки «обновлено DD.MM HH:MM».
   function fmtRecalcStamp(iso) {
     if (!iso) return '';
     var d = new Date(iso);
@@ -81,12 +88,12 @@
       ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
   }
 
-  // SVG для refresh-cw — должен совпадать с lucide-стилем макроса icon().
-  var REFRESH_ICON_SVG =
+  var SPARKLE_ICON_SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" ' +
     'stroke="currentColor" stroke-width="1.75" stroke-linecap="round" ' +
     'stroke-linejoin="round" viewBox="0 0 24 24">' +
-    '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>';
+    '<path d="M9.94 14.06 7 21l-2.94-6.94L-2 12l6.06-2.06L7 3l2.94 6.94L17 12z" transform="translate(3,0)"/>' +
+    '<path d="M19 3v4M21 5h-4M19 17v4M21 19h-4"/></svg>';
 
   function renderSpec(data) {
     var tbody = document.getElementById('kt-spec-tbody');
@@ -124,13 +131,17 @@
               escapeHtml(fmtRecalcStamp(it.recalculated_at)) +
             '</div>';
         }
+        // 9А.2.3: цены RUB пересчитываем через курс из sidebar; если плашки
+        // нет (null) — берём server-side it.unit_rub / it.total_rub.
+        var unitRubStr  = fmtRubFromUsd(it.unit_usd)  || rub(it.unit_rub);
+        var totalRubStr = fmtRubFromUsd(it.total_usd) || rub(it.total_rub);
         html +=
           '<tr data-item-id="' + it.id + '">' +
             '<td class="px-2 py-2.5 text-ink-muted tabular-nums align-top">' + it.position + '</td>' +
             '<td class="px-2 py-2.5 text-ink-primary break-words">' +
               '<div>' + escapeHtml(it.display_name) + '</div>' +
               '<div class="text-caption text-ink-muted tabular-nums">' +
-                fmtUsd(it.unit_usd) + ' / шт · ' + rub(it.unit_rub) + ' ₽' +
+                fmtUsd(it.unit_usd) + ' / шт · ' + unitRubStr + ' ₽' +
               '</div>' +
               stampHtml +
             '</td>' +
@@ -140,15 +151,15 @@
             '<td class="px-2 py-2.5 text-right text-ink-primary tabular-nums whitespace-nowrap kt-spec-sum-cell align-top">' +
               fmtUsd(it.total_usd) +
               '<div class="text-caption text-ink-secondary font-normal">' +
-                rub(it.total_rub) + ' ₽</div>' +
+                totalRubStr + ' ₽</div>' +
             '</td>' +
             '<td class="px-1 py-2.5 text-right align-top">' +
               '<button type="button" class="kt-spec-recalc-row p-1 rounded ' +
                 'hover:bg-surface-2 text-ink-muted hover:text-brand-400 ' +
                 'transition-colors duration-120" ' +
-                'title="Пересчитать цену этой позиции" ' +
-                'aria-label="Пересчитать цену">' +
-                REFRESH_ICON_SVG +
+                'title="Пересобрать эту конфигурацию" ' +
+                'aria-label="Пересобрать">' +
+                SPARKLE_ICON_SVG +
               '</button>' +
             '</td>' +
           '</tr>';
@@ -156,14 +167,12 @@
       tbody.innerHTML = html;
     }
     var totalChanged = lastSpec.total_usd !== null && lastSpec.total_usd !== data.total_usd;
+    var totalRubStr = fmtRubFromUsd(data.total_usd) || rub(data.total_rub);
     total.innerHTML =
       '<span class="text-h2 text-ink-primary">' + fmtUsd(data.total_usd) + '</span>' +
       '<div class="text-caption text-ink-secondary font-normal">' +
-        rub(data.total_rub) + ' ₽</div>';
+        totalRubStr + ' ₽</div>';
 
-    // Подсветка изменившихся цифр через num-flip — только после
-    // первого реального обновления (не флипаем то, что уже было
-    // на странице на момент загрузки).
     if (lastSpec.initialized) {
       Object.keys(changedIds).forEach(function (id) {
         var tr = tbody.querySelector('tr[data-item-id="' + id + '"]');
@@ -181,8 +190,6 @@
     };
   }
 
-  // На /query/{id} нет панели спецификации — рендер пропустим,
-  // но сохранение всё равно отработает.
   function qtyInputFor(queryId, manufacturer) {
     return document.querySelector(
       '.kt-spec-qty[data-query-id="' + queryId + '"]' +
@@ -216,10 +223,9 @@
       }
     } catch (e) {
       console.error(e);
-      // Откатим состояние галочки, чтобы не расходилось с сервером.
       cb.checked = !cb.checked;
       if (qtyEl) qtyEl.disabled = !cb.checked;
-      alert('Не удалось обновить спецификацию. Попробуйте ещё раз.');
+      toast('Не удалось обновить спецификацию. Попробуйте ещё раз.', { kind: 'error' });
     } finally {
       cb.disabled = false;
     }
@@ -243,7 +249,7 @@
       renderSpec(data);
     } catch (e) {
       console.error(e);
-      alert('Не удалось изменить количество. Попробуйте ещё раз.');
+      toast('Не удалось изменить количество. Попробуйте ещё раз.', { kind: 'error' });
     } finally {
       input.disabled = false;
     }
@@ -255,8 +261,6 @@
 
   document.querySelectorAll('.kt-spec-qty').forEach(function (input) {
     input.addEventListener('change', function () { onQtyChange(input); });
-    // Enter — обычное поведение формы, но формы нет, поэтому
-    // снимаем Enter-сабмит и отправляем явно.
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -265,12 +269,6 @@
     });
   });
 
-  // 9А.1.3: кастомный stepper для input[type=number]. Нативные стрелки
-  // браузера скрыты глобально в CSS (выглядят чужеродно на тёмной теме);
-  // взамен — пара кнопок вверх/вниз внутри обёртки .kt-num-stepper.
-  // Клик по кнопке меняет input.value и диспатчит 'input' + 'change',
-  // чтобы внешняя логика (обновление спецификации, генерация КП и т.д.)
-  // подхватила изменение как при ручном вводе.
   document.querySelectorAll('.kt-num-stepper').forEach(function (wrap) {
     var input = wrap.querySelector('input[type="number"]');
     var upBtn = wrap.querySelector('.kt-num-stepper-up');
@@ -288,7 +286,6 @@
       if (isFinite(minAttr) && next < minAttr) next = minAttr;
       var maxAttr = parseFloat(input.max);
       if (isFinite(maxAttr) && next > maxAttr) next = maxAttr;
-      // Округляем мелкие плавающие хвосты, шаг у нас всегда целый.
       next = Math.round(next * 1e6) / 1e6;
       input.value = String(next);
       input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -306,16 +303,15 @@
   });
 
   // ---------------------------------------------------------------------
-  // 9А.2.1: пересчёт цен в спецификации
+  // 9А.2.3: toast'ы — правый нижний угол
   // ---------------------------------------------------------------------
 
-  // Простой контейнер тостов в правом верхнем углу.
   function ensureToastContainer() {
     var box = document.getElementById('kt-toast-container');
     if (box) return box;
     box = document.createElement('div');
     box.id = 'kt-toast-container';
-    box.className = 'fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none';
+    box.className = 'kt-toast-container';
     document.body.appendChild(box);
     return box;
   }
@@ -325,33 +321,60 @@
     var box = ensureToastContainer();
     var el = document.createElement('div');
     var kind = opts.kind || 'info';
-    var bg = 'bg-surface-1 border-line-default text-ink-primary';
-    if (kind === 'success') bg = 'bg-success-500/10 border-success-500/40 text-success-500';
-    if (kind === 'warn')    bg = 'bg-warning-500/10 border-warning-500/40 text-warning-500';
-    if (kind === 'error')   bg = 'bg-danger-500/10 border-danger-500/40 text-danger-500';
-    el.className =
-      'pointer-events-auto rounded-lg border px-3 py-2 text-small shadow-lg ' +
-      'max-w-sm break-words ' + bg;
-    el.innerHTML = html;
+    var cls = 'kt-toast';
+    if (kind === 'success') cls += ' kt-toast-success';
+    if (kind === 'warn')    cls += ' kt-toast-warn';
+    if (kind === 'error')   cls += ' kt-toast-error';
+    el.className = cls;
+    el.innerHTML = html +
+      '<button type="button" class="kt-toast-close" aria-label="Закрыть">×</button>';
     box.appendChild(el);
-    setTimeout(function () {
-      el.style.transition = 'opacity 200ms ease';
-      el.style.opacity = '0';
-      setTimeout(function () { el.remove(); }, 220);
-    }, opts.ms || 4000);
+    function close() {
+      if (!el.parentNode) return;
+      el.classList.add('kt-toast-leaving');
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
+    }
+    el.querySelector('.kt-toast-close').addEventListener('click', close);
+    var ms = opts.ms || 6000;
+    var timer = setTimeout(close, ms);
+    el.addEventListener('mouseenter', function () { clearTimeout(timer); });
+    el.addEventListener('mouseleave', function () { timer = setTimeout(close, 2500); });
+    return el;
   }
 
-  function deltaSummaryHtml(delta) {
-    var arrow = delta.delta_pct > 0 ? '▲' : (delta.delta_pct < 0 ? '▼' : '·');
-    var color = delta.delta_pct > 0 ? 'text-danger-500'
-              : (delta.delta_pct < 0 ? 'text-success-500' : 'text-ink-muted');
-    var deltaStr = (delta.delta_pct > 0 ? '+' : '') + delta.delta_pct.toFixed(1) + '%';
-    return '<span class="font-medium">' + escapeHtml(delta.config_name) + '</span>: ' +
-      fmtUsd(delta.old_unit_usd) + ' → ' + fmtUsd(delta.new_unit_usd) +
+  function deltaSummaryHtml(d) {
+    var arrow = d.delta_pct > 0 ? '▲' : (d.delta_pct < 0 ? '▼' : '·');
+    var color = d.delta_pct > 0 ? 'text-danger-500'
+              : (d.delta_pct < 0 ? 'text-success-500' : 'text-ink-muted');
+    var deltaStr = (d.delta_pct > 0 ? '+' : '') + (d.delta_pct || 0).toFixed(1) + '%';
+    return '<span class="font-medium">' + escapeHtml(d.config_name) + '</span>: ' +
+      fmtUsd(d.old_unit_usd) + ' → ' + fmtUsd(d.new_unit_usd) +
       ' <span class="' + color + '">' + arrow + ' ' + escapeHtml(deltaStr) + '</span>';
   }
 
-  function showRecalcSummary(recalcData) {
+  function changeListHtml(changes) {
+    if (!changes || !changes.length) return '';
+    var rows = changes.map(function (c) {
+      var oldStr = c.old_brand_model
+        ? escapeHtml(c.old_brand_model) + ' (' + fmtUsd(c.old_usd) + ')'
+        : '<span class="text-ink-muted">—</span>';
+      var newStr = c.new_brand_model
+        ? escapeHtml(c.new_brand_model) + ' (' + fmtUsd(c.new_usd) + ')'
+        : '<span class="text-ink-muted">—</span>';
+      var arrow = c.new_usd < c.old_usd
+        ? '<span class="text-success-500">↓</span>'
+        : (c.new_usd > c.old_usd
+            ? '<span class="text-danger-500">↑</span>'
+            : '<span class="text-ink-muted">·</span>');
+      return '<div class="text-caption">' +
+        '<span class="text-ink-muted">' + escapeHtml(c.category_label) + ':</span> ' +
+        oldStr + ' ' + arrow + ' ' + newStr +
+      '</div>';
+    });
+    return rows.join('');
+  }
+
+  function showReoptimizeSummary(recalcData) {
     if (!recalcData) return;
     var changed = recalcData.changed_count;
     var total = recalcData.total_count;
@@ -363,98 +386,163 @@
       return d.status === 'unavailable';
     });
     if (changed === 0 && unavailable.length === 0) {
-      toast('Цены актуальны: изменений нет.', { kind: 'info' });
+      toast('Все конфигурации уже оптимальны: изменений нет.', { kind: 'info' });
       return;
     }
     var lines = [];
     if (changed > 0) {
       lines.push(
-        '<div class="font-medium mb-1">Изменилось ' + changed + ' из ' + total + ' позиций</div>'
+        '<div class="font-medium mb-1">Пересобрано ' + changed + ' из ' + total + ' конфигураций</div>'
       );
       (recalcData.items || []).forEach(function (d) {
-        if (d.changed && d.status === 'ok') {
-          lines.push('<div class="text-caption">' + deltaSummaryHtml(d) + '</div>');
+        if (d.status === 'reoptimized') {
+          lines.push('<div class="mt-2">' + deltaSummaryHtml(d) + '</div>');
+          var ch = changeListHtml(d.changed_components);
+          if (ch) lines.push('<div class="mt-1 ml-2 space-y-0.5">' + ch + '</div>');
         }
       });
+      lines.push(
+        '<div class="mt-2 pt-2 border-t border-line-subtle">' +
+          '<button type="button" id="kt-rollback-all-btn" ' +
+                  'class="text-caption text-warning-500 underline">' +
+            'Отменить пересбор' +
+          '</button>' +
+        '</div>'
+      );
     }
     if (unavailable.length > 0) {
       lines.push(
         '<div class="mt-2 pt-2 border-t border-line-subtle text-warning-500 ' +
-        'font-medium">' + unavailable.length + ' нельзя пересчитать</div>'
+        'font-medium">' + unavailable.length + ' нельзя пересобрать</div>'
       );
       unavailable.forEach(function (d) {
-        var reasons = (d.unavailable_components || []).join(', ');
         lines.push(
           '<div class="text-caption text-warning-500">' +
-          escapeHtml(d.config_name) + ': ' + escapeHtml(reasons || 'компонент недоступен') +
+          escapeHtml(d.config_name) + ': ' +
+          escapeHtml(d.unavailable_reason || 'не удалось пересобрать') +
           '</div>'
         );
       });
     }
-    toast(lines.join(''), {
+    var t = toast(lines.join(''), {
       kind: unavailable.length > 0 ? 'warn' : 'success',
-      ms: 8000,
+      ms: 12000,
     });
+    var rollback = t.querySelector('#kt-rollback-all-btn');
+    if (rollback) {
+      rollback.addEventListener('click', function (e) {
+        e.preventDefault();
+        rollbackAll();
+        t.querySelector('.kt-toast-close').click();
+      });
+    }
   }
 
-  async function recalcFull() {
+  async function reoptimizeFull() {
     var btn = document.getElementById('kt-spec-recalc-btn');
     if (!btn) return;
+    if (!confirm(
+      'Пересобрать все конфигурации?\n\n' +
+      'Состав компонентов может измениться, если у поставщиков ' +
+      'появились более выгодные варианты.'
+    )) return;
     var hint = document.getElementById('kt-spec-recalc-hint');
     btn.disabled = true;
     if (hint) {
-      hint.textContent = 'Пересчитываем по актуальным ценам поставщиков…';
+      hint.textContent = 'Запускаем подбор по актуальным данным…';
       hint.classList.remove('hidden');
     }
     try {
-      var data = await post('/project/' + PROJECT_ID + '/spec/recalc', {});
+      var data = await post('/project/' + PROJECT_ID + '/spec/reoptimize', {});
       renderSpec(data);
-      showRecalcSummary(data.recalc);
+      showReoptimizeSummary(data.recalc);
     } catch (e) {
       console.error(e);
-      toast('Не удалось пересчитать цены. Попробуйте ещё раз.', { kind: 'error' });
+      toast('Не удалось пересобрать конфигурации. Попробуйте ещё раз.', { kind: 'error' });
     } finally {
       btn.disabled = false;
       if (hint) hint.classList.add('hidden');
     }
   }
 
-  async function recalcOne(itemId) {
+  async function reoptimizeOne(itemId) {
+    if (!confirm(
+      'Пересобрать эту конфигурацию?\n\n' +
+      'Состав компонентов может измениться.'
+    )) return;
     try {
       var data = await post(
-        '/project/' + PROJECT_ID + '/spec/' + itemId + '/recalc', {}
+        '/project/' + PROJECT_ID + '/spec/' + itemId + '/reoptimize', {}
       );
       renderSpec(data);
       var d = data.recalc_item;
       if (!d) return;
       if (d.status === 'unavailable') {
-        var reasons = (d.unavailable_components || []).join(', ');
         toast(
-          '<div class="font-medium">Невозможно пересчитать</div>' +
-          '<div class="text-caption">' + escapeHtml(d.config_name) +
-          ': ' + escapeHtml(reasons || 'компонент недоступен') +
-          '. Замените конфигурацию вручную.</div>',
-          { kind: 'warn', ms: 7000 }
+          '<div class="font-medium">Невозможно пересобрать</div>' +
+          '<div class="text-caption">' + escapeHtml(d.config_name) + ': ' +
+          escapeHtml(d.unavailable_reason || 'компонент недоступен') + '</div>',
+          { kind: 'warn', ms: 8000 }
         );
         return;
       }
-      if (!d.changed) {
-        toast('Цена не изменилась.', { kind: 'info' });
+      if (d.status === 'no_changes') {
+        toast('Конфигурация уже оптимальна — изменений нет.', { kind: 'info' });
         return;
       }
-      toast(deltaSummaryHtml(d), { kind: 'success', ms: 5000 });
+      var html = deltaSummaryHtml(d);
+      var ch = changeListHtml(d.changed_components);
+      if (ch) html += '<div class="mt-1 space-y-0.5">' + ch + '</div>';
+      html += '<div class="mt-2 pt-2 border-t border-line-subtle">' +
+        '<button type="button" data-rollback-id="' + d.spec_item_id + '" ' +
+                'class="kt-rollback-one-btn text-caption text-warning-500 underline">' +
+          'Отменить' +
+        '</button>' +
+      '</div>';
+      var t = toast(html, { kind: 'success', ms: 10000 });
+      var rb = t.querySelector('.kt-rollback-one-btn');
+      if (rb) {
+        rb.addEventListener('click', function (e) {
+          e.preventDefault();
+          rollbackOne(parseInt(rb.dataset.rollbackId, 10));
+          t.querySelector('.kt-toast-close').click();
+        });
+      }
     } catch (e) {
       console.error(e);
-      toast('Не удалось пересчитать позицию.', { kind: 'error' });
+      toast('Не удалось пересобрать позицию.', { kind: 'error' });
     }
   }
 
-  // Делегирование: кнопка в заголовке + кнопки в строках (перерисовываются).
+  async function rollbackAll() {
+    try {
+      var data = await post('/project/' + PROJECT_ID + '/spec/rollback', {});
+      renderSpec(data);
+      toast('Отменено: возвращён предыдущий состав.', { kind: 'info' });
+    } catch (e) {
+      console.error(e);
+      toast('Не удалось откатить пересбор.', { kind: 'error' });
+    }
+  }
+
+  async function rollbackOne(itemId) {
+    try {
+      var data = await post(
+        '/project/' + PROJECT_ID + '/spec/' + itemId + '/rollback', {}
+      );
+      renderSpec(data);
+      toast('Отменено: возвращён предыдущий состав.', { kind: 'info' });
+    } catch (e) {
+      console.error(e);
+      toast('Не удалось откатить пересбор.', { kind: 'error' });
+    }
+  }
+
   document.addEventListener('click', function (e) {
     var fullBtn = e.target.closest('#kt-spec-recalc-btn');
     if (fullBtn) {
       e.preventDefault();
-      recalcFull();
+      reoptimizeFull();
       return;
     }
     var rowBtn = e.target.closest('.kt-spec-recalc-row');
@@ -463,7 +551,7 @@
       var tr = rowBtn.closest('tr[data-item-id]');
       if (!tr) return;
       var id = parseInt(tr.dataset.itemId, 10);
-      if (id) recalcOne(id);
+      if (id) reoptimizeOne(id);
     }
   });
 

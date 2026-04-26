@@ -62,10 +62,18 @@
     </div>
 
     <label class="flex items-center gap-3 cursor-pointer">
-      <input type="checkbox" class="toggle" name="is_active"
+      <input type="checkbox" class="toggle kt-toggle" name="is_active"
+             id="s-is-active"
+             data-toggle-on="Активен — участвует в подборе цен и рассылке КП"
+             data-toggle-off="Не активен — компонент не участвует в подборе"
              {% if is_new or (supplier and supplier.is_active) %}checked{% endif %}>
-      <span class="text-small text-ink-primary">
-        Активен — участвует в подборе цен и рассылке КП
+      <span class="text-small text-ink-primary kt-toggle-text"
+            data-toggle-text="s-is-active">
+        {% if is_new or (supplier and supplier.is_active) %}
+          Активен — участвует в подборе цен и рассылке КП
+        {% else %}
+          Не активен — компонент не участвует в подборе
+        {% endif %}
       </span>
     </label>
 

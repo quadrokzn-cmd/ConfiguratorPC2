@@ -291,7 +291,7 @@ def list_user_queries(session: Session, user_id: int, limit: int = 200) -> list[
     """Последние запросы одного пользователя, новые сверху."""
     rows = session.execute(
         text(
-            "SELECT q.id, q.raw_text, q.status, q.cost_rub, q.created_at, "
+            "SELECT q.id, q.raw_text, q.status, q.cost_rub, q.cost_usd, q.created_at, "
             "       p.name AS project_name "
             "FROM queries q "
             "JOIN projects p ON p.id = q.project_id "
@@ -308,7 +308,7 @@ def list_all_queries(session: Session, limit: int = 200) -> list[dict]:
     """Последние запросы всех пользователей (для админки)."""
     rows = session.execute(
         text(
-            "SELECT q.id, q.raw_text, q.status, q.cost_rub, q.created_at, "
+            "SELECT q.id, q.raw_text, q.status, q.cost_rub, q.cost_usd, q.created_at, "
             "       p.name AS project_name, "
             "       u.login AS author_login, u.name AS author_name "
             "FROM queries q "
@@ -332,6 +332,7 @@ def _row_to_list_item(r, *, with_author: bool = False) -> dict:
         "short_text":   short,
         "status":       r.status,
         "cost_rub":     float(r.cost_rub) if r.cost_rub is not None else 0.0,
+        "cost_usd":     float(r.cost_usd) if getattr(r, "cost_usd", None) is not None else 0.0,
         "created_at":   r.created_at,
         "project_name": r.project_name,
     }

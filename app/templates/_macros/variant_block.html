@@ -38,7 +38,7 @@
         ${{ '%.0f'|format((c.price_usd or 0) * (c.quantity or 1)) }}
       </div>
       <div class="text-xs text-zinc-400">
-        {{ _rub((c.price_rub or 0) * (c.quantity or 1)) }} ₽
+        {{ ((c.price_usd or 0) * (c.quantity or 1)) | fmt_rub }} ₽
       </div>
     </div>
   </header>
@@ -104,7 +104,7 @@
         ${{ '%.0f'|format(v.total_usd or 0) }}
       </div>
       <div class="text-sm text-zinc-400">
-        ≈ {{ _rub(v.total_rub) }} ₽
+        ≈ {{ v.total_usd | fmt_rub }} ₽
       </div>
     </div>
   </header>

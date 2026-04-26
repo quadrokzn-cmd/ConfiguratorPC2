@@ -17,7 +17,6 @@ from datetime import datetime
 
 from fastapi import APIRouter, Body, Depends, Form, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from app.auth import AuthUser, get_csrf_token, require_login, verify_csrf
@@ -30,11 +29,11 @@ from app.routers.main_router import (
 from app.services import budget_guard, spec_recalc, spec_service, web_service
 from app.services.nlu import process_query
 from app.services.web_result_view import enrich_variants_with_specs
+from app.templating import templates
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
-templates = Jinja2Templates(directory="app/templates")
 
 
 # ---------------------------------------------------------------------
@@ -453,8 +452,32 @@ def project_update_quantity(
 
 
 # ---------------------------------------------------------------------
-# Этап 9А.2.1: пересчёт цен в спецификации проекта
+# Этап 9А.2.3: reoptimize спецификации (полный пересбор) + rollback
 # ---------------------------------------------------------------------
+
+def _reoptimize_full_response(db: Session, project_id: int, result) -> JSONResponse:
+    payload = _spec_payload(db, project_id)
+    payload["recalc"] = {
+        "items":         [spec_recalc.delta_to_dict(d) for d in result.items],
+        "changed_count": result.changed_count,
+        "total_count":   result.total_count,
+    }
+    return JSONResponse(payload)
+
+
+@router.post("/project/{project_id}/spec/reoptimize")
+def project_spec_reoptimize(
+    project_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Полный пересбор всех позиций: builder.build_config с теми же входами."""
+    _verify_csrf_ajax(request)
+    _load_project_or_raise(db, project_id=project_id, user=user)
+    result = spec_recalc.reoptimize_specification(db, project_id=project_id)
+    return _reoptimize_full_response(db, project_id, result)
+
 
 @router.post("/project/{project_id}/spec/recalc")
 def project_spec_recalc(
@@ -463,21 +486,40 @@ def project_spec_recalc(
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
 ):
-    """Полный пересчёт цен всех позиций спецификации проекта.
+    """Алиас старой кнопки «Пересчитать цены» — теперь делает reoptimize.
+    Сохранён, чтобы старые закладки и тесты этапа 9А.2.1 продолжали работать."""
+    _verify_csrf_ajax(request)
+    _load_project_or_raise(db, project_id=project_id, user=user)
+    result = spec_recalc.reoptimize_specification(db, project_id=project_id)
+    return _reoptimize_full_response(db, project_id, result)
 
-    Возвращает JSON со списком дельт по каждой позиции и сводкой:
-    {ok, items: [...], changed_count, total_count, totals}.
-    """
+
+@router.post("/project/{project_id}/spec/{item_id}/reoptimize")
+def project_spec_item_reoptimize(
+    project_id: int,
+    item_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Точечный reoptimize одной позиции."""
     _verify_csrf_ajax(request)
     _load_project_or_raise(db, project_id=project_id, user=user)
 
-    result = spec_recalc.recalc_specification(db, project_id=project_id)
+    from sqlalchemy import text as _t
+    row = db.execute(
+        _t("SELECT project_id FROM specification_items WHERE id = :id"),
+        {"id": item_id},
+    ).first()
+    if row is None or int(row.project_id) != int(project_id):
+        raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
+
+    delta = spec_recalc.reoptimize_specification_item(db, item_id=item_id)
+    if delta is None:
+        raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
+
     payload = _spec_payload(db, project_id)
-    payload["recalc"] = {
-        "items":         [spec_recalc.delta_to_dict(d) for d in result.items],
-        "changed_count": result.changed_count,
-        "total_count":   result.total_count,
-    }
+    payload["recalc_item"] = spec_recalc.delta_to_dict(delta)
     return JSONResponse(payload)
 
 
@@ -489,12 +531,41 @@ def project_spec_item_recalc(
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
 ):
-    """Точечный пересчёт одной позиции спецификации."""
+    """Алиас точечного пересчёта (этап 9А.2.1) — делает reoptimize."""
+    return project_spec_item_reoptimize(
+        project_id=project_id, item_id=item_id, request=request,
+        user=user, db=db,
+    )
+
+
+@router.post("/project/{project_id}/spec/rollback")
+def project_spec_rollback(
+    project_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Откат последнего reoptimize по всем позициям проекта."""
+    _verify_csrf_ajax(request)
+    _load_project_or_raise(db, project_id=project_id, user=user)
+    rolled = spec_recalc.rollback_specification(db, project_id=project_id)
+    payload = _spec_payload(db, project_id)
+    payload["rolled_back"] = rolled
+    return JSONResponse(payload)
+
+
+@router.post("/project/{project_id}/spec/{item_id}/rollback")
+def project_spec_item_rollback(
+    project_id: int,
+    item_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_login),
+    db: Session = Depends(get_db),
+):
+    """Откат точечного reoptimize одной позиции."""
     _verify_csrf_ajax(request)
     _load_project_or_raise(db, project_id=project_id, user=user)
 
-    # Проверяем, что item принадлежит этому проекту (защита от
-    # подмены item_id в URL).
     from sqlalchemy import text as _t
     row = db.execute(
         _t("SELECT project_id FROM specification_items WHERE id = :id"),
@@ -503,12 +574,9 @@ def project_spec_item_recalc(
     if row is None or int(row.project_id) != int(project_id):
         raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
 
-    delta = spec_recalc.recalc_specification_item(db, item_id=item_id)
-    if delta is None:
-        raise HTTPException(status_code=404, detail="Позиция спецификации не найдена.")
-
+    ok = spec_recalc.rollback_specification_item(db, item_id=item_id)
     payload = _spec_payload(db, project_id)
-    payload["recalc_item"] = spec_recalc.delta_to_dict(delta)
+    payload["rolled_back"] = 1 if ok else 0
     return JSONResponse(payload)
 
 

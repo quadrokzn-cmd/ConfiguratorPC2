@@ -70,9 +70,11 @@
         <label class="label" for="cf-{{ f.name }}">{{ f.label }}</label>
         {% if f.type == 'bool' %}
           <label class="flex items-center gap-3 cursor-pointer mt-1">
-            <input type="checkbox" id="cf-{{ f.name }}" name="{{ f.name }}" class="toggle"
+            <input type="checkbox" id="cf-{{ f.name }}" name="{{ f.name }}" class="toggle kt-toggle"
+                   data-toggle-on="да" data-toggle-off="нет"
                    {% if f.value %}checked{% endif %}>
-            <span class="text-small text-ink-secondary">
+            <span class="text-small text-ink-secondary kt-toggle-text"
+                  data-toggle-text="cf-{{ f.name }}">
               {% if f.value %}да{% else %}нет{% endif %}
             </span>
           </label>
@@ -136,7 +138,7 @@
               ${{ '%.2f'|format(sp.price_usd) }}
             </td>
             <td class="text-right tabular-nums text-ink-secondary">
-              {{ '{:,.0f}'.format(sp.price_rub).replace(',', ' ') }} ₽
+              {{ sp.price_usd | fmt_rub }} ₽
             </td>
             <td class="text-caption text-ink-secondary">{{ sp.supplier_sku or '—' }}</td>
             <td class="text-right tabular-nums text-ink-secondary">

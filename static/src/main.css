@@ -680,13 +680,88 @@
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
-  .grid-app {
-    display: grid;
-    grid-template-columns: 248px minmax(0, 1fr);
-    min-height: 100vh;
+  /* 9А.2.3: фиксированная раскладка app-shell.
+     Раньше .grid-app + min-height:100vh — сайдбар уезжал вверх при
+     прокрутке страниц «Компоненты» и «История запросов». Теперь:
+     - .kt-app-shell flex со 100vh высотой и overflow:hidden;
+     - .kt-sidebar — фиксированной высоты, скроллится только средний nav;
+     - .kt-main — единственная зона с overflow-y:auto.
+     Старый класс grid-app оставлен как алиас для совместимости. */
+  .kt-app-shell {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .grid-app { /* legacy alias */
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .kt-sidebar {
+    width: 248px;
+    flex-shrink: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .kt-sidebar-header { flex-shrink: 0; }
+  .kt-sidebar-nav    { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  .kt-sidebar-footer { flex-shrink: 0; }
+  .kt-main {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .kt-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    flex-shrink: 0;
+  }
+  .kt-content {
+    flex: 1 1 auto;
   }
   @media (max-width: 1024px) {
-    .grid-app { grid-template-columns: 72px minmax(0, 1fr); }
+    .kt-sidebar { width: 72px; }
+  }
+
+  /* Плашка курса ЦБ в нижней части сайдбара (этап 9А.2.3).
+     Тонкая разделительная линия сверху, мелкий шрифт, иконка trending-up.
+     На сжатом сайдбаре (≤1024px) скрываем подпись «обновлено …»
+     и выравниваем по центру. */
+  .kt-fx-widget {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-top: 1px solid theme('colors.line.subtle');
+    border-bottom: 1px solid theme('colors.line.subtle');
+    color: theme('colors.ink.secondary');
+    cursor: default;
+  }
+  .kt-fx-icon {
+    color: theme('colors.brand.400');
+    flex-shrink: 0;
+  }
+  .kt-fx-text { min-width: 0; line-height: 1.1; }
+  .kt-fx-rate {
+    font-size: 12px;
+    font-weight: 600;
+    color: theme('colors.ink.primary');
+    font-variant-numeric: tabular-nums;
+  }
+  .kt-fx-stamp {
+    font-size: 10px;
+    color: theme('colors.ink.muted');
+    margin-top: 1px;
+  }
+  @media (max-width: 1024px) {
+    .kt-fx-widget { justify-content: center; padding: 0.5rem; }
+    .kt-fx-text { display: none; }
   }
 
   /* 9А.1.1: подложка под логотипом — едва заметный градиент-«свет»,
@@ -801,6 +876,163 @@
   .hairline {
     height: 1px;
     background: theme('colors.line.soft');
+  }
+
+  /* 9А.2.3: контейнер toast'ов в правом нижнем углу.
+     Раньше: `top-4 right-4` — toast'ы перекрывали кнопку «Добавить
+     конфигурацию» в топбаре, текст плохо читался на полупрозрачном
+     фоне. Теперь:
+     - fixed bottom-right (привязан к viewport, не к контейнеру);
+     - стек снизу вверх (column-reverse), новые тосты сверху стека;
+     - max-width 380px, авто-перенос длинного текста;
+     - z-index 60 — выше топбара (z-30) и ниже модалок (z-50 → нет, модалки тоже 50,
+       но toast не должен перекрывать модалку — у модалок overlay 50,
+       container ниже, мы 45 чтобы быть выше топбара, но ниже модалки).
+     Даём 45 — выше sticky-топбара (z-30), ниже модалки (z-50). */
+  .kt-toast-container {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 45;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+    max-width: 380px;
+    width: calc(100vw - 2.5rem);
+    pointer-events: none;
+  }
+  .kt-toast {
+    pointer-events: auto;
+    position: relative;
+    border-radius: 0.625rem;
+    border: 1px solid theme('colors.line.softer');
+    background: theme('colors.surface.1');
+    color: theme('colors.ink.primary');
+    padding: 0.75rem 2rem 0.75rem 0.875rem;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.45),
+                0 0 0 1px rgba(255,255,255,0.04);
+    word-break: break-word;
+    animation: kt-toast-in 250ms ease-out both;
+  }
+  .kt-toast-success {
+    border-color: rgba(16,185,129,0.40);
+    background: rgba(7, 32, 24, 0.92);
+  }
+  .kt-toast-warn {
+    border-color: rgba(245,158,11,0.40);
+    background: rgba(40, 26, 8, 0.92);
+  }
+  .kt-toast-error {
+    border-color: rgba(239,68,68,0.40);
+    background: rgba(40, 12, 12, 0.92);
+  }
+  .kt-toast-close {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: theme('colors.ink.muted');
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+    font-size: 14px;
+    transition: color 120ms ease, background-color 120ms ease;
+  }
+  .kt-toast-close:hover {
+    color: theme('colors.ink.primary');
+    background: theme('colors.surface.3');
+  }
+  @keyframes kt-toast-in {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .kt-toast.kt-toast-leaving {
+    animation: kt-toast-out 200ms ease-in both;
+  }
+  @keyframes kt-toast-out {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
+  }
+
+  /* 9А.2.3: пагинация по номерам страниц.
+     Используется в /admin/components, при необходимости — в других
+     серверных пагинациях. Активная страница — brand-фон 20%,
+     ссылки на чужие страницы — обычные кнопки. */
+  .kt-pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+  .kt-pagination-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 13px;
+    color: theme('colors.ink.secondary');
+    background: transparent;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    font-variant-numeric: tabular-nums;
+  }
+  .kt-pagination-page:hover {
+    background: theme('colors.surface.2');
+    color: theme('colors.ink.primary');
+  }
+  .kt-pagination-page-active {
+    background: rgba(32,82,232,0.20);
+    color: theme('colors.brand.300');
+    border-color: rgba(64,120,255,0.35);
+  }
+  .kt-pagination-page-active:hover {
+    background: rgba(32,82,232,0.25);
+    color: theme('colors.brand.200');
+  }
+  .kt-pagination-page-disabled,
+  .kt-pagination-page-disabled:hover {
+    color: theme('colors.ink.muted');
+    background: transparent;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .kt-pagination-ellipsis {
+    color: theme('colors.ink.muted');
+    padding: 0 0.25rem;
+    user-select: none;
+  }
+  .kt-pagination-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-left: 0.75rem;
+    color: theme('colors.ink.muted');
+    font-size: 12px;
+  }
+  .kt-pagination-jump input {
+    width: 3.5rem;
+    height: 1.75rem;
+    padding: 0 0.5rem;
+    border-radius: 0.375rem;
+    background: theme('colors.surface.2');
+    border: 1px solid theme('colors.line.default');
+    color: theme('colors.ink.primary');
+    font-size: 12px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
   }
 
   /* 9А.1.2: animated numbers. Класс добавляется JS-кодом

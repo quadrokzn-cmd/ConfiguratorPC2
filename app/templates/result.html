@@ -37,8 +37,8 @@
       {% if user.is_admin and q.author_login %}
       <span>· автор: {{ q.author_name }} ({{ q.author_login }})</span>
       {% endif %}
-      {% if q.cost_rub and q.cost_rub > 0 %}
-      <span>· OpenAI ≈ {{ '%.2f'|format(q.cost_rub) }} ₽</span>
+      {% if (q.cost_usd and q.cost_usd > 0) or (q.cost_rub and q.cost_rub > 0) %}
+      <span>· OpenAI ≈ {{ '%.2f'|format((q.cost_usd | to_rub) if q.cost_usd else q.cost_rub) }} ₽</span>
       {% endif %}
     </div>
   </header>

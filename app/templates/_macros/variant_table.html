@@ -79,7 +79,7 @@
 
   {# Цена ₽ #}
   <td class="px-3 py-2 w-24 text-right text-caption text-ink-secondary tabular-nums whitespace-nowrap">
-    {{ _rub((c.price_rub or 0) * (c.quantity or 1)) }} ₽
+    {{ ((c.price_usd or 0) * (c.quantity or 1)) | fmt_rub }} ₽
   </td>
 </tr>
 {%- endmacro %}
@@ -115,7 +115,7 @@
           ${{ '%.0f'|format(v.total_usd or 0) }}
         </div>
         <div class="text-caption text-ink-secondary tabular-nums">
-          ≈ {{ _rub(v.total_rub) }} ₽
+          ≈ {{ v.total_usd | fmt_rub }} ₽
         </div>
       </div>
 

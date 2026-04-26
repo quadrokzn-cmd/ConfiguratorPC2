@@ -95,7 +95,7 @@
         <span class="text-small text-ink-muted tabular-nums">{{ budget.percent }}%</span>
       </div>
       <div class="text-display text-ink-primary tabular-nums">
-        {{ '%.2f'|format(budget.spent_rub) }} ₽
+        {{ '%.2f'|format((budget.spent_usd | to_rub) if budget.spent_usd else budget.spent_rub) }} ₽
         <span class="text-h2 text-ink-muted">/ {{ '%.0f'|format(budget.limit_rub) }} ₽</span>
       </div>
       <div class="mt-3 h-1.5 bg-surface-2 rounded-full overflow-hidden">
@@ -193,7 +193,7 @@
               {% endif %}
             </td>
             <td class="text-right text-ink-secondary whitespace-nowrap tabular-nums">
-              {{ '%.2f'|format(it.cost_rub) }} ₽
+              {{ '%.2f'|format((it.cost_usd | to_rub) if it.cost_usd else it.cost_rub) }} ₽
             </td>
           </tr>
           {% endfor %}

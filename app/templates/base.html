@@ -27,19 +27,16 @@
   </a>
 {%- endmacro %}
 
-<div class="grid-app">
+{# 9А.2.3: фиксированная раскладка.
+   - .kt-app-shell — flex с height:100vh, скролл «съест» только основной контент;
+   - .kt-sidebar  — column-flex, шапка/футер не двигаются, средний nav скроллится сам;
+   - .kt-main     — flex:1 + overflow-y:auto, сюда уходит весь скролл страницы;
+   - .kt-topbar   — sticky внутри .kt-main: остаётся видимым при прокрутке. #}
+<div class="kt-app-shell">
   {# === Сайдбар =========================================================== #}
-  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle flex flex-col">
-    <div class="px-5 pt-5 pb-4">
+  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle">
+    <div class="kt-sidebar-header px-5 pt-5 pb-4">
       <a href="/" class="block group kt-brand-wrap" aria-label="QUADRO — главная">
-        {# 9А.2.1: векторный SVG (полностью масштабируется) + подпись
-           «КОНФИГУРАТОР» под ним. Контейнер фиксированной ширины
-           kt-brand-wrap; и логотип, и caption растягиваются в ширину
-           родителя — оба элемента строго одинаковой ширины (что и
-           просил заказчик). Caption использует flex со
-           space-between по символам, поэтому слово «КОНФИГУРАТОР»
-           распределяется ровно по всей ширине логотипа без подбора
-           letter-spacing. #}
         {{ brand_mark(class='kt-brand-logo') }}
         <div class="brand-caption mt-2"
              aria-label="Конфигуратор">{#
@@ -48,7 +45,7 @@
       </a>
     </div>
 
-    <nav class="px-3 flex-1 overflow-y-auto" aria-label="Главная навигация">
+    <nav class="kt-sidebar-nav px-3" aria-label="Главная навигация">
       <div class="space-y-0.5">
         {{ _nav_link('/',         'Новый запрос',     'sparkle',
                       _path == '/' or _path.startswith('/query')) }}
@@ -81,42 +78,58 @@
       {% endif %}
     </nav>
 
-    {# Карточка пользователя внизу #}
-    <div class="p-3 border-t border-line-subtle">
-      <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
-        <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
-                    flex items-center justify-center text-small font-semibold shrink-0">
-          {{ (user.name or user.login)[:1]|upper }}
+    <div class="kt-sidebar-footer">
+      {# 9А.2.3: плашка курса ЦБ — над карточкой пользователя.
+         Курс приходит из context-функции current_exchange_rate(),
+         зарегистрированной как Jinja-globals в app/templating.py.
+         Если в БД пусто и ЦБ недоступен — плашка просто не отрисуется. #}
+      {% set _fx = current_exchange_rate() %}
+      {% if _fx %}
+      <div class="kt-fx-widget"
+           title="Источник: {{ 'ЦБ РФ' if _fx.source == 'cbr' else _fx.source }}&#10;Дата курса: {{ _fx.rate_date.strftime('%d.%m.%Y') }}&#10;Загружено: {{ _fx.fetched_label }} МСК">
+        <span class="kt-fx-icon">{{ icon('trending-up', class='w-3.5 h-3.5') }}</span>
+        <div class="kt-fx-text">
+          <div class="kt-fx-rate">$ = {{ '%.2f'|format(_fx.rate) }} ₽</div>
+          {% if _fx.fetched_label %}
+          <div class="kt-fx-stamp">обновлено {{ _fx.fetched_label }}</div>
+          {% endif %}
         </div>
-        <div class="min-w-0 flex-1">
-          <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
-          <div class="text-caption text-ink-muted truncate">
-            {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+      </div>
+      {% endif %}
+
+      {# Карточка пользователя #}
+      <div class="p-3 border-t border-line-subtle">
+        <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
+          <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
+                      flex items-center justify-center text-small font-semibold shrink-0">
+            {{ (user.name or user.login)[:1]|upper }}
           </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
+            <div class="text-caption text-ink-muted truncate">
+              {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+            </div>
+          </div>
+          <form method="post" action="/logout" class="shrink-0">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit"
+                    class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
+                           hover:bg-surface-3 transition-colors duration-120"
+                    title="Выйти" aria-label="Выйти">
+              {{ icon('log-out', class='w-4 h-4') }}
+            </button>
+          </form>
         </div>
-        <form method="post" action="/logout" class="shrink-0">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-          <button type="submit"
-                  class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
-                         hover:bg-surface-3 transition-colors duration-120"
-                  title="Выйти" aria-label="Выйти">
-            {{ icon('log-out', class='w-4 h-4') }}
-          </button>
-        </form>
       </div>
     </div>
   </aside>
 
   {# === Контент =========================================================== #}
-  <div class="min-w-0 flex flex-col">
+  <main class="kt-main">
     <header class="kt-topbar h-14 px-8 border-b border-line-subtle
                    bg-surface-base/80 backdrop-blur-sm
-                   flex items-center justify-between gap-4 sticky top-0 z-30">
+                   flex items-center justify-between gap-4">
       <nav class="breadcrumbs min-w-0" aria-label="Хлебные крошки">
-        {# 9А.2: на корневых разделах в крошках одно слово без «Главная /».
-           На вложенных страницах — полный путь через crumb-sep.
-           Дефолт пустой: страница, забывшая переопределить блок,
-           просто покажет пустой топбар вместо ложного «Главная». #}
         {% block breadcrumbs %}{% endblock %}
       </nav>
       <div class="flex items-center gap-2 shrink-0">
@@ -124,10 +137,10 @@
       </div>
     </header>
 
-    <main class="flex-1 px-8 py-6">
+    <div class="kt-content px-8 py-6">
       {% block content %}{% endblock %}
-    </main>
-  </div>
+    </div>
+  </main>
 </div>
 
 {% else %}
@@ -137,6 +150,7 @@
 </main>
 {% endif %}
 
+<script src="/static/js/common.js" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>
