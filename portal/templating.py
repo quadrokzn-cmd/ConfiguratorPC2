@@ -40,3 +40,10 @@ def static_url(rel_path: str) -> str:
 templates.env.globals["static_url"] = static_url
 templates.env.globals["portal_url"] = settings.portal_url
 templates.env.globals["configurator_url"] = settings.configurator_url
+
+# 9Б.2: фильтры для дашборда — русское форматирование дат и «N дней назад».
+from portal.services import dashboard as _dashboard
+
+templates.env.filters["ru_date"] = _dashboard.format_ru_date
+templates.env.filters["ru_datetime_short"] = _dashboard.format_ru_datetime_short
+templates.env.filters["days_ago"] = _dashboard.format_days_ago

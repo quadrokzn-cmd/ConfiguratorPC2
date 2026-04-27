@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" href="/static/img/favicon.png">
   {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen">
+<body class="app-theme min-h-screen">
 
 {% from "_macros/icons.html" import icon, brand_mark %}
 
@@ -88,6 +88,15 @@
     </nav>
 
     <div class="kt-sidebar-footer">
+      {# 9Б.2: ссылка «← Портал» — чтобы менеджер мог в один клик
+         вернуться на главную портала с плитками модулей. Лежит над
+         плашкой курса и карточкой пользователя; разделитель сверху —
+         тонкая граница в .kt-portal-back. #}
+      <a href="{{ portal_url }}/" class="kt-portal-back" target="_self">
+        <span class="kt-portal-back-icon">{{ icon('arrow-left', class='w-4 h-4') }}</span>
+        <span>Портал</span>
+      </a>
+
       {# 9А.2.3: плашка курса ЦБ — над карточкой пользователя.
          Курс приходит из context-функции current_exchange_rate(),
          зарегистрированной как Jinja-globals в app/templating.py.

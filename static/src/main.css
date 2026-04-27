@@ -23,6 +23,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Палитры (9Б.2) -------------------------------------------
+   Tailwind tokens (surface/ink/line) собираются в rgb(var(--xxx) / α)
+   через themed() в tailwind.config.js. Здесь определяем сами переменные:
+   значения R G B (через пробел, не через запятую — синтаксис rgb()
+   в новой нотации) для двух тем.
+
+   - .app-theme    — конфигуратор. По 9Б.2 — на 1 ступень светлее, чем
+                     было (фидбэк «слишком темно, как выключенный монитор»).
+   - .portal-theme — портал. На 3 ступени светлее: всё ещё тёмная тема,
+                     но ощущается как «графит со светом», а не «уголь».
+
+   :root повторяет .app-theme — fallback на случай, если страница
+   рендерится без класса (теоретически — никогда; рабочее напоминание).
+
+   Brand 500 = #2052E8 не меняется между темами — задан в
+   tailwind.config.js как константа.
+*/
+:root,
+body.app-theme {
+  --surface-base: 14 18 28;     /* #0E121C */
+  --surface-1:    19 24 38;     /* #131826 */
+  --surface-2:    27 34 49;     /* #1B2231 */
+  --surface-3:    37 45 64;     /* #252D40 */
+  --surface-4:    48 58 82;     /* #303A52 */
+
+  --ink-primary:   231 234 243; /* #E7EAF3 */
+  --ink-secondary: 154 163 182; /* #9AA3B6 */
+  --ink-muted:     106 114 134; /* #6A7286 */
+  --ink-inverse:   14 18 28;    /* #0E121C */
+
+  --line-subtle:  31 38 56;     /* #1F2638 */
+  --line-default: 44 53 75;     /* #2C354B */
+  --line-strong:  64 74 101;    /* #404A65 */
+}
+
+body.portal-theme {
+  --surface-base: 24 30 44;     /* #181E2C */
+  --surface-1:    31 38 56;     /* #1F2638 */
+  --surface-2:    42 50 71;     /* #2A3247 */
+  --surface-3:    53 63 88;     /* #353F58 */
+  --surface-4:    66 78 107;    /* #424E6B */
+
+  --ink-primary:   231 234 243; /* #E7EAF3 — единый «снежный» текст */
+  --ink-secondary: 168 176 194; /* #A8B0C2 — чуть светлее, чтобы не растворялся */
+  --ink-muted:     122 131 154; /* #7A839A */
+  --ink-inverse:   24 30 44;    /* #181E2C */
+
+  --line-subtle:  42 50 71;     /* #2A3247 */
+  --line-default: 58 67 94;     /* #3A435E */
+  --line-strong:  82 94 124;    /* #525E7C */
+}
+
 /* ---------- Базовые стили --------------------------------------------- */
 
 @layer base {
@@ -1050,6 +1102,482 @@
     0%  { opacity: 0; transform: translateY(-2px); }
     40% { opacity: 0; transform: translateY(-2px); }
     100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === Портал: топбар (9Б.2) ==========================================
+     Squircle-радиусы у карточек (16-20px) и крупные числа на виджетах.
+     Топбар портала — sticky, тонкий fade-blur снизу, brand-полоска
+     под активным пунктом навигации (как в сайдбаре конфигуратора). */
+  .portal-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    backdrop-filter: blur(10px);
+    background: rgb(var(--surface-base) / 0.78);
+    border-bottom: 1px solid theme('colors.line.subtle');
+  }
+  .portal-topbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 56px;
+    padding: 0 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .portal-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .portal-brand-mark {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+  .portal-brand-mark svg,
+  .portal-brand-mark img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .portal-brand-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: theme('colors.ink.primary');
+    letter-spacing: 0.04em;
+  }
+  .portal-brand-tag {
+    font-size: 11px;
+    color: theme('colors.ink.muted');
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    margin-left: 0.5rem;
+    padding-left: 0.625rem;
+    border-left: 1px solid theme('colors.line.default');
+  }
+
+  .portal-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1 1 auto;
+  }
+  .portal-nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: theme('colors.ink.secondary');
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: color 150ms ease-out, background-color 150ms ease-out;
+  }
+  .portal-nav-item:hover {
+    color: theme('colors.ink.primary');
+    background-color: theme('colors.surface.2');
+  }
+  .portal-nav-item-active {
+    color: theme('colors.ink.primary');
+    background-color: theme('colors.surface.2');
+  }
+  .portal-nav-item-active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: theme('colors.brand.500');
+    box-shadow: 0 0 12px 0 rgba(32,82,232,0.55);
+  }
+
+  .portal-userinfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  .portal-userinfo-name {
+    font-size: 13px;
+    color: theme('colors.ink.primary');
+    line-height: 1.1;
+    text-align: right;
+  }
+  .portal-userinfo-role {
+    font-size: 11px;
+    color: theme('colors.ink.muted');
+    margin-top: 1px;
+    text-align: right;
+  }
+  .portal-userinfo-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    background: rgba(32,82,232,0.18);
+    color: theme('colors.brand.300');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .portal-logout-btn {
+    background: transparent;
+    border: 1px solid theme('colors.line.subtle');
+    color: theme('colors.ink.secondary');
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out;
+    line-height: 0;
+  }
+  .portal-logout-btn:hover {
+    color: theme('colors.danger.500');
+    border-color: rgba(239,68,68,0.40);
+    background-color: theme('colors.surface.2');
+  }
+
+  /* === Портал: контейнер дашборда (9Б.2) ==============================
+     Воздушный лейаут: max-width 1280px, центр, padding 32px по бокам
+     и 32px сверху, gap между секциями 32-48px. */
+  .portal-shell {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+  }
+  .portal-greeting {
+    font-size: 32px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: theme('colors.ink.primary');
+  }
+  .portal-greeting-sub {
+    margin-top: 0.5rem;
+    color: theme('colors.ink.muted');
+    font-size: 14px;
+  }
+
+  /* === Дашборд: 12-колоночная сетка виджетов ===========================
+     Squircle-карточки 18px, dense layout. Адаптив <1024px — 1 колонка. */
+  .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .portal-grid-row-spacer {
+    grid-column: span 12;
+    height: 0.5rem;
+  }
+  .portal-col-4  { grid-column: span 4;  }
+  .portal-col-6  { grid-column: span 6;  }
+  .portal-col-8  { grid-column: span 8;  }
+  .portal-col-12 { grid-column: span 12; }
+  @media (max-width: 1024px) {
+    .portal-col-4,
+    .portal-col-6,
+    .portal-col-8,
+    .portal-col-12 { grid-column: span 12; }
+    .portal-shell { padding: 1.25rem 1rem 2rem; }
+    .portal-greeting { font-size: 26px; }
+  }
+
+  /* === Виджет: общий каркас ========================================== */
+  .portal-widget {
+    position: relative;
+    background: theme('colors.surface.1');
+    border: 1px solid theme('colors.line.soft');
+    border-radius: 18px;
+    padding: 24px;
+    overflow: hidden;
+    transition: border-color 150ms ease-out, box-shadow 150ms ease-out, transform 150ms ease-out;
+  }
+  .portal-widget:hover {
+    border-color: theme('colors.line.softer');
+    box-shadow: theme('boxShadow.glow-soft');
+    transform: translateY(-2px);
+    transition-duration: 200ms;
+  }
+  .portal-widget-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .portal-widget-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: theme('colors.ink.muted');
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+  }
+  /* Иконка виджета: брендовая диагональная подложка ~16% opacity. */
+  .portal-widget-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+      rgba(64,120,255,0.22) 0%,
+      rgba(32,82,232,0.06) 100%);
+    border: 1px solid rgba(64,120,255,0.18);
+    color: theme('colors.brand.300');
+    flex-shrink: 0;
+  }
+  .portal-widget-icon svg { width: 18px; height: 18px; }
+
+  /* Big number: 56-72px, Inter 700, плотная строка. */
+  .portal-widget-bignum {
+    font-size: 64px;
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: theme('colors.ink.primary');
+    font-variant-numeric: tabular-nums;
+    margin-top: 0.25rem;
+  }
+  @media (max-width: 1024px) {
+    .portal-widget-bignum { font-size: 52px; }
+  }
+  .portal-widget-unit {
+    margin-left: 0.25rem;
+    font-size: 22px;
+    font-weight: 600;
+    color: theme('colors.ink.secondary');
+    letter-spacing: 0;
+  }
+  .portal-widget-sub {
+    margin-top: 0.5rem;
+    color: theme('colors.ink.secondary');
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .portal-widget-meta {
+    margin-top: 0.625rem;
+    color: theme('colors.ink.muted');
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  /* Список поставщиков в виджете «Свежесть прайсов». */
+  .portal-supplier-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid theme('colors.line.subtle');
+  }
+  .portal-supplier-row:last-child { border-bottom: 0; }
+  .portal-supplier-name {
+    color: theme('colors.ink.primary');
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .portal-supplier-date {
+    color: theme('colors.ink.muted');
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Bar-chart: компоненты по категориям. Inline-flex bars без библиотек. */
+  .portal-cats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.625rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .portal-cat {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.375rem 0.625rem;
+    align-items: center;
+  }
+  .portal-cat-label {
+    font-size: 12px;
+    color: theme('colors.ink.secondary');
+    grid-column: 1 / 2;
+  }
+  .portal-cat-count {
+    font-size: 12px;
+    color: theme('colors.ink.primary');
+    font-variant-numeric: tabular-nums;
+    grid-column: 2 / 3;
+    text-align: right;
+  }
+  .portal-cat-bar {
+    grid-column: 1 / -1;
+    height: 4px;
+    background: theme('colors.surface.3');
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .portal-cat-bar-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg,
+      rgba(32,82,232,0.85),
+      rgba(64,120,255,0.55));
+    border-radius: 999px;
+  }
+
+  /* === Плитка модуля «Конфигуратор ПК» ================================
+     Большая squircle-карточка, hover-glow brand. */
+  .portal-module-tile {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 28px 32px;
+    background: theme('colors.surface.1');
+    border: 1px solid theme('colors.line.soft');
+    border-radius: 20px;
+    text-decoration: none;
+    transition: border-color 200ms ease-out, box-shadow 200ms ease-out, transform 200ms ease-out;
+    overflow: hidden;
+    position: relative;
+  }
+  .portal-module-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 100% 0%,
+      rgba(32,82,232,0.10) 0%,
+      transparent 55%);
+    opacity: 0.6;
+    transition: opacity 250ms ease-out;
+  }
+  .portal-module-tile:hover {
+    border-color: rgba(64,120,255,0.45);
+    box-shadow: theme('boxShadow.glow-brand');
+    transform: translateY(-3px);
+  }
+  .portal-module-tile:hover::before { opacity: 1; }
+  .portal-module-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg,
+      rgba(64,120,255,0.30) 0%,
+      rgba(15,48,158,0.10) 100%);
+    border: 1px solid rgba(64,120,255,0.30);
+    color: theme('colors.brand.300');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .portal-module-icon svg { width: 30px; height: 30px; }
+  .portal-module-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .portal-module-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: theme('colors.ink.primary');
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .portal-module-sub {
+    margin-top: 0.375rem;
+    font-size: 14px;
+    color: theme('colors.ink.secondary');
+    line-height: 1.45;
+    max-width: 56ch;
+  }
+  .portal-module-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1.125rem;
+    border-radius: 0.625rem;
+    background: theme('colors.brand.500');
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 150ms ease-out, transform 150ms ease-out;
+    position: relative;
+    z-index: 1;
+  }
+  .portal-module-tile:hover .portal-module-cta {
+    background: theme('colors.brand.600');
+  }
+  .portal-module-cta-arrow {
+    transition: transform 200ms ease-out;
+  }
+  .portal-module-tile:hover .portal-module-cta-arrow {
+    transform: translateX(3px);
+  }
+  @media (max-width: 1024px) {
+    .portal-module-tile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 22px 22px;
+    }
+    .portal-module-cta { width: max-content; }
+  }
+
+  /* «Скоро» — пустая плитка-плейсхолдер для будущих модулей. */
+  .portal-module-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 32px;
+    background: rgb(var(--surface-1) / 0.40);
+    border: 1px dashed theme('colors.line.default');
+    border-radius: 20px;
+    color: theme('colors.ink.muted');
+    font-size: 13px;
+    text-align: center;
+    min-height: 124px;
+  }
+
+  /* === Конфигуратор: пункт «← Портал» в сайдбаре (9Б.2) ===============
+     Лежит над блоком пользователя в нижней части .kt-sidebar-footer.
+     Тонкий разделитель сверху + обычный nav-item-look. */
+  .kt-portal-back {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    border-top: 1px solid theme('colors.line.subtle');
+    color: theme('colors.ink.secondary');
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 150ms ease-out, background-color 150ms ease-out;
+  }
+  .kt-portal-back:hover {
+    color: theme('colors.ink.primary');
+    background: theme('colors.surface.2');
+  }
+  .kt-portal-back-icon {
+    color: theme('colors.ink.muted');
+    transition: color 200ms ease-out, transform 200ms ease-out;
+  }
+  .kt-portal-back:hover .kt-portal-back-icon {
+    color: theme('colors.brand.300');
+    transform: translateX(-2px);
   }
 }
 

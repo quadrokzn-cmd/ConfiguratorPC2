@@ -48,8 +48,9 @@ ConfiguratorPC2/
 ├── portal/             ← портал: отдельное FastAPI-приложение (этап 9Б.1)
 │   ├── main.py         ← точка входа портала
 │   ├── routers/        ← auth (/login, /logout), home (/), admin_users (/admin/users)
-│   ├── templates/      ← минимальные шаблоны портала (база для дизайна 9Б.2)
-│   └── templating.py   ← Jinja2 portal-инстанция
+│   ├── services/       ← бизнес-логика портала (dashboard.py — этап 9Б.2)
+│   ├── templates/      ← Jinja2-шаблоны портала (топбар + дашборд, этап 9Б.2)
+│   └── templating.py   ← Jinja2 portal-инстанция (фильтры дат: ru_date, days_ago)
 ├── shared/             ← общий код для конфигуратора и портала (этап 9Б.1)
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
 │   ├── db.py           ← engine, SessionLocal, get_db

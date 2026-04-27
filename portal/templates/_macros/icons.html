@@ -1,0 +1,46 @@
+{#
+  Иконки портала (этап 9Б.2). Тонкий outline, stroke 1.75, в стиле
+  lucide. Используются в виджетах дашборда, плитке Конфигуратора,
+  топбаре. Цвет наследуется через currentColor — крашатся через
+  text-* класс родителя.
+
+  Использование:
+    {% from "_macros/icons.html" import icon %}
+    {{ icon('cpu', 'w-5 h-5') }}
+#}
+
+{% macro icon(name, class='w-5 h-5') -%}
+{%- if name == 'folder' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+{%- elif name == 'users' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="8" r="3"/><path d="M22 20v-2a4 4 0 0 0-3-3.87M16 4.13a4 4 0 0 1 0 7.75"/></svg>
+{%- elif name == 'trending-up' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+{%- elif name == 'truck' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 17V7h12v10"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+{%- elif name == 'cpu' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>
+{%- elif name == 'monitor' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+{%- elif name == 'home' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12 12 3l9 9"/><path d="M5 10v10h14V10"/></svg>
+{%- elif name == 'arrow-right' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+{%- elif name == 'log-out' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+{%- elif name == 'database' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/></svg>
+{%- elif name == 'package' -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+{%- else -%}
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+{%- endif -%}
+{%- endmacro %}
+
+{# Логотип QUADRO в топбаре портала. Тот же SVG-файл, что в конфигураторе.
+   class задаёт размер контейнера. #}
+{% macro brand_mark(class='') -%}
+<img src="/static/img/brand/quadro-logo.svg"
+     alt="QUADRO"
+     class="{{ class }} block w-auto select-none">
+{%- endmacro %}

@@ -1,31 +1,174 @@
 {% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
 
 {% block title %}Портал — КВАДРО-ТЕХ{% endblock %}
 
 {% block content %}
-<section class="space-y-6">
-  <header>
-    <h1 class="text-display text-ink-primary">Портал КВАДРО-ТЕХ</h1>
-    <p class="mt-2 text-body text-ink-secondary">
-      Здесь будут все рабочие модули. В этом этапе доступен только конфигуратор ПК.
-    </p>
-  </header>
+<div class="portal-shell">
 
-  {% if tiles %}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {% for tile in tiles %}
-    <a href="{{ tile.url }}"
-       class="card card-pad-lg hover:opacity-90 transition-opacity block">
-      <div class="text-h2 text-ink-primary">{{ tile.label }}</div>
-      <div class="mt-1 text-small text-ink-muted">Открыть модуль →</div>
+  {# === Приветствие ====================================================== #}
+  <section class="mb-8">
+    <h1 class="portal-greeting">Добрый день, {{ first_name }}</h1>
+    <p class="portal-greeting-sub">
+      Сводка по компании на сегодня.
+    </p>
+  </section>
+
+  {# === Дашборд: 5 виджетов ============================================== #}
+  <section class="portal-grid mb-10">
+
+    {# --- 1) Активные проекты --- #}
+    <article class="portal-widget portal-col-4"
+             data-testid="widget-active-projects">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">{{ dashboard.active_projects.label }}</span>
+        <span class="portal-widget-icon">{{ icon('folder', 'w-5 h-5') }}</span>
+      </div>
+      <div class="portal-widget-bignum">
+        {{ dashboard.active_projects.total }}
+      </div>
+      <div class="portal-widget-sub">
+        {% if dashboard.active_projects.total == 0 %}
+          Пока ни одного проекта.
+        {% else %}
+          Сейчас в работе.
+        {% endif %}
+      </div>
+    </article>
+
+    {# --- 2) Менеджеры --- #}
+    <article class="portal-widget portal-col-4"
+             data-testid="widget-managers">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">{{ dashboard.managers.label }}</span>
+        <span class="portal-widget-icon">{{ icon('users', 'w-5 h-5') }}</span>
+      </div>
+      <div class="portal-widget-bignum">
+        {{ dashboard.managers.total }}
+      </div>
+      <div class="portal-widget-sub">
+        {% if dashboard.managers.total == 0 %}
+          Менеджеров пока нет.
+        {% elif dashboard.managers.total == 1 %}
+          Активный пользователь.
+        {% else %}
+          Активные пользователи.
+        {% endif %}
+      </div>
+    </article>
+
+    {# --- 3) Курс ЦБ --- #}
+    <article class="portal-widget portal-col-4"
+             data-testid="widget-exchange-rate">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">{{ dashboard.exchange_rate.label }}</span>
+        <span class="portal-widget-icon">{{ icon('trending-up', 'w-5 h-5') }}</span>
+      </div>
+      {% if dashboard.exchange_rate.rate %}
+        <div class="portal-widget-bignum">
+          {{ '%.2f'|format(dashboard.exchange_rate.rate) }}<span class="portal-widget-unit">₽</span>
+        </div>
+        <div class="portal-widget-sub">
+          обновлён {{ dashboard.exchange_rate.fetched_at | ru_datetime_short }}
+        </div>
+        <div class="portal-widget-meta">источник: ЦБ РФ</div>
+      {% else %}
+        <div class="portal-widget-bignum">—</div>
+        <div class="portal-widget-sub">Курс ещё не загружен.</div>
+        <div class="portal-widget-meta">источник: ЦБ РФ</div>
+      {% endif %}
+    </article>
+
+    {# --- 4) Свежесть прайсов --- #}
+    <article class="portal-widget portal-col-6"
+             data-testid="widget-suppliers-freshness">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">Свежесть прайсов</span>
+        <span class="portal-widget-icon">{{ icon('truck', 'w-5 h-5') }}</span>
+      </div>
+      <div>
+        {% for s in dashboard.suppliers_freshness %}
+        <div class="portal-supplier-row">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="portal-supplier-name truncate">{{ s.name }}</span>
+            {% if s.last_loaded_at is none %}
+              <span class="badge badge-neutral">нет данных</span>
+            {% elif s.is_stale %}
+              <span class="badge badge-warning">устарел</span>
+            {% else %}
+              <span class="badge badge-success">свежий</span>
+            {% endif %}
+          </div>
+          <div class="portal-supplier-date shrink-0">
+            {{ s.days_ago | days_ago }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </article>
+
+    {# --- 5) Компоненты в БД --- #}
+    <article class="portal-widget portal-col-6"
+             data-testid="widget-components">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">{{ dashboard.components_breakdown.label }}</span>
+        <span class="portal-widget-icon">{{ icon('database', 'w-5 h-5') }}</span>
+      </div>
+      <div class="flex items-baseline gap-3">
+        <div class="portal-widget-bignum">
+          {{ dashboard.components_breakdown.total }}
+        </div>
+        <div class="portal-widget-sub mt-0">
+          {% if dashboard.components_breakdown.total == 0 %}
+            Каталог пуст.
+          {% else %}
+            активных позиций
+          {% endif %}
+        </div>
+      </div>
+      {% if dashboard.components_breakdown.max_count > 0 %}
+      <div class="portal-cats">
+        {% for cat in dashboard.components_breakdown.categories %}
+          {% set pct = (cat.count / dashboard.components_breakdown.max_count * 100) if dashboard.components_breakdown.max_count else 0 %}
+          <div class="portal-cat">
+            <span class="portal-cat-label">{{ cat.label }}</span>
+            <span class="portal-cat-count">{{ cat.count }}</span>
+            <span class="portal-cat-bar" aria-hidden="true">
+              <span class="portal-cat-bar-fill" style="width: {{ '%.1f'|format(pct) }}%"></span>
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </article>
+
+  </section>
+
+  {# === Плитка модуля «Конфигуратор ПК» ================================== #}
+  <section class="mb-2">
+    {% if show_configurator %}
+    <a href="{{ configurator_url }}/"
+       class="portal-module-tile"
+       data-testid="tile-configurator">
+      <span class="portal-module-icon">{{ icon('cpu', 'w-7 h-7') }}</span>
+      <div class="portal-module-text">
+        <div class="portal-module-title">Конфигуратор ПК</div>
+        <div class="portal-module-sub">
+          Подбор комплектующих по запросу клиента и формирование КП.
+        </div>
+      </div>
+      <span class="portal-module-cta">
+        <span>Открыть</span>
+        <span class="portal-module-cta-arrow">{{ icon('arrow-right', 'w-4 h-4') }}</span>
+      </span>
     </a>
-    {% endfor %}
-  </div>
-  {% else %}
-  <div class="card card-pad-lg text-ink-secondary">
-    Доступных модулей нет — обратитесь к администратору, чтобы он выдал
-    права в разделе «Пользователи».
-  </div>
-  {% endif %}
-</section>
+    {% else %}
+    <div class="portal-module-soon" data-testid="tile-no-modules">
+      Доступных модулей нет — обратитесь к администратору, чтобы он
+      выдал права в разделе «Пользователи».
+    </div>
+    {% endif %}
+  </section>
+
+</div>
 {% endblock %}

@@ -4,37 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Портал — КВАДРО-ТЕХ{% endblock %}</title>
-  {# 9Б.1: используем тот же main.css, что и конфигуратор, чтобы UI
-     выглядел согласованно. «Поживее» — это 9Б.2. #}
+  {# 9Б.2: общий main.css для портала и конфигуратора. Палитры
+     различаются классом на <body>: app-theme vs portal-theme. #}
   <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
   <link rel="icon" type="image/png" href="/static/img/favicon.png">
   {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen">
-  <div class="max-w-screen-md mx-auto px-6 py-8">
-    {% if user %}
-    <header class="flex items-center justify-between mb-8">
-      <div>
-        <a href="/" class="text-h2 text-ink-primary hover:opacity-80 transition-opacity">
-          КВАДРО-ТЕХ · Портал
-        </a>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <div class="text-small text-ink-primary">{{ user.name }}</div>
-          <div class="text-caption text-ink-muted">
-            {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
-          </div>
-        </div>
-        <form method="post" action="/logout" class="inline">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-          <button type="submit" class="btn btn-sm btn-ghost">Выйти</button>
-        </form>
-      </div>
-    </header>
-    {% endif %}
+<body class="portal-theme min-h-screen">
+{% from "_macros/icons.html" import icon, brand_mark %}
 
-    {% block content %}{% endblock %}
+{% if user %}
+{# === Топбар портала (9Б.2) =============================================
+   - слева: лого QUADRO + caption «Портал»;
+   - в центре: nav-ссылки. Для admin — Главная + Пользователи; для
+     manager — только Главная (для единообразия);
+   - справа: имя/роль + аватар + кнопка «Выйти».
+   Активный пункт подсвечен brand-полоской снизу. #}
+<header class="portal-topbar">
+  <div class="portal-topbar-inner">
+    <a href="/" class="portal-brand" aria-label="QUADRO — портал">
+      <span class="portal-brand-mark">{{ brand_mark() }}</span>
+      <span class="portal-brand-tag">Портал</span>
+    </a>
+
+    <nav class="portal-nav" aria-label="Главная навигация портала">
+      <a href="/"
+         class="portal-nav-item{% if active_section == 'home' %} portal-nav-item-active{% endif %}"
+         {% if active_section == 'home' %}aria-current="page"{% endif %}>
+        {{ icon('home', 'w-4 h-4') }}
+        <span>Главная</span>
+      </a>
+      {% if user.is_admin %}
+      <a href="/admin/users"
+         class="portal-nav-item{% if active_section == 'users' %} portal-nav-item-active{% endif %}"
+         {% if active_section == 'users' %}aria-current="page"{% endif %}>
+        {{ icon('users', 'w-4 h-4') }}
+        <span>Пользователи</span>
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="portal-userinfo">
+      <div>
+        <div class="portal-userinfo-name">{{ user.name }}</div>
+        <div class="portal-userinfo-role">
+          {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+        </div>
+      </div>
+      <div class="portal-userinfo-avatar" aria-hidden="true">
+        {{ (user.name or user.login)[:1] | upper }}
+      </div>
+      <form method="post" action="/logout" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit" class="portal-logout-btn"
+                title="Выйти" aria-label="Выйти">
+          {{ icon('log-out', 'w-4 h-4') }}
+        </button>
+      </form>
+    </div>
   </div>
+</header>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
 </body>
 </html>
