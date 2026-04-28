@@ -1104,155 +1104,14 @@ body.portal-theme {
     100% { opacity: 1; transform: translateY(0); }
   }
 
-  /* === Портал: топбар (9Б.2) ==========================================
-     Squircle-радиусы у карточек (16-20px) и крупные числа на виджетах.
-     Топбар портала — sticky, тонкий fade-blur снизу, brand-полоска
-     под активным пунктом навигации (как в сайдбаре конфигуратора). */
-  .portal-topbar {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    backdrop-filter: blur(10px);
-    background: rgb(var(--surface-base) / 0.78);
-    border-bottom: 1px solid theme('colors.line.subtle');
-  }
-  .portal-topbar-inner {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    height: 56px;
-    padding: 0 2rem;
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-  .portal-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-  .portal-brand-mark {
-    width: 26px;
-    height: 26px;
-    display: block;
-  }
-  .portal-brand-mark svg,
-  .portal-brand-mark img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .portal-brand-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: theme('colors.ink.primary');
-    letter-spacing: 0.04em;
-  }
-  .portal-brand-tag {
-    font-size: 11px;
-    color: theme('colors.ink.muted');
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
-    margin-left: 0.5rem;
-    padding-left: 0.625rem;
-    border-left: 1px solid theme('colors.line.default');
-  }
-
-  .portal-nav {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    flex: 1 1 auto;
-  }
-  .portal-nav-item {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.875rem;
-    font-size: 13px;
-    font-weight: 500;
-    color: theme('colors.ink.secondary');
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: color 150ms ease-out, background-color 150ms ease-out;
-  }
-  .portal-nav-item:hover {
-    color: theme('colors.ink.primary');
-    background-color: theme('colors.surface.2');
-  }
-  .portal-nav-item-active {
-    color: theme('colors.ink.primary');
-    background-color: theme('colors.surface.2');
-  }
-  .portal-nav-item-active::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 2px;
-    border-radius: 2px 2px 0 0;
-    background: theme('colors.brand.500');
-    box-shadow: 0 0 12px 0 rgba(32,82,232,0.55);
-  }
-
-  .portal-userinfo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
-  }
-  .portal-userinfo-name {
-    font-size: 13px;
-    color: theme('colors.ink.primary');
-    line-height: 1.1;
-    text-align: right;
-  }
-  .portal-userinfo-role {
-    font-size: 11px;
-    color: theme('colors.ink.muted');
-    margin-top: 1px;
-    text-align: right;
-  }
-  .portal-userinfo-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 9999px;
-    background: rgba(32,82,232,0.18);
-    color: theme('colors.brand.300');
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-  .portal-logout-btn {
-    background: transparent;
-    border: 1px solid theme('colors.line.subtle');
-    color: theme('colors.ink.secondary');
-    padding: 0.4rem 0.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out;
-    line-height: 0;
-  }
-  .portal-logout-btn:hover {
-    color: theme('colors.danger.500');
-    border-color: rgba(239,68,68,0.40);
-    background-color: theme('colors.surface.2');
-  }
-
-  /* === Портал: контейнер дашборда (9Б.2) ==============================
-     Воздушный лейаут: max-width 1280px, центр, padding 32px по бокам
-     и 32px сверху, gap между секциями 32-48px. */
-  .portal-shell {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem 2rem 3rem;
+  /* === Портал: контейнер контента (9Б.2.1) ============================
+     С 9Б.2.1 контент портала живёт внутри .kt-content (общий каркас),
+     поэтому собственный max-width/padding ему уже не нужен — оборачивающий
+     .kt-app-shell + .kt-main делают всё за нас. Класс .portal-page
+     остаётся семантическим маркером и хуком на случай, если когда-то
+     понадобится что-то поменять под весь контент портала. */
+  .portal-page {
+    max-width: 1200px;
   }
   .portal-greeting {
     font-size: 32px;
@@ -1287,7 +1146,6 @@ body.portal-theme {
     .portal-col-6,
     .portal-col-8,
     .portal-col-12 { grid-column: span 12; }
-    .portal-shell { padding: 1.25rem 1rem 2rem; }
     .portal-greeting { font-size: 26px; }
   }
 
@@ -1321,32 +1179,49 @@ body.portal-theme {
     text-transform: uppercase;
     letter-spacing: 0.10em;
   }
-  /* Иконка виджета: брендовая диагональная подложка ~16% opacity. */
+  /* Иконка виджета (9Б.2.1: усилены градиенты).
+     Brand-градиент 30% → 8% диагональный, тонкое внутреннее свечение по
+     краям squircle (inset shadow brand-цветом 6%), тонкая внешняя bevel-
+     светоизводительная линия снизу — squircle ощущается как «светящаяся
+     плитка», а не плоский фон. */
   .portal-widget-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg,
-      rgba(64,120,255,0.22) 0%,
-      rgba(32,82,232,0.06) 100%);
-    border: 1px solid rgba(64,120,255,0.18);
-    color: theme('colors.brand.300');
+      rgba(64,120,255,0.32) 0%,
+      rgba(32,82,232,0.08) 100%);
+    border: 1px solid rgba(64,120,255,0.30);
+    color: theme('colors.brand.200');
     flex-shrink: 0;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      inset 0 -10px 14px -10px rgba(64,120,255,0.45),
+      0 6px 14px -6px rgba(32,82,232,0.35);
   }
   .portal-widget-icon svg { width: 18px; height: 18px; }
 
-  /* Big number: 56-72px, Inter 700, плотная строка. */
+  /* Big number: 56-72px, Inter 700, плотная строка (9Б.2.1: text-fill
+     градиент от brand-200 к ink.primary — мягкая «подсветка» цифры
+     сверху, ниже — нормальный белый. Только для главных чисел виджетов. */
   .portal-widget-bignum {
     font-size: 64px;
     line-height: 1.05;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: theme('colors.ink.primary');
     font-variant-numeric: tabular-nums;
     margin-top: 0.25rem;
+    background: linear-gradient(180deg,
+      rgb(var(--ink-primary)) 0%,
+      rgb(var(--ink-primary)) 55%,
+      rgba(159,188,255, 0.95) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
   @media (max-width: 1024px) {
     .portal-widget-bignum { font-size: 52px; }
@@ -1434,18 +1309,26 @@ body.portal-theme {
     border-radius: 999px;
   }
 
-  /* === Плитка модуля «Конфигуратор ПК» ================================
-     Большая squircle-карточка, hover-glow brand. */
+  /* === Плитка модуля «Конфигуратор ПК» (9Б.2.1: усилена) =============
+     Двухслойный фон:
+       - база: surface-1;
+       - over: диагональный gradient от прозрачного к brand 500 в правом
+         нижнем углу (15-20% opacity), который усиливается на hover до 25%.
+     Плюс подсвеченные углы и более выраженное свечение границы при hover. */
   .portal-module-tile {
     display: flex;
     align-items: center;
     gap: 1.25rem;
     padding: 28px 32px;
-    background: theme('colors.surface.1');
-    border: 1px solid theme('colors.line.soft');
+    background:
+      linear-gradient(135deg,
+        rgba(32,82,232,0.0) 30%,
+        rgba(32,82,232,0.16) 100%),
+      theme('colors.surface.1');
+    border: 1px solid rgba(64,120,255,0.18);
     border-radius: 20px;
     text-decoration: none;
-    transition: border-color 200ms ease-out, box-shadow 200ms ease-out, transform 200ms ease-out;
+    transition: border-color 200ms ease-out, box-shadow 200ms ease-out, transform 200ms ease-out, background 250ms ease-out;
     overflow: hidden;
     position: relative;
   }
@@ -1455,15 +1338,23 @@ body.portal-theme {
     inset: 0;
     pointer-events: none;
     background: radial-gradient(circle at 100% 0%,
-      rgba(32,82,232,0.10) 0%,
+      rgba(64,120,255,0.16) 0%,
       transparent 55%);
-    opacity: 0.6;
+    opacity: 0.7;
     transition: opacity 250ms ease-out;
   }
   .portal-module-tile:hover {
-    border-color: rgba(64,120,255,0.45);
-    box-shadow: theme('boxShadow.glow-brand');
+    border-color: rgba(64,120,255,0.55);
+    box-shadow:
+      0 0 0 1px rgba(64,120,255,0.45),
+      0 0 32px -6px rgba(32,82,232,0.55),
+      0 16px 40px -16px rgba(32,82,232,0.40);
     transform: translateY(-3px);
+    background:
+      linear-gradient(135deg,
+        rgba(32,82,232,0.0) 25%,
+        rgba(32,82,232,0.24) 100%),
+      theme('colors.surface.1');
   }
   .portal-module-tile:hover::before { opacity: 1; }
   .portal-module-icon {
@@ -1471,16 +1362,20 @@ body.portal-theme {
     height: 64px;
     border-radius: 16px;
     background: linear-gradient(135deg,
-      rgba(64,120,255,0.30) 0%,
+      rgba(64,120,255,0.40) 0%,
       rgba(15,48,158,0.10) 100%);
-    border: 1px solid rgba(64,120,255,0.30);
-    color: theme('colors.brand.300');
+    border: 1px solid rgba(64,120,255,0.40);
+    color: theme('colors.brand.200');
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.08),
+      inset 0 -16px 22px -14px rgba(64,120,255,0.55),
+      0 10px 20px -10px rgba(32,82,232,0.45);
   }
   .portal-module-icon svg { width: 30px; height: 30px; }
   .portal-module-text {

@@ -236,6 +236,21 @@ def test_dashboard_data_supplier_freshness_ignores_failed_uploads(db_session):
     assert by_name["OCS"]["last_loaded_at"] is None
 
 
+def test_dashboard_data_supplier_freshness_includes_partial_uploads(db_session):
+    """status='partial' (часть строк сматчилась, часть нет) — это
+    нормальная штатная загрузка прайса. Виджет должен её учитывать."""
+    from portal.services.dashboard import get_dashboard_data
+
+    ocs_id = _insert_supplier(db_session, "OCS")
+    _insert_price_upload(db_session, ocs_id, days_ago=2, status="partial")
+
+    data = get_dashboard_data(db_session)
+    by_name = {row["name"]: row for row in data["suppliers_freshness"]}
+    assert by_name["OCS"]["last_loaded_at"] is not None
+    assert by_name["OCS"]["days_ago"] == 2
+    assert by_name["OCS"]["is_stale"] is False
+
+
 # ---------------------------------------------------------------------
 # Format helpers — юниты
 # ---------------------------------------------------------------------
@@ -349,28 +364,82 @@ def test_manager_without_configurator_no_tile(portal_client, manager_user_no_per
     assert 'data-testid="tile-no-modules"' in body
 
 
-def test_admin_topbar_has_users_link_active_on_users_page(admin_portal_client):
-    """На /admin/users пункт «Пользователи» подсвечен как активный
-    в топбаре."""
+# ---------------------------------------------------------------------
+# 9Б.2.1 — единый kt-app-shell + сайдбар вместо топбара
+# ---------------------------------------------------------------------
+
+def test_portal_uses_kt_app_shell(admin_portal_client):
+    """Портал собран на тех же классах каркаса, что и конфигуратор:
+    kt-app-shell + kt-sidebar + kt-main."""
+    r = admin_portal_client.get("/")
+    assert r.status_code == 200
+    body = r.text
+    assert "kt-app-shell" in body
+    assert "kt-sidebar" in body
+    assert "kt-main" in body
+
+
+def test_portal_sidebar_contains_home_link(admin_portal_client):
+    """В сайдбаре есть ссылка «Главная» на /."""
+    r = admin_portal_client.get("/")
+    assert r.status_code == 200
+    body = r.text
+    assert 'href="/"' in body
+    assert "Главная" in body
+
+
+def test_admin_sidebar_contains_users_link(admin_portal_client):
+    """У админа в сайдбаре есть ссылка «Пользователи»."""
+    r = admin_portal_client.get("/")
+    assert r.status_code == 200
+    assert 'href="/admin/users"' in r.text
+
+
+def test_admin_users_page_marks_users_active(admin_portal_client):
+    """На /admin/users пункт «Пользователи» помечен nav-item-active."""
     r = admin_portal_client.get("/admin/users")
     assert r.status_code == 200
     body = r.text
-    # Класс активного пункта присутствует возле «Пользователи»
-    assert "portal-nav-item-active" in body
-    assert "Пользователи" in body
+    # nav-item-active — класс активного пункта сайдбара (как в конфигураторе).
+    assert "nav-item-active" in body
 
 
-def test_manager_topbar_has_no_users_link(manager_portal_client):
-    """В топбаре менеджера нет ссылки /admin/users."""
+def test_manager_sidebar_has_no_users_link(manager_portal_client):
+    """У менеджера НЕТ ссылки на /admin/users в сайдбаре."""
     r = manager_portal_client.get("/")
     assert r.status_code == 200
-    # Ссылка на /admin/users в навигации присутствует только для admin.
-    # Простая проверка: ищем её href в портал-навигации (элемент с
-    # классом portal-nav-item).
+    assert 'href="/admin/users"' not in r.text
+
+
+def test_admin_sidebar_has_link_to_configurator(admin_portal_client):
+    """В подвале сайдбара портала — ссылка «← Конфигуратор» на
+    CONFIGURATOR_URL (CONFIGURATOR_URL в тестах = http://localhost:8080)."""
+    r = admin_portal_client.get("/")
+    assert r.status_code == 200
     body = r.text
-    # Грубая проверка: не должно быть портал-нав ссылки на /admin/users
-    # (другие страницы могут где-то её упоминать, но в шаблоне base.html
-    # навигация — единственное место с portal-nav-item).
-    assert 'class="portal-nav-item' in body  # Главная для всех
-    # Подстрока, типичная для нашего блока admin-ссылки в base.html:
-    assert 'href="/admin/users"' not in body
+    assert "http://localhost:8080/" in body
+    assert "kt-portal-back" in body
+
+
+def test_manager_sidebar_has_link_to_configurator(manager_portal_client):
+    """То же для менеджера — ссылка на конфигуратор видна всем
+    залогиненным."""
+    r = manager_portal_client.get("/")
+    assert r.status_code == 200
+    body = r.text
+    assert "http://localhost:8080/" in body
+    assert "kt-portal-back" in body
+
+
+def test_portal_sidebar_renders_fx_widget_partial(admin_portal_client, db_session):
+    """В сайдбаре портала курс ЦБ отрисовывается из общего партиала
+    shared/templates/_partials/fx_widget.html — тот же класс
+    .kt-fx-widget, что в конфигураторе."""
+    # Кладём свежий курс, чтобы партиал отрисовался.
+    _insert_exchange_rate(db_session, days_ago=0, rate="80.0000")
+
+    r = admin_portal_client.get("/")
+    assert r.status_code == 200
+    body = r.text
+    assert "kt-fx-widget" in body
+    assert "$ = 80.00" in body

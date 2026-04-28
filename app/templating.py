@@ -28,7 +28,11 @@ from app.services.export import exchange_rate
 logger = logging.getLogger(__name__)
 
 
-templates = Jinja2Templates(directory="app/templates")
+# 9Б.2.1: подключаем shared/templates рядом с app/templates, чтобы
+# доставать оттуда общие частичные шаблоны (`_partials/fx_widget.html`).
+# Поиск идёт по списку слева направо: совпадение в app/templates
+# побеждает (важно для _macros/icons.html, у которого две версии).
+templates = Jinja2Templates(directory=["app/templates", "shared/templates"])
 
 
 def _safe_get_current_rate() -> exchange_rate.ExchangeRateInfo | None:

@@ -150,14 +150,18 @@ def _get_suppliers_freshness(db: Session) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     try:
         # Один запрос: LEFT JOIN price_uploads, чтобы получить даже
-        # тех поставщиков, у которых ни одного успешного прайса не было.
+        # тех поставщиков, у которых ни одного загруженного прайса не было.
+        # Учитываем status IN ('success', 'partial') — partial = «часть
+        # строк сматчилась, часть нет», это нормальная штатная ситуация
+        # при загрузке через orchestrator (см. price_loaders/orchestrator.py).
+        # Только 'failed' не считаем «загрузкой прайса».
         result = db.execute(
             text(
                 "SELECT s.name AS name, MAX(pu.uploaded_at) AS last_at "
                 "FROM suppliers s "
                 "LEFT JOIN price_uploads pu "
                 "  ON pu.supplier_id = s.id "
-                " AND COALESCE(pu.status, 'success') = 'success' "
+                " AND (pu.status IS NULL OR pu.status IN ('success', 'partial')) "
                 "WHERE s.name = ANY(:names) "
                 "GROUP BY s.name"
             ),

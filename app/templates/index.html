@@ -137,7 +137,7 @@
           </div>
           <div class="pt-3 border-t border-line-subtle">
             <div class="flex items-baseline justify-between gap-2 mb-2">
-              <dt class="text-small text-ink-secondary">Бюджет OpenAI</dt>
+              <dt class="text-small text-ink-secondary">Бюджет OpenAI · сегодня</dt>
               <dd class="text-small text-ink-primary tabular-nums">
                 {{ '%.0f'|format((admin_summary.budget.spent_usd | to_rub) if admin_summary.budget.spent_usd else admin_summary.budget.spent_rub) }} / {{ '%.0f'|format(admin_summary.budget.limit_rub) }} ₽
               </dd>

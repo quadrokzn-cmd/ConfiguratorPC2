@@ -55,8 +55,6 @@ def users_list(
             "visible_module_keys": _VISIBLE_MODULE_KEYS,
             "error":      request.session.pop("flash_error", None),
             "info":       request.session.pop("flash_info",  None),
-            # 9Б.2: подсветка активного пункта в топбаре портала.
-            "active_section": "users",
         },
     )
 

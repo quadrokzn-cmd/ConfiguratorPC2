@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% from "_macros/icons.html" import icon %}
 
-{% block title %}Портал — КВАДРО-ТЕХ{% endblock %}
+{% block title %}Главная — Портал КВАДРО-ТЕХ{% endblock %}
 
 {% block content %}
-<div class="portal-shell">
+<div class="portal-page">
 
   {# === Приветствие ====================================================== #}
   <section class="mb-8">
@@ -145,7 +145,7 @@
   </section>
 
   {# === Плитка модуля «Конфигуратор ПК» ================================== #}
-  <section class="mb-2">
+  <section>
     {% if show_configurator %}
     <a href="{{ configurator_url }}/"
        class="portal-module-tile"

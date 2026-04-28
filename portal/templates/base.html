@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Портал — КВАДРО-ТЕХ{% endblock %}</title>
-  {# 9Б.2: общий main.css для портала и конфигуратора. Палитры
-     различаются классом на <body>: app-theme vs portal-theme. #}
+  {# 9Б.2: общий main.css. Палитры портала и конфигуратора отличаются
+     только классом на <body>: portal-theme vs app-theme. #}
   <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
   <link rel="icon" type="image/png" href="/static/img/favicon.png">
   {% block extra_head %}{% endblock %}
@@ -14,60 +14,99 @@
 {% from "_macros/icons.html" import icon, brand_mark %}
 
 {% if user %}
-{# === Топбар портала (9Б.2) =============================================
-   - слева: лого QUADRO + caption «Портал»;
-   - в центре: nav-ссылки. Для admin — Главная + Пользователи; для
-     manager — только Главная (для единообразия);
-   - справа: имя/роль + аватар + кнопка «Выйти».
-   Активный пункт подсвечен brand-полоской снизу. #}
-<header class="portal-topbar">
-  <div class="portal-topbar-inner">
-    <a href="/" class="portal-brand" aria-label="QUADRO — портал">
-      <span class="portal-brand-mark">{{ brand_mark() }}</span>
-      <span class="portal-brand-tag">Портал</span>
-    </a>
+{# 9Б.2.1: единый shell для конфигуратора и портала.
+   Структура — та же, что в app/templates/base.html:
+     - .kt-app-shell — flex со 100vh высотой, без скролла на body;
+     - .kt-sidebar  — фиксированной ширины 248px (на ≤1024px — 72px);
+     - .kt-main     — flex:1 + overflow-y:auto, единственная скролл-зона.
+   Отличие портала: нет .kt-topbar (навигация переехала в сайдбар),
+   и нет хлебных крошек. #}
+{% set _path = request.url.path if request is defined else '' %}
+{% macro _portal_nav_link(href, label, icon_name, is_active) -%}
+  <a href="{{ href }}"
+     class="nav-item{% if is_active %} nav-item-active{% endif %}"
+     {% if is_active %}aria-current="page"{% endif %}>
+    {{ icon(icon_name, class='nav-item-icon') }}
+    <span>{{ label }}</span>
+  </a>
+{%- endmacro %}
 
-    <nav class="portal-nav" aria-label="Главная навигация портала">
-      <a href="/"
-         class="portal-nav-item{% if active_section == 'home' %} portal-nav-item-active{% endif %}"
-         {% if active_section == 'home' %}aria-current="page"{% endif %}>
-        {{ icon('home', 'w-4 h-4') }}
-        <span>Главная</span>
+<div class="kt-app-shell">
+  {# === Сайдбар ============================================================ #}
+  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle">
+    <div class="kt-sidebar-header px-5 pt-5 pb-4">
+      <a href="/" class="block group kt-brand-wrap" aria-label="QUADRO — портал">
+        {{ brand_mark(class='kt-brand-logo') }}
+        <div class="brand-caption mt-2"
+             aria-label="Портал">{#
+          #}<span>П</span><span>О</span><span>Р</span><span>Т</span><span>А</span><span>Л</span>
+        </div>
       </a>
-      {% if user.is_admin %}
-      <a href="/admin/users"
-         class="portal-nav-item{% if active_section == 'users' %} portal-nav-item-active{% endif %}"
-         {% if active_section == 'users' %}aria-current="page"{% endif %}>
-        {{ icon('users', 'w-4 h-4') }}
-        <span>Пользователи</span>
-      </a>
-      {% endif %}
+    </div>
+
+    <nav class="kt-sidebar-nav px-3" aria-label="Главная навигация портала">
+      <div class="space-y-0.5">
+        {{ _portal_nav_link('/',            'Главная',      'layout-grid',
+                            _path == '/') }}
+        {% if user.is_admin %}
+        {{ _portal_nav_link('/admin/users', 'Пользователи', 'users',
+                            _path.startswith('/admin/users')) }}
+        {% endif %}
+      </div>
     </nav>
 
-    <div class="portal-userinfo">
-      <div>
-        <div class="portal-userinfo-name">{{ user.name }}</div>
-        <div class="portal-userinfo-role">
-          {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+    <div class="kt-sidebar-footer">
+      {# 9Б.2.1: «← Конфигуратор» — симметрична кнопке «← Портал» в
+         сайдбаре конфигуратора. Тот же стиль .kt-portal-back. #}
+      <a href="{{ configurator_url }}/" class="kt-portal-back" target="_self">
+        <span class="kt-portal-back-icon">{{ icon('arrow-left', class='w-4 h-4') }}</span>
+        <span>Конфигуратор</span>
+      </a>
+
+      {# Курс ЦБ — общий партиал shared/templates/_partials/fx_widget.html. #}
+      {% include "_partials/fx_widget.html" %}
+
+      {# Карточка пользователя (тот же стиль, что в конфигураторе). #}
+      <div class="p-3 border-t border-line-subtle">
+        <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
+          <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
+                      flex items-center justify-center text-small font-semibold shrink-0">
+            {{ (user.name or user.login)[:1]|upper }}
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
+            <div class="text-caption text-ink-muted truncate">
+              {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+            </div>
+          </div>
+          <form method="post" action="/logout" class="shrink-0">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit"
+                    class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
+                           hover:bg-surface-3 transition-colors duration-120"
+                    title="Выйти" aria-label="Выйти">
+              {{ icon('log-out', class='w-4 h-4') }}
+            </button>
+          </form>
         </div>
       </div>
-      <div class="portal-userinfo-avatar" aria-hidden="true">
-        {{ (user.name or user.login)[:1] | upper }}
-      </div>
-      <form method="post" action="/logout" class="inline">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-        <button type="submit" class="portal-logout-btn"
-                title="Выйти" aria-label="Выйти">
-          {{ icon('log-out', 'w-4 h-4') }}
-        </button>
-      </form>
     </div>
-  </div>
-</header>
-{% endif %}
+  </aside>
 
-<main>
-  {% block content %}{% endblock %}
+  {# === Контент ============================================================ #}
+  <main class="kt-main">
+    <div class="kt-content px-8 py-8">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+
+{% else %}
+{# Без user (страница рендерится до авторизации, например login.html
+   расширяет login.html и сюда не приходит) — на всякий случай минимум. #}
+<main class="min-h-screen">
+  {% block content_anon %}{% endblock %}
 </main>
+{% endif %}
 </body>
 </html>

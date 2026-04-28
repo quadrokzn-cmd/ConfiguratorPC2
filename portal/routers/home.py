@@ -54,7 +54,5 @@ def home(
             "dashboard":         dashboard,
             "show_configurator": show_configurator,
             "configurator_url":  settings.configurator_url,
-            # active section для топбара
-            "active_section":    "home",
         },
     )

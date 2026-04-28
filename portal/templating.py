@@ -1,9 +1,12 @@
-# Шаблоны портала (этап 9Б.1).
+# Шаблоны портала.
 #
-# Намеренно минимально: один Jinja2Templates, один globals (portal_url
-# + configurator_url) и filter static_url для cache-busting. Никакого
-# курса ЦБ и фильтров to_rub/fmt_rub — порталу они не нужны (по
-# крайней мере в 9Б.1).
+# Этап 9Б.1: минимальная регистрация (только globals portal_url/configurator_url
+# и static_url).
+# Этап 9Б.2: фильтры для дашборда (ru_date, ru_datetime_short, days_ago).
+# Этап 9Б.2.1: курс ЦБ — общий партиал shared/templates/_partials/fx_widget.html
+# импортирует Jinja-global current_exchange_rate(), регистрируем здесь же.
+# Реализацию переиспользуем из app/templating.py — функция уже умеет
+# открывать SessionLocal и парсить fetched_at в МСК.
 
 from __future__ import annotations
 
@@ -14,7 +17,10 @@ from fastapi.templating import Jinja2Templates
 from app.config import settings
 
 
-templates = Jinja2Templates(directory="portal/templates")
+# 9Б.2.1: добавляем shared/templates как fallback. Партиалы
+# (`_partials/fx_widget.html`) одни и те же для обоих сервисов;
+# свои шаблоны портала находятся первыми.
+templates = Jinja2Templates(directory=["portal/templates", "shared/templates"])
 
 
 _STATIC_ROOT = Path(__file__).resolve().parent.parent / "static"
@@ -47,3 +53,11 @@ from portal.services import dashboard as _dashboard
 templates.env.filters["ru_date"] = _dashboard.format_ru_date
 templates.env.filters["ru_datetime_short"] = _dashboard.format_ru_datetime_short
 templates.env.filters["days_ago"] = _dashboard.format_days_ago
+
+# 9Б.2.1: курс ЦБ — переиспользуем готовую функцию app/templating.py.
+# Она открывает свою сессию SessionLocal и форматирует fetched_at в МСК.
+# Импорт лежит здесь, а не на уровне модуля, чтобы не падать в тестах,
+# где app.templating может тянуть тяжёлые зависимости (scheduler и пр.).
+from app.templating import current_exchange_rate as _current_exchange_rate
+
+templates.env.globals["current_exchange_rate"] = _current_exchange_rate

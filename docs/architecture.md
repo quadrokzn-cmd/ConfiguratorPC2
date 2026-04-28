@@ -55,7 +55,9 @@ ConfiguratorPC2/
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
 │   ├── db.py           ← engine, SessionLocal, get_db
 │   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
-│   └── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions)
+│   ├── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions)
+│   └── templates/      ← общие Jinja-партиалы (этап 9Б.2.1)
+│       └── _partials/fx_widget.html  ← курс ЦБ — рендерится сайдбарами обоих сервисов
 ├── migrations/         ← SQL-миграции 001–017 (применяются по порядку)
 ├── scripts/            ← CLI-скрипты (apply_migrations, bootstrap_admin, и пр.)
 ├── tests/              ← pytest, 741 passed + 2 skipped

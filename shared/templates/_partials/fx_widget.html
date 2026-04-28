@@ -1,0 +1,31 @@
+{#
+  Виджет курса ЦБ (этап 9Б.2.1).
+
+  Раньше: жил отдельной копией в app/templates/base.html. Теперь —
+  общий частичный шаблон, который инклюдится и сайдбаром конфигуратора,
+  и сайдбаром портала. Один источник истины.
+
+  Зависимости:
+    - Jinja-globals current_exchange_rate() — должна быть зарегистрирована
+      в шаблонной инстанции вызывающего сервиса (есть и в app/templating.py,
+      и в portal/templating.py с этапа 9Б.2.1).
+    - Макрос {% from "_macros/icons.html" import icon %} с поддержкой
+      'trending-up' — есть и у конфигуратора, и у портала.
+
+  Стиль .kt-fx-widget — общий компонент в static/src/main.css.
+  Если данных в БД нет (редкий edge-case первого старта) — виджет
+  просто не отрисуется.
+#}
+{% set _fx = current_exchange_rate() %}
+{% if _fx %}
+<div class="kt-fx-widget"
+     title="Источник: {{ 'ЦБ РФ' if _fx.source == 'cbr' else _fx.source }}&#10;Дата курса: {{ _fx.rate_date.strftime('%d.%m.%Y') }}&#10;Загружено: {{ _fx.fetched_label }} МСК">
+  <span class="kt-fx-icon">{{ icon('trending-up', class='w-3.5 h-3.5') }}</span>
+  <div class="kt-fx-text">
+    <div class="kt-fx-rate">$ = {{ '%.2f'|format(_fx.rate) }} ₽</div>
+    {% if _fx.fetched_label %}
+    <div class="kt-fx-stamp">обновлено {{ _fx.fetched_label }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
