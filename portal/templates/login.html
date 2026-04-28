@@ -5,32 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Вход — КВАДРО-ТЕХ</title>
   <link rel="stylesheet" href="{{ static_url('static/dist/main.css') }}">
+  <link rel="icon" type="image/png" href="/static/img/favicon.png">
 </head>
-<body class="portal-theme min-h-screen flex items-center justify-center px-4">
-  <div class="w-full max-w-sm">
-    <div class="text-center mb-8">
-      <div class="text-h1 text-ink-primary">КВАДРО-ТЕХ</div>
-      <div class="text-small text-ink-muted">портал</div>
+{# 9Б.4: редизайн страницы логина. Тот же body.portal-theme, что у
+   остальных страниц портала, чтобы цветовые токены совпадали. Сама
+   страница — отдельный layout (не наследует base.html, потому что
+   user не задан и весь shell с сайдбаром не нужен). #}
+<body class="portal-theme min-h-screen kt-login-page">
+
+  {# Центральное ambient-свечение под формой — большое радиальное
+     brand-свечение в центре экрана. Чисто декоративно, не ловит клики. #}
+  <div class="kt-login-ambient" aria-hidden="true"></div>
+
+  <main class="kt-login-shell">
+    <div class="kt-login-brand">
+      <img src="/static/img/brand/quadro-logo.svg" alt="QUADRO"
+           class="kt-login-logo block w-auto select-none">
+      <div class="kt-login-caption" aria-label="Портал">{#
+        #}<span>П</span><span>О</span><span>Р</span><span>Т</span><span>А</span><span>Л</span>
+      </div>
+      <div class="kt-login-tagline">Внутренний сервис КВАДРО-ТЕХ</div>
     </div>
 
-    <form method="post" action="/login" class="card card-pad-lg space-y-4">
+    <form method="post" action="/login" class="kt-login-card" novalidate>
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <input type="hidden" name="next" value="{{ next or '' }}">
 
       {% if error %}
-      <div class="alert alert-danger">{{ error }}</div>
+      <div class="alert alert-danger mb-5" role="alert">{{ error }}</div>
       {% endif %}
 
-      <div>
+      <div class="mb-4">
         <label class="label" for="lf-login">Логин</label>
-        <input id="lf-login" type="text" name="login" autofocus required class="input">
+        <input id="lf-login" type="text" name="login" autocomplete="username"
+               autofocus required class="input">
       </div>
-      <div>
+      <div class="mb-6">
         <label class="label" for="lf-pass">Пароль</label>
-        <input id="lf-pass" type="password" name="password" required class="input">
+        <input id="lf-pass" type="password" name="password"
+               autocomplete="current-password" required class="input">
       </div>
       <button type="submit" class="btn btn-lg btn-primary w-full">Войти</button>
     </form>
-  </div>
+  </main>
+
 </body>
 </html>

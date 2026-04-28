@@ -6,6 +6,23 @@
 {% block content %}
 <div class="portal-page">
 
+  {# === denied-баннер (9Б.4) =============================================
+     Приходит ?denied=<module_key> от middleware заблокированного модуля
+     (сейчас — конфигуратор). Кнопка-крестик скрывает баннер на клиенте,
+     не делая редирект — чтобы пользователь не уехал в /?denied=… ещё раз. #}
+  {% if denied_label %}
+  <div id="kt-denied-banner" class="portal-denied-banner" role="alert"
+       data-testid="denied-banner">
+    <span class="portal-denied-banner-text">
+      У вас нет доступа к модулю «{{ denied_label }}». Обратитесь к
+      администратору, если этот модуль вам нужен.
+    </span>
+    <button type="button" class="portal-denied-banner-close"
+            aria-label="Закрыть"
+            onclick="document.getElementById('kt-denied-banner').remove()">×</button>
+  </div>
+  {% endif %}
+
   {# === Приветствие ====================================================== #}
   <section class="mb-8">
     <h1 class="portal-greeting">Добрый день, {{ first_name }}</h1>

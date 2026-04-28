@@ -1447,6 +1447,146 @@ body.portal-theme {
     min-height: 124px;
   }
 
+  /* === Портал: denied-баннер на главной (9Б.4) ========================
+     Красно-оранжевая полоса сверху дашборда. Появляется, когда middleware
+     заблокированного модуля редиректит пользователя на /?denied=<key>.
+     Полупрозрачная заливка по semantic-warning, тонкая граница, иконка-
+     треугольник — заранее не нужна, текст самодостаточный. */
+  .portal-denied-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem 0.875rem 1.125rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.625rem;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.40);
+    color: theme('colors.warning.500');
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .portal-denied-banner-text { flex: 1 1 auto; }
+  .portal-denied-banner-close {
+    flex-shrink: 0;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: theme('colors.warning.500');
+    opacity: 0.7;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    transition: opacity 120ms ease, color 120ms ease;
+  }
+  .portal-denied-banner-close:hover {
+    opacity: 1;
+    color: theme('colors.ink.primary');
+  }
+
+  /* === Страница логина (9Б.4) =========================================
+     Брендированная карточка по центру экрана: лого UADRO сверху, под
+     ним крупная «ПОРТАЛ» с расперекладкой букв, ниже — таглайн и
+     squircle-карточка с полями. Большое ambient-свечение brand-цветом
+     по центру + узкое подсвеченное обрамление карточки.
+
+     Не наследует kt-app-shell и не имеет сайдбара (логин — pre-auth
+     страница, юзер ещё не задан). Цвета берутся из portal-theme. */
+  .kt-login-page {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 32px 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  /* Отключаем общий «свет из угла» (body::before в base): на странице
+     логина мы рисуем своё центральное свечение через .kt-login-ambient. */
+  body.kt-login-page::before { display: none; }
+  .kt-login-ambient {
+    position: fixed;
+    left: 50%;
+    top: 60%;
+    width: 720px;
+    height: 720px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(32, 82, 232, 0.22) 0%,
+      rgba(32, 82, 232, 0.10) 30%,
+      transparent 65%);
+    filter: blur(80px);
+  }
+  .kt-login-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .kt-login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .kt-login-logo {
+    width: 220px;
+    max-width: 80%;
+    height: auto;
+  }
+  .kt-login-caption {
+    margin-top: 18px;
+    width: 220px;
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: theme('colors.ink.primary');
+    text-transform: uppercase;
+  }
+  .kt-login-caption > span { display: inline-block; }
+  .kt-login-tagline {
+    margin-top: 12px;
+    font-size: 13px;
+    color: theme('colors.ink.muted');
+    letter-spacing: 0.02em;
+  }
+  .kt-login-card {
+    width: 100%;
+    background: rgb(var(--surface-1) / 0.85);
+    border: 1px solid theme('colors.line.softer');
+    border-radius: 18px;
+    padding: 28px 28px 32px 28px;
+    backdrop-filter: blur(8px);
+    box-shadow:
+      0 0 0 1px rgba(64, 120, 255, 0.12),
+      0 12px 40px -12px rgba(32, 82, 232, 0.35),
+      0 24px 60px -24px rgba(0, 0, 0, 0.65);
+    transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .kt-login-card:focus-within {
+    border-color: rgba(64, 120, 255, 0.40);
+    box-shadow:
+      0 0 0 1px rgba(64, 120, 255, 0.30),
+      0 14px 44px -12px rgba(32, 82, 232, 0.50),
+      0 24px 60px -24px rgba(0, 0, 0, 0.65);
+  }
+  @media (max-width: 480px) {
+    .kt-login-shell { gap: 22px; }
+    .kt-login-logo { width: 180px; }
+    .kt-login-caption { width: 180px; font-size: 22px; margin-top: 14px; }
+    .kt-login-card { padding: 22px 18px 24px 18px; border-radius: 14px; }
+    .kt-login-page { padding: 16px; }
+  }
+
   /* === Конфигуратор: пункт «← Портал» в сайдбаре (9Б.2) ===============
      Лежит над блоком пользователя в нижней части .kt-sidebar-footer.
      Тонкий разделитель сверху + обычный nav-item-look. */

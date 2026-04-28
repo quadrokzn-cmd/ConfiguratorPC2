@@ -137,17 +137,25 @@ def db_session(db_engine):
 
 # ---- Пользователи и клиенты -------------------------------------------
 
-def _create_user(session, *, login: str, password: str, role: str, name: str) -> int:
+def _create_user(
+    session, *, login: str, password: str, role: str, name: str,
+    permissions: dict | None = None,
+) -> int:
     """Создаёт пользователя. С миграцией 017 (этап 9Б.1) у каждого
     пользователя есть users.permissions JSONB; для тестов конфигуратора
     выдаём дефолт {"configurator": True}, чтобы менеджеры могли
-    открывать страницы конфигуратора (логин идёт через портал, и портал
-    проверит permissions при заходе на главную; на сами защищённые
-    страницы конфигуратора permissions пока не проверяются — это 9Б.2,
-    но ставим как у production-пользователей)."""
+    открывать страницы конфигуратора (с этапа 9Б.4 в конфигураторе
+    есть middleware-проверка permission — без права менеджер получит
+    302 на портал).
+
+    9Б.4: можно передать явный permissions, чтобы создать менеджера
+    БЕЗ доступа к configurator (для тестов middleware)."""
     import json as _json
     from shared.auth import hash_password
-    perms = {} if role == "admin" else {"configurator": True}
+    if permissions is None:
+        perms = {} if role == "admin" else {"configurator": True}
+    else:
+        perms = permissions
     row = session.execute(
         text(
             "INSERT INTO users (login, password_hash, role, name, permissions) "
@@ -181,6 +189,18 @@ def manager2_user(db_session):
     uid = _create_user(db_session, login="manager2", password="manager-pass",
                        role="manager", name="Менеджер 2")
     return {"id": uid, "login": "manager2", "password": "manager-pass"}
+
+
+@pytest.fixture()
+def manager_no_perms(db_session):
+    """9Б.4: менеджер БЕЗ permission на configurator. Используется для
+    тестов middleware-блокировки на стороне конфигуратора."""
+    uid = _create_user(
+        db_session, login="manager_empty", password="manager-pass",
+        role="manager", name="Без доступа",
+        permissions={},
+    )
+    return {"id": uid, "login": "manager_empty", "password": "manager-pass"}
 
 
 import os as _os

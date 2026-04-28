@@ -47,6 +47,13 @@ templates.env.globals["static_url"] = static_url
 templates.env.globals["portal_url"] = settings.portal_url
 templates.env.globals["configurator_url"] = settings.configurator_url
 
+# 9Б.4: has_permission(user.role, user.permissions, module_key) — для условного
+# рендера ссылок на модули в сайдбаре (например, «← Конфигуратор» прячется,
+# если у пользователя нет permissions["configurator"]).
+from shared.permissions import has_permission as _has_permission
+
+templates.env.globals["has_permission"] = _has_permission
+
 # 9Б.2: фильтры для дашборда — русское форматирование дат и «N дней назад».
 from portal.services import dashboard as _dashboard
 

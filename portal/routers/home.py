@@ -17,7 +17,7 @@ from portal.services.dashboard import get_dashboard_data
 from portal.templating import templates
 from shared.auth import AuthUser, get_csrf_token, require_login
 from shared.db import get_db
-from shared.permissions import has_permission
+from shared.permissions import MODULE_LABELS, has_permission
 
 
 router = APIRouter()
@@ -26,6 +26,7 @@ router = APIRouter()
 @router.get("/")
 def home(
     request: Request,
+    denied: str = "",
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
 ):
@@ -33,6 +34,12 @@ def home(
 
     Сервис dashboard.get_dashboard_data() возвращает безопасный dict
     даже на пустой БД — здесь дополнительной обработки не требуется.
+
+    9Б.4: ?denied=<module_key> — приходит редиректом из middleware
+    конфигуратора (или другого модуля), когда у менеджера нет permission
+    на запрашиваемый модуль. Превращаем в человекочитаемый текст
+    «У вас нет доступа к модулю «X»» и показываем баннером сверху
+    дашборда.
     """
     dashboard = get_dashboard_data(db)
 
@@ -44,6 +51,8 @@ def home(
     full_name = (user.name or "").strip()
     first_name = full_name.split()[0] if full_name else user.login
 
+    denied_label = MODULE_LABELS.get(denied) if denied else None
+
     return templates.TemplateResponse(
         request,
         "home.html",
@@ -54,5 +63,6 @@ def home(
             "dashboard":         dashboard,
             "show_configurator": show_configurator,
             "configurator_url":  settings.configurator_url,
+            "denied_label":      denied_label,
         },
     )

@@ -56,12 +56,18 @@
     </nav>
 
     <div class="kt-sidebar-footer">
-      {# 9Б.2.1: «← Конфигуратор» — симметрична кнопке «← Портал» в
-         сайдбаре конфигуратора. Тот же стиль .kt-portal-back. #}
+      {# 9Б.2.1: «← Конфигуратор» — симметрична кнопке «← Портал» в сайдбаре
+         конфигуратора. Тот же стиль .kt-portal-back.
+         9Б.4: показываем только пользователям с permissions["configurator"];
+         admin всегда True. Без права ссылка вообще не рендерится — иначе
+         по клику пользователь упрётся в редирект-обратно от middleware
+         конфигуратора и получил бы баннер «нет доступа». #}
+      {% if has_permission(user.role, user.permissions, 'configurator') %}
       <a href="{{ configurator_url }}/" class="kt-portal-back" target="_self">
         <span class="kt-portal-back-icon">{{ icon('arrow-left', class='w-4 h-4') }}</span>
         <span>Конфигуратор</span>
       </a>
+      {% endif %}
 
       {# Курс ЦБ — общий партиал shared/templates/_partials/fx_widget.html. #}
       {% include "_partials/fx_widget.html" %}

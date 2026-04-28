@@ -21,7 +21,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs
+from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs, get_user_by_id
 from app.config import settings
 from app.database import SessionLocal
 from app.routers import (
@@ -36,6 +36,7 @@ from app.scheduler import (
     init_scheduler,
     shutdown_scheduler,
 )
+from shared.permissions import has_permission
 
 
 logger = logging.getLogger(__name__)
@@ -69,6 +70,67 @@ def _startup_scheduler() -> None:
 @app.on_event("shutdown")
 def _shutdown_scheduler() -> None:
     shutdown_scheduler()
+
+
+# Permission middleware (этап 9Б.4). Второй уровень защиты после login:
+# у залогиненного пользователя должна быть permissions["configurator"]=true,
+# иначе конфигуратор НЕ ОТКРЫВАЕТСЯ — редирект на ${PORTAL_URL}/?denied=configurator.
+# Без этого менеджер без прав мог зайти прямо по URL config.quadro.tatar/
+# и обойти UI-фильтр на портале.
+#
+# Порядок регистрации middleware важен: starlette применяет user_middleware
+# в обратном порядке (последний add_middleware — outermost). Чтобы внутри
+# permission-middleware был доступен request.session, SessionMiddleware
+# должен быть outermost — поэтому его add_middleware идёт ПОСЛЕ нашего.
+_PERM_BYPASS_PATH_PREFIXES = ("/static", "/healthz", "/logout")
+
+
+@app.middleware("http")
+async def _enforce_configurator_permission(request: Request, call_next):
+    """Блокирует доступ к конфигуратору пользователям без права 'configurator'.
+
+    Логика:
+      - служебные пути (/static, /healthz, /logout) и preflight OPTIONS —
+        пропускаются без проверки;
+      - не залогиненные тоже пропускаются: дальше отработает обычный
+        require_login → LoginRequiredRedirect → 302 на портал/login;
+      - залогиненный без права получает 403 JSON, если запрос ждёт JSON,
+        иначе 302 на ${PORTAL_URL}/?denied=configurator (портал покажет баннер).
+
+    admin всегда проходит — has_permission(admin, ..., ...) → True (см. shared/permissions.py).
+    """
+    path = request.url.path
+    if request.method == "OPTIONS" or any(
+        path.startswith(p) for p in _PERM_BYPASS_PATH_PREFIXES
+    ):
+        return await call_next(request)
+
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return await call_next(request)
+
+    db = SessionLocal()
+    try:
+        user = get_user_by_id(db, int(user_id))
+    finally:
+        db.close()
+
+    if user is None:
+        # Сессия указывает на удалённого/деактивированного пользователя —
+        # current_user-зависимость её почистит и редиректнет на login.
+        return await call_next(request)
+
+    if has_permission(user.role, user.permissions or {}, "configurator"):
+        return await call_next(request)
+
+    accept = request.headers.get("accept", "")
+    if "application/json" in accept and "text/html" not in accept:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={"detail": "Нет доступа к модулю «Конфигуратор ПК»."},
+        )
+    target = f"{settings.portal_url}/?denied=configurator"
+    return RedirectResponse(url=target, status_code=status.HTTP_302_FOUND)
 
 
 # Сессии — подписанные cookie. Кука и секрет общие с порталом
