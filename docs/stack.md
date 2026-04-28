@@ -20,8 +20,8 @@
 
 | Что               | Чем                                                             |
 |-------------------|-----------------------------------------------------------------|
-| СУБД              | PostgreSQL 16                                                   |
-| psql              | `C:\Program Files\PostgreSQL\16\bin\psql.exe`                   |
+| СУБД              | PostgreSQL 18 (Railway, прод); локально 16+                     |
+| psql              | `C:\Program Files\PostgreSQL\16\bin\psql.exe` (локально)        |
 | Миграции          | Чистый SQL в [`../migrations/`](../migrations/) (001–016)       |
 | Тестовая БД       | `configurator_pc_test`, `conftest.py` накатывает все миграции   |
 
@@ -81,6 +81,12 @@ Tailwind сканирует:
   - `app.quadro.tatar` — портал КВАДРО-ТЕХ (Этап 9Б, отдельный проект)
 - Сборка: Dockerfile (Python 3.11, requirements.txt, собранный
   `static/dist/main.css` коммитится — Node.js на проде не нужен).
+- Postgres-плагин Railway: мажор **18** (на момент апреля 2026 Railway
+  поднял дефолт с 16 до 18). Образ портала ставит `postgresql-client-18`
+  через PGDG — клиент `pg_dump` обязан совпадать с сервером, иначе
+  «server version mismatch». Для локального восстановления прод-бекапов
+  тоже нужен PostgreSQL 18; для повседневной разработки на локальной
+  БД достаточно 16+.
 
 ## Локальная разработка
 

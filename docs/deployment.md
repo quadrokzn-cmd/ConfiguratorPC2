@@ -8,7 +8,7 @@
 
 - **Платформа**: [Railway](https://railway.com).
 - **Поддомен**: `config.quadro.tatar` (CNAME на Railway-инстанс).
-- **БД**: PostgreSQL 16 как Railway plugin (Add Database → PostgreSQL).
+- **БД**: PostgreSQL 18 как Railway plugin (Add Database → PostgreSQL).
   Подключение проксируется через переменную `DATABASE_URL`, которую
   Railway проставляет автоматически.
 - **Билдер**: `Dockerfile` в корне репо (см. `railway.json`). От
@@ -174,17 +174,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 описана только готовность кодовой базы, чтобы развёртывание сводилось
 к указанию config-файла и переменных окружения.
 
-### postgresql-client-16 в Dockerfile.portal (этап 9В.2)
+### postgresql-client-18 в Dockerfile.portal (этап 9В.2 → 9В.2.1)
 
 Образ портала (в отличие от конфигуратора) содержит `pg_dump` —
-требуется для бекапов БД на Backblaze B2. Версия фиксирована **16**,
-чтобы совпадать с серверной версией Postgres на Railway (custom-формат
-дампа от pg_dump 15 не читается pg_restore 16 без warning'ов).
+требуется для бекапов БД на Backblaze B2. Версия фиксирована **18**,
+чтобы совпадать с серверной версией Postgres на Railway. `pg_dump`
+жёстко отказывается дампить сервер новее своего мажора:
+`pg_dump: error: aborting because of server version mismatch`.
+
+Изначально в этапе 9В.2 ставился `postgresql-client-16` (Railway-плагин
+тогда был на 16-м мажоре). На момент 9В.2.1 (апрель 2026) Railway
+поднял дефолтный мажор Postgres до **18**, и боевая проверка бекапа
+упала на проде с version mismatch — пришлось поднять клиент до 18.
 
 В стандартном репе Debian 12 Bookworm доступен только `postgresql-client-15`,
 поэтому в Dockerfile.portal подключается официальная репа
 [PGDG](https://www.postgresql.org/download/linux/debian/) через
-современный `signed-by` keyring (вместо устаревшего `apt-key`).
+современный `signed-by` keyring (вместо устаревшего `apt-key`). Сама
+репа PGDG поддерживает мажоры 12-18 одновременно — для перехода на
+другой мажор достаточно сменить только номер пакета.
 
 В конфигураторе pg_dump не нужен — основной `Dockerfile` остаётся
 без изменений, тоньше и меньше.
@@ -362,21 +370,27 @@ cookie секретом из `APP_SECRET_KEY`. На production:
 ### Команды (Windows / PowerShell)
 
 ```powershell
+# Пути ниже — для PostgreSQL 18 (мажор клиента должен совпадать с
+# Railway-сервером, иначе pg_dump/pg_restore откажутся работать).
+# Если локально установлен только PostgreSQL 16, замените 18 на 16
+# в путях ТОЛЬКО для шага 1 (дамп локальной БД 16) — но шаги 2 и 3
+# обращаются к Railway-Postgres 18 и требуют клиент 18.
+
 # 1. Дамп локальной БД
 $env:PGPASSWORD = "postgres"
-& "C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" `
+& "C:\Program Files\PostgreSQL\18\bin\pg_dump.exe" `
     --host=localhost --port=5432 --username=postgres `
     --format=custom --no-owner --no-acl `
     --file="db_dumps\kvadro_tech_$(Get-Date -Format 'yyyyMMdd_HHmmss').dump" `
     kvadro_tech
 
 # 2. TRUNCATE на Railway (DO-блок, исключающий schema_migrations)
-& "C:\Program Files\PostgreSQL\16\bin\psql.exe" `
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
     --dbname=$env:DATABASE_PUBLIC_URL `
     --file=db_dumps\truncate_railway.sql
 
 # 3. Восстановление данных
-& "C:\Program Files\PostgreSQL\16\bin\pg_restore.exe" `
+& "C:\Program Files\PostgreSQL\18\bin\pg_restore.exe" `
     --dbname=$env:DATABASE_PUBLIC_URL `
     --data-only --no-owner --no-acl --disable-triggers --verbose `
     db_dumps\kvadro_tech_<timestamp>.dump

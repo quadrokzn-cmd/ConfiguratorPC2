@@ -112,8 +112,8 @@ def _resolve_pg_dump_binary() -> str:
     raise RuntimeError(
         "pg_dump не найден ни в PATH, ни по дефолтному Windows-пути "
         f"({_WINDOWS_PG_DUMP_FALLBACK}). "
-        "На Railway он ставится из postgresql-client-16 (см. Dockerfile.portal); "
-        "локально установите PostgreSQL 16."
+        "На Railway он ставится из postgresql-client-18 (см. Dockerfile.portal); "
+        "локально установите PostgreSQL 18 (мажор клиента должен совпадать с сервером)."
     )
 
 

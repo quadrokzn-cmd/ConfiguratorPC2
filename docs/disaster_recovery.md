@@ -6,8 +6,11 @@
 
 ## Что бекапим
 
-- **БД целиком** (PostgreSQL 16 на Railway, имя `kvadro_tech` / то, что
-  отдаёт `DATABASE_URL`).
+- **БД целиком** (PostgreSQL 18 на Railway, имя `kvadro_tech` / то, что
+  отдаёт `DATABASE_URL`). Бекап в формате `pg_dump --format=custom`
+  от мажора 18 требует `pg_restore` мажора **18** на приёмной стороне
+  (custom-формат не совместим вверх). При восстановлении локально
+  должен быть установлен PostgreSQL 18.
 - В дамп попадают: схема (миграции 001..N), все таблицы, sequence-ы.
   pg_dump c `--format=custom --no-owner --no-acl` — данные + структура
   без owner/grant команд.
@@ -111,8 +114,9 @@ pg_restore --clean --if-exists --no-owner --no-acl --verbose \
     --dbname="$DATABASE_URL" \
     kvadro_tech_<YYYY-MM-DDTHH-MM-SS>.dump
 
-# Windows / PowerShell:
-& "C:\Program Files\PostgreSQL\16\bin\pg_restore.exe" `
+# Windows / PowerShell (нужен PostgreSQL 18 локально — клиент должен
+# совпадать с мажором Railway-сервера):
+& "C:\Program Files\PostgreSQL\18\bin\pg_restore.exe" `
     --clean --if-exists --no-owner --no-acl --verbose `
     --dbname=$env:DATABASE_URL `
     kvadro_tech_<YYYY-MM-DDTHH-MM-SS>.dump

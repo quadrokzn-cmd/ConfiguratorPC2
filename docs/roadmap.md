@@ -371,7 +371,8 @@ ConfiguratorPC2. Двух-сервисный сетап описан в `docs/de
 - **Dockerfile.portal**: добавлен `postgresql-client-16` через
   официальную репу PGDG (signed-by keyring, без устаревшего apt-key) —
   стандартный Debian 12 даёт только pg_dump 15, который несовместим с
-  custom-форматом 16-й серверной версии.
+  custom-форматом 16-й серверной версии. *(В этапе 9В.2.1 версия
+  поднята до 18 — Railway апгрейднул Postgres до мажора 18.)*
 - **requirements.txt**: добавлен `boto3>=1.34,<2.0`.
 - **Env vars (Railway)** — на обоих сервисах: `B2_ENDPOINT`,
   `B2_BUCKET`, `B2_KEY_ID`, `B2_APPLICATION_KEY`. Application Key
@@ -386,6 +387,31 @@ ConfiguratorPC2. Двух-сервисный сетап описан в `docs/de
   admin/manager/anonymous, 6 параметризованных кейсов path traversal,
   команда pg_dump, обработка падения, mask_db_url). Всего после этапа
   — **819 passed** локально (94 в test_portal/, без регрессий).
+
+#### 9В.2.1 — Фикс: pg_dump 16 → 18 для совместимости с Railway-Postgres 18 ✅
+
+Боевая проверка 9В.2 через UI `/admin/backups` упала на проде с
+ошибкой `pg_dump: error: aborting because of server version mismatch`
+(server 18.3, client 16.13). Railway незаметно поднял дефолтный мажор
+своего Postgres-плагина с 16 до 18, документация проекта оставалась на
+16. pg_dump жёстко отказывается дампить сервер новее своего мажора —
+нужно совпадение клиента и сервера.
+
+- **Dockerfile.portal**: `postgresql-client-16` → `postgresql-client-18`.
+  PGDG-репа поддерживает мажоры 12-18 одновременно, никаких других
+  правок не потребовалось.
+- **portal/services/backup_service.py**: текст `RuntimeError`'а при
+  отсутствии pg_dump теперь упоминает PostgreSQL 18 (логика поиска
+  бинаря и флаги pg_dump не менялись — `--format=custom`,
+  `--no-owner`, `--no-acl` стабильны и в 18-м мажоре).
+- **Документация**: в `stack.md`, `database.md`, `deployment.md`,
+  `disaster_recovery.md` упоминания PostgreSQL 16 заменены на 18 в
+  частях про прод; локальная разработка может продолжать жить на 16+
+  (бекапы локально не запускаются), но для **локального восстановления
+  прод-бекапа** нужен PostgreSQL 18 — клиент должен совпадать с мажором
+  сервера.
+- **Тесты**: без изменений (мокают subprocess, от версии pg_dump не
+  зависят) — 819 passed.
 
 ## Принцип ведения этапов
 
