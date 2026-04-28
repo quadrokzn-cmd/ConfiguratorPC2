@@ -153,13 +153,42 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 **Сам Railway-сервис портала разворачивается в подэтапе 9Б.3** — здесь
 описана только готовность кодовой базы, чтобы развёртывание сводилось
-к указанию Dockerfile и переменных окружения.
+к указанию config-файла и переменных окружения.
+
+### Per-service config-as-code (этап 9Б.3.1)
+
+Railway по умолчанию читает `railway.json` из корня репо для **каждого**
+сервиса, который смотрит в этот репо. У нас два сервиса с разными
+Dockerfile, поэтому держим **два** config-файла и в Settings каждого
+сервиса указываем нужный путь:
+
+| Файл                  | Сервис                   | Dockerfile           | healthcheckTimeout |
+|-----------------------|--------------------------|----------------------|--------------------|
+| `railway.json`        | ConfiguratorPC2 (`config.quadro.tatar`) | `Dockerfile`         | 30 с               |
+| `railway.portal.json` | portal (`app.quadro.tatar`)             | `Dockerfile.portal`  | 300 с              |
+
+В Railway dashboard для каждого сервиса:
+**Settings → Config-as-code → Path** = соответствующий файл из таблицы.
+
+Почему у портала `healthcheckTimeout=300`, а у конфигуратора `30`:
+конфигуратор стабильно стартует за секунды (миграции 001-016 уже
+применены), а портал на холодном старте применяет миграцию 017 и
+загружает дашборд-запросы — 30 секунд может не хватить, и Railway
+зарестартит контейнер посреди миграции. На конфигураторе значение
+`30` оставляем как есть — он его «отрабатывает» уверенно.
+
+**Важно при создании новых сервисов в этом проекте**: если когда-то
+добавится третий сервис из этого же репо — нужно сразу создать для него
+свой `railway.<name>.json` и указать его путь в Settings, иначе Railway
+возьмёт дефолтный `railway.json` (конфиг конфигуратора) и попытается
+собрать чужой сервис из основного `Dockerfile`.
 
 ### Создание сервиса портала на Railway (план для 9Б.3)
 
 1. В том же Railway-проекте, где живёт конфигуратор, нажать
    «New service → Deploy from GitHub repo» — указать тот же репо.
-2. Settings → Build → **Dockerfile path: `Dockerfile.portal`**.
+2. Settings → Config-as-code → **Path: `railway.portal.json`**
+   (Dockerfile и параметры healthcheck подтянутся из этого файла).
 3. Settings → Networking → выдать публичный URL, привязать домен
    `app.quadro.tatar` (CNAME на новом Railway-URL).
 4. В Variables прописать:
@@ -215,9 +244,11 @@ uvicorn. Раннер идемпотентен (журнал в таблице `
 - **200** `{"status": "ok", "db": "ok"}` — обычный случай.
 - **503** `{"status": "error", "db": "error"}` — упал `SELECT 1` к БД.
 
-Railway дёргает его как liveness probe (`healthcheckPath: /healthz`,
-таймаут 30 секунд, см. `railway.json`). Перезапуск инстанса —
-`ON_FAILURE` с тремя попытками.
+Railway дёргает его как liveness probe (`healthcheckPath: /healthz`).
+Таймаут зависит от сервиса: конфигуратор — 30 с (`railway.json`),
+портал — 300 с (`railway.portal.json`, см. раздел про per-service
+config-as-code выше). Перезапуск инстанса — `ON_FAILURE` с тремя
+попытками.
 
 ## Сессии и cookie
 
