@@ -20,6 +20,24 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+# Этап 9В.2: postgresql-client-16 для pg_dump (бекапы БД на Backblaze B2).
+# В стандартном репе Debian 12 Bookworm доступен только postgresql-client-15;
+# чтобы версия pg_dump совпадала с серверной (Postgres 16 на Railway),
+# подключаем официальную репу PGDG. Используем современный signed-by-кейринг
+# вместо устаревшего apt-key.
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        wget gnupg ca-certificates lsb-release; \
+    install -d -m 0755 /etc/apt/keyrings; \
+    wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+        | gpg --dearmor -o /etc/apt/keyrings/pgdg-archive-keyring.gpg; \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+        > /etc/apt/sources.list.d/pgdg.list; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends postgresql-client-16; \
+    rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 

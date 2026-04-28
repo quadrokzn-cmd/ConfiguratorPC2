@@ -46,6 +46,25 @@
 | `SMTP_*` | Параметры SMTP для отправки писем поставщикам (этап 8.3). Без `SMTP_APP_PASSWORD` отправка падает, остальные функции работают. |
 | `DAILY_OPENAI_BUDGET_RUB` | Дневной лимит расходов OpenAI. По умолчанию 100 ₽. |
 
+### Этап 9В.2: Backblaze B2 для бекапов БД
+
+Эти 4 переменные нужны **обоим сервисам** (портал создаёт бекапы, но
+конфигуратор тоже импортирует `app.config`, который проходит через
+тот же набор env). Application Key Backblaze ограничен Read+Write
+только на единственный бакет `quadro-tech-db-backups`.
+
+| Переменная | Значение |
+|---|---|
+| `B2_ENDPOINT` | `https://s3.us-east-005.backblazeb2.com` |
+| `B2_BUCKET` | `quadro-tech-db-backups` |
+| `B2_KEY_ID` | (Application Key ID из Backblaze UI) |
+| `B2_APPLICATION_KEY` | (Application Key из Backblaze UI) |
+
+Расписание ежедневного бекапа — 03:00 МСК, реализация в
+`portal/scheduler.py`. Активируется автоматически при `APP_ENV=production`,
+либо явно через `RUN_BACKUP_SCHEDULER=1` (для dev-окружения).
+Подробности — [disaster_recovery.md](disaster_recovery.md).
+
 ### Этап 9Б.1: межсервисные ссылки конфигуратор ↔ портал
 
 Эти переменные нужны обоим сервисам — и конфигуратору, и порталу.
@@ -154,6 +173,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 **Сам Railway-сервис портала разворачивается в подэтапе 9Б.3** — здесь
 описана только готовность кодовой базы, чтобы развёртывание сводилось
 к указанию config-файла и переменных окружения.
+
+### postgresql-client-16 в Dockerfile.portal (этап 9В.2)
+
+Образ портала (в отличие от конфигуратора) содержит `pg_dump` —
+требуется для бекапов БД на Backblaze B2. Версия фиксирована **16**,
+чтобы совпадать с серверной версией Postgres на Railway (custom-формат
+дампа от pg_dump 15 не читается pg_restore 16 без warning'ов).
+
+В стандартном репе Debian 12 Bookworm доступен только `postgresql-client-15`,
+поэтому в Dockerfile.portal подключается официальная репа
+[PGDG](https://www.postgresql.org/download/linux/debian/) через
+современный `signed-by` keyring (вместо устаревшего `apt-key`).
+
+В конфигураторе pg_dump не нужен — основной `Dockerfile` остаётся
+без изменений, тоньше и меньше.
 
 ### Per-service config-as-code (этап 9Б.3.1)
 

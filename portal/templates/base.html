@@ -51,6 +51,8 @@
         {% if user.is_admin %}
         {{ _portal_nav_link('/admin/users', 'Пользователи', 'users',
                             _path.startswith('/admin/users')) }}
+        {{ _portal_nav_link('/admin/backups', 'Бекапы', 'database',
+                            _path.startswith('/admin/backups')) }}
         {% endif %}
       </div>
     </nav>

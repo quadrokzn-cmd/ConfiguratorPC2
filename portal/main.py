@@ -28,7 +28,8 @@ from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.config import settings
-from portal.routers import admin_users, auth, home
+from portal.routers import admin_backups, admin_users, auth, home
+from portal.scheduler import init_scheduler, shutdown_scheduler
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from shared.db import SessionLocal
 
@@ -36,6 +37,26 @@ from shared.db import SessionLocal
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="КВАДРО-ТЕХ: портал")
+
+
+@app.on_event("startup")
+def _startup_scheduler() -> None:
+    """9В.2: ежедневный бекап БД на Backblaze B2 в 03:00 МСК.
+
+    Активация — внутри scheduler'а: APP_ENV=production или
+    RUN_BACKUP_SCHEDULER=1. Если init упал (например, неправильный
+    timezone-конфиг) — логируем и идём дальше: портал должен стартовать
+    даже когда планировщик заглох.
+    """
+    try:
+        init_scheduler()
+    except Exception as exc:
+        logger.warning("Не удалось инициализировать scheduler портала: %s", exc)
+
+
+@app.on_event("shutdown")
+def _shutdown_scheduler() -> None:
+    shutdown_scheduler()
 
 
 # Сессии — те же подписанные cookie, что и в конфигураторе.
@@ -64,6 +85,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Потом /admin — нужен только админам. Потом / — last resort.
 app.include_router(auth.router)
 app.include_router(admin_users.router)
+app.include_router(admin_backups.router)
 app.include_router(home.router)
 
 

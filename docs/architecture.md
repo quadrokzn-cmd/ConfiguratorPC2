@@ -72,8 +72,9 @@ ConfiguratorPC2/
 │   └── templates/      ← Jinja2-шаблоны конфигуратора
 ├── portal/             ← портал: отдельное FastAPI-приложение (этап 9Б.1)
 │   ├── main.py         ← точка входа портала
-│   ├── routers/        ← auth (/login, /logout), home (/), admin_users (/admin/users)
-│   ├── services/       ← бизнес-логика портала (dashboard.py — этап 9Б.2)
+│   ├── routers/        ← auth, home, admin_users, admin_backups (этап 9В.2)
+│   ├── services/       ← бизнес-логика портала (dashboard.py, backup_service.py)
+│   ├── scheduler.py    ← APScheduler портала: daily_backup в 03:00 МСК (9В.2)
 │   ├── templates/      ← Jinja2-шаблоны портала (топбар + дашборд, этап 9Б.2)
 │   └── templating.py   ← Jinja2 portal-инстанция (фильтры дат: ru_date, days_ago)
 ├── shared/             ← общий код для конфигуратора и портала (этап 9Б.1)
@@ -227,10 +228,19 @@ CSRF — заголовок `X-CSRF-Token`.
 в БД хранятся в USD, рубли вычисляются на лету через jinja-фильтры
 `to_rub` / `fmt_rub` (см. [design-decisions.md](design-decisions.md)).
 
+## Резервные копии БД (этап 9В.2)
+
+`portal/services/backup_service.py` — pg_dump → загрузка в Backblaze B2
+(S3-совместимый API через boto3) с политикой ротации 7 daily / 4 weekly
+/ 6 monthly. APScheduler портала (`portal/scheduler.py`) запускает
+`daily_backup` в 03:00 МСК; админы могут запускать вручную через
+`/admin/backups`. Процедура восстановления — [disaster_recovery.md](disaster_recovery.md).
+
 ## Ссылки на детали
 
 - Запуск проекта, env, миграции — [`../README.md`](../README.md)
 - Таблицы и инварианты БД — [database.md](database.md)
 - Стек и зависимости — [stack.md](stack.md)
 - Почему так, а не иначе — [design-decisions.md](design-decisions.md)
+- Восстановление после катастрофы — [disaster_recovery.md](disaster_recovery.md)
 - История и план — [roadmap.md](roadmap.md)

@@ -335,6 +335,58 @@ ConfiguratorPC2. Двух-сервисный сетап описан в `docs/de
   `test_admin_users.py` обновлён под новый заголовок формы.
   Всего **800 passed**.
 
+### Этап 9В — операционная устойчивость
+
+#### 9В.1 — Hobby Railway, резервный админ ✅
+
+(Закрыт до 9В.2; здесь по контексту — добавлен второй администратор и
+переведён аккаунт Railway на Hobby-план для прод-нагрузок.)
+
+#### 9В.2 — Бекапы БД на Backblaze B2 с ротацией ✅
+
+Автоматические резервные копии PostgreSQL вынесены за пределы Railway:
+если плагин Postgres откажет (или Railway упадёт целиком), данные
+остаются доступны на стороне B2.
+
+- **portal/services/backup_service.py**: `make_pg_dump` вызывает
+  `pg_dump --format=custom --no-owner --no-acl`, `upload_to_b2` льёт
+  через boto3 (S3-совместимый API B2), `rotate_backups` применяет
+  политику 7 daily / 4 weekly / 6 monthly. Главная функция —
+  `perform_backup`: dump → загрузка в `daily/` всегда, в `weekly/` по
+  воскресеньям МСК, в `monthly/` 1-го числа МСК → ротация.
+- **portal/scheduler.py**: APScheduler с одной cron-задачей
+  `daily_backup` на 03:00 МСК (`misfire_grace_time=3600`,
+  `max_instances=1`). Активируется при `APP_ENV=production` или
+  `RUN_BACKUP_SCHEDULER=1`, чтобы тесты и dev-окружение не дёргали
+  реальный B2-бакет.
+- **/admin/backups** (admin only): список всех бекапов с группировкой
+  по уровням (daily/weekly/monthly), кнопка «Создать бекап сейчас»
+  (через `BackgroundTasks` — UI не висит на 30+ секунд pg_dump'а),
+  стриминг загрузки `.dump` файлов с защитой от path traversal
+  (regex на имя, whitelist на tier).
+- **Безопасность секретов**: `mask_db_url()` маскирует пароль в
+  `DATABASE_URL` перед логированием; stderr pg_dump'а пропускается через
+  ту же маску плюс scrub голого пароля, чтобы он не утёк через ошибки.
+  `B2_APPLICATION_KEY` нигде не логируется.
+- **Dockerfile.portal**: добавлен `postgresql-client-16` через
+  официальную репу PGDG (signed-by keyring, без устаревшего apt-key) —
+  стандартный Debian 12 даёт только pg_dump 15, который несовместим с
+  custom-форматом 16-й серверной версии.
+- **requirements.txt**: добавлен `boto3>=1.34,<2.0`.
+- **Env vars (Railway)** — на обоих сервисах: `B2_ENDPOINT`,
+  `B2_BUCKET`, `B2_KEY_ID`, `B2_APPLICATION_KEY`. Application Key
+  ограничен Read+Write только на `quadro-tech-db-backups`.
+- **docs/disaster_recovery.md**: процедура восстановления (скачать
+  дамп, поднять пустую БД, `pg_restore --clean --if-exists`, прописать
+  env vars, бутстрап админа, smoke-тест), контакты на случай катастрофы,
+  рекомендация раз в квартал делать тестовый restore локально.
+- **Тесты**: 25 в `tests/test_portal/test_backups.py` (ротация по
+  трём уровням, изоляция между tier'ами, 4 кейса perform_backup в
+  разные дни МСК включая редкий «1-е число + воскресенье», UI-доступы
+  admin/manager/anonymous, 6 параметризованных кейсов path traversal,
+  команда pg_dump, обработка падения, mask_db_url). Всего после этапа
+  — **819 passed** локально (94 в test_portal/, без регрессий).
+
 ## Принцип ведения этапов
 
 - Один этап = одна логически связанная фича (или редизайн целого

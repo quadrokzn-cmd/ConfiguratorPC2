@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Резервные копии — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6">
+    <h1 class="portal-greeting">Резервные копии БД</h1>
+    <p class="portal-greeting-sub">
+      Бекапы создаются автоматически каждый день в 03:00 МСК. Хранятся
+      на Backblaze B2 (вне Railway). Политика хранения: 7 ежедневных,
+      4 еженедельных, 6 ежемесячных.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+  {% if list_error %}<div class="alert alert-danger mb-4">{{ list_error }}</div>{% endif %}
+
+  {# === Ручной запуск === #}
+  <section class="card card-pad mb-6">
+    <h2 class="text-h3 text-ink-primary mb-2">Ручной запуск</h2>
+    <p class="help-text mb-4">
+      Создаёт бекап «прямо сейчас» в фоне (~30 секунд на наших объёмах).
+      Используйте перед миграциями, рискованными изменениями или для
+      первой боевой проверки после деплоя.
+    </p>
+    <form method="post" action="/admin/backups/create"
+          onsubmit="return confirm('Создать резервную копию БД сейчас?');">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn btn-md btn-primary">
+        Создать бекап сейчас
+      </button>
+    </form>
+  </section>
+
+  {% macro backup_table(title, rows, keep_n) -%}
+  <section class="card overflow-hidden mb-6">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">
+        {{ title }}
+        <span class="text-caption text-ink-muted">
+          (хранится последних {{ keep_n }})
+        </span>
+      </h2>
+    </div>
+    {% if rows %}
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Имя файла</th>
+          <th class="text-left w-32">Размер</th>
+          <th class="text-left w-44">Дата создания (МСК)</th>
+          <th class="text-right w-32">Скачать</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td class="text-ink-primary font-mono text-small">{{ r.filename }}</td>
+          <td class="text-ink-secondary">{{ r.size_human }}</td>
+          <td class="text-ink-secondary">{{ r.created_msk }}</td>
+          <td class="text-right">
+            <a class="btn btn-sm btn-secondary"
+               href="/admin/backups/download/{{ r.tier }}/{{ r.filename }}">
+              Скачать
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="card-pad pt-2">
+      <p class="text-ink-muted text-small">Нет ни одного бекапа.</p>
+    </div>
+    {% endif %}
+  </section>
+  {%- endmacro %}
+
+  {{ backup_table('Ежедневные', daily_rows, 7) }}
+  {{ backup_table('Еженедельные', weekly_rows, 4) }}
+  {{ backup_table('Ежемесячные', monthly_rows, 6) }}
+
+</div>
+{% endblock %}
