@@ -33,6 +33,15 @@ Permissions: у каждого пользователя есть `users.permissi
 `shared/permissions.py`. На этапе 9Б.1 активен только ключ
 `"configurator"`; остальные модули появятся в 9Б.2.
 
+Управление ролями (этап 9Б.5) — в `/admin/users` портала: селект роли
+в форме создания и инлайн-форма смены роли в строке таблицы. Бэкенд
+эндпоинт `POST /admin/users/{id}/role` за `require_admin` с защитами:
+запрет понизить последнего админа (`count_admins()` ≤ 1 → 400);
+самопонижение требует `confirm_self_demotion=true` (без флага — 400,
+UI ставит флаг и добавляет JS-`confirm`); невалидная роль → 422,
+несуществующий target → 404; admin↔admin / manager↔manager — no-op.
+Каждое изменение логируется на INFO.
+
 Permission enforcement (этап 9Б.4) реализован в **двух местах**:
 
 1. **В UI портала** (тонкая защита) — плитка «Конфигуратор ПК» на
@@ -71,7 +80,7 @@ ConfiguratorPC2/
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
 │   ├── db.py           ← engine, SessionLocal, get_db
 │   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
-│   ├── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions)
+│   ├── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions, set_role, count_admins)
 │   └── templates/      ← общие Jinja-партиалы (этап 9Б.2.1)
 │       └── _partials/fx_widget.html  ← курс ЦБ — рендерится сайдбарами обоих сервисов
 ├── migrations/         ← SQL-миграции 001–017 (применяются по порядку)

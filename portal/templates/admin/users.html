@@ -16,11 +16,11 @@
   {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
   {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
 
-  {# === Создание нового менеджера === #}
+  {# === Создание нового пользователя === #}
   <section class="card card-pad mb-6">
-    <h2 class="text-h3 text-ink-primary mb-4">Создать менеджера</h2>
+    <h2 class="text-h3 text-ink-primary mb-4">Создать пользователя</h2>
     <form method="post" action="/admin/users"
-          class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          class="grid grid-cols-1 md:grid-cols-5 gap-3">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
       <div>
@@ -38,13 +38,20 @@
         <input id="u-pass" name="password" required type="text" class="input"
                placeholder="мин. 6 символов">
       </div>
+      <div>
+        <label class="label" for="u-role">Роль</label>
+        <select id="u-role" name="role" class="select">
+          <option value="manager" selected>Менеджер</option>
+          <option value="admin">Администратор</option>
+        </select>
+      </div>
       <div class="flex items-end">
         <button type="submit" class="btn btn-md btn-primary w-full">Создать</button>
       </div>
     </form>
     <p class="help-text">
       По умолчанию у нового менеджера открыт модуль «Конфигуратор ПК».
-      Дополнительные модули выдаются ниже в таблице.
+      Администраторам permissions не нужны — они видят все модули.
     </p>
   </section>
 
@@ -55,7 +62,7 @@
         <tr>
           <th class="text-left">Логин</th>
           <th class="text-left">Имя</th>
-          <th class="text-left w-28">Роль</th>
+          <th class="text-left w-56">Роль</th>
           <th class="text-left w-28">Статус</th>
           {% for key in visible_module_keys %}
             <th class="text-left">{{ key }}</th>
@@ -69,11 +76,27 @@
           <td class="text-ink-primary font-medium">{{ u.login }}</td>
           <td class="text-ink-secondary">{{ u.name }}</td>
           <td>
-            {% if u.role == 'admin' %}
-              <span class="badge badge-brand">админ</span>
-            {% else %}
-              <span class="badge badge-neutral">менеджер</span>
-            {% endif %}
+            {# 9Б.5: смена роли — селект + кнопка прямо в ячейке.
+               Для самопонижения (текущий админ → manager) — JS confirm
+               и скрытое поле confirm_self_demotion=true (сервер требует
+               флаг для admin↔self-demotion, иначе 400). #}
+            <form method="post" action="/admin/users/{{ u.id }}/role"
+                  class="flex items-center gap-1.5"
+                  data-self="{{ '1' if u.id == user.id else '0' }}"
+                  onsubmit="return ktConfirmRoleChange(this);">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              {% if u.id == user.id %}
+                <input type="hidden" name="confirm_self_demotion" value="true">
+              {% endif %}
+              <select name="role" aria-label="Роль пользователя"
+                      class="bg-surface-2 border border-line-default text-ink-primary
+                             rounded-md px-2 py-1 text-small
+                             focus:outline-none focus:border-brand-500">
+                <option value="manager" {% if u.role == 'manager' %}selected{% endif %}>менеджер</option>
+                <option value="admin"   {% if u.role == 'admin'   %}selected{% endif %}>админ</option>
+              </select>
+              <button type="submit" class="btn btn-sm btn-secondary">OK</button>
+            </form>
           </td>
           <td>
             {% if u.is_active %}
@@ -142,4 +165,20 @@
   </section>
 
 </div>
+
+{# 9Б.5: confirm перед самопонижением (admin → manager). Срабатывает
+   только если форма отмечена data-self="1" (текущий пользователь) и
+   в селекте выбрано "manager". Для всех остальных переходов сразу
+   submit. #}
+<script>
+  function ktConfirmRoleChange(form) {
+    if (form.dataset.self !== '1') return true;
+    const select = form.querySelector('select[name="role"]');
+    if (!select || select.value !== 'manager') return true;
+    return confirm(
+      'Вы понижаете себя до менеджера. После этого вы потеряете ' +
+      'доступ к админ-панели. Продолжить?'
+    );
+  }
+</script>
 {% endblock %}

@@ -12,7 +12,9 @@ from tests.test_portal.conftest import extract_csrf
 def test_admin_can_open_admin_users(admin_portal_client):
     r = admin_portal_client.get("/admin/users")
     assert r.status_code == 200
-    assert "Создать менеджера" in r.text
+    # 9Б.5: заголовок формы — «Создать пользователя» (вместо «Создать менеджера»),
+    # т.к. в форме появился селект роли (admin/manager).
+    assert "Создать пользователя" in r.text
 
 
 def test_manager_cannot_open_admin_users(manager_portal_client):

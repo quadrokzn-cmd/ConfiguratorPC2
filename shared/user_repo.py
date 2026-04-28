@@ -64,27 +64,37 @@ def create_manager(
     login: str,
     password_hash: str,
     name: str,
+    role: str = "manager",
     permissions: dict[str, Any] | None = None,
 ) -> int:
-    """Создаёт менеджера. Возвращает id. При конфликте логина — ValueError('login_taken')."""
+    """Создаёт пользователя. Возвращает id. При конфликте логина —
+    ValueError('login_taken'). При невалидной роли — ValueError('invalid_role').
+
+    role: 'manager' (по умолчанию) или 'admin'. Для admin permissions
+    по умолчанию пустые (admin видит все модули и без прав); для manager —
+    {"configurator": True}."""
+    if role not in ("admin", "manager"):
+        raise ValueError("invalid_role")
     exists = session.execute(
         text("SELECT 1 FROM users WHERE login = :login"),
         {"login": login},
     ).first()
     if exists:
         raise ValueError("login_taken")
-    perms = permissions if permissions is not None else _default_manager_permissions()
+    if permissions is None:
+        permissions = {} if role == "admin" else _default_manager_permissions()
     row = session.execute(
         text(
             "INSERT INTO users (login, password_hash, role, name, permissions) "
-            "VALUES (:login, :ph, 'manager', :name, CAST(:perms AS JSONB)) "
+            "VALUES (:login, :ph, :role, :name, CAST(:perms AS JSONB)) "
             "RETURNING id"
         ),
         {
             "login": login,
             "ph":    password_hash,
+            "role":  role,
             "name":  name,
-            "perms": json.dumps(perms, ensure_ascii=False),
+            "perms": json.dumps(permissions, ensure_ascii=False),
         },
     ).first()
     session.commit()
@@ -103,6 +113,37 @@ def toggle_user_active(session: Session, user_id: int) -> bool:
     ).first()
     session.commit()
     return bool(row.is_active) if row else False
+
+
+def count_admins(session: Session) -> int:
+    """Сколько пользователей с role='admin' в БД (включая неактивных).
+    Используется для запрета понизить последнего админа в /admin/users."""
+    row = session.execute(
+        text("SELECT COUNT(*) AS n FROM users WHERE role = 'admin'")
+    ).first()
+    return int(row.n) if row else 0
+
+
+def get_role(session: Session, user_id: int) -> str | None:
+    """Текущая роль пользователя. None — если пользователя нет."""
+    row = session.execute(
+        text("SELECT role FROM users WHERE id = :id"),
+        {"id": user_id},
+    ).first()
+    return row.role if row else None
+
+
+def set_role(session: Session, user_id: int, role: str) -> bool:
+    """Меняет users.role. Возвращает True, если строка обновлена.
+    role: 'admin' или 'manager'."""
+    if role not in ("admin", "manager"):
+        raise ValueError("invalid_role")
+    row = session.execute(
+        text("UPDATE users SET role = :role WHERE id = :id RETURNING id"),
+        {"id": user_id, "role": role},
+    ).first()
+    session.commit()
+    return row is not None
 
 
 def update_permissions(
