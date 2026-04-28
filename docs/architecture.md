@@ -72,7 +72,7 @@ ConfiguratorPC2/
 │   └── templates/      ← Jinja2-шаблоны конфигуратора
 ├── portal/             ← портал: отдельное FastAPI-приложение (этап 9Б.1)
 │   ├── main.py         ← точка входа портала
-│   ├── routers/        ← auth, home, admin_users, admin_backups (этап 9В.2)
+│   ├── routers/        ← auth, home, admin_users, admin_backups (9В.2), admin_diagnostics (9В.3)
 │   ├── services/       ← бизнес-логика портала (dashboard.py, backup_service.py)
 │   ├── scheduler.py    ← APScheduler портала: daily_backup в 03:00 МСК (9В.2)
 │   ├── templates/      ← Jinja2-шаблоны портала (топбар + дашборд, этап 9Б.2)
@@ -81,6 +81,7 @@ ConfiguratorPC2/
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
 │   ├── db.py           ← engine, SessionLocal, get_db
 │   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
+│   ├── sentry_init.py  ← init_sentry для портала и конфигуратора (этап 9В.3)
 │   ├── user_repo.py    ← CRUD пользователей (list, create, toggle, update_permissions, set_role, count_admins)
 │   └── templates/      ← общие Jinja-партиалы (этап 9Б.2.1)
 │       └── _partials/fx_widget.html  ← курс ЦБ — рендерится сайдбарами обоих сервисов
@@ -103,6 +104,22 @@ ConfiguratorPC2/
 ├── requirements.txt    ← Python-зависимости
 └── README.md           ← стартовый гайд
 ```
+
+## Мониторинг ошибок (этап 9В.3)
+
+Оба сервиса отправляют 5xx и неперехваченные исключения в Sentry через
+общий helper `shared/sentry_init.py`. Принцип: `init_sentry("portal")`
+/ `init_sentry("configurator")` зовётся **первым** в `main.py` каждого
+сервиса (сразу после `load_dotenv()` и до импорта роутеров), чтобы
+FastAPI-интеграция перехватила исключения с самого старта.
+
+DSN читается из per-service env (`SENTRY_DSN_PORTAL`,
+`SENTRY_DSN_CONFIGURATOR`) с fallback'ом на общий `SENTRY_DSN`. Если
+DSN пуст — init возвращает False и Sentry просто выключен (на локалке
+и в тестах это норма). `before_send` фильтрует HTTPException 4xx и
+`asyncio.CancelledError`, чтобы они не съедали квоту. Привязка
+пользователя к событию (id + login) — в `shared/auth.py: current_user`.
+Подробности — в [monitoring.md](monitoring.md).
 
 ## Слой `app/services/` — главные модули
 

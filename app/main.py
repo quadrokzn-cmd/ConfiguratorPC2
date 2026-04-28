@@ -10,6 +10,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# ---- Sentry init ДОЛЖЕН быть до импорта роутеров (этап 9В.3) ----
+# Чтобы FastApiIntegration перехватил исключения с самого старта,
+# init_sentry зовём сразу после load_dotenv() и до создания приложения.
+# Без DSN init вернёт False и Sentry просто выключен — локально это норма.
+from shared.sentry_init import init_sentry
+
+init_sentry("configurator")
+
 # ---- Дальше уже можно импортировать app.* ----
 
 import logging

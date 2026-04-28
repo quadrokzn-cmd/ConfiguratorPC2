@@ -413,6 +413,41 @@ ConfiguratorPC2. Двух-сервисный сетап описан в `docs/de
 - **Тесты**: без изменений (мокают subprocess, от версии pg_dump не
   зависят) — 819 passed.
 
+#### 9В.3 — Sentry SDK для мониторинга ошибок ✅
+
+К обоим сервисам подключён Sentry, чтобы 5xx и неперехваченные
+исключения видеть в одном месте, а не выкапывать руками из Railway
+logs. Подробности — в [monitoring.md](monitoring.md).
+
+- **shared/sentry_init.py**: общий `init_sentry(service_name)` с
+  контрактом «нет DSN → False, не падаем». Подключает FastAPI-,
+  Starlette- и LoggingIntegration; `traces_sample_rate=0.1` глобально,
+  для `/healthz` — 0.01 через `traces_sampler` (иначе healthcheck сам
+  сжирает квоту). `send_default_pii=False` — IP/cookies/headers в
+  события не попадают.
+- **before_send**: фильтрует HTTPException 4xx (401/403/404/валидация —
+  пользовательские, не баги) и `asyncio.CancelledError` (нормальное
+  поведение на shutdown'е).
+- **app/main.py / portal/main.py**: вызов `init_sentry` сразу после
+  `load_dotenv()` и до импорта роутеров — чтобы FastAPI-интеграция
+  перехватывала исключения с самого старта.
+- **shared/auth.py: current_user**: после идентификации зовёт
+  `sentry_sdk.set_user({"id": user.id, "username": user.login})` —
+  email не кладём (пока нет в `users`), IP не нужен.
+- **portal/routers/admin_diagnostics.py**: `/admin/sentry-test` (бросает
+  RuntimeError для проверки что 5xx долетает) и `/admin/sentry-message`
+  (шлёт `capture_message("info")` без 500-ки), оба за `require_admin`.
+- **Per-service DSN**: `SENTRY_DSN_PORTAL` и `SENTRY_DSN_CONFIGURATOR` в
+  Railway указывают на разные Sentry-проекты; fallback на общий
+  `SENTRY_DSN`. Локально без переменных Sentry просто выключен.
+- **requirements.txt**: добавлен `sentry-sdk[fastapi]>=2.0`.
+- **Тесты**: 21 новых (15 в `tests/test_shared/test_sentry_init.py` —
+  mask_dsn, resolve_dsn, before_send для 4xx/5xx/CancelledError/обычных
+  исключений; 6 в `tests/test_portal/test_admin_diagnostics.py` —
+  доступ admin/manager/anonymous, capture_message с правильными
+  аргументами). Sentry мокается, реальных событий тесты не шлют.
+  Всего после этапа — **836 passed**.
+
 ## Принцип ведения этапов
 
 - Один этап = одна логически связанная фича (или редизайн целого

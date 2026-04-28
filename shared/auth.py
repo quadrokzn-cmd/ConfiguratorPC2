@@ -175,6 +175,17 @@ def current_user(
         # сессию, чтобы в браузере не зависала «битая» кука.
         request.session.clear()
         return None
+
+    # Привязываем пользователя к Sentry-событию (этап 9В.3). Email сюда
+    # не кладём — его пока нет в users; IP не нужен (send_default_pii=False).
+    # Если sentry_sdk не установлен или DSN не задан — set_user становится
+    # дешёвой no-op, поэтому проверять init не обязательно.
+    try:
+        import sentry_sdk
+        sentry_sdk.set_user({"id": user.id, "username": user.login})
+    except Exception:
+        pass
+
     return user
 
 
