@@ -17,6 +17,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Body, Depends, Form, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
+from openai import RateLimitError
 from sqlalchemy.orm import Session
 
 from app.auth import AuthUser, get_csrf_token, require_login, verify_csrf
@@ -372,13 +373,12 @@ def project_new_query_submit(
     err_msg = None
     try:
         resp = process_query(raw_clean)
+    except RateLimitError:
+        logger.exception("process_query: OpenAI rate-limit")
+        err_msg = "Сервис временно перегружен (OpenAI rate-limit). Попробуйте через минуту."
     except Exception as exc:
         logger.exception("process_query упал: %s", exc)
-        class_name = type(exc).__name__
-        if class_name == "RateLimitError":
-            err_msg = "Сервис временно перегружен (OpenAI rate-limit). Попробуйте через минуту."
-        else:
-            err_msg = f"Внутренняя ошибка при обработке запроса: {class_name}."
+        err_msg = f"Внутренняя ошибка при обработке запроса: {type(exc).__name__}."
 
     qid = web_service.save_query(
         db,

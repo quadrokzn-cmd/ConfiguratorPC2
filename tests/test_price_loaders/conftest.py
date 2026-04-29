@@ -1,9 +1,8 @@
 # Фикстуры для тестов пакета price_loaders.
 #
-# Локально определяем свой db_engine/db_session — pytest не разрешает
-# декларировать pytest_plugins в не-top-level conftest. Схема создаётся
-# ровно один раз на pytest-сессию, потом каждый тест получает чистые
-# таблицы через autouse _clean_component_tables.
+# DB-инфраструктура (db_engine, db_session, миграции 001..018) — в
+# корневом `tests/conftest.py`. Здесь только чистка таблиц компонентов/
+# поставщиков/прайсов перед каждым тестом и фабрики Excel-моков.
 
 from __future__ import annotations
 
@@ -11,89 +10,12 @@ from pathlib import Path
 
 import pytest
 from openpyxl import Workbook
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
-
-
-# --- db_engine / db_session ---------------------------------------------
-
-_MIGRATIONS = [
-    "001_init.sql",
-    "002_add_currency_and_relax_nullability.sql",
-    "003_widen_model_column.sql",
-    "004_add_component_field_sources.sql",
-    "005_add_source_url_to_component_field_sources.sql",
-    "006_add_api_usage_log.sql",
-    "007_web_service.sql",
-    "008_project_specification.sql",
-    "009_multi_supplier_and_gtin.sql",
-    "010_unmapped_score.sql",
-    # Этап 9Г.1: orchestrator выставляет is_hidden=True у скелетов
-    # корпусных вентиляторов, поэтому колонка нужна тестам.
-    "013_components_is_hidden.sql",
-]
-
-
-def _project_root() -> Path:
-    return Path(__file__).resolve().parents[2]
-
-
-def _drop_all_known_tables(engine) -> None:
-    tables = [
-        "unmapped_supplier_items",
-        "specification_items",
-        "queries", "projects", "daily_budget_log", "users",
-        "api_usage_log", "component_field_sources",
-        "price_uploads", "supplier_prices", "suppliers",
-        "cpus", "motherboards", "rams", "gpus", "storages",
-        "cases", "psus", "coolers",
-    ]
-    with engine.begin() as conn:
-        for t in tables:
-            conn.execute(text(f"DROP TABLE IF EXISTS {t} CASCADE"))
-
-
-def _apply_migrations(engine) -> None:
-    root = _project_root() / "migrations"
-    for name in _MIGRATIONS:
-        sql = (root / name).read_text(encoding="utf-8")
-        with engine.begin() as conn:
-            conn.execute(text(sql))
-
-
-@pytest.fixture(scope="session")
-def db_engine():
-    from app.config import settings
-    engine = create_engine(
-        settings.test_database_url,
-        future=True,
-        connect_args={"client_encoding": "utf8"},
-    )
-    try:
-        _drop_all_known_tables(engine)
-        _apply_migrations(engine)
-        yield engine
-    finally:
-        engine.dispose()
-
-
-@pytest.fixture()
-def db_session(db_engine):
-    Session = sessionmaker(bind=db_engine, autoflush=False, autocommit=False, future=True)
-    s = Session()
-    try:
-        yield s
-    finally:
-        s.close()
+from sqlalchemy import text
 
 
 @pytest.fixture(autouse=True)
 def _clean_component_tables(db_engine):
-    """Перед каждым тестом — пустые таблицы компонентов/цен/поставщиков.
-
-    autouse в test_web/conftest.py уже чистит users/projects/queries/...,
-    но он не трогает таблицы компонентов. Здесь их добиваем.
-    """
+    """Перед каждым тестом — пустые таблицы компонентов/цен/поставщиков."""
     with db_engine.begin() as conn:
         conn.execute(text(
             "TRUNCATE TABLE unmapped_supplier_items, price_uploads, "

@@ -108,7 +108,8 @@ ConfiguratorPC2/
 │       └── _partials/fx_widget.html  ← курс ЦБ — рендерится сайдбарами обоих сервисов
 ├── migrations/         ← SQL-миграции 001–017 (применяются по порядку)
 ├── scripts/            ← CLI-скрипты (apply_migrations, bootstrap_admin, и пр.)
-├── tests/              ← pytest, 741 passed + 2 skipped
+├── tests/              ← pytest, 897 passed + 2 skipped
+│   ├── conftest.py     ← единая точка БД-инфраструктуры (engine, миграции 001..018, db_session)
 │   ├── test_portal/    ← тесты портала (auth, admin_users, permissions)
 │   ├── test_web/       ← тесты конфигуратора
 │   └── test_export/    ← тесты модуля экспорта

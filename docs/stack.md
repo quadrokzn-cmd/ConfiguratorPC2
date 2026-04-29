@@ -23,7 +23,7 @@
 | СУБД              | PostgreSQL 18 (Railway, прод); локально 16+                     |
 | psql              | `C:\Program Files\PostgreSQL\16\bin\psql.exe` (локально)        |
 | Миграции          | Чистый SQL в [`../migrations/`](../migrations/) (001–016)       |
-| Тестовая БД       | `configurator_pc_test`, `conftest.py` накатывает все миграции   |
+| Тестовая БД       | `configurator_pc_test`, `tests/conftest.py` — единая точка: один раз на сессию pytest DROP всех таблиц + накат всех миграций |
 
 См. [database.md](database.md) для схемы и инвариантов.
 
@@ -114,8 +114,27 @@ uvicorn app.main:app --reload
 npm run watch:css
 ```
 
-## Версии (на момент Этапа 9А.2.7)
+## Тесты
 
-- 721 passed + 2 skipped тестов
-- 16 миграций
-- ~2207 компонентов в БД, обогащение ~93%
+Запуск:
+
+```bash
+pytest tests/                  # весь набор — основной режим
+pytest tests/test_web/         # только конфигуратор
+pytest tests/test_portal/      # только портал
+pytest tests/test_export/      # только экспорт
+```
+
+Этап 9Г.2 унифицировал DB-инфраструктуру тестов — теперь
+`pytest tests/` отрабатывает целиком за один прогон, отдельные папки
+больше не нужно прогонять по очереди. Источник истины для тестовой
+БД (engine, миграции, db_session) — корневой `tests/conftest.py`;
+локальные conftest'ы подкаталогов поднимают только свои фикстуры
+(TestClient, mock_process_query, фабрики Excel и autouse-чистку
+своих таблиц).
+
+## Версии (на момент Этапа 9Г.2)
+
+- 897 passed + 2 skipped тестов
+- 18 миграций
+- ~5116 компонентов в БД (Railway), обогащение ~93%

@@ -91,6 +91,65 @@ def test_empty_raw_text_redirects_back_with_error(manager_client):
     assert "Введите текст запроса" in r.text
 
 
+def test_submit_query_rate_limit_saves_friendly_error(
+    manager_client, mock_process_query, db_session, monkeypatch
+):
+    """Этап 9Г.2: ловим openai.RateLimitError через isinstance, а не по имени класса.
+    Проверяем, что когда process_query кидает RateLimitError, в БД пишется
+    user-friendly сообщение про rate-limit, а не «Внутренняя ошибка»."""
+    from openai import RateLimitError
+    import httpx
+
+    # Минимальный конструктор RateLimitError из openai 1.x.
+    rl_exc = RateLimitError(
+        message="rate limit",
+        response=httpx.Response(429, request=httpx.Request("POST", "https://api.openai.com/x")),
+        body=None,
+    )
+    mock_process_query.side_effect = rl_exc
+
+    r = manager_client.get("/")
+    token = extract_csrf(r.text)
+    r = manager_client.post(
+        "/query",
+        data={"project_name": "RL", "raw_text": "любой запрос", "csrf_token": token},
+    )
+    assert r.status_code == 302
+    _, qid = _parse_redirect(r.headers["location"])
+
+    row = db_session.execute(
+        _t("SELECT status, error_msg FROM queries WHERE id=:id"),
+        {"id": qid},
+    ).first()
+    assert row.status == "error"
+    assert "rate-limit" in (row.error_msg or "")
+
+
+def test_submit_query_other_error_saves_generic_error(
+    manager_client, mock_process_query, db_session
+):
+    """Этап 9Г.2: для не-RateLimitError исключений сообщение должно быть
+    «Внутренняя ошибка ...», без подмены ветки rate-limit."""
+    mock_process_query.side_effect = RuntimeError("boom")
+
+    r = manager_client.get("/")
+    token = extract_csrf(r.text)
+    r = manager_client.post(
+        "/query",
+        data={"project_name": "RT", "raw_text": "любой запрос", "csrf_token": token},
+    )
+    assert r.status_code == 302
+    _, qid = _parse_redirect(r.headers["location"])
+
+    row = db_session.execute(
+        _t("SELECT status, error_msg FROM queries WHERE id=:id"),
+        {"id": qid},
+    ).first()
+    assert row.status == "error"
+    assert "rate-limit" not in (row.error_msg or "")
+    assert "RuntimeError" in (row.error_msg or "")
+
+
 def test_view_query_result_page(manager_client, mock_process_query):
     r = manager_client.get("/")
     token = extract_csrf(r.text)
