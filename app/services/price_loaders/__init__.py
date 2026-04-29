@@ -1,33 +1,45 @@
-# Пакет загрузчиков прайс-листов поставщиков (этап 7).
+# Пакет загрузчиков прайс-листов поставщиков (этап 7, расширен в 11.1).
 #
 # Структура:
-#   models.py       — унифицированный PriceRow
-#   base.py         — интерфейс BasePriceLoader
-#   ocs.py          — адаптер OCS (Excel, лист «Наличие и цены»)
-#   merlion.py      — адаптер Merlion (Excel, лист «Price List», заголовки со строки 11)
-#   treolan.py      — адаптер Treolan (Excel, лист «Каталог», категории через «->»)
-#   matching.py     — автосопоставление по MPN/GTIN и supplier_prices
-#   orchestrator.py — общий раннер: loader → matching → supplier_prices / unmapped
-#   candidates.py   — подбор «похожих» кандидатов для /admin/mapping
+#   models.py        — унифицированный PriceRow
+#   base.py          — интерфейс BasePriceLoader
+#   ocs.py           — адаптер OCS (Excel, лист «Наличие и цены»)
+#   merlion.py       — адаптер Merlion (Excel, лист «Price List», заголовки со строки 11)
+#   treolan.py       — адаптер Treolan (Excel, лист «Каталог», категории через «->»)
+#   netlab.py        — адаптер Netlab (Excel «DealerD.xlsx», лист «Цены»; .zip
+#                       тоже принимается)
+#   resurs_media.py  — адаптер «Ресурс Медиа» (Excel «price_struct.xlsx»,
+#                       лист «Price», двухуровневые разделители категорий)
+#   green_place.py   — адаптер «Green Place» (Excel «Price_GP_*.xlsx», лист
+#                       «Worksheet», категории в трёх колонках)
+#   matching.py      — автосопоставление по MPN/GTIN и supplier_prices
+#   orchestrator.py  — общий раннер: loader → matching → supplier_prices / unmapped
+#   candidates.py    — подбор «похожих» кандидатов для /admin/mapping
 #
 # Фабрика get_loader / detect_loader — единственная точка, где имена
-# поставщиков (строки 'ocs', 'merlion', 'treolan') сопоставляются классам.
+# поставщиков сопоставляются классам.
 
 from __future__ import annotations
 
 from pathlib import Path
 
 from app.services.price_loaders.base import BasePriceLoader
+from app.services.price_loaders.green_place import GreenPlaceLoader
 from app.services.price_loaders.merlion import MerlionLoader
+from app.services.price_loaders.netlab import NetlabLoader
 from app.services.price_loaders.ocs import OcsLoader
+from app.services.price_loaders.resurs_media import ResursMediaLoader
 from app.services.price_loaders.treolan import TreolanLoader
 
 
 # Единый источник истины: ключ CLI/API → класс адаптера.
 LOADERS: dict[str, type[BasePriceLoader]] = {
-    "ocs":     OcsLoader,
-    "merlion": MerlionLoader,
-    "treolan": TreolanLoader,
+    "ocs":          OcsLoader,
+    "merlion":      MerlionLoader,
+    "treolan":      TreolanLoader,
+    "netlab":       NetlabLoader,
+    "resurs_media": ResursMediaLoader,
+    "green_place":  GreenPlaceLoader,
 }
 
 

@@ -1,13 +1,20 @@
 # CLI-скрипт загрузки прайс-листа поставщика в базу данных.
-# Поддерживаемые поставщики: OCS, Merlion, Treolan.
+# Поддерживаемые поставщики: OCS, Merlion, Treolan, Netlab, Ресурс Медиа,
+# Green Place.
 #
 # Примеры запуска:
 #   python scripts/load_price.py --file path/to/OCS_price.xlsx --supplier ocs
 #   python scripts/load_price.py --file path/to/Прайслист_Мерлион.xlsm --supplier merlion
 #   python scripts/load_price.py --file path/to/23_04_2026_catalog.xlsx --supplier treolan
+#   python scripts/load_price.py --file path/to/DealerD.xlsx --supplier netlab
+#   python scripts/load_price.py --file path/to/dealerd.zip --supplier netlab
+#   python scripts/load_price.py --file path/to/price_struct.xlsx --supplier resurs_media
+#   python scripts/load_price.py --file path/to/Price_GP_*.xlsx --supplier green_place
 #
 # Если --supplier не указан, скрипт попытается определить поставщика
-# по имени файла (OCS → ocs, Merlion/Мерлион → merlion, Treolan/catalog → treolan).
+# по имени файла (OCS → ocs, Merlion/Мерлион → merlion, Treolan/catalog → treolan,
+# DealerD/netlab → netlab, price_struct/ресурс/медиа → resurs_media,
+# Price_GP/green_place → green_place).
 
 import argparse
 import logging

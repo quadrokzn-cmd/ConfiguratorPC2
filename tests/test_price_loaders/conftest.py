@@ -155,6 +155,184 @@ def make_treolan_xlsx(tmp_path: Path):
 
 
 @pytest.fixture()
+def make_netlab_xlsx(tmp_path: Path):
+    """Фабрика минимального Netlab-прайса.
+
+    Структура повторяет реальный DealerD.xlsx:
+      - Лист «Цены»;
+      - Строки 1-20 — служебная шапка (заполняется минимально);
+      - Строка 21 — заголовки;
+      - Дальше — последовательность узлов: «category» (разделитель)
+        или строка данных. На каждом разделителе можно добавить
+        repeat_header=True, чтобы перед следующей секцией ещё раз
+        вставить строку заголовков (как делает реальный Netlab).
+
+    Узел может быть:
+      {"category": "Видеокарты ASUS"}                — разделитель;
+      {"category": "SSD Kingston", "repeat_header": True} — разделитель
+        с повторной строкой заголовков перед следующими данными;
+      {                                              — строка товара:
+          "stock":     "+",         # «+»/«-» / число
+          "partnumber":"ABC-123",   # MPN
+          "article":   "NL-99",     # supplier_sku
+          "name":      "...",
+          "price_d":   123.45,      # USD, тариф D
+          "price_rrc": None,        # РРЦ Руб, fallback
+      }
+    """
+    def _make(items: list[dict], *, name: str = "DealerD.xlsx") -> str:
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Цены"
+
+        # Служебная шапка (минимум — для реалистичности).
+        ws.cell(row=3, column=4, value="http://www.netlab.ru, info@netlab.ru")
+        ws.cell(row=7, column=15, value="USD")
+
+        # Строка 21 — заголовки.
+        headers = [
+            "Бусиново", "", "PartNumber", "Артикул", "Наименование",
+            "B", "C", "D", "E", "F", "R",
+            "РРЦ(Руб.)", "Вес, кг", "Объем, м^3", "Гарантия",
+        ]
+        for col_idx, h in enumerate(headers, start=1):
+            ws.cell(row=21, column=col_idx, value=h)
+
+        row_num = 22
+        for it in items:
+            if "category" in it:
+                ws.cell(row=row_num, column=5, value=it["category"])
+                row_num += 1
+                if it.get("repeat_header"):
+                    for col_idx, h in enumerate(headers, start=1):
+                        ws.cell(row=row_num, column=col_idx, value=h)
+                    row_num += 1
+            else:
+                ws.cell(row=row_num, column=1,  value=it.get("stock"))
+                ws.cell(row=row_num, column=3,  value=it.get("partnumber"))
+                ws.cell(row=row_num, column=4,  value=it.get("article"))
+                ws.cell(row=row_num, column=5,  value=it.get("name"))
+                ws.cell(row=row_num, column=8,  value=it.get("price_d"))
+                ws.cell(row=row_num, column=12, value=it.get("price_rrc"))
+                row_num += 1
+
+        return _save_workbook(wb, tmp_path, name)
+
+    return _make
+
+
+@pytest.fixture()
+def make_resurs_media_xlsx(tmp_path: Path):
+    """Фабрика минимального прайса «Ресурс Медиа».
+
+    Узел может быть:
+      {"section":    "Комплектующие и компоненты"}     — раздел (col A);
+      {"subsection": "Видеокарты"}                     — подкатегория (col B);
+      {                                                 — строка данных:
+          "brand":        "ASUS",        # col B (бренд)
+          "article":      "RM-001",      # col C — supplier_sku
+          "mpn":          "RTX4060-OC",  # col D
+          "name":         "...",
+          "price_usd":    300,
+          "price_rub":    27000,
+          "stock":        "Мало",        # или число
+          "transit":      None,
+      }
+    """
+    def _make(items: list[dict], *, name: str = "price_struct.xlsx") -> str:
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Price"
+
+        # Строка 1 — служебная (дата формирования).
+        ws.cell(row=1, column=4, value="Дата формирования: 30 Апреля 2026")
+
+        # Строка 2 — заголовки.
+        headers = [
+            "с/н", "Производитель", "Артикул", "Артикул производителя",
+            "Номенклатура", "Объём, м3", "Вес, кг", "Цена, у.е.",
+            "Цена.руб", "Доступно Москва", "Факт Москва", "Ожидается Москва",
+        ]
+        for col_idx, h in enumerate(headers, start=1):
+            ws.cell(row=2, column=col_idx, value=h)
+
+        row_num = 3
+        for it in items:
+            if "section" in it:
+                ws.cell(row=row_num, column=1, value=it["section"])
+            elif "subsection" in it:
+                ws.cell(row=row_num, column=2, value=it["subsection"])
+            else:
+                ws.cell(row=row_num, column=2,  value=it.get("brand"))
+                ws.cell(row=row_num, column=3,  value=it.get("article"))
+                ws.cell(row=row_num, column=4,  value=it.get("mpn"))
+                ws.cell(row=row_num, column=5,  value=it.get("name"))
+                ws.cell(row=row_num, column=8,  value=it.get("price_usd"))
+                ws.cell(row=row_num, column=9,  value=it.get("price_rub"))
+                ws.cell(row=row_num, column=10, value=it.get("stock"))
+                ws.cell(row=row_num, column=12, value=it.get("transit"))
+            row_num += 1
+
+        return _save_workbook(wb, tmp_path, name)
+
+    return _make
+
+
+@pytest.fixture()
+def make_green_place_xlsx(tmp_path: Path):
+    """Фабрика минимального прайса Green Place.
+
+    Лист «Worksheet», заголовки в строке 1, данные с 2-й.
+
+    Узел — словарь с полями:
+      {
+          "supplier_sku": "1003014",
+          "name":         "Инжектор PoE Ubiquiti POE-48-24W-G",
+          "brand":        "UBIQUITI",
+          "mpn":          "POE-48-24W-G",
+          "g1":           "Сетевое оборудование",
+          "g2":           "Cетевое оборудование",
+          "g3":           "Инжекторы POE",
+          "stock":        0,
+          "transit":      0,
+          "price_usd":    22.4,
+          "price_rub":    1673.16,
+      }
+    """
+    def _make(items: list[dict], *, name: str = "Price_GP_TC0075104_30.04.2026.xlsx") -> str:
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Worksheet"
+
+        headers = [
+            "Но", "Наименование", "Бренд", "PRT Номер",
+            "Группа 1", "Группа 2", "Группа 3",
+            "Доступно", "На складе",
+            "В транзите, ближайшее", "В транзите, всего",
+            "Цена, USD", "Цена, РУБ",
+        ]
+        for col_idx, h in enumerate(headers, start=1):
+            ws.cell(row=1, column=col_idx, value=h)
+
+        for i, it in enumerate(items, start=2):
+            ws.cell(row=i, column=1,  value=it.get("supplier_sku"))
+            ws.cell(row=i, column=2,  value=it.get("name"))
+            ws.cell(row=i, column=3,  value=it.get("brand"))
+            ws.cell(row=i, column=4,  value=it.get("mpn"))
+            ws.cell(row=i, column=5,  value=it.get("g1"))
+            ws.cell(row=i, column=6,  value=it.get("g2"))
+            ws.cell(row=i, column=7,  value=it.get("g3"))
+            ws.cell(row=i, column=8,  value=it.get("stock"))
+            ws.cell(row=i, column=11, value=it.get("transit"))
+            ws.cell(row=i, column=12, value=it.get("price_usd"))
+            ws.cell(row=i, column=13, value=it.get("price_rub"))
+
+        return _save_workbook(wb, tmp_path, name)
+
+    return _make
+
+
+@pytest.fixture()
 def make_ocs_xlsx(tmp_path: Path):
     """Фабрика минимального OCS-прайса: лист «Наличие и цены» с одной
     строкой заголовков и N строк данных. Поддерживает опциональную
