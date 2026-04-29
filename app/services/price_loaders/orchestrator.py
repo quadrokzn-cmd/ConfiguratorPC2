@@ -30,6 +30,7 @@ from app.services.price_loaders.matching import (
     MatchResult, resolve,
 )
 from app.services.price_loaders.models import PriceRow
+from shared.component_filters import is_likely_case_fan
 
 logger = logging.getLogger(__name__)
 
@@ -155,6 +156,14 @@ def _create_skeleton(
         "gtin":         row.gtin,
     }
     values.update(_SKELETON_DEFAULTS.get(table, {}))
+
+    # Этап 9Г.1: корпусные вентиляторы при создании скелета помечаем
+    # is_hidden=True, чтобы они не попадали в подбор CPU-кулеров.
+    # См. shared/component_filters.py и docs/enrichment_techdebt.md §9.
+    if table == "coolers" and is_likely_case_fan(
+        row.name, row.brand, row.our_category,
+    ):
+        values["is_hidden"] = True
 
     # Доп. страховка: запрашиваем актуальный список NOT NULL-колонок,
     # чтобы не упасть на таблицах, где в defaults чего-то не хватает.

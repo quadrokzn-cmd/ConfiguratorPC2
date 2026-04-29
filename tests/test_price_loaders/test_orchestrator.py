@@ -258,6 +258,53 @@ def test_ambiguous_mpn_writes_supplier_prices_and_pending(make_treolan_xlsx, db_
 # ---- Поля unmapped -----------------------------------------------------
 
 
+# ---- Этап 9Г.1: автоматическое скрытие корпусных вентиляторов --------
+
+
+def test_case_fan_skeleton_marked_is_hidden(make_merlion_xlsx, db_session):
+    """Скелет корпусного вентилятора в категории cooler автоматически
+    создаётся с is_hidden=TRUE — иначе он попадёт в подбор CPU-кулера."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Устройства охлаждения",
+            "g3": "Универсальные",
+            "brand": "Corsair", "number": "M-FAN1", "mpn": "AF120-ELITE",
+            "name": "Corsair AF120 ELITE PWM 120mm Case Fan",
+            "price_rub": 1500, "stock": 5,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+    assert result["added"] == 1
+
+    is_hidden = bool(db_session.execute(_t(
+        "SELECT is_hidden FROM coolers WHERE sku = 'AF120-ELITE'"
+    )).scalar())
+    assert is_hidden is True
+
+
+def test_cpu_cooler_skeleton_remains_visible(make_merlion_xlsx, db_session):
+    """CPU-кулер с явными маркерами (tower / процессор) НЕ помечается
+    is_hidden — даже если он создаётся как скелет."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Устройства охлаждения",
+            "g3": "Все кулеры",
+            "brand": "DeepCool", "number": "M-FAN2", "mpn": "AK620",
+            "name": "DeepCool AK620 Tower CPU Cooler 260W",
+            "price_rub": 6500, "stock": 2,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+    assert result["added"] == 1
+
+    is_hidden = bool(db_session.execute(_t(
+        "SELECT is_hidden FROM coolers WHERE sku = 'AK620'"
+    )).scalar())
+    assert is_hidden is False
+
+
 def test_unmapped_stores_raw_and_guessed_category(make_merlion_xlsx, db_session):
     """raw_category — строго путь от поставщика, guessed_category — наш код."""
     path = make_merlion_xlsx([

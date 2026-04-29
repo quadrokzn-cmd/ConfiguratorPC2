@@ -99,6 +99,7 @@ ConfiguratorPC2/
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
 │   ├── audit.py        ← write_audit + extract_request_meta (этап 9В.4)
 │   ├── audit_actions.py ← каталог констант action для аудит-лога (этап 9В.4)
+│   ├── component_filters.py ← is_likely_case_fan и др. фильтры каталога (этап 9Г.1)
 │   ├── db.py           ← engine, SessionLocal, get_db
 │   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
 │   ├── sentry_init.py  ← init_sentry для портала и конфигуратора (этап 9В.3)

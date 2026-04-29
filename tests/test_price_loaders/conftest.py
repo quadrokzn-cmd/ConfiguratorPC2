@@ -28,6 +28,9 @@ _MIGRATIONS = [
     "008_project_specification.sql",
     "009_multi_supplier_and_gtin.sql",
     "010_unmapped_score.sql",
+    # Этап 9Г.1: orchestrator выставляет is_hidden=True у скелетов
+    # корпусных вентиляторов, поэтому колонка нужна тестам.
+    "013_components_is_hidden.sql",
 ]
 
 

@@ -438,3 +438,41 @@ def test_empty_project_returns_no_drafts(db_session):
     with _mock_rate():
         drafts = email_composer.build_supplier_emails(pid, db_session)
     assert drafts == []
+
+
+# --- Этап 9Г.1: регрессия на хардкод http:// в письмах ------------------
+
+
+def test_supplier_email_no_hardcoded_http(db_session):
+    """В теле письма поставщику не должно быть подстрок http://config…,
+    http://app… или http://localhost… — все ссылки должны быть https://
+    (либо вычисляться из settings.configurator_url на проде).
+
+    Текущая реализация email_composer ставит в тело только подпись со
+    ссылкой https://www.quadro.tatar и таблицу позиций; этот тест ловит
+    регресс, если кто-то добавит ссылку на проект/конфигуратор и забудет
+    про https.
+    """
+    uid = _seed_user(db_session, login="em-https")
+    sid = _insert_supplier(db_session, name="HTTPS-Sup", email="https@sup.ru")
+    pid = spec_service.create_empty_project(
+        db_session, user_id=uid, name="HTTPS Test",
+    )
+    cpu_id = _insert_cpu(db_session, sku="cpu-https")
+    _insert_supplier_price(db_session, supplier_id=sid, category="cpu",
+                           component_id=cpu_id, price=1, supplier_sku="https-cpu")
+    qid = _make_query(db_session, project_id=pid, user_id=uid, comps=[
+        {"category": "cpu", "component_id": cpu_id, "model": "Intel CPU",
+         "sku": "CPU-HTTPS", "manufacturer": "Intel", "quantity": 1},
+    ])
+    spec_service.select_variant(db_session, project_id=pid, query_id=qid,
+                                manufacturer="Intel", quantity=1)
+
+    with _mock_rate():
+        drafts = email_composer.build_supplier_emails(pid, db_session)
+
+    body = drafts[0].body_html
+    for forbidden in ("http://config", "http://app", "http://localhost"):
+        assert forbidden not in body, (
+            f"В теле письма не должно быть {forbidden!r}"
+        )

@@ -146,7 +146,10 @@ def init_sentry(service_name: str) -> bool:
 
     dsn = _resolve_dsn(service_name)
     if not dsn:
-        logger.info("Sentry disabled (no SENTRY_DSN) for %s", service_name)
+        # print(flush=True): logger.info на старте до настройки uvicorn-handler'ов
+        # не попадает в Railway Deploy Logs. Для остальных событий init/runtime
+        # этого модуля используем обычный logger (этап 9Г.1).
+        print(f"Sentry disabled for {service_name} (no SENTRY_DSN)", flush=True)
         return False
 
     # environment: production / staging / development. Берём APP_ENV
@@ -191,10 +194,9 @@ def init_sentry(service_name: str) -> bool:
     # фильтровать по tag service:portal / service:configurator.
     sentry_sdk.set_tag("service", service_name)
 
-    logger.info(
-        "Sentry initialized for %s (DSN: %s, env=%s)",
-        service_name,
-        mask_dsn(dsn),
-        environment,
+    print(
+        f"Sentry initialized for {service_name} "
+        f"(DSN: {mask_dsn(dsn)}, env={environment})",
+        flush=True,
     )
     return True
