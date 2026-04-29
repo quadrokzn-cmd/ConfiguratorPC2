@@ -42,6 +42,24 @@ UI ставит флаг и добавляет JS-`confirm`); невалидна
 несуществующий target → 404; admin↔admin / manager↔manager — no-op.
 Каждое изменение логируется на INFO.
 
+Удаление пользователя (этап 9В.4.2). **Soft-delete** — кнопка
+«Отключить» в `/admin/users`, выставляет `is_active=false`. Учётка
+остаётся в БД, действия в `audit_log` сохраняют ссылку. **Hard-delete** —
+кнопка «Удалить навсегда» в `/admin/users`, появляется только в строках
+уже отключённых пользователей. POST-эндпоинт
+`/admin/users/{id}/delete-permanent` за `require_admin` с защитами:
+требует `confirm_login` (двойной ввод login через JS confirm+prompt);
+target должен быть `is_active=false`; нельзя удалить себя; нельзя
+удалить последнего admin (`count_admins()` ≤ 1 → 400, проверка
+срабатывает РАНЬШЕ self-check, чтобы достижимо тестировать оба
+сценария); нельзя удалить пользователя с записями в `sent_emails`
+(там `sent_by_user_id` `NOT NULL` без `ON DELETE` — каскад уничтожил
+бы историю переписки с поставщиками). Перед DELETE обнуляются
+`unmapped_supplier_items.resolved_by` (nullable, без `ON DELETE`);
+`projects`/`queries` каскадятся (`ON DELETE CASCADE` миграции 007);
+`audit_log.user_id` переходит в NULL благодаря `ON DELETE SET NULL`
+миграции 018, denormalized `user_login` сохраняется как snapshot.
+
 Permission enforcement (этап 9Б.4) реализован в **двух местах**:
 
 1. **В UI портала** (тонкая защита) — плитка «Конфигуратор ПК» на

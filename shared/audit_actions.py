@@ -20,12 +20,12 @@ ACTION_LOGOUT           = "auth.logout"
 
 # --- Users (управление пользователями в /admin/users портала) ----------
 
-ACTION_USER_CREATE         = "user.create"
-ACTION_USER_DELETE         = "user.delete"
-ACTION_USER_TOGGLE_ACTIVE  = "user.toggle_active"
-ACTION_USER_ROLE_CHANGE    = "user.role_change"
-ACTION_USER_PERM_CHANGE    = "user.permission_change"
-ACTION_USER_PASSWORD_RESET = "user.password_reset"
+ACTION_USER_CREATE           = "user.create"
+ACTION_USER_TOGGLE_ACTIVE    = "user.toggle_active"
+ACTION_USER_ROLE_CHANGE      = "user.role_change"
+ACTION_USER_PERM_CHANGE      = "user.permission_change"
+ACTION_USER_PASSWORD_RESET   = "user.password_reset"
+ACTION_USER_DELETE_PERMANENT = "user.delete_permanent"
 
 
 # --- Projects (конфигуратор) -------------------------------------------

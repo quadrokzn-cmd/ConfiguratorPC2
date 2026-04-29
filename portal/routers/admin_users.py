@@ -20,6 +20,7 @@ from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (
     ACTION_USER_CREATE,
+    ACTION_USER_DELETE_PERMANENT,
     ACTION_USER_PERM_CHANGE,
     ACTION_USER_ROLE_CHANGE,
     ACTION_USER_TOGGLE_ACTIVE,
@@ -67,6 +68,10 @@ def users_list(
             "users":      users,
             "module_keys":         MODULE_KEYS,
             "visible_module_keys": _VISIBLE_MODULE_KEYS,
+            # admin_count нужен шаблону, чтобы скрыть кнопку «Удалить
+            # навсегда» для последнего админа (UI-защита; серверная всё
+            # равно стоит в users_delete_permanent).
+            "admin_count": user_repo.count_admins(db),
             "error":      request.session.pop("flash_error", None),
             "info":       request.session.pop("flash_info",  None),
         },
@@ -255,6 +260,107 @@ def users_set_role(
 
     role_label = "администратор" if role_clean == "admin" else "менеджер"
     request.session["flash_info"] = f"Роль обновлена: {role_label}."
+    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+
+
+@router.post("/users/{user_id}/delete-permanent")
+def users_delete_permanent(
+    user_id: int,
+    request: Request,
+    csrf_token: str = Form(""),
+    confirm_login: str = Form(""),
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Физически удаляет пользователя из БД (этап 9В.4.2). Защиты:
+       - CSRF;
+       - 404 если target не найден;
+       - 400 если confirm_login не совпал с login (защита от случайного клика);
+       - 400 если target.is_active=True (надо сначала отключить);
+       - 400 на удаление самого себя (даже если каким-то образом current_user
+         отключён — дублирующая защита);
+       - 400 если target — последний admin (даже отключённый);
+       - 400 если у target есть sent_emails (sent_by_user_id NOT NULL без
+         ON DELETE — каскадно удалить лог писем поставщикам = потерять
+         историю переписки, см. миграцию 011).
+    После DELETE аудит-лог сохраняет user_id=NULL и user_login=<login>
+    благодаря ON DELETE SET NULL миграции 018."""
+    if not verify_csrf(request, csrf_token):
+        raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
+
+    target = user_repo.get_user_brief(db, user_id)
+    if target is None:
+        raise HTTPException(status_code=404, detail="Пользователь не найден.")
+
+    if (confirm_login or "").strip() != target["login"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Подтверждение не совпало с login пользователя.",
+        )
+
+    # Порядок защит подобран так, чтобы каждую можно было независимо
+    # достичь в HTTP-тесте:
+    #   * last admin срабатывает раньше self, иначе тест «один админ
+    #     пытается удалить сам себя» застрял бы на self-check и не
+    #     дошёл бы до проверки last admin;
+    #   * self раньше is_active — current_user всегда активен (иначе
+    #     require_admin не пропустил бы), и без этого порядка self-check
+    #     был бы недостижим в тесте.
+    if target["role"] == "admin" and user_repo.count_admins(db) <= 1:
+        raise HTTPException(
+            status_code=400,
+            detail="Нельзя удалить последнего администратора.",
+        )
+
+    if int(user.id) == int(target["id"]):
+        raise HTTPException(
+            status_code=400,
+            detail="Нельзя удалить свой собственный аккаунт.",
+        )
+
+    if target["is_active"]:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Сначала отключите пользователя через «Отключить», "
+                "потом удалите навсегда."
+            ),
+        )
+
+    if user_repo.count_sent_emails_by_user(db, target["id"]) > 0:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Нельзя удалить пользователя, от имени которого отправлялись "
+                "письма поставщикам — это сломает историю переписки. "
+                "Оставьте учётку отключённой."
+            ),
+        )
+
+    deleted_login = target["login"]
+    deleted_role = target["role"]
+    user_repo.delete_user_permanent(db, target["id"])
+
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_USER_DELETE_PERMANENT,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="user",
+        target_id=target["id"],
+        payload={
+            "deleted_login": deleted_login,
+            "deleted_role":  deleted_role,
+            "was_active":    False,
+        },
+        ip=ip,
+        user_agent=ua,
+    )
+
+    request.session["flash_info"] = (
+        f"Пользователь «{deleted_login}» удалён навсегда."
+    )
     return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
 
 

@@ -156,6 +156,22 @@
                 {% if u.is_active %}Отключить{% else %}Включить{% endif %}
               </button>
             </form>
+            {# 9В.4.2: «Удалить навсегда» — только для отключённых, чужих,
+               и не последнего админа. Сервер дублирует все эти проверки. #}
+            {% if not u.is_active
+                  and u.id != user.id
+                  and not (u.role == 'admin' and admin_count <= 1) %}
+              <form method="post" action="/admin/users/{{ u.id }}/delete-permanent"
+                    class="inline ml-1.5"
+                    onsubmit="return ktConfirmHardDelete(this);">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <input type="hidden" name="confirm_login" value="">
+                <button type="submit" class="btn btn-sm btn-danger"
+                        data-login="{{ u.login }}">
+                  Удалить навсегда
+                </button>
+              </form>
+            {% endif %}
           </td>
         </tr>
         {% endif %}
@@ -179,6 +195,30 @@
       'Вы понижаете себя до менеджера. После этого вы потеряете ' +
       'доступ к админ-панели. Продолжить?'
     );
+  }
+
+  // 9В.4.2: двойное подтверждение перед физическим удалением
+  // пользователя. confirm() — защита от случайного клика; prompt() —
+  // защита от клика по соседней строке (ввод login обязателен).
+  function ktConfirmHardDelete(form) {
+    const btn = form.querySelector('button[data-login]');
+    const login = btn ? btn.dataset.login : '';
+    if (!login) return false;
+    if (!confirm(
+      'Вы собираетесь УДАЛИТЬ ПОЛЬЗОВАТЕЛЯ «' + login +
+      '» НАВСЕГДА.\n\nДействие необратимо. Продолжить?'
+    )) return false;
+    const typed = prompt(
+      'Для подтверждения введите login пользователя:', ''
+    );
+    if (typed === null) return false;
+    if (typed.trim() !== login) {
+      alert('Login не совпал. Удаление отменено.');
+      return false;
+    }
+    const hidden = form.querySelector('input[name="confirm_login"]');
+    if (hidden) hidden.value = login;
+    return true;
   }
 </script>
 {% endblock %}

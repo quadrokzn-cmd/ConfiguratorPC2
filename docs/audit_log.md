@@ -39,6 +39,7 @@ UI:
 |                | `user.toggle_active`         | Активация/деактивация                              |
 |                | `user.role_change`           | Смена роли admin/manager (`from`/`to` в payload)   |
 |                | `user.permission_change`     | Перезапись permissions JSONB                       |
+|                | `user.delete_permanent`      | Физическое удаление пользователя (`deleted_login`/`deleted_role`/`was_active` в payload) |
 | Проекты        | `project.create`             | Создание проекта (через `/query` или `POST /projects`) |
 |                | `project.update`             | Переименование                                     |
 |                | `project.delete`             | Удаление                                           |

@@ -167,3 +167,62 @@ def update_permissions(
     ).first()
     session.commit()
     return row is not None
+
+
+# --- Удаление навсегда (этап 9В.4.2) ----------------------------------
+
+def get_user_brief(session: Session, user_id: int) -> dict[str, Any] | None:
+    """Минимальный набор полей для проверок hard-delete: login, role,
+    is_active. None — если пользователя нет."""
+    row = session.execute(
+        text(
+            "SELECT id, login, role, is_active FROM users WHERE id = :id"
+        ),
+        {"id": user_id},
+    ).first()
+    if row is None:
+        return None
+    return {
+        "id":        int(row.id),
+        "login":     row.login,
+        "role":      row.role,
+        "is_active": bool(row.is_active),
+    }
+
+
+def count_sent_emails_by_user(session: Session, user_id: int) -> int:
+    """Сколько писем поставщикам отправил пользователь.
+    Используется как блокер hard-delete: sent_emails.sent_by_user_id —
+    NOT NULL без ON DELETE, поэтому SET NULL невозможен, а CASCADE мы
+    не хотим (история переписки с поставщиками — отдельная ценность,
+    см. миграцию 011). Если есть хоть одно письмо — отказываем."""
+    row = session.execute(
+        text(
+            "SELECT COUNT(*) AS n FROM sent_emails "
+            "WHERE sent_by_user_id = :id"
+        ),
+        {"id": user_id},
+    ).first()
+    return int(row.n) if row else 0
+
+
+def delete_user_permanent(session: Session, user_id: int) -> bool:
+    """Физически удаляет пользователя. Возвращает True, если строка удалена.
+    Перед DELETE обнуляет nullable-ссылки (unmapped_supplier_items.resolved_by);
+    вызывающий код обязан заранее проверить sent_emails (см.
+    count_sent_emails_by_user) — там FK NOT NULL без ON DELETE и DELETE
+    упадёт. Каскадно удалятся projects/queries (ON DELETE CASCADE из
+    миграции 007), audit_log.user_id перейдёт в NULL (миграция 018)."""
+    session.execute(
+        text(
+            "UPDATE unmapped_supplier_items SET resolved_by = NULL "
+            "WHERE resolved_by = :id"
+        ),
+        {"id": user_id},
+    )
+    row = session.execute(
+        text("DELETE FROM users WHERE id = :id RETURNING id"),
+        {"id": user_id},
+    ).first()
+    session.commit()
+    return row is not None
