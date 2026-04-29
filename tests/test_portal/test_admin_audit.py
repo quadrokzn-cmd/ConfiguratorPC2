@@ -218,6 +218,57 @@ def test_audit_view_writes_self_audit_record(admin_portal_client, db_session):
     assert n >= 1
 
 
+# --- 6.1. UX: пустые / невалидные значения фильтров (Этап 9В.4.1) -------
+
+def test_audit_page_handles_empty_user_id_filter(admin_portal_client):
+    """HTML-форма GET'ом отправляет user_id= и action= при пустых полях.
+    Pydantic int-парсер на "" возвращает 422 — чтобы не падать, эндпоинт
+    принимает str|None и приводит "" → None вручную."""
+    r = admin_portal_client.get("/admin/audit?user_id=&action=")
+    assert r.status_code == 200
+
+
+def test_audit_page_handles_empty_date_filters(admin_portal_client):
+    r = admin_portal_client.get("/admin/audit?date_from=&date_to=")
+    assert r.status_code == 200
+
+
+def test_audit_page_handles_empty_page(admin_portal_client):
+    """Пустой page= → дефолт 1, без 422."""
+    r = admin_portal_client.get("/admin/audit?page=")
+    assert r.status_code == 200
+
+
+def test_audit_page_handles_invalid_user_id_gracefully(admin_portal_client):
+    """user_id=abc → фильтр игнорируется, страница открывается."""
+    r = admin_portal_client.get("/admin/audit?user_id=abc")
+    assert r.status_code == 200
+
+
+def test_audit_view_payload_excludes_empty_filters(
+    admin_portal_client, db_session,
+):
+    """audit.view-запись не должна содержать в payload.filters пустых
+    ключей вроде action="" — это шум в логе и confusion при разборе."""
+    r = admin_portal_client.get("/admin/audit?action=&user_id=&date_from=")
+    assert r.status_code == 200
+    row = db_session.execute(
+        _t(
+            "SELECT payload FROM audit_log "
+            "WHERE action = 'audit.view' ORDER BY id DESC LIMIT 1"
+        )
+    ).first()
+    assert row is not None
+    payload = row.payload if isinstance(row.payload, dict) else json.loads(row.payload)
+    # Когда все фильтры пустые, payload вовсе отсутствует
+    # (write_audit вызывается с payload=None) или filters пуст —
+    # в обоих случаях ключей "action" / "user_id" быть не должно.
+    filters = (payload or {}).get("filters", {}) if payload else {}
+    assert "action" not in filters
+    assert "user_id" not in filters
+    assert "date_from" not in filters
+
+
 # --- 7. Интеграция: login success/failed --------------------------------
 
 def test_login_success_writes_audit(portal_client, db_session, manager_user):

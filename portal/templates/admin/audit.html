@@ -16,7 +16,7 @@
 
   {# === Фильтры =========================================================== #}
   <section class="card card-pad mb-6">
-    <form method="get" action="/admin/audit"
+    <form id="audit-filters" method="get" action="/admin/audit"
           class="grid grid-cols-1 md:grid-cols-6 gap-3">
 
       <div>
@@ -172,4 +172,23 @@
   {% endif %}
 
 </div>
+
+<script>
+  // Перед submit'ом формы фильтров отключаем пустые поля, чтобы они не
+  // попадали в querystring как `?user_id=&action=&...`. На бэке этот
+  // случай тоже терпится (parse_optional_int → None), но чистый URL
+  // приятнее в адресной строке и в audit.view-payload.
+  (function () {
+    var form = document.getElementById('audit-filters');
+    if (!form) return;
+    form.addEventListener('submit', function () {
+      var fields = form.querySelectorAll('input[name], select[name]');
+      fields.forEach(function (el) {
+        if (el.value === '' || el.value === null) {
+          el.disabled = true;
+        }
+      });
+    });
+  })();
+</script>
 {% endblock %}

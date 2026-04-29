@@ -72,6 +72,27 @@ def _parse_date(s: str | None) -> datetime | None:
         return None
 
 
+def _parse_optional_int(value: str | None) -> int | None:
+    """Пустую строку из querystring трактуем как «фильтр не задан».
+    Невалидное число — тоже None: фильтр игнорируется, страница не падает 422-й."""
+    if value is None:
+        return None
+    s = value.strip()
+    if not s:
+        return None
+    try:
+        return int(s)
+    except ValueError:
+        return None
+
+
+def _clean_str(value: str | None) -> str:
+    """('' / None / '   ') → ''. Удобно для фильтров-строк."""
+    if value is None:
+        return ""
+    return value.strip()
+
+
 # --- Сборка SQL-фильтров -----------------------------------------------
 
 def _build_filters(
@@ -213,31 +234,43 @@ def _list_actions(db: Session) -> list[str]:
 @router.get("")
 def audit_index(
     request: Request,
-    user_id: int | None = Query(None),
-    action: str = Query(""),
-    target_type: str = Query(""),
-    service: str = Query(""),
-    date_from: str = Query(""),
-    date_to: str = Query(""),
-    page: int = Query(1, ge=1),
+    user_id: str | None = Query(None),
+    action: str | None = Query(None),
+    target_type: str | None = Query(None),
+    service: str | None = Query(None),
+    date_from: str | None = Query(None),
+    date_to: str | None = Query(None),
+    page: str | None = Query(None),
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Журнал действий: таблица + фильтры + пагинация."""
-    df_dt = _parse_date(date_from)
-    dt_dt = _parse_date(date_to)
+    """Журнал действий: таблица + фильтры + пагинация.
+
+    Опциональные параметры объявлены как str|None и парсятся вручную:
+    HTML-форма GET'ом отправляет пустые поля как `?user_id=&...`, а
+    Pydantic int-парсер на пустую строку возвращает 422. Здесь же
+    "" / None / невалидное значение → фильтр не применяется."""
+    user_id_int = _parse_optional_int(user_id)
+    action_clean = _clean_str(action)
+    target_type_clean = _clean_str(target_type)
+    service_clean = _clean_str(service)
+    date_from_clean = _clean_str(date_from)
+    date_to_clean = _clean_str(date_to)
+    df_dt = _parse_date(date_from_clean)
+    dt_dt = _parse_date(date_to_clean)
+    page_int = _parse_optional_int(page) or 1
+    page_clean = max(1, page_int)
 
     where, params = _build_filters(
-        user_id=user_id,
-        action=action,
-        target_type=target_type,
-        service=service,
+        user_id=user_id_int,
+        action=action_clean,
+        target_type=target_type_clean,
+        service=service_clean,
         date_from=df_dt,
         date_to=dt_dt,
     )
 
     total = _count_entries(db, where=where, params=params)
-    page_clean = max(1, int(page or 1))
     offset = (page_clean - 1) * _PAGE_SIZE
     entries = _select_entries(
         db, where=where, params=params,
@@ -246,21 +279,21 @@ def audit_index(
 
     pages_total = max(1, (total + _PAGE_SIZE - 1) // _PAGE_SIZE)
 
-    # Самонаблюдение: фиксируем сам факт просмотра. Без payload пишем
-    # текущие активные фильтры — полезно для разбора «кто что искал».
+    # Самонаблюдение: фиксируем сам факт просмотра. В payload — только
+    # реально применённые фильтры (без пустых ключей-мусора).
     active_filters: dict[str, Any] = {}
-    if user_id is not None:
-        active_filters["user_id"] = user_id
-    if (action or "").strip():
-        active_filters["action"] = action.strip()
-    if (target_type or "").strip():
-        active_filters["target_type"] = target_type.strip()
-    if (service or "").strip():
-        active_filters["service"] = service.strip()
+    if user_id_int is not None:
+        active_filters["user_id"] = user_id_int
+    if action_clean:
+        active_filters["action"] = action_clean
+    if target_type_clean:
+        active_filters["target_type"] = target_type_clean
+    if service_clean:
+        active_filters["service"] = service_clean
     if df_dt is not None:
-        active_filters["date_from"] = date_from
+        active_filters["date_from"] = date_from_clean
     if dt_dt is not None:
-        active_filters["date_to"] = date_to
+        active_filters["date_to"] = date_to_clean
     if page_clean > 1:
         active_filters["page"] = page_clean
 
@@ -285,12 +318,12 @@ def audit_index(
             "users_list":    _list_users(db),
             "actions_list":  _list_actions(db),
             "filter": {
-                "user_id":     user_id,
-                "action":      action,
-                "target_type": target_type,
-                "service":     service,
-                "date_from":   date_from,
-                "date_to":     date_to,
+                "user_id":     user_id_int,
+                "action":      action_clean,
+                "target_type": target_type_clean,
+                "service":     service_clean,
+                "date_from":   date_from_clean,
+                "date_to":     date_to_clean,
             },
             "page":         page_clean,
             "pages_total":  pages_total,
@@ -304,12 +337,12 @@ def audit_index(
 
 @router.get("/export")
 def audit_export_csv(
-    user_id: int | None = Query(None),
-    action: str = Query(""),
-    target_type: str = Query(""),
-    service: str = Query(""),
-    date_from: str = Query(""),
-    date_to: str = Query(""),
+    user_id: str | None = Query(None),
+    action: str | None = Query(None),
+    target_type: str | None = Query(None),
+    service: str | None = Query(None),
+    date_from: str | None = Query(None),
+    date_to: str | None = Query(None),
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -317,13 +350,14 @@ def audit_export_csv(
     отдаём StreamingResponse, чтобы не держать весь файл в памяти при
     большом аудит-логе. Для compliance-отчётов критично иметь полный
     выгруз, а не первые 50 строк."""
+    user_id_int = _parse_optional_int(user_id)
     df_dt = _parse_date(date_from)
     dt_dt = _parse_date(date_to)
     where, params = _build_filters(
-        user_id=user_id,
-        action=action,
-        target_type=target_type,
-        service=service,
+        user_id=user_id_int,
+        action=_clean_str(action),
+        target_type=_clean_str(target_type),
+        service=_clean_str(service),
         date_from=df_dt,
         date_to=dt_dt,
     )
