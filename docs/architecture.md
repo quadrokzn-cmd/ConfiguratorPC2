@@ -72,13 +72,15 @@ ConfiguratorPC2/
 │   └── templates/      ← Jinja2-шаблоны конфигуратора
 ├── portal/             ← портал: отдельное FastAPI-приложение (этап 9Б.1)
 │   ├── main.py         ← точка входа портала
-│   ├── routers/        ← auth, home, admin_users, admin_backups (9В.2), admin_diagnostics (9В.3)
+│   ├── routers/        ← auth, home, admin_users, admin_backups (9В.2), admin_diagnostics (9В.3), admin_audit (9В.4)
 │   ├── services/       ← бизнес-логика портала (dashboard.py, backup_service.py)
-│   ├── scheduler.py    ← APScheduler портала: daily_backup в 03:00 МСК (9В.2)
+│   ├── scheduler.py    ← APScheduler портала: daily_backup 03:00 МСК (9В.2), audit_retention вс 04:00 МСК (9В.4)
 │   ├── templates/      ← Jinja2-шаблоны портала (топбар + дашборд, этап 9Б.2)
 │   └── templating.py   ← Jinja2 portal-инстанция (фильтры дат: ru_date, days_ago)
 ├── shared/             ← общий код для конфигуратора и портала (этап 9Б.1)
 │   ├── auth.py         ← bcrypt, сессии, current_user, require_login, require_admin
+│   ├── audit.py        ← write_audit + extract_request_meta (этап 9В.4)
+│   ├── audit_actions.py ← каталог констант action для аудит-лога (этап 9В.4)
 │   ├── db.py           ← engine, SessionLocal, get_db
 │   ├── permissions.py  ← MODULE_KEYS, has_permission, require_permission
 │   ├── sentry_init.py  ← init_sentry для портала и конфигуратора (этап 9В.3)
@@ -245,6 +247,24 @@ CSRF — заголовок `X-CSRF-Token`.
 в БД хранятся в USD, рубли вычисляются на лету через jinja-фильтры
 `to_rub` / `fmt_rub` (см. [design-decisions.md](design-decisions.md)).
 
+## Аудит-лог действий пользователей (этап 9В.4)
+
+Внутренний журнал значимых действий — `audit_log` в Postgres. Sentry
+ловит ошибки, аудит-лог фиксирует **нормальные действия** (login,
+создание/удаление проектов, экспорт КП, отправка писем поставщикам,
+изменения ролей и прав). Записи пишет общий helper
+[`shared/audit.py`](../shared/audit.py): `write_audit(...)` —
+отдельная транзакция, проглатывает любые ошибки БД (WARNING-лог,
+запрос пользователя продолжает работать).
+
+UI: `/admin/audit` (роутер [`portal/routers/admin_audit.py`](../portal/routers/admin_audit.py)).
+Только для admin'ов; партнёр по бизнесу — тоже admin. Фильтры по
+пользователю, action, диапазону дат, сервису. CSV-экспорт для
+compliance-отчётов. Ретенция 180 дней — APScheduler-задача
+`audit_retention` в `portal/scheduler.py`, по воскресеньям 04:00 МСК.
+
+Подробности — [audit_log.md](audit_log.md).
+
 ## Резервные копии БД (этап 9В.2)
 
 `portal/services/backup_service.py` — pg_dump → загрузка в Backblaze B2
@@ -260,4 +280,5 @@ CSRF — заголовок `X-CSRF-Token`.
 - Стек и зависимости — [stack.md](stack.md)
 - Почему так, а не иначе — [design-decisions.md](design-decisions.md)
 - Восстановление после катастрофы — [disaster_recovery.md](disaster_recovery.md)
+- Аудит-лог действий — [audit_log.md](audit_log.md)
 - История и план — [roadmap.md](roadmap.md)

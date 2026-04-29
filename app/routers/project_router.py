@@ -30,6 +30,14 @@ from app.services import budget_guard, spec_recalc, spec_service, web_service
 from app.services.nlu import process_query
 from app.services.web_result_view import enrich_variants_with_specs
 from app.templating import templates
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import (
+    ACTION_BUILD_CREATE,
+    ACTION_BUILD_REOPTIMIZE,
+    ACTION_PROJECT_CREATE,
+    ACTION_PROJECT_DELETE,
+    ACTION_PROJECT_UPDATE,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -133,6 +141,18 @@ def projects_create(
         raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
     name = web_service.format_project_name(None)
     pid = spec_service.create_empty_project(db, user_id=user.id, name=name)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_PROJECT_CREATE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=pid,
+        payload={"name": name},
+        ip=ip,
+        user_agent=ua,
+    )
     return RedirectResponse(url=f"/project/{pid}", status_code=status.HTTP_302_FOUND)
 
 
@@ -206,6 +226,18 @@ def project_rename(
     if len(clean) > 300:
         clean = clean[:300]
     spec_service.rename_project(db, project_id=project_id, name=clean)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_PROJECT_UPDATE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={"name": clean},
+        ip=ip,
+        user_agent=ua,
+    )
     return RedirectResponse(url=f"/project/{project_id}", status_code=status.HTTP_302_FOUND)
 
 
@@ -217,10 +249,22 @@ def project_delete(
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
 ):
-    _load_project_or_raise(db, project_id=project_id, user=user)
+    project = _load_project_or_raise(db, project_id=project_id, user=user)
     if not verify_csrf(request, csrf_token):
         raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
     spec_service.delete_project(db, project_id=project_id)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_PROJECT_DELETE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={"name": project.get("name")},
+        ip=ip,
+        user_agent=ua,
+    )
     return RedirectResponse(url="/projects", status_code=status.HTTP_302_FOUND)
 
 
@@ -345,6 +389,29 @@ def project_new_query_submit(
         error_msg=err_msg,
         run_started_at=started_at,
     )
+    if resp is not None and err_msg is None:
+        ip, ua = extract_request_meta(request)
+        variants_count = 0
+        try:
+            br = getattr(resp, "build_result", None)
+            if br is not None:
+                variants_count = len(getattr(br, "variants", []) or [])
+        except Exception:
+            variants_count = 0
+        write_audit(
+            action=ACTION_BUILD_CREATE,
+            service="configurator",
+            user_id=user.id,
+            user_login=user.login,
+            target_type="query",
+            target_id=qid,
+            payload={
+                "project_id":     project_id,
+                "variants_count": variants_count,
+            },
+            ip=ip,
+            user_agent=ua,
+        )
     budget_guard.upsert_daily_log(db)
     return RedirectResponse(
         url=f"/project/{project_id}?highlight={qid}",
@@ -476,6 +543,21 @@ def project_spec_reoptimize(
     _verify_csrf_ajax(request)
     _load_project_or_raise(db, project_id=project_id, user=user)
     result = spec_recalc.reoptimize_specification(db, project_id=project_id)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_BUILD_REOPTIMIZE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={
+            "changed_count": result.changed_count,
+            "total_count":   result.total_count,
+        },
+        ip=ip,
+        user_agent=ua,
+    )
     return _reoptimize_full_response(db, project_id, result)
 
 

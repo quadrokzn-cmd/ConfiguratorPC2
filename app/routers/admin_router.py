@@ -24,6 +24,12 @@ from app.services import (
     web_service,
 )
 from app.templating import templates
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import (
+    ACTION_COMPONENT_HIDE,
+    ACTION_COMPONENT_SHOW,
+    ACTION_COMPONENT_UPDATE,
+)
 
 
 router = APIRouter(prefix="/admin")
@@ -451,6 +457,19 @@ async def component_update(
     if not ok:
         raise HTTPException(status_code=404, detail="Компонент не найден.")
 
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_COMPONENT_UPDATE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type=f"component.{cat}",
+        target_id=component_id,
+        payload={"fields": list(raw_fields.keys())},
+        ip=ip,
+        user_agent=ua,
+    )
+
     request.session["flash_info"] = "Характеристики обновлены."
     return RedirectResponse(
         url=f"/admin/components/{cat}/{component_id}",
@@ -474,6 +493,17 @@ def component_toggle_hidden(
     new_state = component_service.toggle_hidden(db, category=cat, component_id=component_id)
     if new_state is None:
         raise HTTPException(status_code=404, detail="Компонент не найден.")
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_COMPONENT_HIDE if new_state else ACTION_COMPONENT_SHOW,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type=f"component.{cat}",
+        target_id=component_id,
+        ip=ip,
+        user_agent=ua,
+    )
     request.session["flash_info"] = (
         "Компонент скрыт из подбора." if new_state else "Компонент возвращён в подбор."
     )

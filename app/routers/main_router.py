@@ -15,6 +15,8 @@ from app.services import budget_guard, web_service
 from app.services.nlu import process_query
 from app.services.web_result_view import enrich_variants_with_specs
 from app.templating import templates
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import ACTION_BUILD_CREATE, ACTION_PROJECT_CREATE
 
 logger = logging.getLogger(__name__)
 
@@ -107,10 +109,23 @@ def query_submit(
         return RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
 
     # 2. Создаём проект
+    proj_name = web_service.format_project_name(project_name)
     project_id = web_service.create_project(
         db,
         user_id=user.id,
-        name=web_service.format_project_name(project_name),
+        name=proj_name,
+    )
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_PROJECT_CREATE,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={"name": proj_name},
+        ip=ip,
+        user_agent=ua,
     )
 
     # 3. Проверяем дневной бюджет
@@ -164,6 +179,31 @@ def query_submit(
         error_msg=err_msg,
         run_started_at=started_at,
     )
+
+    # Аудит успешной генерации конфигурации (только если NLU отработал
+    # без ошибки; если резалт пустой — это не build, а заглушка с err_msg).
+    if resp is not None and err_msg is None:
+        variants_count = 0
+        try:
+            br = getattr(resp, "build_result", None)
+            if br is not None:
+                variants_count = len(getattr(br, "variants", []) or [])
+        except Exception:
+            variants_count = 0
+        write_audit(
+            action=ACTION_BUILD_CREATE,
+            service="configurator",
+            user_id=user.id,
+            user_login=user.login,
+            target_type="query",
+            target_id=qid,
+            payload={
+                "project_id":     project_id,
+                "variants_count": variants_count,
+            },
+            ip=ip,
+            user_agent=ua,
+        )
 
     # 5. Обновляем дневной снэпшот
     budget_guard.upsert_daily_log(db)

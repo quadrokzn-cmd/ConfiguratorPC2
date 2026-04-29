@@ -17,6 +17,13 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
 from portal.templating import templates
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import (
+    ACTION_USER_CREATE,
+    ACTION_USER_PERM_CHANGE,
+    ACTION_USER_ROLE_CHANGE,
+    ACTION_USER_TOGGLE_ACTIVE,
+)
 from shared.auth import (
     AuthUser,
     get_csrf_token,
@@ -99,7 +106,7 @@ def users_create(
         return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
 
     try:
-        user_repo.create_manager(
+        new_user_id = user_repo.create_manager(
             db,
             login=login_clean,
             password_hash=hash_password(password),
@@ -112,6 +119,19 @@ def users_create(
         else:
             request.session["flash_error"] = f"Ошибка создания: {exc}"
         return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_USER_CREATE,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="user",
+        target_id=new_user_id,
+        payload={"login": login_clean, "role": role_clean, "name": name_clean},
+        ip=ip,
+        user_agent=ua,
+    )
 
     role_label = "администратор" if role_clean == "admin" else "менеджер"
     request.session["flash_info"] = (
@@ -135,6 +155,18 @@ def users_toggle(
         request.session["flash_error"] = "Нельзя деактивировать собственную учётку."
         return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
     new_state = user_repo.toggle_user_active(db, user_id)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_USER_TOGGLE_ACTIVE,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="user",
+        target_id=user_id,
+        payload={"is_active": bool(new_state)},
+        ip=ip,
+        user_agent=ua,
+    )
     request.session["flash_info"] = (
         f"Пользователь переведён в состояние: {'активен' if new_state else 'отключён'}."
     )
@@ -208,6 +240,18 @@ def users_set_role(
         "from %s to %s",
         user.id, user.login, user_id, current_role, role_clean,
     )
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_USER_ROLE_CHANGE,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="user",
+        target_id=user_id,
+        payload={"from": current_role, "to": role_clean},
+        ip=ip,
+        user_agent=ua,
+    )
 
     role_label = "администратор" if role_clean == "admin" else "менеджер"
     request.session["flash_info"] = f"Роль обновлена: {role_label}."
@@ -243,5 +287,17 @@ async def users_update_permissions(
     if not ok:
         request.session["flash_error"] = "Пользователь не найден."
     else:
+        ip, ua = extract_request_meta(request)
+        write_audit(
+            action=ACTION_USER_PERM_CHANGE,
+            service="portal",
+            user_id=user.id,
+            user_login=user.login,
+            target_type="user",
+            target_id=user_id,
+            payload={"permissions": perms},
+            ip=ip,
+            user_agent=ua,
+        )
         request.session["flash_info"] = "Права обновлены."
     return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)

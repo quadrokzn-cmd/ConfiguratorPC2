@@ -50,6 +50,7 @@ _MIGRATIONS = [
     "015_exchange_rates_table.sql",
     "016_specification_items_parsed_query.sql",
     "017_add_user_permissions.sql",
+    "018_audit_log.sql",
 ]
 
 
@@ -61,6 +62,7 @@ def _drop_all(engine) -> None:
     """Чистый снос — те же таблицы, что в test_web/conftest.py
     (плюс ничего нового от миграции 017: 017 только ALTER TABLE)."""
     tables = [
+        "audit_log",
         "exchange_rates",
         "sent_emails",
         "unmapped_supplier_items",
@@ -109,7 +111,7 @@ def _clean_tables(db_engine):
     не мешал."""
     with db_engine.begin() as conn:
         conn.execute(text(
-            "TRUNCATE TABLE sent_emails, specification_items, queries, "
+            "TRUNCATE TABLE audit_log, sent_emails, specification_items, queries, "
             "projects, daily_budget_log, users, api_usage_log, exchange_rates "
             "RESTART IDENTITY CASCADE"
         ))

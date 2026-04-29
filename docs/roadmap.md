@@ -448,6 +448,54 @@ logs. Подробности — в [monitoring.md](monitoring.md).
   аргументами). Sentry мокается, реальных событий тесты не шлют.
   Всего после этапа — **836 passed**.
 
+#### 9В.4 — Аудит-лог действий пользователей ✅
+
+Внутренний журнал значимых действий: входы в систему, создание/удаление
+проектов, экспорт КП, отправка писем поставщикам, изменения ролей и прав.
+Sentry ловит ошибки, audit_log фиксирует **нормальные действия** —
+закрывает направление №6 (продакшен-готовность). Подробности —
+[audit_log.md](audit_log.md).
+
+- **migrations/018_audit_log.sql**: таблица `audit_log` с колонками
+  `id`, `created_at`, `user_id` (ON DELETE SET NULL — действия удалённого
+  пользователя остаются в логе), `user_login` (денормализуем), `action`,
+  `target_type`, `target_id` TEXT, `payload` JSONB, `ip` INET, `user_agent`,
+  `service`. Индексы на `created_at DESC`, `user_id`, `action`,
+  `(target_type, target_id)`.
+- **shared/audit.py**: `write_audit(...)` пишет одну строку в отдельной
+  транзакции (`engine.begin()`), любую ошибку БД проглатывает с WARNING
+  (не ERROR — иначе Sentry начнёт шуметь). `extract_request_meta(request)`
+  возвращает `(ip, user_agent)` с учётом `X-Forwarded-For` от Railway-прокси.
+  `AUDIT_DISABLED=1` отключает запись для тест-фикстур без БД.
+- **shared/audit_actions.py**: каталог констант (`ACTION_LOGIN_SUCCESS`,
+  `ACTION_PROJECT_CREATE`, ...). Чтобы опечатки в строках action
+  ловились pylint/импортом, а не глазами на проде.
+- **Интеграции**: `portal/routers/auth.py` (login success/failed/logout),
+  `portal/routers/admin_users.py` (create/toggle/role_change/permissions),
+  `portal/routers/admin_backups.py` (manual_run, download),
+  `app/routers/main_router.py` (project.create + build.create),
+  `app/routers/project_router.py` (project.create/update/delete + build.reoptimize),
+  `app/routers/export_router.py` (export.excel/kp_word + supplier.email_sent),
+  `app/routers/admin_router.py` (component.hide/show/update). Принцип:
+  пишем **после** успешного коммита основного действия.
+- **portal/routers/admin_audit.py + templates/admin/audit.html**:
+  `/admin/audit` для admin'ов с фильтрами (пользователь, action,
+  target_type, service, диапазон дат МСК), пагинацией по 50 записей
+  и CSV-экспортом (StreamingResponse, UTF-8 + BOM для Excel). Открытие
+  страницы тоже пишется в лог — `audit.view` с активными фильтрами.
+- **portal/scheduler.py**: APScheduler-задача `audit_retention` —
+  каждое воскресенье 04:00 МСК `DELETE FROM audit_log WHERE created_at <
+  NOW() - INTERVAL '180 days'`. Под тем же флагом `RUN_BACKUP_SCHEDULER`,
+  что и бекапы. `AUDIT_RETENTION_DAYS` переопределяет 180.
+- **Тесты**: новые в `tests/test_shared/test_audit.py` (write_audit,
+  extract_request_meta, обрезка UA до 500 символов, AUDIT_DISABLED,
+  swallow DB errors) и `tests/test_portal/test_admin_audit.py`
+  (доступы, фильтры, пагинация, CSV-экспорт, audit.view, login
+  success/failed, user.create, role_change, backup.manual_run).
+  conftest'ы (test_web, test_portal, test_shared) подгружают миграцию
+  018 и чистят `audit_log` между тестами. Всего после этапа —
+  **~857 passed**.
+
 ## Принцип ведения этапов
 
 - Один этап = одна логически связанная фича (или редизайн целого
@@ -479,3 +527,4 @@ logs. Подробности — в [monitoring.md](monitoring.md).
 | 015_exchange_rates_table.sql                    | Этап 9А.2.3    |
 | 016_specification_items_parsed_query.sql        | Этап 9А.2.5    |
 | 017_add_user_permissions.sql                    | Этап 9Б.1      |
+| 018_audit_log.sql                               | Этап 9В.4      |

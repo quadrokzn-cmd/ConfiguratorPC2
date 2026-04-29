@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Журнал действий — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6">
+    <h1 class="portal-greeting">Журнал действий</h1>
+    <p class="portal-greeting-sub">
+      Все значимые действия пользователей: входы в систему, создание и
+      удаление проектов, экспорт КП, отправка писем поставщикам, изменения
+      ролей и прав. Хранится 180 дней.
+    </p>
+  </header>
+
+  {# === Фильтры =========================================================== #}
+  <section class="card card-pad mb-6">
+    <form method="get" action="/admin/audit"
+          class="grid grid-cols-1 md:grid-cols-6 gap-3">
+
+      <div>
+        <label class="label" for="f-user">Пользователь</label>
+        <select id="f-user" name="user_id" class="select">
+          <option value="">— все —</option>
+          {% for u in users_list %}
+          <option value="{{ u.id }}"
+                  {% if filter.user_id == u.id %}selected{% endif %}>
+            {{ u.login }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="label" for="f-action">Действие</label>
+        <select id="f-action" name="action" class="select">
+          <option value="">— все —</option>
+          {% for a in actions_list %}
+          <option value="{{ a }}"
+                  {% if filter.action == a %}selected{% endif %}>
+            {{ a }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="label" for="f-target">Тип цели</label>
+        <input id="f-target" name="target_type" class="input"
+               value="{{ filter.target_type }}"
+               placeholder="user / project / ...">
+      </div>
+
+      <div>
+        <label class="label" for="f-service">Сервис</label>
+        <select id="f-service" name="service" class="select">
+          <option value=""           {% if not filter.service %}selected{% endif %}>любой</option>
+          <option value="portal"     {% if filter.service == 'portal' %}selected{% endif %}>portal</option>
+          <option value="configurator" {% if filter.service == 'configurator' %}selected{% endif %}>configurator</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="label" for="f-from">С даты (МСК)</label>
+        <input id="f-from" name="date_from" type="date" class="input"
+               value="{{ filter.date_from }}">
+      </div>
+
+      <div>
+        <label class="label" for="f-to">По дату (МСК)</label>
+        <input id="f-to" name="date_to" type="date" class="input"
+               value="{{ filter.date_to }}">
+      </div>
+
+      <div class="md:col-span-6 flex flex-wrap items-center gap-3 pt-1">
+        <button type="submit" class="btn btn-md btn-primary">Применить</button>
+        <a href="/admin/audit" class="btn btn-md btn-secondary">Сбросить</a>
+        <a href="/admin/audit/export?{{
+              ('user_id=' ~ filter.user_id if filter.user_id else '') ~
+              '&action=' ~ filter.action ~
+              '&target_type=' ~ filter.target_type ~
+              '&service=' ~ filter.service ~
+              '&date_from=' ~ filter.date_from ~
+              '&date_to=' ~ filter.date_to
+            }}"
+           class="btn btn-md btn-ghost ml-auto">Экспорт CSV</a>
+        <span class="text-caption text-ink-muted">
+          Найдено записей: {{ total }}
+        </span>
+      </div>
+    </form>
+  </section>
+
+  {# === Таблица =========================================================== #}
+  <section class="card overflow-hidden">
+    {% if entries %}
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left w-44">Время МСК</th>
+          <th class="text-left w-32">Пользователь</th>
+          <th class="text-left">Действие</th>
+          <th class="text-left">Цель</th>
+          <th class="text-left w-28">IP</th>
+          <th class="text-left">Подробности</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in entries %}
+        <tr>
+          <td class="text-ink-secondary font-mono text-small whitespace-nowrap">{{ e.created_msk }}</td>
+          <td class="text-ink-primary">
+            {% if e.user_login %}{{ e.user_login }}{% else %}<span class="text-ink-muted">—</span>{% endif %}
+            <div class="text-caption text-ink-muted">{{ e.service }}</div>
+          </td>
+          <td class="text-ink-primary font-mono text-small">{{ e.action }}</td>
+          <td class="text-ink-secondary text-small">
+            {% if e.target_type %}
+              {{ e.target_type }}{% if e.target_id %}#{{ e.target_id }}{% endif %}
+            {% else %}<span class="text-ink-muted">—</span>{% endif %}
+          </td>
+          <td class="text-ink-secondary font-mono text-small">{{ e.ip or '—' }}</td>
+          <td>
+            {% if e.payload %}
+            <details>
+              <summary class="text-caption text-ink-muted cursor-pointer">JSON</summary>
+              <pre class="text-caption font-mono text-ink-primary bg-surface-2 p-2 rounded-md mt-1 whitespace-pre-wrap">{{ e.payload_pretty }}</pre>
+            </details>
+            {% else %}
+              <span class="text-caption text-ink-muted">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="card-pad">
+      <p class="text-ink-muted text-small">Записей нет.</p>
+    </div>
+    {% endif %}
+  </section>
+
+  {# === Пагинация ========================================================= #}
+  {% if pages_total > 1 %}
+  {% set qs = (
+        ('user_id=' ~ filter.user_id if filter.user_id else '') ~
+        '&action=' ~ filter.action ~
+        '&target_type=' ~ filter.target_type ~
+        '&service=' ~ filter.service ~
+        '&date_from=' ~ filter.date_from ~
+        '&date_to=' ~ filter.date_to
+      ) %}
+  <nav class="mt-4 flex items-center justify-center gap-2 text-small">
+    {% if page > 1 %}
+      <a class="btn btn-sm btn-secondary"
+         href="/admin/audit?page={{ page - 1 }}&{{ qs }}">← Назад</a>
+    {% else %}
+      <span class="btn btn-sm btn-ghost opacity-50">← Назад</span>
+    {% endif %}
+
+    <span class="text-ink-secondary">страница {{ page }} из {{ pages_total }}</span>
+
+    {% if page < pages_total %}
+      <a class="btn btn-sm btn-secondary"
+         href="/admin/audit?page={{ page + 1 }}&{{ qs }}">Вперёд →</a>
+    {% else %}
+      <span class="btn btn-sm btn-ghost opacity-50">Вперёд →</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+</div>
+{% endblock %}

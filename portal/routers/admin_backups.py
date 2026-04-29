@@ -27,6 +27,11 @@ from fastapi.responses import RedirectResponse, StreamingResponse
 
 from portal.services import backup_service
 from portal.templating import templates
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import (
+    ACTION_BACKUP_DOWNLOAD,
+    ACTION_BACKUP_MANUAL,
+)
 from shared.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 
 
@@ -159,6 +164,15 @@ def backups_create(
         "Бекап создаётся в фоне. Обновите страницу через минуту — он появится в списке."
     )
     logger.info("backup: ручной запуск (admin_id=%s, login=%s)", user.id, user.login)
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_BACKUP_MANUAL,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        ip=ip,
+        user_agent=ua,
+    )
     return RedirectResponse(url="/admin/backups", status_code=status.HTTP_302_FOUND)
 
 
@@ -166,6 +180,7 @@ def backups_create(
 def backups_download(
     tier: str,
     filename: str,
+    request: Request,
     user: AuthUser = Depends(require_admin),
 ):
     """Скачивание бекапа из B2. Защита от path traversal: tier — whitelist,
@@ -182,6 +197,19 @@ def backups_download(
     except Exception as exc:
         logger.warning("backup: download failed key=%s: %s", key, type(exc).__name__)
         raise HTTPException(status_code=404, detail="Бекап не найден.") from exc
+
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_BACKUP_DOWNLOAD,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="backup",
+        target_id=key,
+        payload={"tier": tier, "filename": filename},
+        ip=ip,
+        user_agent=ua,
+    )
 
     body = obj.get("Body")
     size = obj.get("ContentLength")

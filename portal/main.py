@@ -34,7 +34,14 @@ from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.config import settings
-from portal.routers import admin_backups, admin_diagnostics, admin_users, auth, home
+from portal.routers import (
+    admin_audit,
+    admin_backups,
+    admin_diagnostics,
+    admin_users,
+    auth,
+    home,
+)
 from portal.scheduler import init_scheduler, shutdown_scheduler
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from shared.db import SessionLocal
@@ -92,6 +99,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(auth.router)
 app.include_router(admin_users.router)
 app.include_router(admin_backups.router)
+app.include_router(admin_audit.router)
 app.include_router(admin_diagnostics.router)
 app.include_router(home.router)
 

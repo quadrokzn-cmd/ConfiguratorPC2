@@ -35,6 +35,12 @@ from app.services.export import (
     exchange_rate,
     kp_builder,
 )
+from shared.audit import extract_request_meta, write_audit
+from shared.audit_actions import (
+    ACTION_EXPORT_EXCEL,
+    ACTION_EXPORT_KP,
+    ACTION_SUPPLIER_EMAIL,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -85,6 +91,7 @@ def _safe_project_filename(project_name: str | None, project_id: int) -> str:
 @router.get("/project/{project_id}/export/excel")
 def export_excel(
     project_id: int,
+    request: Request,
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
 ):
@@ -120,6 +127,19 @@ def export_excel(
     safe_name = _safe_project_filename(project["name"], project_id)
     filename = f"{safe_name}.xlsx"
 
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_EXPORT_EXCEL,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={"filename": filename},
+        ip=ip,
+        user_agent=ua,
+    )
+
     return StreamingResponse(
         BytesIO(xlsx_bytes),
         media_type=_XLSX_MEDIA_TYPE,
@@ -134,6 +154,7 @@ def export_excel(
 @router.get("/project/{project_id}/export/kp")
 def export_kp(
     project_id: int,
+    request: Request,
     markup: int = 15,
     user: AuthUser = Depends(require_login),
     db: Session = Depends(get_db),
@@ -164,6 +185,19 @@ def export_kp(
 
     safe_name = _safe_project_filename(project["name"], project_id)
     filename = f"{safe_name}.docx"
+
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_EXPORT_KP,
+        service="configurator",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="project",
+        target_id=project_id,
+        payload={"filename": filename, "markup": markup},
+        ip=ip,
+        user_agent=ua,
+    )
 
     return StreamingResponse(
         BytesIO(data),
@@ -373,6 +407,22 @@ def send_emails(
             body_html=item.body_html,
             status="sent",
             error_message=None,
+        )
+        ip, ua = extract_request_meta(request)
+        write_audit(
+            action=ACTION_SUPPLIER_EMAIL,
+            service="configurator",
+            user_id=user.id,
+            user_login=user.login,
+            target_type="supplier",
+            target_id=item.supplier_id,
+            payload={
+                "project_id": project_id,
+                "to_email":   item.to_email,
+                "subject":    item.subject,
+            },
+            ip=ip,
+            user_agent=ua,
         )
         results.append({
             "supplier_id": item.supplier_id,

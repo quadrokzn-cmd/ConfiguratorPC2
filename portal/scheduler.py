@@ -32,6 +32,12 @@ _BACKUP_TIMEZONE = "Europe/Moscow"
 _BACKUP_HOUR = 3
 _BACKUP_MINUTE = 0
 
+# Этап 9В.4: ретенция аудит-лога. По умолчанию 180 дней — можно
+# переопределить через AUDIT_RETENTION_DAYS. Если в B2 лежат бекапы,
+# старые записи останутся доступны через них (бекапы — наш долгосрочный
+# источник истины).
+_AUDIT_RETENTION_DEFAULT_DAYS = 180
+
 _scheduler: BackgroundScheduler | None = None
 
 
@@ -54,6 +60,54 @@ def _job_daily_backup() -> None:
         logger.error(
             "scheduler/portal: daily_backup упал за %.2fс (см. трейсбек выше)",
             elapsed,
+        )
+
+
+def _audit_retention_days() -> int:
+    """Считывает AUDIT_RETENTION_DAYS из env с дефолтом 180.
+    Невалидные/отрицательные значения → дефолт. Минимум 1, чтобы случайно
+    не выставить 0 и не зачистить весь лог."""
+    raw = (os.environ.get("AUDIT_RETENTION_DAYS", "") or "").strip()
+    if not raw:
+        return _AUDIT_RETENTION_DEFAULT_DAYS
+    try:
+        v = int(raw)
+    except ValueError:
+        return _AUDIT_RETENTION_DEFAULT_DAYS
+    if v < 1:
+        return _AUDIT_RETENTION_DEFAULT_DAYS
+    return v
+
+
+def _job_audit_retention() -> None:
+    """Удаляет записи audit_log старше AUDIT_RETENTION_DAYS дней.
+
+    Защита от зачистки только что записанных строк: интервал считается
+    в днях относительно NOW(). Если за неделю пропустили (контейнер был
+    оффлайн), misfire_grace_time=3600 даст шанс на догон в течение часа;
+    мимо этого окна — забываем и ждём следующего воскресенья.
+    """
+    days = _audit_retention_days()
+    try:
+        from shared.db import engine
+        with engine.begin() as conn:
+            from sqlalchemy import text as _t
+            res = conn.execute(
+                _t(
+                    "DELETE FROM audit_log "
+                    "WHERE created_at < NOW() - make_interval(days => :d)"
+                ),
+                {"d": days},
+            )
+            removed = res.rowcount or 0
+        logger.info(
+            "scheduler/portal: audit_retention ok — удалено %d строк (старше %d дней)",
+            removed, days,
+        )
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: audit_retention упал: %s: %s",
+            type(exc).__name__, exc,
         )
 
 
@@ -107,11 +161,30 @@ def init_scheduler() -> BackgroundScheduler | None:
         name="daily DB backup → Backblaze B2 (03:00 МСК)",
         replace_existing=True,
     )
+
+    # 9В.4: ретенция аудит-лога — каждое воскресенье 04:00 МСК (после
+    # бекапа в 03:00, чтобы удалённые записи попали в воскресный weekly
+    # снимок). Под тем же флагом RUN_BACKUP_SCHEDULER, что и бекапы:
+    # на pytest и локалке без флага молча выключен.
+    sched.add_job(
+        _job_audit_retention,
+        trigger=CronTrigger(
+            day_of_week="sun",
+            hour=4,
+            minute=0,
+            timezone=_BACKUP_TIMEZONE,
+        ),
+        id="audit_retention",
+        name="audit_log retention (вс 04:00 МСК)",
+        replace_existing=True,
+    )
+
     sched.start()
     _scheduler = sched
     logger.info(
-        "scheduler/portal: запущен (daily_backup на %02d:%02d МСК).",
-        _BACKUP_HOUR, _BACKUP_MINUTE,
+        "scheduler/portal: запущен (daily_backup %02d:%02d МСК, "
+        "audit_retention вс 04:00 МСК, retention=%d дней).",
+        _BACKUP_HOUR, _BACKUP_MINUTE, _audit_retention_days(),
     )
     return sched
 
