@@ -161,7 +161,57 @@ def _v_gpu_vram_type(payload):        return _as_enum(payload, allowed=_VRAM_TYP
 def _v_mb_memory_type(payload): return _as_enum(payload, allowed=_MB_MEMORY_TYPES)
 def _v_mb_has_m2_slot(payload): return _as_bool(payload)
 
+
+# motherboard.socket / motherboard.chipset — короткие свободные строки.
+# В прайсах встречается широкий зоопарк (LGA1700, AM5, sTRX4, sP3, sWRX8 и
+# т.п.), список ARK Intel + AMD огромный, поэтому здесь проверяем формат:
+# 1..30 символов, только ASCII (буквы/цифры/дефис/плюс), uppercase.
+import re as _re  # noqa: E402
+
+_SOCKET_RE = _re.compile(r"^[A-Z0-9+\-]{1,30}$")
+_CHIPSET_RE = _re.compile(r"^[A-Z0-9+\-]{1,30}$")
+
+
+def _v_mb_socket(value):
+    if not isinstance(value, str):
+        raise ValidationError(f"wrong_type:not_str({type(value).__name__})")
+    s = value.strip().upper().replace(" ", "")
+    if not _SOCKET_RE.match(s):
+        raise ValidationError(f"bad_value:{s!r}_not_a_socket")
+    return s
+
+
+def _v_mb_chipset(value):
+    if not isinstance(value, str):
+        raise ValidationError(f"wrong_type:not_str({type(value).__name__})")
+    s = value.strip().upper().replace(" ", "")
+    if not _CHIPSET_RE.match(s):
+        raise ValidationError(f"bad_value:{s!r}_not_a_chipset")
+    return s
+
+
 def _v_cooler_max_tdp_watts(payload): return _as_int(payload, lo=30, hi=500)
+
+
+def _v_cooler_supported_sockets(value):
+    """Список поддерживаемых сокетов кулера. Каждый элемент — короткая
+    строка, формат как у motherboard.socket. Возвращаем uppercase-строки
+    без дублей, в порядке появления.
+    """
+    if not isinstance(value, list) or not value:
+        raise ValidationError(f"wrong_type:not_nonempty_list({type(value).__name__})")
+    out: list[str] = []
+    seen: set[str] = set()
+    for item in value:
+        if not isinstance(item, str):
+            raise ValidationError(f"wrong_type:socket_not_str({type(item).__name__})")
+        s = item.strip().upper().replace(" ", "")
+        if not _SOCKET_RE.match(s):
+            raise ValidationError(f"bad_value:{s!r}_not_a_socket")
+        if s not in seen:
+            seen.add(s)
+            out.append(s)
+    return out
 
 def _v_case_has_psu_included(payload): return _as_bool(payload)
 
@@ -244,8 +294,11 @@ _VALIDATORS: dict[tuple[str, str], callable] = {
 
     ("motherboard", "memory_type"):    _v_mb_memory_type,
     ("motherboard", "has_m2_slot"):    _v_mb_has_m2_slot,
+    ("motherboard", "socket"):         _v_mb_socket,
+    ("motherboard", "chipset"):        _v_mb_chipset,
 
     ("cooler", "max_tdp_watts"):       _v_cooler_max_tdp_watts,
+    ("cooler", "supported_sockets"):   _v_cooler_supported_sockets,
 
     ("case", "has_psu_included"):       _v_case_has_psu_included,
     ("case", "supported_form_factors"): _v_case_supported_form_factors,

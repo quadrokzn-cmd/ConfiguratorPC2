@@ -1,9 +1,11 @@
-# CLI-скрипт импорта результатов от Claude Code в БД (этап 2.5Б).
+# CLI-скрипт импорта результатов от Claude Code в БД (этап 2.5Б;
+# расширен на 11.6.2.1: --file для точечного импорта).
 #
 # Примеры запуска:
 #   python scripts/enrich_import.py --category gpu
 #   python scripts/enrich_import.py --all
 #   python scripts/enrich_import.py --category gpu --dry-run
+#   python scripts/enrich_import.py --file enrichment/done/gpu/batch_001_gpu_…
 
 import argparse
 import logging
@@ -19,6 +21,7 @@ from app.services.enrichment.claude_code.importer import (
     format_report,
     import_all,
     import_category,
+    import_file,
 )
 from app.services.enrichment.claude_code.schema import ALL_CATEGORIES
 
@@ -41,16 +44,24 @@ def main() -> int:
         help="Импортировать все категории по очереди.",
     )
     parser.add_argument(
+        "--file", type=str, default=None,
+        help="Импортировать один конкретный batch-файл (этап 11.6.2.1). "
+             "Категория определяется из payload.category.",
+    )
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="Показать, что будет сделано, без записи в БД и без переноса файлов.",
     )
     args = parser.parse_args()
 
-    if not args.category and not args.all:
-        parser.error("Укажите --category <cat> или --all.")
+    chosen = sum(bool(x) for x in (args.category, args.all, args.file))
+    if chosen != 1:
+        parser.error("Укажите ровно одно из: --category <cat> | --all | --file <path>.")
 
     if args.all:
         results = import_all(dry_run=args.dry_run)
+    elif args.file:
+        results = [import_file(Path(args.file), dry_run=args.dry_run)]
     else:
         results = [import_category(args.category, dry_run=args.dry_run)]
 

@@ -24,12 +24,18 @@ TARGET_FIELDS: dict[str, list[str]] = {
         "vram_gb",
         "vram_type",
     ],
+    # motherboard: на этапе 11.6.2.1 добавлены socket/chipset (хвост 2-3
+    # позиции, которые regex не сумел разобрать из нестандартных прайсов).
     "motherboard": [
         "memory_type",
         "has_m2_slot",
+        "socket",
+        "chipset",
     ],
+    # cooler: на этапе 11.6.2.1 добавлен supported_sockets (~1.1k позиций).
     "cooler": [
         "max_tdp_watts",
+        "supported_sockets",
     ],
     "case": [
         "has_psu_included",
@@ -65,10 +71,10 @@ ALL_CATEGORIES: list[str] = [
 # Размер батча по умолчанию для каждой категории (можно переопределить
 # параметром --batch-size).
 DEFAULT_BATCH_SIZES: dict[str, int] = {
-    "gpu":         40,
-    "motherboard": 50,
-    "cooler":      40,
-    "case":        40,
+    "gpu":         30,
+    "motherboard": 30,
+    "cooler":      30,
+    "case":        30,
     "cpu":         20,
     "psu":         20,
     "storage":     20,
@@ -183,3 +189,9 @@ SOURCE_NAME = "claude_code"
 # Уверенность по умолчанию для значений от Claude Code. Ниже, чем у
 # regex/derived (1.0), но выше, чем у предполагаемого AI-обогащения.
 DEFAULT_CONFIDENCE = 0.90
+
+# Подметка (component_field_sources.source_detail) для значений, полученных
+# AI-обогащением через WebSearch/WebFetch в этапе 11.6.2.x. Отличает их от
+# других возможных вариантов source='claude_code' (например, ручных правок,
+# импортированных через тот же канал).
+SOURCE_DETAIL_WEB_SEARCH = "from_web_search"

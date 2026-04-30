@@ -1,0 +1,670 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_012",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 676,
+      "manufacturer": "unknown",
+      "sku": "GV-R64D6-4GL",
+      "mpn": "GV-R64D6-4GL",
+      "gtin": "",
+      "model": "Gigabyte GV-R64D6-4GL",
+      "raw_names": [
+        "Gigabyte GV-R64D6-4GL"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 677,
+      "manufacturer": "unknown",
+      "sku": "GB-C301G",
+      "mpn": "GB-C301G",
+      "gtin": "",
+      "model": "Корпус Gigabyte C301 Glass MidTower, ATX, USB-C x1, USB3.0 x2, Audio I/O, GPU:400mm, Black, TG",
+      "raw_names": [
+        "Корпус Gigabyte C301 Glass MidTower, ATX, USB-C x1, USB3.0 x2, Audio I/O, GPU:400mm, Black, TG"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 678,
+      "manufacturer": "unknown",
+      "sku": "GB-C301GW",
+      "mpn": "GB-C301GW",
+      "gtin": "",
+      "model": "Корпус Gigabyte C301 Glass White MidTower, ATX, USB-C x1, USB3.0 x2, Audio I/O, GPU:400mm, Black, TG",
+      "raw_names": [
+        "Корпус Gigabyte C301 Glass White MidTower, ATX, USB-C x1, USB3.0 x2, Audio I/O, GPU:400mm, Black, TG"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 679,
+      "manufacturer": "unknown",
+      "sku": "GP-AE850PM PG5 ICE",
+      "mpn": "GP-AE850PM PG5 ICE",
+      "gtin": "",
+      "model": "Блок питания ПК Gigabyte AE850PM PG5 ICE 850W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible. 28200-AE85W-1EUR",
+      "raw_names": [
+        "Блок питания ПК Gigabyte AE850PM PG5 ICE 850W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible. 28200-AE85W-1EUR"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 680,
+      "manufacturer": "unknown",
+      "sku": "GV-N507TGAMING OC-16GD 1.0",
+      "mpn": "GV-N507TGAMING OC-16GD 1.0",
+      "gtin": "",
+      "model": "Видеокарта Gigabyte PCI-E 5.0 GV-N507TGAMING OC-16GD 1.0 NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2805/28000 HDMIx1 DPx3 HDCP Ret",
+      "raw_names": [
+        "Видеокарта Gigabyte PCI-E 5.0 GV-N507TGAMING OC-16GD 1.0 NVIDIA GeForce RTX 5070TI 16Gb 256bit GDDR7 2805/28000 HDMIx1 DPx3 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 681,
+      "manufacturer": "unknown",
+      "sku": "GV-N3060WF2-12GD 2.0",
+      "mpn": "GV-N3060WF2-12GD 2.0",
+      "gtin": "",
+      "model": "Видеокарта GIGABYTE RTX3060 WINDFORCE 12GB//RTX3060, HDMI*2, DP*2, 12G,D6",
+      "raw_names": [
+        "Видеокарта GIGABYTE RTX3060 WINDFORCE 12GB//RTX3060, HDMI*2, DP*2, 12G,D6"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 682,
+      "manufacturer": "unknown",
+      "sku": "GV-N5080WF3-16GD",
+      "mpn": "GV-N5080WF3-16GD",
+      "gtin": "",
+      "model": "Видеокарта/ GV-N5080WF3-16GD",
+      "raw_names": [
+        "Видеокарта/ GV-N5080WF3-16GD"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 683,
+      "manufacturer": "unknown",
+      "sku": "GV-N5060GAMING-8GD",
+      "mpn": "GV-N5060GAMING-8GD",
+      "gtin": "",
+      "model": "Видеокарта GIGABYTE RTX5060 GAMING 8GB//RTX5060, HDMI, DP*3, 8G,D7",
+      "raw_names": [
+        "Видеокарта GIGABYTE RTX5060 GAMING 8GB//RTX5060, HDMI, DP*3, 8G,D7"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 684,
+      "manufacturer": "unknown",
+      "sku": "GP-P550SS",
+      "mpn": "GP-P550SS",
+      "gtin": "",
+      "model": "Блок питания ПК Gigabyte P550SS 550W, 80+, SILVER, НЕ модульный, ATX 3.0",
+      "raw_names": [
+        "Блок питания ПК Gigabyte P550SS 550W, 80+, SILVER, НЕ модульный, ATX 3.0"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 685,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070GAMING-12GD",
+      "mpn": "GV-N5070GAMING-12GD",
+      "gtin": "",
+      "model": "Видеокарта/ GV-N5070GAMING-12GD",
+      "raw_names": [
+        "Видеокарта/ GV-N5070GAMING-12GD"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 686,
+      "manufacturer": "unknown",
+      "sku": "GP-AE1000PM PG5",
+      "mpn": "GP-AE1000PM PG5",
+      "gtin": "",
+      "model": "Блок питания ПК Gigabyte AE1000PM PG5 1000W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible",
+      "raw_names": [
+        "Блок питания ПК Gigabyte AE1000PM PG5 1000W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 687,
+      "manufacturer": "unknown",
+      "sku": "GP-AE850PM PG5",
+      "mpn": "GP-AE850PM PG5",
+      "gtin": "",
+      "model": "Блок питания ПК Gigabyte AE850PM PG5 850W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible.",
+      "raw_names": [
+        "Блок питания ПК Gigabyte AE850PM PG5 850W, 80Plus, Platinum, Полностью модульный, PCIe Gen 5.1, ATX 3.0 compatible."
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 688,
+      "manufacturer": "unknown",
+      "sku": "GV-N506TGAMING-16GD",
+      "mpn": "GV-N506TGAMING-16GD",
+      "gtin": "",
+      "model": "Видеокарта Gigabyte RTX5060Ti GAMING 16GB GDDR7 128bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта Gigabyte RTX5060Ti GAMING 16GB GDDR7 128bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 689,
+      "manufacturer": "unknown",
+      "sku": "GV-N506TWF2MAX-16GD",
+      "mpn": "GV-N506TWF2MAX-16GD",
+      "gtin": "",
+      "model": "Видеокарта/ GV-N506TWF2MAX-16GD",
+      "raw_names": [
+        "Видеокарта/ GV-N506TWF2MAX-16GD"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 690,
+      "manufacturer": "unknown",
+      "sku": "GT710 2GD3H LP",
+      "mpn": "GT710 2GD3H LP",
+      "gtin": "",
+      "model": "MSI GT710 2GD3H LP RTL",
+      "raw_names": [
+        "MSI GT710 2GD3H LP RTL"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 691,
+      "manufacturer": "unknown",
+      "sku": "N730-4GD3V2",
+      "mpn": "N730-4GD3V2",
+      "gtin": "",
+      "model": "MSI N730-4GD3V2  RTL  GT730, 4GB, DDR3, 128bit, D-SUB, DVI-I, HDMI",
+      "raw_names": [
+        "MSI N730-4GD3V2  RTL  GT730, 4GB, DDR3, 128bit, D-SUB, DVI-I, HDMI"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 692,
+      "manufacturer": "unknown",
+      "sku": "RTX 3050 LP 6G OC",
+      "mpn": "RTX 3050 LP 6G OC",
+      "gtin": "",
+      "model": "MSI RTX 3050 LP 6G OC NVIDIA GeForce RTX 3050 6Gb GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret low profile",
+      "raw_names": [
+        "MSI RTX 3050 LP 6G OC NVIDIA GeForce RTX 3050 6Gb GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret low profile"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 693,
+      "manufacturer": "unknown",
+      "sku": "RTX3050 VENTUS 2X E  6GB",
+      "mpn": "RTX3050 VENTUS 2X E  6GB",
+      "gtin": "",
+      "model": "MSI RTX3050 VENTUS 2X E  6GB GDDR6 96bit 2xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "MSI RTX3050 VENTUS 2X E  6GB GDDR6 96bit 2xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 694,
+      "manufacturer": "unknown",
+      "sku": "RTX 3050 VENTUS 2X 6G",
+      "mpn": "RTX 3050 VENTUS 2X 6G",
+      "gtin": "",
+      "model": "MSI  RTX 3050 VENTUS 2X 6G  NVIDIA GeForce RTX 3050 6Gb  GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret",
+      "raw_names": [
+        "MSI  RTX 3050 VENTUS 2X 6G  NVIDIA GeForce RTX 3050 6Gb  GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 695,
+      "manufacturer": "unknown",
+      "sku": "RTX 3050 VENTUS 2X 6G OC",
+      "mpn": "RTX 3050 VENTUS 2X 6G OC",
+      "gtin": "",
+      "model": "MSI  RTX 3050 VENTUS 2X 6G OC NVIDIA GeForce RTX 3050 6Gb GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret",
+      "raw_names": [
+        "MSI  RTX 3050 VENTUS 2X 6G OC NVIDIA GeForce RTX 3050 6Gb GDDR6 1492/14000 HDMIx2 DPx1 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 696,
+      "manufacturer": "unknown",
+      "sku": "RTX 3050 VENTUS 2X XS 8G",
+      "mpn": "RTX 3050 VENTUS 2X XS 8G",
+      "gtin": "",
+      "model": "MSI RTX 3050 VENTUS 2X XS 8G, 8G GDDR6 128-bit DVI HDMI DP RTX 3050 VENTUS 2X XS 8G",
+      "raw_names": [
+        "MSI RTX 3050 VENTUS 2X XS 8G, 8G GDDR6 128-bit DVI HDMI DP RTX 3050 VENTUS 2X XS 8G"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 697,
+      "manufacturer": "unknown",
+      "sku": "RTX 3060 VENTUS 2X 12G OC",
+      "mpn": "RTX 3060 VENTUS 2X 12G OC",
+      "gtin": "",
+      "model": "MSI RTX 3060 VENTUS 2X (12G) OC  RTL",
+      "raw_names": [
+        "MSI RTX 3060 VENTUS 2X (12G) OC  RTL"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 698,
+      "manufacturer": "unknown",
+      "sku": "RTX 3060 GAMING X 12G",
+      "mpn": "RTX 3060 GAMING X 12G",
+      "gtin": "",
+      "model": "MSI RTX 3060 GAMING X 12G RTL",
+      "raw_names": [
+        "MSI RTX 3060 GAMING X 12G RTL"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 699,
+      "manufacturer": "unknown",
+      "sku": "RTX 4070 Ti GAMING X TRIO 12G",
+      "mpn": "RTX 4070 Ti GAMING X TRIO 12G",
+      "gtin": "",
+      "model": "MSI RTX 4070 Ti GAMING X TRIO 12G  RTL",
+      "raw_names": [
+        "MSI RTX 4070 Ti GAMING X TRIO 12G  RTL"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 700,
+      "manufacturer": "unknown",
+      "sku": "RTX 4060 VENTUS 2X BLACK 8G OC",
+      "mpn": "RTX 4060 VENTUS 2X BLACK 8G OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX 4060 VENTUS 2X BLACK 8G OC RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX 4060 VENTUS 2X BLACK 8G OC RTL"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 701,
+      "manufacturer": "unknown",
+      "sku": "GeForce RTX 4060 GAMING X 8G",
+      "mpn": "GeForce RTX 4060 GAMING X 8G",
+      "gtin": "",
+      "model": "MSI GeForce RTX 4060 GAMING X 8G",
+      "raw_names": [
+        "MSI GeForce RTX 4060 GAMING X 8G"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 702,
+      "manufacturer": "unknown",
+      "sku": "602-V515-06S",
+      "mpn": "602-V515-06S",
+      "gtin": "",
+      "model": "Видеокарта MSI GeForce RTX 4060TI RTX 4060 Ti VENTUS 2X BLACK 8G OC",
+      "raw_names": [
+        "Видеокарта MSI GeForce RTX 4060TI RTX 4060 Ti VENTUS 2X BLACK 8G OC"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 703,
+      "manufacturer": "unknown",
+      "sku": "RTX 4060 Ti VENTUS 2X BLACK 8G",
+      "mpn": "RTX 4060 Ti VENTUS 2X BLACK 8G",
+      "gtin": "",
+      "model": "Видеокарта PCI-E MSI GeForce RTX 4060 TI VENTUS 2X BLACK OC (RTX 4060 Ti VENTUS 2X BLACK 8G OC||BULK) 8GB GDDR6 128bit 5nm 2580/18000MHz 3*DP HDMI",
+      "raw_names": [
+        "Видеокарта PCI-E MSI GeForce RTX 4060 TI VENTUS 2X BLACK OC (RTX 4060 Ti VENTUS 2X BLACK 8G OC||BULK) 8GB GDDR6 128bit 5nm 2580/18000MHz 3*DP HDMI"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 704,
+      "manufacturer": "unknown",
+      "sku": "RTX 4070 SUPER 12G VENTUS 2X O",
+      "mpn": "RTX 4070 SUPER 12G VENTUS 2X O",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX4070 SUPER VENTUS 2X OC 12GB GDDR6X 192bit 3xDP HDMI 2FAN",
+      "raw_names": [
+        "Видеокарта MSI RTX4070 SUPER VENTUS 2X OC 12GB GDDR6X 192bit 3xDP HDMI 2FAN"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 705,
+      "manufacturer": "unknown",
+      "sku": "602-V513-166S",
+      "mpn": "602-V513-166S",
+      "gtin": "",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 4070 SUPER 12G VENTUS 3X OC NVIDIA GeForce RTX 4070 Super 12Gb 192bit GDDR6X 2610/21000 HDMIx1 DPx3 HDCP Ret",
+      "raw_names": [
+        "Видеокарта MSI PCI-E 4.0 RTX 4070 SUPER 12G VENTUS 3X OC NVIDIA GeForce RTX 4070 Super 12Gb 192bit GDDR6X 2610/21000 HDMIx1 DPx3 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

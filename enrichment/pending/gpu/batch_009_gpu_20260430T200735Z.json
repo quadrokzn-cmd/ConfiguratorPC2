@@ -1,0 +1,676 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_009",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 586,
+      "manufacturer": "unknown",
+      "sku": "ROG-STRIX-RTX5070TI-O16G-GAMIN",
+      "mpn": "ROG-STRIX-RTX5070TI-O16G-GAMIN",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5070TI 16GB ROG STRIX OC 16Gb DDR7 256 bit 3*DP/2*HDMI 3FAN (ROG-STRIX-RTX5070TI-O16G-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5070TI 16GB ROG STRIX OC 16Gb DDR7 256 bit 3*DP/2*HDMI 3FAN (ROG-STRIX-RTX5070TI-O16G-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 587,
+      "manufacturer": "unknown",
+      "sku": "90YV0MI0-M0NA00",
+      "mpn": "90YV0MI0-M0NA00",
+      "gtin": "",
+      "model": "Видеокарта/ PRIME-RX9060XT-O8G",
+      "raw_names": [
+        "Видеокарта/ PRIME-RX9060XT-O8G"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 588,
+      "manufacturer": "unknown",
+      "sku": "TUF-RTX5090-O32G-GAMING",
+      "mpn": "TUF-RTX5090-O32G-GAMING",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (TUF-RTX5090-O32G-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (TUF-RTX5090-O32G-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 589,
+      "manufacturer": "unknown",
+      "sku": "TUF-RTX5070TI-O16G-WHITE-GAMIN",
+      "mpn": "TUF-RTX5070TI-O16G-WHITE-GAMIN",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5070TI 16Gb DDR7 256 bit 3*DP/2*HDMI 3 FAN (TUF-RTX5070TI-O16G-WHITE-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5070TI 16Gb DDR7 256 bit 3*DP/2*HDMI 3 FAN (TUF-RTX5070TI-O16G-WHITE-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 590,
+      "manufacturer": "unknown",
+      "sku": "DUAL-RTX5060TI-O8G-WHITE",
+      "mpn": "DUAL-RTX5060TI-O8G-WHITE",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5060TI 8Gb DDR7 128 bit 3*DP/HDMI 2 FAN (DUAL-RTX5060TI-O8G-WHITE) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5060TI 8Gb DDR7 128 bit 3*DP/HDMI 2 FAN (DUAL-RTX5060TI-O8G-WHITE) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 591,
+      "manufacturer": "unknown",
+      "sku": "PROART-RTX4060TI-16G",
+      "mpn": "PROART-RTX4060TI-16G",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX4060TI 16Gb 128bit GDDR6 2550/18000 3*DP/HDMI  HDCP (PROART-RTX4060TI-16G) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX4060TI 16Gb 128bit GDDR6 2550/18000 3*DP/HDMI  HDCP (PROART-RTX4060TI-16G) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 592,
+      "manufacturer": "unknown",
+      "sku": "ROG-ASTRAL-RTX5090-O32G-GAMING",
+      "mpn": "ROG-ASTRAL-RTX5090-O32G-GAMING",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-RTX5090-O32G-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-RTX5090-O32G-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 593,
+      "manufacturer": "unknown",
+      "sku": "ROG-ASTRAL-RTX5090-O32G-WHITE",
+      "mpn": "ROG-ASTRAL-RTX5090-O32G-WHITE",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-RTX5090-O32G-WHITE) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-RTX5090-O32G-WHITE) RTL"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 594,
+      "manufacturer": "unknown",
+      "sku": "90YV0N90-M0NA00",
+      "mpn": "90YV0N90-M0NA00",
+      "gtin": "",
+      "model": "Видеокарта/ RTX5060-O8G-LP-BRK",
+      "raw_names": [
+        "Видеокарта/ RTX5060-O8G-LP-BRK"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 595,
+      "manufacturer": "unknown",
+      "sku": "DUAL-RTX5060TI-O16G-WHITE",
+      "mpn": "DUAL-RTX5060TI-O16G-WHITE",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5060TI 16Gb 128bit GDDR7 3*DP/HDMI (DUAL-RTX5060TI-O16G-WHITE) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5060TI 16Gb 128bit GDDR7 3*DP/HDMI (DUAL-RTX5060TI-O16G-WHITE) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 596,
+      "manufacturer": "unknown",
+      "sku": "90YV0NR0-M0NA00",
+      "mpn": "90YV0NR0-M0NA00",
+      "gtin": "",
+      "model": "Видеокарта/ PROART-RTX5070TI-O16G",
+      "raw_names": [
+        "Видеокарта/ PROART-RTX5070TI-O16G"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 597,
+      "manufacturer": "unknown",
+      "sku": "DUAL-RX9060-8G",
+      "mpn": "DUAL-RX9060-8G",
+      "gtin": "",
+      "model": "Видеокарта ASUS AMD Radeon RX9060 8Gb DDR6 128 bit 3*DP/HDMI 2FAN (DUAL-RX9060-8G) RTL",
+      "raw_names": [
+        "Видеокарта ASUS AMD Radeon RX9060 8Gb DDR6 128 bit 3*DP/HDMI 2FAN (DUAL-RX9060-8G) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 598,
+      "manufacturer": "unknown",
+      "sku": "ROG-ASTRAL-LC-RTX5090-O32G-GAM",
+      "mpn": "ROG-ASTRAL-LC-RTX5090-O32G-GAM",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-LC-RTX5090-O32G-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX5090 32Gb DDR7 512 bit 3*DP/2*HDMI 3FAN (ROG-ASTRAL-LC-RTX5090-O32G-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 599,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50600G-10L",
+      "mpn": "ZT-B50600G-10L",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5060 SOLO 8Gb DDR7 128 bit  2280/2497 MHz  3*DP/HDMI  1*FAN (ZT-B50600G-10L) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5060 SOLO 8Gb DDR7 128 bit  2280/2497 MHz  3*DP/HDMI  1*FAN (ZT-B50600G-10L) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 600,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50620F-10M",
+      "mpn": "ZT-B50620F-10M",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5060 Ti AMP 16Gb DDR7 128 bit  2407/2632 MHz  3*DP/HDMI  2*FAN (ZT-B50620F-10M) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5060 Ti AMP 16Gb DDR7 128 bit  2407/2632 MHz  3*DP/HDMI  2*FAN (ZT-B50620F-10M) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 601,
+      "manufacturer": "unknown",
+      "sku": "ZT-A30510H-10L",
+      "mpn": "ZT-A30510H-10L",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 3050 Twin Edge OC 6Gb DDR6 96 bit  1042/1477 MHz  3*DP/HDMI  2*FAN  RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 3050 Twin Edge OC 6Gb DDR6 96 bit  1042/1477 MHz  3*DP/HDMI  2*FAN  RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 602,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50500G-10L",
+      "mpn": "ZT-B50500G-10L",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5050 SOLO 8Gb DDR6 128 bit 3*DP/HDMI  1*FAN (ZT-B50500G-10L) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5050 SOLO 8Gb DDR6 128 bit 3*DP/HDMI  1*FAN (ZT-B50500G-10L) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 603,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50700D-10P",
+      "mpn": "ZT-B50700D-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 SOLID NV 12Gb DDR7 192 bit  2165/2512 MHz  3*DP/HDMI 3*FAN (ZT-B50700D-10P) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 SOLID NV 12Gb DDR7 192 bit  2165/2512 MHz  3*DP/HDMI 3*FAN (ZT-B50700D-10P) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 604,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50600Q-10M",
+      "mpn": "ZT-B50600Q-10M",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5060 Twin Edge OC White Edition  8GB GDDR7 128bit 2280/2527MHz 3*DP/HDMI 2*FAN (ZT-B50600Q-10M) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5060 Twin Edge OC White Edition  8GB GDDR7 128bit 2280/2527MHz 3*DP/HDMI 2*FAN (ZT-B50600Q-10M) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 605,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50500Q-10M",
+      "mpn": "ZT-B50500Q-10M",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5050 TWIN EDGE OC WHITE ED 8Gb DDR6 128 bit 2235/2602 MHz  3*DP/HDMI  2*FAN (ZT-B50500Q-10M) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5050 TWIN EDGE OC WHITE ED 8Gb DDR6 128 bit 2235/2602 MHz  3*DP/HDMI  2*FAN (ZT-B50500Q-10M) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 606,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50700FQ-10P",
+      "mpn": "ZT-B50700FQ-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 AMP White Edition 12GB GDDR7 192bit 2165/2587 MHz 3*DP/HDMI 3*FAN (ZT-B50700FQ-10P) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 AMP White Edition 12GB GDDR7 192bit 2165/2587 MHz 3*DP/HDMI 3*FAN (ZT-B50700FQ-10P) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 607,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50710D3-10P",
+      "mpn": "ZT-B50710D3-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti SOLID SFF 16GB GDDR7 256bit 3xDP/HDMI 3*FAN (ZT-B50710D3-10P) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti SOLID SFF 16GB GDDR7 256bit 3xDP/HDMI 3*FAN (ZT-B50710D3-10P) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 608,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50800B-10P",
+      "mpn": "ZT-B50800B-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC RTX5080 AMP EXTREME INFINITY 16GB GDDR7 256 3xDP HDMI 3FAN PREMIUM PACK",
+      "raw_names": [
+        "Видеокарта ZOTAC RTX5080 AMP EXTREME INFINITY 16GB GDDR7 256 3xDP HDMI 3FAN PREMIUM PACK"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 609,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50800D2-10P",
+      "mpn": "ZT-B50800D2-10P",
+      "gtin": "",
+      "model": "Видеокарта Zotac RTX5080 SOLID CORE 16GB GDDR7 256bit 3xDP HDMI 3FAN PREMIUM PACK",
+      "raw_names": [
+        "Видеокарта Zotac RTX5080 SOLID CORE 16GB GDDR7 256bit 3xDP HDMI 3FAN PREMIUM PACK"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 610,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50800Q-10P",
+      "mpn": "ZT-B50800Q-10P",
+      "gtin": "",
+      "model": "Видкокарта ZOTAC GAMING GeForce RTX 5080 SOLID OC White Edition",
+      "raw_names": [
+        "Видкокарта ZOTAC GAMING GeForce RTX 5080 SOLID OC White Edition"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 611,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50710B-10P",
+      "mpn": "ZT-B50710B-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti AMP Extreme INFINITY 16GB GDDR7 256bit 3xDP/HDMI 3*FAN (ZT-B50710B-10P) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti AMP Extreme INFINITY 16GB GDDR7 256bit 3xDP/HDMI 3*FAN (ZT-B50710B-10P) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 612,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50620Q-10M",
+      "mpn": "ZT-B50620Q-10M",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5060 Ti Twin Edge OC White Edition 16GB GDDR7 128 bit 2407/2602 MHz  3xDP/HDMI 3*FAN (ZT-B50620Q-10M) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5060 Ti Twin Edge OC White Edition 16GB GDDR7 128 bit 2407/2602 MHz  3xDP/HDMI 3*FAN (ZT-B50620Q-10M) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 613,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50800J2-10P",
+      "mpn": "ZT-B50800J2-10P",
+      "gtin": "",
+      "model": "Видеокарта Zotac RTX5080 SOLID CORE OC 16GB GDDR7 256bit 3xDP HDMI PREMIUM PACK",
+      "raw_names": [
+        "Видеокарта Zotac RTX5080 SOLID CORE OC 16GB GDDR7 256bit 3xDP HDMI PREMIUM PACK"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 614,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50600L-10L",
+      "mpn": "ZT-B50600L-10L",
+      "gtin": "",
+      "model": "Видеокарта Zotac RTX5060 LOW PROFILE 8GB GDDR7 128bit 2xDP HDMI 3FAN LP LITE PACK",
+      "raw_names": [
+        "Видеокарта Zotac RTX5060 LOW PROFILE 8GB GDDR7 128bit 2xDP HDMI 3FAN LP LITE PACK"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 615,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50700Q-10P",
+      "mpn": "ZT-B50700Q-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 Twin Edge OC White Edition 12Gb DDR7 192 bit  2165 /2542  MHz  3*DP/HDMI 2*FAN (ZT-B50700Q-10P) RTL",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 Twin Edge OC White Edition 12Gb DDR7 192 bit  2165 /2542  MHz  3*DP/HDMI 2*FAN (ZT-B50700Q-10P) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,676 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_006",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 496,
+      "manufacturer": "unknown",
+      "sku": "VGA-MSRTX5060-8G-RTL",
+      "mpn": "VGA-MSRTX5060-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX5060",
+      "raw_names": [
+        "Видеокарта CBR RTX5060"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 497,
+      "manufacturer": "unknown",
+      "sku": "VGA-MSRTX4060-8G-RTL",
+      "mpn": "VGA-MSRTX4060-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX4060 Terminator B 8Gb GDDR6, 128bit, 1830-2460Mhz/17000Mhz, 3*DP+1*HDMI2.1, 115W, Ret [VGA-MSRTX4060-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX4060 Terminator B 8Gb GDDR6, 128bit, 1830-2460Mhz/17000Mhz, 3*DP+1*HDMI2.1, 115W, Ret [VGA-MSRTX4060-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 498,
+      "manufacturer": "unknown",
+      "sku": "VGA-MSGT1030-2G-RTL",
+      "mpn": "VGA-MSGT1030-2G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GT1030 Transformer 2Gb GDDR5, 64bit, 1227/6000MHz, 1*HDMI+1*DVI, 30W, Ret [VGA-MSGT1030-2G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GT1030 Transformer 2Gb GDDR5, 64bit, 1227/6000MHz, 1*HDMI+1*DVI, 30W, Ret [VGA-MSGT1030-2G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 499,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX4060-8G-RTL",
+      "mpn": "VGA-STX4060-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX4060 8Gb GDDR6, 128bit, 1830-2460Mhz, 3*DP 1.4a + 1*HDMI 2.1a, 115W, Ret [VGA-STX4060-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX4060 8Gb GDDR6, 128bit, 1830-2460Mhz, 3*DP 1.4a + 1*HDMI 2.1a, 115W, Ret [VGA-STX4060-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 500,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX3060-12G-RTL",
+      "mpn": "VGA-STX3060-12G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX3060 12Gb GDDR6, 192bit, 3*DP + 1*HDMI 2.1, 170W, Ret [VGA-STX3060-12G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX3060 12Gb GDDR6, 192bit, 3*DP + 1*HDMI 2.1, 170W, Ret [VGA-STX3060-12G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 501,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX3050-8G-RTL",
+      "mpn": "VGA-STX3050-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX3050 8Gb GDDR6, 128bit,  DP + HDMI 2.1 + DVI, 130W, Ret [VGA-STX3050-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX3050 8Gb GDDR6, 128bit,  DP + HDMI 2.1 + DVI, 130W, Ret [VGA-STX3050-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 502,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX3050-8G-RTL-4VO",
+      "mpn": "VGA-STX3050-8G-RTL-4VO",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX3050 8Gb GDDR6, 128bit,  3 DP + HDMI 2.1 , 130W, Ret [VGA-STX3050-8G-RTL-4VO] Видео выходы  3-DP + 1-HDMI 2.1",
+      "raw_names": [
+        "Видеокарта CBR RTX3050 8Gb GDDR6, 128bit,  3 DP + HDMI 2.1 , 130W, Ret [VGA-STX3050-8G-RTL-4VO] Видео выходы  3-DP + 1-HDMI 2.1"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 503,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX1660S-6G-RTL",
+      "mpn": "VGA-STX1660S-6G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GTX1660 Super 6Gb GDDR6, 192bit, 1530-1785Mhz, 1*DP + 1*HDMI + 1*DVI, 125W, Ret [VGA-STX1660S-6G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GTX1660 Super 6Gb GDDR6, 192bit, 1530-1785Mhz, 1*DP + 1*HDMI + 1*DVI, 125W, Ret [VGA-STX1660S-6G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 504,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX1650-4G-RTL",
+      "mpn": "VGA-STX1650-4G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GTX1650 4Gb GDDR6, 128bit, 1410-1590Mhz, 1*DP + 1*HDMI + 1*DVI, 75W, Ret [VGA-STX1650-4G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GTX1650 4Gb GDDR6, 128bit, 1410-1590Mhz, 1*DP + 1*HDMI + 1*DVI, 75W, Ret [VGA-STX1650-4G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 505,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX1030-2G-RTL",
+      "mpn": "VGA-STX1030-2G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GT1030 2Gb GDDR5, 64bit, 1228-1468Mhz, 1*HDMI + 1*DVI, 30W, Ret [VGA-STX1030-2G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GT1030 2Gb GDDR5, 64bit, 1228-1468Mhz, 1*HDMI + 1*DVI, 30W, Ret [VGA-STX1030-2G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 506,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX730-2G-RTL",
+      "mpn": "VGA-STX730-2G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GT730 2Gb DDR3, 128bit, 700Mhz, 1*HDMI + 1*DVI + 1*VGA, 49W, Ret [VGA-STX730-2G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GT730 2Gb DDR3, 128bit, 700Mhz, 1*HDMI + 1*DVI + 1*VGA, 49W, Ret [VGA-STX730-2G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 507,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX710-2G-RTL",
+      "mpn": "VGA-STX710-2G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GT710 2Gb DDR3, 64bit, 954Mhz, 1*HDMI + 1*DVI + 1*VGA, 29W, Ret [VGA-STX710-2G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GT710 2Gb DDR3, 64bit, 954Mhz, 1*HDMI + 1*DVI + 1*VGA, 29W, Ret [VGA-STX710-2G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 508,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX210-1G-RTL",
+      "mpn": "VGA-STX210-1G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR G210 1Gb DDR3, 64bit, 589Mhz, 1*HDMI + 1*DVI + 1*VGA, 31W, (GT 210),  Ret [VGA-STX210-1G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR G210 1Gb DDR3, 64bit, 589Mhz, 1*HDMI + 1*DVI + 1*VGA, 31W, (GT 210),  Ret [VGA-STX210-1G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 509,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX2060S-8G-RTL",
+      "mpn": "VGA-STX2060S-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX2060 Super 8G, 256BIT, GDDR6, 1470-1650Mhz, 175W (DVI/HDMI/DP)[VGA-STX2060S-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX2060 Super 8G, 256BIT, GDDR6, 1470-1650Mhz, 175W (DVI/HDMI/DP)[VGA-STX2060S-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 510,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX2060-6G-RTL",
+      "mpn": "VGA-STX2060-6G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX2060 6G, 192BIT, GDDR6, 1365-1680Mhz, 160W (DVI/HDMI/DP)[VGA-STX2060-6G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX2060 6G, 192BIT, GDDR6, 1365-1680Mhz, 160W (DVI/HDMI/DP)[VGA-STX2060-6G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 511,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX610-2G-RTL",
+      "mpn": "VGA-STX610-2G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR GT610 2G, 64BIT, DDR3, 700Mhz, 29W (DVI/HDMI/CRT)[VGA-STX610-2G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR GT610 2G, 64BIT, DDR3, 700Mhz, 29W (DVI/HDMI/CRT)[VGA-STX610-2G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 512,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX580-8G-RTL",
+      "mpn": "VGA-STX580-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR Radeon RX 580 8G GDDR5, 256BIT, 2048, 1168MHz, Dual fan PCIE 3.0, 150W (HDMI/2xDP) [VGA-STX580-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR Radeon RX 580 8G GDDR5, 256BIT, 2048, 1168MHz, Dual fan PCIE 3.0, 150W (HDMI/2xDP) [VGA-STX580-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 513,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX550-4G-RTL",
+      "mpn": "VGA-STX550-4G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR Radeon RX 550 4G GDDR5, 128BIT, 896, 1175MHz, Single fan, PCIE 3.0, 50W (DVI/HDMI/DP) [VGA-STX550-4G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR Radeon RX 550 4G GDDR5, 128BIT, 896, 1175MHz, Single fan, PCIE 3.0, 50W (DVI/HDMI/DP) [VGA-STX550-4G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 514,
+      "manufacturer": "unknown",
+      "sku": "VGA-STX3070TI-8G-RTL",
+      "mpn": "VGA-STX3070TI-8G-RTL",
+      "gtin": "",
+      "model": "Видеокарта CBR RTX 3070Ti 8GB, GDDR6, 256BIT, 1575-1770Mhz, 290W  (HDMI/3xDP)[VGA-STX3070TI-8G-RTL]",
+      "raw_names": [
+        "Видеокарта CBR RTX 3070Ti 8GB, GDDR6, 256BIT, 1575-1770Mhz, 290W  (HDMI/3xDP)[VGA-STX3070TI-8G-RTL]"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 515,
+      "manufacturer": "unknown",
+      "sku": "AF1660-6144D5H4 / AF1660-6144D",
+      "mpn": "AF1660-6144D5H4 / AF1660-6144D",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1660 6GB GDDR5 192Bit HDMI ATX 2FAN (AF1660-6144D5H4 / AF1660-6144D5H7) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GTX1660 6GB GDDR5 192Bit HDMI ATX 2FAN (AF1660-6144D5H4 / AF1660-6144D5H7) RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 516,
+      "manufacturer": "unknown",
+      "sku": "AF210-1024D3L5-V2",
+      "mpn": "AF210-1024D3L5-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX G210 LP 1GB DDR3 64-bit  VGA/DVI/HDMI PASSIVE LP (AF210-1024D3L5-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX G210 LP 1GB DDR3 64-bit  VGA/DVI/HDMI PASSIVE LP (AF210-1024D3L5-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 517,
+      "manufacturer": "unknown",
+      "sku": "AF710-2048D3L5",
+      "mpn": "AF710-2048D3L5",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT710 2GB DDR3 64bit VGA/DVI/HDMI Passive (AF710-2048D3L5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT710 2GB DDR3 64bit VGA/DVI/HDMI Passive (AF710-2048D3L5) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 518,
+      "manufacturer": "unknown",
+      "sku": "AF710-2048D3L5-V3",
+      "mpn": "AF710-2048D3L5-V3",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT710 2GB DDR3 64bit VGA/DVI/HDMI 1FAN (AF710-2048D3L5-V3) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT710 2GB DDR3 64bit VGA/DVI/HDMI 1FAN (AF710-2048D3L5-V3) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 519,
+      "manufacturer": "unknown",
+      "sku": "AF730-4096D3L5",
+      "mpn": "AF730-4096D3L5",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT730 4GB GDDR3 128 bit VGA/DVI/HDMI 1FAN LP (AF730-4096D3L5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT730 4GB GDDR3 128 bit VGA/DVI/HDMI 1FAN LP (AF730-4096D3L5) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 520,
+      "manufacturer": "unknown",
+      "sku": "AF1660S-6144D6H7-V2/V4",
+      "mpn": "AF1660S-6144D6H7-V2/V4",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1660SUPER 6GB GDDR6 192bit DP/DV/HDMI ATX DUAL FAN RTL (AF1660S-6144D6H7-V2/V4)",
+      "raw_names": [
+        "Видеокарта AFOX GTX1660SUPER 6GB GDDR6 192bit DP/DV/HDMI ATX DUAL FAN RTL (AF1660S-6144D6H7-V2/V4)"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 521,
+      "manufacturer": "unknown",
+      "sku": "AF3060TI-8192D6H7/H4/H5/H6/H7-",
+      "mpn": "AF3060TI-8192D6H7/H4/H5/H6/H7-",
+      "gtin": "",
+      "model": "Видеокарта AFOX Geforce RTX 3060TI 8GB GAMING GDDR6 256Bit 3xDP/HDMI ATX  Dual Fan (AF3060TI-8192D6H7/H4/H5/H6/H7-V2/V4)  RTL",
+      "raw_names": [
+        "Видеокарта AFOX Geforce RTX 3060TI 8GB GAMING GDDR6 256Bit 3xDP/HDMI ATX  Dual Fan (AF3060TI-8192D6H7/H4/H5/H6/H7-V2/V4)  RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 522,
+      "manufacturer": "unknown",
+      "sku": "AF710-4096D3L7-V1",
+      "mpn": "AF710-4096D3L7-V1",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT710 4GB 64bit DDR3 VGA/DVI/HDMI 1FAN  (AF710-4096D3L7-V1) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT710 4GB 64bit DDR3 VGA/DVI/HDMI 1FAN  (AF710-4096D3L7-V1) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 523,
+      "manufacturer": "unknown",
+      "sku": "AF1030-2048D5L7",
+      "mpn": "AF1030-2048D5L7",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT1030 2GB DDR5 64Bit DVI/HDMI ATX Single Fan (AF1030-2048D5L7) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT1030 2GB DDR5 64Bit DVI/HDMI ATX Single Fan (AF1030-2048D5L7) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 524,
+      "manufacturer": "unknown",
+      "sku": "AF1660S-6144D6H1-V4",
+      "mpn": "AF1660S-6144D6H1-V4",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1660 SUPER 6GB 192 bit GDDR6 DP/DVI/HDMI ATX 2FAN  (AF1660S-6144D6H1-V4) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GTX1660 SUPER 6GB 192 bit GDDR6 DP/DVI/HDMI ATX 2FAN  (AF1660S-6144D6H1-V4) RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 525,
+      "manufacturer": "unknown",
+      "sku": "AF1050TI-4096D5H7-V8/H2-V6",
+      "mpn": "AF1050TI-4096D5H7-V8/H2-V6",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1050Ti 4GB GAMING GDDR5 128Bit DP/DVI/HDMI  ATX Dual Fan (AF1050TI-4096D5H7-V8/H2-V6) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GTX1050Ti 4GB GAMING GDDR5 128Bit DP/DVI/HDMI  ATX Dual Fan (AF1050TI-4096D5H7-V8/H2-V6) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

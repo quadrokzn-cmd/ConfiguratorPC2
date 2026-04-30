@@ -1,0 +1,676 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_013",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 706,
+      "manufacturer": "unknown",
+      "sku": "RTX 4070 Ti VENTUS 3X E1 12G O",
+      "mpn": "RTX 4070 Ti VENTUS 3X E1 12G O",
+      "gtin": "",
+      "model": "Видеокарта MSI GeForce RTX 4070 Ti 12288Mb, Ventus 3X E1 12G OC (RTX 4070 Ti Ventus 3X E1 12G OC) 1xHDMI, 3xDP, Ret",
+      "raw_names": [
+        "Видеокарта MSI GeForce RTX 4070 Ti 12288Mb, Ventus 3X E1 12G OC (RTX 4070 Ti Ventus 3X E1 12G OC) 1xHDMI, 3xDP, Ret"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 707,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 8G VENTUS 2X OC",
+      "mpn": "RTX 5060 8G VENTUS 2X OC",
+      "gtin": "",
+      "model": "MSI GeForce RTX 5060 8G VENTUS 2X OC",
+      "raw_names": [
+        "MSI GeForce RTX 5060 8G VENTUS 2X OC"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 708,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 8G VENTUS 2X OC PL",
+      "mpn": "RTX 5060 Ti 8G VENTUS 2X OC PL",
+      "gtin": "",
+      "model": "MSI RTX 5060 Ti 8G VENTUS 2X OC PLUS NV RTX 5060TI 8Gb 128bit GDDR7 2617/28000/",
+      "raw_names": [
+        "MSI RTX 5060 Ti 8G VENTUS 2X OC PLUS NV RTX 5060TI 8Gb 128bit GDDR7 2617/28000/"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 709,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 16G VENTUS 2X OC P",
+      "mpn": "RTX 5060 Ti 16G VENTUS 2X OC P",
+      "gtin": "",
+      "model": "MSI RTX 5060 Ti 16G VENTUS 2X OC PLUS NV RTX 5060TI 16Gb 128bit GDDR7 2617/2800",
+      "raw_names": [
+        "MSI RTX 5060 Ti 16G VENTUS 2X OC PLUS NV RTX 5060TI 16Gb 128bit GDDR7 2617/2800"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 710,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G SHADOW 3X",
+      "mpn": "RTX 5070 12G SHADOW 3X",
+      "gtin": "",
+      "model": "MSI PCI-E RTX 5070 12G SHADOW 3X",
+      "raw_names": [
+        "MSI PCI-E RTX 5070 12G SHADOW 3X"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 711,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 Ti 16G VANGUARD OC",
+      "mpn": "RTX 5070 Ti 16G VANGUARD OC",
+      "gtin": "",
+      "model": "MSI PCI-E  RTX 5070 Ti 16G VANGUARD OC",
+      "raw_names": [
+        "MSI PCI-E  RTX 5070 Ti 16G VANGUARD OC"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 712,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16GB GAMING TRIO OC",
+      "mpn": "RTX 5080 16GB GAMING TRIO OC",
+      "gtin": "",
+      "model": "MSI PCI-E RTX 5080 16GB GAMING TRIO OC NV RTX5080 16Gb 256bit GDDR7 2700/30000/HDMIx1/DPx",
+      "raw_names": [
+        "MSI PCI-E RTX 5080 16GB GAMING TRIO OC NV RTX5080 16Gb 256bit GDDR7 2700/30000/HDMIx1/DPx"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 713,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G GAMING TRIO OC",
+      "mpn": "RTX 5080 16G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5080 GAMING TRIO OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5080 GAMING TRIO OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 714,
+      "manufacturer": "unknown",
+      "sku": "RTX 4070 TI VENTUS 2X 12G OC",
+      "mpn": "RTX 4070 TI VENTUS 2X 12G OC",
+      "gtin": "",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 4070 Ti VENTUS 2X 12G OC NVIDIA GeForce RTX 4070TI 12288Mb 192 GDDR6X 2640/21000 HDMIx1 DPx3 HDCP Ret",
+      "raw_names": [
+        "Видеокарта MSI PCI-E 4.0 RTX 4070 Ti VENTUS 2X 12G OC NVIDIA GeForce RTX 4070TI 12288Mb 192 GDDR6X 2640/21000 HDMIx1 DPx3 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 715,
+      "manufacturer": "unknown",
+      "sku": "602-V511-75S",
+      "mpn": "602-V511-75S",
+      "gtin": "",
+      "model": "Видеокарта MSI PCI-E 4.0 RTX 4080 SUPER 16G VENTUS 3X OC NVIDIA GeForce RTX 4080 Super 16Gb 256bit GDDR6X 2580/23000 HDMIx2 DPx2 HDCP Ret",
+      "raw_names": [
+        "Видеокарта MSI PCI-E 4.0 RTX 4080 SUPER 16G VENTUS 3X OC NVIDIA GeForce RTX 4080 Super 16Gb 256bit GDDR6X 2580/23000 HDMIx2 DPx2 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 716,
+      "manufacturer": "unknown",
+      "sku": "306-7ZP7A11-CE0",
+      "mpn": "306-7ZP7A11-CE0",
+      "gtin": "",
+      "model": "Блок питания 750W MSI MPG A750G 80+ Gold Full modularATX 3.0 PCIE5 RTL (306-7ZP7A11-CE0)",
+      "raw_names": [
+        "Блок питания 750W MSI MPG A750G 80+ Gold Full modularATX 3.0 PCIE5 RTL (306-7ZP7A11-CE0)"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 717,
+      "manufacturer": "unknown",
+      "sku": "RTX 4070 VENTUS 2X E1 12G OC",
+      "mpn": "RTX 4070 VENTUS 2X E1 12G OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX4070 VENTUS 2X E1 OC 12GB GDDR6 192bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX4070 VENTUS 2X E1 OC 12GB GDDR6 192bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 718,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G INSPIRE 3X OC",
+      "mpn": "RTX 5070 12G INSPIRE 3X OC",
+      "gtin": "",
+      "model": "Видеокарта PCI-E MSI GeForce RTX 5070 INSPIRE 3X OC (RTX 5070 12G INSPIRE 3X OC) 12GB GDDR7 192bit 2557/28000MHz HDMI 3*DP",
+      "raw_names": [
+        "Видеокарта PCI-E MSI GeForce RTX 5070 INSPIRE 3X OC (RTX 5070 12G INSPIRE 3X OC) 12GB GDDR7 192bit 2557/28000MHz HDMI 3*DP"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 719,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G GAMING TRIO OC",
+      "mpn": "RTX 5070 12G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G GAMING TRIO OC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G GAMING TRIO OC MSI"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 720,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 Ti 16G GAMING TRIO OC",
+      "mpn": "RTX 5070 Ti 16G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5070Ti GAMING TRIO OC PLUS 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5070Ti GAMING TRIO OC PLUS 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 721,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G VENTUS 3X OC PLUS",
+      "mpn": "RTX 5080 16G VENTUS 3X OC PLUS",
+      "gtin": "",
+      "model": "Видеокарта MSI GeForce RTX 5080 16G VENTUS 3X OC PLUS GDDR7/256 bit/3xDP, HDMI) RTL (RTX 5080 16G VENTUS 3X OC PLUS)",
+      "raw_names": [
+        "Видеокарта MSI GeForce RTX 5080 16G VENTUS 3X OC PLUS GDDR7/256 bit/3xDP, HDMI) RTL (RTX 5080 16G VENTUS 3X OC PLUS)"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 722,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G VANGUARD SOC",
+      "mpn": "RTX 5080 16G VANGUARD SOC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5080 VANGUARD SOC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5080 VANGUARD SOC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 723,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G INSPIRE 3X OC",
+      "mpn": "RTX 5080 16G INSPIRE 3X OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5080 INSPIRE 3X OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5080 INSPIRE 3X OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 724,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G SUPRIM SOC",
+      "mpn": "RTX 5080 16G SUPRIM SOC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5080 16GB RTX 5080 16G SUPRIM SOC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5080 16GB RTX 5080 16G SUPRIM SOC MSI"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 725,
+      "manufacturer": "unknown",
+      "sku": "RTX5060Ti GAMING",
+      "mpn": "RTX5060Ti GAMING",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti GAMING  16GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti GAMING  16GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 726,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G VANGUARD SOC",
+      "mpn": "RTX 5070 12G VANGUARD SOC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G VANGUARD SOC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G VANGUARD SOC MSI"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 727,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 16G GAMING TRIO OC",
+      "mpn": "RTX 5060 Ti 16G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060TI 16GB RTX 5060 Ti 16G GAMING TRIO OC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060TI 16GB RTX 5060 Ti 16G GAMING TRIO OC MSI"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 728,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 8G GAMING OC",
+      "mpn": "RTX 5060 Ti 8G GAMING OC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060TI 8GB RTX 5060 Ti 8G GAMING OC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060TI 8GB RTX 5060 Ti 8G GAMING OC MSI"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 729,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 8G INSPIRE 2X OC",
+      "mpn": "RTX 5060 TI 8G INSPIRE 2X OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti INSPIRE 2X OC 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti INSPIRE 2X OC 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 730,
+      "manufacturer": "unknown",
+      "sku": "RTX5060 INSPIRE 2X OC 8GB",
+      "mpn": "RTX5060 INSPIRE 2X OC 8GB",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060 INSPIRE 2X OC 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060 INSPIRE 2X OC 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 731,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 8G SHADOW 2X OC PL",
+      "mpn": "RTX 5060 Ti 8G SHADOW 2X OC PL",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060TI 8GB RTX 5060 Ti 8G SHADOW 2X OC PLUS MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060TI 8GB RTX 5060 Ti 8G SHADOW 2X OC PLUS MSI"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 732,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 8G VENTUS 2X",
+      "mpn": "RTX 5060 8G VENTUS 2X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX 5060 8G VENTUS 2X//RTX 5060, HDMI, DP*3, 8G, D7",
+      "raw_names": [
+        "Видеокарта MSI RTX 5060 8G VENTUS 2X//RTX 5060, HDMI, DP*3, 8G, D7"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 733,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 16G SHADOW 2X OC P",
+      "mpn": "RTX 5060 Ti 16G SHADOW 2X OC P",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060TI 16GB RTX 5060 Ti 16G SHADOW 2X OC PLUS MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060TI 16GB RTX 5060 Ti 16G SHADOW 2X OC PLUS MSI"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 734,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 Ti 16G INSPIRE 3X OC",
+      "mpn": "RTX 5070 Ti 16G INSPIRE 3X OC",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5070TI 16GB RTX 5070 Ti 16G INSPIRE 3X OC MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5070TI 16GB RTX 5070 Ti 16G INSPIRE 3X OC MSI"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 735,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 8G GAMING TRIO OC",
+      "mpn": "RTX 5060 TI 8G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti GAMING TRIO OC 8GB GDDR7 128bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti GAMING TRIO OC 8GB GDDR7 128bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

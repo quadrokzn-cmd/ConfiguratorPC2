@@ -1,0 +1,677 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_007",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 526,
+      "manufacturer": "unknown",
+      "sku": "AF1030-4096D4L5",
+      "mpn": "AF1030-4096D4L5",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT1030 4Gb 64bit DDR4 DVI/HDMI 1FAN  (AF1030-4096D4L5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT1030 4Gb 64bit DDR4 DVI/HDMI 1FAN  (AF1030-4096D4L5) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 527,
+      "manufacturer": "unknown",
+      "sku": "AF4060-8192D6H7-V2",
+      "mpn": "AF4060-8192D6H7-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX Geforce RTX 4060 8GB GAMING GDDR6 128Bit 3xDP/HDMI (AF4060-8192D6H7-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX Geforce RTX 4060 8GB GAMING GDDR6 128Bit 3xDP/HDMI (AF4060-8192D6H7-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 528,
+      "manufacturer": "unknown",
+      "sku": "AF3070-8192D6H4",
+      "mpn": "AF3070-8192D6H4",
+      "gtin": "",
+      "model": "Видеокарта AFOX Geforce RTX 3070 8GB GAMING GDDR6 256Bit 3xDP/HDMI Dual Fan (AF3070-8192D6H4) RTL",
+      "raw_names": [
+        "Видеокарта AFOX Geforce RTX 3070 8GB GAMING GDDR6 256Bit 3xDP/HDMI Dual Fan (AF3070-8192D6H4) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 529,
+      "manufacturer": "unknown",
+      "sku": "AF3060-12GD6H7-V2/H4-V4",
+      "mpn": "AF3060-12GD6H7-V2/H4-V4",
+      "gtin": "",
+      "model": "Видеокарта AFOX RTX3060 12Gb 192bit GDDR6 3xDP/ HDMI 2FAN(AF3060-12GD6H7-V2/H4-V4) RTL",
+      "raw_names": [
+        "Видеокарта AFOX RTX3060 12Gb 192bit GDDR6 3xDP/ HDMI 2FAN(AF3060-12GD6H7-V2/H4-V4) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 530,
+      "manufacturer": "unknown",
+      "sku": "AF3050-8GD6H5",
+      "mpn": "AF3050-8GD6H5",
+      "gtin": "",
+      "model": "Видеокарта AFOX Geforce RTX 3050 8GB GAMING GDDR6 128Bit DP/DVI/HDMI  Dual Fan (AF3050-8GD6H5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX Geforce RTX 3050 8GB GAMING GDDR6 128Bit DP/DVI/HDMI  Dual Fan (AF3050-8GD6H5) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 531,
+      "manufacturer": "unknown",
+      "sku": "AF730-2048D5H5-V2",
+      "mpn": "AF730-2048D5H5-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT730 2GB GDDR5 128bit VGA/DVI/HDMI 1FAN RTL(AF730-2048D5H5/AF730-2048D5H5-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT730 2GB GDDR5 128bit VGA/DVI/HDMI 1FAN RTL(AF730-2048D5H5/AF730-2048D5H5-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 532,
+      "manufacturer": "unknown",
+      "sku": "AF240-1024D3L2-V2",
+      "mpn": "AF240-1024D3L2-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GeForce GT240 1GB GDDR3 128bit VGA/DVI/ HDMI 1FAN (AF240-1024D3L2-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GeForce GT240 1GB GDDR3 128bit VGA/DVI/ HDMI 1FAN (AF240-1024D3L2-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 533,
+      "manufacturer": "unknown",
+      "sku": "AF210-1024D3L5",
+      "mpn": "AF210-1024D3L5",
+      "gtin": "",
+      "model": "Видеокарта AFOX G210 LP 1GB, DDR3 64-bit, VGA/DVI/HDMI  1FAN  LP (AF210-1024D3L5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX G210 LP 1GB, DDR3 64-bit, VGA/DVI/HDMI  1FAN  LP (AF210-1024D3L5) RTL"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 534,
+      "manufacturer": "unknown",
+      "sku": "AF1030-4096D4H5",
+      "mpn": "AF1030-4096D4H5",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT1030 4GB 64Bit DDR4 DVI/HDMI ATX 1FAN (AF1030-4096D4H5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT1030 4GB 64Bit DDR4 DVI/HDMI ATX 1FAN (AF1030-4096D4H5) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 535,
+      "manufacturer": "unknown",
+      "sku": "AF730-1024D3L3-V2",
+      "mpn": "AF730-1024D3L3-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT730 1GB DDR3 64Bit DVI/HDMI 1FAN  LP (AF730-1024D3L3-V2 ) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT730 1GB DDR3 64Bit DVI/HDMI 1FAN  LP (AF730-1024D3L3-V2 ) RTL"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 536,
+      "manufacturer": "unknown",
+      "sku": "AF3050-6GD6H5",
+      "mpn": "AF3050-6GD6H5",
+      "gtin": "",
+      "model": "Видеокарта AFOX RTX3050 6Gb 96bit GDDR6 1042/14000 DVIx1/HDMIx1/DPx1/HDCP (AF3050-6GD6H5) RTL",
+      "raw_names": [
+        "Видеокарта AFOX RTX3050 6Gb 96bit GDDR6 1042/14000 DVIx1/HDMIx1/DPx1/HDCP (AF3050-6GD6H5) RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 537,
+      "manufacturer": "unknown",
+      "sku": "AF730-1024D3L7-V1",
+      "mpn": "AF730-1024D3L7-V1",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT730 1GB 64 bit DDR3 VGA/DVI/HDMI 1FAN (AF730-1024D3L7-V1) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT730 1GB 64 bit DDR3 VGA/DVI/HDMI 1FAN (AF730-1024D3L7-V1) RTL"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 538,
+      "manufacturer": "unknown",
+      "sku": "AF740-4096D5H3-V4",
+      "mpn": "AF740-4096D5H3-V4",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT740 4GB GDDR5 128bit VGA/DVI/HDMI 2 FAN (AF740-4096D5H3-V4) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT740 4GB GDDR5 128bit VGA/DVI/HDMI 2 FAN (AF740-4096D5H3-V4) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 539,
+      "manufacturer": "unknown",
+      "sku": "AF730-2048D5L2",
+      "mpn": "AF730-2048D5L2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT730 2GB GDDR5 648bit VGA/DVI/HDMI  LP 1FAN (AF730-2048D5L2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT730 2GB GDDR5 648bit VGA/DVI/HDMI  LP 1FAN (AF730-2048D5L2) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 540,
+      "manufacturer": "unknown",
+      "sku": "AFRX550-4096D5H3",
+      "mpn": "AFRX550-4096D5H3",
+      "gtin": "",
+      "model": "Видеокарта Afox RX550 4GB GDDR5 128bit DVI DP HDMI 1FAN RTL",
+      "raw_names": [
+        "Видеокарта Afox RX550 4GB GDDR5 128bit DVI DP HDMI 1FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 541,
+      "manufacturer": "unknown",
+      "sku": "AF2060S-8192D6H7",
+      "mpn": "AF2060S-8192D6H7",
+      "gtin": "",
+      "model": "Видеокарта AFOX Geforce RTX 2060 SUPER 8GB GAMING GDDR6 256Bit DP/DVI/HDMI ATX 2FAN (AF2060S-8192D6H7) RTL",
+      "raw_names": [
+        "Видеокарта AFOX Geforce RTX 2060 SUPER 8GB GAMING GDDR6 256Bit DP/DVI/HDMI ATX 2FAN (AF2060S-8192D6H7) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 542,
+      "manufacturer": "unknown",
+      "sku": "AF1650S-4096D6H7-V2",
+      "mpn": "AF1650S-4096D6H7-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1650 SUPER 4GB GAMING GDDR6 128Bit DP DVI/HDMI ATX 2FAN (AF1650S-4096D6H7-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GTX1650 SUPER 4GB GAMING GDDR6 128Bit DP DVI/HDMI ATX 2FAN (AF1650S-4096D6H7-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 543,
+      "manufacturer": "unknown",
+      "sku": "AF1650-4096D6H1-V8",
+      "mpn": "AF1650-4096D6H1-V8",
+      "gtin": "",
+      "model": "Видеокарта AFOX GeForce GTX 1650 4Gb DDR6 128 bit  DP/DVI/HDMI (AF1650-4096D6H1-V8) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GeForce GTX 1650 4Gb DDR6 128 bit  DP/DVI/HDMI (AF1650-4096D6H1-V8) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 544,
+      "manufacturer": "unknown",
+      "sku": "AFRX570-8192D5H5-V2",
+      "mpn": "AFRX570-8192D5H5-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX AMD Radeon RX 570 8 Gb DDR5 256 bit DP/DVI/HDMI  (AFRX570-8192D5H5-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX AMD Radeon RX 570 8 Gb DDR5 256 bit DP/DVI/HDMI  (AFRX570-8192D5H5-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 545,
+      "manufacturer": "unknown",
+      "sku": "AFRX550-4096D5L2",
+      "mpn": "AFRX550-4096D5L2",
+      "gtin": "",
+      "model": "Видеокарта PCI-E Afox Radeon RX 550 (AFRX550-4096D5L2) 4GB GDDR5 128bit 14nm 1183/6000MHz DVI/HDMI RTL",
+      "raw_names": [
+        "Видеокарта PCI-E Afox Radeon RX 550 (AFRX550-4096D5L2) 4GB GDDR5 128bit 14nm 1183/6000MHz DVI/HDMI RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 546,
+      "manufacturer": "unknown",
+      "sku": "AF1650S-4096D6H3-V2",
+      "mpn": "AF1650S-4096D6H3-V2",
+      "gtin": "",
+      "model": "Видеокарта AFOX GTX1650 SUPER 4GB GAMING GDDR6 128Bit DP DVI/HDMI ATX 2FAN (AF1650S-4096D6H3-V2) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GTX1650 SUPER 4GB GAMING GDDR6 128Bit DP DVI/HDMI ATX 2FAN (AF1650S-4096D6H3-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 547,
+      "manufacturer": "unknown",
+      "sku": "AF1030-2048D5L8",
+      "mpn": "AF1030-2048D5L8",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT1030 2GB DDR5 64Bit DVI/HDMI ATX Single Fan (AF1030-2048D5L8) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT1030 2GB DDR5 64Bit DVI/HDMI ATX Single Fan (AF1030-2048D5L8) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 548,
+      "manufacturer": "unknown",
+      "sku": "AFB250-BTC12EX",
+      "mpn": "AFB250-BTC12EX",
+      "gtin": "",
+      "model": "Материнская плата ATX Afox AFB250-BTC12EX RTL (LGA1151, B250, 2*DDR4 (3000), 4*SATA 6G, 12*PCIE, 2*USB 3.2 Gen1, 6*USB 2.0, 4*USB-A , 2*PS/2, RJ45, D-",
+      "raw_names": [
+        "Материнская плата ATX Afox AFB250-BTC12EX RTL (LGA1151, B250, 2*DDR4 (3000), 4*SATA 6G, 12*PCIE, 2*USB 3.2 Gen1, 6*USB 2.0, 4*USB-A , 2*PS/2, RJ45, D-"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "DDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 549,
+      "manufacturer": "unknown",
+      "sku": "AF3060-12GD6H7-V4",
+      "mpn": "AF3060-12GD6H7-V4",
+      "gtin": "",
+      "model": "Видеокарта AFOX RTX3060 12Gb 192bit GDDR6 3xDP/ HDMI 2FAN (AF3060-12GD6H7-V4) RTL",
+      "raw_names": [
+        "Видеокарта AFOX RTX3060 12Gb 192bit GDDR6 3xDP/ HDMI 2FAN (AF3060-12GD6H7-V4) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 550,
+      "manufacturer": "unknown",
+      "sku": "AF1050-4096D5L4",
+      "mpn": "AF1050-4096D5L4",
+      "gtin": "",
+      "model": "Видеокарта PCI-E Afox GeForce GTX 1050 (AF1050-4096D5L4) 4GB GDDR5 128bit 1354/7000MHz HDMI DP",
+      "raw_names": [
+        "Видеокарта PCI-E Afox GeForce GTX 1050 (AF1050-4096D5L4) 4GB GDDR5 128bit 1354/7000MHz HDMI DP"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 551,
+      "manufacturer": "unknown",
+      "sku": "AF710-4096D3L5-V3",
+      "mpn": "AF710-4096D3L5-V3",
+      "gtin": "",
+      "model": "Видеокарта AFOX GT710 4GB 64bit DDR3 VGA/DVI/HDMI LP 1FAN (AF710-4096D3L5-V3) RTL",
+      "raw_names": [
+        "Видеокарта AFOX GT710 4GB 64bit DDR3 VGA/DVI/HDMI LP 1FAN (AF710-4096D3L5-V3) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 552,
+      "manufacturer": "unknown",
+      "sku": "AF1650-4096D6H3-V6",
+      "mpn": "AF1650-4096D6H3-V6",
+      "gtin": "",
+      "model": "Видеокарта PCI-E Afox GeForce GTX 1650 GAMING (AF1650-4096D6H3-V6) 4GB GDDR6 128bit 12nm 1590/12000MHz HDMI DP DVI",
+      "raw_names": [
+        "Видеокарта PCI-E Afox GeForce GTX 1650 GAMING (AF1650-4096D6H3-V6) 4GB GDDR6 128bit 12nm 1590/12000MHz HDMI DP DVI"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 553,
+      "manufacturer": "unknown",
+      "sku": "AF3050-8GD6H4-V6",
+      "mpn": "AF3050-8GD6H4-V6",
+      "gtin": "",
+      "model": "Видеокарта AFOX RTX3050 8GB GAMING GDDR6 128Bit  DP/DVI/HDMI  Dual Fan(AF3050-8GD6H4-V6) RTL",
+      "raw_names": [
+        "Видеокарта AFOX RTX3050 8GB GAMING GDDR6 128Bit  DP/DVI/HDMI  Dual Fan(AF3050-8GD6H4-V6) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 554,
+      "manufacturer": "unknown",
+      "sku": "MS-GeForce RTX3060 iCraft OC 1",
+      "mpn": "MS-GeForce RTX3060 iCraft OC 1",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GeForce RTX3060 iCraft OC 12G T1 12Gb GDDR6, 192bit, 1320-1837Mhz, 3*DP/1*HDMI2.1, 170W Ret (6940709642894)",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GeForce RTX3060 iCraft OC 12G T1 12Gb GDDR6, 192bit, 1320-1837Mhz, 3*DP/1*HDMI2.1, 170W Ret (6940709642894)"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 555,
+      "manufacturer": "unknown",
+      "sku": "MS-GeForce RTX3060 Terminator",
+      "mpn": "MS-GeForce RTX3060 Terminator",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GeForce RTX3060 Terminator 12Gb GDDR6, 192bit, 1320-1777Mhz, 3*DP/1*HDMI2.1, 170W Ret (6940709643716)",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GeForce RTX3060 Terminator 12Gb GDDR6, 192bit, 1320-1777Mhz, 3*DP/1*HDMI2.1, 170W Ret (6940709643716)"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

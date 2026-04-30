@@ -27,6 +27,7 @@ from app.services.enrichment.claude_code.exporter import (
 from app.services.enrichment.claude_code.schema import (
     ALL_CATEGORIES,
     DEFAULT_CONFIDENCE,
+    SOURCE_DETAIL_WEB_SEARCH,
     SOURCE_NAME,
     TARGET_FIELDS,
 )
@@ -165,6 +166,7 @@ def _process_item(session, category: str, item: dict, stats: dict, *, dry_run: b
         try:
             written = apply_enrichment(
                 session, category, component_id, ef_fields, current_row,
+                source_detail=SOURCE_DETAIL_WEB_SEARCH,
             )
             savepoint.commit()
         except Exception as exc:
@@ -249,6 +251,56 @@ def import_category(category: str, *, dry_run: bool = False) -> dict:
 
 def import_all(*, dry_run: bool = False) -> list[dict]:
     return [import_category(c, dry_run=dry_run) for c in ALL_CATEGORIES]
+
+
+def import_file(path: Path, *, dry_run: bool = False) -> dict:
+    """Импорт одного конкретного batch-файла (этап 11.6.2.1).
+
+    Применяется, когда чат Claude Code положил результат не в
+    enrichment/done/<category>/, а вернул отдельным файлом, который
+    хочется накатить точечно.
+
+    Категория определяется по полю payload['category']; директория
+    archive/ берётся из неё же. Если файл изначально лежит вне
+    enrichment/done/<category>/, после импорта он всё равно
+    переезжает в archive/ соответствующей категории.
+    """
+    if not path.exists():
+        return {**_empty_stats("?"), "status": "file_not_found",
+                "errors": [f"file_not_found:{path}"]}
+
+    payload = _load_batch(path)
+    if payload is None:
+        return {**_empty_stats("?"), "status": "unreadable",
+                "errors": [f"unreadable:{path}"]}
+
+    category = payload.get("category")
+    if category not in TARGET_FIELDS:
+        return {**_empty_stats(category or "?"),
+                "status": "unknown_category",
+                "errors": [f"unknown_category:{category}"]}
+
+    stats = _empty_stats(category)
+    stats["status"] = "success"
+    stats["files_total"] = 1
+
+    items = payload.get("items") or []
+    session = SessionLocal()
+    try:
+        for item in items:
+            stats["items_total"] += 1
+            _process_item(session, category, item, stats, dry_run=dry_run)
+        if not dry_run:
+            session.commit()
+            _move_to_archive(path, category)
+        stats["files_done"] = 1
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+    return stats
 
 
 def format_report(stats: dict, *, dry_run: bool) -> str:

@@ -1,0 +1,564 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_015",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 766,
+      "manufacturer": "unknown",
+      "sku": "900-5G133-1700-000",
+      "mpn": "900-5G133-1700-000",
+      "gtin": "",
+      "model": "NVIDIA RTX A6000 900-5G133-1700-000 RTX A6000 Graphic Card - PCIe 4.0 x16 - 48 GB GDDR6 - ECC - 2x Slot  (379612)",
+      "raw_names": [
+        "NVIDIA RTX A6000 900-5G133-1700-000 RTX A6000 Graphic Card - PCIe 4.0 x16 - 48 GB GDDR6 - ECC - 2x Slot  (379612)"
+      ],
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 767,
+      "manufacturer": "unknown",
+      "sku": "900-5G172-2740-000",
+      "mpn": "900-5G172-2740-000",
+      "gtin": "",
+      "model": "NVIDIA T400 4G OEM 900-5G172-2740-000",
+      "raw_names": [
+        "NVIDIA T400 4G OEM 900-5G172-2740-000"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 768,
+      "manufacturer": "unknown",
+      "sku": "900-5G172-2250-000 OEM",
+      "mpn": "900-5G172-2250-000 OEM",
+      "gtin": "",
+      "model": "NVIDIA T1000 4Gb OEM  (ATX+LP Bracket)  900-5G172-2250-000",
+      "raw_names": [
+        "NVIDIA T1000 4Gb OEM  (ATX+LP Bracket)  900-5G172-2250-000"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 769,
+      "manufacturer": "unknown",
+      "sku": "900-5G172-2270-000||A+L",
+      "mpn": "900-5G172-2270-000||A+L",
+      "gtin": "",
+      "model": "NVIDIA T1000-8G with ATX and LP (ATX installed, LP included)  900-5G172-2270-000||A+L",
+      "raw_names": [
+        "NVIDIA T1000-8G with ATX and LP (ATX installed, LP included)  900-5G172-2270-000||A+L"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 770,
+      "manufacturer": "unknown",
+      "sku": "025049",
+      "mpn": "025049",
+      "gtin": "",
+      "model": "NVIDIA T1000 8G - RTL , brand new original with individual package - include ATX and LT brackets (025049) 900-5G172-2570-000",
+      "raw_names": [
+        "NVIDIA T1000 8G - RTL , brand new original with individual package - include ATX and LT brackets (025049) 900-5G172-2570-000"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 771,
+      "manufacturer": "unknown",
+      "sku": "900-2G171-0000-000",
+      "mpn": "900-2G171-0000-000",
+      "gtin": "",
+      "model": "NVIDIA TESLA A16 4x Ampere GPU, 64GB (4x 16GB), 250W (900-2G171-0000-000/900-2G171-0000-100) {9}",
+      "raw_names": [
+        "NVIDIA TESLA A16 4x Ampere GPU, 64GB (4x 16GB), 250W (900-2G171-0000-000/900-2G171-0000-100) {9}"
+      ],
+      "current": {
+        "vram_gb": 64
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 772,
+      "manufacturer": "unknown",
+      "sku": "900-2G133-0100-130",
+      "mpn": "900-2G133-0100-130",
+      "gtin": "",
+      "model": "NVIDIA TESLA A40 48GB   900-2G133-0100-130",
+      "raw_names": [
+        "NVIDIA TESLA A40 48GB   900-2G133-0100-130"
+      ],
+      "current": {
+        "vram_gb": 48
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 773,
+      "manufacturer": "unknown",
+      "sku": "900-2G193-0000-000",
+      "mpn": "900-2G193-0000-000",
+      "gtin": "",
+      "model": "Видеоускоритель/ NVIDIA L4 Ada Graphic Card - 24GB PCI 900-2G193-0000-000",
+      "raw_names": [
+        "Видеоускоритель/ NVIDIA L4 Ada Graphic Card - 24GB PCI 900-2G193-0000-000"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 774,
+      "manufacturer": "unknown",
+      "sku": "900-2G133-0110-030",
+      "mpn": "900-2G133-0110-030",
+      "gtin": "",
+      "model": "NVIDIA L40 Ada 48GB GDDR6 PCIe, 384bit, TDP 300 watt, 1x 16   900-2G133-0110-030",
+      "raw_names": [
+        "NVIDIA L40 Ada 48GB GDDR6 PCIe, 384bit, TDP 300 watt, 1x 16   900-2G133-0110-030"
+      ],
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 775,
+      "manufacturer": "unknown",
+      "sku": "900-21010-0000-000",
+      "mpn": "900-21010-0000-000",
+      "gtin": "",
+      "model": "Видеоускоритель/ NVIDIA H100 PCIe card, 80 GB, PCI-E x16 gen5  900-21010-0000-000",
+      "raw_names": [
+        "Видеоускоритель/ NVIDIA H100 PCIe card, 80 GB, PCI-E x16 gen5  900-21010-0000-000"
+      ],
+      "current": {
+        "vram_gb": 80
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 776,
+      "manufacturer": "unknown",
+      "sku": "900-21010-0040-000",
+      "mpn": "900-21010-0040-000",
+      "gtin": "",
+      "model": "NVIDIA H200 NVL 141GB HBM3e PCIe 900-21010-0040-000",
+      "raw_names": [
+        "NVIDIA H200 NVL 141GB HBM3e PCIe 900-21010-0040-000"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 777,
+      "manufacturer": "unknown",
+      "sku": "900-11001-0108-000",
+      "mpn": "900-11001-0108-000",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA NVIDIA CMP170 HX (900-11001-0108-000) OEM",
+      "raw_names": [
+        "Видеокарта NVIDIA NVIDIA CMP170 HX (900-11001-0108-000) OEM"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 778,
+      "manufacturer": "unknown",
+      "sku": "900-5G132-2240-000||ATX",
+      "mpn": "900-5G132-2240-000||ATX",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA RTX 5000 Ada 32GB GDDR6 256 bit, bulk packing",
+      "raw_names": [
+        "Видеокарта NVIDIA RTX 5000 Ada 32GB GDDR6 256 bit, bulk packing"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 779,
+      "manufacturer": "unknown",
+      "sku": "900-5G172-2260-000||ATX+LP",
+      "mpn": "900-5G172-2260-000||ATX+LP",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA RTX A400 4GB with ATX and LP bracketsPN:900-5G172-2260-000",
+      "raw_names": [
+        "Видеокарта NVIDIA RTX A400 4GB with ATX and LP bracketsPN:900-5G172-2260-000"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 780,
+      "manufacturer": "unknown",
+      "sku": "900-5G172-2280-000||ATX+LP",
+      "mpn": "900-5G172-2280-000||ATX+LP",
+      "gtin": "",
+      "model": "Видеокарта  NVIDIA RTX A1000 8GB(BULK) with ATX and LP brackets PN: 900-5G172-2280-000",
+      "raw_names": [
+        "Видеокарта  NVIDIA RTX A1000 8GB(BULK) with ATX and LP brackets PN: 900-5G172-2280-000"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 781,
+      "manufacturer": "unknown",
+      "sku": "900-5G611-2500-000||oem",
+      "mpn": "900-5G611-2500-000||oem",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA OEM QUADRO P6000 (PG611-B01) RTL {4} 900-5G611-2500-000",
+      "raw_names": [
+        "Видеокарта NVIDIA OEM QUADRO P6000 (PG611-B01) RTL {4} 900-5G611-2500-000"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 782,
+      "manufacturer": "unknown",
+      "sku": "900-2G193-0000-000||LPATX",
+      "mpn": "900-2G193-0000-000||LPATX",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA Tesla L4 Graphics Card (LP installed, ATX included), 24GB PN: 900-2G193-0000-000",
+      "raw_names": [
+        "Видеокарта NVIDIA Tesla L4 Graphics Card (LP installed, ATX included), 24GB PN: 900-2G193-0000-000"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 783,
+      "manufacturer": "unknown",
+      "sku": "900-2G133-00A0-000",
+      "mpn": "900-2G133-00A0-000",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA Tesla L20 48GB (900-2G133-00A0-000)",
+      "raw_names": [
+        "Видеокарта NVIDIA Tesla L20 48GB (900-2G133-00A0-000)"
+      ],
+      "current": {
+        "vram_gb": 48
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 784,
+      "manufacturer": "unknown",
+      "sku": "900-2G133-0080-000",
+      "mpn": "900-2G133-0080-000",
+      "gtin": "",
+      "model": "Графический процессор NVIDIA 900-2G133-0080-000 Graphics Processing unit (GPU) L40S 48GB Memory PCIe Gen4 x16 4x DisplayPort",
+      "raw_names": [
+        "Графический процессор NVIDIA 900-2G133-0080-000 Graphics Processing unit (GPU) L40S 48GB Memory PCIe Gen4 x16 4x DisplayPort"
+      ],
+      "current": {
+        "vram_gb": 48
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 785,
+      "manufacturer": "unknown",
+      "sku": "900-2G133-0010-000",
+      "mpn": "900-2G133-0010-000",
+      "gtin": "",
+      "model": "Графический ускоритель Nvidia Tesla L40 48GB GDDR6, PCIe Gen4 (x16), Full-height, full-length (FHFL) 10.5”, dual-slot, Passive, 100-300W, OEM",
+      "raw_names": [
+        "Графический ускоритель Nvidia Tesla L40 48GB GDDR6, PCIe Gen4 (x16), Full-height, full-length (FHFL) 10.5”, dual-slot, Passive, 100-300W, OEM"
+      ],
+      "current": {
+        "vram_gb": 48,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 786,
+      "manufacturer": "unknown",
+      "sku": "A770 PG 16GO",
+      "mpn": "A770 PG 16GO",
+      "gtin": "",
+      "model": "Видеокарта Asrock PCI-E 4.0 A770 PG 16GO INTEL ARC A770 16Gb 256bit GDDR6 2200/17500 HDMIx1 DPx3 HDCP Ret",
+      "raw_names": [
+        "Видеокарта Asrock PCI-E 4.0 A770 PG 16GO INTEL ARC A770 16Gb 256bit GDDR6 2200/17500 HDMIx1 DPx3 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 787,
+      "manufacturer": "unknown",
+      "sku": "RX6600 CLW 8G",
+      "mpn": "RX6600 CLW 8G",
+      "gtin": "",
+      "model": "Видеокарта ASRock RX6600 Challenger White 8GB GDDR6 HDMI DPx3 2FAN RTL",
+      "raw_names": [
+        "Видеокарта ASRock RX6600 Challenger White 8GB GDDR6 HDMI DPx3 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 788,
+      "manufacturer": "unknown",
+      "sku": "RX6750GRE CL 10GO",
+      "mpn": "RX6750GRE CL 10GO",
+      "gtin": "",
+      "model": "Видеокарта ASRock RX6750GRE CHALLENGER OC 10GB GDDR6 160bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта ASRock RX6750GRE CHALLENGER OC 10GB GDDR6 160bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 10,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 789,
+      "manufacturer": "unknown",
+      "sku": "RX7600 PG 8GO",
+      "mpn": "RX7600 PG 8GO",
+      "gtin": "",
+      "model": "Видеокарта ASRock Radeon RX 7600 Phantom Gaming 8G OC",
+      "raw_names": [
+        "Видеокарта ASRock Radeon RX 7600 Phantom Gaming 8G OC"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 790,
+      "manufacturer": "unknown",
+      "sku": "GV-N5060EAGLE OC-8GD_DP",
+      "mpn": "GV-N5060EAGLE OC-8GD_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Gigabyte GV-N5060EAGLE OC-8GD PCIE16 RTX5060 8GB",
+      "raw_names": [
+        "Повреждение упаковки Gigabyte GV-N5060EAGLE OC-8GD PCIE16 RTX5060 8GB"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    }
+  ]
+}

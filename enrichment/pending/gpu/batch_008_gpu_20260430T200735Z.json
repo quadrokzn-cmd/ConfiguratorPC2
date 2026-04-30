@@ -1,0 +1,677 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_008",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 556,
+      "manufacturer": "unknown",
+      "sku": "MS-RTX3050 Transformer 6G T0",
+      "mpn": "MS-RTX3050 Transformer 6G T0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RTX3050 Transformer 6G S0  6Gb GDDR6, 96bit, 1042-1470Mhz, DP/HDMI/DVI (6940709610183) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RTX3050 Transformer 6G S0  6Gb GDDR6, 96bit, 1042-1470Mhz, DP/HDMI/DVI (6940709610183) RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 557,
+      "manufacturer": "unknown",
+      "sku": "MS-RTX3050 Terminator 6G T0",
+      "mpn": "MS-RTX3050 Terminator 6G T0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RTX3050 Terminator 6G S0  6Gb GDDR6, 96bit, 1552-1777Mhz, DP/HDMI/DVI, 115W Ret (6940709610190)",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RTX3050 Terminator 6G S0  6Gb GDDR6, 96bit, 1552-1777Mhz, DP/HDMI/DVI, 115W Ret (6940709610190)"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 558,
+      "manufacturer": "unknown",
+      "sku": "MS-GT1030 Transformer 2G",
+      "mpn": "MS-GT1030 Transformer 2G",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GT1030 Transformer2G 2Gb GDDR5, 64bit, 1227/6000Mhz, HDMI/DVI, 30W Ret (6940709610946)",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GT1030 Transformer2G 2Gb GDDR5, 64bit, 1227/6000Mhz, HDMI/DVI, 30W Ret (6940709610946)"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 559,
+      "manufacturer": "unknown",
+      "sku": "MS-GT730 PH 2G L0",
+      "mpn": "MS-GT730 PH 2G L0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GT730 PH 2Gb GDDR3, 64bit, 700/1333Mhz, DP/HDMI/DVI 1 FAN (MS-GT730 PH 2G L0) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GT730 PH 2Gb GDDR3, 64bit, 700/1333Mhz, DP/HDMI/DVI 1 FAN (MS-GT730 PH 2G L0) RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 560,
+      "manufacturer": "unknown",
+      "sku": "MAXSUN Intel Arc B580 Mileston",
+      "mpn": "MAXSUN Intel Arc B580 Mileston",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN Intel Arc B580 Milestone 12G DDR6, 192bit, 3* DP/HDMI, 2 FAN RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN Intel Arc B580 Milestone 12G DDR6, 192bit, 3* DP/HDMI, 2 FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 561,
+      "manufacturer": "unknown",
+      "sku": "MAXSUN Intel Arc B580 iCraft 1",
+      "mpn": "MAXSUN Intel Arc B580 iCraft 1",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN Intel Arc B580 iCraft 12G DDR6, 192bit, 3* DP/HDMI, 3 FAN RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN Intel Arc B580 iCraft 12G DDR6, 192bit, 3* DP/HDMI, 3 FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 562,
+      "manufacturer": "unknown",
+      "sku": "MS-R5 230Power Hammer SI 2G M0",
+      "mpn": "MS-R5 230Power Hammer SI 2G M0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-R5 230 Power Hammer SI 2G M0  2Gb GDDR3, 64bit, 625/1066Mhz,  DP/HDMI/DVI, 25W Ret (6940709610824)",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-R5 230 Power Hammer SI 2G M0  2Gb GDDR3, 64bit, 625/1066Mhz,  DP/HDMI/DVI, 25W Ret (6940709610824)"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 563,
+      "manufacturer": "unknown",
+      "sku": "MAXSUN Intel Arc B570 Mileston",
+      "mpn": "MAXSUN Intel Arc B570 Mileston",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN Intel Arc B570 Milestone 10G DDR6, 160bit, 3* DP/HDMI, 2 FAN RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN Intel Arc B570 Milestone 10G DDR6, 160bit, 3* DP/HDMI, 2 FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 10,
+        "vram_type": "DDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 564,
+      "manufacturer": "unknown",
+      "sku": "MS-GT730 PH 4G",
+      "mpn": "MS-GT730 PH 4G",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GT730 Power Hammer 4G GDDR3, 64bit, 902/1333Mhz,  DVI/VGA/HDMI 1 FAN (MS-GT730 PH 4G) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GT730 Power Hammer 4G GDDR3, 64bit, 902/1333Mhz,  DVI/VGA/HDMI 1 FAN (MS-GT730 PH 4G) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 565,
+      "manufacturer": "unknown",
+      "sku": "MS-RTX3050 TR 6G S2",
+      "mpn": "MS-RTX3050 TR 6G S2",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RTX3050 Terminator 6G GDDR6, 96bit, 1042-1470MHZ, DP/HDMI/DVI, 15W/115W (MS-RTX3050 TR 6G S2) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RTX3050 Terminator 6G GDDR6, 96bit, 1042-1470MHZ, DP/HDMI/DVI, 15W/115W (MS-RTX3050 TR 6G S2) RTL"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 566,
+      "manufacturer": "unknown",
+      "sku": "MS-RTX3050 TF 6G S2",
+      "mpn": "MS-RTX3050 TF 6G S2",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RTX3050 Transformer 6G 96bit, 1042-1470MHZ, DP/HDMI/DVI, 15W/130W (MS-RTX3050 TF 6G S2) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RTX3050 Transformer 6G 96bit, 1042-1470MHZ, DP/HDMI/DVI, 15W/130W (MS-RTX3050 TF 6G S2) RTL"
+      ],
+      "current": {
+        "vram_gb": 6
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 567,
+      "manufacturer": "unknown",
+      "sku": "MS-RX580 2048SP Big Mac Plus 8",
+      "mpn": "MS-RX580 2048SP Big Mac Plus 8",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RX580 8Gb GDDR5, 256bit,1206/6000Mhz,  3*DP/HDMI/DVI, 2 FAN (MS-RX580 2048SP Big Mac Plus 8G) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RX580 8Gb GDDR5, 256bit,1206/6000Mhz,  3*DP/HDMI/DVI, 2 FAN (MS-RX580 2048SP Big Mac Plus 8G) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 568,
+      "manufacturer": "unknown",
+      "sku": "MS-RTX5060 TRB 8G T0",
+      "mpn": "MS-RTX5060 TRB 8G T0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-RTX5060 TRB 8G T0 GeForce RTX 5060 8Gb DDR7 128 bit 3*DP/HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-RTX5060 TRB 8G T0 GeForce RTX 5060 8Gb DDR7 128 bit 3*DP/HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 569,
+      "manufacturer": "unknown",
+      "sku": "MS-GT1030 TF 4GD4",
+      "mpn": "MS-GT1030 TF 4GD4",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GT1030 Transformer 4G GDDR4, 128bit, 1152/1380MHz, HDMI/DVI 1 FAN (MS-GT1030 TF 4GD4) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GT1030 Transformer 4G GDDR4, 128bit, 1152/1380MHz, HDMI/DVI 1 FAN (MS-GT1030 TF 4GD4) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 570,
+      "manufacturer": "unknown",
+      "sku": "MS-GT730 4H 4GD3",
+      "mpn": "MS-GT730 4H 4GD3",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN MS-GT730 4G GDDR3, 64bit, 902/1333Mhz,  4*HDMI Passive (MS-GT730 4H 4GD3) RTL",
+      "raw_names": [
+        "Видеокарта MAXSUN MS-GT730 4G GDDR3, 64bit, 902/1333Mhz,  4*HDMI Passive (MS-GT730 4H 4GD3) RTL"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 571,
+      "manufacturer": "unknown",
+      "sku": "RTX3060 TR 12G T0",
+      "mpn": "RTX3060 TR 12G T0",
+      "gtin": "",
+      "model": "Видеокарта MAXSUN RTX3060 Terminator 12Gb GDDR6, 192bit, 1320-1777Mhz, 3*DP/1*HDMI2.1 (RTX3060 TR 12G T0) Ret",
+      "raw_names": [
+        "Видеокарта MAXSUN RTX3060 Terminator 12Gb GDDR6, 192bit, 1320-1777Mhz, 3*DP/1*HDMI2.1 (RTX3060 TR 12G T0) Ret"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 572,
+      "manufacturer": "unknown",
+      "sku": "NF21N5123F",
+      "mpn": "NF21N5123F",
+      "gtin": "",
+      "model": "Sinotex Ninja  GT210 512M 64bit DDR3 DVI HDMI CRT PCIE",
+      "raw_names": [
+        "Sinotex Ninja  GT210 512M 64bit DDR3 DVI HDMI CRT PCIE"
+      ],
+      "current": {
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb"
+      ]
+    },
+    {
+      "id": 573,
+      "manufacturer": "unknown",
+      "sku": "NF71NP013F",
+      "mpn": "NF71NP013F",
+      "gtin": "",
+      "model": "Sinotex Ninja GT710 1GB 64bit DDR3 DVI HDMI CRT PCIE [NF71NP013F]",
+      "raw_names": [
+        "Sinotex Ninja GT710 1GB 64bit DDR3 DVI HDMI CRT PCIE [NF71NP013F]"
+      ],
+      "current": {
+        "vram_gb": 1,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 574,
+      "manufacturer": "unknown",
+      "sku": "NF71NP023F",
+      "mpn": "NF71NP023F",
+      "gtin": "",
+      "model": "Sinotex Ninja GT710 2GB 64bit DDR3 DVI HDMI CRT PCIE",
+      "raw_names": [
+        "Sinotex Ninja GT710 2GB 64bit DDR3 DVI HDMI CRT PCIE"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 575,
+      "manufacturer": "unknown",
+      "sku": "384SP",
+      "mpn": "384SP",
+      "gtin": "",
+      "model": "Sinotex Ninja GT1030 (384SP) 2GB GDDR5 64bit DVI HDMI RTL NK103FG25F",
+      "raw_names": [
+        "Sinotex Ninja GT1030 (384SP) 2GB GDDR5 64bit DVI HDMI RTL NK103FG25F"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 576,
+      "manufacturer": "unknown",
+      "sku": "NK165DF46F",
+      "mpn": "NK165DF46F",
+      "gtin": "",
+      "model": "Sinotex Ninja GTX1650 NK165DF46F PCIE (896SP) 4G 128BIT GDDR6",
+      "raw_names": [
+        "Sinotex Ninja GTX1650 NK165DF46F PCIE (896SP) 4G 128BIT GDDR6"
+      ],
+      "current": {
+        "vram_gb": 4,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 577,
+      "manufacturer": "unknown",
+      "sku": "AKR735025F",
+      "mpn": "AKR735025F",
+      "gtin": "",
+      "model": "Sinotex Ninja R7 350 (512SP) 2GB GDDR5 128bit VGA DVI HDMI RTL (AKR735025F)",
+      "raw_names": [
+        "Sinotex Ninja R7 350 (512SP) 2GB GDDR5 128bit VGA DVI HDMI RTL (AKR735025F)"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR5"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 578,
+      "manufacturer": "unknown",
+      "sku": "11314-07-20G",
+      "mpn": "11314-07-20G",
+      "gtin": "",
+      "model": "Sapphire 11314-07-20G  PULSE RX 6500 XT GAMING OC 4GB",
+      "raw_names": [
+        "Sapphire 11314-07-20G  PULSE RX 6500 XT GAMING OC 4GB"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 579,
+      "manufacturer": "unknown",
+      "sku": "11339-04-20G",
+      "mpn": "11339-04-20G",
+      "gtin": "",
+      "model": "Sapphire 11339-04-20G PULSE RX 7600 XT GAMING OC 16GB",
+      "raw_names": [
+        "Sapphire 11339-04-20G PULSE RX 7600 XT GAMING OC 16GB"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 580,
+      "manufacturer": "unknown",
+      "sku": "11348-02-20G",
+      "mpn": "11348-02-20G",
+      "gtin": "",
+      "model": "Видеокарта Sapphire RX9070XT PURE OC 16GB GDDR6 256bit 2xDP 2xHDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта Sapphire RX9070XT PURE OC 16GB GDDR6 256bit 2xDP 2xHDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 581,
+      "manufacturer": "unknown",
+      "sku": "GT710-SL-2GD3-BRK-EVO",
+      "mpn": "GT710-SL-2GD3-BRK-EVO",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce GT710 Silent LP EVO 2GB GDDR3 64bit VGA/DVI/HDMI PASSIVE  (GT710-SL-2GD3-BRK-EVO)",
+      "raw_names": [
+        "Видеокарта ASUS GeForce GT710 Silent LP EVO 2GB GDDR3 64bit VGA/DVI/HDMI PASSIVE  (GT710-SL-2GD3-BRK-EVO)"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "GDDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 582,
+      "manufacturer": "unknown",
+      "sku": "PH-RTX3050-8G-V2",
+      "mpn": "PH-RTX3050-8G-V2",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX 3050 8GB GDDR6 128 Bit DP/DVI/HDMI (PH-RTX3050-8G-V2)",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX 3050 8GB GDDR6 128 Bit DP/DVI/HDMI (PH-RTX3050-8G-V2)"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 583,
+      "manufacturer": "unknown",
+      "sku": "DUAL-RTX3060-O12G-V2",
+      "mpn": "DUAL-RTX3060-O12G-V2",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX3060 Dual OC Edition 12GB GDDR6 192bit 3*DP/HDMI  (DUAL-RTX3060-O12G-V2) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX3060 Dual OC Edition 12GB GDDR6 192bit 3*DP/HDMI  (DUAL-RTX3060-O12G-V2) RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 584,
+      "manufacturer": "unknown",
+      "sku": "PRIME-RTX5060TI-16G",
+      "mpn": "PRIME-RTX5060TI-16G",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX 5060TI 16Gb DDR7 128 bit 3*DP/HDMI 3FAN (PRIME-RTX5060TI-16G) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX 5060TI 16Gb DDR7 128 bit 3*DP/HDMI 3FAN (PRIME-RTX5060TI-16G) RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 585,
+      "manufacturer": "unknown",
+      "sku": "TUF-RTX5060TI-O8G-GAMING",
+      "mpn": "TUF-RTX5060TI-O8G-GAMING",
+      "gtin": "",
+      "model": "Видеокарта ASUS GeForce RTX 5060TI 8Gb DDR7 128 bit 3*DP/HDMI 3FAN (TUF-RTX5060TI-O8G-GAMING) RTL",
+      "raw_names": [
+        "Видеокарта ASUS GeForce RTX 5060TI 8Gb DDR7 128 bit 3*DP/HDMI 3FAN (TUF-RTX5060TI-O8G-GAMING) RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "DDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}

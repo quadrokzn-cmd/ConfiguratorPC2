@@ -1,0 +1,677 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_011",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 646,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070WF3OC-12GD 1.0",
+      "mpn": "GV-N5070WF3OC-12GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070WF3OC-12GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5070WF3OC-12GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 647,
+      "manufacturer": "unknown",
+      "sku": "GV-N507TWF3-16GD",
+      "mpn": "GV-N507TWF3-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N507TWF3-16GD PCIE16 RTX5070TI 16GB",
+      "raw_names": [
+        "Gigabyte GV-N507TWF3-16GD PCIE16 RTX5070TI 16GB"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 648,
+      "manufacturer": "unknown",
+      "sku": "GV-N506TAORUS E-16GD",
+      "mpn": "GV-N506TAORUS E-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N506TAORUS E-16GD",
+      "raw_names": [
+        "Gigabyte GV-N506TAORUS E-16GD"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 649,
+      "manufacturer": "unknown",
+      "sku": "GV-N4090AERO OC-24GD",
+      "mpn": "GV-N4090AERO OC-24GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4090AERO OC-24GD",
+      "raw_names": [
+        "Gigabyte GV-N4090AERO OC-24GD"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 650,
+      "manufacturer": "unknown",
+      "sku": "GV-N308TGAMING OC-12GD",
+      "mpn": "GV-N308TGAMING OC-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N308TGAMING OC-12GD RTL",
+      "raw_names": [
+        "Gigabyte GV-N308TGAMING OC-12GD RTL"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 651,
+      "manufacturer": "unknown",
+      "sku": "GV-N4090GAMING OC-24GD",
+      "mpn": "GV-N4090GAMING OC-24GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4090GAMING OC-24GD",
+      "raw_names": [
+        "Gigabyte GV-N4090GAMING OC-24GD"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 652,
+      "manufacturer": "unknown",
+      "sku": "GV-N4090WF3V2-24GD",
+      "mpn": "GV-N4090WF3V2-24GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4090WF3V2-24GD",
+      "raw_names": [
+        "Gigabyte GV-N4090WF3V2-24GD"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 653,
+      "manufacturer": "unknown",
+      "sku": "GV-N407TSEAGLEOCICE-16GD",
+      "mpn": "GV-N407TSEAGLEOCICE-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N407TSEAGLEOCICE-16GD  PCI-E 4.0 NVIDIA GeForce RTX 4070TI Super 16Gb 256bit GDDR6X 2670/21000 HDMIx1 DPx3 HDCP Ret",
+      "raw_names": [
+        "Gigabyte GV-N407TSEAGLEOCICE-16GD  PCI-E 4.0 NVIDIA GeForce RTX 4070TI Super 16Gb 256bit GDDR6X 2670/21000 HDMIx1 DPx3 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 654,
+      "manufacturer": "unknown",
+      "sku": "GV-N407TSEAGLE OC-16GD",
+      "mpn": "GV-N407TSEAGLE OC-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N407TSEAGLE OC-16GD RTX4070Ti SUPER EAGLE OC 16G",
+      "raw_names": [
+        "Gigabyte GV-N407TSEAGLE OC-16GD RTX4070Ti SUPER EAGLE OC 16G"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 655,
+      "manufacturer": "unknown",
+      "sku": "GV-N4070WF2OCV2-12GD",
+      "mpn": "GV-N4070WF2OCV2-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4070WF2OCV2-12GD",
+      "raw_names": [
+        "Gigabyte GV-N4070WF2OCV2-12GD"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 656,
+      "manufacturer": "unknown",
+      "sku": "GV-N4080EAGLE OC-16GD",
+      "mpn": "GV-N4080EAGLE OC-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4080EAGLE OC-16GD",
+      "raw_names": [
+        "Gigabyte GV-N4080EAGLE OC-16GD"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 657,
+      "manufacturer": "unknown",
+      "sku": "GV-N407TEAGLE OC-12GD",
+      "mpn": "GV-N407TEAGLE OC-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N407TEAGLE OC-12GD",
+      "raw_names": [
+        "Gigabyte GV-N407TEAGLE OC-12GD"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 658,
+      "manufacturer": "unknown",
+      "sku": "GV-N4070WF3OC-12GD",
+      "mpn": "GV-N4070WF3OC-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4070WF3OC-12GD RTX4070 WINDFORCE OC 12G",
+      "raw_names": [
+        "Gigabyte GV-N4070WF3OC-12GD RTX4070 WINDFORCE OC 12G"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 659,
+      "manufacturer": "unknown",
+      "sku": "GV-N407SWF3OC-12GD",
+      "mpn": "GV-N407SWF3OC-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N407SWF3OC-12GD Super NV RTX4070 12Gb 192bit GDDR6X 2595/21000/HDMI",
+      "raw_names": [
+        "Gigabyte GV-N407SWF3OC-12GD Super NV RTX4070 12Gb 192bit GDDR6X 2595/21000/HDMI"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR6X"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 660,
+      "manufacturer": "unknown",
+      "sku": "GV-N4060D6-8GD",
+      "mpn": "GV-N4060D6-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4060D6-8GD {PCI-E 4.0 128bit GDDR6 2460/17000 HDMIx2 DPx2 HDCP}",
+      "raw_names": [
+        "Gigabyte GV-N4060D6-8GD {PCI-E 4.0 128bit GDDR6 2460/17000 HDMIx2 DPx2 HDCP}"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 661,
+      "manufacturer": "unknown",
+      "sku": "GV-N4060AERO OC-8GD",
+      "mpn": "GV-N4060AERO OC-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4060AERO OC-8GD",
+      "raw_names": [
+        "Gigabyte GV-N4060AERO OC-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 662,
+      "manufacturer": "unknown",
+      "sku": "GV-N4060GAMING OC-8GD",
+      "mpn": "GV-N4060GAMING OC-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4060GAMING OC-8GD",
+      "raw_names": [
+        "Gigabyte GV-N4060GAMING OC-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 663,
+      "manufacturer": "unknown",
+      "sku": "GV-N4060EAGLE OC-8GD",
+      "mpn": "GV-N4060EAGLE OC-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4060EAGLE OC-8GD",
+      "raw_names": [
+        "Gigabyte GV-N4060EAGLE OC-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 664,
+      "manufacturer": "unknown",
+      "sku": "GV-N406TWF2OC-8GD",
+      "mpn": "GV-N406TWF2OC-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N406TWF2OC-8GD",
+      "raw_names": [
+        "Gigabyte GV-N406TWF2OC-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 665,
+      "manufacturer": "unknown",
+      "sku": "GV-N4060WF2OC-8GD",
+      "mpn": "GV-N4060WF2OC-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N4060WF2OC-8GD",
+      "raw_names": [
+        "Gigabyte GV-N4060WF2OC-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 666,
+      "manufacturer": "unknown",
+      "sku": "GV-IA380WF2OC-6GD",
+      "mpn": "GV-IA380WF2OC-6GD",
+      "gtin": "",
+      "model": "Gigabyte GV-IA380WF2OC-6GD PCI-E 4.0  INTEL ARC A380 6144Mb 96 GDDR6 2350/15500 HDMIx2 DPx2 HDCP Ret",
+      "raw_names": [
+        "Gigabyte GV-IA380WF2OC-6GD PCI-E 4.0  INTEL ARC A380 6144Mb 96 GDDR6 2350/15500 HDMIx2 DPx2 HDCP Ret"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 667,
+      "manufacturer": "unknown",
+      "sku": "GV-N3060GAMING OC-12GD",
+      "mpn": "GV-N3060GAMING OC-12GD",
+      "gtin": "",
+      "model": "Gigybate GV-N3060GAMING OC-12GD Rev 2.0. (LHR)",
+      "raw_names": [
+        "Gigybate GV-N3060GAMING OC-12GD Rev 2.0. (LHR)"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 668,
+      "manufacturer": "unknown",
+      "sku": "GV-N3060WF2OC-12GD 2.0",
+      "mpn": "GV-N3060WF2OC-12GD 2.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N3060WF2OC-12GD 2.0",
+      "raw_names": [
+        "Gigabyte GV-N3060WF2OC-12GD 2.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 669,
+      "manufacturer": "unknown",
+      "sku": "GV-N3060WF2-12GD",
+      "mpn": "GV-N3060WF2-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N3060WF2-12GD",
+      "raw_names": [
+        "Gigabyte GV-N3060WF2-12GD"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 670,
+      "manufacturer": "unknown",
+      "sku": "GV-N3050WF2OCV2-8GD",
+      "mpn": "GV-N3050WF2OCV2-8GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N3050WF2OCV2-8GD",
+      "raw_names": [
+        "Gigabyte GV-N3050WF2OCV2-8GD"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 671,
+      "manufacturer": "unknown",
+      "sku": "GV-N3050OC-6GL",
+      "mpn": "GV-N3050OC-6GL",
+      "gtin": "",
+      "model": "Gigabyte GV-N3050OC-6GL",
+      "raw_names": [
+        "Gigabyte GV-N3050OC-6GL"
+      ],
+      "current": {
+        "vram_gb": 6
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 672,
+      "manufacturer": "unknown",
+      "sku": "GV-N1656OC-4GD",
+      "mpn": "GV-N1656OC-4GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N1656OC-4GD  RTL",
+      "raw_names": [
+        "Gigabyte GV-N1656OC-4GD  RTL"
+      ],
+      "current": {
+        "vram_gb": 4
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 673,
+      "manufacturer": "unknown",
+      "sku": "GV-R76XTGAMING OC-16GD",
+      "mpn": "GV-R76XTGAMING OC-16GD",
+      "gtin": "",
+      "model": "Gigabyte GV-R76XTGAMING OC-16GD",
+      "raw_names": [
+        "Gigabyte GV-R76XTGAMING OC-16GD"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 674,
+      "manufacturer": "unknown",
+      "sku": "GV-R76XTGAMING OC-16GD 1.1",
+      "mpn": "GV-R76XTGAMING OC-16GD 1.1",
+      "gtin": "",
+      "model": "Gigabyte GV-R76XTGAMING OC-16GD 1.1  PCIE16 RX 7600XT 16GB",
+      "raw_names": [
+        "Gigabyte GV-R76XTGAMING OC-16GD 1.1  PCIE16 RX 7600XT 16GB"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 675,
+      "manufacturer": "unknown",
+      "sku": "GV-R76GAMING OC-8GD 1.1",
+      "mpn": "GV-R76GAMING OC-8GD 1.1",
+      "gtin": "",
+      "model": "Gigabyte GV-R76GAMING OC-8GD 1.1",
+      "raw_names": [
+        "Gigabyte GV-R76GAMING OC-8GD 1.1"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    }
+  ]
+}

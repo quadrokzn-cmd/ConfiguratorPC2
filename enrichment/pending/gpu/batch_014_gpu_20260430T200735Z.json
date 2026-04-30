@@ -1,0 +1,674 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_014",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 736,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 8G INSPIRE 2X",
+      "mpn": "RTX 5060 TI 8G INSPIRE 2X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti INSPIRE 2X 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti INSPIRE 2X 8GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 737,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G VENTUS 3X",
+      "mpn": "RTX 5070 12G VENTUS 3X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5070 VENTUS 3X 12GB GDDR7 192bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5070 VENTUS 3X 12GB GDDR7 192bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 738,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G VENTUS 3X PLUS",
+      "mpn": "RTX 5080 16G VENTUS 3X PLUS",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5080 VENTUS 3X PLUS 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5080 VENTUS 3X PLUS 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 739,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 8G VENTUS 3X",
+      "mpn": "RTX 5060 TI 8G VENTUS 3X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti VENTUS 3X 8GB GDDR7 128bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti VENTUS 3X 8GB GDDR7 128bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 740,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G SHADOW 2X",
+      "mpn": "RTX 5070 12G SHADOW 2X",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G SHADOW 2X MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5070 12GB RTX 5070 12G SHADOW 2X MSI"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 741,
+      "manufacturer": "unknown",
+      "sku": "RTX 5050 8G VENTUS 2X",
+      "mpn": "RTX 5050 8G VENTUS 2X",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5050 8GB RTX 5050 8G VENTUS 2X MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5050 8GB RTX 5050 8G VENTUS 2X MSI"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 742,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G INSPIRE 3X",
+      "mpn": "RTX 5080 16G INSPIRE 3X",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5080 16GB RTX 5080 16G INSPIRE 3X MSI",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5080 16GB RTX 5080 16G INSPIRE 3X MSI"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 743,
+      "manufacturer": "unknown",
+      "sku": "306-7ZWAA11-L80",
+      "mpn": "306-7ZWAA11-L80",
+      "gtin": "",
+      "model": "СЖО для процессора MSI MAG CORELIQUID A15 240 Soc-1700/1851/AM4/AM5 2xARGB Fan (306-7ZWAA11-L80)",
+      "raw_names": [
+        "СЖО для процессора MSI MAG CORELIQUID A15 240 Soc-1700/1851/AM4/AM5 2xARGB Fan (306-7ZWAA11-L80)"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 744,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 16G SHADOW 2X PLUS",
+      "mpn": "RTX 5060 TI 16G SHADOW 2X PLUS",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti SHADOW 2X PLUS 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti SHADOW 2X PLUS 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 745,
+      "manufacturer": "unknown",
+      "sku": "306-7ZW9A11-L80",
+      "mpn": "306-7ZW9A11-L80",
+      "gtin": "",
+      "model": "Система охлаждения жидкостная MSI MAG CORELIQUID A15 360 306-7ZW9A11-L80 LGA1700/1851/AM4/AM5 (3*120mm, 500-2050rpm, 64.89CFM, 28.7dBa)",
+      "raw_names": [
+        "Система охлаждения жидкостная MSI MAG CORELIQUID A15 360 306-7ZW9A11-L80 LGA1700/1851/AM4/AM5 (3*120mm, 500-2050rpm, 64.89CFM, 28.7dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 746,
+      "manufacturer": "unknown",
+      "sku": "RTX 5070 12G VENTUS 3X OC",
+      "mpn": "RTX 5070 12G VENTUS 3X OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX 5070 12G VENTUS 3X OC//RTX 5070, HDMI, DP*3, 16G, D7",
+      "raw_names": [
+        "Видеокарта MSI RTX 5070 12G VENTUS 3X OC//RTX 5070, HDMI, DP*3, 16G, D7"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 747,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 16G VENTUS 2X PLUS",
+      "mpn": "RTX 5060 TI 16G VENTUS 2X PLUS",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti VENTUS 2X PLUS 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti VENTUS 2X PLUS 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 748,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 TI 16G INSPIRE 2X",
+      "mpn": "RTX 5060 TI 16G INSPIRE 2X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5060Ti INSPIRE 2X 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5060Ti INSPIRE 2X 16GB GDDR7 128bit 3xDP HDMI 2FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 749,
+      "manufacturer": "unknown",
+      "sku": "RTX 5080 16G SHADOW 3X",
+      "mpn": "RTX 5080 16G SHADOW 3X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX5080 SHADOW 3X 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта MSI RTX5080 SHADOW 3X 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 750,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 Ti 8G SHADOW 3X OC CL",
+      "mpn": "RTX 5060 Ti 8G SHADOW 3X OC CL",
+      "gtin": "",
+      "model": "Видеокарта PCI-E MSI GeForce RTX 5060 TI SHADOW 3X OC CLASSIC (RTX 5060 Ti 8G SHADOW 3X OC CLASSIC) 8GB GDDR7 128bit 5nm 2617/28000MHz HDMI 3*DP",
+      "raw_names": [
+        "Видеокарта PCI-E MSI GeForce RTX 5060 TI SHADOW 3X OC CLASSIC (RTX 5060 Ti 8G SHADOW 3X OC CLASSIC) 8GB GDDR7 128bit 5nm 2617/28000MHz HDMI 3*DP"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 751,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 8G GAMING TRIO OC",
+      "mpn": "RTX 5060 8G GAMING TRIO OC",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX 5060 8G GAMING TRIO OC//RTX 5060, HDMI, DP*3, 8G, D7",
+      "raw_names": [
+        "Видеокарта MSI RTX 5060 8G GAMING TRIO OC//RTX 5060, HDMI, DP*3, 8G, D7"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 752,
+      "manufacturer": "unknown",
+      "sku": "RTX 5060 8G SHADOW 2X",
+      "mpn": "RTX 5060 8G SHADOW 2X",
+      "gtin": "",
+      "model": "Видеокарта MSI RTX 5060 8G SHADOW 2X//RTX 5060, HDMI, DP*3, 8G, D7",
+      "raw_names": [
+        "Видеокарта MSI RTX 5060 8G SHADOW 2X//RTX 5060, HDMI, DP*3, 8G, D7"
+      ],
+      "current": {
+        "vram_gb": 8,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 753,
+      "manufacturer": "unknown",
+      "sku": "VCQRTX6000-SB",
+      "mpn": "VCQRTX6000-SB",
+      "gtin": "",
+      "model": "PNY Quadro RTX6000  VCQRTX6000-SB  24GB GDDR6",
+      "raw_names": [
+        "PNY Quadro RTX6000  VCQRTX6000-SB  24GB GDDR6"
+      ],
+      "current": {
+        "vram_gb": 24,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 754,
+      "manufacturer": "unknown",
+      "sku": "900-21001-0020-100",
+      "mpn": "900-21001-0020-100",
+      "gtin": "",
+      "model": "NVIDIA A100 80GB GPU PCI-E x16 80GB HBM2, PCIe x16 4.0, Dual Slot FHFL, Passive, 300W (900-21001-0020-100)",
+      "raw_names": [
+        "NVIDIA A100 80GB GPU PCI-E x16 80GB HBM2, PCIe x16 4.0, Dual Slot FHFL, Passive, 300W (900-21001-0020-100)"
+      ],
+      "current": {
+        "vram_gb": 80
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 755,
+      "manufacturer": "unknown",
+      "sku": "900-21001-0120-130",
+      "mpn": "900-21001-0120-130",
+      "gtin": "",
+      "model": "NVIDIA A100 80GB GPU  (900-21001-0120-130)",
+      "raw_names": [
+        "NVIDIA A100 80GB GPU  (900-21001-0120-130)"
+      ],
+      "current": {
+        "vram_gb": 80
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 756,
+      "manufacturer": "unknown",
+      "sku": "900-5G192-2551-000 OEM",
+      "mpn": "900-5G192-2551-000 OEM",
+      "gtin": "",
+      "model": "NVIDIA RTX A2000 12GB ATX OEM (900-5G192-2551-000/900-5G192-2250-000) LP bracket",
+      "raw_names": [
+        "NVIDIA RTX A2000 12GB ATX OEM (900-5G192-2551-000/900-5G192-2250-000) LP bracket"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 757,
+      "manufacturer": "unknown",
+      "sku": "900-5G192-2551-000/900-5G192-2",
+      "mpn": "900-5G192-2551-000/900-5G192-2",
+      "gtin": "",
+      "model": "NVIDIA RTX A2000 12GB ATX OEM (900-5G192-2551-000/900-5G192-2250-000)ATX+ LP bracket",
+      "raw_names": [
+        "NVIDIA RTX A2000 12GB ATX OEM (900-5G192-2551-000/900-5G192-2250-000)ATX+ LP bracket"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 758,
+      "manufacturer": "unknown",
+      "sku": "900-5G192-2240-000||ATX+LP",
+      "mpn": "900-5G192-2240-000||ATX+LP",
+      "gtin": "",
+      "model": "Видеокарта PCI-E nVidia RTX 2000 Ada BLK (900-5G192-2240-000||ATX+LP) 16GB GDDR6 128bit 5nm 1620/16000MH",
+      "raw_names": [
+        "Видеокарта PCI-E nVidia RTX 2000 Ada BLK (900-5G192-2240-000||ATX+LP) 16GB GDDR6 128bit 5nm 1620/16000MH"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 759,
+      "manufacturer": "unknown",
+      "sku": "699-5G190-0510-700R",
+      "mpn": "699-5G190-0510-700R",
+      "gtin": "",
+      "model": "NVIDIA RTX A4000 16Gb OEM (900-5G190-0100-000/900-5G190-2200-000) 699-5G190-0510-700R",
+      "raw_names": [
+        "NVIDIA RTX A4000 16Gb OEM (900-5G190-0100-000/900-5G190-2200-000) 699-5G190-0510-700R"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 760,
+      "manufacturer": "unknown",
+      "sku": "699-5G190-1700-000",
+      "mpn": "699-5G190-1700-000",
+      "gtin": "",
+      "model": "NVIDIA RTX A4000 16GB 699-5G190-1700-000/ 900-5G190-1700-000 ATX OEM",
+      "raw_names": [
+        "NVIDIA RTX A4000 16GB 699-5G190-1700-000/ 900-5G190-1700-000 ATX OEM"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 761,
+      "manufacturer": "unknown",
+      "sku": "900-5G190-2500-000",
+      "mpn": "900-5G190-2500-000",
+      "gtin": "",
+      "model": "NVIDIA RTX A4000 16GB 900-5G190-2500-000",
+      "raw_names": [
+        "NVIDIA RTX A4000 16GB 900-5G190-2500-000"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 762,
+      "manufacturer": "unknown",
+      "sku": "900-5G190-2200-000||ATX+LP",
+      "mpn": "900-5G190-2200-000||ATX+LP",
+      "gtin": "",
+      "model": "NVIDIA Quadro RTX A4000 Graphics Cards with ATX and LP bracket(Accessory), ATX bracket installed LP bracket included, 16GB, Bulk Packing  900-5G190-2200-000",
+      "raw_names": [
+        "NVIDIA Quadro RTX A4000 Graphics Cards with ATX and LP bracket(Accessory), ATX bracket installed LP bracket included, 16GB, Bulk Packing  900-5G190-2200-000"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 763,
+      "manufacturer": "unknown",
+      "sku": "900-5G132-2200-000",
+      "mpn": "900-5G132-2200-000",
+      "gtin": "",
+      "model": "NVIDIA  RTX A5000 24GB BLK 900-5G132-2200-000",
+      "raw_names": [
+        "NVIDIA  RTX A5000 24GB BLK 900-5G132-2200-000"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 764,
+      "manufacturer": "unknown",
+      "sku": "900-5G132-2200-000||ATX",
+      "mpn": "900-5G132-2200-000||ATX",
+      "gtin": "",
+      "model": "Видеокарта NVIDIA RTX A5000 (with ATX Brackets)",
+      "raw_names": [
+        "Видеокарта NVIDIA RTX A5000 (with ATX Brackets)"
+      ],
+      "current": {},
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 765,
+      "manufacturer": "unknown",
+      "sku": "900-5G132-1700-000",
+      "mpn": "900-5G132-1700-000",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX A5000 24GB BLK 900-5G132-1700-000 NVIDIA",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX A5000 24GB BLK 900-5G132-1700-000 NVIDIA"
+      ],
+      "current": {
+        "vram_gb": 24
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    }
+  ]
+}

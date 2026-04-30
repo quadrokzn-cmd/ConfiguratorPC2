@@ -1,0 +1,677 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_010",
+  "generated_at": "2026-04-30T20:07:35+00:00",
+  "target_fields": [
+    "tdp_watts",
+    "needs_extra_power",
+    "video_outputs",
+    "core_clock_mhz",
+    "memory_clock_mhz",
+    "vram_gb",
+    "vram_type"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 616,
+      "manufacturer": "unknown",
+      "sku": "ZT-B50710Q2-10P",
+      "mpn": "ZT-B50710Q2-10P",
+      "gtin": "",
+      "model": "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti SOLID CORE OC WHITE ED 16GB GDDR7, 256bit, 2482/28000 (ZT-B50710Q2-10P)",
+      "raw_names": [
+        "Видеокарта ZOTAC GAMING GeForce RTX 5070 Ti SOLID CORE OC WHITE ED 16GB GDDR7, 256bit, 2482/28000 (ZT-B50710Q2-10P)"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 617,
+      "manufacturer": "unknown",
+      "sku": "",
+      "mpn": "",
+      "gtin": "",
+      "model": "PALIT GeForce GT710 2GB 64Bit sDDR3  [NEAT7100HD46-2080H]  OEM",
+      "raw_names": [
+        "PALIT GeForce GT710 2GB 64Bit sDDR3  [NEAT7100HD46-2080H]  OEM"
+      ],
+      "current": {
+        "vram_gb": 2
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 618,
+      "manufacturer": "unknown",
+      "sku": "PA-GT710-2GD3H",
+      "mpn": "PA-GT710-2GD3H",
+      "gtin": "",
+      "model": "PALIT GeForce GT710 2GB 64Bit DDR3 [NEAT7100HD46-2080H]  RTL",
+      "raw_names": [
+        "PALIT GeForce GT710 2GB 64Bit DDR3 [NEAT7100HD46-2080H]  RTL"
+      ],
+      "current": {
+        "vram_gb": 2,
+        "vram_type": "DDR3"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 619,
+      "manufacturer": "unknown",
+      "sku": "NEC103000646-1082F",
+      "mpn": "NEC103000646-1082F",
+      "gtin": "",
+      "model": "Palit PCI-E PA-GT1030 2GD4 nVidia GeForce GT 1030 2048Mb 64bit DDR4 1151/2100 DVIx1/HDMIx1/HDCP Ret low profile NEC103000646-1082F RTL",
+      "raw_names": [
+        "Palit PCI-E PA-GT1030 2GD4 nVidia GeForce GT 1030 2048Mb 64bit DDR4 1151/2100 DVIx1/HDMIx1/HDCP Ret low profile NEC103000646-1082F RTL"
+      ],
+      "current": {
+        "vram_type": "DDR4"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_gb"
+      ]
+    },
+    {
+      "id": 620,
+      "manufacturer": "unknown",
+      "sku": "NE63050018JE-1070H",
+      "mpn": "NE63050018JE-1070H",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 KALMX  6Gb 96bit GDDR6 1042/14000 DVIx1 HDMIx1 DPx1 HDCP Ret  (NE63050018JE-1070H)",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 KALMX  6Gb 96bit GDDR6 1042/14000 DVIx1 HDMIx1 DPx1 HDCP Ret  (NE63050018JE-1070H)"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 621,
+      "manufacturer": "unknown",
+      "sku": "NE63050018JE-1070F",
+      "mpn": "NE63050018JE-1070F",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 STORMX 6G (NE63050018JE-1070F)",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 STORMX 6G (NE63050018JE-1070F)"
+      ],
+      "current": {
+        "vram_gb": 6
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 622,
+      "manufacturer": "unknown",
+      "sku": "NE63050S18JE-1070F",
+      "mpn": "NE63050S18JE-1070F",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 STORMX OC 6G (4710562244151), (NE63050S18JE-1070F), GDDR6, 96bit, DP, DVI, HDMI, 162*117*40 мм, Цветная коробка",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 STORMX OC 6G (4710562244151), (NE63050S18JE-1070F), GDDR6, 96bit, DP, DVI, HDMI, 162*117*40 мм, Цветная коробка"
+      ],
+      "current": {
+        "vram_gb": 6,
+        "vram_type": "GDDR6"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 623,
+      "manufacturer": "unknown",
+      "sku": "NE63050S18JE-1072F",
+      "mpn": "NE63050S18JE-1072F",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX3050 6GB PA-RTX3050 STORMX OC 6GB V1 PALIT NE63050S18JE-1072F",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX3050 6GB PA-RTX3050 STORMX OC 6GB V1 PALIT NE63050S18JE-1072F"
+      ],
+      "current": {
+        "vram_gb": 6
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 624,
+      "manufacturer": "unknown",
+      "sku": "NE63050018P1-1070F",
+      "mpn": "NE63050018P1-1070F",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 STORMX 8G (NE63050018P1-1070F)",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 STORMX 8G (NE63050018P1-1070F)"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 625,
+      "manufacturer": "unknown",
+      "sku": "NE63050018P1-1070F V1",
+      "mpn": "NE63050018P1-1070F V1",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 STORMX 8G (NE63050018P1-1070F V1)",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 STORMX 8G (NE63050018P1-1070F V1)"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 626,
+      "manufacturer": "unknown",
+      "sku": "NE63050018P1-1070D",
+      "mpn": "NE63050018P1-1070D",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 DUAL 8G (NE63050018P1-1070D) RTL",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 DUAL 8G (NE63050018P1-1070D) RTL"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 627,
+      "manufacturer": "unknown",
+      "sku": "NE63050018P1-1070D V1",
+      "mpn": "NE63050018P1-1070D V1",
+      "gtin": "",
+      "model": "Видеокарта PALIT RTX3050 DUAL 8G (NE63050018P1-1070D V1) RTL",
+      "raw_names": [
+        "Видеокарта PALIT RTX3050 DUAL 8G (NE63050018P1-1070D V1) RTL"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 628,
+      "manufacturer": "unknown",
+      "sku": "NE65050T19P1-GB2070F",
+      "mpn": "NE65050T19P1-GB2070F",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5050 8GB PA-RTX5050 STORMX OC 8GB PALIT",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5050 8GB PA-RTX5050 STORMX OC 8GB PALIT"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 629,
+      "manufacturer": "unknown",
+      "sku": "NE75060019P1-GB2063S",
+      "mpn": "NE75060019P1-GB2063S",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060 8GB PA-RTX5060 INFINITY 3 8GB PALIT (NE75060019P1-GB2063S)",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060 8GB PA-RTX5060 INFINITY 3 8GB PALIT (NE75060019P1-GB2063S)"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 630,
+      "manufacturer": "unknown",
+      "sku": "NE75060T19P1-GB2063S",
+      "mpn": "NE75060T19P1-GB2063S",
+      "gtin": "",
+      "model": "Видеокарта PCIE16 RTX5060 8GB PA-RTX5060 INFINITY 3 OC 8GB PALIT (NE75060T19P1-GB2063S)",
+      "raw_names": [
+        "Видеокарта PCIE16 RTX5060 8GB PA-RTX5060 INFINITY 3 OC 8GB PALIT (NE75060T19P1-GB2063S)"
+      ],
+      "current": {
+        "vram_gb": 8
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 631,
+      "manufacturer": "unknown",
+      "sku": "NE7507T019T2-GB2031Y",
+      "mpn": "NE7507T019T2-GB2031Y",
+      "gtin": "",
+      "model": "Видеокарта Palit RTX5070Ti GAMINGPRO 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL (NE7507T019T2-GB2031Y)",
+      "raw_names": [
+        "Видеокарта Palit RTX5070Ti GAMINGPRO 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL (NE7507T019T2-GB2031Y)"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 632,
+      "manufacturer": "unknown",
+      "sku": "NE7507TS19T2-GB2031Y",
+      "mpn": "NE7507TS19T2-GB2031Y",
+      "gtin": "",
+      "model": "Видеокарта Palit RTX5070Ti GAMINGPRO OC V1 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL NE7507TS19T2-GB2031Y",
+      "raw_names": [
+        "Видеокарта Palit RTX5070Ti GAMINGPRO OC V1 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL NE7507TS19T2-GB2031Y"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 633,
+      "manufacturer": "unknown",
+      "sku": "NE7507T019T2-GB2030G",
+      "mpn": "NE7507T019T2-GB2030G",
+      "gtin": "",
+      "model": "Видеокарта Palit RTX5070Ti GAMEROCK 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта Palit RTX5070Ti GAMEROCK 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 634,
+      "manufacturer": "unknown",
+      "sku": "NE7507TH19T2-GB2030G",
+      "mpn": "NE7507TH19T2-GB2030G",
+      "gtin": "",
+      "model": "Видеокарта Palit RTX5070Ti GAMEROCK OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Видеокарта Palit RTX5070Ti GAMEROCK OC 16GB GDDR7 256bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 635,
+      "manufacturer": "unknown",
+      "sku": "NE75080019T2-GB2030G",
+      "mpn": "NE75080019T2-GB2030G",
+      "gtin": "",
+      "model": "Видеокарта Palit PCI-E nVidia GeForce RTX 5080 GAMEROCK 16GB (GDDR7/256 bit/3xDP, HDMI) RTL (NE75080019T2-GB2030G)",
+      "raw_names": [
+        "Видеокарта Palit PCI-E nVidia GeForce RTX 5080 GAMEROCK 16GB (GDDR7/256 bit/3xDP, HDMI) RTL (NE75080019T2-GB2030G)"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 636,
+      "manufacturer": "unknown",
+      "sku": "NE75080T19T2-GB2030G",
+      "mpn": "NE75080T19T2-GB2030G",
+      "gtin": "",
+      "model": "Видеокарта Palit PCI-E nVidia GeForce RTX 5080 GAMEROCK OC 16GB (GDDR7/256 bit/3xDP, HDMI) RTL (NE75080T19T2-GB2030G)",
+      "raw_names": [
+        "Видеокарта Palit PCI-E nVidia GeForce RTX 5080 GAMEROCK OC 16GB (GDDR7/256 bit/3xDP, HDMI) RTL (NE75080T19T2-GB2030G)"
+      ],
+      "current": {
+        "vram_gb": 16,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 637,
+      "manufacturer": "unknown",
+      "sku": "NE75090019R5-GB2020G",
+      "mpn": "NE75090019R5-GB2020G",
+      "gtin": "",
+      "model": "Видеокарта Palit PCI-E RTX5090 GAMEROCK NV RTX5090 32Gb 512bit GDDR7 2295/30000/HDMIx1/DPx3/HDCP Ret  NE75090019R5-GB2020G",
+      "raw_names": [
+        "Видеокарта Palit PCI-E RTX5090 GAMEROCK NV RTX5090 32Gb 512bit GDDR7 2295/30000/HDMIx1/DPx3/HDCP Ret  NE75090019R5-GB2020G"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 638,
+      "manufacturer": "unknown",
+      "sku": "NE75090S19R5-GB2020G",
+      "mpn": "NE75090S19R5-GB2020G",
+      "gtin": "",
+      "model": "Видеокарта Palit PCI-E RTX5090 GAMEROCK OC NV RTX5090 32Gb 512bit GDDR7 2295/30000/HDMIx1/DPx3/HDCP  NE75090S19R5-GB2020G",
+      "raw_names": [
+        "Видеокарта Palit PCI-E RTX5090 GAMEROCK OC NV RTX5090 32Gb 512bit GDDR7 2295/30000/HDMIx1/DPx3/HDCP  NE75090S19R5-GB2020G"
+      ],
+      "current": {
+        "vram_gb": 32,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    },
+    {
+      "id": 639,
+      "manufacturer": "unknown",
+      "sku": "GV-N5090GAMING OC-32GD",
+      "mpn": "GV-N5090GAMING OC-32GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N5090GAMING OC-32GD",
+      "raw_names": [
+        "Gigabyte GV-N5090GAMING OC-32GD"
+      ],
+      "current": {
+        "vram_gb": 32
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 640,
+      "manufacturer": "unknown",
+      "sku": "GV-N5080GAMING OC-16GD 1.0",
+      "mpn": "GV-N5080GAMING OC-16GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5080GAMING OC-16GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5080GAMING OC-16GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 16
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 641,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070AERO OC-12GD 1.0",
+      "mpn": "GV-N5070AERO OC-12GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070AERO OC-12GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5070AERO OC-12GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 642,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070AORUS M-12GD 1.0",
+      "mpn": "GV-N5070AORUS M-12GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070AORUS M-12GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5070AORUS M-12GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 643,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070EAGLEOC ICE-12GD 1.0",
+      "mpn": "GV-N5070EAGLEOC ICE-12GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070EAGLEOC ICE-12GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5070EAGLEOC ICE-12GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 644,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070GAMING OC-12GD 1.0",
+      "mpn": "GV-N5070GAMING OC-12GD 1.0",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070GAMING OC-12GD 1.0",
+      "raw_names": [
+        "Gigabyte GV-N5070GAMING OC-12GD 1.0"
+      ],
+      "current": {
+        "vram_gb": 12
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz",
+        "vram_type"
+      ]
+    },
+    {
+      "id": 645,
+      "manufacturer": "unknown",
+      "sku": "GV-N5070WF3-12GD",
+      "mpn": "GV-N5070WF3-12GD",
+      "gtin": "",
+      "model": "Gigabyte GV-N5070WF3-12GD RTX5070 WINDFORCE SFF 12GB GDDR7 192bit 3xDP HDMI 3FAN RTL",
+      "raw_names": [
+        "Gigabyte GV-N5070WF3-12GD RTX5070 WINDFORCE SFF 12GB GDDR7 192bit 3xDP HDMI 3FAN RTL"
+      ],
+      "current": {
+        "vram_gb": 12,
+        "vram_type": "GDDR7"
+      },
+      "to_fill": [
+        "tdp_watts",
+        "needs_extra_power",
+        "video_outputs",
+        "core_clock_mhz",
+        "memory_clock_mhz"
+      ]
+    }
+  ]
+}
