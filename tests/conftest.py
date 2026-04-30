@@ -36,16 +36,42 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 from dotenv import load_dotenv
 
 # Сначала читаем .env (если есть), чтобы достать TEST_DATABASE_URL.
 load_dotenv()
 
-_TEST_DB = os.environ.get(
+_BASE_TEST_DB = os.environ.get(
     "TEST_DATABASE_URL",
     "postgresql://postgres:postgres@localhost:5432/configurator_pc_test",
 )
+
+
+def _worker_database_url(base_url: str) -> str:
+    """Этап 11.7: при параллельном прогоне через pytest-xdist каждый
+    worker (gw0, gw1, …) работает со своей БД, чтобы не конфликтовать
+    на TRUNCATE/INSERT/DROP. PYTEST_XDIST_WORKER ставится дочерним
+    процессам самим xdist; в master-процессе и при последовательном
+    прогоне (-p no:xdist / -n0) переменной нет — тогда оставляем имя
+    БД как было, ради совместимости с уже созданной БД разработчика.
+    """
+    worker = os.environ.get("PYTEST_XDIST_WORKER")
+    if not worker:
+        return base_url
+    parts = urlsplit(base_url)
+    db_name = parts.path.lstrip("/") or "configurator_pc_test"
+    new_path = "/" + f"{db_name}_{worker}"
+    return urlunsplit(
+        (parts.scheme, parts.netloc, new_path, parts.query, parts.fragment)
+    )
+
+
+_TEST_DB = _worker_database_url(_BASE_TEST_DB)
+# Сохраняем worker-aware значение, чтобы любой код, который позже прочитает
+# TEST_DATABASE_URL (например, app.config.settings), увидел уже правильное.
+os.environ["TEST_DATABASE_URL"] = _TEST_DB
 os.environ["DATABASE_URL"] = _TEST_DB
 
 # Тестовый OPENAI_API_KEY: гарантируем, что ни один тест не уходит в сеть.
@@ -64,6 +90,19 @@ os.environ.setdefault("ALLOWED_REDIRECT_HOSTS", "localhost:8080,localhost:8081")
 import pytest
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+
+# Этап 11.7: ускоряем bcrypt в тестах. По умолчанию shared/auth.py
+# использует rounds=12 (~150 мс на хеш) — нормальная цена для прода,
+# но в каждом тесте через manager_client/admin_client идёт hash + verify,
+# а в некоторых тестах ещё и каскад из 2-3 пользователей. Понижение до
+# rounds=4 (~5 мс) снижает setup-время на 0.3-0.5 сек на тест без потери
+# смысла теста: hash/verify-пара и так корректно работает на любых
+# rounds (число rounds зашито в сам хеш). Прод не задевается — модуль
+# shared/auth читает _BCRYPT_ROUNDS из своих globals при каждом вызове
+# hash_password, и в pytest-процессе мы переписываем именно эту глобаль.
+import shared.auth as _shared_auth
+
+_shared_auth._BCRYPT_ROUNDS = 4
 
 
 # Все миграции, в порядке применения. Один источник истины для всех
@@ -145,14 +184,59 @@ def _apply_migrations(engine) -> None:
             conn.execute(text(sql))
 
 
+def _ensure_worker_database_exists(db_url: str) -> None:
+    """Этап 11.7: гарантируем, что worker-aware БД (configurator_pc_test_gwN)
+    существует. CREATE DATABASE нельзя выполнить внутри транзакции — открываем
+    отдельное соединение в режиме AUTOCOMMIT к служебной БД 'postgres'.
+    Если БД уже есть — не трогаем (повторные прогоны должны быть быстрыми)."""
+    parts = urlsplit(db_url)
+    target_db = parts.path.lstrip("/")
+    if not target_db:
+        return
+    admin_url = urlunsplit(
+        (parts.scheme, parts.netloc, "/postgres", parts.query, parts.fragment)
+    )
+    admin_engine = create_engine(
+        admin_url,
+        future=True,
+        isolation_level="AUTOCOMMIT",
+        connect_args={"client_encoding": "utf8"},
+    )
+    try:
+        with admin_engine.connect() as conn:
+            exists = conn.execute(
+                text("SELECT 1 FROM pg_database WHERE datname = :n"),
+                {"n": target_db},
+            ).first()
+            if exists:
+                return
+            # LC_COLLATE/LC_CTYPE='C' — как в README, чтобы тестовая БД
+            # не зависела от локали Windows.
+            conn.execute(
+                text(
+                    f'CREATE DATABASE "{target_db}" '
+                    f"ENCODING 'UTF8' LC_COLLATE 'C' LC_CTYPE 'C' "
+                    f"TEMPLATE template0"
+                )
+            )
+    finally:
+        admin_engine.dispose()
+
+
 @pytest.fixture(scope="session")
 def db_engine():
     """Единый SQLAlchemy-engine на тестовую БД для всего прогона.
 
-    Один раз за сессию pytest: DROP всех таблиц + накат миграций 001..018.
-    Все подкаталоги тестов используют именно эту фикстуру.
+    Один раз за сессию pytest (то есть — один раз на каждого xdist-worker'а):
+    DROP всех таблиц + накат всех миграций. Все подкаталоги тестов используют
+    именно эту фикстуру.
     """
     from app.config import settings
+
+    # При параллельном прогоне у каждого worker'а своя БД — её нужно создать
+    # на лету при первом запуске; повторные прогоны находят БД и пропускают
+    # CREATE.
+    _ensure_worker_database_exists(settings.test_database_url)
 
     # client_encoding=utf8 — защита от UnicodeDecodeError на русской Windows
     # (аналогичный фикс в app/database.py).

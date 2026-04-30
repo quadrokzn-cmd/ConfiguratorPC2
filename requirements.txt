@@ -15,6 +15,7 @@ itsdangerous>=2.1           # подпись сессионных cookie (Sessio
 python-multipart>=0.0.9     # разбор form-data в POST-формах FastAPI
 httpx>=0.27                 # клиент для тестов (FastAPI TestClient)
 pytest>=8.0                 # фреймворк тестов
+pytest-xdist>=3.5           # параллельный прогон тестов (-n auto), этап 11.7
 
 # --- Этап 9А.2.3: scheduler обновления курса ЦБ ---
 apscheduler>=3.10           # cron-задачи (5 точек в день: 8:30/13:00/16:00/17:00/18:15 МСК)

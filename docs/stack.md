@@ -14,7 +14,7 @@
 | Контроль расходов | `services/budget_guard.py` — дневной лимит в рублях             |
 | Фоновые задачи    | APScheduler (cron-расписание для курса ЦБ)                      |
 | Логи/ошибки       | стандартный logging (уходит в `logs/`)                          |
-| Тесты             | pytest 8.x, httpx TestClient                                    |
+| Тесты             | pytest 8.x + pytest-xdist (параллельный прогон), httpx TestClient |
 
 ## База данных
 
@@ -23,7 +23,7 @@
 | СУБД              | PostgreSQL 18 (Railway, прод); локально 16+                     |
 | psql              | `C:\Program Files\PostgreSQL\16\bin\psql.exe` (локально)        |
 | Миграции          | Чистый SQL в [`../migrations/`](../migrations/) (001–016)       |
-| Тестовая БД       | `configurator_pc_test`, `tests/conftest.py` — единая точка: один раз на сессию pytest DROP всех таблиц + накат всех миграций |
+| Тестовая БД       | `configurator_pc_test_<worker_id>` (gw0/gw1/…), `tests/conftest.py` — единая точка: один раз на сессию pytest DROP всех таблиц + накат всех миграций; CREATE DATABASE для worker'а делается автоматически |
 
 См. [database.md](database.md) для схемы и инвариантов.
 
@@ -119,7 +119,7 @@ npm run watch:css
 Запуск:
 
 ```bash
-pytest tests/                  # весь набор — основной режим
+pytest tests/                  # весь набор — основной режим (параллельно)
 pytest tests/test_web/         # только конфигуратор
 pytest tests/test_portal/      # только портал
 pytest tests/test_export/      # только экспорт
@@ -132,6 +132,34 @@ pytest tests/test_export/      # только экспорт
 локальные conftest'ы подкаталогов поднимают только свои фикстуры
 (TestClient, mock_process_query, фабрики Excel и autouse-чистку
 своих таблиц).
+
+### Параллельный прогон (этап 11.7)
+
+- `pytest tests/` по умолчанию запускает `-n auto --dist=loadfile`
+  (см. `pytest.ini`). На N-ядерной машине ускорение ~×N/2…×N (в зависимости
+  от пропорции CPU-bound и БД-bound тестов).
+- Каждому xdist-worker'у автоматически создаётся отдельная тестовая БД
+  `configurator_pc_test_<worker_id>` (gw0, gw1, …). Первый прогон
+  немного медленнее (миграции применяются N раз), последующие — быстрые
+  (CREATE DATABASE пропускается, если БД уже есть).
+- `--dist=loadfile` (а не `loadscheduling`) гарантирует, что все тесты
+  одного файла попадут на один worker'а — это нужно, потому что некоторые
+  тесты `test_web/test_stage9a_2_2.py` полагаются на данные, заведённые
+  более ранними тестами того же файла (таблицы компонентов
+  cpus/motherboards/… не truncate'ятся между тестами одного модуля).
+- Для отладки одного теста с print'ами/pdb отключайте параллельность
+  через `pytest <path> -n0` — xdist остаётся подключённым, но
+  работает в один поток (тогда stdout/pdb идут напрямую в терминал).
+  Вариант `-p no:xdist` не подойдёт, потому что в `pytest.ini`
+  закреплён `-n auto` и pytest упадёт на разборе аргументов; для
+  принудительного отключения xdist нужно сбрасывать addopts:
+  `pytest -o addopts= -p no:xdist <path>`.
+- bcrypt в тестах принудительно работает на rounds=4 (~5 мс) вместо
+  прод-rounds=12 (~150 мс) — этот патч в `tests/conftest.py` снимает
+  львиную долю времени setup'а (фикстуры admin_client/manager_client
+  каждый раз делают hash + verify). На безопасности теста это не
+  сказывается: rounds зашиваются в сам хеш, hash/verify-пара корректна
+  на любом значении.
 
 ## Версии (на момент Этапа 9Г.2)
 
