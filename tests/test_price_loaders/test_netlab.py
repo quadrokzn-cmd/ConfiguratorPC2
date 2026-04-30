@@ -240,6 +240,77 @@ def test_netlab_unknown_category_yields_no_our_category(make_netlab_xlsx):
     assert r.raw_category == "Планшеты APPLE"
 
 
+def test_netlab_normalizes_numeric_article_from_excel(make_netlab_xlsx):
+    """В реальном DealerD.xlsx Артикул (col D) — числовой, openpyxl
+    отдаёт его как float (11051003.0). Без нормализации повторная
+    загрузка плодит дубликаты supplier_sku. Целочисленные float
+    сворачиваются к int-строке."""
+    from app.services.price_loaders.netlab import _normalize
+    assert _normalize(11051003.0) == "11051003"
+    assert _normalize(0.0) == "0"
+    assert _normalize(0.5) == "0.5"
+    assert _normalize("ABC") == "ABC"
+    assert _normalize(None) == ""
+
+    # Сквозной тест: Excel-моки часто хранят числа как float —
+    # поверяем, что в PriceRow.supplier_sku приходит чистая строка.
+    path = make_netlab_xlsx([
+        {"category": "Видеокарты ASUS"},
+        {
+            "stock": "+", "partnumber": "RTX4060-O8G",
+            "article": 11199001.0,
+            "name": "ASUS RTX 4060", "price_d": 305.0,
+        },
+    ])
+    [r] = list(NetlabLoader().iter_rows(path))
+    assert r.supplier_sku == "11199001"
+
+
+def test_netlab_reads_real_dealerd_dimension_quirk(make_netlab_xlsx):
+    """В реальном DealerD.xlsx внутренний XML-элемент <dimension>
+    повреждён и сообщает «A1:A1». В режиме read_only openpyxl
+    возвращает 0 строк. Парсер форсирует reset_dimensions(),
+    чтобы прочитать весь лист.
+
+    Воспроизводим квирк программно: создаём файл и затем напрямую
+    переписываем sheet1.xml на dimension="A1:A1".
+    """
+    import zipfile
+    import re
+    import tempfile, os
+
+    path = make_netlab_xlsx([
+        {"category": "Видеокарты ASUS"},
+        {
+            "stock": "+", "partnumber": "RTX-1", "article": "A-1",
+            "name": "Test 1", "price_d": 100,
+        },
+        {
+            "stock": "-", "partnumber": "RTX-2", "article": "A-2",
+            "name": "Test 2", "price_d": 200,
+        },
+    ], name="DealerD_quirk.xlsx")
+
+    # Перезаписываем dimension во встроенном sheet1.xml.
+    fd, broken = tempfile.mkstemp(suffix=".xlsx")
+    os.close(fd)
+    try:
+        with zipfile.ZipFile(path, "r") as zin, zipfile.ZipFile(broken, "w", zipfile.ZIP_DEFLATED) as zout:
+            for item in zin.namelist():
+                data = zin.read(item)
+                if item.endswith("sheet1.xml"):
+                    text = data.decode("utf-8")
+                    text = re.sub(r'<dimension ref="[^"]+"', '<dimension ref="A1:A1"', text)
+                    data = text.encode("utf-8")
+                zout.writestr(item, data)
+
+        rows = list(NetlabLoader().iter_rows(broken))
+        assert len(rows) == 2
+        assert [r.supplier_sku for r in rows] == ["A-1", "A-2"]
+    finally:
+        os.remove(broken)
+
+
 def test_netlab_reads_zip_with_inner_xlsx(make_netlab_xlsx, tmp_path):
     """Реальный Netlab отдаётся в виде .zip с одним .xlsx внутри —
     парсер должен прозрачно его открыть."""

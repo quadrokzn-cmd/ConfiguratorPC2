@@ -120,7 +120,15 @@ def _parse_stock(value) -> int:
 
 
 def _normalize(s) -> str:
-    return (str(s).strip() if s is not None else "")
+    if s is None:
+        return ""
+    # Excel часто отдаёт числовые SKU как float (11051003 → 11051003.0).
+    # Между загрузками это даёт «дубликаты» одного и того же SKU
+    # с разным написанием. Сворачиваем целочисленные float к строке
+    # без хвостового «.0».
+    if isinstance(s, float) and s.is_integer():
+        return str(int(s))
+    return str(s).strip()
 
 
 def _is_repeated_header(row: tuple) -> bool:
@@ -285,6 +293,14 @@ class NetlabLoader(BasePriceLoader):
                     f"Доступные листы: {wb.sheetnames}"
                 )
             ws = wb[sheet_name]
+
+            # У реального DealerD.xlsx (~77k строк) элемент <dimension>
+            # внутри XML листа повреждён и сообщает «A1:A1». В режиме
+            # read_only openpyxl этому верит и не отдаёт ни одной строки.
+            # `reset_dimensions()` форсирует сканирование всех строк
+            # листа целиком — без него мы получаем «загружено 0 строк»
+            # из 73k реальных позиций.
+            ws.reset_dimensions()
 
             current_raw_category: str = ""
             current_our_category: str | None = None

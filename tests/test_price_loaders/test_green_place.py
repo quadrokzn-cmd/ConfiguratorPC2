@@ -164,6 +164,75 @@ def test_green_place_handles_empty_g3(make_green_place_xlsx):
     assert r.raw_category == "Оборудование для геймеров | Процессоры"
 
 
+def test_green_place_skips_audited_non_consumer_groups(make_green_place_xlsx):
+    """Этап 11.1.1: аудит реального прайса (44 уникальные тройки)
+    показал, что кроме двух потребительских CPU-троек все остальные
+    позиции — НЕ для конфигуратора ПК. Этот тест фиксирует решение
+    по пяти крупнейшим неподходящим категориям, чтобы случайное
+    расширение _CATEGORY_MAP их не зацепило.
+    """
+    path = make_green_place_xlsx([
+        # 1) NONAME-комплектующие проектной сборки (винты/кабели/радиаторы) — 364
+        {
+            "supplier_sku": "10001", "name": "Винт N-S1-LS-001",
+            "brand": "NONAME", "mpn": "N-S1-LS-001",
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Прочее", "g3": "Комплектующие для проекта",
+            "stock": 0, "transit": 0, "price_rub": 50,
+        },
+        # 2) Серверная DDR4 ECC Reg — 1
+        {
+            "supplier_sku": "10002", "name": "Память DDR4 Lenovo ECC Reg PC4-24300",
+            "brand": "LENOVO", "mpn": "4ZC7A08709",
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Память оперативная", "g3": "Server Memory",
+            "stock": 0, "transit": 0, "price_rub": 224000,
+        },
+        # 3) Серверный CPU Xeon — 122
+        {
+            "supplier_sku": "10003", "name": "Серверный CPU Xeon 6258R",
+            "brand": "INTEL", "mpn": "BX806956258R",
+            "g1": "Серверы и СХД",
+            "g2": "Серверные опции", "g3": "Процессоры",
+            "stock": 0, "transit": 0, "price_rub": 350000,
+        },
+        # 4) Tesla A100 (датацентровый GPU, не consumer) — 5
+        {
+            "supplier_sku": "10004",
+            "name": "Видеокарта Nvidia Tesla A100 80GB HBM2 PCIe",
+            "brand": "NVIDIA", "mpn": "900-21001-0020-000",
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Товар под заказ", "g3": "ТпЗ",
+            "stock": 0, "transit": 0, "price_rub": 1500000,
+        },
+        # 5) Сетевое оборудование — коммутатор Ubiquiti — 84
+        {
+            "supplier_sku": "10005", "name": "Коммутатор Ubiquiti US-8-60W-EU",
+            "brand": "UBIQUITI", "mpn": "US-8-60W-EU",
+            "g1": "Сетевое оборудование",
+            "g2": "Cетевое оборудование", "g3": "Коммутаторы",
+            "stock": 0, "transit": 0, "price_rub": 11876,
+        },
+    ])
+    rows = list(GreenPlaceLoader().iter_rows(path))
+    assert len(rows) == 5
+    # Все пять — за пределами нашего сегмента; orchestrator их пропустит.
+    assert [r.our_category for r in rows] == [None, None, None, None, None]
+
+
+def test_green_place_normalizes_numeric_supplier_sku(make_green_place_xlsx):
+    """В реальных прайсах supplier_sku приходит как float из Excel
+    (1003014.0). Чтобы повторная загрузка не плодила дубликаты,
+    целочисленные float сворачиваются к int-строке."""
+    from app.services.price_loaders.green_place import _normalize
+    assert _normalize(1003014.0) == "1003014"
+    assert _normalize(42) == "42"
+    assert _normalize("ABC-1") == "ABC-1"
+    assert _normalize(None) == ""
+    # Float с дробной частью НЕ сворачиваем, иначе потеряем точность.
+    assert _normalize(1003014.5) == "1003014.5"
+
+
 def test_green_place_detect_by_filename():
     assert GreenPlaceLoader.detect("Price_GP_TC0075104_30.04.2026.xlsx") is True
     assert GreenPlaceLoader.detect("price_gp_data.xlsx") is True

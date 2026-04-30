@@ -129,7 +129,12 @@ def _parse_stock(value) -> int:
 
 
 def _normalize(s) -> str:
-    return (str(s).strip() if s is not None else "")
+    if s is None:
+        return ""
+    # Excel изредка отдаёт числовые SKU как float — нормализуем.
+    if isinstance(s, float) and s.is_integer():
+        return str(int(s))
+    return str(s).strip()
 
 
 def _is_data_row(row: tuple) -> bool:
