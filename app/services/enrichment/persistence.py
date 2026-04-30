@@ -24,15 +24,21 @@ def apply_enrichment(
     component_id: int,
     fields: dict[str, ExtractedField],
     current_row: dict,
+    *,
+    source_detail: str | None = None,
 ) -> list[str]:
     """Записывает извлечённые поля в БД. Возвращает имена реально записанных полей.
 
-    - session:      активная SQLAlchemy-сессия.
-    - category:     'cpu', 'motherboard', ... — ключ из CATEGORY_TO_TABLE.
-    - component_id: id компонента в соответствующей таблице.
-    - fields:       результат экстрактора.
-    - current_row:  текущие значения полей компонента (dict из SELECT).
-                    Используется для проверки «поле сейчас NULL».
+    - session:       активная SQLAlchemy-сессия.
+    - category:      'cpu', 'motherboard', ... — ключ из CATEGORY_TO_TABLE.
+    - component_id:  id компонента в соответствующей таблице.
+    - fields:        результат экстрактора.
+    - current_row:   текущие значения полей компонента (dict из SELECT).
+                     Используется для проверки «поле сейчас NULL».
+    - source_detail: подметка источника для component_field_sources.source_detail
+                     (этап 11.6.1). Например, 'from_raw_name' для нового
+                     прогона по supplier_prices.raw_name. Если None — пишем
+                     NULL (это нормально для старого scripts/enrich_regex.py).
     """
     table = CATEGORY_TO_TABLE[category]
     assert table in ALLOWED_TABLES, f"Недопустимая таблица: {table}"
@@ -62,22 +68,26 @@ def apply_enrichment(
         session.execute(
             text(
                 "INSERT INTO component_field_sources "
-                "    (category, component_id, field_name, source, confidence, source_url, updated_at) "
+                "    (category, component_id, field_name, source, confidence, "
+                "     source_url, source_detail, updated_at) "
                 "VALUES "
-                "    (:category, :component_id, :field_name, :source, :confidence, :source_url, NOW()) "
+                "    (:category, :component_id, :field_name, :source, :confidence, "
+                "     :source_url, :source_detail, NOW()) "
                 "ON CONFLICT (category, component_id, field_name) DO UPDATE SET "
-                "    source     = EXCLUDED.source, "
-                "    confidence = EXCLUDED.confidence, "
-                "    source_url = EXCLUDED.source_url, "
-                "    updated_at = NOW()"
+                "    source        = EXCLUDED.source, "
+                "    confidence    = EXCLUDED.confidence, "
+                "    source_url    = EXCLUDED.source_url, "
+                "    source_detail = EXCLUDED.source_detail, "
+                "    updated_at    = NOW()"
             ),
             {
-                "category":     category,
-                "component_id": component_id,
-                "field_name":   fname,
-                "source":       ef.source,
-                "confidence":   ef.confidence,
-                "source_url":   ef.source_url,
+                "category":      category,
+                "component_id":  component_id,
+                "field_name":    fname,
+                "source":        ef.source,
+                "confidence":    ef.confidence,
+                "source_url":    ef.source_url,
+                "source_detail": source_detail,
             },
         )
 

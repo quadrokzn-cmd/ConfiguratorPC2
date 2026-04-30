@@ -240,6 +240,31 @@ Pipeline:
 парсинг названий, fallback в LLM. См.
 [enrichment_techdebt.md](enrichment_techdebt.md) — известные ограничения.
 
+**Два regex-источника (этап 11.6.1).** Сейчас есть два пайплайна:
+
+1. `app/services/enrichment/runner.py` + `scripts/enrich_regex.py` —
+   старый прогон по полю `model` таблицы компонентов (этап 2.5А).
+   В `component_field_sources` пишет `source='regex'`,
+   `source_detail` NULL.
+2. `app/services/enrichment/raw_name_runner.py` +
+   `scripts/enrich_regex_from_raw_names.py` — новый прогон
+   (этап 11.6.1) по `supplier_prices.raw_name`. Один компонент
+   может иметь до 6 разных raw_name (по одному от каждого
+   поставщика); пайплайн прогоняет regex по каждому из них и по
+   `model` как fallback, агрегирует результат и при конфликте
+   значений из разных raw_name берёт значение из САМОГО ДЛИННОГО
+   (длинное обычно содержит больше характеристик). В
+   `component_field_sources` пишет `source='regex'`,
+   `source_detail='from_raw_name'`. Не перезатирает уже
+   заполненные поля (те же гарантии, что в `persistence.py`).
+
+Зачем нужен второй пайплайн: до 11.4 raw_name не сохранялся,
+обогащение шло только по короткому `name` компонента. С 11.4
+поставщики Netlab/Ресурс Медиа/Green Place создают скелеты, где
+`name` минимален, а все характеристики живут в длинной строке
+прайса — её мы теперь сохраняем в `supplier_prices.raw_name`
+(миграция 022) и обогащаем отдельным шагом.
+
 ### `export/` — экспорт спецификаций
 
 - **Excel** (openpyxl) — спецификация проекта в табличном виде.
