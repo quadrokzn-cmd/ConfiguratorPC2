@@ -176,19 +176,36 @@ Pipeline:
 
 ### `price_loaders/` — загрузка прайс-листов поставщиков
 
-Поддержаны 3 поставщика: **OCS**, **Merlion**, **Treolan**. Каждый со
-своим Excel-форматом — парсер вынесен в отдельный модуль:
+Поддержаны 6 поставщиков: **OCS**, **Merlion**, **Treolan**, **Netlab**,
+**Ресурс Медиа**, **Green Place**. Каждый со своим Excel-форматом —
+парсер вынесен в отдельный модуль:
 
 - `base.py` — `BasePriceLoader` с `detect()` (определяет поставщика по
   имени файла), общие утилиты.
-- `ocs.py`, `merlion.py`, `treolan.py` — адаптеры конкретных форматов.
+- `ocs.py`, `merlion.py`, `treolan.py`, `netlab.py`, `resurs_media.py`,
+  `green_place.py` — адаптеры конкретных форматов.
 - `matching.py` — сопоставление строк прайса с компонентами БД (по MPN,
   затем по GTIN).
 - `orchestrator.py` — общий раннер: читает Excel → парсит → матчит →
   пишет в `supplier_prices` + лог в `price_uploads`. Несмапплённые
   строки попадают в `unmapped_supplier_items` для ручного разбора.
+  Возвращает полный отчёт `{processed, added, updated, skipped, errors,
+  unmapped_*, by_source, duration_seconds, status, upload_id}` —
+  сохраняется в `price_uploads.report_json` (миграция 021) для UI
+  «Подробности» страницы загрузок.
 - `candidates.py` — поиск кандидатов сопоставления для админ-страницы
   `/admin/mapping`.
+
+**Точки входа:**
+
+- CLI — `python scripts/load_price.py --file ... --supplier ...` для
+  пакетных запусков из терминала / cron.
+- Веб — `/admin/price-uploads` в портале (этап 11.2): админ через
+  браузер выбирает поставщика, файл, и orchestrator запускается в
+  `BackgroundTasks` FastAPI с собственной `SessionLocal`. Логика
+  парсинга НЕ продублирована: portal-роутер импортирует
+  `app.services.price_loaders.orchestrator.load_price` напрямую — это
+  тот же код, что у CLI.
 
 ### `enrichment/` — обогащение характеристик компонентов
 
@@ -231,6 +248,12 @@ Pipeline:
 | `/admin/budget`           | Бюджет OpenAI и расходы                                         |
 | `/admin/queries`          | Все запросы (админ)                                             |
 | `/admin/mapping`          | Ручное сопоставление поставщиков                                |
+| `/admin/price-uploads` *  | Ручная загрузка прайс-листов через веб (этап 11.2, портал)      |
+| `/admin/backups` *        | Список бекапов БД, ручной запуск (этап 9В.2, портал)            |
+| `/admin/audit` *          | Журнал действий пользователей (этап 9В.4, портал)               |
+
+`*` — маршруты в **портале** (`app.quadro.tatar`), остальное — в
+**конфигураторе** (`config.quadro.tatar`).
 
 AJAX-клиент: `static/js/project.js` (галочки спецификации, количество).
 CSRF — заголовок `X-CSRF-Token`.

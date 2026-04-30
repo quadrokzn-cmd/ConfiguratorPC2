@@ -68,3 +68,11 @@ ACTION_BACKUP_DOWNLOAD = "backup.download"
 # --- Audit log self ----------------------------------------------------
 
 ACTION_AUDIT_VIEW = "audit.view"
+
+
+# --- Price uploads (этап 11.2: ручная загрузка прайсов в портале) ------
+
+ACTION_PRICE_UPLOAD_VIEW     = "price_upload.view"
+ACTION_PRICE_UPLOAD_START    = "price_upload.start"
+ACTION_PRICE_UPLOAD_COMPLETE = "price_upload.complete"
+ACTION_PRICE_UPLOAD_FAILED   = "price_upload.failed"

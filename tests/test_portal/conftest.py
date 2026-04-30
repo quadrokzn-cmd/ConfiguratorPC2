@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -123,3 +124,45 @@ def admin_portal_client(portal_client, admin_user):
 def manager_portal_client(portal_client, manager_user):
     _login_via_portal(portal_client, manager_user["login"], manager_user["password"])
     return portal_client
+
+
+# ---- Минимальный Merlion-XLSX для тестов /admin/price-uploads --------
+#
+# Дублирует основу test_price_loaders/conftest.py:make_merlion_xlsx,
+# но без сложной API — здесь нужны простые сценарии. Вынесено в общий
+# portal-conftest, чтобы тест test_admin_price_uploads.py не лез в чужой
+# conftest.
+
+@pytest.fixture()
+def make_merlion_xlsx(tmp_path):
+    """Фабрика минимального Merlion-XLSM. Параметры см. тест."""
+    from openpyxl import Workbook
+
+    def _make(rows: list[dict], *, name: str = "Прайслист_Мерлион.xlsm") -> str:
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Price List"
+        ws.cell(row=1, column=1, value="Шапка Merlion")
+        headers = [
+            "Группа 1", "Группа 2", "Группа 3", "Бренд", "Номер", "Ext код",
+            "Код производителя", "Наименование", "Валюта", "Цена",
+            "Цена(руб)", "Доступно", "Ожидаемый приход", "На складе поставщика",
+        ]
+        for col_idx, h in enumerate(headers, start=1):
+            ws.cell(row=11, column=col_idx, value=h)
+        for i, r in enumerate(rows, start=12):
+            ws.cell(row=i, column=1,  value=r.get("g1"))
+            ws.cell(row=i, column=2,  value=r.get("g2"))
+            ws.cell(row=i, column=3,  value=r.get("g3"))
+            ws.cell(row=i, column=4,  value=r.get("brand"))
+            ws.cell(row=i, column=5,  value=r.get("number"))
+            ws.cell(row=i, column=7,  value=r.get("mpn"))
+            ws.cell(row=i, column=8,  value=r.get("name"))
+            ws.cell(row=i, column=10, value=r.get("price_usd"))
+            ws.cell(row=i, column=11, value=r.get("price_rub"))
+            ws.cell(row=i, column=12, value=r.get("stock"))
+        path = Path(tmp_path) / name
+        wb.save(path)
+        return str(path)
+
+    return _make

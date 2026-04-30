@@ -87,6 +87,9 @@ _MIGRATIONS = [
     "016_specification_items_parsed_query.sql",
     "017_add_user_permissions.sql",
     "018_audit_log.sql",
+    "019_add_new_suppliers.sql",
+    "020_supplier_emails.sql",
+    "021_price_uploads_report_json.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE

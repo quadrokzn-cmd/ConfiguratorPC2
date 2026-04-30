@@ -40,7 +40,11 @@ COMPONENT_CATEGORIES: list[tuple[str, str, str]] = [
 
 # Целевые поставщики, по которым показываем «свежесть прайсов».
 # Порядок имеет значение — в этом порядке отрисовываются строки.
-SUPPLIERS_FOR_FRESHNESS: list[str] = ["OCS", "Merlion", "Treolan"]
+# 11.2: после миграции 019 у нас 6 поставщиков; виджет показывает все.
+SUPPLIERS_FOR_FRESHNESS: list[str] = [
+    "OCS", "Merlion", "Treolan",
+    "Netlab", "Ресурс Медиа", "Green Place",
+]
 
 
 # Сколько дней без обновления → бейдж «устарел».

@@ -10,11 +10,17 @@
 #
 # После этапа 6 у нас уже был SAVEPOINT на каждую строку — сохраняем
 # этот паттерн, чтобы сбой на одной позиции не откатывал всю загрузку.
+#
+# Этап 11.2: расширили _record_upload — пишем полный отчёт в
+# price_uploads.report_json (JSONB), чтобы UI /admin/price-uploads
+# мог показать кнопку «Подробности» с разбивкой по источникам.
 
 from __future__ import annotations
 
+import json
 import logging
 import os
+import time
 from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Iterator
@@ -307,6 +313,7 @@ def _upsert_unmapped(
 def _record_upload(
     session: Session, *,
     supplier_id: int, filename: str, counters: Counters,
+    report: dict | None = None,
 ) -> tuple[int, str]:
     updated      = counters.updated
     added        = counters.added
@@ -326,12 +333,19 @@ def _record_upload(
         f"unmapped(amb={counters.unmapped_ambiguous}, new={counters.unmapped_new})"
     )
 
+    # 11.2: report_json — детальный отчёт для UI /admin/price-uploads.
+    # default=str: на всякий случай — Decimal/datetime в дикте превратятся
+    # в строки, не сломав сериализацию.
+    report_dump = json.dumps(report or {}, ensure_ascii=False, default=str)
+
     row = session.execute(
         text(
             "INSERT INTO price_uploads "
-            "    (supplier_id, filename, rows_total, rows_matched, rows_unmatched, status, notes) "
+            "    (supplier_id, filename, rows_total, rows_matched, rows_unmatched, "
+            "     status, notes, report_json) "
             "VALUES "
-            "    (:supplier_id, :filename, :rows_total, :rows_matched, :rows_unmatched, :status, :notes) "
+            "    (:supplier_id, :filename, :rows_total, :rows_matched, :rows_unmatched, "
+            "     :status, :notes, CAST(:report_json AS JSONB)) "
             "RETURNING id"
         ),
         {
@@ -342,12 +356,19 @@ def _record_upload(
             "rows_unmatched": skipped + errors,
             "status":         status,
             "notes":          notes,
+            "report_json":    report_dump,
         },
     ).first()
     return int(row.id), status
 
 
-def _save_failed_upload(filepath: str, supplier_name: str, counters: Counters) -> None:
+def _save_failed_upload(
+    filepath: str,
+    supplier_name: str,
+    counters: Counters,
+    *,
+    error_message: str | None = None,
+) -> None:
     session = SessionLocal()
     try:
         row = session.execute(
@@ -356,19 +377,38 @@ def _save_failed_upload(filepath: str, supplier_name: str, counters: Counters) -
         ).first()
         if row is None:
             return
+        # 11.2: при критическом фейле тоже записываем report_json — пусть
+        # с error_message и тем, что успели насчитать. UI «Подробности»
+        # покажет его в модалке.
+        report = {
+            "supplier":      supplier_name,
+            "filename":      os.path.basename(filepath),
+            "total_rows":    counters.total_rows,
+            "processed":     counters.processed,
+            "updated":       counters.updated,
+            "added":         counters.added,
+            "skipped":       counters.skipped,
+            "errors":        counters.errors,
+            "status":        "failed",
+            "error_message": error_message or "Критическая ошибка при загрузке",
+        }
+        report_dump = json.dumps(report, ensure_ascii=False, default=str)
         session.execute(
             text(
                 "INSERT INTO price_uploads "
-                "    (supplier_id, filename, rows_total, rows_matched, rows_unmatched, status, notes) "
+                "    (supplier_id, filename, rows_total, rows_matched, rows_unmatched, "
+                "     status, notes, report_json) "
                 "VALUES "
-                "    (:supplier_id, :filename, :rows_total, 0, :rows_unmatched, 'failed', :notes)"
+                "    (:supplier_id, :filename, :rows_total, 0, :rows_unmatched, 'failed', "
+                "     :notes, CAST(:report_json AS JSONB))"
             ),
             {
                 "supplier_id":    row.id,
                 "filename":       os.path.basename(filepath),
                 "rows_total":     counters.total_rows,
                 "rows_unmatched": counters.skipped + counters.errors,
-                "notes":          "Критическая ошибка при загрузке",
+                "notes":          (error_message or "Критическая ошибка при загрузке")[:500],
+                "report_json":    report_dump,
             },
         )
         session.commit()
@@ -507,6 +547,7 @@ def load_price(
 
     supplier_name = loader.supplier_name
     counters = Counters()
+    started_at = time.monotonic()
 
     session = SessionLocal()
     try:
@@ -528,17 +569,40 @@ def load_price(
                 )
                 counters.errors += 1
 
+        duration = round(time.monotonic() - started_at, 3)
+        # 11.2: собираем полный отчёт ДО _record_upload — чтобы он лёг в
+        # report_json. duration_seconds — вместе со счётчиками.
+        report = {
+            "supplier":           supplier_name,
+            "filename":           os.path.basename(filepath),
+            "total_rows":         counters.total_rows,
+            "processed":          counters.processed,
+            "updated":            counters.updated,
+            "added":              counters.added,
+            "skipped":            counters.skipped,
+            "errors":             counters.errors,
+            "unmapped_ambiguous": counters.unmapped_ambiguous,
+            "unmapped_new":       counters.unmapped_new,
+            "by_source":          dict(counters.by_source),
+            "duration_seconds":   duration,
+        }
         upload_id, status = _record_upload(
             session,
             supplier_id=supplier_id,
             filename=os.path.basename(filepath),
             counters=counters,
+            report=report,
         )
+        report["status"] = status
+        report["upload_id"] = upload_id
         session.commit()
 
-    except Exception:
+    except Exception as exc:
         session.rollback()
-        _save_failed_upload(filepath, supplier_name, counters)
+        _save_failed_upload(
+            filepath, supplier_name, counters,
+            error_message=f"{type(exc).__name__}: {exc}",
+        )
         session.close()
         raise
 
@@ -557,6 +621,7 @@ def load_price(
         "by_source":  dict(counters.by_source),
         "status":     status,
         "upload_id":  upload_id,
+        "duration_seconds": duration,
     }
 
     # Авто-хук обогащения OpenAI — как и раньше, не бросает исключения.

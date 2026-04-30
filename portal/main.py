@@ -38,6 +38,7 @@ from portal.routers import (
     admin_audit,
     admin_backups,
     admin_diagnostics,
+    admin_price_uploads,
     admin_users,
     auth,
     home,
@@ -100,6 +101,7 @@ app.include_router(auth.router)
 app.include_router(admin_users.router)
 app.include_router(admin_backups.router)
 app.include_router(admin_audit.router)
+app.include_router(admin_price_uploads.router)
 app.include_router(admin_diagnostics.router)
 app.include_router(home.router)
 

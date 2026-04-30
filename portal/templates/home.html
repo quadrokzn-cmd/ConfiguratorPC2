@@ -97,7 +97,12 @@
     </article>
 
     {# --- 4) Свежесть прайсов --- #}
-    <article class="portal-widget portal-col-6"
+    {# 11.2: для админа вся карточка кликабельна и ведёт на
+       /admin/price-uploads — там можно загрузить новый прайс. Для
+       менеджера остаётся обычным <article>: модуль ему не доступен. #}
+    {% set _freshness_attrs = 'class="portal-widget portal-col-6 portal-widget-link" href="/admin/price-uploads"' if user.is_admin else 'class="portal-widget portal-col-6"' %}
+    {% set _freshness_tag = 'a' if user.is_admin else 'article' %}
+    <{{ _freshness_tag }} {{ _freshness_attrs|safe }}
              data-testid="widget-suppliers-freshness">
       <div class="portal-widget-head">
         <span class="portal-widget-title">Свежесть прайсов</span>
@@ -122,7 +127,7 @@
         </div>
         {% endfor %}
       </div>
-    </article>
+    </{{ _freshness_tag }}>
 
     {# --- 5) Компоненты в БД --- #}
     <article class="portal-widget portal-col-6"

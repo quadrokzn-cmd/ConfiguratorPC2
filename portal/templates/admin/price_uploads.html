@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Прайс-листы поставщиков — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6">
+    <h1 class="portal-greeting">Прайс-листы поставщиков</h1>
+    <p class="portal-greeting-sub">
+      Ручная загрузка прайсов в БД. Парсинг и сопоставление выполняются
+      теми же адаптерами, что и CLI-скрипт <code>scripts/load_price.py</code>.
+      Большие прайсы (например, Netlab) загружаются 1–2 минуты — задача
+      идёт в фоне, страницу можно обновить позже.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+
+  {# === Сводка по 6 поставщикам =========================================== #}
+  <section class="card overflow-hidden mb-6">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Поставщики</h2>
+    </div>
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Поставщик</th>
+          <th class="text-left w-44">Последняя загрузка</th>
+          <th class="text-left w-40">Свежесть</th>
+          <th class="text-right w-32">Цен в БД</th>
+          <th class="text-right w-44">Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in suppliers %}
+        <tr data-testid="supplier-row-{{ s.slug }}">
+          <td class="text-ink-primary font-medium">{{ s.name }}</td>
+          <td class="text-ink-secondary">{{ s.last_at_msk }}</td>
+          <td>
+            <span class="badge {{ s.badge_class }}"
+                  data-testid="badge-{{ s.slug }}">
+              {{ s.badge_label }}
+            </span>
+          </td>
+          <td class="text-right text-ink-secondary font-mono">{{ s.prices_count }}</td>
+          <td class="text-right">
+            <button type="button"
+                    class="btn btn-sm btn-secondary"
+                    onclick="ktPickSupplier('{{ s.slug }}')">
+              Загрузить прайс
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  {# === Форма загрузки ==================================================== #}
+  <section class="card card-pad mb-6">
+    <h2 class="text-h3 text-ink-primary mb-2">Загрузить прайс-лист</h2>
+    <p class="help-text mb-4">
+      Принимаются файлы: <code>{{ allowed_extensions }}</code>.
+      Максимум {{ max_size_mb }} МБ.
+    </p>
+
+    <form method="post"
+          action="/admin/price-uploads/run"
+          enctype="multipart/form-data"
+          id="kt-price-upload-form"
+          class="grid grid-cols-1 md:grid-cols-3 gap-3"
+          onsubmit="return ktConfirmUpload(this);">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+      <div>
+        <label class="label" for="kt-supplier-slug">Поставщик</label>
+        <select id="kt-supplier-slug" name="supplier_slug"
+                class="select" required>
+          <option value="" disabled selected>— выберите —</option>
+          {% for s in suppliers %}
+          <option value="{{ s.slug }}">{{ s.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="label" for="kt-uploaded-file">Файл прайс-листа</label>
+        <input id="kt-uploaded-file" name="uploaded_file"
+               type="file" class="input"
+               accept=".xlsx,.xlsm,.xls,.csv,.zip"
+               required>
+      </div>
+
+      <div class="flex items-end">
+        <button type="submit" class="btn btn-md btn-primary w-full">
+          Загрузить
+        </button>
+      </div>
+    </form>
+  </section>
+
+  {# === Журнал последних 30 загрузок ====================================== #}
+  <section class="card overflow-hidden">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Журнал загрузок</h2>
+      <p class="text-caption text-ink-muted">
+        Последние 30 записей. Полная история — в журнале действий.
+      </p>
+    </div>
+    {% if journal %}
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left w-44">Дата (МСК)</th>
+          <th class="text-left">Поставщик</th>
+          <th class="text-left">Файл</th>
+          <th class="text-left w-28">Статус</th>
+          <th class="text-left w-48">Счётчики</th>
+          <th class="text-right w-32">Подробности</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for j in journal %}
+        <tr data-testid="journal-row-{{ j.id }}">
+          <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
+            {{ j.uploaded_msk }}
+          </td>
+          <td class="text-ink-primary">{{ j.supplier_name }}</td>
+          <td class="text-ink-secondary font-mono text-small">{{ j.filename }}</td>
+          <td>
+            {% if j.status == 'success' %}
+              <span class="badge badge-success">success</span>
+            {% elif j.status == 'partial' %}
+              <span class="badge badge-warning">partial</span>
+            {% elif j.status == 'failed' %}
+              <span class="badge badge-danger">failed</span>
+            {% else %}
+              <span class="badge badge-neutral">{{ j.status or '—' }}</span>
+            {% endif %}
+          </td>
+          <td class="text-ink-secondary text-small font-mono">
+            {%- set parts = [] -%}
+            {%- if j.counter_added is not none -%}
+              {%- set _ = parts.append('+' ~ j.counter_added) -%}
+            {%- endif -%}
+            {%- if j.counter_updated is not none -%}
+              {%- set _ = parts.append('~' ~ j.counter_updated) -%}
+            {%- endif -%}
+            {%- if j.counter_skipped is not none -%}
+              {%- set _ = parts.append('skip ' ~ j.counter_skipped) -%}
+            {%- endif -%}
+            {%- if j.counter_errors is not none -%}
+              {%- set _ = parts.append('err ' ~ j.counter_errors) -%}
+            {%- endif -%}
+            {% if parts %}{{ parts|join(' / ') }}{% else %}{{ j.notes|truncate(50, true, '…') }}{% endif %}
+          </td>
+          <td class="text-right">
+            <button type="button"
+                    class="btn btn-sm btn-ghost"
+                    onclick="ktShowDetails({{ j.id }})">
+              JSON
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="card-pad pt-2">
+      <p class="text-ink-muted text-small">Пока ни одной загрузки.</p>
+    </div>
+    {% endif %}
+  </section>
+
+  {# === Модалка подробностей ============================================= #}
+  <div id="kt-details-modal" class="kt-modal-overlay" hidden
+       onclick="if (event.target === this) ktCloseDetails();">
+    <div class="kt-modal" role="dialog" aria-modal="true" aria-labelledby="kt-details-title">
+      <header class="kt-modal-header">
+        <h3 id="kt-details-title" class="text-h3 text-ink-primary">
+          Отчёт о загрузке
+        </h3>
+        <button type="button" class="kt-modal-close"
+                onclick="ktCloseDetails()" aria-label="Закрыть">×</button>
+      </header>
+      <pre id="kt-details-body"
+           class="text-caption font-mono text-ink-primary bg-surface-2 p-3 rounded-md overflow-auto"
+           style="max-height: 60vh; white-space: pre-wrap;">Загрузка…</pre>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Выбирает поставщика в форме при клике на «Загрузить прайс» в строке
+  // соответствующего поставщика (UX: не нужно отдельно искать селект).
+  function ktPickSupplier(slug) {
+    var sel = document.getElementById('kt-supplier-slug');
+    if (sel) sel.value = slug;
+    var input = document.getElementById('kt-uploaded-file');
+    if (input) input.focus();
+  }
+
+  // Подтверждение перед загрузкой — на случай выбора не того поставщика.
+  function ktConfirmUpload(form) {
+    var sel = form.querySelector('select[name="supplier_slug"]');
+    var file = form.querySelector('input[name="uploaded_file"]');
+    if (!sel || !sel.value) {
+      alert('Выберите поставщика.');
+      return false;
+    }
+    if (!file || !file.files || !file.files.length) {
+      alert('Выберите файл прайс-листа.');
+      return false;
+    }
+    var label = sel.options[sel.selectedIndex].text;
+    return confirm(
+      'Запустить загрузку прайса для поставщика «' + label + '»?\n' +
+      'Файл: ' + file.files[0].name
+    );
+  }
+
+  // Подгружает report_json и показывает в модалке.
+  function ktShowDetails(uploadId) {
+    var modal = document.getElementById('kt-details-modal');
+    var body = document.getElementById('kt-details-body');
+    body.textContent = 'Загрузка…';
+    modal.hidden = false;
+    fetch('/admin/price-uploads/' + uploadId + '/details', {
+      credentials: 'same-origin',
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        body.textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(function (err) {
+        body.textContent = 'Ошибка загрузки отчёта: ' + err;
+      });
+  }
+
+  function ktCloseDetails() {
+    var modal = document.getElementById('kt-details-modal');
+    if (modal) modal.hidden = true;
+  }
+
+  // ESC закрывает модалку.
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') ktCloseDetails();
+  });
+</script>
+{% endblock %}
