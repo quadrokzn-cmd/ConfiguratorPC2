@@ -14,6 +14,19 @@
 # Этап 11.2: расширили _record_upload — пишем полный отчёт в
 # price_uploads.report_json (JSONB), чтобы UI /admin/price-uploads
 # мог показать кнопку «Подробности» с разбивкой по источникам.
+#
+# Этап 11.4: при ежедневной перезагрузке прайса:
+#   - в supplier_prices обновляются price/currency/stock/transit/raw_name
+#     и updated_at (raw_name добавлен миграцией 022);
+#   - позиции, которых нет в текущем прайсе, но были «активны» (stock+transit>0)
+#     до загрузки, помечаются stock=0, transit=0 — это «disappeared».
+#     Подбор кандидатов фильтрует stock>0, поэтому исчезнувшие позиции
+#     автоматически выпадают из конфигуратора, но запись остаётся —
+#     если поставщик завтра вернёт их, обычный UPDATE подхватит наличие.
+#   - disappeared_count и список первых 50 SKU попадают в report_json и
+#     показываются в UI /admin/price-uploads.
+#   - Ключевая защита: при status='failed' (упало в loader или 0 матчей)
+#     disappeared НЕ применяется — иначе кривая загрузка обнулит остатки.
 
 from __future__ import annotations
 
@@ -52,8 +65,17 @@ class Counters:
     unmapped_created:    int = 0  # сколько строк завели в unmapped_supplier_items
     unmapped_ambiguous:  int = 0  # из них — ambiguous_mpn/gtin
     unmapped_new:        int = 0  # из них — created_new
+    # 11.4: счётчик disappeared (см. _mark_disappeared).
+    disappeared:        int = 0
+    # 11.4: первые 50 SKU, помеченные как disappeared — для отладки/UI.
+    disappeared_skus:   list[str] = field(default_factory=list)
+    disappeared_truncated: bool = False
     # Карта source → counter (для отладки/отчёта).
     by_source: dict[str, int] = field(default_factory=dict)
+
+
+# Сколько SKU исчезнувших позиций сохранить в report_json (отладка/UI).
+_DISAPPEARED_SAMPLE_LIMIT = 50
 
 
 # ---------------------------------------------------------------------------
@@ -214,21 +236,27 @@ def _upsert_price(
     supplier_id: int, category: str, component_id: int,
     supplier_sku: str | None, price: Decimal, currency: str,
     stock_qty: int, transit_qty: int,
+    raw_name: str | None = None,
 ) -> None:
+    # 11.4: raw_name обновляется ВСЕГДА на актуальное название из прайса —
+    # даже если оно стало короче или беднее предыдущего. Для конфигуратора
+    # это не критично (основное имя — components.model + имена от других
+    # поставщиков); агрегацию делает enrichment (этап 11.6).
     session.execute(
         text(
             "INSERT INTO supplier_prices "
             "    (supplier_id, category, component_id, supplier_sku, "
-            "     price, currency, stock_qty, transit_qty, updated_at) "
+            "     price, currency, stock_qty, transit_qty, raw_name, updated_at) "
             "VALUES "
             "    (:supplier_id, :category, :component_id, :supplier_sku, "
-            "     :price, :currency, :stock_qty, :transit_qty, NOW()) "
+            "     :price, :currency, :stock_qty, :transit_qty, :raw_name, NOW()) "
             "ON CONFLICT (supplier_id, category, component_id) DO UPDATE SET "
             "    supplier_sku = EXCLUDED.supplier_sku, "
             "    price        = EXCLUDED.price, "
             "    currency     = EXCLUDED.currency, "
             "    stock_qty    = EXCLUDED.stock_qty, "
             "    transit_qty  = EXCLUDED.transit_qty, "
+            "    raw_name     = EXCLUDED.raw_name, "
             "    updated_at   = NOW()"
         ),
         {
@@ -240,6 +268,7 @@ def _upsert_price(
             "currency":     currency,
             "stock_qty":    stock_qty,
             "transit_qty":  transit_qty,
+            "raw_name":     raw_name,
         },
     )
 
@@ -380,17 +409,22 @@ def _save_failed_upload(
         # 11.2: при критическом фейле тоже записываем report_json — пусть
         # с error_message и тем, что успели насчитать. UI «Подробности»
         # покажет его в модалке.
+        # 11.4: при failed disappeared НЕ применяется и в отчёт пишутся нули —
+        # это явно сигнализирует UI/админу, что обнуления остатков не было.
         report = {
-            "supplier":      supplier_name,
-            "filename":      os.path.basename(filepath),
-            "total_rows":    counters.total_rows,
-            "processed":     counters.processed,
-            "updated":       counters.updated,
-            "added":         counters.added,
-            "skipped":       counters.skipped,
-            "errors":        counters.errors,
-            "status":        "failed",
-            "error_message": error_message or "Критическая ошибка при загрузке",
+            "supplier":              supplier_name,
+            "filename":              os.path.basename(filepath),
+            "total_rows":            counters.total_rows,
+            "processed":             counters.processed,
+            "updated":               counters.updated,
+            "added":                 counters.added,
+            "skipped":               counters.skipped,
+            "errors":                counters.errors,
+            "disappeared":           0,
+            "disappeared_skus":      [],
+            "disappeared_truncated": False,
+            "status":                "failed",
+            "error_message":         error_message or "Критическая ошибка при загрузке",
         }
         report_dump = json.dumps(report, ensure_ascii=False, default=str)
         session.execute(
@@ -429,6 +463,64 @@ def _save_failed_upload(
 # Главная функция
 # ---------------------------------------------------------------------------
 
+def _load_active_skus(session: Session, supplier_id: int) -> set[str]:
+    """Возвращает множество supplier_sku, которые сейчас активны
+    (stock_qty + transit_qty > 0) у указанного поставщика. Используется
+    для детекции «исчезнувших» позиций при повторной загрузке прайса.
+
+    NULL-supplier_sku отбрасываем — без идентификатора такая запись не
+    может быть сопоставлена со строкой нового прайса (поставщик не имеет
+    к ней «ключа доступа»). Такие строки в disappeared-логике не участвуют."""
+    rows = session.execute(
+        text(
+            "SELECT supplier_sku FROM supplier_prices "
+            "WHERE supplier_id = :sid "
+            "  AND supplier_sku IS NOT NULL "
+            "  AND (stock_qty > 0 OR transit_qty > 0)"
+        ),
+        {"sid": supplier_id},
+    ).all()
+    return {r.supplier_sku for r in rows}
+
+
+def _mark_disappeared(
+    session: Session, *,
+    supplier_id: int, missing_skus: set[str], counters: Counters,
+) -> None:
+    """Для каждого SKU, который был активен до загрузки, но не появился
+    в текущем прайсе — обнуляем stock и transit. Запись supplier_prices
+    остаётся: завтра поставщик может вернуть позицию в прайс, и обычный
+    UPSERT поднимет stock/transit обратно.
+
+    Подбор кандидатов в configurator/candidates.py фильтрует по stock>0
+    (или stock+transit>0 в режиме allow_transit) — поэтому disappeared
+    автоматически выпадают из конфигуратора.
+
+    На больших прайсах (Netlab — десятки тысяч SKU) выполняем единым
+    UPDATE с массивом, чтобы не делать тысячи отдельных запросов."""
+    if not missing_skus:
+        return
+
+    skus_list = sorted(missing_skus)  # sorted — для воспроизводимости в тестах
+    session.execute(
+        text(
+            "UPDATE supplier_prices "
+            "   SET stock_qty = 0, transit_qty = 0, updated_at = NOW() "
+            " WHERE supplier_id = :sid "
+            "   AND supplier_sku = ANY(:skus)"
+        ),
+        {"sid": supplier_id, "skus": skus_list},
+    )
+
+    counters.disappeared = len(skus_list)
+    if counters.disappeared <= _DISAPPEARED_SAMPLE_LIMIT:
+        counters.disappeared_skus = list(skus_list)
+        counters.disappeared_truncated = False
+    else:
+        counters.disappeared_skus = list(skus_list[:_DISAPPEARED_SAMPLE_LIMIT])
+        counters.disappeared_truncated = True
+
+
 def _category_of_component(session: Session, table: str) -> str:
     """Обратное сопоставление: table → category. Нужно, чтобы писать
     корректный category в supplier_prices."""
@@ -441,7 +533,14 @@ def _category_of_component(session: Session, table: str) -> str:
 def _process_row(
     session: Session, *,
     supplier_id: int, row: PriceRow, counters: Counters,
+    seen_skus: set[str] | None = None,
 ) -> None:
+    # 11.4: фиксируем все непустые supplier_sku из текущего прайса —
+    # независимо от нашей категории. Если поставщик прислал позицию даже
+    # не из нашей категории, но с тем же SKU — это всё ещё «не исчезла».
+    if seen_skus is not None and row.supplier_sku:
+        seen_skus.add(row.supplier_sku)
+
     # Фильтр 1: строка не из нашей категории.
     if row.our_category is None:
         counters.skipped += 1
@@ -466,6 +565,7 @@ def _process_row(
             supplier_sku=row.supplier_sku or None,
             price=row.price, currency=row.currency,
             stock_qty=row.stock, transit_qty=row.transit,
+            raw_name=row.name,
         )
         counters.updated += 1
         return
@@ -480,6 +580,7 @@ def _process_row(
             supplier_sku=row.supplier_sku or None,
             price=row.price, currency=row.currency,
             stock_qty=row.stock, transit_qty=row.transit,
+            raw_name=row.name,
         )
         counters.updated += 1
         all_ids = ",".join(str(i) for i in res.ambiguous_ids)
@@ -509,6 +610,7 @@ def _process_row(
         supplier_sku=row.supplier_sku or None,
         price=row.price, currency=row.currency,
         stock_qty=row.stock, transit_qty=row.transit,
+        raw_name=row.name,
     )
     note = (
         "NO_MATCH: не найдено совпадений по MPN/GTIN. "
@@ -553,13 +655,23 @@ def load_price(
     try:
         supplier_id = _get_or_create_supplier(session, supplier_name)
 
+        # 11.4: фиксируем активные SKU поставщика ДО обработки прайса —
+        # это базис для disappeared-детекции. Если новая загрузка не
+        # упомянет какой-то из этих SKU, мы пометим его stock=0/transit=0.
+        active_skus_before = _load_active_skus(session, supplier_id)
+        seen_skus: set[str] = set()
+
         rows_iter: Iterator[PriceRow] = loader.iter_rows(filepath)
         for row in rows_iter:
             counters.total_rows += 1
 
             savepoint = session.begin_nested()
             try:
-                _process_row(session, supplier_id=supplier_id, row=row, counters=counters)
+                _process_row(
+                    session,
+                    supplier_id=supplier_id, row=row, counters=counters,
+                    seen_skus=seen_skus,
+                )
                 savepoint.commit()
             except Exception as exc:
                 savepoint.rollback()
@@ -569,22 +681,55 @@ def load_price(
                 )
                 counters.errors += 1
 
+        # 11.4: считаем «исчезнувшие» позиции — те, что были активны и
+        # не попали в текущий прайс. Применяем ТОЛЬКО когда загрузка
+        # завершится статусом success/partial. Status решается ниже в
+        # _record_upload — поэтому сначала вычисляем status «по сухому»
+        # тем же правилом и применяем disappeared под защитой savepoint,
+        # чтобы отдельная ошибка SQL-апдейта не повалила всю загрузку.
+        rows_matched = counters.updated + counters.added
+        will_be_failed = (
+            rows_matched == 0
+            and (counters.processed > 0 or counters.total_rows > 0)
+        )
+        missing_skus = active_skus_before - seen_skus
+        if missing_skus and not will_be_failed:
+            disappeared_savepoint = session.begin_nested()
+            try:
+                _mark_disappeared(
+                    session,
+                    supplier_id=supplier_id,
+                    missing_skus=missing_skus,
+                    counters=counters,
+                )
+                disappeared_savepoint.commit()
+            except Exception as exc:
+                disappeared_savepoint.rollback()
+                logger.error(
+                    "%s: не удалось пометить исчезнувшие позиции — %s",
+                    supplier_name, exc,
+                )
+
         duration = round(time.monotonic() - started_at, 3)
         # 11.2: собираем полный отчёт ДО _record_upload — чтобы он лёг в
         # report_json. duration_seconds — вместе со счётчиками.
+        # 11.4: добавлены disappeared-счётчики.
         report = {
-            "supplier":           supplier_name,
-            "filename":           os.path.basename(filepath),
-            "total_rows":         counters.total_rows,
-            "processed":          counters.processed,
-            "updated":            counters.updated,
-            "added":              counters.added,
-            "skipped":            counters.skipped,
-            "errors":             counters.errors,
-            "unmapped_ambiguous": counters.unmapped_ambiguous,
-            "unmapped_new":       counters.unmapped_new,
-            "by_source":          dict(counters.by_source),
-            "duration_seconds":   duration,
+            "supplier":              supplier_name,
+            "filename":              os.path.basename(filepath),
+            "total_rows":            counters.total_rows,
+            "processed":             counters.processed,
+            "updated":               counters.updated,
+            "added":                 counters.added,
+            "skipped":               counters.skipped,
+            "errors":                counters.errors,
+            "unmapped_ambiguous":    counters.unmapped_ambiguous,
+            "unmapped_new":          counters.unmapped_new,
+            "disappeared":           counters.disappeared,
+            "disappeared_skus":      list(counters.disappeared_skus),
+            "disappeared_truncated": counters.disappeared_truncated,
+            "by_source":             dict(counters.by_source),
+            "duration_seconds":      duration,
         }
         upload_id, status = _record_upload(
             session,
@@ -618,6 +763,9 @@ def load_price(
         "errors":     counters.errors,
         "unmapped_ambiguous": counters.unmapped_ambiguous,
         "unmapped_new":       counters.unmapped_new,
+        "disappeared":           counters.disappeared,
+        "disappeared_skus":      list(counters.disappeared_skus),
+        "disappeared_truncated": counters.disappeared_truncated,
         "by_source":  dict(counters.by_source),
         "status":     status,
         "upload_id":  upload_id,

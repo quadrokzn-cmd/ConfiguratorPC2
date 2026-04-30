@@ -118,6 +118,7 @@
           <th class="text-left">Файл</th>
           <th class="text-left w-28">Статус</th>
           <th class="text-left w-48">Счётчики</th>
+          <th class="text-right w-24">Пропали</th>
           <th class="text-right w-32">Подробности</th>
         </tr>
       </thead>
@@ -155,6 +156,28 @@
               {%- set _ = parts.append('err ' ~ j.counter_errors) -%}
             {%- endif -%}
             {% if parts %}{{ parts|join(' / ') }}{% else %}{{ j.notes|truncate(50, true, '…') }}{% endif %}
+          </td>
+          {# 11.4: «Пропали» — позиции, которых не оказалось в текущем
+             прайсе (stock=0/transit=0). Цветовая шкала:
+               - none/0  → серый;
+               - 1..100  → жёлтый (нормальные движения по складу);
+               - >100    → красный (возможно битый прайс — стоит проверить). #}
+          <td class="text-right text-small font-mono">
+            {%- if j.counter_disappeared is none -%}
+              <span class="text-ink-muted">—</span>
+            {%- elif j.counter_disappeared == 0 -%}
+              <span class="text-ink-muted">0</span>
+            {%- elif j.counter_disappeared <= 100 -%}
+              <span class="badge badge-warning"
+                    data-testid="disappeared-{{ j.id }}">
+                {{ j.counter_disappeared }}
+              </span>
+            {%- else -%}
+              <span class="badge badge-danger"
+                    data-testid="disappeared-{{ j.id }}">
+                {{ j.counter_disappeared }}
+              </span>
+            {%- endif -%}
           </td>
           <td class="text-right">
             <button type="button"

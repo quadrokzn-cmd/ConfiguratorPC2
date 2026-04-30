@@ -221,6 +221,10 @@ def _journal_rows(db: Session) -> list[dict[str, Any]]:
         updated = report.get("updated") if isinstance(report, dict) else None
         skipped = report.get("skipped") if isinstance(report, dict) else None
         errors = report.get("errors") if isinstance(report, dict) else None
+        # 11.4: счётчик disappeared-позиций (None для старых записей до 11.4).
+        disappeared = (
+            report.get("disappeared") if isinstance(report, dict) else None
+        )
         # uploaded_by мы не пишем в price_uploads — берём из audit_log
         # по-дешёвому, через payload в reload-friendly виде. Здесь оставим
         # «—» (журнал и так есть в /admin/audit).
@@ -238,6 +242,7 @@ def _journal_rows(db: Session) -> list[dict[str, Any]]:
             "counter_updated": updated,
             "counter_skipped": skipped,
             "counter_errors":  errors,
+            "counter_disappeared": disappeared,
         })
     return rows
 

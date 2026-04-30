@@ -190,9 +190,35 @@ Pipeline:
   пишет в `supplier_prices` + лог в `price_uploads`. Несмапплённые
   строки попадают в `unmapped_supplier_items` для ручного разбора.
   Возвращает полный отчёт `{processed, added, updated, skipped, errors,
-  unmapped_*, by_source, duration_seconds, status, upload_id}` —
-  сохраняется в `price_uploads.report_json` (миграция 021) для UI
-  «Подробности» страницы загрузок.
+  unmapped_*, disappeared, disappeared_skus, by_source, duration_seconds,
+  status, upload_id}` — сохраняется в `price_uploads.report_json`
+  (миграция 021) для UI «Подробности» страницы загрузок.
+
+  **Повторная загрузка прайса (этап 11.4).** Идентификация позиции —
+  `(supplier_id, supplier_sku)`; если supplier_sku изменился, это
+  считается новой позицией. При совпадении ключа обновляются
+  `price`, `currency`, `stock_qty`, `transit_qty`, `raw_name` и
+  `updated_at`. `raw_name` (миграция 022) — то, что поставщик
+  написал в текущей загрузке; обновляется всегда, даже если стало
+  короче, поскольку конфигуратор использует `components.model` и имена
+  от других поставщиков, а агрегацией займётся обогащение (этап 11.6).
+
+  **Disappeared-детекция.** В начале загрузки фиксируется множество
+  активных SKU поставщика (`stock_qty + transit_qty > 0`), в процессе
+  собирается множество SKU из текущего прайса. По завершении — для
+  каждого «активного, но не упомянутого» SKU выполняется
+  `UPDATE supplier_prices SET stock_qty=0, transit_qty=0, updated_at=NOW()`.
+  Запись не удаляется: если завтра поставщик вернёт позицию в прайс,
+  обычный UPSERT поднимет наличие. Подбор кандидатов в
+  `configurator/candidates.py` фильтрует `stock_qty > 0` (или
+  `stock+transit > 0` в режиме `allow_transit`), поэтому исчезнувшие
+  позиции автоматически выпадают из конфигуратора. Disappeared
+  применяется только к загрузкам со статусом `success`/`partial`;
+  при `failed` (rows_matched=0 при непустом прайсе или исключение в
+  loader) обнуление не выполняется — иначе кривая загрузка повредит
+  остатки. Счётчики `disappeared` и до 50 первых SKU попадают в
+  `report_json` и колонку «Пропали» в UI журнала загрузок (>100
+  подкрашивается красным как сигнал «возможно битый прайс»).
 - `candidates.py` — поиск кандидатов сопоставления для админ-страницы
   `/admin/mapping`.
 

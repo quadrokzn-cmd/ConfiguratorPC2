@@ -8,6 +8,8 @@
 
 from __future__ import annotations
 
+from decimal import Decimal
+
 from sqlalchemy import text as _t
 
 from app.services.price_loaders.orchestrator import load_price
@@ -59,6 +61,48 @@ def _insert_psu(session, *, model, sku, manufacturer="Corsair"):
     ), {"m": model, "mfg": manufacturer, "sku": sku}).scalar()
     session.commit()
     return int(row)
+
+
+# ---- 11.4: хелперы для проверок повторной загрузки --------------------
+
+
+def _ensure_supplier(session, name: str) -> int:
+    """Идемпотентно создаёт поставщика и возвращает его id. Используем,
+    когда нужно засеять supplier_prices ДО первой загрузки."""
+    row = session.execute(_t(
+        "INSERT INTO suppliers (name, is_active) VALUES (:n, TRUE) "
+        "ON CONFLICT (name) DO UPDATE SET is_active = suppliers.is_active "
+        "RETURNING id"
+    ), {"n": name}).first()
+    session.commit()
+    return int(row.id)
+
+
+def _seed_supplier_price(
+    session, *,
+    supplier_id: int, category: str, component_id: int,
+    supplier_sku: str,
+    price: Decimal = Decimal("100.00"),
+    currency: str = "RUB",
+    stock_qty: int = 10,
+    transit_qty: int = 0,
+    raw_name: str | None = None,
+) -> None:
+    """Прямая вставка строки в supplier_prices — для setup'а тестов
+    обновления и disappeared. Не идёт через orchestrator, чтобы тест
+    проверял именно поведение второй загрузки."""
+    session.execute(_t(
+        "INSERT INTO supplier_prices "
+        "    (supplier_id, category, component_id, supplier_sku, "
+        "     price, currency, stock_qty, transit_qty, raw_name, updated_at) "
+        "VALUES "
+        "    (:sid, :cat, :cid, :sku, :p, :cur, :s, :t, :rn, NOW())"
+    ), {
+        "sid": supplier_id, "cat": category, "cid": component_id,
+        "sku": supplier_sku, "p": price, "cur": currency,
+        "s": stock_qty, "t": transit_qty, "rn": raw_name,
+    })
+    session.commit()
 
 
 # ---- Merlion: базовый сценарий ----------------------------------------
@@ -328,3 +372,238 @@ def test_unmapped_stores_raw_and_guessed_category(make_merlion_xlsx, db_session)
     assert row.guessed_category == "psu"
     assert row.supplier_sku == "M-X1"
     assert row.status == "created_new"
+
+
+# =========================================================================
+# Этап 11.4 — повторная загрузка прайсов: обновление и disappeared
+# =========================================================================
+
+
+def test_orchestrator_updates_existing_price(make_merlion_xlsx, db_session):
+    """Существующая строка supplier_prices обновляется по тому же
+    (supplier_id, supplier_sku): новая цена, новый stock, raw_name тоже
+    подменяется. Никаких added — только updated."""
+    psu_id = _insert_psu(db_session, model="Corsair RM750X", sku="RM750X")
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_id, supplier_sku="M-001",
+        price=Decimal("100.00"), stock_qty=10, transit_qty=0,
+        raw_name="Старое имя из прошлой загрузки",
+    )
+
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-001", "mpn": "RM750X",
+            "name": "Corsair RM750x 750W 80+ Gold",
+            "price_rub": 12000, "stock": 5,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["updated"] == 1
+    assert result["added"] == 0
+    assert result["disappeared"] == 0
+
+    rows = db_session.execute(_t(
+        "SELECT supplier_sku, price, stock_qty, transit_qty, currency "
+        "FROM supplier_prices WHERE supplier_id = :sid"
+    ), {"sid": supplier_id}).all()
+    assert len(rows) == 1
+    r = rows[0]
+    assert r.supplier_sku == "M-001"
+    assert int(r.stock_qty) == 5
+    assert Decimal(str(r.price)) == Decimal("12000.00")
+    assert r.currency == "RUB"
+
+
+def test_orchestrator_updates_raw_name_on_existing(make_merlion_xlsx, db_session):
+    """raw_name обновляется при повторной загрузке — даже если новое имя
+    короче или беднее (бизнес-правило 11.4: «полагаемся на агрегацию из
+    других источников и enrichment в 11.6»). Здесь специально берём
+    более длинное новое имя — типичный кейс на проде."""
+    psu_id = _insert_psu(db_session, model="Corsair RM650X", sku="RM650X")
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_id, supplier_sku="M-100",
+        price=Decimal("9500.00"), stock_qty=3,
+        raw_name="Corsair RM650x",
+    )
+
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-100", "mpn": "RM650X",
+            "name": "Corsair RM650x 650W 80+ Gold модульный",
+            "price_rub": 9500, "stock": 3,
+        },
+    ])
+    load_price(path, supplier_key="merlion")
+
+    raw_name = db_session.execute(_t(
+        "SELECT raw_name FROM supplier_prices WHERE supplier_id = :sid"
+    ), {"sid": supplier_id}).scalar()
+    assert raw_name == "Corsair RM650x 650W 80+ Gold модульный"
+
+
+def test_orchestrator_marks_disappeared(make_merlion_xlsx, db_session):
+    """В БД три активных позиции (stock>0); прайс присылает только одну —
+    остальные две должны быть помечены stock=0/transit=0 (disappeared).
+    Сама запись supplier_prices не удаляется."""
+    psu_a = _insert_psu(db_session, model="A", sku="MPN-A")
+    psu_b = _insert_psu(db_session, model="B", sku="MPN-B")
+    psu_c = _insert_psu(db_session, model="C", sku="MPN-C")
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    for psu_id, sku in [(psu_a, "M-A"), (psu_b, "M-B"), (psu_c, "M-C")]:
+        _seed_supplier_price(
+            db_session,
+            supplier_id=supplier_id, category="psu",
+            component_id=psu_id, supplier_sku=sku,
+            price=Decimal("100.00"), stock_qty=4, transit_qty=2,
+        )
+
+    # В прайсе только один SKU из трёх — M-A; новый stock/transit.
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-A", "mpn": "MPN-A",
+            "name": "PSU A", "price_rub": 110, "stock": 7, "transit_1": 1,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["updated"] == 1
+    assert result["added"] == 0
+    assert result["disappeared"] == 2
+    assert set(result["disappeared_skus"]) == {"M-B", "M-C"}
+    assert result["disappeared_truncated"] is False
+
+    # M-A — обновлено, M-B и M-C — обнулены, но строки на месте.
+    rows = db_session.execute(_t(
+        "SELECT supplier_sku, stock_qty, transit_qty "
+        "FROM supplier_prices WHERE supplier_id = :sid "
+        "ORDER BY supplier_sku"
+    ), {"sid": supplier_id}).all()
+    by_sku = {r.supplier_sku: (int(r.stock_qty), int(r.transit_qty)) for r in rows}
+    assert by_sku == {"M-A": (7, 1), "M-B": (0, 0), "M-C": (0, 0)}
+
+
+def test_orchestrator_does_not_mark_disappeared_on_failed(
+    make_merlion_xlsx, db_session,
+):
+    """При status='failed' (rows_matched=0, при этом был не пустой файл)
+    disappeared НЕ применяется — иначе кривая загрузка обнулит остатки.
+    Здесь имитируем failed «естественно»: все строки прайса оказываются
+    вне наших категорий → updated=0, added=0, total_rows>0 → 'failed'."""
+    psu_a = _insert_psu(db_session, model="A", sku="MPN-A")
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_a, supplier_sku="M-A",
+        price=Decimal("100.00"), stock_qty=4, transit_qty=2,
+    )
+
+    # Все строки — телевизоры/смартфоны: вне наших категорий, skipped.
+    path = make_merlion_xlsx([
+        {
+            "g1": "Техника", "g2": "Телевизоры", "g3": "OLED",
+            "brand": "LG", "number": "TV-1", "mpn": "OLED77C3",
+            "name": "LG OLED 77", "price_rub": 250000, "stock": 1,
+        },
+        {
+            "g1": "Техника", "g2": "Телефоны", "g3": "Смартфоны",
+            "brand": "Apple", "number": "TV-2", "mpn": "IP15",
+            "name": "iPhone 15", "price_rub": 100000, "stock": 1,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["status"] == "failed"
+    assert result["disappeared"] == 0
+    assert result["disappeared_skus"] == []
+
+    # Существующая M-A осталась нетронутой.
+    row = db_session.execute(_t(
+        "SELECT stock_qty, transit_qty FROM supplier_prices "
+        "WHERE supplier_id = :sid AND supplier_sku = 'M-A'"
+    ), {"sid": supplier_id}).first()
+    assert int(row.stock_qty) == 4
+    assert int(row.transit_qty) == 2
+
+
+def test_orchestrator_zero_stock_in_price_is_not_disappeared(
+    make_merlion_xlsx, db_session,
+):
+    """Если поставщик прислал позицию с явным stock=0 — это нормальный
+    UPDATE существующей строки, не disappeared (SKU присутствует в файле)."""
+    psu_a = _insert_psu(db_session, model="A", sku="RM750X")
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_a, supplier_sku="M-A",
+        price=Decimal("100.00"), stock_qty=4, transit_qty=2,
+    )
+
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-A", "mpn": "RM750X",
+            "name": "Corsair RM750x", "price_rub": 100,
+            "stock": 0, "transit_1": 0,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["updated"] == 1
+    assert result["disappeared"] == 0
+    # SKU был в файле, поэтому в disappeared_skus не попадает.
+    assert "M-A" not in (result.get("disappeared_skus") or [])
+
+    row = db_session.execute(_t(
+        "SELECT stock_qty, transit_qty FROM supplier_prices "
+        "WHERE supplier_id = :sid AND supplier_sku = 'M-A'"
+    ), {"sid": supplier_id}).first()
+    assert int(row.stock_qty) == 0
+    assert int(row.transit_qty) == 0
+
+
+def test_disappeared_truncated_in_report(make_merlion_xlsx, db_session):
+    """При >50 disappeared report.disappeared_skus содержит ровно 50,
+    флаг disappeared_truncated=True. Само число disappeared — точное."""
+    supplier_id = _ensure_supplier(db_session, "Merlion")
+    # 60 «активных» позиций, у каждой свой компонент и SKU.
+    for i in range(60):
+        psu_id = _insert_psu(
+            db_session, model=f"PSU-{i}", sku=f"MPN-{i:03d}",
+        )
+        _seed_supplier_price(
+            db_session,
+            supplier_id=supplier_id, category="psu",
+            component_id=psu_id, supplier_sku=f"M-{i:03d}",
+            price=Decimal("100.00"), stock_qty=1,
+        )
+
+    # Прайс с одной строкой, SKU не пересекается ни с одним из 60.
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "NEW-1", "mpn": "BRAND-NEW",
+            "name": "Совершенно новая позиция", "price_rub": 5000, "stock": 2,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["disappeared"] == 60
+    assert len(result["disappeared_skus"]) == 50
+    assert result["disappeared_truncated"] is True

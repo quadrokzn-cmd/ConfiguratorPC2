@@ -129,6 +129,7 @@ _MIGRATIONS = [
     "019_add_new_suppliers.sql",
     "020_supplier_emails.sql",
     "021_price_uploads_report_json.sql",
+    "022_supplier_prices_raw_name.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
