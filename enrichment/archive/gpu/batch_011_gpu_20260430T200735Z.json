@@ -1,0 +1,898 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_011",
+  "filled_at": "2026-05-01T18:30:00Z",
+  "items": [
+    {
+      "id": 646,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp",
+          "reason": "TDP/Total Graphics Power не указан в spec-листе Gigabyte; на странице приведены только Power Connector (16-pin) и Recommended PSU (750W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2542,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 647,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (750W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2452,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TWF3-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 648,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (650W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2722,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TAORUS-E-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 649,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (1000W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2535,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090AERO-OC-24GD/sp"
+        }
+      }
+    },
+    {
+      "id": 650,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connectors (8-pin x2) и Recommended PSU"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1710,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 19000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N308TGAMING-OC-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 651,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (1000W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2535,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090GAMING-OC-24GD-rev-10-11/sp"
+        }
+      }
+    },
+    {
+      "id": 652,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (850W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2520,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4090WF3V2-24GD-rev-10-11/sp"
+        }
+      }
+    },
+    {
+      "id": 653,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLEOC-ICE-16GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (750W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLEOC-ICE-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLEOC-ICE-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLEOC-ICE-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLEOC-ICE-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 654,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TSEAGLE-OC-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 655,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector и Recommended PSU"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2490,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp",
+          "reason": "Memory Clock в snippet'е поиска не отражён; страница доступна, но точное значение Gbps не извлечено"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF2OCV2-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 656,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin) и Recommended PSU (850W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2520,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 22400,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4080EAGLE-OC-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 657,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (16-pin 12VHPWR) и Recommended PSU"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2625,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407TEAGLE-OC-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 658,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (650W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2490,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4070WF3OC-12GD-rev-10/sp"
+        }
+      }
+    },
+    {
+      "id": 659,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (650W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2505,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp"
+        }
+      }
+    },
+    {
+      "id": 660,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060D6-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060D6-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060D6-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2460,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060D6-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060D6-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 661,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (450W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2550,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060AERO-OC-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 662,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (450W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2550,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060GAMING-OC-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 663,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (450W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2505,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060EAGLE-OC-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 664,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (500W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2550,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N406TWF2OC-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 665,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (450W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2475,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N4060WF2OC-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 666,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта GV-IA380WF2OC-6GD (Intel Arc A380 WINDFORCE OC) не найдена на gigabyte.com через WebSearch; страница недоступна (WebFetch 403). Данные есть только на маркетплейсах/дистрибьюторах, что вне whitelist"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта не найдена на оф. сайте Gigabyte"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта не найдена на оф. сайте Gigabyte"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта не найдена на оф. сайте Gigabyte"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта не найдена на оф. сайте Gigabyte"
+        }
+      }
+    },
+    {
+      "id": 667,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1837,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060GAMING-OC-12GD-rev-20/sp"
+        }
+      }
+    },
+    {
+      "id": 668,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1792,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2OC-12GD-rev-20/sp"
+        }
+      }
+    },
+    {
+      "id": 669,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        }
+      }
+    },
+    {
+      "id": 670,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp",
+          "reason": "TDP/TGP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin) и Recommended PSU (450W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1792,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050WF2OCV2-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 671,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp",
+          "reason": "TDP не указан в spec-листе Gigabyte; Power Connector = N/A (питание только из PCIe-слота), Recommended PSU 300W"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp",
+          "reason": "Snippet поиска подтвердил наличие 2xDisplayPort + 2xHDMI, но конкретные версии (1.4a / 2.1) не извлечены из выдачи"
+        },
+        "core_clock_mhz": {
+          "value": 1477,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3050OC-6GL/sp"
+        }
+      }
+    },
+    {
+      "id": 672,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp",
+          "reason": "TDP не указан в spec-листе Gigabyte; Power Connectors = N/A (Rev 1.0), Recommended PSU 300W"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp",
+          "reason": "У GV-N1656OC-4GD есть несколько ревизий с разной конфигурацией питания: Rev 1.0 без доп. разъёма (питание из PCIe), Rev 4.0 с 8-pin. raw_name 'Gigabyte GV-N1656OC-4GD RTL' не указывает ревизию"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.0b, 1xDisplayPort 1.4, 1xDVI-D",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1635,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 12000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N1656OC-4GD-rev-10/sp"
+        }
+      }
+    },
+    {
+      "id": 673,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp",
+          "reason": "TDP/TBP не указан в spec-листе Gigabyte; приведены только Power Connectors (8-pin x2) и Recommended PSU (600W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 2.1",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2810,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        }
+      }
+    },
+    {
+      "id": 674,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp",
+          "reason": "TDP/TBP не указан в spec-листе Gigabyte; приведены только Power Connectors (8-pin x2) и Recommended PSU (600W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 2.1",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2810,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76XTGAMING-OC-16GD-rev-10-11/sp"
+        }
+      }
+    },
+    {
+      "id": 675,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp",
+          "reason": "TDP/TBP не указан в spec-листе Gigabyte; приведены только Power Connector (8-pin x1) и Recommended PSU (550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2755,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R76GAMING-OC-8GD-rev-10-11/sp"
+        }
+      }
+    }
+  ]
+}

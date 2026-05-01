@@ -1,0 +1,856 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_010",
+  "filled_at": "2026-05-01T17:00:00Z",
+  "items": [
+    {
+      "id": 616,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт ZOTAC (zotac.com) отдает HTTP 403 при автоматическом запросе; в поисковых сниппетах подтверждены частоты, память, выходы и наличие 12V-2x6, но точное значение Total Graphics Power для этой модели не приведено."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-core-oc-white-edition"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-core-oc-white-edition"
+        },
+        "core_clock_mhz": {
+          "value": 2482,
+          "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-core-oc-white-edition"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-ti-solid-core-oc-white-edition"
+        }
+      }
+    },
+    {
+      "id": 617,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; данные с оф. сайта недоступны."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; данные с оф. сайта недоступны."
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; данные с оф. сайта недоступны."
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; данные с оф. сайта недоступны."
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; данные с оф. сайта недоступны."
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567) при автоматическом запросе перенаправляет на главную palit.com; тип памяти явно (DDR3) подтверждается только заголовком в индексе поисковых результатов, но не извлекаемым spec-листом."
+        }
+      }
+    },
+    {
+      "id": 618,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 (id=2567, MPN NEAT7100HD46-2080H) при автоматическом запросе перенаправляет на главную palit.com. MPN PA-GT710-2GD3H — региональный SKU без отдельной страницы; данные с оф. сайта недоступны."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 710 2048MB DDR3 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        }
+      }
+    },
+    {
+      "id": 619,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 (id=2956, MPN NEC103000646-1082F) при автоматическом запросе перенаправляет на главную palit.com; spec-лист недоступен."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 при автоматическом запросе перенаправляет на главную; данные не извлечь."
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "Страница Palit GT 1030 при автоматическом запросе перенаправляет на главную; объём памяти (по raw_name 2 ГБ) не подтверждён извлекаемым оф. spec-листом."
+        }
+      }
+    },
+    {
+      "id": 620,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5147&lang=en&pn=NE63050018JE-1070H&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5147&lang=en&pn=NE63050018JE-1070H&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5147&lang=en&pn=NE63050018JE-1070H&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5147&lang=en&pn=NE63050018JE-1070H&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5147&lang=en&pn=NE63050018JE-1070H&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 621,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5137&lang=en&pn=NE63050018JE-1070F&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 622,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5127&lang=en&pn=NE63050S18JE-1070F&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5127&lang=en&pn=NE63050S18JE-1070F&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5127&lang=en&pn=NE63050S18JE-1070F&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1492,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5127&lang=en&pn=NE63050S18JE-1070F&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5127&lang=en&pn=NE63050S18JE-1070F&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 623,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (MPN NE63050S18JE-1072F, RTX 3050 StormX OC 6GB V1) на palit.com отдельной страницы не имеет; характеристики V1 не задокументированы оф. источником."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (NE63050S18JE-1072F) на palit.com отдельной страницы не имеет."
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (NE63050S18JE-1072F) на palit.com отдельной страницы не имеет."
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (NE63050S18JE-1072F) на palit.com отдельной страницы не имеет; частота V1 (отличная от 1492 МГц у не-V1 NE63050S18JE-1070F) не подтверждена."
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (NE63050S18JE-1072F) на palit.com отдельной страницы не имеет."
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карта V1-варианта (NE63050S18JE-1072F) на palit.com отдельной страницы не имеет; тип GDDR6 (как у не-V1) не подтверждён оф. spec-листом."
+        }
+      }
+    },
+    {
+      "id": 624,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4488&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 625,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4987&lang=en&pn=NE63050018P1-1070F&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 626,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4468&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 627,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDVI-D, 1xDisplayPort 1.4a",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=4977&lang=en&pn=NE63050018P1-1070D&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 628,
+      "fields": {
+        "tdp_watts": {
+          "value": 130,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 20000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5705&lang=en&pn=NE65050T19P1-GB2070F&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 629,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2497,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5595&lang=en&pn=NE75060019P1-GB2063S&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 630,
+      "fields": {
+        "tdp_watts": {
+          "value": 155,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2580,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5585&lang=en&pn=NE75060T19P1-GB2063S&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 631,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5535&lang=en&pn=NE7507T019T2-GB2031Y&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5535&lang=en&pn=NE7507T019T2-GB2031Y&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5535&lang=en&pn=NE7507T019T2-GB2031Y&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2452,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5535&lang=en&pn=NE7507T019T2-GB2031Y&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5535&lang=en&pn=NE7507T019T2-GB2031Y&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 632,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5525&lang=en&pn=NE7507TS19T2-GB2031Y&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5525&lang=en&pn=NE7507TS19T2-GB2031Y&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5525&lang=en&pn=NE7507TS19T2-GB2031Y&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2482,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5525&lang=en&pn=NE7507TS19T2-GB2031Y&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5525&lang=en&pn=NE7507TS19T2-GB2031Y&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 633,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5375&lang=en&pn=NE7507T019T2-GB2030G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5375&lang=en&pn=NE7507T019T2-GB2030G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5375&lang=en&pn=NE7507T019T2-GB2030G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2452,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5375&lang=en&pn=NE7507T019T2-GB2030G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5375&lang=en&pn=NE7507T019T2-GB2030G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 634,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5385&lang=en&pn=NE7507TH19T2-GB2030G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5385&lang=en&pn=NE7507TH19T2-GB2030G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5385&lang=en&pn=NE7507TH19T2-GB2030G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5385&lang=en&pn=NE7507TH19T2-GB2030G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5385&lang=en&pn=NE7507TH19T2-GB2030G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 635,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5355&lang=en&pn=NE75080019T2-GB2030G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5355&lang=en&pn=NE75080019T2-GB2030G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5355&lang=en&pn=NE75080019T2-GB2030G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5355&lang=en&pn=NE75080019T2-GB2030G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5355&lang=en&pn=NE75080019T2-GB2030G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 636,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5365&lang=en&pn=NE75080T19T2-GB2030G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5365&lang=en&pn=NE75080T19T2-GB2030G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5365&lang=en&pn=NE75080T19T2-GB2030G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2730,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5365&lang=en&pn=NE75080T19T2-GB2030G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5365&lang=en&pn=NE75080T19T2-GB2030G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 637,
+      "fields": {
+        "tdp_watts": {
+          "value": 575,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5345&lang=en&pn=NE75090019R5-GB2020G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5345&lang=en&pn=NE75090019R5-GB2020G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5345&lang=en&pn=NE75090019R5-GB2020G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2407,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5345&lang=en&pn=NE75090019R5-GB2020G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5345&lang=en&pn=NE75090019R5-GB2020G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 638,
+      "fields": {
+        "tdp_watts": {
+          "value": 600,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5335&lang=en&pn=NE75090S19R5-GB2020G&tab=sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5335&lang=en&pn=NE75090S19R5-GB2020G&tab=sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5335&lang=en&pn=NE75090S19R5-GB2020G&tab=sp"
+        },
+        "core_clock_mhz": {
+          "value": 2527,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5335&lang=en&pn=NE75090S19R5-GB2020G&tab=sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.palit.com/palit/vgapro.php?id=5335&lang=en&pn=NE75090S19R5-GB2020G&tab=sp"
+        }
+      }
+    },
+    {
+      "id": 639,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte (gigabyte.com и aorus.com) отдает HTTP 403 при автоматическом запросе во всех проверенных регионах. В поисковых сниппетах подтверждены частоты, память, выходы, рекомендуемый PSU 1000W и 16-pin коннектор, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5090GAMING-OC-32GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5090GAMING-OC-32GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2550,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5090GAMING-OC-32GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5090GAMING-OC-32GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5090GAMING-OC-32GD/sp"
+        }
+      }
+    },
+    {
+      "id": 640,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte отдает HTTP 403 при автоматическом запросе. В поисковых сниппетах подтверждены boost-частота 2730 МГц, выходы DP 2.1b x3 + HDMI 2.1b x1, рекомендуемый PSU 850W и 16-pin коннектор, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2730,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080GAMING-OC-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 641,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte отдает HTTP 403 при автоматическом запросе. В сниппетах подтверждены boost 2625 МГц, память 28 Gbps, рекомендуемый PSU 750W и 12V-2x6 (16-pin) коннектор, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AERO-OC-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AERO-OC-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2625,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AERO-OC-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AERO-OC-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AERO-OC-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 642,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte/AORUS отдает HTTP 403 при автоматическом запросе. В сниппетах подтверждены boost 2715 МГц и память 28 Gbps, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AORUS-M-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AORUS-M-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2715,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AORUS-M-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AORUS-M-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070AORUS-M-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 643,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte отдает HTTP 403 при автоматическом запросе. В сниппетах подтверждены boost 2587 МГц и рекомендуемый PSU 750W, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070EAGLEOC-ICE-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070EAGLEOC-ICE-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2587,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070EAGLEOC-ICE-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070EAGLEOC-ICE-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070EAGLEOC-ICE-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 644,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte отдает HTTP 403 при автоматическом запросе. В сниппетах подтверждены boost 2625 МГц, память 28 Gbps, рекомендуемый PSU 750W и 12V-2x6 (16-pin) коннектор, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-OC-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-OC-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2625,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-OC-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-OC-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-OC-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 645,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Сайт Gigabyte отдает HTTP 403 при автоматическом запросе. В сниппетах подтверждены boost 2512 МГц (референс), память 28 Gbps, рекомендуемый PSU 750W и 16-pin коннектор, но точное значение Card Power не извлекается."
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070WF3-12GD/sp"
+        }
+      }
+    }
+  ]
+}

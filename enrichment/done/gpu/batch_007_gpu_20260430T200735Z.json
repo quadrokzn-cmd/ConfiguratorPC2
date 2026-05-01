@@ -1,0 +1,883 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_007",
+  "filled_at": "2026-05-01T01:55:00Z",
+  "items": [
+    {
+      "id": 526,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=637",
+          "reason": "AFOX в описании продукта указывает 'thermal design power is only 30W'"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=637",
+          "reason": "GT 1030 LP, TDP 30W < 75W лимита PCIe-слота, доп. питание не требуется"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=637"
+        },
+        "core_clock_mhz": {
+          "value": 1380,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=637",
+          "reason": "Boost Clock 1380 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 2100,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=637",
+          "reason": "Memory Clock 2100 MHz (DDR4 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 527,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-134-650-1.html",
+          "reason": "RTX 4060 — десктопная карта класса 115W, по индустрии всегда требует разъём 8-pin/12VHPWR; AFOX-карта не LP"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/show-134-650-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 2460,
+          "source_url": "https://www.afox-corp.com/show-134-650-1.html",
+          "reason": "Boost Clock 2460 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.afox-corp.com/show-134-650-1.html",
+          "reason": "Memory Clock 17.0 Gbps = 17000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 528,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-126-1.html",
+          "reason": "RTX 3070 220W — двухвентиляторная ATX-карта, по индустрии требует 8-pin (часто 2x8-pin)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/show-42-126-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1725,
+          "source_url": "https://www.afox-corp.com/show-42-126-1.html",
+          "reason": "Boost Clock 1725 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/show-42-126-1.html",
+          "reason": "Memory Clock 14.0 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 529,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "RTX 3060 12GB ~170W, ATX 2-Fan карта, по индустрии всегда требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "Boost Clock 1777 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "Memory Clock 15.0 Gbps = 15000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 530,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "RTX 3050 8GB 130W, ATX Dual Fan, по индустрии требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "Boost Clock 1777 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "Memory Clock 14.0 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 531,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=175",
+          "reason": "GT 730 чип ~25-30W, AFOX-вариант 1FAN без внешнего разъёма питания, питание из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=175"
+        },
+        "core_clock_mhz": {
+          "value": 700,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=175",
+          "reason": "Base Clock 700 MHz (Boost у GT 730 на сайте AFOX не указан)"
+        },
+        "memory_clock_mhz": {
+          "value": 5000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=175",
+          "reason": "Memory Clock 5000 MHz (GDDR5 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 532,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=181",
+          "reason": "GeForce GT 240 — устаревшая 40nm карта, питание только из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=181"
+        },
+        "core_clock_mhz": {
+          "value": 550,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=181",
+          "reason": "Engine Clock 550 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1400,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=181",
+          "reason": "Memory Clock 1400 MHz (GDDR3 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 533,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=540",
+          "reason": "G210 LP — устаревшая чип ~30W, питание только из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=540"
+        },
+        "core_clock_mhz": {
+          "value": 550,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=540",
+          "reason": "Engine Clock 550 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=540",
+          "reason": "Memory Clock 1600 MHz (DDR3 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 534,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=500",
+          "reason": "AFOX в описании продукта указывает 'thermal design power is only 30W'"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=500",
+          "reason": "GT 1030, TDP 30W < 75W PCIe-слота, доп. питание не требуется"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=500"
+        },
+        "core_clock_mhz": {
+          "value": 1380,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=500",
+          "reason": "Boost Clock 1380 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 2100,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=500",
+          "reason": "Memory Clock 2100 MHz (DDR4 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 535,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=431",
+          "reason": "GT 730 LP без внешнего разъёма питания, питание из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=431",
+          "reason": "AFOX-страница LP-варианта указывает D-Sub+DVI+HDMI; raw_name supplier'а сокращён до 'DVI/HDMI', но официальный spec — три выхода"
+        },
+        "core_clock_mhz": {
+          "value": 900,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=431",
+          "reason": "Core Clock 900 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=431",
+          "reason": "Memory Clock 1600 MHz (DDR3 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 536,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/show-42-665-1.html",
+          "reason": "RTX 3050 6GB референс ~70W, по дизайну NVIDIA не требует доп. питания (питание только из PCIe-слота)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/show-42-665-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.afox-corp.com/show-42-665-1.html",
+          "reason": "Boost Clock 1470 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/show-42-665-1.html",
+          "reason": "Memory Clock 14.0 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 537,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=176",
+          "reason": "GT 730 64-bit DDR3 1FAN, питание только из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=176"
+        },
+        "core_clock_mhz": {
+          "value": 700,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=176",
+          "reason": "Base Clock 700 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1800,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=176",
+          "reason": "Memory Clock 1800 MHz (DDR3 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 538,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=739",
+          "reason": "GT 740 чип 64W < 75W PCIe-слота, AFOX 2FAN ATX-карта без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=739"
+        },
+        "core_clock_mhz": {
+          "value": 993,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=739",
+          "reason": "Base Clock 993 MHz (Boost не указан AFOX)"
+        },
+        "memory_clock_mhz": {
+          "value": 5000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=739",
+          "reason": "Memory Clock 5000 MHz (GDDR5 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 539,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=177",
+          "reason": "GT 730 LP 1FAN ~25-30W, питание только из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=177"
+        },
+        "core_clock_mhz": {
+          "value": 902,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=177",
+          "reason": "Engine Clock 902 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 5000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=177",
+          "reason": "Memory Clock 5000 MHz (GDDR5 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 540,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "RX 550 чип ~50W, AFOX 1FAN без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 1xDisplayPort, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1183,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "Engine Clock 1183 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "Memory Clock 6.0 Gbps = 6000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 541,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=43&id=494",
+          "reason": "RTX 2060 SUPER ~175W, ATX 2FAN-карта, по индустрии требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=43&id=494",
+          "reason": "AFOX указывает 1xHDMI + 3xDP; raw_name supplier'а упоминает 'DP/DVI/HDMI', но AFOX-spec показывает DVI отсутствует"
+        },
+        "core_clock_mhz": {
+          "value": 1650,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=43&id=494",
+          "reason": "Boost Clock 1650 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=43&id=494",
+          "reason": "Memory Clock 14.0 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 542,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "GTX 1650 SUPER ~100W, ATX 2FAN-карта, по индустрии требует 6-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526"
+        },
+        "core_clock_mhz": {
+          "value": 1725,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "Boost Clock 1725 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 12000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "Memory Clock 12.0 Gbps = 12000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 543,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "GTX 1650 GDDR6 имеет 75W TDP (граница PCIe-слота); часть AIB-вариантов — без разъёма, часть с 6-pin. AFOX не указывает наличие разъёма на странице"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454"
+        },
+        "core_clock_mhz": {
+          "value": 1590,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454",
+          "reason": "Boost Clock 1590 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 12000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454",
+          "reason": "Memory Clock 12.0 Gbps = 12000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 544,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-51-376-1.html",
+          "reason": "RX 570 ~150W, по индустрии всегда требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 3xDisplayPort, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/show-51-376-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1284,
+          "source_url": "https://www.afox-corp.com/show-51-376-1.html",
+          "reason": "Engine Clock 1284 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 7000,
+          "source_url": "https://www.afox-corp.com/show-51-376-1.html",
+          "reason": "Memory Clock 7.0 Gbps = 7000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 545,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "RX 550 чип ~50W, AFOX-вариант LP без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Точная страница для SKU AFRX550-4096D5L2 на AFOX не найдена; raw_name supplier'а указывает только DVI/HDMI (без DP), что отличается от стандартной AFOX RX 550 4GB-страницы (DP+DVI+HDMI). Не подтверждено"
+        },
+        "core_clock_mhz": {
+          "value": 1183,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "Engine Clock 1183 MHz (совпадает с raw_name '1183/6000MHz')"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.afox-corp.com/show-51-153-1.html",
+          "reason": "Memory Clock 6.0 Gbps = 6000 МГц эффективная (совпадает с raw_name)"
+        }
+      }
+    },
+    {
+      "id": 546,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "GTX 1650 SUPER ~100W, ATX 2FAN-карта, требует 6-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526"
+        },
+        "core_clock_mhz": {
+          "value": 1725,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "Boost Clock 1725 MHz; Related PN включает AF1650S-4096D6H3-V2"
+        },
+        "memory_clock_mhz": {
+          "value": 12000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=526",
+          "reason": "Memory Clock 12.0 Gbps = 12000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 547,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "AFOX в описании продукта указывает 'thermal design power of only 30W'"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "GT 1030, TDP 30W < 75W PCIe-слота, доп. питание не требуется"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139"
+        },
+        "core_clock_mhz": {
+          "value": 1468,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "Boost Clock 1468 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "Memory Clock 6000 MHz (GDDR5 эффективная)"
+        }
+      }
+    },
+    {
+      "id": 548,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a mining motherboard (AFB250-BTC12EX, LGA1151 B250), not a GPU; запрошенные GPU-поля неприменимы"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item — материнская плата, не видеокарта"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item — материнская плата, не видеокарта"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item — материнская плата, не видеокарта"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item — материнская плата, не видеокарта"
+        }
+      }
+    },
+    {
+      "id": 549,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "RTX 3060 12GB ~170W, ATX 2-Fan, требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "Boost Clock 1777 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.afox-corp.com/show-42-418-1.html",
+          "reason": "Memory Clock 15.0 Gbps = 15000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 550,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "GTX 1050 имеет 75W TDP (граница PCIe-слота); AFOX-страница не указывает наличие 6-pin разъёма для AF1050-4096D5L4. SKU не идентифицирован точно (на AFOX-странице GTX 1050: Related PN AF1050-4096D5H4)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=568"
+        },
+        "core_clock_mhz": {
+          "value": 1455,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=568",
+          "reason": "Boost Clock 1455 MHz; raw_name supplier'а '1354/7000MHz' приводит base, что совпадает с AFOX (Base 1354)"
+        },
+        "memory_clock_mhz": {
+          "value": 7000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=568",
+          "reason": "Memory Clock 7 Gbps = 7000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 551,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "GT 710 чип ~19W, LP 1FAN, питание только из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "Base Clock 954 MHz; Related PN включает AF710-4096D3L5-V3"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "Memory Clock 1600 MHz (DDR3 эффективная, верх диапазона 1333-1600 MHz)"
+        }
+      }
+    },
+    {
+      "id": 552,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "GTX 1650 GDDR6 имеет 75W TDP; AFOX-страница не указывает наличие разъёма доп. питания, AIB-варианты различаются"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454"
+        },
+        "core_clock_mhz": {
+          "value": 1590,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454",
+          "reason": "Boost Clock 1590 MHz (совпадает с raw_name '1590/12000MHz')"
+        },
+        "memory_clock_mhz": {
+          "value": 12000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=454",
+          "reason": "Memory Clock 12.0 Gbps = 12000 МГц эффективная (совпадает с raw_name)"
+        }
+      }
+    },
+    {
+      "id": 553,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "RTX 3050 8GB ~130W, ATX 2FAN, требует 8-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "Boost Clock 1777 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/show-42-654-1.html",
+          "reason": "Memory Clock 14.0 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 554,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.maxsun.com.cn/2023/1101/6083.html",
+          "reason": "MAXSUN указывает TDP 170W (страница iCraft 12G S2; T1 — другая ревизия с тем же чипом)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com.cn/2023/1101/6083.html",
+          "reason": "8-pin power connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.maxsun.com.cn/2023/1101/6083.html",
+          "reason": "MAXSUN указывает DP*3/HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 1822,
+          "source_url": "https://www.maxsun.com.cn/2023/1101/6083.html",
+          "reason": "Boost Clock 1822 MHz по странице iCraft 12G S2; raw_name supplier'а указывает 1837 для T1, разница ~1% между ревизиями iCraft"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.maxsun.com.cn/2023/1101/6083.html",
+          "reason": "Memory Clock 15000 MHz эффективная"
+        }
+      }
+    },
+    {
+      "id": 555,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "MAXSUN указывает 170W"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "Single 8-pin connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort",
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "MAXSUN указывает 1xHDMI + 3xDP, поддержка 7680x4320 (HDMI 2.1)"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "Boost Clock 1777 MHz (диапазон 1320-1777 MHz)"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "Memory Clock 15 Gbps = 15000 МГц эффективная"
+        }
+      }
+    }
+  ]
+}

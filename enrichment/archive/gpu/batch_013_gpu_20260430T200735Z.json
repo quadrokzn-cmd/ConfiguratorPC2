@@ -1,0 +1,824 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_013",
+  "filled_at": "2026-05-01T12:00:00Z",
+  "items": [
+    {
+      "id": 706,
+      "fields": {
+        "tdp_watts": {
+          "value": 285,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2610,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-E1-12G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 707,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2527,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 708,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2602,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-2X-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 709,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2602,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 710,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-3X/Specification"
+        }
+      }
+    },
+    {
+      "id": 711,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-VANGUARD-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 712,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2700,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 713,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2700,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 714,
+      "fields": {
+        "tdp_watts": {
+          "value": 285,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-2X-12G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 715,
+      "fields": {
+        "tdp_watts": {
+          "value": 320,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4080-SUPER-16G-VENTUS-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4080-SUPER-16G-VENTUS-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1a, 2xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4080-SUPER-16G-VENTUS-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2580,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4080-SUPER-16G-VENTUS-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 23000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4080-SUPER-16G-VENTUS-3X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 716,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания (MSI MPG A750G, MPN 306-7ZP7A11-CE0), а не видеокарта — GPU-поля не применимы. Нужно перенести item в категорию psu."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания, не видеокарта."
+        }
+      }
+    },
+    {
+      "id": 717,
+      "fields": {
+        "tdp_watts": {
+          "value": 200,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4070-VENTUS-2X-E1-12G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4070-VENTUS-2X-E1-12G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4070-VENTUS-2X-E1-12G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2505,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4070-VENTUS-2X-E1-12G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 20000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4070-VENTUS-2X-E1-12G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 718,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-INSPIRE-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-INSPIRE-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-INSPIRE-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2542,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-INSPIRE-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-INSPIRE-3X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 719,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2610,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 720,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-GAMING-TRIO-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 721,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 722,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VANGUARD-SOC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VANGUARD-SOC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VANGUARD-SOC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2730,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VANGUARD-SOC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VANGUARD-SOC/Specification"
+        }
+      }
+    },
+    {
+      "id": 723,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 724,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2745,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SUPRIM-SOC/Specification"
+        }
+      }
+    },
+    {
+      "id": 725,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING/Specification"
+        }
+      }
+    },
+    {
+      "id": 726,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2640,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VANGUARD-SOC/Specification"
+        }
+      }
+    },
+    {
+      "id": 727,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2647,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 728,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2647,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 729,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 730,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-INSPIRE-2X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-INSPIRE-2X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-INSPIRE-2X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2535,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-INSPIRE-2X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-INSPIRE-2X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 731,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2602,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-SHADOW-2X-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 732,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2497,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-VENTUS-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 733,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2602,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-OC-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 734,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2482,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-Ti-16G-INSPIRE-3X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 735,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2647,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    }
+  ]
+}

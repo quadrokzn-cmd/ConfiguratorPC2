@@ -1,0 +1,313 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_009",
+  "filled_at": "2026-05-01T00:00:00Z",
+  "items": [
+    {
+      "id": 586,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — приведён только Recommended PSU 850W и разъём 1x16-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5070ti-o16g-gaming/spec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5070ti-o16g-gaming/spec/"},
+        "core_clock_mhz": {"value": 2625, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5070ti-o16g-gaming/spec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx5070ti-o16g-gaming/spec/"}
+      }
+    },
+    {
+      "id": 587,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TBP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/prime/prime-rx9060xt-o8g/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 2xDisplayPort 2.1a", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/prime/prime-rx9060xt-o8g/techspec/"},
+        "core_clock_mhz": {"value": 3330, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/prime/prime-rx9060xt-o8g/techspec/"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/prime/prime-rx9060xt-o8g/techspec/"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/prime/prime-rx9060xt-o8g/techspec/"}
+      }
+    },
+    {
+      "id": 588,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — только Recommended PSU 1000W и разъём 1x16-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5090-o32g-gaming/techspec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5090-o32g-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5090-o32g-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5090-o32g-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 589,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-white-gaming/techspec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-white-gaming/techspec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-white-gaming/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070ti-o16g-white-gaming/techspec/"}
+      }
+    },
+    {
+      "id": 590,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — только Recommended PSU 550W и разъём 1x8-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g-white/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g-white/techspec/"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g-white/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o8g-white/techspec/"}
+      }
+    },
+    {
+      "id": 591,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — только Recommended PSU 650W и разъём 1x8-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx4060ti-16g/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1a, 3xDisplayPort 1.4a", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx4060ti-16g/techspec/"},
+        "core_clock_mhz": {"value": 2565, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx4060ti-16g/techspec/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx4060ti-16g/techspec/"}
+      }
+    },
+    {
+      "id": 592,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — только Recommended PSU 1000W и разъём 1x16-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-gaming/spec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-gaming/spec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-gaming/spec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-gaming/spec/"}
+      }
+    },
+    {
+      "id": 593,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-white/spec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-white/spec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-white/spec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-rtx5090-o32g-white/spec/"}
+      }
+    },
+    {
+      "id": 594,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS — только Recommended PSU 550W и разъём 1x8-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx5060-o8g-lp-brk/techspec/"},
+        "video_outputs": {"value": "2xHDMI 2.1, 1xDisplayPort 2.1a", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx5060-o8g-lp-brk/techspec/"},
+        "core_clock_mhz": {"value": 2580, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx5060-o8g-lp-brk/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx5060-o8g-lp-brk/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/rtx5060-o8g-lp-brk/techspec/"}
+      }
+    },
+    {
+      "id": 595,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g-white/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g-white/techspec/"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g-white/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx5060ti-o16g-white/techspec/"}
+      }
+    },
+    {
+      "id": 596,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 2xDisplayPort 2.1b, 1xUSB Type-C", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.asus.com/us/motherboards-components/graphics-cards/proart/proart-rtx5070ti-o16g/techspec/"}
+      }
+    },
+    {
+      "id": 597,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TBP не указан в техспецификации ASUS — только Recommended PSU 550W и разъём 1x8-pin"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 2xDisplayPort 2.1a", "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "core_clock_mhz": {"value": 3000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"},
+        "memory_clock_mhz": {"value": 18000, "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx9060-8g/techspec/"}
+      }
+    },
+    {
+      "id": 598,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "TDP/TGP не указан в техспецификации ASUS"},
+        "needs_extra_power": {"value": true, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-lc-rtx5090-o32g-gaming/spec/"},
+        "video_outputs": {"value": "2xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-lc-rtx5090-o32g-gaming/spec/"},
+        "core_clock_mhz": {"value": 2610, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-lc-rtx5090-o32g-gaming/spec/"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://rog.asus.com/graphics-cards/graphics-cards/rog-astral/rog-astral-lc-rtx5090-o32g-gaming/spec/"}
+      }
+    },
+    {
+      "id": 599,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600G-10L-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600G-10L-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600G-10L-brochure.pdf"},
+        "core_clock_mhz": {"value": 2497, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600G-10L-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600G-10L-brochure.pdf"}
+      }
+    },
+    {
+      "id": 600,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620F-10M-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620F-10M-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620F-10M-brochure.pdf"},
+        "core_clock_mhz": {"value": 2632, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620F-10M-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620F-10M-brochure.pdf"}
+      }
+    },
+    {
+      "id": 601,
+      "fields": {
+        "tdp_watts": {"value": 70, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/3050/Brochure/ZT-A30510H-10L-brochure.pdf"},
+        "needs_extra_power": {"value": false, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/3050/Brochure/ZT-A30510H-10L-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1, 3xDisplayPort 1.4a", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/3050/Brochure/ZT-A30510H-10L-brochure.pdf"},
+        "core_clock_mhz": {"value": 1477, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/3050/Brochure/ZT-A30510H-10L-brochure.pdf"},
+        "memory_clock_mhz": {"value": 14000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/3050/Brochure/ZT-A30510H-10L-brochure.pdf"}
+      }
+    },
+    {
+      "id": 602,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"},
+        "core_clock_mhz": {"value": 2572, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"},
+        "vram_type": {"value": "GDDR6", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500G-10L-brochure.pdf"}
+      }
+    },
+    {
+      "id": 603,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700D-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700D-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700D-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2512, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700D-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700D-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 604,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600Q-10M-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600Q-10M-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600Q-10M-brochure.pdf"},
+        "core_clock_mhz": {"value": 2527, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600Q-10M-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600Q-10M-brochure.pdf"}
+      }
+    },
+    {
+      "id": 605,
+      "fields": {
+        "tdp_watts": {"value": 130, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500Q-10M-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500Q-10M-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500Q-10M-brochure.pdf"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500Q-10M-brochure.pdf"},
+        "memory_clock_mhz": {"value": 20000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5050/Brochure/ZT-B50500Q-10M-brochure.pdf"}
+      }
+    },
+    {
+      "id": 606,
+      "fields": {
+        "tdp_watts": {"value": 250, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700FQ-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700FQ-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700FQ-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2587, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700FQ-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070/Brochure/ZT-B50700FQ-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 607,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710D3-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710D3-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710D3-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2452, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710D3-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710D3-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 608,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800B-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800B-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800B-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2670, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800B-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800B-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 609,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800D2-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800D2-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800D2-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2617, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800D2-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800D2-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 610,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2640, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "vram_gb": {"value": 16, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"},
+        "vram_type": {"value": "GDDR7", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800Q-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 611,
+      "fields": {
+        "tdp_watts": {"value": 300, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710B-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710B-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710B-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2512, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710B-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5070Ti/Brochure/ZT-B50710B-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 612,
+      "fields": {
+        "tdp_watts": {"value": 180, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620Q-10M-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620Q-10M-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620Q-10M-brochure.pdf"},
+        "core_clock_mhz": {"value": 2602, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620Q-10M-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060Ti/Brochure/ZT-B50620Q-10M-brochure.pdf"}
+      }
+    },
+    {
+      "id": 613,
+      "fields": {
+        "tdp_watts": {"value": 360, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800J2-10P-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800J2-10P-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800J2-10P-brochure.pdf"},
+        "core_clock_mhz": {"value": 2640, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800J2-10P-brochure.pdf"},
+        "memory_clock_mhz": {"value": 30000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5080/Brochure/ZT-B50800J2-10P-brochure.pdf"}
+      }
+    },
+    {
+      "id": 614,
+      "fields": {
+        "tdp_watts": {"value": 145, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600L-10L-brochure.pdf"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600L-10L-brochure.pdf"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 2xDisplayPort 2.1b", "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600L-10L-brochure.pdf"},
+        "core_clock_mhz": {"value": 2497, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600L-10L-brochure.pdf"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/download/mediadrivers/External/GraphicsCard/5060/Brochure/ZT-B50600L-10L-brochure.pdf"}
+      }
+    },
+    {
+      "id": 615,
+      "fields": {
+        "tdp_watts": {"value": null, "source_url": null, "reason": "PDF брошюра ZT-B50700Q-10P-brochure.pdf блокируется WAF (HTTP 468), точное TDP-значение для этого SKU не подтверждено; ожидается ~250W (как у 5070 SOLID/AMP), но без верификации на оф. документе оставлено null"},
+        "needs_extra_power": {"value": true, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc-white-edition"},
+        "video_outputs": {"value": "1xHDMI 2.1b, 3xDisplayPort 2.1b", "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc-white-edition"},
+        "core_clock_mhz": {"value": 2542, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc-white-edition"},
+        "memory_clock_mhz": {"value": 28000, "source_url": "https://www.zotac.com/us/product/graphics_card/zotac-gaming-geforce-rtx-5070-twin-edge-oc-white-edition"}
+      }
+    }
+  ]
+}

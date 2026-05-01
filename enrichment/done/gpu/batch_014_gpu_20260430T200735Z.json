@@ -1,0 +1,880 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_014",
+  "filled_at": "2026-05-01T01:00:00Z",
+  "items": [
+    {
+      "id": 736,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-INSPIRE-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 737,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X/Specification"
+        }
+      }
+    },
+    {
+      "id": 738,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-VENTUS-3X-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 739,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-8G-VENTUS-3X/Specification"
+        }
+      }
+    },
+    {
+      "id": 740,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5070-12G-SHADOW-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 741,
+      "fields": {
+        "tdp_watts": {
+          "value": 130,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 20000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5050-8G-VENTUS-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 742,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-INSPIRE-3X/Specification"
+        }
+      }
+    },
+    {
+      "id": 743,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler (MSI MAG CORELIQUID A15 240), not a GPU — wrongly classified into gpu batch"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        }
+      }
+    },
+    {
+      "id": 744,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-SHADOW-2X-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 745,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler (MSI MAG CORELIQUID A15 360), not a GPU — wrongly classified into gpu batch"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "Item is a CPU AIO liquid cooler, not a GPU"
+        }
+      }
+    },
+    {
+      "id": 746,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2542,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-3X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 747,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-PLUS/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-PLUS/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-PLUS/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-PLUS/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-VENTUS-2X-PLUS/Specification"
+        }
+      }
+    },
+    {
+      "id": 748,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-INSPIRE-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-INSPIRE-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-INSPIRE-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-INSPIRE-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-5060-Ti-16G-INSPIRE-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 749,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5080-16G-SHADOW-3X/Specification"
+        }
+      }
+    },
+    {
+      "id": 750,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://storage-asset.msi.com/datasheet/vga/global/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://storage-asset.msi.com/datasheet/vga/global/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC.pdf"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://storage-asset.msi.com/datasheet/vga/global/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC.pdf"
+        },
+        "core_clock_mhz": {
+          "value": 2602,
+          "source_url": "https://storage-asset.msi.com/datasheet/vga/global/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC.pdf"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://storage-asset.msi.com/datasheet/vga/global/GeForce-RTX-5060-Ti-8G-SHADOW-3X-OC-CLASSIC.pdf"
+        }
+      }
+    },
+    {
+      "id": 751,
+      "fields": {
+        "tdp_watts": {
+          "value": 155,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-TRIO-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-TRIO-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-TRIO-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2625,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-TRIO-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-GAMING-TRIO-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 752,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1b",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2497,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-5060-8G-SHADOW-2X/Specification"
+        }
+      }
+    },
+    {
+      "id": 753,
+      "fields": {
+        "tdp_watts": {
+          "value": 260,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-6000-us-nvidia-704093-r4-web.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-6000-us-nvidia-704093-r4-web.pdf"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4, 1xUSB-C",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/quadro-rtx-6000-us-nvidia-704093-r4-web.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost/Game Clock not stated on official NVIDIA Quadro RTX 6000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps or effective MHz on NVIDIA datasheet (only Memory Bandwidth in GB/s)"
+        }
+      }
+    },
+    {
+      "id": 754,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf",
+          "reason": "Card consumes 300W; PCIe slot supplies max 75W, so external power is mandatory"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA A100 is a passive compute-only Tensor Core GPU with no display outputs"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA A100 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official A100 datasheet (only memory bandwidth 1935 GB/s)"
+        },
+        "vram_type": {
+          "value": "HBM2e",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf"
+        }
+      }
+    },
+    {
+      "id": 755,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf",
+          "reason": "Card consumes 300W; PCIe slot supplies max 75W, so external power is mandatory"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA A100 is a passive compute-only Tensor Core GPU with no display outputs"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA A100 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official A100 datasheet (only memory bandwidth 1935 GB/s)"
+        },
+        "vram_type": {
+          "value": "HBM2e",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf"
+        }
+      }
+    },
+    {
+      "id": 756,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf",
+          "reason": "70W card with no auxiliary power connector (powered solely through PCIe slot, max 75W)"
+        },
+        "video_outputs": {
+          "value": "4xMini-DisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A2000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A2000 datasheet (only memory bandwidth 288 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        }
+      }
+    },
+    {
+      "id": 757,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf",
+          "reason": "70W card with no auxiliary power connector (powered solely through PCIe slot, max 75W)"
+        },
+        "video_outputs": {
+          "value": "4xMini-DisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A2000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A2000 datasheet (only memory bandwidth 288 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-a2000/nvidia-rtx-a2000-datasheet-1987439-r5.pdf"
+        }
+      }
+    },
+    {
+      "id": 758,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/",
+          "reason": "70W card with no auxiliary power connector (powered solely through PCIe slot, max 75W)"
+        },
+        "video_outputs": {
+          "value": "4xMini-DisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-2000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed on NVIDIA RTX 2000 Ada Generation product spec page"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on RTX 2000 Ada product page (only 16GB GDDR6)"
+        }
+      }
+    },
+    {
+      "id": 759,
+      "fields": {
+        "tdp_watts": {
+          "value": 140,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A4000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A4000 datasheet (only memory bandwidth 448 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        }
+      }
+    },
+    {
+      "id": 760,
+      "fields": {
+        "tdp_watts": {
+          "value": 140,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A4000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A4000 datasheet (only memory bandwidth 448 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        }
+      }
+    },
+    {
+      "id": 761,
+      "fields": {
+        "tdp_watts": {
+          "value": 140,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A4000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A4000 datasheet (only memory bandwidth 448 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        }
+      }
+    },
+    {
+      "id": 762,
+      "fields": {
+        "tdp_watts": {
+          "value": 140,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed in official NVIDIA RTX A4000 datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on official RTX A4000 datasheet (only memory bandwidth 448 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs21/rtx-a4000/nvidia-rtx-a4000-datasheet.pdf"
+        }
+      }
+    },
+    {
+      "id": 763,
+      "fields": {
+        "tdp_watts": {
+          "value": 230,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed on NVIDIA RTX A5000 product page or datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on RTX A5000 product page (only memory bandwidth 768 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        }
+      }
+    },
+    {
+      "id": 764,
+      "fields": {
+        "tdp_watts": {
+          "value": 230,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed on NVIDIA RTX A5000 product page or datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on RTX A5000 product page (only memory bandwidth 768 GB/s)"
+        },
+        "vram_gb": {
+          "value": 24,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        }
+      }
+    },
+    {
+      "id": 765,
+      "fields": {
+        "tdp_watts": {
+          "value": 230,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "GPU boost clock not listed on NVIDIA RTX A5000 product page or datasheet"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed not stated in Gbps/effective MHz on RTX A5000 product page (only memory bandwidth 768 GB/s)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a5000/"
+        }
+      }
+    }
+  ]
+}

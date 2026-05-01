@@ -1,0 +1,679 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_012",
+  "filled_at": "2026-05-01T12:00:00Z",
+  "items": [
+    {
+      "id": 676,
+      "fields": {
+        "tdp_watts": {
+          "value": 53,
+          "source_url": "https://www.amd.com/en/products/graphics/amd-radeon-rx-6400"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R64D6-4GL/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDisplayPort 1.4",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R64D6-4GL/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2321,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R64D6-4GL/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 16000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R64D6-4GL/sp"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-R64D6-4GL/sp"
+        }
+      }
+    },
+    {
+      "id": 677,
+      "fields": {}
+    },
+    {
+      "id": 678,
+      "fields": {}
+    },
+    {
+      "id": 679,
+      "fields": {}
+    },
+    {
+      "id": 680,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2588,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N507TGAMING-OC-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 681,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 2xDisplayPort 1.4a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N3060WF2-12GD-rev-20/sp"
+        }
+      }
+    },
+    {
+      "id": 682,
+      "fields": {
+        "tdp_watts": {
+          "value": 360,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1a",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2617,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 30000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5080WF3-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 683,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060GAMING-8GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060GAMING-8GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060GAMING-8GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2497,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060GAMING-8GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060GAMING-8GD/sp"
+        }
+      }
+    },
+    {
+      "id": 684,
+      "fields": {}
+    },
+    {
+      "id": 685,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2512,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5070GAMING-12GD/sp"
+        }
+      }
+    },
+    {
+      "id": 686,
+      "fields": {}
+    },
+    {
+      "id": 687,
+      "fields": {}
+    },
+    {
+      "id": 688,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-16GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TGAMING-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 689,
+      "fields": {
+        "tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        },
+        "core_clock_mhz": {
+          "value": 2587,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N506TWF2MAX-OC-16GD/sp"
+        }
+      }
+    },
+    {
+      "id": 690,
+      "fields": {
+        "tdp_watts": {
+          "value": 19,
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 1.4a, 1xDVI-D, 1xD-Sub",
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "vram_gb": {
+          "value": 2,
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        },
+        "vram_type": {
+          "value": "DDR3",
+          "source_url": "https://www.msi.com/Graphics-Card/GT-710-2GD3H-LP/Specification"
+        }
+      }
+    },
+    {
+      "id": 691,
+      "fields": {
+        "tdp_watts": {
+          "value": 49,
+          "source_url": "https://www.msi.com/Graphics-Card/N730-4GD3V2/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/N730-4GD3V2/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 1.4, 1xDVI-I, 1xD-Sub",
+          "source_url": "https://www.msi.com/Graphics-Card/N730-4GD3V2/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 700,
+          "source_url": "https://www.msi.com/Graphics-Card/N730-4GD3V2/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 1000,
+          "source_url": "https://www.msi.com/Graphics-Card/N730-4GD3V2/Specification"
+        }
+      }
+    },
+    {
+      "id": 692,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-6G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-6G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 1xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-6G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1492,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-6G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-LP-6G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 693,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 1xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-E-6G/Specification"
+        }
+      }
+    },
+    {
+      "id": 694,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G/Specification"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 1xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G/Specification"
+        }
+      }
+    },
+    {
+      "id": 695,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "2xHDMI 2.1, 1xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1492,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-6G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 696,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 1xDisplayPort 1.4a, 1xDVI-D",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3050-VENTUS-2X-XS-8G/Specification"
+        }
+      }
+    },
+    {
+      "id": 697,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 1.4",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1807,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 698,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 1837,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-3060-Gaming-X-12G/Specification"
+        }
+      }
+    },
+    {
+      "id": 699,
+      "fields": {
+        "tdp_watts": {
+          "value": 285,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2760,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6X",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-GAMING-X-TRIO-12G/Specification"
+        }
+      }
+    },
+    {
+      "id": 700,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2490,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 701,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2595,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-GAMING-X-8G/Specification"
+        }
+      }
+    },
+    {
+      "id": 702,
+      "fields": {
+        "tdp_watts": {
+          "value": 165,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2565,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 703,
+      "fields": {
+        "tdp_watts": {
+          "value": 165,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2565,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 704,
+      "fields": {
+        "tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-2X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-2X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-2X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2505,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-2X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-2X-OC/Specification"
+        }
+      }
+    },
+    {
+      "id": 705,
+      "fields": {
+        "tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-3X-OC/Specification"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-3X-OC/Specification"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1a, 3xDisplayPort 1.4a",
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-3X-OC/Specification"
+        },
+        "core_clock_mhz": {
+          "value": 2505,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-3X-OC/Specification"
+        },
+        "memory_clock_mhz": {
+          "value": 21000,
+          "source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4070-SUPER-12G-VENTUS-3X-OC/Specification"
+        }
+      }
+    }
+  ]
+}

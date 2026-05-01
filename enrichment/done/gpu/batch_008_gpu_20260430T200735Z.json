@@ -1,0 +1,880 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_008",
+  "filled_at": "2026-05-01T12:00:00Z",
+  "items": [
+    {
+      "id": 556,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tf-6g"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tf-6g",
+          "reason": "Power Connector: N (отсутствует, питание только из PCIe-слота)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tf-6g"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tf-6g",
+          "reason": "Boost из диапазона Base Clock 1042-1470 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tf-6g",
+          "reason": "Memory Speed 14 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 557,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tr-6g"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tr-6g",
+          "reason": "Power Connector: N (без внешнего разъёма)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tr-6g"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tr-6g",
+          "reason": "Boost из диапазона Base Clock 1042-1470 MHz; raw_name supplier'а указывает 1552-1777, но это противоречит официальной спецификации MAXSUN MS-RTX3050 TR 6G"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3050-tr-6g",
+          "reason": "Memory Speed 14 Gbps"
+        }
+      }
+    },
+    {
+      "id": 558,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.maxsun.com.cn/2021/1222/5644.html"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com.cn/2021/1222/5644.html",
+          "reason": "Без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDVI",
+          "source_url": "https://www.maxsun.com.cn/2021/1222/5644.html"
+        },
+        "core_clock_mhz": {
+          "value": 1227,
+          "source_url": "https://www.maxsun.com.cn/2021/1222/5644.html"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.maxsun.com.cn/2021/1222/5644.html"
+        }
+      }
+    },
+    {
+      "id": 559,
+      "fields": {
+        "tdp_watts": {
+          "value": 38,
+          "source_url": "https://www.maxsun.com/products/ms-gt730-ph-2g"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com/products/ms-gt730-ph-2g",
+          "reason": "Без внешнего разъёма питания, только PCIe слот"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xVGA, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/ms-gt730-ph-2g"
+        },
+        "core_clock_mhz": {
+          "value": 902,
+          "source_url": "https://www.maxsun.com/products/ms-gt730-ph-2g",
+          "reason": "Base Clock 902 MHz; Boost не указан для GT730"
+        },
+        "memory_clock_mhz": {
+          "value": 1333,
+          "source_url": "https://www.maxsun.com/products/ms-gt730-ph-2g",
+          "reason": "Memory Speed 1333 Mbps эффективная"
+        }
+      }
+    },
+    {
+      "id": 560,
+      "fields": {
+        "tdp_watts": {
+          "value": 190,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-milestone"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-milestone",
+          "reason": "Single 8-pin ATX 12V connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1",
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-milestone"
+        },
+        "core_clock_mhz": {
+          "value": 2850,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-milestone",
+          "reason": "Boost Clock 2850 MHz (Base 2670)"
+        },
+        "memory_clock_mhz": {
+          "value": 19000,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-milestone",
+          "reason": "Memory Speed 19 Gbps"
+        }
+      }
+    },
+    {
+      "id": 561,
+      "fields": {
+        "tdp_watts": {
+          "value": 190,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-icraft-12g"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-icraft-12g",
+          "reason": "8-pin ATX 12V connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1",
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-icraft-12g"
+        },
+        "core_clock_mhz": {
+          "value": 2850,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-icraft-12g",
+          "reason": "Boost Clock 2850 MHz (Base 2670)"
+        },
+        "memory_clock_mhz": {
+          "value": 19000,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b580-icraft-12g",
+          "reason": "Memory Speed 19 Gbps"
+        }
+      }
+    },
+    {
+      "id": 562,
+      "fields": {
+        "tdp_watts": {
+          "value": 19,
+          "source_url": "https://www.maxsun.com.cn/2024/0830/6263.html"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com.cn/2024/0830/6263.html",
+          "reason": "Без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xVGA, 1xDVI",
+          "source_url": "https://www.maxsun.com.cn/2024/0830/6263.html"
+        },
+        "core_clock_mhz": {
+          "value": 625,
+          "source_url": "https://www.maxsun.com.cn/2024/0830/6263.html"
+        },
+        "memory_clock_mhz": {
+          "value": 1066,
+          "source_url": "https://www.maxsun.com.cn/2024/0830/6263.html"
+        }
+      }
+    },
+    {
+      "id": 563,
+      "fields": {
+        "tdp_watts": {
+          "value": 190,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b570-milestone-10g"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b570-milestone-10g",
+          "reason": "8-pin ATX 12V connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1",
+          "source_url": "https://www.maxsun.com/products/intel-arc-b570-milestone-10g"
+        },
+        "core_clock_mhz": {
+          "value": 2750,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b570-milestone-10g",
+          "reason": "Boost Clock 2750 MHz (Base 2500)"
+        },
+        "memory_clock_mhz": {
+          "value": 19000,
+          "source_url": "https://www.maxsun.com/products/intel-arc-b570-milestone-10g",
+          "reason": "Memory Speed 19 Gbps"
+        }
+      }
+    },
+    {
+      "id": 564,
+      "fields": {
+        "tdp_watts": {
+          "value": 38,
+          "source_url": "https://www.maxsun.com/products/gt-730-powerhammer-si-2g"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com/products/gt-730-powerhammer-si-2g",
+          "reason": "Без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xVGA, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/gt-730-powerhammer-si-2g"
+        },
+        "core_clock_mhz": {
+          "value": 902,
+          "source_url": "https://www.maxsun.com/products/gt-730-powerhammer-si-2g",
+          "reason": "Base Clock 902 MHz; Boost не указан"
+        },
+        "memory_clock_mhz": {
+          "value": 1333,
+          "source_url": "https://www.maxsun.com/products/gt-730-powerhammer-si-2g",
+          "reason": "Memory Speed 1333 Mbps"
+        }
+      }
+    },
+    {
+      "id": 565,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.maxsun.com.cn/2025/0410/6456.html"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com.cn/2025/0410/6456.html",
+          "reason": "Без внешнего разъёма питания (TDP 70W, питание из PCIe)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.maxsun.com.cn/2025/0410/6456.html"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.maxsun.com.cn/2025/0410/6456.html",
+          "reason": "Boost Clock 1470 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.maxsun.com.cn/2025/0410/6456.html",
+          "reason": "14 Gbps (1750 MHz × 8) эффективная"
+        }
+      }
+    },
+    {
+      "id": 566,
+      "fields": {
+        "tdp_watts": {
+          "value": 70,
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html",
+          "reason": "Без внешнего разъёма питания (TDP 70W)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html"
+        },
+        "core_clock_mhz": {
+          "value": 1470,
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html",
+          "reason": "Boost Clock 1470 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html",
+          "reason": "14 Gbps эффективная"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.maxsun.com.cn/2025/0327/6450.html"
+        }
+      }
+    },
+    {
+      "id": 567,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан в спецификации страницы MS-RX580 2048SP Big Mac Plus 8G на maxsun.com"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/ms-rx580-2048sp-big-mac-plus-8g",
+          "reason": "8-pin внешний разъём питания (PCIe 3.0 x16 & 8pin Next-gen Power Design)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/ms-rx580-2048sp-big-mac-plus-8g"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Engine/Base/Boost Clock не указан в спецификации страницы MAXSUN"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Память на странице указана как '6/7 Gbps Bandwidth' — диапазон, не конкретное значение для данной SKU"
+        }
+      }
+    },
+    {
+      "id": 568,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.maxsun.com/products/ms-rtx5060-trb-8g"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/ms-rtx5060-trb-8g",
+          "reason": "8-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.maxsun.com/products/ms-rtx5060-trb-8g"
+        },
+        "core_clock_mhz": {
+          "value": 2497,
+          "source_url": "https://www.maxsun.com/products/ms-rtx5060-trb-8g",
+          "reason": "Boost из диапазона Base Clock 2280-2497 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.maxsun.com/products/ms-rtx5060-trb-8g",
+          "reason": "Memory Speed 28 Gbps (GDDR7)"
+        }
+      }
+    },
+    {
+      "id": 569,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.maxsun.com/products/ms-gt1030-tf-4gd4"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com/products/ms-gt1030-tf-4gd4",
+          "reason": "Без внешнего разъёма (PCIe slot powered)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDVI",
+          "source_url": "https://www.maxsun.com/products/ms-gt1030-tf-4gd4"
+        },
+        "core_clock_mhz": {
+          "value": 1380,
+          "source_url": "https://www.maxsun.com/products/ms-gt1030-tf-4gd4",
+          "reason": "Boost из диапазона Core Clock 1152-1380 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 2100,
+          "source_url": "https://www.maxsun.com/products/ms-gt1030-tf-4gd4",
+          "reason": "Memory Speed 2.1 Gbps (DDR4)"
+        }
+      }
+    },
+    {
+      "id": 570,
+      "fields": {
+        "tdp_watts": {
+          "value": 38,
+          "source_url": "https://www.maxsun.com.cn/2025/0513/6479.html"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.maxsun.com.cn/2025/0513/6479.html",
+          "reason": "Без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "4xHDMI",
+          "source_url": "https://www.maxsun.com.cn/2025/0513/6479.html"
+        },
+        "core_clock_mhz": {
+          "value": 902,
+          "source_url": "https://www.maxsun.com.cn/2025/0513/6479.html"
+        },
+        "memory_clock_mhz": {
+          "value": 1333,
+          "source_url": "https://www.maxsun.com.cn/2025/0513/6479.html",
+          "reason": "Memory Speed 1333 Mbps (DDR3)"
+        }
+      }
+    },
+    {
+      "id": 571,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "8-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "Boost из диапазона Base Clock 1320-1777 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.maxsun.com/products/ms-rtx3060-tr-12g",
+          "reason": "Memory Speed 15 Gbps"
+        }
+      }
+    },
+    {
+      "id": 572,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — официальный сайт бренда (sinotex.ru) отсутствует в whitelist; согласно правилам null безопаснее серого домена"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 573,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — бренд не в whitelist официальных доменов"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 574,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — бренд не в whitelist официальных доменов"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 575,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — бренд не в whitelist официальных доменов"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 576,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — бренд не в whitelist официальных доменов"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 577,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex Ninja — бренд не в whitelist официальных доменов"
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Sinotex не в whitelist"
+        }
+      }
+    },
+    {
+      "id": 578,
+      "fields": {
+        "tdp_watts": {
+          "value": 130,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb",
+          "reason": "TBP (Total Board Power) 130W"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb",
+          "reason": "6-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort 1.4",
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb"
+        },
+        "core_clock_mhz": {
+          "value": 2825,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb",
+          "reason": "Boost Clock до 2825 MHz (Game Clock 2685)"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb",
+          "reason": "18 Gbps Effective"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6500-xt-4gnb"
+        }
+      }
+    },
+    {
+      "id": 579,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TBP не указан явно на странице Sapphire PULSE RX 7600 XT 16GB"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-xt-16g-gddr6",
+          "reason": "Карта оснащена внешним разъёмом питания (тип не указан явно)"
+        },
+        "video_outputs": {
+          "value": "2xHDMI, 2xDisplayPort 2.1",
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-xt-16g-gddr6"
+        },
+        "core_clock_mhz": {
+          "value": 2810,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-xt-16g-gddr6",
+          "reason": "Boost Clock до 2810 MHz (Game Clock 2539)"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-xt-16g-gddr6",
+          "reason": "18 Gbps Effective"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-xt-16g-gddr6"
+        }
+      }
+    },
+    {
+      "id": 580,
+      "fields": {
+        "tdp_watts": {
+          "value": 260,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-xt-16g-gddr6",
+          "reason": "TBP 260W"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-xt-16g-gddr6",
+          "reason": "Dual 8-pin PCIe внешние разъёмы питания"
+        },
+        "video_outputs": {
+          "value": "2xHDMI, 2xDisplayPort 2.1a",
+          "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-xt-16g-gddr6"
+        },
+        "core_clock_mhz": {
+          "value": 3010,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-xt-16g-gddr6",
+          "reason": "Boost Clock до 3010 MHz (Game Clock 2460)"
+        },
+        "memory_clock_mhz": {
+          "value": 20000,
+          "source_url": "https://www.sapphiretech.com/en/consumer/pure-radeon-rx-9070-xt-16g-gddr6",
+          "reason": "20 Gbps Effective"
+        }
+      }
+    },
+    {
+      "id": 581,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан на спец-странице ASUS GT710-SL-2GD3-BRK-EVO (только Recommended PSU 300W)"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd3-brk-evo/techspec/",
+          "reason": "Пассивная LP карта без внешних разъёмов питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 1.4b, 1xDVI-D, 1xVGA",
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd3-brk-evo/techspec/"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/asus/gt710-sl-2gd3-brk-evo/techspec/",
+          "reason": "Engine Clock 954 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "ASUS указал 'Memory Speed 900 MHz' без уточнения actual/effective; формат двусмысленный для DDR3 (effective был бы 1800 MHz)"
+        }
+      }
+    },
+    {
+      "id": 582,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан явно на спец-странице ASUS PH-RTX3050-8G-V2 (только Recommended PSU 550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/phoenix/ph-rtx3050-8g-v2/techspec/",
+          "reason": "1 x 8-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 1.4a",
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/phoenix/ph-rtx3050-8g-v2/techspec/"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/phoenix/ph-rtx3050-8g-v2/techspec/",
+          "reason": "Gaming mode Boost Clock 1777 MHz (OC mode 1807)"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/phoenix/ph-rtx3050-8g-v2/techspec/",
+          "reason": "Memory Speed 14 Gbps"
+        }
+      }
+    },
+    {
+      "id": 583,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан явно на спец-странице ASUS DUAL-RTX3060-O12G-V2 (только Recommended PSU 650W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/",
+          "reason": "1 x 8-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 1.4a",
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/"
+        },
+        "core_clock_mhz": {
+          "value": 1837,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/",
+          "reason": "Gaming mode Boost Clock 1837 MHz (OC mode 1867)"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/",
+          "reason": "Memory Speed 15 Gbps"
+        }
+      }
+    },
+    {
+      "id": 584,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан явно на спец-странице ASUS PRIME-RTX5060TI-16G (только Recommended PSU 550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-16g/techspec/",
+          "reason": "1 x 8-pin внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-16g/techspec/"
+        },
+        "core_clock_mhz": {
+          "value": 2572,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-16g/techspec/",
+          "reason": "Default Boost Clock 2572 MHz (OC mode 2602)"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/prime/prime-rtx5060ti-16g/techspec/",
+          "reason": "Memory Speed 28 Gbps (GDDR7)"
+        }
+      }
+    },
+    {
+      "id": 585,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP не указан явно на спец-странице ASUS TUF-RTX5060TI-O8G-GAMING (только Recommended PSU 550W)"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/techspec/",
+          "reason": "1 x 16-pin (12V-2x6) внешний разъём питания"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1b, 3xDisplayPort 2.1b",
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/techspec/"
+        },
+        "core_clock_mhz": {
+          "value": 2662,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/techspec/",
+          "reason": "Default Boost Clock 2662 MHz (OC mode 2692)"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/techspec/",
+          "reason": "Memory Speed 28 Gbps (GDDR7)"
+        }
+      }
+    }
+  ]
+}

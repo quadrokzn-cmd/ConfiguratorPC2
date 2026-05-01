@@ -1,0 +1,811 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_015",
+  "filled_at": "2026-05-01T12:00:00Z",
+  "items": [
+    {
+      "id": 766,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a6000/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a6000/",
+          "reason": "TDP 300 W >> 75 W из PCIe-слота — внешнее питание обязательно"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a6000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost/GPU clock не указан в HTML-спецификациях на странице продукта nvidia.com (присутствует только в PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML-спецификациях на странице продукта nvidia.com (присутствует только в PDF datasheet)"
+        }
+      }
+    },
+    {
+      "id": 767,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/",
+          "reason": "Single-slot карта 30 W — питание полностью из PCIe-слота, разъём дополнительного питания отсутствует"
+        },
+        "video_outputs": {
+          "value": "3xMini DisplayPort 1.4",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на nvidia.com (присутствует только в PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на nvidia.com (присутствует только в PDF datasheet)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        }
+      }
+    },
+    {
+      "id": 768,
+      "fields": {
+        "tdp_watts": {
+          "value": 50,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/",
+          "reason": "Single-slot карта 50 W — питание из PCIe-слота, разъём доп. питания отсутствует"
+        },
+        "video_outputs": {
+          "value": "4xMini DisplayPort 1.4",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        }
+      }
+    },
+    {
+      "id": 769,
+      "fields": {
+        "tdp_watts": {
+          "value": 50,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/",
+          "reason": "Single-slot карта 50 W — питание из PCIe-слота, разъём доп. питания отсутствует"
+        },
+        "video_outputs": {
+          "value": "4xMini DisplayPort 1.4",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        }
+      }
+    },
+    {
+      "id": 770,
+      "fields": {
+        "tdp_watts": {
+          "value": 50,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/",
+          "reason": "Single-slot карта 50 W — питание из PCIe-слота"
+        },
+        "video_outputs": {
+          "value": "4xMini DisplayPort 1.4",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на nvidia.com (только PDF datasheet)"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/"
+        }
+      }
+    },
+    {
+      "id": 771,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.nvidia.com/en-us/data-center/products/a16-gpu/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/products/a16-gpu/",
+          "reason": "Указан 8-pin CPU power connector, TDP 250 W"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "A16 — datacenter vGPU-карта без физических видеовыходов (passive, предназначена для виртуализации)"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице data-center/products/a16-gpu (NVIDIA boost зависит от power envelope, не указывает фиксированное значение)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 4×200 GB/s, но без точной частоты"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/data-center/products/a16-gpu/"
+        }
+      }
+    },
+    {
+      "id": 772,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/en-us/data-center/a40/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/a40/",
+          "reason": "Указан 8-pin CPU power connector, TDP 300 W"
+        },
+        "video_outputs": {
+          "value": "3xDisplayPort 1.4",
+          "source_url": "https://www.nvidia.com/en-us/data-center/a40/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost/peak clock не публикуется на странице A40 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": 20000,
+          "source_url": "https://www.nvidia.com/en-us/data-center/a40/",
+          "reason": "Memory speed 20 Gbps × 1000 = 20000 МГц эффективной"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/data-center/a40/"
+        }
+      }
+    },
+    {
+      "id": 773,
+      "fields": {
+        "tdp_watts": {
+          "value": 72,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/",
+          "reason": "1-slot low-profile passive 72 W — питание полностью из PCIe-слота, разъёма доп. питания нет"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "L4 — datacenter accelerator без физических видеовыходов"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице L4 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 300 GB/s"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/"
+        }
+      }
+    },
+    {
+      "id": 774,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/",
+          "reason": "Указан 1× PCIe CEM5 16-pin power connector, TDP 300 W"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице L40 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 864 GB/s"
+        }
+      }
+    },
+    {
+      "id": 775,
+      "fields": {
+        "tdp_watts": {
+          "value": 350,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/data-center/h100/PB-11133-001_v01.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/data-center/h100/PB-11133-001_v01.pdf",
+          "reason": "TDP 350 W — внешнее питание обязательно (16-pin CEM5)"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "H100 PCIe — compute-only datacenter card без физических видеовыходов"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице H100 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML; bandwidth 2 TB/s для H100 PCIe 80 GB"
+        },
+        "vram_type": {
+          "value": "HBM2e",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/data-center/h100/PB-11133-001_v01.pdf"
+        }
+      }
+    },
+    {
+      "id": 776,
+      "fields": {
+        "tdp_watts": {
+          "value": 600,
+          "source_url": "https://www.nvidia.com/en-us/data-center/h200/",
+          "reason": "Конфигурируемый TDP до 600 W — берём максимальное значение по spec"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/h200/",
+          "reason": "TDP до 600 W — обязательное внешнее питание"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "H200 NVL — compute-only datacenter card без физических видеовыходов"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице H200 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML; bandwidth 4.8 TB/s"
+        },
+        "vram_gb": {
+          "value": 141,
+          "source_url": "https://www.nvidia.com/en-us/data-center/h200/"
+        },
+        "vram_type": {
+          "value": "HBM3",
+          "source_url": "https://www.nvidia.com/en-us/data-center/h200/",
+          "reason": "На странице указано HBM3e; в нашем enum HBM3e отсутствует, ближайшее совместимое значение — HBM3 (см. правило валидации vram_type в gpu.md). Реально установлена память HBM3e."
+        }
+      }
+    },
+    {
+      "id": 777,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. странице NVIDIA CMP (https://www.nvidia.com/en-us/cmp/), которая содержит только модели 30HX/40HX/50HX/90HX. Публичных характеристик 170HX на nvidia.com нет."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. сайте NVIDIA"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP-карты по определению не имеют видеовыходов (см. https://www.nvidia.com/en-us/cmp/), но конкретно 170HX на оф. сайте не описан"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. сайте NVIDIA"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. сайте NVIDIA"
+        },
+        "vram_gb": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. сайте NVIDIA"
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "CMP 170HX отсутствует на оф. сайте NVIDIA"
+        }
+      }
+    },
+    {
+      "id": 778,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/",
+          "reason": "TDP 250 W — внешнее питание обязательно (PCIe CEM5 16-pin для Ada Generation workstation GPU)"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-5000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML на nvidia.com (только в PDF datasheet)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML на nvidia.com (только в PDF datasheet)"
+        }
+      }
+    },
+    {
+      "id": 779,
+      "fields": {
+        "tdp_watts": {
+          "value": 50,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/",
+          "reason": "Single-slot 50 W — питание полностью из PCIe-слота, разъёма доп. питания нет"
+        },
+        "video_outputs": {
+          "value": "4xMini DisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на странице продукта nvidia.com"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на странице продукта nvidia.com"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a400/"
+        }
+      }
+    },
+    {
+      "id": 780,
+      "fields": {
+        "tdp_watts": {
+          "value": 50,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/",
+          "reason": "Single-slot 50 W — питание полностью из PCIe-слота, разъёма доп. питания нет"
+        },
+        "video_outputs": {
+          "value": "4xMini DisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не указан в HTML-спецификациях на странице продукта nvidia.com"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed не указан в HTML-спецификациях на странице продукта nvidia.com"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/products/workstations/rtx-a1000/"
+        }
+      }
+    },
+    {
+      "id": 781,
+      "fields": {
+        "tdp_watts": {
+          "value": 250,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/quadro-pascal-p6000-data-sheet-us-nv-704590-r1.pdf"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/quadro-pascal-p6000-data-sheet-us-nv-704590-r1.pdf",
+          "reason": "TDP 250 W — внешнее питание обязательно (CEM 8-pin EPS на Quadro P6000)"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4, 1xDVI-D",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/quadro-pascal-p6000-data-sheet-us-nv-704590-r1.pdf"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock в HTML-спецификациях на nvidia.com не отображается, в найденных snippet-выдержках из PDF datasheet — без явного значения"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) явно не указан в найденных snippet-выдержках; bandwidth 432 GB/s на 384-bit, без точного значения частоты"
+        },
+        "vram_gb": {
+          "value": 24,
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/quadro-pascal-p6000-data-sheet-us-nv-704590-r1.pdf"
+        },
+        "vram_type": {
+          "value": "GDDR5X",
+          "source_url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/quadro-pascal-p6000-data-sheet-us-nv-704590-r1.pdf"
+        }
+      }
+    },
+    {
+      "id": 782,
+      "fields": {
+        "tdp_watts": {
+          "value": 72,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/",
+          "reason": "1-slot low-profile passive 72 W — питание полностью из PCIe-слота, разъёма доп. питания нет"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "L4 — datacenter accelerator без физических видеовыходов"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице L4 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 300 GB/s"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l4/"
+        }
+      }
+    },
+    {
+      "id": 783,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA L20 — China-региональный SKU. Публичная страница продукта на www.nvidia.com отсутствует (упоминается только в docs.nvidia.com vGPU compatibility list без полных характеристик). Согласно правилам, без оф. spec-страницы — null."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "L20 не имеет публичной spec-страницы на nvidia.com"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "L20 не имеет публичной spec-страницы на nvidia.com"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "L20 не имеет публичной spec-страницы на nvidia.com"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "L20 не имеет публичной spec-страницы на nvidia.com"
+        },
+        "vram_type": {
+          "value": null,
+          "source_url": null,
+          "reason": "L20 не имеет публичной spec-страницы на nvidia.com"
+        }
+      }
+    },
+    {
+      "id": 784,
+      "fields": {
+        "tdp_watts": {
+          "value": 350,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40s/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40s/",
+          "reason": "Указан 16-pin power connector, TDP 350 W"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40s/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице L40S в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 864 GB/s"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40s/"
+        }
+      }
+    },
+    {
+      "id": 785,
+      "fields": {
+        "tdp_watts": {
+          "value": 300,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/",
+          "reason": "Указан 1× PCIe CEM5 16-pin power connector, TDP 300 W"
+        },
+        "video_outputs": {
+          "value": "4xDisplayPort 1.4a",
+          "source_url": "https://www.nvidia.com/en-us/data-center/l40/"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Boost clock не публикуется на оф. странице L40 в HTML"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Memory speed (Gbps) не указан в HTML; bandwidth 864 GB/s"
+        }
+      }
+    },
+    {
+      "id": 786,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP/TBP не указан на оф. странице ASRock; есть только рекомендация PSU 700 W"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://pg.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A770%20Phantom%20Gaming%2016GB%20OC/",
+          "reason": "Указано 2× 8-pin power connectors"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.0",
+          "source_url": "https://pg.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A770%20Phantom%20Gaming%2016GB%20OC/"
+        },
+        "core_clock_mhz": {
+          "value": 2200,
+          "source_url": "https://pg.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A770%20Phantom%20Gaming%2016GB%20OC/"
+        },
+        "memory_clock_mhz": {
+          "value": 17500,
+          "source_url": "https://pg.asrock.com/Graphics-Card/Intel/Intel%20Arc%20A770%20Phantom%20Gaming%2016GB%20OC/",
+          "reason": "Memory speed 17.5 Gbps × 1000 = 17500 МГц эффективной"
+        }
+      }
+    },
+    {
+      "id": 787,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP/TBP явно не указан на оф. странице ASRock"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%206600%20Challenger%20White%208GB/index.us.asp",
+          "reason": "Указан 1× 8-pin power connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 1.4",
+          "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%206600%20Challenger%20White%208GB/index.us.asp"
+        },
+        "core_clock_mhz": {
+          "value": 2491,
+          "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%206600%20Challenger%20White%208GB/index.us.asp",
+          "reason": "Boost Clock up to 2491 MHz (Game Clock 2044 MHz)"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%206600%20Challenger%20White%208GB/index.us.asp",
+          "reason": "Memory speed 14 Gbps × 1000 = 14000 МГц эффективной"
+        }
+      }
+    },
+    {
+      "id": 788,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель ASRock RX 6750 GRE Challenger 10GB OC отсутствует на оф. сайте ASRock (asrock.com/pg.asrock.com — 404). Это China-региональная модель; согласно правилам, без оф. spec-страницы — null."
+        },
+        "needs_extra_power": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель отсутствует на оф. сайте ASRock"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель отсутствует на оф. сайте ASRock"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель отсутствует на оф. сайте ASRock"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель отсутствует на оф. сайте ASRock"
+        }
+      }
+    },
+    {
+      "id": 789,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP/TBP явно не указан на оф. странице ASRock"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://pg.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Phantom%20Gaming%208GB%20OC/index.us.asp",
+          "reason": "Указан 1× 8-pin power connector"
+        },
+        "video_outputs": {
+          "value": "1xHDMI 2.1, 3xDisplayPort 2.1",
+          "source_url": "https://pg.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Phantom%20Gaming%208GB%20OC/index.us.asp"
+        },
+        "core_clock_mhz": {
+          "value": 2755,
+          "source_url": "https://pg.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Phantom%20Gaming%208GB%20OC/index.us.asp",
+          "reason": "Boost Clock up to 2755 MHz (Game Clock 2355 MHz)"
+        },
+        "memory_clock_mhz": {
+          "value": 18000,
+          "source_url": "https://pg.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Phantom%20Gaming%208GB%20OC/index.us.asp",
+          "reason": "Memory speed 18 Gbps × 1000 = 18000 МГц эффективной"
+        },
+        "vram_type": {
+          "value": "GDDR6",
+          "source_url": "https://pg.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Phantom%20Gaming%208GB%20OC/index.us.asp"
+        }
+      }
+    },
+    {
+      "id": 790,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TDP/TGP не указан на оф. странице Gigabyte; есть только рекомендация PSU 450 W"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060EAGLE-OC-8GD/sp",
+          "reason": "Указан 1× 8-pin power connector"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Точный список выходов не извлечён со spec-страницы Gigabyte (страница вернула 403 при WebFetch); в search-snippet'ах детали по выходам отсутствуют"
+        },
+        "core_clock_mhz": {
+          "value": 2550,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060EAGLE-OC-8GD/sp",
+          "reason": "Boost Clock 2550 MHz (OC mode), Reference 2497 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060EAGLE-OC-8GD/sp",
+          "reason": "Memory speed 28 Gbps × 1000 = 28000 МГц эффективной (GDDR7)"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.gigabyte.com/Graphics-Card/GV-N5060EAGLE-OC-8GD/sp"
+        }
+      }
+    }
+  ]
+}

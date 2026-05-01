@@ -1,0 +1,916 @@
+{
+  "category": "gpu",
+  "batch_id": "batch_006",
+  "filled_at": "2026-04-30T22:30:00Z",
+  "items": [
+    {
+      "id": 496,
+      "fields": {
+        "tdp_watts": {
+          "value": 145,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "NVIDIA reference RTX 5060: TGP 145W. CBR — manufacturer 'unknown', применяется reference per gpu.md правило 2"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "Reference требует 1x 8-pin PCIe или 300W PCIe Gen 5 кабель (адаптер в комплекте)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "Reference RTX 5060: 1xHDMI + 3xDisplayPort"
+        },
+        "core_clock_mhz": {
+          "value": 2500,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "Reference Boost Clock 2.5 GHz"
+        },
+        "memory_clock_mhz": {
+          "value": 28000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "Reference RTX 5060: 28 Gbps GDDR7 = 28000 МГц эффективная"
+        },
+        "vram_gb": {
+          "value": 8,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/",
+          "reason": "Reference: 8GB GDDR7"
+        },
+        "vram_type": {
+          "value": "GDDR7",
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"
+        }
+      }
+    },
+    {
+      "id": 497,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "NVIDIA reference RTX 4060: Graphics Card Power 115W. CBR Terminator B — manufacturer 'unknown', применяется reference"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference RTX 4060 требует 1x PCIe 8-pin (адаптер) или 300W PCIe Gen 5 кабель"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference: HDMI + 3xDisplayPort. Совпадает с raw_name (3*DP+1*HDMI2.1)"
+        },
+        "core_clock_mhz": {
+          "value": 2460,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference Boost Clock 2.46 GHz = 2460 МГц"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference RTX 4060: 17 Gbps GDDR6 = 17000 МГц. Совпадает с raw_name (17000Mhz)"
+        }
+      }
+    },
+    {
+      "id": 498,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference GT 1030 GDDR5: 30W TGP. Совпадает с raw_name"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference: Supplemental Power Connectors — None. 30W < 75W лимита PCIe-слота"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GT 1030 — конфигурация выходов варьируется по AIB; CBR-бренд не в whitelist для верификации конкретной карты"
+        },
+        "core_clock_mhz": {
+          "value": 1468,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference GT 1030 GDDR5: Boost Clock 1468 MHz. Совпадает с raw_name (1227/6000)"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference GDDR5 6 Gbps = 6000 МГц эффективная. Совпадает с raw_name"
+        }
+      }
+    },
+    {
+      "id": 499,
+      "fields": {
+        "tdp_watts": {
+          "value": 115,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "NVIDIA reference RTX 4060: 115W. CBR — manufacturer 'unknown', reference применяется"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference: 1x 8-pin PCIe или 300W PCIe Gen 5"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference: HDMI + 3xDP. Совпадает с raw_name"
+        },
+        "core_clock_mhz": {
+          "value": 2460,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference Boost 2.46 GHz"
+        },
+        "memory_clock_mhz": {
+          "value": 17000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+          "reason": "Reference 17 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 500,
+      "fields": {
+        "tdp_watts": {
+          "value": 170,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+          "reason": "Reference RTX 3060 12GB: 170W TGP. Совпадает с raw_name"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+          "reason": "RTX 3060 170W — по индустрии требует 8-pin/12-pin"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+          "reason": "Reference: HDMI 2.1 + 3xDisplayPort 1.4a. Совпадает с raw_name"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+          "reason": "Reference Boost 1.78 GHz = 1777 МГц"
+        },
+        "memory_clock_mhz": {
+          "value": 15000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+          "reason": "Reference RTX 3060 12GB: 15 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 501,
+      "fields": {
+        "tdp_watts": {
+          "value": 130,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference RTX 3050 8GB: 130W. Совпадает с raw_name"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference: 1x 8-pin PCIe для 130W-варианта"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "CBR-вариант имеет DVI (raw_name: DP+HDMI+DVI), что отличается от NVIDIA reference (1xHDMI+2xDP). CBR-сайт не в whitelist для верификации"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference RTX 3050 8GB: Boost ~1.78 GHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference RTX 3050 8GB: 14 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 502,
+      "fields": {
+        "tdp_watts": {
+          "value": 130,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference RTX 3050 8GB: 130W. Совпадает с raw_name"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference: 1x 8-pin PCIe для 130W"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "CBR-вариант имеет 3xDP (raw_name: 3 DP + HDMI), что отличается от NVIDIA reference Founders Edition (1xHDMI+2xDP). CBR-сайт не в whitelist для верификации"
+        },
+        "core_clock_mhz": {
+          "value": 1777,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference Boost ~1.78 GHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3050/",
+          "reason": "Reference 14 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 503,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для GTX 1660 SUPER не доступна (404); CBR-сайт не в whitelist. Reference TDP 125W не на whitelist-странице"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/news/nvidia-geforce-gtx-1660-super-1650-super/",
+          "reason": "GTX 1660 SUPER чип ~125W — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GTX 1660 SUPER конфигурация выходов варьируется по AIB; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GTX 1660 SUPER не доступна; reference 1530/1785 MHz не на whitelist-странице"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/news/nvidia-geforce-gtx-1660-super-1650-super/",
+          "reason": "NVIDIA news: GTX 1660 SUPER features 14 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 504,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для GTX 1650 GDDR6 не доступна (404); CBR-сайт не в whitelist"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/16-series/",
+          "reason": "GTX 1650 75W — по индустрии вписывается в лимит PCIe-слота, reference card не требует доп. питания"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GTX 1650 — конфигурация выходов варьируется по AIB; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GTX 1650 GDDR6 не доступна; reference 1410/1590 MHz не подтверждена на whitelist-странице"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GTX 1650 GDDR6 не доступна (12 Gbps reference не на whitelist-странице)"
+        }
+      }
+    },
+    {
+      "id": 505,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference GT 1030 GDDR5: 30W. Совпадает с raw_name"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference: Supplemental Power None"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GT 1030 — конфигурация варьируется по AIB; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": 1468,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference Boost 1468 MHz. Совпадает с raw_name"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/gt-1030/specifications/",
+          "reason": "Reference GDDR5 6 Gbps. Совпадает с raw_name"
+        }
+      }
+    },
+    {
+      "id": 506,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для GT 730 не доступна (404); CBR-сайт не в whitelist. Чип GT 730 устаревший, NVIDIA сняла страницу"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": null,
+          "reason": "GT 730 чип ~25-49W — по индустрии не требует доп. питания, но без официального источника на whitelist оставляю reason без URL"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GT 730 — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 730 DDR3 128bit не доступна"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 730 DDR3 не доступна"
+        }
+      }
+    },
+    {
+      "id": 507,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для GT 710 не доступна (404); CBR-сайт не в whitelist"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": null,
+          "reason": "GT 710 чип ~19-29W — по индустрии не требует доп. питания, но без whitelist-источника"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GT 710 — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 710 не доступна"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 710 не доступна"
+        }
+      }
+    },
+    {
+      "id": 508,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для G210/GT 210 не доступна (устаревший чип, страница снята); CBR-сайт не в whitelist"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": null,
+          "reason": "G210 чип ~30W — по индустрии не требует доп. питания, но без whitelist-источника"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "G210 — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для G210 не доступна"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для G210 не доступна"
+        }
+      }
+    },
+    {
+      "id": 509,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для RTX 2060 SUPER не доступна (404); CBR-сайт не в whitelist. Reference 175W не на whitelist-странице"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/news/nvidia-geforce-rtx-2060-super-rtx-2070-super-out-now/",
+          "reason": "RTX 2060 SUPER чип ~175W — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "RTX 2060 SUPER — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для RTX 2060 SUPER не доступна; reference 1470/1650 MHz не на whitelist-странице"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.nvidia.com/en-us/geforce/news/nvidia-geforce-rtx-2060-super-rtx-2070-super-out-now/",
+          "reason": "NVIDIA news: RTX 2060 SUPER 'upgraded 8GB of GDDR6 on a faster 256-bit memory bus'; стандарт 14 Gbps GDDR6"
+        }
+      }
+    },
+    {
+      "id": 510,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для RTX 2060 не доступна (404); CBR-сайт не в whitelist. Reference 160W не на whitelist-странице"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/news/nvidia-geforce-rtx-2060/",
+          "reason": "RTX 2060 чип ~160W — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "RTX 2060 — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для RTX 2060 не доступна; reference 1365/1680 MHz не на whitelist-странице"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для RTX 2060 не доступна; reference 14 Gbps не на whitelist-странице"
+        }
+      }
+    },
+    {
+      "id": 511,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA dedicated spec-страница для GT 610 не доступна (устаревший OEM-чип, страница снята); CBR-сайт не в whitelist"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": null,
+          "reason": "GT 610 чип ~29W — по индустрии не требует доп. питания, но без whitelist-источника"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "GT 610 — конфигурация варьируется; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 610 не доступна"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA spec-страница для GT 610 не доступна"
+        }
+      }
+    },
+    {
+      "id": 512,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "raw_name указывает '2048, 1168MHz, 150W' — это RX 580 2048SP вариант (Chinese OEM, ребрендинг RX 480), не стандартный Radeon RX 580. AMD не публикует спецификацию 2048SP-варианта на amd.com"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": null,
+          "reason": "RX 580 2048SP ~150W — по индустрии всегда требует 8-pin PCIe (Dual Fan PCIE 3.0). Без whitelist-источника"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "RX 580 2048SP не описана на amd.com; CBR-сайт не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "1168 MHz относится к 2048SP-варианту (не стандартный RX 580 1340 boost); AMD не публикует 2048SP"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "AMD не публикует параметры 2048SP-варианта"
+        }
+      }
+    },
+    {
+      "id": 513,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "amd.com продуктовая страница RX 550 даёт таймаут при WebFetch (>60s); CBR-сайт не в whitelist"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": null,
+          "reason": "RX 550 ~50W — по индустрии не требует доп. питания (вписывается в лимит PCIe-слота)"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "RX 550 — конфигурация варьируется по AIB; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "AMD продуктовая страница недоступна (timeout); reference Boost 1183 MHz не на whitelist-странице"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "AMD продуктовая страница недоступна; reference 7 Gbps GDDR5 не на whitelist-странице"
+        }
+      }
+    },
+    {
+      "id": 514,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA family-страница RTX 3070/3070Ti не показывает TGP в извлечённом фрагменте (показаны только CUDA cores, Boost Clock, Memory). Reference 290W не подтверждён на whitelist-странице"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3070-3070ti/",
+          "reason": "RTX 3070 Ti ~290W — по индустрии всегда требует 8-pin/12-pin (часто 2x8-pin или 12VHPWR)"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Конкретная конфигурация варьируется по AIB; CBR-бренд не в whitelist"
+        },
+        "core_clock_mhz": {
+          "value": 1770,
+          "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3070-3070ti/",
+          "reason": "Reference RTX 3070 Ti: Boost Clock 1.77 GHz = 1770 МГц. Совпадает с raw_name (1575-1770Mhz)"
+        },
+        "memory_clock_mhz": {
+          "value": null,
+          "source_url": null,
+          "reason": "NVIDIA family-страница не показывает Memory Speed в Gbps; reference 19 Gbps GDDR6X не подтверждён на whitelist-странице"
+        }
+      }
+    },
+    {
+      "id": 515,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=455",
+          "reason": "GTX 1660 ~120W ATX 2FAN — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": null,
+          "source_url": null,
+          "reason": "Раздельная страница для AF1660-6144D5H4/H7 на afox-corp.com не найдена; страница AF1660-6144D5H2 показывает HDMI+DP+DVI, но raw_name содержит лишь 'HDMI ATX 2FAN' — конфигурация конкретного варианта не подтверждена"
+        },
+        "core_clock_mhz": {
+          "value": 1785,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=455",
+          "reason": "AFOX GTX 1660 (AF1660 серия): Boost Clock 1785 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 8000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=455",
+          "reason": "AFOX GTX 1660 GDDR5: Memory Speed 8 Gbps = 8000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 516,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=150",
+          "reason": "G210 LP Passive — устаревший чип ~30W, питание только из PCIe-слота, доп. разъёма нет"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=150",
+          "reason": "AFOX G210 серия (модели AF210-1024D3L5, AF210-512D3L5 и т.п.): D-Sub + DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 550,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=150",
+          "reason": "AFOX G210: Engine Clock 550 MHz (Boost не указан)"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=49&id=150",
+          "reason": "AFOX G210 DDR3: Memory Clock 1600 MHz эффективная"
+        }
+      }
+    },
+    {
+      "id": 517,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "GT 710 Passive ~19-29W, питание только из PCIe-слота, доп. разъём отсутствует"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710 (включая AF710-2048D3L5): D-Sub + DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710: Engine Clock 954 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710 DDR3: Memory Clock 1600 MHz эффективная"
+        }
+      }
+    },
+    {
+      "id": 518,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "GT 710 ~19-29W, AFOX 1FAN ATX вариант без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710 серия (V3 — fan-вариант той же платы AF710-2048D3L5): D-Sub + DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710 серия: Engine Clock 954 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=128",
+          "reason": "AFOX GT 710 DDR3: Memory Clock 1600 MHz эффективная"
+        }
+      }
+    },
+    {
+      "id": 519,
+      "fields": {
+        "tdp_watts": {
+          "value": 49,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=131",
+          "reason": "AFOX GT 730 GDDR3 4GB: Approx. Power Consumption 49W"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=131",
+          "reason": "GT 730 49W < 75W лимита PCIe-слота, AFOX-страница: Power Connectors — No"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=131",
+          "reason": "AFOX GT 730 (AF730-4096D3L5 в перечне моделей страницы): D-Sub + DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 700,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=131",
+          "reason": "AFOX GT 730 GDDR3: Base Clock 700 MHz (Boost не указан)"
+        },
+        "memory_clock_mhz": {
+          "value": 1333,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=131",
+          "reason": "AFOX GT 730 DDR3: Memory Clock 1333 MHz"
+        }
+      }
+    },
+    {
+      "id": 520,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "GTX 1660 SUPER ~125W ATX Dual Fan — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER серия (страница AF1660S-6144D6H4-V2): HDMI + DP + DVI; raw_name 'DP/DV/HDMI' для AF1660S-6144D6H7-V2/V4 совпадает"
+        },
+        "core_clock_mhz": {
+          "value": 1785,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER: Boost Clock 1785 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER GDDR6: Memory Speed 14 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 521,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/show-42-324-1.html",
+          "reason": "RTX 3060 Ti ~200W ATX Dual Fan — по индустрии всегда требует 8-pin (часто 2x8-pin)"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 3xDisplayPort",
+          "source_url": "https://www.afox-corp.com/show-42-324-1.html",
+          "reason": "AFOX RTX 3060 Ti (AF3060TI-8192D6H7): HDMI + 3xDP. Совпадает с raw_name '3xDP/HDMI'"
+        },
+        "core_clock_mhz": {
+          "value": 1665,
+          "source_url": "https://www.afox-corp.com/show-42-324-1.html",
+          "reason": "AFOX RTX 3060 Ti: Boost Clock 1665 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/show-42-324-1.html",
+          "reason": "AFOX RTX 3060 Ti GDDR6: Memory Speed 14 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 522,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "GT 710 ~19-29W, AFOX 1FAN ATX-вариант без внешнего разъёма питания"
+        },
+        "video_outputs": {
+          "value": "1xVGA, 1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "AFOX GT 710 GDDR3 4GB: D-Sub + DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 954,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "AFOX GT 710: Base Clock 954 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 1600,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=46&id=178",
+          "reason": "AFOX GT 710 DDR3 4GB: Memory Clock 1333-1600 MHz, верхняя граница 1600"
+        }
+      }
+    },
+    {
+      "id": 523,
+      "fields": {
+        "tdp_watts": {
+          "value": 30,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "AFOX GT 1030 GDDR5: TDP 30W"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "GT 1030 30W < 75W лимита PCIe-слота, AFOX-страница не указывает Power Connectors"
+        },
+        "video_outputs": {
+          "value": "1xDVI, 1xHDMI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "AFOX GT 1030 (AF1030-2048D5L7 в перечне моделей страницы): DVI + HDMI"
+        },
+        "core_clock_mhz": {
+          "value": 1468,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "AFOX GT 1030: Boost Clock 1468 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 6000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=139",
+          "reason": "AFOX GT 1030 GDDR5: Memory 6000 MHz эффективная"
+        }
+      }
+    },
+    {
+      "id": 524,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": true,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "GTX 1660 SUPER ~125W ATX 2FAN — по индустрии всегда требует 8-pin PCIe"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDisplayPort, 1xDVI",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER серия: HDMI + DP + DVI. Совпадает с raw_name 'DP/DVI/HDMI' для AF1660S-6144D6H1-V4"
+        },
+        "core_clock_mhz": {
+          "value": 1785,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER: Boost Clock 1785 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 14000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=44&id=468",
+          "reason": "AFOX GTX 1660 SUPER GDDR6: 14 Gbps = 14000 МГц эффективная"
+        }
+      }
+    },
+    {
+      "id": 525,
+      "fields": {
+        "tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "AFOX не публикует TDP в спецификации продукта"
+        },
+        "needs_extra_power": {
+          "value": false,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=475",
+          "reason": "GTX 1050 Ti ~75W вписывается в лимит PCIe-слота; reference NVIDIA не требует доп. питания, AFOX-страница не указывает Power Connectors"
+        },
+        "video_outputs": {
+          "value": "1xHDMI, 1xDVI, 1xDisplayPort",
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=475",
+          "reason": "AFOX GTX 1050 Ti GAMING (AF1050TI-4096D5H7 серия): HDMI + DVI + DP"
+        },
+        "core_clock_mhz": {
+          "value": 1392,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=475",
+          "reason": "AFOX GTX 1050 Ti: Boost Clock 1392 MHz"
+        },
+        "memory_clock_mhz": {
+          "value": 7000,
+          "source_url": "https://www.afox-corp.com/index.php?m=content&c=index&a=show&catid=45&id=475",
+          "reason": "AFOX GTX 1050 Ti GDDR5: Memory Clock 7 Gbps = 7000 МГц эффективная"
+        }
+      }
+    }
+  ]
+}
