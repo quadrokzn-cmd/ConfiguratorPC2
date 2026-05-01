@@ -75,9 +75,15 @@ def _build_remote_cmd(
 
 
 def _build_railway_cmd(remote_cmd: list[str]) -> list[str]:
-    """Полная команда: railway ssh -s <service> -i <key> -- <remote_cmd...>."""
+    """Полная команда: railway ssh -s <service> -i <key> -- <remote_cmd...>.
+
+    На Windows shutil.which возвращает railway.CMD; при literal "railway"
+    subprocess.CreateProcess не ищет .cmd-расширения и падает с
+    FileNotFoundError. Поэтому первый элемент берём из which.
+    """
+    railway_bin = shutil.which("railway") or "railway"
     return [
-        "railway", "ssh",
+        railway_bin, "ssh",
         "-s", RAILWAY_SERVICE,
         "-i", str(RAILWAY_SSH_KEY),
         "--",

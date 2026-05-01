@@ -945,6 +945,48 @@ Aerocool Core Plus 120мм, попал в категорию ошибочно).
   отложено в потенциальный 11.6.2.6.x. Подробности —
   `docs/enrichment_techdebt.md §13`.
 
+### Этап 11.6.2.4.1a — Подготовка AI-обогащения категории Case ✅
+
+Подготовительный этап перед параллельным AI-обогащением Case через
+несколько чатов Claude Code. Состоит из верификации upstream'а,
+обновления промпт-файла и выгрузки batch'ей с прод-БД через workflow
+из 11.6.2.3.3.
+
+- **Верификация upstream-classifier** —
+  `app/services/price_loaders/orchestrator.py::_create_skeleton`
+  (строки 209-216) уже содержит вызов всех 5 детекторов из 11.6.2.4.0
+  (`is_likely_loose_case_fan` / `drive_cage` / `pcie_riser` /
+  `case_panel_or_filter` / `gpu_support_bracket`); при срабатывании
+  скелет помечается `is_hidden=True`. Дополнительных правок в код
+  загрузки не потребовалось.
+- **Обновлён `enrichment/prompts/case.md`** по образцу `cooler.md` /
+  `gpu.md`. В новом промпте: целевые поля и валидаторы строго из
+  `claude_code/schema.py` (`has_psu_included`, `supported_form_factors`,
+  `included_psu_watts`); whitelist 25 доменов синхронизирован с
+  `OFFICIAL_DOMAINS` (включая 6 case-вендоров, добавленных в 11.6.2.4.0);
+  жёсткое правило honest-null; защитный слой для SBC (Raspberry/Orange/
+  Rock Pi, Pico, Arduino, SBC) — все три поля `null`; формат ответа с
+  `sources_used` в корне; 3 примера input/output (Define 7 без БП,
+  POWERMAN ST-2202 с встроенным БП 450 Вт, Raspberry Pi case).
+- **`.gitignore` расширен**: `enrichment/pending/` теперь
+  игнорируется как runtime-артефакт. Старые tracked-batch'и из
+  pending/ остаются в истории; новые batch'и от
+  `enrich_export_prod.py` в индекс не попадают.
+- **Workflow-фикс для Windows** —
+  `scripts/enrich_export_prod.py::_build_railway_cmd`: на Windows
+  `subprocess.run` не дополняет литерал `"railway"` до
+  `railway.CMD`; теперь имя бинаря резолвится через
+  `shutil.which("railway")`.
+- **Выгрузка с прода**:
+  `python scripts/enrich_export_prod.py --category case --batch-size 30`
+  → 8 batch'ей в `enrichment/pending/case/` (230 items суммарно).
+  **Сюрприз**: на прод-БД оказалось не ~1840 NULL-кандидатов, а 288
+  (58 уже представлены в `done/`/`archive/` — пропущены, к экспорту
+  пошли 230). Скорее всего, регекс- и derived-правила из 11.6.2.x.x
+  закрыли больше полей, чем учитывала первоначальная оценка.
+- **Артефакт**: AI-обогащение в этом этапе НЕ запускается — это фаза
+  для параллельных пользовательских чатов в фоне.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

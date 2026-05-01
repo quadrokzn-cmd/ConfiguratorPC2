@@ -32,6 +32,12 @@ visual_samples/
 # перенесена из подкорзины pending/ после regex-этапа.
 enrichment/stale_pending_20260424/
 
+# Pending-batch'и AI-обогащения (этап 11.6.2.4.1a) — runtime-артефакт,
+# выгружается с прод-БД через scripts/enrich_export_prod.py непосредственно
+# перед прогоном AI-чатов. В репо не нужен. Старые легаси batch'и под
+# pending/ остаются tracked — gitignore их из истории не убирает.
+enrichment/pending/
+
 # Дизайн-референсы для этапа 9 (редизайн UI)
 design_references/
 
