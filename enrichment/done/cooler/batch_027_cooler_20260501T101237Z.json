@@ -1,0 +1,426 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_027",
+  "filled_at": "2026-05-01T11:00:00Z",
+  "items": [
+    {
+      "id": 1886,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant DX-40, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant DX-40, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1887,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant DX-40B, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant DX-40B, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1888,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant 60-0213 (60 Вт, д/у), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant 60-0213, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1889,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant 60-0221 (50 Вт, д/у), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой напольный вентилятор Rexant 60-0221, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1890,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой настольный USB-вентилятор Rexant 60-0214, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бытовой настольный USB-вентилятор Rexant 60-0214, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1891,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Тепловентилятор ПАРМА ТВК-02-2000 (бытовой обогреватель), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Тепловентилятор ПАРМА ТВК-02-2000 (бытовой обогреватель), не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1892,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Тепловентилятор ПАРМА ТВК-02-3000 (бытовой обогреватель), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Тепловентилятор ПАРМА ТВК-02-3000 (бытовой обогреватель), не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1893,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Комплект креплений DeepCool EM009 (mounting kit), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Комплект креплений DeepCool EM009, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1894,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling AS-120-K, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling AS-120-K, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1895,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор PCCooler FX-120-3 (Fixed Color Fan 120x120x25mm), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор PCCooler FX-120-3, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1896,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling AS-120-ARGB-W, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling AS-120-ARGB-W, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1897,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.idcooling.com/product/detail?id=320"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=320"
+        }
+      }
+    },
+    {
+      "id": 1898,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 260,
+          "source_url": "https://www.idcooling.com/product/detail?id=496&name=FROZN+A620+PRO+SE"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=496&name=FROZN+A620+PRO+SE"
+        }
+      }
+    },
+    {
+      "id": 1899,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 95,
+          "source_url": "https://ru.deepcool.com/products/Cooling/cpuaircoolers/GAMMA-ARCHER-V2-Top-Flow-CPU-Cooler-1851-1700-AM5/2024/18932.shtml"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://ru.deepcool.com/products/Cooling/cpuaircoolers/GAMMA-ARCHER-V2-Top-Flow-CPU-Cooler-1851-1700-AM5/2024/18932.shtml"
+        }
+      }
+    },
+    {
+      "id": 1900,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 150,
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AG300-Marrs-CPU-Cooler-1851-1700-AM5/2022/16568.shtml"
+        }
+      }
+    },
+    {
+      "id": 1901,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Вендор PentaWave не входит в whitelist оф. сайтов кулеров. Спецификации с серых источников брать запрещено."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Вендор PentaWave не входит в whitelist оф. сайтов кулеров. Спецификации с серых источников брать запрещено."
+        }
+      }
+    },
+    {
+      "id": 1903,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — ARCTIC не публикует TDP support для серии Liquid Freezer III Pro на странице товара ACFRE00188A"
+        },
+        "supported_sockets": {
+          "value": ["AM5", "AM4", "LGA1851", "LGA1700"],
+          "source_url": "https://support.arctic.de/liquid-freezer-III-pro-360-argb/"
+        }
+      }
+    },
+    {
+      "id": 1904,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/galahad-ii-trinity/"
+        }
+      }
+    },
+    {
+      "id": 1905,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 260,
+          "source_url": "https://www.idcooling.com/product/detail?id=323&name=DASHFLOW+240+BASIC+WHITE"
+        }
+      }
+    },
+    {
+      "id": 1906,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1851-1700-AM5/2024/15898.shtml"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1851-1700-AM5/2024/15898.shtml"
+        }
+      }
+    },
+    {
+      "id": 1907,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 240,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1530"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1530"
+        }
+      }
+    },
+    {
+      "id": 1909,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор на SSD M.2 ID-Cooling Zero M15, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор на SSD M.2 ID-Cooling Zero M15, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1910,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов ID-Cooling FH-10 PWM, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов ID-Cooling FH-10 PWM, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1911,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling XF-120-K (Case Fan, 120x120x25mm, PWM), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling XF-120-K, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1912,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.idcooling.com/product/detail?id=312&name=SE-207-XT+SLIM"
+        },
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011", "LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=312&name=SE-207-XT+SLIM"
+        }
+      }
+    },
+    {
+      "id": 1913,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Deepcool FD14 ARGB (Case Fan, 4-pin, 25.6 dBA), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Deepcool FD14 ARGB, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1915,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Lian Li UNI FAN SL-INF 120 (G99.12SLIN1B.R0), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Lian Li UNI FAN SL-INF 120, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1916,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling TF-9215-ARGB (Case Fan 92mm), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор ID-Cooling TF-9215-ARGB, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1917,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Aerocool Motion 12 Plus (Fan 120mm, 3pin+Molex), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Aerocool Motion 12 Plus, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1918,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Deepcool FT9 SLIM (Case fan, White LED), не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор Deepcool FT9 SLIM, не процессорный кулер"
+        }
+      }
+    }
+  ]
+}

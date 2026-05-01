@@ -1,0 +1,128 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_028",
+  "filled_at": "2026-05-01T11:05:00Z",
+  "items": [
+    {
+      "id": 1921,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/us/Liquid-Freezer-III-360-A-RGB-Black/ACFRE00144A"
+        }
+      }
+    },
+    {
+      "id": 1923,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1924,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 100,
+          "source_url": "https://www.idcooling.com/Product/detail/id/42/name/DK-03"
+        }
+      }
+    },
+    {
+      "id": 1925,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1926,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1927,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Стоковый Intel-кулер из коробки, спецификации на оф. сайтах из whitelist кулеров не опубликованы"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Стоковый Intel-кулер из коробки, спецификации на оф. сайтах из whitelist кулеров не опубликованы"
+        }
+      }
+    },
+    {
+      "id": 1929,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1200", "LGA1151", "LGA1150", "LGA1155"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/2021/15195.shtml"
+        }
+      }
+    },
+    {
+      "id": 1932,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1935,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1156", "LGA1155", "LGA1151", "LGA1150", "AM5", "AM4", "FM2+", "FM2", "FM1", "AM3+", "AM3", "AM2"],
+          "source_url": "https://www.idcooling.com/product/detail?id=399&name=SE-903-SD+V3"
+        }
+      }
+    }
+  ]
+}

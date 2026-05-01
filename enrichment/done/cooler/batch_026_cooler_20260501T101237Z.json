@@ -1,0 +1,277 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_026",
+  "filled_at": "2026-05-01T10:30:00Z",
+  "items": [
+    {
+      "id": 1856,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-360-v3/"
+        }
+      }
+    },
+    {
+      "id": 1857,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-360-white-v3/"
+        }
+      }
+    },
+    {
+      "id": 1858,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-360-argb-black-v5/"
+        }
+      }
+    },
+    {
+      "id": 1859,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-360-argb-black-v6/"
+        }
+      }
+    },
+    {
+      "id": 1860,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-360-argb-white-v6/"
+        }
+      }
+    },
+    {
+      "id": 1861,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/core-matrix-360-vision-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1862,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/elite-vision-360-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1863,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-horizon-360-digital-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1864,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-infinity-360-black/"
+        }
+      }
+    },
+    {
+      "id": 1865,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-magic-360-digital-argb-black-v2/"
+        }
+      }
+    },
+    {
+      "id": 1866,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-magic-360-digital-argb-white-v2/"
+        }
+      }
+    },
+    {
+      "id": 1867,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/mjolnir-vision-360-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1868,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/mjolnir-vision-360-white-argb/"
+        }
+      }
+    },
+    {
+      "id": 1869,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/mjolnir-vision-360-ub-pro-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1870,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/mjolnir-vision-360-ub-pro-argb-white/"
+        }
+      }
+    },
+    {
+      "id": 1871,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-warframe-360-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1872,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-warframe-360-se-argb-black-v2/"
+        }
+      }
+    },
+    {
+      "id": 1873,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-warframe-360-se-argb-white-v2/"
+        }
+      }
+    },
+    {
+      "id": 1874,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/grand-vision-360-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1875,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/hyper-vision-360-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1876,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/stream-vision-360-black/"
+        }
+      }
+    },
+    {
+      "id": 1877,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/trofeo-vision-360-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1878,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/wonder-vision-360-turbo-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1879,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/wonder-vision-360-ub-argb-black/"
+        }
+      }
+    },
+    {
+      "id": 1880,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-warframe-420-black-argb/"
+        }
+      }
+    },
+    {
+      "id": 1881,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-warframe-420-white-argb/"
+        }
+      }
+    },
+    {
+      "id": 1882,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-240-v3/"
+        }
+      }
+    },
+    {
+      "id": 1883,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-240-white-v3/"
+        }
+      }
+    },
+    {
+      "id": 1884,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/aqua-elite-240-argb-black-v5/"
+        }
+      }
+    },
+    {
+      "id": 1885,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA1200", "LGA1700", "LGA1851", "LGA2011", "LGA2066", "AM4", "AM5"],
+          "source_url": "https://www.thermalright.com/product/frozen-infinity-240-black/"
+        }
+      }
+    }
+  ]
+}

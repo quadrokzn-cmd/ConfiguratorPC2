@@ -1,50 +1,76 @@
 {
   "category": "cooler",
-  "batch_id": "batch_018",
-  "filled_at": "2026-05-01T07:15:00Z",
+  "batch_id": "batch_022",
+  "filled_at": "2026-05-01T12:37:41Z",
   "items": [
     {
-      "id": 1144,
+      "id": 1727,
       "fields": {
         "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Formula Ice Burg — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=184&active=pro_specTab"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3+", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=184&active=pro_specTab"
         }
       }
     },
     {
-      "id": 1145,
+      "id": 1728,
       "fields": {
         "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Formula Ice Burg EX — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+          "value": 190,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1595&active=pro_specTab"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2066", "LGA2011-3", "LGA2011", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1595&active=pro_specTab"
         }
       }
     },
     {
-      "id": 1146,
+      "id": 1730,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Formula Ice Burg Plus — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1376&active=pro_specTab"
         }
       }
     },
     {
-      "id": 1147,
+      "id": 1731,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Formula Ice Burg Wh — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1399&active=pro_specTab"
         }
       }
     },
     {
-      "id": 1148,
+      "id": 1732,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1284&active=pro_specTab"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1284&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1733,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1115&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1734,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -59,7 +85,7 @@
       }
     },
     {
-      "id": 1149,
+      "id": 1735,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -74,7 +100,7 @@
       }
     },
     {
-      "id": 1150,
+      "id": 1736,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -89,7 +115,7 @@
       }
     },
     {
-      "id": 1151,
+      "id": 1737,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -104,7 +130,7 @@
       }
     },
     {
-      "id": 1152,
+      "id": 1738,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -119,7 +145,43 @@
       }
     },
     {
-      "id": 1153,
+      "id": 1739,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для AIO ALPHA 28"
+        },
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1305&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1740,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1397&active=pro_specTab"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1397&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1741,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1304&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1742,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -134,7 +196,35 @@
       }
     },
     {
-      "id": 1154,
+      "id": 1743,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для ALPHA2 DS A24"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1616&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1744,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для Reserator5 Z36"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2011", "LGA2011-3", "LGA2066", "AM5", "AM4", "AM3+", "AM3", "FM2+", "FM2"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1251&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1746,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -149,7 +239,7 @@
       }
     },
     {
-      "id": 1155,
+      "id": 1747,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -164,7 +254,7 @@
       }
     },
     {
-      "id": 1156,
+      "id": 1748,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -179,7 +269,7 @@
       }
     },
     {
-      "id": 1157,
+      "id": 1749,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -194,7 +284,7 @@
       }
     },
     {
-      "id": 1158,
+      "id": 1750,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -209,7 +299,7 @@
       }
     },
     {
-      "id": 1159,
+      "id": 1751,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -224,7 +314,7 @@
       }
     },
     {
-      "id": 1160,
+      "id": 1752,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -239,7 +329,7 @@
       }
     },
     {
-      "id": 1161,
+      "id": 1753,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -254,7 +344,7 @@
       }
     },
     {
-      "id": 1162,
+      "id": 1754,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -269,7 +359,7 @@
       }
     },
     {
-      "id": 1163,
+      "id": 1755,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -284,7 +374,7 @@
       }
     },
     {
-      "id": 1164,
+      "id": 1756,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -299,7 +389,7 @@
       }
     },
     {
-      "id": 1165,
+      "id": 1757,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -314,133 +404,12 @@
       }
     },
     {
-      "id": 1166,
+      "id": 1765,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
-        },
         "supported_sockets": {
           "value": null,
           "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 1167,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Aerocool Mirage Gold 650W — это блок питания (PSU), а не процессорный кулер; позиция ошибочно отнесена к категории cooler"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Aerocool Mirage Gold 650W — это блок питания (PSU), а не процессорный кулер; позиция ошибочно отнесена к категории cooler"
-        }
-      }
-    },
-    {
-      "id": 1168,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 120mm Triple Pack — комплект корпусных вентиляторов)"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 120mm Triple Pack — комплект корпусных вентиляторов)"
-        }
-      }
-    },
-    {
-      "id": 1169,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm high-speed Triple Pack — комплект корпусных вентиляторов)"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm high-speed Triple Pack — комплект корпусных вентиляторов)"
-        }
-      }
-    },
-    {
-      "id": 1170,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm Triple Pack — комплект корпусных вентиляторов)"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm Triple Pack — комплект корпусных вентиляторов)"
-        }
-      }
-    },
-    {
-      "id": 1171,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "not published"
-        },
-        "supported_sockets": {
-          "value": [
-            "LGA1851",
-            "LGA1700",
-            "LGA1200",
-            "LGA1150",
-            "LGA1151",
-            "LGA1155",
-            "LGA2066",
-            "LGA2011",
-            "LGA2011-3",
-            "AM5",
-            "AM4"
-          ],
-          "source_url": "https://www.bequiet.com/en/watercooler/3743"
-        }
-      }
-    },
-    {
-      "id": 1172,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase M2 ARGB 120mm — отдельный корпусной вентилятор)"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase M2 ARGB 120mm — отдельный корпусной вентилятор)"
-        }
-      }
-    },
-    {
-      "id": 1173,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase CM21-12W ARGB 120mm — отдельный корпусной вентилятор)"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase CM21-12W ARGB 120mm — отдельный корпусной вентилятор)"
+          "reason": "Производитель MSI; домен msi.com отсутствует в whitelist оф. доменов кулеров (см. cooler.md). Маркетплейсы и обзорщики (Amazon, Tom's Hardware и т.п.) запрещены."
         }
       }
     }

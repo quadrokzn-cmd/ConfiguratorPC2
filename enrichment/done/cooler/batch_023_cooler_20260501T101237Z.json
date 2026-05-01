@@ -1,0 +1,417 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_023",
+  "filled_at": "2026-05-01T11:30:00Z",
+  "items": [
+    {
+      "id": 1766,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "msi.com не входит в whitelist оф. доменов кулеров (см. cooler.md). Спецификация на маркетплейсах/обзорщиках не считается источником."
+        }
+      }
+    },
+    {
+      "id": 1767,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published. Продуктовая страница ALSEYE R19 на alseye.com не найдена (сайт недоступен по сертификату; поиск site:alseye.com по 'R19' не возвращает результатов)."
+        }
+      }
+    },
+    {
+      "id": 1768,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published на alseye.com. По raw_name это 'Coolserver/Alseye R63' 2U server cooler — фактически продукт бренда Coolserver, который не входит в whitelist кулеров. Указания TDP 165W встречаются только на Newegg/Amazon (маркетплейсы запрещены)."
+        }
+      }
+    },
+    {
+      "id": 1769,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "enermax.com не входит в whitelist оф. доменов кулеров (см. cooler.md)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "enermax.com не входит в whitelist оф. доменов кулеров (см. cooler.md)."
+        }
+      }
+    },
+    {
+      "id": 1770,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "gigabyte.com / aorus.com не входят в whitelist оф. доменов кулеров (см. cooler.md). gigabyte.com разрешён только для GPU/материнских плат."
+        }
+      }
+    },
+    {
+      "id": 1771,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1156", "LGA1155", "LGA1151", "LGA1150", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/galahad-ii-trinity/",
+          "reason": "На странице указано 'Intel: LGA 1851 / 1700 / 1200 / 115x; AMD: AM5 / AM4'. LGA115x развёрнут в LGA1150/1151/1155/1156 согласно правилам нормализации."
+        }
+      }
+    },
+    {
+      "id": 1772,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1156", "LGA1155", "LGA1151", "LGA1150", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/galahad-ii-trinity/",
+          "reason": "GA II Trinity SL-INF — вариант той же серии Galahad II Trinity (отличается только моделью вентиляторов SL-INF). Сокеты: 'Intel: LGA 1851 / 1700 / 1200 / 115x; AMD: AM5 / AM4'."
+        }
+      }
+    },
+    {
+      "id": 1773,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1156", "LGA1155", "LGA1151", "LGA1150", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/galahad-ii-trinity/",
+          "reason": "GA II Trinity 360 White — цветовой вариант той же серии. Сокеты: 'Intel: LGA 1851 / 1700 / 1200 / 115x; AMD: AM5 / AM4'."
+        }
+      }
+    },
+    {
+      "id": 1774,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1156", "LGA1155", "LGA1151", "LGA1150", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/galahad-ii-trinity-performance/",
+          "reason": "GA II Trinity Performance 360 — отдельная страница на lian-li.com. Указано 'Intel: LGA 1851 / 1700 / 1200 / 115x; AMD: AM5 / AM4'."
+        }
+      }
+    },
+    {
+      "id": 1775,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1776,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN P28 — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN P28 — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1777,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 Reverse — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 Reverse — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1778,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 White — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL120 V2 White — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1779,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL140 V2 — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL140 V2 — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1780,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL-INF 120 — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL-INF 120 — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1781,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN TL LCD 120 — case fan с LCD дисплеем)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN TL LCD 120 — case fan с LCD дисплеем)."
+        }
+      }
+    },
+    {
+      "id": 1782,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN TL LED 120 — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN TL LED 120 — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1783,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (комплект 3 шт. UNI FAN SL120 V2 — case fans)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (комплект 3 шт. UNI FAN SL120 V2 — case fans)."
+        }
+      }
+    },
+    {
+      "id": 1784,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (комплект 3 шт. UNI FAN TL LCD 120 — case fans)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (комплект 3 шт. UNI FAN TL LCD 120 — case fans)."
+        }
+      }
+    },
+    {
+      "id": 1785,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Lian-Li SL V2 120 White — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Lian-Li SL V2 120 White — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1786,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания SFX 750W (Lian-Li SP750), а не кулер. Ошибка категоризации в исходных данных."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это блок питания SFX 750W (Lian-Li SP750), а не кулер. Ошибка категоризации в исходных данных."
+        }
+      }
+    },
+    {
+      "id": 1787,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published. На странице lian-li.com/product/hydroshift-aio/ макс. TDP отдельным числом не указан."
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "AM5", "AM4"],
+          "source_url": "https://lian-li.com/product/hydroshift-aio/",
+          "reason": "На оф. странице HydroShift LCD AIO указано: Intel LGA 1700; AMD AM5 / AM4."
+        }
+      }
+    },
+    {
+      "id": 1788,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL Wireless 120 — case fan, raw_name прямо указывает 'Вентилятор для корпуса')."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN SL Wireless 120 — case fan, raw_name прямо указывает 'Вентилятор для корпуса')."
+        }
+      }
+    },
+    {
+      "id": 1789,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN CL Wireless 120 Reverse — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (UNI FAN CL Wireless 120 Reverse — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1790,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12RB-S V2 Reverse ARGB 120mm — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12RB-S V2 Reverse ARGB 120mm — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1791,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12RW-S V2 Reverse ARGB 120mm — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12RW-S V2 Reverse ARGB 120mm — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1792,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12C 120mm PWM — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12C 120mm PWM — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1793,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12CW 120mm PWM — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12CW 120mm PWM — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1794,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12CW-S ARGB 120mm — case fan)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12CW-S ARGB 120mm — case fan)."
+        }
+      }
+    },
+    {
+      "id": 1795,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12C Pack of 3 — комплект case fans)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Thermalright TL-C12C Pack of 3 — комплект case fans)."
+        }
+      }
+    }
+  ]
+}

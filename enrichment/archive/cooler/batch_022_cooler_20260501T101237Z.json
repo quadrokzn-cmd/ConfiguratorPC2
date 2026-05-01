@@ -1,88 +1,76 @@
 {
   "category": "cooler",
-  "batch_id": "batch_011",
-  "filled_at": "2026-05-01T07:30:00Z",
+  "batch_id": "batch_022",
+  "filled_at": "2026-05-01T12:37:41Z",
   "items": [
     {
-      "id": 892,
+      "id": 1727,
       "fields": {
         "max_tdp_watts": {
-          "value": 260,
-          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-WH-High-Performance-CPU-Cooler-1851-1700-AM5/2024/15496.shtml",
-          "reason": "Указано в описании страницы товара: 'maximum heat dissipation power of 260W'"
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=184&active=pro_specTab"
         },
         "supported_sockets": {
-          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
-          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-WH-High-Performance-CPU-Cooler-1851-1700-AM5/2024/15496.shtml"
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3+", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=184&active=pro_specTab"
         }
       }
     },
     {
-      "id": 893,
+      "id": 1728,
       "fields": {
         "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "not published (TDP не указан ни в Specifications, ни в overview на странице товара AK620 DIGITAL)"
+          "value": 190,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1595&active=pro_specTab"
         },
         "supported_sockets": {
-          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
-          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-Digital-Performance-CPU-Cooler-With-Status-Display-1851-1700-AM5/2024/17202.shtml"
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2066", "LGA2011-3", "LGA2011", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1595&active=pro_specTab"
         }
       }
     },
     {
-      "id": 894,
+      "id": 1730,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "not published (TDP не указан на странице AK700 DIGITAL NYX на deepcool.com)"
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1376&active=pro_specTab"
         }
       }
     },
     {
-      "id": 896,
+      "id": 1731,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "not published (TDP не указан ни в Specifications, ни в overview на странице AK620 DIGITAL PRO)"
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1399&active=pro_specTab"
         }
       }
     },
     {
-      "id": 902,
+      "id": 1732,
       "fields": {
         "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1284&active=pro_specTab"
         },
         "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1284&active=pro_specTab"
         }
       }
     },
     {
-      "id": 903,
+      "id": 1733,
       "fields": {
         "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор, не процессорный кулер"
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1115&active=pro_specTab"
         }
       }
     },
     {
-      "id": 904,
+      "id": 1734,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -97,7 +85,7 @@
       }
     },
     {
-      "id": 905,
+      "id": 1735,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -112,7 +100,7 @@
       }
     },
     {
-      "id": 906,
+      "id": 1736,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -127,7 +115,7 @@
       }
     },
     {
-      "id": 907,
+      "id": 1737,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -142,7 +130,7 @@
       }
     },
     {
-      "id": 908,
+      "id": 1738,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -157,7 +145,43 @@
       }
     },
     {
-      "id": 909,
+      "id": 1739,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для AIO ALPHA 28"
+        },
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1305&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1740,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1397&active=pro_specTab"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1397&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1741,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011-3", "LGA2011", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4", "AM3"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1304&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1742,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -172,7 +196,35 @@
       }
     },
     {
-      "id": 910,
+      "id": 1743,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для ALPHA2 DS A24"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1616&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1744,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — на оф. странице spec table нет TDP/Q'Max для Reserator5 Z36"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2011", "LGA2011-3", "LGA2066", "AM5", "AM4", "AM3+", "AM3", "FM2+", "FM2"],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1251&active=pro_specTab"
+        }
+      }
+    },
+    {
+      "id": 1746,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -187,7 +239,7 @@
       }
     },
     {
-      "id": 911,
+      "id": 1747,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -202,7 +254,7 @@
       }
     },
     {
-      "id": 912,
+      "id": 1748,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -217,7 +269,7 @@
       }
     },
     {
-      "id": 913,
+      "id": 1749,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -232,7 +284,7 @@
       }
     },
     {
-      "id": 914,
+      "id": 1750,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -247,7 +299,7 @@
       }
     },
     {
-      "id": 915,
+      "id": 1751,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -262,7 +314,7 @@
       }
     },
     {
-      "id": 916,
+      "id": 1752,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -277,7 +329,7 @@
       }
     },
     {
-      "id": 917,
+      "id": 1753,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -292,7 +344,7 @@
       }
     },
     {
-      "id": 918,
+      "id": 1754,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -307,7 +359,7 @@
       }
     },
     {
-      "id": 919,
+      "id": 1755,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -322,7 +374,7 @@
       }
     },
     {
-      "id": 920,
+      "id": 1756,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -337,7 +389,7 @@
       }
     },
     {
-      "id": 921,
+      "id": 1757,
       "fields": {
         "max_tdp_watts": {
           "value": null,
@@ -352,92 +404,12 @@
       }
     },
     {
-      "id": 922,
+      "id": 1765,
       "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580), не процессорный кулер"
-        },
         "supported_sockets": {
           "value": null,
           "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580), не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 923,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580, REVERSE), не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580, REVERSE), не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 924,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580), не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580), не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 925,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580, REVERSE), не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG580, REVERSE), не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 926,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG530), не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG530), не процессорный кулер"
-        }
-      }
-    },
-    {
-      "id": 927,
-      "fields": {
-        "max_tdp_watts": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG530, REVERSE), не процессорный кулер"
-        },
-        "supported_sockets": {
-          "value": null,
-          "source_url": null,
-          "reason": "Корпусной вентилятор (запасной вентилятор от Deepcool CG530, REVERSE), не процессорный кулер"
+          "reason": "Производитель MSI; домен msi.com отсутствует в whitelist оф. доменов кулеров (см. cooler.md). Маркетплейсы и обзорщики (Amazon, Tom's Hardware и т.п.) запрещены."
         }
       }
     }
