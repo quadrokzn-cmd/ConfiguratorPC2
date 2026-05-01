@@ -232,3 +232,226 @@ def is_likely_external_storage(
     тем же способом, что и is_likely_case_fan для коулеров.
     """
     return False
+
+
+# ---------------------------------------------------------------------------
+# Детекторы мусора в категории case (этап 11.6.2.4.0).
+# ---------------------------------------------------------------------------
+# По итогам аудита локальной БД kvadro_tech (1876 видимых cases) реальный
+# объём мусора в категории cases оказался меньше, чем в cooler. Большинство
+# подозрительных raw_name (drive cage / dust filter / side panel / riser /
+# tempered glass) при ближайшем рассмотрении — это ОПИСАНИЕ ПОЛНОЦЕННОГО
+# КОРПУСА: серверные JBOD-шасси AIC, корпуса Lian Li с предустановленным
+# riser-кабелем, корпуса Deepcool/JONSBO с tempered glass-панелью и т. д.
+#
+# Поэтому детекторы здесь работают на инверсии: маркер мусора ловится только
+# если в имени НЕТ явных признаков корпуса (midi/full/mid-tower, ATX case,
+# словосочетания «корпус компьютерный» и пр.). Это профилактика upstream:
+# когда в новом прайсе появится отдельная корзина 3.5" / спорный райзер /
+# одиночный 120-мм вентилятор — он сразу будет помечен is_hidden=True
+# и не попадёт в выдачу подбора корпусов.
+#
+# Все 5 детекторов используют общий «защитный» regex _CASE_HOUSING_HINTS.
+# Если он матчится — детектор возвращает False, даже при положительном
+# триггере. Логика «когда в названии есть и tower, и riser — это всё ещё
+# полноценный корпус с riser в комплекте, не аксессуар».
+
+# Маркеры «это полноценный корпус» — общий защитный слой для всех детекторов
+# случая case ниже. Когда они сработали, мусорный детектор обязан вернуть
+# False: даже если в имени есть «riser cable» или «dust filter», пока
+# где-то рядом стоит «midi tower» / «корпус ПК» / «ATX case» — это корпус.
+_CASE_HOUSING_HINTS = re.compile(
+    r"(\b(?:midi|mid|full|mini|micro|cube|small|big)[\s\-]?tower\b|"
+    r"\bmid[\s\-]?tower\b|"
+    r"\b(?:atx|matx|m-atx|mini[\s\-]?itx|itx|e[\s\-]?atx|"
+    r"ssi[\s\-]?ceb|ssi[\s\-]?eeb)[\s\-]+(?:case|корпус|tower)\b|"
+    r"\b(?:pc|computer|pc[\s\-]?case|computer\s*case|gaming\s*case)\b|"
+    r"\bкорпус(?:\b|компьютерн|\s+ПК|\s+пк|\s+midi|\s+mid|\s+mini|\s+full|"
+    r"\s+server|\s+серверн|\s+desktop|\s+rack)|"
+    r"\bjbod\b|\b(?:server|tower)\s+chassis\b|"
+    r"\brack[\s\-]?mount\b|\brackmount\b|"
+    r"\bдля\s+пк\b|\bдля\s+компьютера\b|"
+    r"\bmid\s+gaming\b|\bmod\s+gaming\b|\bgaming\s+atx\s+case\b|"
+    r"\btempered\s*glass\s*edition\b|"
+    r"\bsbc\s*case\b|\bsbc[\s\-]?корпус\b)",
+    flags=re.IGNORECASE,
+)
+
+
+def _has_case_housing_hint(text_full: str) -> bool:
+    """Внутренний хелпер: совпал ли с _CASE_HOUSING_HINTS.
+
+    Вынесен отдельно, чтобы случайно не пересечь логику с CPU-маркерами
+    из _CPU_COOLER_HINTS — они для cooler, а здесь чисто корпусная логика.
+    """
+    return bool(_CASE_HOUSING_HINTS.search(text_full))
+
+
+# 1. Самостоятельный корпусной/120-мм вентилятор в категории case.
+# Триггер: явные слова про вентилятор/кулер БЕЗ слов «корпус/case/tower».
+# Реальный кейс из БД (id=1065): «Устройство охлаждения(кулер) Aerocool
+# Core Plus, 120мм, Ret» — попал в cases, должен быть скрыт.
+_LOOSE_CASE_FAN_KEYWORDS = re.compile(
+    r"(устройство\s+охлажд|"
+    r"^\s*кулер\b|^\s*вентилятор\b|"
+    r"\bкорпусн\w*\s+(?:fan|вентилятор)\b|"
+    r"\b(?:case|chassis|system)[\s\-]?(?:fan|вентилятор)\b|"
+    r"\bvent[\s\-]?для\s+корпус)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_loose_case_fan(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция в категории case на отдельный
+    корпусной вентилятор / кулер, ошибочно классифицированный как корпус.
+
+    Защита: если в имени есть маркеры корпуса (midi tower, ATX case,
+    «корпус компьютерный» и т. п.) — НЕ помечаем. Корпус с
+    предустановленным вентилятором — всё равно корпус.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _has_case_housing_hint(full):
+        return False
+    if _LOOSE_CASE_FAN_KEYWORDS.search(full):
+        return True
+    # Серии типичных корпусных вентиляторов из cooler-детектора уже знают
+    # эти серии. Используем их же — кейс «Aerocool Frost 12 / Pure Wings»
+    # в категории cases ловится по той же серии.
+    if _CASE_FAN_SERIES.search(full):
+        return True
+    if _CASE_FAN_MODELS.search(full):
+        return True
+    return False
+
+
+# 2. Отдельная корзина / mobile rack / drive cage без корпуса.
+# Профилактический детектор: реальных кейсов в БД cases НЕТ (все 5
+# совпадений по «cage» оказались серверными JBOD-шасси). Но если
+# поставщик пришлёт «корзина 5.25→4×3.5"», она обязана быть скрыта.
+_DRIVE_CAGE_KEYWORDS = re.compile(
+    r"(\bкорзин[аеуы]\s+(?:для\s+)?(?:hdd|ssd|жестк|3\.?5|2\.?5)|"
+    r"\b(?:hdd|ssd|drive|disk)\s*cage\b|"
+    r"\bmobile\s*rack\b|\bmobile-rack\b|"
+    r"\bsalazk[аеи]\b|\bсалазк[аеи]\b|"
+    r"\b5\.?25.+(?:to|→|->|\s+for\s+)\s*3\.?5|"
+    r"\bhot[\s\-]?swap\s+(?:cage|backplane|tray|adapter)\b|"
+    r"\bhdd\s+enclosure\b|\bssd\s+enclosure\b)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_drive_cage(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на отдельную корзину/mobile rack/
+    drive cage, попавшую в категорию case ошибочно.
+
+    Защита (важно): серверные JBOD-шасси и rack-mount корпуса у поставщиков
+    в названии тоже содержат «hot-swap bay» и «cage» — но рядом всегда
+    стоит «JBOD» / «chassis» / «rack-mount» / «1U/2U/4U». Детектор
+    срабатывает только если ОТСУТСТВУЕТ маркер корпуса.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _has_case_housing_hint(full):
+        return False
+    return bool(_DRIVE_CAGE_KEYWORDS.search(full))
+
+
+# 3. Отдельный PCIe riser cable / extender card.
+# Профилактика: реальный кейс id=1709 (Lian Li SUP01X) — это полноценный
+# корпус с riser в комплекте, _CASE_HOUSING_HINTS его защитит. Но
+# отдельный райзер обязан хайдиться.
+_PCIE_RISER_KEYWORDS = re.compile(
+    r"(\b(?:pcie|pci-e|pci\s*express)\s*(?:riser|extender|extension)\b|"
+    r"\briser\s+cable\b|\briser\s+card\b|\bvertical\s+gpu\s+mount\b|"
+    r"\bвертикальн\w+\s+креплени\w+\s+(?:gpu|видеокарт)|"
+    r"\bрайзер[\-\s]?(?:кабел|карта))",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_pcie_riser(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на отдельный PCIe-райзер.
+
+    Защита: корпус, в котором райзер идёт в комплекте, не помечается.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _has_case_housing_hint(full):
+        return False
+    return bool(_PCIE_RISER_KEYWORDS.search(full))
+
+
+# 4. Отдельная сменная боковая панель / стекло / пылевой фильтр.
+# Большинство таких слов в текущей БД — описание корпуса с tempered
+# glass-панелью. Срабатываем только если в имени явно сказано
+# «replacement / spare / отдельная панель».
+_CASE_PANEL_OR_FILTER_KEYWORDS = re.compile(
+    r"(\b(?:replacement|spare|extra|optional)\s+(?:side\s+)?panel\b|"
+    r"\b(?:replacement|spare)\s+tempered\s+glass\b|"
+    r"\bсменн\w+\s+(?:боков\w+\s+)?панел[ьеи]\b|"
+    r"\bотдельн\w+\s+боков\w+\s+панел[ьеи]\b|"
+    r"\bзапасн\w+\s+панел[ьеи]\b|"
+    r"\b(?:standalone|spare)\s+dust\s+filter\b|"
+    r"\bотдельн\w+\s+пылев\w+\s+фильтр|"
+    r"\b(?:standalone|spare)\s+slot\s+cover\b|"
+    r"\bsmall\s+pci[\s\-]?slot\s+covers?\b)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_case_panel_or_filter(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на отдельную сменную боковую панель,
+    стекло или пылевой фильтр (без корпуса).
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _has_case_housing_hint(full):
+        return False
+    return bool(_CASE_PANEL_OR_FILTER_KEYWORDS.search(full))
+
+
+# 5. Отдельный антипровисной кронштейн для GPU.
+# Профилактика: реальных кейсов в БД нет, но Cooler Master / Lian Li
+# их выпускают как самостоятельные товары.
+_GPU_SUPPORT_KEYWORDS = re.compile(
+    r"(\bgpu\s+(?:support|holder|brace|sag\s+brace)\b|"
+    r"\bgpu\s+support\s+bracket\b|"
+    r"\b(?:graphics|video)\s+card\s+(?:holder|support|brace)\b|"
+    r"\bvideo\s*card\s*holder\b|"
+    r"\bsag[\s\-]?bracket\b|"
+    r"\b(?:антипровис\w*|противопровис\w*)\s+(?:кроншт|стойк|опор|подпорк)|"
+    r"\b(?:кроншт|подпорк|стойк)\w*\s+(?:для\s+)?(?:видеокарт|gpu))",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_gpu_support_bracket(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на отдельный антипровисной
+    кронштейн для видеокарты.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _has_case_housing_hint(full):
+        return False
+    return bool(_GPU_SUPPORT_KEYWORDS.search(full))

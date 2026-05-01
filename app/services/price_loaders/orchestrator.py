@@ -49,7 +49,14 @@ from app.services.price_loaders.matching import (
     MatchResult, resolve,
 )
 from app.services.price_loaders.models import PriceRow
-from shared.component_filters import is_likely_case_fan
+from shared.component_filters import (
+    is_likely_case_fan,
+    is_likely_case_panel_or_filter,
+    is_likely_drive_cage,
+    is_likely_gpu_support_bracket,
+    is_likely_loose_case_fan,
+    is_likely_pcie_riser,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -190,6 +197,21 @@ def _create_skeleton(
     # См. shared/component_filters.py и docs/enrichment_techdebt.md §9.
     if table == "coolers" and is_likely_case_fan(
         row.name, row.brand, row.our_category,
+    ):
+        values["is_hidden"] = True
+
+    # Этап 11.6.2.4.0: мусор в категории case (отдельные корзины 3.5",
+    # PCIe-райзеры, сменные боковые панели, антипровисные кронштейны для
+    # GPU, одиночные 120-мм вентиляторы) — при создании скелета помечаем
+    # is_hidden=True. Защитный слой _CASE_HOUSING_HINTS внутри детекторов
+    # не трогает полноценные корпуса с предустановленным riser/dust filter
+    # (например, Lian Li SUP01X). Подробности — в docs/enrichment_techdebt.md.
+    if table == "cases" and (
+        is_likely_loose_case_fan(row.name, row.brand)
+        or is_likely_drive_cage(row.name, row.brand)
+        or is_likely_pcie_riser(row.name, row.brand)
+        or is_likely_case_panel_or_filter(row.name, row.brand)
+        or is_likely_gpu_support_bracket(row.name, row.brand)
     ):
         values["is_hidden"] = True
 

@@ -341,3 +341,89 @@ prepended-логи и т.п.).
 **Когда не использовать новый workflow:** разовая ручная разметка
 одной-двух позиций — проще через `/admin/components/<id>` или прямой
 UPDATE в проде, без batch-инфраструктуры.
+
+## 13. Аудит и переклассификация мусора в категории Case (этап 11.6.2.4.0)
+
+**Контекст.** Перед AI-обогащением Case (1771 NULL-полей в локальной БД,
+из них 289 в `supported_form_factors`, 190 в `has_psu_included`, 1757 в
+`included_psu_watts`) повторили опыт Cooler: сначала вычистить мусор,
+чтобы не тратить токены AI на не-корпуса.
+
+**Главный сюрприз диагностики.** В отличие от Cooler (там 80% выборки
+оказались корпусные вентиляторы / термопасты / mounting kits), категория
+Case на локальной БД kvadro_tech практически чистая. На 1876 видимых
+cases выявлен только **1 реальный кейс мусора**:
+
+| ID   | Кластер | Производитель | Имя |
+|-----:|---------|---------------|-----|
+| 1065 | loose_case_fan | unknown | «Устройство охлаждения(кулер) Aerocool Core Plus, 120мм, Ret» |
+
+Все остальные подозрительные совпадения по raw_name (drive cage / dust
+filter / side panel / pcie riser / tempered glass) при ближайшем
+рассмотрении оказались **описаниями полноценных корпусов**: серверные
+JBOD-шасси AIC J2024/RSC-4BT, корпуса Lian Li с предустановленным
+PCIe Riser Cable (SUP01X) или Bottom Dust Filter (A3-mATX),
+JONSBO MOD 5 / Deepcool MACUBE с tempered glass-панелью и т. п.
+
+**Новые детекторы в `shared/component_filters.py`** (5 шт.):
+
+| Имя | Назначение | Реальные / профилактика |
+|-----|-----------|--------------------------|
+| `is_likely_loose_case_fan` | Самостоятельный 120-мм вентилятор / кулер в категории case | 1 реальный (id=1065) |
+| `is_likely_drive_cage` | Отдельная корзина 3.5"/2.5" / mobile rack / drive cage | 0 — профилактика |
+| `is_likely_pcie_riser` | Отдельный PCIe-райзер (cable/card/extender) | 0 — профилактика |
+| `is_likely_case_panel_or_filter` | Отдельная сменная боковая панель / стекло / пылевой фильтр | 0 — профилактика |
+| `is_likely_gpu_support_bracket` | Отдельный антипровисной кронштейн для GPU | 0 — профилактика |
+
+**Ключевой защитный слой.** Все 5 эвристик уважают общий regex
+`_CASE_HOUSING_HINTS`: если в имени присутствует «midi tower» / «full
+tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «ATX case»
+/ «Mod Gaming» / «Tempered Glass Edition» — детектор возвращает False,
+даже если сработал положительный триггер. Защита проверена тестами
+`tests/test_shared/test_case_trash_detectors.py::TestHousingHintBlocksAllDetectors`.
+
+**Upstream-подключение.** В `app/services/price_loaders/orchestrator.py::_create_skeleton`
+для `table == "cases"` детекторы прогоняются по `row.name + row.brand`
+ДО записи: при положительном срабатывании скелет создаётся с
+`is_hidden=True` и сразу выпадает из подбора. Это закрывает поток
+будущего мусора с прайсов.
+
+**Итоги локального --apply (kvadro_tech, 2026-05-01).** Скрытие 1
+позиции (id=1065). NULL после: 1770 видимых cases с любым NULL
+(было 1771). Backup-rollback —
+`scripts/reports/reclassify_cases_trash_backup_20260501.sql`.
+
+**Итоги прод-прогона.** См. конец файла после деплоя
+(`scripts/reclassify_cases_trash.py --apply` через railway ssh).
+
+**Whitelist `OFFICIAL_DOMAINS`** (схема обогащения) расширен на
+6 case-вендоров, реально присутствующих в БД, но отсутствовавших ранее:
+`gamemax.com`, `raijintek.com`, `xpg.com`, `powerman-pc.ru`,
+`digma.ru`, `hiper.ru`. AI-обогащение 11.6.2.4.1 сможет ходить на эти
+домены при выявлении бренда.
+
+**Кандидаты в техдолг (не закрываются этим этапом).**
+
+1. **SBC-корпуса в `cases`.** Локально найдены id=492 (ACD XG387 IP65
+   для Raspberry/Orange Pi), id=562/564 (Raspberry Pi 5 cases с активным
+   вентилятором), 6 позиций RockPi, 4 позиции Raspberry Pi Foundation.
+   Это **формально корпуса** (закрывают плату), но не подходят под
+   ATX/mATX-сборку: их `supported_form_factors` всегда NULL и
+   AI-обогащение бессмысленно. Решение — отдельная категория
+   `sbc_case` или флаг `is_sbc=True` на cases — отложено в новый этап
+   (потенциальный 11.6.2.6.x).
+
+2. **HDD/SSD в cases.** В диагностике не обнаружено (паттерн
+   `storage_in_cases` дал 0 матчей). Если такие появятся — фиксировать
+   как отдельный техдолг апстрима, не переносить в storages
+   автоматически.
+
+**Артефакты этапа.**
+* `scripts/reclassify_cases_trash.py` — идемпотентный скрипт
+  (`--dry-run` по умолчанию, `--confirm --confirm-yes` для apply).
+* `scripts/audit_cases_local.py` — локальная диагностика, не входит в
+  pipeline (не закоммичена; нужна была для понимания состава).
+* `scripts/reports/reclassify_cases_trash_report.md` —
+  отчёт последнего прогона (gitignored).
+* `scripts/reports/reclassify_cases_trash_backup_YYYYMMDD.sql` —
+  rollback (gitignored).

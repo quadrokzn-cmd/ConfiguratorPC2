@@ -159,6 +159,16 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "ocypus.com",         # Ocypus: корпусы Gamma, Iota + БП (крупнейший пробел: 72 позиции)
     "in-win.com",         # InWin: корпусы IW-RS436 и др.
     "hpe.com",            # HPE: фан-киты ProLiant Gen10/11 (enterprise-ветка, отделена от hp.com)
+    # Корпуса — добавлено на Этапе 11.6.2.4.0 (2026-05-01, аудит cases).
+    # Бренды реально присутствуют в локальной БД kvadro_tech (видимые
+    # cases), но в существующем whitelist их нет — AI отказывался ходить
+    # на эти домены. Перед AI-обогащением 11.6.2.4.1 расширяем список.
+    "gamemax.com",        # GameMax — 15 позиций (Asgard, Vega, Diamond и др.)
+    "raijintek.com",      # RAIJINTEK — 13 позиций (Ophion / Asterion / Thetis)
+    "xpg.com",            # XPG (ADATA gaming) — INVADER X и др.
+    "powerman-pc.ru",     # POWERMAN — 23 позиции, российский OEM-бренд
+    "digma.ru",           # DIGMA — 5 позиций, российский бренд бюджетных корпусов
+    "hiper.ru",           # HIPER — 3 позиции, российский OEM-бренд
     # БП и PoE
     "seasonic.com",
     "zalman.com",
