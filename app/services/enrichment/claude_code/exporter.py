@@ -250,6 +250,8 @@ def export_category(
     batch_size: int | None = None,
     case_psu_pass: bool = False,
     max_batches: int | None = None,
+    limit: int | None = None,
+    write_files: bool = True,
 ) -> dict:
     """Выгружает незаполненные позиции категории в batch-файлы.
 
@@ -260,6 +262,15 @@ def export_category(
     max_batches ограничивает максимальное число выгружаемых файлов за
     один прогон (полезно для отладки и для запуска параллельной AI-обработки
     в несколько чатов: первый чат берёт 5 батчей, второй — следующие 5 и т.д.).
+
+    limit (этап 11.6.2.3.3) — ограничение по числу позиций суммарно
+    (полезно для smoke-теста --stdout-режима).
+
+    write_files (этап 11.6.2.3.3) — если False, файлы в pending/ не
+    создаются, директория не трогается; вместо этого в результат
+    добавляется ключ "batch_payloads" со списком dict-payload'ов
+    батчей. Используется CLI-режимом --stdout: payload'ы сериализуются
+    в один JSON-документ для передачи через stdout.
     """
     if category not in TARGET_FIELDS:
         return {
@@ -283,9 +294,12 @@ def export_category(
         raise ValueError(f"batch_size должен быть >= 1, передано {batch_size}")
     if max_batches is not None and max_batches < 1:
         raise ValueError(f"max_batches должен быть >= 1, передано {max_batches}")
+    if limit is not None and limit < 1:
+        raise ValueError(f"limit должен быть >= 1, передано {limit}")
 
     pending, _done, _archive = _category_dirs(category)
-    pending.mkdir(parents=True, exist_ok=True)
+    if write_files:
+        pending.mkdir(parents=True, exist_ok=True)
 
     sql, params = _build_select_sql(category, target_fields)
     known_ids = _collect_known_ids(category, case_psu_pass=case_psu_pass)
@@ -318,8 +332,12 @@ def export_category(
             continue
         items_all.append(item)
 
+    if limit is not None:
+        items_all = items_all[:limit]
+
     batches_created: list[str] = []
-    next_n = _next_batch_number(pending)
+    batch_payloads: list[dict] = []
+    next_n = _next_batch_number(pending) if write_files else 1
     written_batches = 0
     exported_count = 0
     for i in range(0, len(items_all), batch_size):
@@ -335,10 +353,12 @@ def export_category(
             "case_psu_pass": case_psu_pass if category == "case" else False,
             "items":        batch_items,
         }
-        out_path = pending / fname
-        with out_path.open("w", encoding="utf-8") as f:
-            json.dump(batch_payload, f, ensure_ascii=False, indent=2)
-        batches_created.append(out_path.name)
+        if write_files:
+            out_path = pending / fname
+            with out_path.open("w", encoding="utf-8") as f:
+                json.dump(batch_payload, f, ensure_ascii=False, indent=2)
+        batches_created.append(fname)
+        batch_payloads.append({"filename": fname, "payload": batch_payload})
         next_n += 1
         written_batches += 1
         exported_count += len(batch_items)
@@ -351,7 +371,9 @@ def export_category(
         "filtered_not_applicable": filtered_not_applicable,
         "exported":      exported_count,
         "batches":       batches_created,
+        "batch_payloads": batch_payloads,
         "batch_size":    batch_size,
+        "target_fields": target_fields,
         "case_psu_pass": case_psu_pass if category == "case" else False,
     }
 

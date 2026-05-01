@@ -198,8 +198,17 @@ def _move_to_archive(path: Path, category: str) -> None:
     shutil.move(str(path), str(target))
 
 
-def import_category(category: str, *, dry_run: bool = False) -> dict:
-    """Импортирует все batch_*.json из enrichment/done/<category>/."""
+def import_category(
+    category: str, *, dry_run: bool = False, keep_source: bool = False,
+) -> dict:
+    """Импортирует все batch_*.json из enrichment/done/<category>/.
+
+    keep_source (этап 11.6.2.3.3) — если True, файлы остаются в done/,
+    не перемещаются в archive/. Use case: импорт на локали для теста, а
+    затем повторный импорт на проде через railway ssh теми же файлами
+    (раньше для повторного импорта файлы копировали из archive/ обратно
+    в done/ руками).
+    """
     if category not in TARGET_FIELDS:
         return {**_empty_stats(category), "status": "unknown_category"}
 
@@ -236,7 +245,8 @@ def import_category(category: str, *, dry_run: bool = False) -> dict:
 
             if not dry_run:
                 session.commit()  # коммит после каждого файла — атомарность по батчу
-                _move_to_archive(path, category)
+                if not keep_source:
+                    _move_to_archive(path, category)
 
             stats["files_done"] += 1
 
@@ -249,11 +259,18 @@ def import_category(category: str, *, dry_run: bool = False) -> dict:
     return stats
 
 
-def import_all(*, dry_run: bool = False) -> list[dict]:
-    return [import_category(c, dry_run=dry_run) for c in ALL_CATEGORIES]
+def import_all(
+    *, dry_run: bool = False, keep_source: bool = False,
+) -> list[dict]:
+    return [
+        import_category(c, dry_run=dry_run, keep_source=keep_source)
+        for c in ALL_CATEGORIES
+    ]
 
 
-def import_file(path: Path, *, dry_run: bool = False) -> dict:
+def import_file(
+    path: Path, *, dry_run: bool = False, keep_source: bool = False,
+) -> dict:
     """Импорт одного конкретного batch-файла (этап 11.6.2.1).
 
     Применяется, когда чат Claude Code положил результат не в
@@ -292,7 +309,8 @@ def import_file(path: Path, *, dry_run: bool = False) -> dict:
             _process_item(session, category, item, stats, dry_run=dry_run)
         if not dry_run:
             session.commit()
-            _move_to_archive(path, category)
+            if not keep_source:
+                _move_to_archive(path, category)
         stats["files_done"] = 1
     except Exception:
         session.rollback()

@@ -282,3 +282,62 @@ NULL-ячеек в обязательных полях: было 11409, стал
   На проде колонка наполнится при следующих загрузках прайсов.
 - 11.6.1 не запускается на проде автоматически. UI-кнопка из
   `/admin/price-uploads` ожидается на этапе 11.6.2.
+
+## 12. Workflow выгрузки/импорта batch'ей (после 11.6.2.3.3)
+
+**Контекст.** До 11.6.2.3.3 выгрузка batch-файлов делалась с локальной
+БД, AI-агенты заполняли поля, импорт шёл на прод. Скелеты на локали и
+проде создаются разными загрузками прайсов в разное время, поэтому
+`components.id` расходятся, и при импорте на прод 25–30% items
+отбраковывались с `unknown_component`. Этап 11.6.2.3.3 устраняет
+ID-перекос, перенося выгрузку прямо на прод.
+
+### Старый workflow (deprecated, c ID-перекосом)
+
+```powershell
+# Локально, выгрузка против ЛОКАЛЬНОЙ БД (id'шники локальные!):
+python scripts\enrich_export.py --category cooler --batch-size 30
+
+# Чаты Claude Code заполняют batch-файлы в enrichment\done\cooler\.
+
+# Импорт на прод через railway ssh:
+railway ssh -s ConfiguratorPC2 -i $HOME\.ssh\id_ed25519_railway -- `
+    python -m scripts.enrich_import --category cooler
+# ↑ часть items падает с unknown_component из-за разных id.
+```
+
+### Новый workflow (через `enrich_export_prod.py` + `--keep-source`)
+
+```powershell
+# 1. Выгружаем прямо из ПРОД-БД через railway ssh
+#    (TCP-проксирование БД не нужно; всё внутри контейнера, наружу только JSON):
+python scripts\enrich_export_prod.py --category cooler --batch-size 30
+
+# 2. Чаты Claude Code заполняют batch-файлы в enrichment\done\cooler\.
+
+# 3. Smoke-импорт на ЛОКАЛИ с --keep-source — файлы остаются в done/:
+python scripts\enrich_import.py --category cooler --keep-source
+
+# 4. Финальный импорт на ПРОД теми же файлами через railway ssh.
+#    Файлы остаются в done/ локально → доступны для повторного импорта,
+#    в т.ч. если прод-импорт прервался и нужно перезапустить:
+railway ssh -s ConfiguratorPC2 -i $HOME\.ssh\id_ed25519_railway -- `
+    python -m scripts.enrich_import --category cooler
+```
+
+**Дополнительные флаги enrich_export_prod.py:**
+
+| Флаг | Назначение |
+|------|------------|
+| `--limit N`  | Ограничение по числу позиций суммарно (smoke-тест workflow). |
+| `--force`    | Не падать, если `enrichment/pending/<category>/` уже не пуст. |
+
+**Обработка ошибок wrapper'а:** `railway` CLI не найден → понятное
+сообщение + exit 1; non-zero exit удалённого процесса → пробрасывается
+stderr и exit 1; невалидный JSON в stdout → exit 1 с фрагментом
+полученных данных (помогает диагностировать SSH-баннеры,
+prepended-логи и т.п.).
+
+**Когда не использовать новый workflow:** разовая ручная разметка
+одной-двух позиций — проще через `/admin/components/<id>` или прямой
+UPDATE в проде, без batch-инфраструктуры.
