@@ -9,8 +9,11 @@ from __future__ import annotations
 import pytest
 
 from shared.component_filters import (
+    is_likely_cable_or_adapter,
     is_likely_case_fan,
     is_likely_external_storage,
+    is_likely_mounting_kit,
+    is_likely_thermal_paste,
 )
 
 
@@ -155,6 +158,128 @@ class TestIsLikelyCaseFan:
     def test_system_fan_keyword_detected(self):
         """System fan — синоним case fan."""
         assert is_likely_case_fan("System Fan 120mm PWM") is True
+
+
+    # --- Этап 11.6.2.3.2: PCCooler корпусные серии ---
+    def test_pccooler_case_fan_series_detected(self):
+        """PCCooler F5R / EF / F3 T120 — корпусные вентиляторы (формат 120x120x25mm)."""
+        assert is_likely_case_fan(
+            "PCCooler F5R120 (120x120x25mm, 4-pin PWM, 86.73CFM, 32dBA, 2200RPM, Black)"
+        ) is True
+        assert is_likely_case_fan(
+            "PCCooler EF120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB)"
+        ) is True
+        assert is_likely_case_fan(
+            "PCCooler F3 T120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB, 46CFM)"
+        ) is True
+
+    def test_pccooler_aio_not_marked(self):
+        """PCCooler AIO 360 / 240 — это процессорные кулеры, не корпусные."""
+        assert is_likely_case_fan(
+            "AIO 360 PCCooler DT360 ARGB Display BK"
+        ) is False
+        assert is_likely_case_fan(
+            "AIO 240 PCCooler DA240 ARGB BK"
+        ) is False
+
+
+class TestIsLikelyThermalPaste:
+    def test_thermal_paste_keywords_detected(self):
+        """Термопасты и термопрокладки ловятся в любом регистре."""
+        assert is_likely_thermal_paste("Термопаста Arctic MX-6 8 г") is True
+        assert is_likely_thermal_paste("Thermal paste Noctua NT-H2") is True
+        assert is_likely_thermal_paste("Термопрокладка 1.0 мм 100x100") is True
+        assert is_likely_thermal_paste("Thermal pad Thermalright Odyssey") is True
+        assert is_likely_thermal_paste("Тепловая прокладка Gelid GP-Ultimate") is True
+
+    def test_cpu_cooler_not_marked_as_paste(self):
+        """Если упоминается процессор/AIO/радиатор — не помечаем."""
+        assert is_likely_thermal_paste(
+            "Кулер для процессора DeepCool AK620 + термопаста"
+        ) is False
+        assert is_likely_thermal_paste(
+            "AIO с предустановленной термопастой Cooler Master ML240"
+        ) is False
+
+    def test_paste_empty_returns_false(self):
+        assert is_likely_thermal_paste(None) is False
+        assert is_likely_thermal_paste("") is False
+        assert is_likely_thermal_paste("DeepCool AS500 Plus") is False
+
+
+class TestIsLikelyCableOrAdapter:
+    def test_usb_cable_detected(self):
+        """USB-кабели и удлинители ловятся."""
+        assert is_likely_cable_or_adapter(
+            "CROWN кабель CM-CP3.5U32C2 2 порта USB 3.0 в гнездо 3.5\" + Type-C"
+        ) is True
+        assert is_likely_cable_or_adapter(
+            "Удлинитель USB Rexant DX-40 5 м"
+        ) is True
+        assert is_likely_cable_or_adapter(
+            "Adapter USB-A на USB-C, 1 м"
+        ) is True
+
+    def test_panel_for_connection_detected(self):
+        """Панели подключения (Exegate EG-040..090) ловятся."""
+        assert is_likely_cable_or_adapter(
+            "Exegate EG-040PSFB панель для подключения 40x40"
+        ) is True
+        assert is_likely_cable_or_adapter(
+            "Front panel USB 3.0 hub разветвитель"
+        ) is True
+
+    def test_cooler_with_usb_not_marked(self):
+        """CPU-кулер с USB-подсветкой — это всё ещё кулер, не кабель."""
+        assert is_likely_cable_or_adapter(
+            "AIO 240 DeepCool LS520 USB подсветка"
+        ) is False
+        assert is_likely_cable_or_adapter(
+            "Радиатор AIO 240 с USB разъёмом ARGB"
+        ) is False
+        assert is_likely_cable_or_adapter(
+            "Корпусной вентилятор с USB-кабелем для подключения"
+        ) is False  # содержит «вентилятор» — защита блокирует
+
+    def test_cable_empty_returns_false(self):
+        assert is_likely_cable_or_adapter(None) is False
+        assert is_likely_cable_or_adapter("") is False
+        assert is_likely_cable_or_adapter("Noctua NH-D15") is False
+
+
+class TestIsLikelyMountingKit:
+    def test_mounting_kit_detected(self):
+        """Mounting kit / back-plate / bracket ловятся."""
+        assert is_likely_mounting_kit("Mounting kit для LGA1700") is True
+        assert is_likely_mounting_kit(
+            "Exegate BKT-0126L бэк-плейт для материнской платы"
+        ) is True
+        assert is_likely_mounting_kit(
+            "Bracket back-plate LGA3647 серверный"
+        ) is True
+        assert is_likely_mounting_kit(
+            "Backplate Noctua NM-i115x кронштейн"
+        ) is True
+
+    def test_secure_frame_detected(self):
+        """AM5 / Intel secure frame — это рамка, помечается."""
+        assert is_likely_mounting_kit("AM5 secure frame чёрный") is True
+
+    def test_cpu_cooler_not_marked_as_mount(self):
+        """Сам процессорный кулер с креплением в комплекте — не помечать."""
+        assert is_likely_mounting_kit(
+            "DeepCool AK620 кулер для процессора с креплением"
+        ) is False
+        assert is_likely_mounting_kit(
+            "Башенный кулер Thermalright с mounting kit AM5"
+        ) is False
+        assert is_likely_mounting_kit(
+            "AIO 360 с back-plate в комплекте"
+        ) is False
+
+    def test_mount_empty_returns_false(self):
+        assert is_likely_mounting_kit(None) is False
+        assert is_likely_mounting_kit("") is False
 
 
 class TestIsLikelyExternalStorageStub:

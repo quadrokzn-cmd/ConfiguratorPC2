@@ -1,38 +1,43 @@
-"""Переклассификация корпусных вентиляторов в таблице coolers (этап 11.6.2.3.1).
+"""Переклассификация мусора в таблице coolers (этапы 11.6.2.3.1, 11.6.2.3.2).
 
 Зачем
 -----
-В категории `cooler` копятся корпусные/системные вентиляторы (ARCTIC P12/P14,
-Aerocool Frost 12, Pure Wings, Sickleflow, Noctua NF-A12, HPE ProLiant Fan
-Kits и т.п.) — они НЕ являются процессорными кулерами, у них нет ни
+В категории `cooler` копится не-кулерный мусор:
+  1. Корпусные/системные вентиляторы (ARCTIC P12/P14, Aerocool Frost 12,
+     Pure Wings, Sickleflow, Noctua NF-A12, Powercase, HPE ProLiant Fan
+     Kits, PCCooler F5R/EF/F3-T) — этап 11.6.2.3.1.
+  2. Термопасты / термопрокладки — этап 11.6.2.3.2.
+  3. Кабели / удлинители / переходники / панели подключения — 11.6.2.3.2.
+  4. Монтажные комплекты / бэк-плейты / кронштейны — 11.6.2.3.2.
+
+Все эти позиции НЕ являются процессорными кулерами, у них нет ни
 `max_tdp_watts`, ни `supported_sockets`, и они засоряют выдачу подбора.
 
-В этапе 9Г.1 для скелета загрузчика был сделан фильтр
-`shared.component_filters.is_likely_case_fan`. На этапе 11.6.2.3.1 фильтр
-расширен сериями конкретных вендоров (см. component_filters.py). Этот
-скрипт идемпотентно прогоняет обновлённый фильтр по всем УЖЕ существующим
-видимым кулерам, помечает кандидатов `is_hidden = TRUE` и пишет запись в
-audit_log.
+Скрипт идемпотентно прогоняет 4 эвристики из shared.component_filters
+по всем УЖЕ существующим видимым кулерам и помечает кандидатов
+`is_hidden = TRUE`. Один общий audit-event на массовое обновление.
 
 Защитный слой
 -------------
-Если у кулера уже непустой `supported_sockets` или `max_tdp_watts NOT NULL`
-— это однозначно процессорный кулер, его фильтр не трогает (даже если в
-имени есть «вентилятор» или совпала серия). Ошибка регрессии лучше, чем
-потеря CPU-кулера из каталога.
+Если у компонента уже непустой `supported_sockets` или `max_tdp_watts
+NOT NULL` — это однозначно процессорный кулер, его фильтр не трогает
+(даже если в имени есть «вентилятор» или совпала серия). В каждой
+эвристике дополнительно блокируется пометка по CPU-маркеру в имени
+(«процессор», «cpu cooler», «aio», «liquid» и т. п.). Ошибка регрессии
+лучше, чем потеря CPU-кулера из каталога.
 
 Запуск
 ------
   Dry-run (по умолчанию, только отчёт):
-    python scripts/reclassify_case_fans.py
-    python scripts/reclassify_case_fans.py --dry-run
+    python scripts/reclassify_non_coolers.py
+    python scripts/reclassify_non_coolers.py --dry-run
 
   Боевой прогон (требует явный двойной флаг):
-    python scripts/reclassify_case_fans.py --confirm --confirm-yes
+    python scripts/reclassify_non_coolers.py --confirm --confirm-yes
 
 Артефакты:
-  scripts/reports/reclassify_case_fans_report.md
-  scripts/reports/reclassify_case_fans_backup_YYYYMMDD.sql
+  scripts/reports/reclassify_non_coolers_report.md
+  scripts/reports/reclassify_non_coolers_backup_YYYYMMDD.sql
 """
 
 from __future__ import annotations
@@ -54,7 +59,12 @@ from sqlalchemy import create_engine, text
 
 from shared.audit import write_audit
 from shared.audit_actions import ACTION_COMPONENT_HIDE
-from shared.component_filters import is_likely_case_fan
+from shared.component_filters import (
+    is_likely_cable_or_adapter,
+    is_likely_case_fan,
+    is_likely_mounting_kit,
+    is_likely_thermal_paste,
+)
 
 
 def _connect():
@@ -91,20 +101,28 @@ def _fetch_visible_coolers_with_raw_names(engine) -> list:
     return rows
 
 
-def _is_candidate(row) -> bool:
-    """True, если row выглядит как корпусной/системный/notebook вентилятор.
+# Все 4 эвристики с маркером (для отчётности): какая сработала первой.
+_DETECTORS: tuple[tuple[str, callable], ...] = (
+    ("case_fan",         is_likely_case_fan),
+    ("thermal_paste",    is_likely_thermal_paste),
+    ("cable_or_adapter", is_likely_cable_or_adapter),
+    ("mounting_kit",     is_likely_mounting_kit),
+)
 
-    Защита: если у компонента уже есть сокеты или TDP — НЕ трогаем.
-    Иначе применяем is_likely_case_fan к конкатенации model + manufacturer
-    + всех raw_names. Это важно: иногда название в БД (model) короткое,
-    а в raw_name у поставщика — расширенное «Cooler ARCTIC P12 PWM PST».
+
+def _classify_row(row) -> str | None:
+    """Возвращает имя сработавшего детектора или None.
+
+    Защита: если у компонента уже есть сокеты или TDP — это однозначно
+    CPU-кулер, не трогаем (даже если совпадает серия).
+    Применяем детекторы к конкатенации model + manufacturer + всех raw_names.
     """
     has_sockets = (
         row.supported_sockets is not None and len(row.supported_sockets) > 0
     )
     has_tdp = row.max_tdp_watts is not None
     if has_sockets or has_tdp:
-        return False
+        return None
 
     parts: list[str] = []
     if row.model:
@@ -116,8 +134,16 @@ def _is_candidate(row) -> bool:
             parts.append(str(n))
     full = " | ".join(parts)
     if not full.strip():
-        return False
-    return is_likely_case_fan(full, row.manufacturer)
+        return None
+    for name, detector in _DETECTORS:
+        if detector(full, row.manufacturer):
+            return name
+    return None
+
+
+def _is_candidate(row) -> bool:
+    """Совместимость со старым контрактом: True если хоть один детектор сработал."""
+    return _classify_row(row) is not None
 
 
 def find_candidates(engine) -> list:
@@ -125,9 +151,20 @@ def find_candidates(engine) -> list:
     return [r for r in rows if _is_candidate(r)]
 
 
+def find_candidates_by_detector(engine) -> dict[str, list]:
+    """Возвращает {detector_name: [row, ...]} — сгруппированные кандидаты."""
+    rows = _fetch_visible_coolers_with_raw_names(engine)
+    grouped: dict[str, list] = {name: [] for name, _ in _DETECTORS}
+    for r in rows:
+        d = _classify_row(r)
+        if d is not None:
+            grouped[d].append(r)
+    return grouped
+
+
 def _write_backup(rows: list, *, reports_dir: Path) -> Path:
     today = datetime.now().strftime("%Y%m%d")
-    out_path = reports_dir / f"reclassify_case_fans_backup_{today}.sql"
+    out_path = reports_dir / f"reclassify_non_coolers_backup_{today}.sql"
     ids = [int(r.id) for r in rows]
     if not ids:
         out_path.write_text(
@@ -151,7 +188,7 @@ def _write_report(
     reports_dir: Path,
     backup_path: Path | None,
 ) -> Path:
-    out_path = reports_dir / "reclassify_case_fans_report.md"
+    out_path = reports_dir / "reclassify_non_coolers_report.md"
     today = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     lines: list[str] = []
@@ -169,6 +206,23 @@ def _write_report(
             f"`{backup_path.relative_to(reports_dir.parent.parent)}`"
         )
     lines.append("")
+
+    # Распределение по сработавшему детектору
+    by_det: Counter = Counter()
+    for r in candidates:
+        d = _classify_row(r)
+        if d:
+            by_det[d] += 1
+    if by_det:
+        lines.append("## По детектору")
+        lines.append("")
+        lines.append("| Детектор | Кол-во |")
+        lines.append("|---|---:|")
+        for d_name, _ in _DETECTORS:
+            n = by_det.get(d_name, 0)
+            if n:
+                lines.append(f"| {d_name} | {n} |")
+        lines.append("")
 
     by_mfg: Counter = Counter()
     for r in candidates:
@@ -228,17 +282,25 @@ def reclassify(
             hidden_count = res.rowcount or 0
         # Один общий audit-event на массовое обновление, чтобы не плодить
         # 1 запись на каждый id. target_id = коннект-строка с количеством.
+        # Группировка по сработавшему детектору — для трассировки в audit_log
+        by_det: dict[str, list[int]] = {name: [] for name, _ in _DETECTORS}
+        for r in candidates:
+            d = _classify_row(r)
+            if d:
+                by_det[d].append(int(r.id))
+
         write_audit(
             action=ACTION_COMPONENT_HIDE,
             service="configurator",
-            user_login="reclassify_case_fans.py",
+            user_login="reclassify_non_coolers.py",
             target_type="cooler",
             target_id=f"bulk:{hidden_count}",
             payload={
-                "stage":  "11.6.2.3.1",
-                "reason": "case_fan_reclassification",
-                "ids":    ids[:200],  # обрезаем, чтобы не раздуть JSON
-                "total":  hidden_count,
+                "stage":   "11.6.2.3.2",
+                "reason":  "non_cooler_reclassification",
+                "by_detector": {k: len(v) for k, v in by_det.items()},
+                "ids":     ids[:200],  # обрезаем, чтобы не раздуть JSON
+                "total":   hidden_count,
             },
         )
 

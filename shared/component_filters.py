@@ -62,7 +62,11 @@ _CASE_FAN_SERIES = re.compile(
     # Noctua NF-A12 / NF-A14 / NF-S12 / NF-P12 / NF-F12 (часто с суффиксом
     # вроде «x25» или «PWM») — корпусные. NH-D15 / NH-U12 / NH-L9 — CPU,
     # не цепляем.
-    r"|\bnf[\-\s][asfp]\d{1,3}(?!\d)",
+    r"|\bnf[\-\s][asfp]\d{1,3}(?!\d)"
+    # PCCooler корпусные серии: F5R120 / EF120 / F3 T120 (формат XxXxX мм).
+    # AIO-серии PCCooler (DS/DT/DA/DC/DE 240/360) идут под отдельным брендом
+    # и не пересекаются с этими сериями.
+    r"|\b(?:pccooler)\s+(?:f\d[a-z]?|ef|f\d\s*t)\d{2,3}\b",
     flags=re.IGNORECASE,
 )
 
@@ -71,10 +75,12 @@ _CASE_FAN_SERIES = re.compile(
 _GENERIC_FAN = re.compile(r"вентилятор|\bfan\b", flags=re.IGNORECASE)
 
 # Маркеры CPU-кулера: если они есть в имени, позицию НЕ помечаем как
-# корпусную, даже если в имени есть слово «вентилятор».
+# корпусную/мусор, даже если в имени есть слово «вентилятор», «термопаста»
+# или «mount kit». Используется как защитный слой во всех is_likely_*
+# детекторах ниже.
 _CPU_COOLER_HINTS = re.compile(
     r"(процессор|cpu[\s\-]?cooler|башенн|tower|радиатор|heat[\s\-]?sink|"
-    r"liquid|aio|жидкост|охлад\.\s*проц|water\s*cool)",
+    r"liquid|aio|жидкост|охлад\.\s*проц|water\s*cool|cpu\s*fan|процессорн)",
     flags=re.IGNORECASE,
 )
 
@@ -119,6 +125,97 @@ def is_likely_case_fan(
         return True
 
     return False
+
+
+# Маркеры термопасты / термопрокладки. Используется в is_likely_thermal_paste.
+_THERMAL_PASTE_KEYWORDS = re.compile(
+    r"(термопаст|термоинтерфейс|термопрокладк|тепло.*проклад|"
+    r"thermal\s*paste|thermal\s*pad|thermal\s*compound|термогель)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_thermal_paste(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на термопасту / термопрокладку.
+
+    Защитный слой совпадает с is_likely_case_fan: не помечаем, если в
+    имени присутствует CPU-маркер (например, «термопаста для процессора»
+    может быть фактически «комплект CPU + термопаста», то есть скелет
+    CPU-кулера). Также не помечаем при пустом входе.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _CPU_COOLER_HINTS.search(full):
+        return False
+    return bool(_THERMAL_PASTE_KEYWORDS.search(full))
+
+
+# Маркеры кабеля / удлинителя / адаптера / переходника / панели подключения.
+# В is_likely_cable_or_adapter защищены: процессорный маркер блокирует
+# пометку (на случай «кулер с USB-подсветкой» и т. п.).
+_CABLE_ADAPTER_KEYWORDS = re.compile(
+    r"(\busb[\b\s\-/]|\bкабел[ьея]|\bcable\b|удлинител|extension|extender|"
+    r"переходник|разветвител|splitter|"
+    r"патч[\s\-]корд|patch[\s\-]?cord|"
+    r"front\s*panel|панель\s+(?:для|с|подключен|управлен))",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_cable_or_adapter(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на кабель / удлинитель / адаптер /
+    переходник / панель подключения, ошибочно классифицированные как cooler.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _CPU_COOLER_HINTS.search(full):
+        return False
+    # Радиатор / вентилятор как самостоятельные слова — тоже сигнал, что
+    # перед нами часть кулера (а не аксессуар), даже если есть слово USB.
+    if re.search(r"\bвентилятор|\bfan\b|\bрадиатор|heat[\s\-]?sink",
+                 full, flags=re.IGNORECASE):
+        return False
+    return bool(_CABLE_ADAPTER_KEYWORDS.search(full))
+
+
+# Маркеры монтажного комплекта / бэк-плейта / кронштейна. Защитный слой
+# тот же — CPU-маркер блокирует. Артикулы Exegate BKT-* и явно «secure frame»
+# попадают в эту категорию, но «mounting kit для AM5 secure frame» от
+# DeepCool/Noctua пройдут защиту, потому что в их raw_name присутствует
+# «cpu»/«процессор»/«cooler».
+_MOUNTING_KIT_KEYWORDS = re.compile(
+    r"(mount(?:ing)?\s*kit|"
+    r"\bкреплени[ея](?!\s+(?:вентилятора|радиатора))|"
+    r"\bbracket\b|"
+    r"back[\s\-]?plate|backplate|бэкплейт|"
+    r"secure\s*frame|"
+    r"\bbkt[\s\-]?\d|"  # Exegate BKT-0126, BKT-0126L
+    r"рамк[ауи]\s+(?:для\s+процессор|cpu)?)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_mounting_kit(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на монтажный комплект / бэк-плейт /
+    кронштейн без самого кулера.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+    if _CPU_COOLER_HINTS.search(full):
+        return False
+    return bool(_MOUNTING_KIT_KEYWORDS.search(full))
 
 
 def is_likely_external_storage(
