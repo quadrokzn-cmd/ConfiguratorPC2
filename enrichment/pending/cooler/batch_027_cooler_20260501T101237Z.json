@@ -1,0 +1,506 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_027",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1886,
+      "manufacturer": "unknown",
+      "sku": "60-0218",
+      "mpn": "60-0218",
+      "gtin": "",
+      "model": "Rexant (60-0218) Вентилятор напольный DX-40 Dux",
+      "raw_names": [
+        "Rexant (60-0218) Вентилятор напольный DX-40 Dux"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1887,
+      "manufacturer": "unknown",
+      "sku": "60-0219",
+      "mpn": "60-0219",
+      "gtin": "",
+      "model": "Rexant (60-0219) Вентилятор напольный DX-40B DUX",
+      "raw_names": [
+        "Rexant (60-0219) Вентилятор напольный DX-40B DUX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1888,
+      "manufacturer": "unknown",
+      "sku": "60-0213",
+      "mpn": "60-0213",
+      "gtin": "",
+      "model": "Rexant (60-0213) Вентилятор напольный белый/синий 60 Вт, 5 лопастей, подставка круглая, д/у управление",
+      "raw_names": [
+        "Rexant (60-0213) Вентилятор напольный белый/синий 60 Вт, 5 лопастей, подставка круглая, д/у управление"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1889,
+      "manufacturer": "unknown",
+      "sku": "60-0221",
+      "mpn": "60-0221",
+      "gtin": "",
+      "model": "Rexant (60-0221) Вентилятор напольный белый, 7 лопастей, д/у управление, 50Вт Dux",
+      "raw_names": [
+        "Rexant (60-0221) Вентилятор напольный белый, 7 лопастей, д/у управление, 50Вт Dux"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1890,
+      "manufacturer": "unknown",
+      "sku": "60-0214",
+      "mpn": "60-0214",
+      "gtin": "",
+      "model": "Rexant (60-0214) Вентилятор настольный USB, белый, 6Вт",
+      "raw_names": [
+        "Rexant (60-0214) Вентилятор настольный USB, белый, 6Вт"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1891,
+      "manufacturer": "unknown",
+      "sku": "02.011.00072",
+      "mpn": "02.011.00072",
+      "gtin": "",
+      "model": "Тепловентилятор ПАРМА ТВК-02-2000 [02.011.00072] { (220 В, 1,0/2,0 кВт, 197 куб.м/час) (8 шт/кор) (192 шт/пал) }",
+      "raw_names": [
+        "Тепловентилятор ПАРМА ТВК-02-2000 [02.011.00072] { (220 В, 1,0/2,0 кВт, 197 куб.м/час) (8 шт/кор) (192 шт/пал) }"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1892,
+      "manufacturer": "unknown",
+      "sku": "02.011.00073",
+      "mpn": "02.011.00073",
+      "gtin": "",
+      "model": "Тепловентилятор ПАРМА ТВК-02-3000 [02.011.00073] { (220 В, 1,5/3,0 кВт, 238 куб.м/час) (140 шт/пал) }",
+      "raw_names": [
+        "Тепловентилятор ПАРМА ТВК-02-3000 [02.011.00073] { (220 В, 1,5/3,0 кВт, 238 куб.м/час) (140 шт/пал) }"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1893,
+      "manufacturer": "unknown",
+      "sku": "MKNNIN-G-1",
+      "mpn": "MKNNIN-G-1",
+      "gtin": "",
+      "model": "Повреждение упаковки Комплект креплений DeepCool  EM009-MKNNIN-G-1",
+      "raw_names": [
+        "Повреждение упаковки Комплект креплений DeepCool  EM009-MKNNIN-G-1"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1894,
+      "manufacturer": "unknown",
+      "sku": "AS-120-K_DP",
+      "mpn": "AS-120-K_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Case Fan ID-Cooling AS-120-K,  120мм, Ret",
+      "raw_names": [
+        "Повреждение упаковки Case Fan ID-Cooling AS-120-K,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1895,
+      "manufacturer": "unknown",
+      "sku": "PCCooler FX-120-3",
+      "mpn": "PCCooler FX-120-3",
+      "gtin": "",
+      "model": "Повреждение упаковки PCCooler FX-120-3 FIXED COLOR FAN 120x120x25mm",
+      "raw_names": [
+        "Повреждение упаковки PCCooler FX-120-3 FIXED COLOR FAN 120x120x25mm"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1896,
+      "manufacturer": "unknown",
+      "sku": "AS-120-ARGB-W_DP",
+      "mpn": "AS-120-ARGB-W_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Case Fan ID-Cooling AS-120-ARGB-W",
+      "raw_names": [
+        "Повреждение упаковки Case Fan ID-Cooling AS-120-ARGB-W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1897,
+      "manufacturer": "unknown",
+      "sku": "SE-224-XTS ARGB_DP",
+      "mpn": "SE-224-XTS ARGB_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler ID-Cooling SE-224-XTS ARGB",
+      "raw_names": [
+        "Повреждение упаковки Cooler ID-Cooling SE-224-XTS ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1898,
+      "manufacturer": "unknown",
+      "sku": "A620 PRO SE_DP",
+      "mpn": "A620 PRO SE_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler ID-Cooling FROZN A620 PRO SE  RET",
+      "raw_names": [
+        "Повреждение упаковки Cooler ID-Cooling FROZN A620 PRO SE  RET"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1899,
+      "manufacturer": "unknown",
+      "sku": "GAMMA ARCHER V2 _DP",
+      "mpn": "GAMMA ARCHER V2 _DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Deepcool GAMMA ARCHER V2",
+      "raw_names": [
+        "Повреждение упаковки Cooler Deepcool GAMMA ARCHER V2"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1900,
+      "manufacturer": "unknown",
+      "sku": "AG300_DP",
+      "mpn": "AG300_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Deepcool AG300 MARRS Intel LGA1700/1200/1151/1150/1155 AMD AM5/AM4, 3 Heatpipes, 92мм.,TDP150W",
+      "raw_names": [
+        "Повреждение упаковки Cooler Deepcool AG300 MARRS Intel LGA1700/1200/1151/1150/1155 AMD AM5/AM4, 3 Heatpipes, 92мм.,TDP150W"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700",
+          "LGA1200",
+          "LGA1151",
+          "LGA1150",
+          "LGA1155",
+          "AM5",
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1901,
+      "manufacturer": "unknown",
+      "sku": "PC-Z05E SRB ARGB_DP",
+      "mpn": "PC-Z05E SRB ARGB_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Кулер PentaWave PC-Z05E SRB ARGB",
+      "raw_names": [
+        "Повреждение упаковки Кулер PentaWave PC-Z05E SRB ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1903,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00188A_DP",
+      "mpn": "ACFRE00188A_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки СЖО Liquid Freezer III Pro 360 ARGB Whte ACFRE00188A",
+      "raw_names": [
+        "Повреждение упаковки СЖО Liquid Freezer III Pro 360 ARGB Whte ACFRE00188A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1904,
+      "manufacturer": "unknown",
+      "sku": "Lian Li G89.GA2T36W.R0",
+      "mpn": "Lian Li G89.GA2T36W.R0",
+      "gtin": "",
+      "model": "Повреждение упаковки Lian Li G89.GA2T36W.R0 Система водяного охлаждения GA II Trinity 360 White (GA2T36W) / 3x120mm ARGB PWM Fans",
+      "raw_names": [
+        "Повреждение упаковки Lian Li G89.GA2T36W.R0 Система водяного охлаждения GA II Trinity 360 White (GA2T36W) / 3x120mm ARGB PWM Fans"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1905,
+      "manufacturer": "unknown",
+      "sku": "ID-Cooling Dashflow 240 Basic",
+      "mpn": "ID-Cooling Dashflow 240 Basic",
+      "gtin": "",
+      "model": "Повреждение упаковки Кулер с водяным охлаждением ID-Cooling Dashflow 240 Basic White 1150/1155/S1156/1151/1200/1700, AM4/AM5",
+      "raw_names": [
+        "Повреждение упаковки Кулер с водяным охлаждением ID-Cooling Dashflow 240 Basic White 1150/1155/S1156/1151/1200/1700, AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1906,
+      "manufacturer": "unknown",
+      "sku": "AG400_DP",
+      "mpn": "AG400_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Deepcool AG400",
+      "raw_names": [
+        "Повреждение упаковки Cooler Deepcool AG400"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1907,
+      "manufacturer": "unknown",
+      "sku": "CNPS13X DS_DP",
+      "mpn": "CNPS13X DS_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Zalman CNPS13X DS,  120мм, Ret",
+      "raw_names": [
+        "Повреждение упаковки Cooler Zalman CNPS13X DS,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1909,
+      "manufacturer": "unknown",
+      "sku": "Zero M15_DP",
+      "mpn": "Zero M15_DP",
+      "gtin": "",
+      "model": "повреждение упаковки Радиатор на SSD M.2 ID-Cooling (Zero M15) Silver",
+      "raw_names": [
+        "повреждение упаковки Радиатор на SSD M.2 ID-Cooling (Zero M15) Silver"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1910,
+      "manufacturer": "unknown",
+      "sku": "ID-Cooling FH-10 PWM_DP",
+      "mpn": "ID-Cooling FH-10 PWM_DP",
+      "gtin": "",
+      "model": "Поврежденная упаковка Хаб для вентилятора ID-Cooling FH-10 PWM",
+      "raw_names": [
+        "Поврежденная упаковка Хаб для вентилятора ID-Cooling FH-10 PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1911,
+      "manufacturer": "unknown",
+      "sku": "XF-120-K_DP",
+      "mpn": "XF-120-K_DP",
+      "gtin": "",
+      "model": "Поврежденная упаковка Case Fan ID-Cooling XF-120-K 120х120х25 мм (PWM)",
+      "raw_names": [
+        "Поврежденная упаковка Case Fan ID-Cooling XF-120-K 120х120х25 мм (PWM)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1912,
+      "manufacturer": "unknown",
+      "sku": "SE-207-XT SLIM_DP",
+      "mpn": "SE-207-XT SLIM_DP",
+      "gtin": "",
+      "model": "Поврежденная упаковка Cooler ID-Cooling SE-207-XT SLIM,  120мм, Ret",
+      "raw_names": [
+        "Поврежденная упаковка Cooler ID-Cooling SE-207-XT SLIM,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1913,
+      "manufacturer": "unknown",
+      "sku": "FD14 ARGB_DP",
+      "mpn": "FD14 ARGB_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Case fan Deepcool FD14 ARGB черный 4-pin 25.6дБ (R-FD14-BKAPN1-G) Ret",
+      "raw_names": [
+        "Повреждение упаковки Case fan Deepcool FD14 ARGB черный 4-pin 25.6дБ (R-FD14-BKAPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1915,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLIN1B.R0_DP",
+      "mpn": "G99.12SLIN1B.R0_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Lian Li G99.12SLIN1B.R0 Вентилятор UNI FAN SL-INF 120 Black /UF-SLIN120-1B/ 120х120х25мм (PWM, ARGB, 200-2100 об/мин, 29dBa)",
+      "raw_names": [
+        "Повреждение упаковки Lian Li G99.12SLIN1B.R0 Вентилятор UNI FAN SL-INF 120 Black /UF-SLIN120-1B/ 120х120х25мм (PWM, ARGB, 200-2100 об/мин, 29dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1916,
+      "manufacturer": "unknown",
+      "sku": "TF-9215-ARGB_DP",
+      "mpn": "TF-9215-ARGB_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Case Fan ID-Cooling TF-9215-ARGB  (92mm PWM, 4pin, супер-тонкий, ARGB, черный, 800-2500об/мин)  BOX",
+      "raw_names": [
+        "Повреждение упаковки Case Fan ID-Cooling TF-9215-ARGB  (92mm PWM, 4pin, супер-тонкий, ARGB, черный, 800-2500об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1917,
+      "manufacturer": "unknown",
+      "sku": "Motion 12 Plus120_DP",
+      "mpn": "Motion 12 Plus120_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Fan Aerocool Motion 12 Plus / 120mm/ 3pin+Molex/ Black",
+      "raw_names": [
+        "Повреждение упаковки Fan Aerocool Motion 12 Plus / 120mm/ 3pin+Molex/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1918,
+      "manufacturer": "unknown",
+      "sku": "FT9 SLIM_DP",
+      "mpn": "FT9 SLIM_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Case fan Deepcool FT9 SLIM ( White LED, черный, 1500-2950об/мин)  Color BOX",
+      "raw_names": [
+        "Повреждение упаковки Case fan Deepcool FT9 SLIM ( White LED, черный, 1500-2950об/мин)  Color BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

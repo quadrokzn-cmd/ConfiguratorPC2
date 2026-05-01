@@ -1,0 +1,498 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_024",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1370,
+      "manufacturer": "unknown",
+      "sku": "EX295240RUS",
+      "mpn": "EX295240RUS",
+      "gtin": "",
+      "model": "Exegate EX295240RUS Вентилятор 12В DC ExeGate EX09225S2P (92x92x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 2100RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX295240RUS Вентилятор 12В DC ExeGate EX09225S2P (92x92x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 2100RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1371,
+      "manufacturer": "unknown",
+      "sku": "EX295241RUS",
+      "mpn": "EX295241RUS",
+      "gtin": "",
+      "model": "Exegate EX295241RUS Вентилятор 12В DC ExeGate EX09225B2P (92x92x25 мм, 2-Ball (двойной шарикоподшипник), 2pin, 2150RPM, 27dBA)",
+      "raw_names": [
+        "Exegate EX295241RUS Вентилятор 12В DC ExeGate EX09225B2P (92x92x25 мм, 2-Ball (двойной шарикоподшипник), 2pin, 2150RPM, 27dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1372,
+      "manufacturer": "unknown",
+      "sku": "EX295242RUS",
+      "mpn": "EX295242RUS",
+      "gtin": "",
+      "model": "Exegate EX295242RUS Вентилятор 12В DC ExeGate EX12025B2P (120x120x25 мм, 2-Ball (двойной шарикоподшипник), 2pin, 1550RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX295242RUS Вентилятор 12В DC ExeGate EX12025B2P (120x120x25 мм, 2-Ball (двойной шарикоподшипник), 2pin, 1550RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1373,
+      "manufacturer": "unknown",
+      "sku": "EX295245RUS",
+      "mpn": "EX295245RUS",
+      "gtin": "",
+      "model": "Exegate EX295245RUS Вентилятор 12В DC ExeGate EX12025BM (120x120x25 мм, 2-Ball (двойной шарикоподшипник), Molex, 1550RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX295245RUS Вентилятор 12В DC ExeGate EX12025BM (120x120x25 мм, 2-Ball (двойной шарикоподшипник), Molex, 1550RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1374,
+      "manufacturer": "unknown",
+      "sku": "EX295246RUS",
+      "mpn": "EX295246RUS",
+      "gtin": "",
+      "model": "Exegate EX295246RUS Вентилятор 12В DC ExeGate ExtraPower EP12025BM (120x120x25 мм, 2-Ball (двойной шарикоподшипник), Molex, 1850RPM, 30dBA)",
+      "raw_names": [
+        "Exegate EX295246RUS Вентилятор 12В DC ExeGate ExtraPower EP12025BM (120x120x25 мм, 2-Ball (двойной шарикоподшипник), Molex, 1850RPM, 30dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1375,
+      "manufacturer": "unknown",
+      "sku": "EX295247RUS",
+      "mpn": "EX295247RUS",
+      "gtin": "",
+      "model": "Exegate EX295247RUS Вентилятор 12В DC ExeGate ExtraPower EP14025S2P (140x140x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 1600RPM, 31dBA)",
+      "raw_names": [
+        "Exegate EX295247RUS Вентилятор 12В DC ExeGate ExtraPower EP14025S2P (140x140x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 1600RPM, 31dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1376,
+      "manufacturer": "unknown",
+      "sku": "EX295248RUS",
+      "mpn": "EX295248RUS",
+      "gtin": "",
+      "model": "Exegate EX295248RUS Вентилятор 12В DC ExeGate EX14025S4P-PWM (140x140x25 мм, Sleeve bearing (подшипник скольжения), 4pin, PWM, 24dBA)",
+      "raw_names": [
+        "Exegate EX295248RUS Вентилятор 12В DC ExeGate EX14025S4P-PWM (140x140x25 мм, Sleeve bearing (подшипник скольжения), 4pin, PWM, 24dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1379,
+      "manufacturer": "unknown",
+      "sku": "EX295393RUS",
+      "mpn": "EX295393RUS",
+      "gtin": "",
+      "model": "Exegate EX295393RUS Задняя планка ExeGate BKT-0126L, под радиатор/процессорный кулер для LGA 3647, Narrow (back plate BKT-0126L)",
+      "raw_names": [
+        "Exegate EX295393RUS Задняя планка ExeGate BKT-0126L, под радиатор/процессорный кулер для LGA 3647, Narrow (back plate BKT-0126L)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA3647"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1380,
+      "manufacturer": "unknown",
+      "sku": "EX297211RUS",
+      "mpn": "EX297211RUS",
+      "gtin": "",
+      "model": "Exegate EX297211RUS  Задняя планка ExeGate BKT-0126, под радиатор/процессорный кулер для LGA 3647, Square (back plate BKT-0126)",
+      "raw_names": [
+        "Exegate EX297211RUS  Задняя планка ExeGate BKT-0126, под радиатор/процессорный кулер для LGA 3647, Square (back plate BKT-0126)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA3647"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1381,
+      "manufacturer": "unknown",
+      "sku": "EX295250RUS",
+      "mpn": "EX295250RUS",
+      "gtin": "",
+      "model": "Exegate EX295250RUS Решетка для вентилятора с фильтром 40х40 ExeGate EG-040PSFB (40x40 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295250RUS Решетка для вентилятора с фильтром 40х40 ExeGate EG-040PSFB (40x40 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1382,
+      "manufacturer": "unknown",
+      "sku": "EX295251RUS",
+      "mpn": "EX295251RUS",
+      "gtin": "",
+      "model": "Exegate EX295251RUS Решетка для вентилятора с фильтром 50х50 ExeGate EG-050PSFB (50х50 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295251RUS Решетка для вентилятора с фильтром 50х50 ExeGate EG-050PSFB (50х50 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1383,
+      "manufacturer": "unknown",
+      "sku": "EX295252RUS",
+      "mpn": "EX295252RUS",
+      "gtin": "",
+      "model": "Exegate EX295252RUS Решетка для вентилятора с фильтром 60х60 ExeGate EG-060PSFB (60x60 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295252RUS Решетка для вентилятора с фильтром 60х60 ExeGate EG-060PSFB (60x60 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1384,
+      "manufacturer": "unknown",
+      "sku": "EX295253RUS",
+      "mpn": "EX295253RUS",
+      "gtin": "",
+      "model": "Exegate EX295253RUS Решетка для вентилятора с фильтром 70х70 ExeGate EG-070PSFB (70x70 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295253RUS Решетка для вентилятора с фильтром 70х70 ExeGate EG-070PSFB (70x70 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1385,
+      "manufacturer": "unknown",
+      "sku": "EX295255RUS",
+      "mpn": "EX295255RUS",
+      "gtin": "",
+      "model": "Exegate EX295255RUS Решетка для вентилятора с фильтром 90х90 ExeGate EG-090PSFB (90x90 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295255RUS Решетка для вентилятора с фильтром 90х90 ExeGate EG-090PSFB (90x90 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1386,
+      "manufacturer": "unknown",
+      "sku": "EX295256RUS",
+      "mpn": "EX295256RUS",
+      "gtin": "",
+      "model": "Exegate EX295256RUS Решетка для вентилятора с фильтром 120х120 ExeGate EG-120PSFB (120x120 мм, пластиковая, квадратная, с пылевым фильтром, черная)",
+      "raw_names": [
+        "Exegate EX295256RUS Решетка для вентилятора с фильтром 120х120 ExeGate EG-120PSFB (120x120 мм, пластиковая, квадратная, с пылевым фильтром, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1387,
+      "manufacturer": "unknown",
+      "sku": "EX295257RUS",
+      "mpn": "EX295257RUS",
+      "gtin": "",
+      "model": "Exegate EX295257RUS Решетка для вентилятора 40x40 ExeGate EG-040MR (40x40 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295257RUS Решетка для вентилятора 40x40 ExeGate EG-040MR (40x40 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1388,
+      "manufacturer": "unknown",
+      "sku": "EX295258RUS",
+      "mpn": "EX295258RUS",
+      "gtin": "",
+      "model": "Exegate EX295258RUS Решетка для вентилятора 50х50 ExeGate EG-050MR (50х50 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295258RUS Решетка для вентилятора 50х50 ExeGate EG-050MR (50х50 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1389,
+      "manufacturer": "unknown",
+      "sku": "EX295259RUS",
+      "mpn": "EX295259RUS",
+      "gtin": "",
+      "model": "Exegate EX295259RUS Решетка для вентилятора 60x60 ExeGate EG-060MR (60x60 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295259RUS Решетка для вентилятора 60x60 ExeGate EG-060MR (60x60 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1390,
+      "manufacturer": "unknown",
+      "sku": "EX295260RUS",
+      "mpn": "EX295260RUS",
+      "gtin": "",
+      "model": "Exegate EX295260RUS Решетка для вентилятора 70x70 ExeGate EG-070MR (70x70 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295260RUS Решетка для вентилятора 70x70 ExeGate EG-070MR (70x70 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1391,
+      "manufacturer": "unknown",
+      "sku": "EX295261RUS",
+      "mpn": "EX295261RUS",
+      "gtin": "",
+      "model": "Exegate EX295261RUS Решетка для вентилятора 80x80 ExeGate EG-080MR (80x80 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295261RUS Решетка для вентилятора 80x80 ExeGate EG-080MR (80x80 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1392,
+      "manufacturer": "unknown",
+      "sku": "EX295263RUS",
+      "mpn": "EX295263RUS",
+      "gtin": "",
+      "model": "Exegate EX295263RUS Решетка для вентилятора 120x120 ExeGate EG-120MR (120x120 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295263RUS Решетка для вентилятора 120x120 ExeGate EG-120MR (120x120 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1393,
+      "manufacturer": "unknown",
+      "sku": "EX295264RUS",
+      "mpn": "EX295264RUS",
+      "gtin": "",
+      "model": "Exegate EX295264RUS Решетка для вентилятора 140x140 ExeGate EG-140MR (140x140 мм, металлическая, круглая, никель)",
+      "raw_names": [
+        "Exegate EX295264RUS Решетка для вентилятора 140x140 ExeGate EG-140MR (140x140 мм, металлическая, круглая, никель)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1394,
+      "manufacturer": "unknown",
+      "sku": "EX295265RUS",
+      "mpn": "EX295265RUS",
+      "gtin": "",
+      "model": "Exegate EX295265RUS Решетка для вентилятора 40x40 ExeGate EG-040PSB (40x40 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295265RUS Решетка для вентилятора 40x40 ExeGate EG-040PSB (40x40 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1395,
+      "manufacturer": "unknown",
+      "sku": "EX295266RUS",
+      "mpn": "EX295266RUS",
+      "gtin": "",
+      "model": "Exegate EX295266RUS Решетка для вентилятора 50х50 ExeGate EG-050PSB (50х50 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295266RUS Решетка для вентилятора 50х50 ExeGate EG-050PSB (50х50 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1396,
+      "manufacturer": "unknown",
+      "sku": "EX295267RUS",
+      "mpn": "EX295267RUS",
+      "gtin": "",
+      "model": "Exegate EX295267RUS Решетка для вентилятора 60x60 ExeGate EG-060PSB (60x60 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295267RUS Решетка для вентилятора 60x60 ExeGate EG-060PSB (60x60 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1397,
+      "manufacturer": "unknown",
+      "sku": "EX295268RUS",
+      "mpn": "EX295268RUS",
+      "gtin": "",
+      "model": "Exegate EX295268RUS Решетка для вентилятора 70x70 ExeGate EG-070PSB (70x70 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295268RUS Решетка для вентилятора 70x70 ExeGate EG-070PSB (70x70 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1398,
+      "manufacturer": "unknown",
+      "sku": "EX295269RUS",
+      "mpn": "EX295269RUS",
+      "gtin": "",
+      "model": "Exegate EX295269RUS Решетка для вентилятора 80x80 ExeGate EG-080PSB (80x80 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295269RUS Решетка для вентилятора 80x80 ExeGate EG-080PSB (80x80 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1399,
+      "manufacturer": "unknown",
+      "sku": "EX295270RUS",
+      "mpn": "EX295270RUS",
+      "gtin": "",
+      "model": "Exegate EX295270RUS Решетка для вентилятора 90x90 ExeGate EG-090PSB (90x90 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295270RUS Решетка для вентилятора 90x90 ExeGate EG-090PSB (90x90 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1400,
+      "manufacturer": "unknown",
+      "sku": "EX295271RUS",
+      "mpn": "EX295271RUS",
+      "gtin": "",
+      "model": "Exegate EX295271RUS Решетка для вентилятора 120x120 ExeGate EG-120PSB (120x120 мм, пластиковая, квадратная, черная)",
+      "raw_names": [
+        "Exegate EX295271RUS Решетка для вентилятора 120x120 ExeGate EG-120PSB (120x120 мм, пластиковая, квадратная, черная)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1401,
+      "manufacturer": "unknown",
+      "sku": "EX295967RUS",
+      "mpn": "EX295967RUS",
+      "gtin": "",
+      "model": "Exegate EX295967RUS Вентилятор 12В DC с подсветкой ExeGate EX12025H3P4PMY-PWM.ARGB (120x120x25 мм, Hydraulic bearing (гидродинамический), 5V ARGB 3pin, 4pin PWM, 1200RPM, ARGB подсветка, 26dBA)",
+      "raw_names": [
+        "Exegate EX295967RUS Вентилятор 12В DC с подсветкой ExeGate EX12025H3P4PMY-PWM.ARGB (120x120x25 мм, Hydraulic bearing (гидродинамический), 5V ARGB 3pin, 4pin PWM, 1200RPM, ARGB подсветка, 26dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

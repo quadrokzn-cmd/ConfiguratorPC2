@@ -1,0 +1,514 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_013",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 960,
+      "manufacturer": "unknown",
+      "sku": "H061-1",
+      "mpn": "H061-1",
+      "gtin": "",
+      "model": "Светильник Hiper Twins H061-1 19Вт 4000K цв.св.:белый нейтральный розовый/белый",
+      "raw_names": [
+        "Светильник Hiper Twins H061-1 19Вт 4000K цв.св.:белый нейтральный розовый/белый"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 961,
+      "manufacturer": "unknown",
+      "sku": "N8 BLACK",
+      "mpn": "N8 BLACK",
+      "gtin": "",
+      "model": "Подставка для охлаждения ноутбука DEEPCOOL N8 BLACK (8шт/кор, до 17\", вентилятор 2x140мм,  алюминий, черный, 2USB ) Retail box",
+      "raw_names": [
+        "Подставка для охлаждения ноутбука DEEPCOOL N8 BLACK (8шт/кор, до 17\", вентилятор 2x140мм,  алюминий, черный, 2USB ) Retail box"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 962,
+      "manufacturer": "unknown",
+      "sku": "DP-ICAS-CK11508-V2",
+      "mpn": "DP-ICAS-CK11508-V2",
+      "gtin": "",
+      "model": "Устройство охлаждения(кулер) DeepCool CK-11508 V2,  92мм, Ret",
+      "raw_names": [
+        "Устройство охлаждения(кулер) DeepCool CK-11508 V2,  92мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 964,
+      "manufacturer": "unknown",
+      "sku": "R-PIXEL-PO100-G-1",
+      "mpn": "R-PIXEL-PO100-G-1",
+      "gtin": "",
+      "model": "Декоративные элементы DeepCool PIXEL Тыквенный Оранжевый (R-PIXEL-PO100-G-1)",
+      "raw_names": [
+        "Декоративные элементы DeepCool PIXEL Тыквенный Оранжевый (R-PIXEL-PO100-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 965,
+      "manufacturer": "unknown",
+      "sku": "R-PIXEL-TV100-G-1",
+      "mpn": "R-PIXEL-TV100-G-1",
+      "gtin": "",
+      "model": "Декоративные элементы DeepCool PIXEL Фиолетовый (R-PIXEL-TV100-G-1)",
+      "raw_names": [
+        "Декоративные элементы DeepCool PIXEL Фиолетовый (R-PIXEL-TV100-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 966,
+      "manufacturer": "unknown",
+      "sku": "R-CH170-BKNPI0D-G-1",
+      "mpn": "R-CH170-BKNPI0D-G-1",
+      "gtin": "",
+      "model": "Корпус для ПК Deepcool CH170 DIGITAL",
+      "raw_names": [
+        "Корпус для ПК Deepcool CH170 DIGITAL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 967,
+      "manufacturer": "unknown",
+      "sku": "R-CH170-WHNPI0D-G-1",
+      "mpn": "R-CH170-WHNPI0D-G-1",
+      "gtin": "",
+      "model": "Корпус для ПК Deepcool CH170 DIGITAL WH",
+      "raw_names": [
+        "Корпус для ПК Deepcool CH170 DIGITAL WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 969,
+      "manufacturer": "unknown",
+      "sku": "R-FT12-BKWPN1-G",
+      "mpn": "R-FT12-BKWPN1-G",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool FT12 120х120x25 черный 4-pin 32дБ (R-FT12-BKWPN1-G) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool FT12 120х120x25 черный 4-pin 32дБ (R-FT12-BKWPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 970,
+      "manufacturer": "unknown",
+      "sku": "R-FT12-WHWPN1-G",
+      "mpn": "R-FT12-WHWPN1-G",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool FT12 120х120x25 белый 4-pin 32дБ (R-FT12-WHWPN1-G) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool FT12 120х120x25 белый 4-pin 32дБ (R-FT12-WHWPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 971,
+      "manufacturer": "unknown",
+      "sku": "R-FT14-BKWPN1-G",
+      "mpn": "R-FT14-BKWPN1-G",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool FT14 140х140x25 черный 4-pin 25.1дБ (R-FT14-BKWPN1-G) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool FT14 140х140x25 черный 4-pin 25.1дБ (R-FT14-BKWPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 972,
+      "manufacturer": "unknown",
+      "sku": "R-FT14-WHWPN1-G",
+      "mpn": "R-FT14-WHWPN1-G",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool FT14 140х140x25 белый 4-pin 25.1дБ (R-FT14-WHWPN1-G) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool FT14 140х140x25 белый 4-pin 25.1дБ (R-FT14-WHWPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 973,
+      "manufacturer": "unknown",
+      "sku": "R-FL12-BKAPN1-G",
+      "mpn": "R-FL12-BKAPN1-G",
+      "gtin": "",
+      "model": "Вентилятор для корпуса DeepCool FL12 Black (R-FL12-BKAPN1-G)",
+      "raw_names": [
+        "Вентилятор для корпуса DeepCool FL12 Black (R-FL12-BKAPN1-G)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 974,
+      "manufacturer": "unknown",
+      "sku": "DP-FLED-WB120",
+      "mpn": "DP-FLED-WB120",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool Wind Blade 120 LED 120х120x25 черный 3-pin 4-pin (Molex) 26дБ (DP-FLED-WB120) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool Wind Blade 120 LED 120х120x25 черный 3-pin 4-pin (Molex) 26дБ (DP-FLED-WB120) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 976,
+      "manufacturer": "unknown",
+      "sku": "AG620 Bk V2 ARGB",
+      "mpn": "AG620 Bk V2 ARGB",
+      "gtin": "",
+      "model": "Cooler DeepCool AG620 Bk V2 ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 15-29",
+      "raw_names": [
+        "Cooler DeepCool AG620 Bk V2 ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 15-29"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 977,
+      "manufacturer": "unknown",
+      "sku": "R-AG500-WHAMMN-GJD",
+      "mpn": "R-AG500-WHAMMN-GJD",
+      "gtin": "",
+      "model": "Кулер для процессора DeepCool AG500 WH ARGB V2 (R-AG500-WHAMMN-GJD)",
+      "raw_names": [
+        "Кулер для процессора DeepCool AG500 WH ARGB V2 (R-AG500-WHAMMN-GJD)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 979,
+      "manufacturer": "unknown",
+      "sku": "AG400 Digital BK ARGB",
+      "mpn": "AG400 Digital BK ARGB",
+      "gtin": "",
+      "model": "Охлаждение CPU Cooler for CPU Deepcool AG400 Digital BK ARGB 1155/1156/1150/1700/1851/AM4/AM5",
+      "raw_names": [
+        "Охлаждение CPU Cooler for CPU Deepcool AG400 Digital BK ARGB 1155/1156/1150/1700/1851/AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 981,
+      "manufacturer": "unknown",
+      "sku": "R-LQ360-WHDSMC-G-1",
+      "mpn": "R-LQ360-WHDSMC-G-1",
+      "gtin": "",
+      "model": "Система жидкостного охлаждения для процессора DeepCool LQ360 WH (R-LQ360-WHDSMC-G-1)",
+      "raw_names": [
+        "Система жидкостного охлаждения для процессора DeepCool LQ360 WH (R-LQ360-WHDSMC-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 982,
+      "manufacturer": "unknown",
+      "sku": "R-LX240-WHDSNMP-G-1",
+      "mpn": "R-LX240-WHDSNMP-G-1",
+      "gtin": "",
+      "model": "Система жидкостного охлаждения для процессора DeepCool Mystique 240 WH (R-LX240-WHDSNMP-G-1)",
+      "raw_names": [
+        "Система жидкостного охлаждения для процессора DeepCool Mystique 240 WH (R-LX240-WHDSNMP-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 984,
+      "manufacturer": "unknown",
+      "sku": "R-LM240-WHDMMC-1",
+      "mpn": "R-LM240-WHDMMC-1",
+      "gtin": "",
+      "model": "Система жидкостного охлаждения для процессора Deepcool LM240 WH (R-LM240-WHDMMC-1)",
+      "raw_names": [
+        "Система жидкостного охлаждения для процессора Deepcool LM240 WH (R-LM240-WHDMMC-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 985,
+      "manufacturer": "unknown",
+      "sku": "DK-07A RAINBOW",
+      "mpn": "DK-07A RAINBOW",
+      "gtin": "",
+      "model": "Cooler ID-Cooling DK-07A RAINBOW,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling DK-07A RAINBOW,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 986,
+      "manufacturer": "unknown",
+      "sku": "DK-17 PWM",
+      "mpn": "DK-17 PWM",
+      "gtin": "",
+      "model": "Cooler ID-Cooling DK-17 PWM,  92мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling DK-17 PWM,  92мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 987,
+      "manufacturer": "unknown",
+      "sku": "DK-17A",
+      "mpn": "DK-17A",
+      "gtin": "",
+      "model": "Cooler ID-Cooling DK-17A AMD AM5/AM4",
+      "raw_names": [
+        "Cooler ID-Cooling DK-17A AMD AM5/AM4"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 988,
+      "manufacturer": "unknown",
+      "sku": "IS-37-XT BLACK",
+      "mpn": "IS-37-XT BLACK",
+      "gtin": "",
+      "model": "Cooler ID-Cooling IS-37-XT BLACK LGA1700/1200/115X/AM5/AM4 низкопрофильный высота 37mm",
+      "raw_names": [
+        "Cooler ID-Cooling IS-37-XT BLACK LGA1700/1200/115X/AM5/AM4 низкопрофильный высота 37mm"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700",
+          "LGA1200",
+          "LGA115X",
+          "AM5",
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 993,
+      "manufacturer": "unknown",
+      "sku": "IS-67-XT WHITE",
+      "mpn": "IS-67-XT WHITE",
+      "gtin": "",
+      "model": "Cooler ID-Cooling IS-67-XT WHITE,  Ret",
+      "raw_names": [
+        "Cooler ID-Cooling IS-67-XT WHITE,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 994,
+      "manufacturer": "unknown",
+      "sku": "SE-207-XT BLACK",
+      "mpn": "SE-207-XT BLACK",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-207-XT Black,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling SE-207-XT Black,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 995,
+      "manufacturer": "unknown",
+      "sku": "SE-207-XT SLIM SNOW",
+      "mpn": "SE-207-XT SLIM SNOW",
+      "gtin": "",
+      "model": "Cooler ID-Cooling  SE-207-XT Slim SNOW,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling  SE-207-XT Slim SNOW,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 997,
+      "manufacturer": "unknown",
+      "sku": "SE-214-XT ARGB",
+      "mpn": "SE-214-XT ARGB",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-214-XT ARGB,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling SE-214-XT ARGB,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 999,
+      "manufacturer": "unknown",
+      "sku": "SE-214-XT ARGB WHITE",
+      "mpn": "SE-214-XT ARGB WHITE",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-214-XT ARGB WHITE,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling SE-214-XT ARGB WHITE,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1001,
+      "manufacturer": "unknown",
+      "sku": "SE-214-XT DF WHITE",
+      "mpn": "SE-214-XT DF WHITE",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-214-XT DF WHITE",
+      "raw_names": [
+        "Cooler ID-Cooling SE-214-XT DF WHITE"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1002,
+      "manufacturer": "unknown",
+      "sku": "SE-214-XT HAFF ECO",
+      "mpn": "SE-214-XT HAFF ECO",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-214-XT HAFF ECO",
+      "raw_names": [
+        "Cooler ID-Cooling SE-214-XT HAFF ECO"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

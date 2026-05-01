@@ -1,0 +1,446 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_008",
+  "filled_at": "2026-05-01T07:00:00Z",
+  "items": [
+    {
+      "id": 786,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 787,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 788,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 789,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 790,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 791,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 792,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 793,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 794,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 795,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 796,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 797,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 40-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 798,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 799,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 800,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 801,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (серверный/корпусной 80-мм fan)"
+        }
+      }
+    },
+    {
+      "id": 802,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2011-3", "LGA2066", "AM5", "AM4", "AM3", "AM3+"],
+          "source_url": "https://www.arctic.de/media/c2/7a/82/1690272960/Spec_Sheet_Liquid_Freezer_II_280_A-RGB_EN_update.pdf",
+          "reason": "Spec sheet: Intel 1700, 1200, 115X (развёрнуто в LGA1150-1156), 2011-3 (Square ILM), 2066 (Square ILM); AMD AM5, AM4, AM3(+)"
+        }
+      }
+    },
+    {
+      "id": 803,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/1c/af/b3/1708429821/Spec_Sheet_Liquid_Freezer_III_240_Black_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 804,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/8e/66/69/1708429821/Spec_Sheet_Liquid_Freezer_III_240_A-RGB_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 805,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/3f/c1/fb/1744190700/Spec_Sheet_Liquid_Freezer_III_Pro_240_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 806,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/8d/19/d2/1744191002/Spec_Sheet_Liquid_Freezer_III_Pro_240_A-RGB_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 807,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/5f/f8/f1/1708429821/Spec_Sheet_Liquid_Freezer_III_280_Black_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 808,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/79/3b/af/1708429821/Spec_Sheet_Liquid_Freezer_III_280_A-RGB_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 809,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/8d/54/b6/1748955792/Spec_Sheet_Liquid_Freezer_III_Pro_280_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 810,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Отдельный spec sheet PDF для black-варианта LF III 360 (ACFRE00136A) ARCTIC не публикует. На странице продукта (arctic.de/us/Liquid-Freezer-III-360/ACFRE00136A) совместимость указана только описательно, без структурированной таблицы (упомянуты Intel LGA1700, LGA1851 + LGA115X через optional mounting kit; AMD — без перечисления конкретных сокетов)"
+        }
+      }
+    },
+    {
+      "id": 811,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/d4/9f/04/1708429821/Spec_Sheet_Liquid_Freezer_III_360_A-RGB_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 812,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/e3/d9/86/1741780098/Spec_Sheet_Liquid_Freezer_III_Pro_360_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 813,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/a0/1e/82/1741775611/Spec_Sheet_Liquid_Freezer_III_Pro_360_A-RGB_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 814,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "AM5", "AM4"],
+          "source_url": "https://www.arctic.de/media/46/8e/4d/1708429821/Spec_Sheet_Liquid_Freezer_III_420_Black_EN.pdf"
+        }
+      }
+    },
+    {
+      "id": 815,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "LGA2011-3", "LGA2066", "AM5", "AM4", "AM3", "AM3+"],
+          "source_url": "https://www.arctic.de/media/30/82/2a/1690272959/Spec_Sheet_Liquid_Freezer_II_420_A-RGB_EN_update.pdf",
+          "reason": "Spec sheet: Intel 1700, 1200, 115X (развёрнуто в LGA1150-1156), 2011-3 (Square ILM), 2066 (Square ILM); AMD AM5, AM4, AM3(+)"
+        }
+      }
+    }
+  ]
+}

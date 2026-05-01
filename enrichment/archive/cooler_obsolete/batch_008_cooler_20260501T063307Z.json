@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_008",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 786,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00231A",
+      "mpn": "ACFAN00231A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 PWM PST A-RGB 0dB (Black) ACFAN00231A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 PWM PST A-RGB 0dB (Black) ACFAN00231A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 787,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00187A",
+      "mpn": "ACFAN00187A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 SLIM PWM PST ACFAN00187A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 SLIM PWM PST ACFAN00187A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 788,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00275A",
+      "mpn": "ACFAN00275A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 SLIM PWM PST -3 Pack ACFAN00275A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 SLIM PWM PST -3 Pack ACFAN00275A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 789,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00287A",
+      "mpn": "ACFAN00287A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 Max (Black) ACFAN00287A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 Max (Black) ACFAN00287A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 790,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00290A",
+      "mpn": "ACFAN00290A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 Max (Black) - 5 Pack ACFAN00290A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 Max (Black) - 5 Pack ACFAN00290A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 791,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00304A",
+      "mpn": "ACFAN00304A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 Max (White) ACFAN00304A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 Max (White) ACFAN00304A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 792,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00125A",
+      "mpn": "ACFAN00125A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 PWM PST (black/black) ACFAN00125A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 PWM PST (black/black) ACFAN00125A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 793,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00257A",
+      "mpn": "ACFAN00257A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 PWM PST A-RGB 0dB Value Pack 3pcs ACFAN00257A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 PWM PST A-RGB 0dB Value Pack 3pcs ACFAN00257A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 794,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00268A",
+      "mpn": "ACFAN00268A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P14 SLIM PWM PST ACFAN00268A",
+      "raw_names": [
+        "Case fan  ARCTIC P14 SLIM PWM PST ACFAN00268A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 795,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00274A",
+      "mpn": "ACFAN00274A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S4028-15K 1400-15000rpm D- Ball 4-Pin 5Pack ACFAN00274A",
+      "raw_names": [
+        "Case fan  ARCTIC S4028-15K 1400-15000rpm D- Ball 4-Pin 5Pack ACFAN00274A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 796,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00185A",
+      "mpn": "ACFAN00185A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S4028-6K 250-6000rpm Dual Ball 4-Pin ACFAN00185A",
+      "raw_names": [
+        "Case fan  ARCTIC S4028-6K 250-6000rpm Dual Ball 4-Pin ACFAN00185A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 797,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00273A",
+      "mpn": "ACFAN00273A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S4028-6K 250-6000rpm Dual Ball 4-Pin 5-Pack ACFAN00273A",
+      "raw_names": [
+        "Case fan  ARCTIC S4028-6K 250-6000rpm Dual Ball 4-Pin 5-Pack ACFAN00273A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 798,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00291A",
+      "mpn": "ACFAN00291A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S8038-10K (4 Pack) ACFAN00291A",
+      "raw_names": [
+        "Case fan  ARCTIC S8038-10K (4 Pack) ACFAN00291A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 799,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00279A",
+      "mpn": "ACFAN00279A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S8038-10K 500–10 000 rpm, 173.30 м3/h 4-pin ACFAN00279A",
+      "raw_names": [
+        "Case fan  ARCTIC S8038-10K 500–10 000 rpm, 173.30 м3/h 4-pin ACFAN00279A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 800,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00292A",
+      "mpn": "ACFAN00292A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S8038-7K (4 Pack) ACFAN00292A",
+      "raw_names": [
+        "Case fan  ARCTIC S8038-7K (4 Pack) ACFAN00292A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 801,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00288A",
+      "mpn": "ACFAN00288A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S8038-7K 500–7 000 rpm, 118.93 м3/h 4-pin ACFAN00288A",
+      "raw_names": [
+        "Case fan  ARCTIC S8038-7K 500–7 000 rpm, 118.93 м3/h 4-pin ACFAN00288A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 802,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00106A",
+      "mpn": "ACFRE00106A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer II-280 A-RGB Black ACFRE00106A",
+      "raw_names": [
+        "СЖО Liquid Freezer II-280 A-RGB Black ACFRE00106A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 803,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00134A",
+      "mpn": "ACFRE00134A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-240 All-In-One CPU Water Cooler ACFRE00134A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-240 All-In-One CPU Water Cooler ACFRE00134A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 804,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00142A",
+      "mpn": "ACFRE00142A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-240 ARGB Black CPU Water Cooler ACFRE00142A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-240 ARGB Black CPU Water Cooler ACFRE00142A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 805,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00178A",
+      "mpn": "ACFRE00178A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 240 Multi Compatible All-In-One CPU Water Cooler ACFRE00178A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 240 Multi Compatible All-In-One CPU Water Cooler ACFRE00178A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 806,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00182A",
+      "mpn": "ACFRE00182A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 240 A-RGB ACFRE00182A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 240 A-RGB ACFRE00182A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 807,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00135A",
+      "mpn": "ACFRE00135A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-280 All-In-One CPU Water Cooler ACFRE00135A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-280 All-In-One CPU Water Cooler ACFRE00135A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 808,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00143A",
+      "mpn": "ACFRE00143A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-280 ARGB Black CPU Water Cooler ACFRE00143A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-280 ARGB Black CPU Water Cooler ACFRE00143A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 809,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00179A",
+      "mpn": "ACFRE00179A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 280 Multi Compatible All-In-One CPU Water Cooler ACFRE00179A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 280 Multi Compatible All-In-One CPU Water Cooler ACFRE00179A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 810,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00136A",
+      "mpn": "ACFRE00136A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-360 All-In-One CPU Water Cooler ACFRE00136A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-360 All-In-One CPU Water Cooler ACFRE00136A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 811,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00144A",
+      "mpn": "ACFRE00144A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-360 ARGB Black CPU Water Cooler ACFRE00144A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-360 ARGB Black CPU Water Cooler ACFRE00144A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 812,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00180A",
+      "mpn": "ACFRE00180A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 360 ACFRE00180A  NEW",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 360 ACFRE00180A  NEW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 813,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00188A",
+      "mpn": "ACFRE00188A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 360 ARGB Whte ACFRE00188A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 360 ARGB Whte ACFRE00188A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 814,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00137A",
+      "mpn": "ACFRE00137A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-420 All-In-One CPU Water Cooler ACFRE00137A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-420 All-In-One CPU Water Cooler ACFRE00137A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 815,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00109A",
+      "mpn": "ACFRE00109A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer II -420 A-RGB  ACFRE00109A",
+      "raw_names": [
+        "СЖО Liquid Freezer II -420 A-RGB  ACFRE00109A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

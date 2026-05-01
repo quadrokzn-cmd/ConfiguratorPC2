@@ -1,0 +1,417 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_016",
+  "filled_at": "2026-05-01T07:00:00Z",
+  "items": [
+    {
+      "id": 1070,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=504&name=DX360+MAX"
+        }
+      }
+    },
+    {
+      "id": 1071,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=526&name=DX360+MAX+WHITE"
+        }
+      }
+    },
+    {
+      "id": 1072,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Прижимная/контактная рамка для сокета, не процессорный кулер. Поле max_tdp_watts неприменимо."
+        }
+      }
+    },
+    {
+      "id": 1073,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Рамка для коррекции изгиба CPU (LGA1851), не процессорный кулер. Поле max_tdp_watts неприменимо."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Рамка для коррекции изгиба CPU (LGA1851), не процессорный кулер. Категорийное поле supported_sockets для аксессуара не заполняется (сокет указан в названии товара)."
+        }
+      }
+    },
+    {
+      "id": 1074,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Прижимная рамка для AM5, не процессорный кулер. Поле max_tdp_watts неприменимо."
+        }
+      }
+    },
+    {
+      "id": 1075,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1076,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1077,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1078,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2 (с вентилятором 20мм), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Радиатор для SSD M.2 (с вентилятором 20мм), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1079,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1080,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов с ARGB, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для вентиляторов с ARGB, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1081,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания (кабель), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания (кабель), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1082,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания (кабель), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания (кабель), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1083,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания ARGB (кабель), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Разветвитель питания ARGB (кабель), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1085,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Контроллер ARGB-подсветки, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Контроллер ARGB-подсветки, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1086,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1087,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 95,
+          "source_url": "https://www.idcooling.com/product/detail?id=484&name=IS-40-XT+BLACK"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=484&name=IS-40-XT+BLACK"
+        }
+      }
+    },
+    {
+      "id": 1088,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "TF-12025-PRO-ARGB TRIO — комплект из 3 корпусных вентиляторов 120мм, не процессорный кулер (несмотря на формулировку 'для процессора' в прайсе поставщика)."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1089,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор (комплект 3шт ARGB), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор (комплект 3шт ARGB), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1090,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор (комплект 3шт ARGB), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор (комплект 3шт ARGB), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1091,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 140мм ARGB, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 140мм ARGB, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1092,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 140мм ARGB, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 140мм ARGB, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1093,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 120мм PWM, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 120мм PWM, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1094,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Термопаста (расходник), не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Термопаста (расходник), не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1095,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 260,
+          "source_url": "https://www.idcooling.com/product/detail?id=541&name=FROZN+A620+PRO+SE+ARGB+SNOW"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=541&name=FROZN+A620+PRO+SE+ARGB+SNOW"
+        }
+      }
+    },
+    {
+      "id": 1096,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.idcooling.com/product/detail?id=533&name=FROZN+A410+SE+ARGB"
+        }
+      }
+    },
+    {
+      "id": 1097,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.idcooling.com/product/detail?id=501&name=FROZN+A410+SE"
+        }
+      }
+    },
+    {
+      "id": 1098,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 120мм, не процессорный кулер."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор 120мм, не процессорный кулер."
+        }
+      }
+    },
+    {
+      "id": 1104,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 350,
+          "source_url": "https://www.idcooling.com/product/detail?id=573&name=FX360+TD+WHITE"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=573&name=FX360+TD+WHITE"
+        }
+      }
+    },
+    {
+      "id": 1105,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — Intel E97378-001 это OEM-кулер, отдельной официальной страницы со спецификациями (TDP support) на intel.com / ark.intel.com нет."
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published — данные о поддерживаемых сокетах для OEM-кулера E97378-001 на оф. сайте Intel не опубликованы. В прайсе указано S1200/1156/1155/1150, но без подтверждения на whitelisted-домене значение не возвращаем."
+        }
+      }
+    }
+  ]
+}

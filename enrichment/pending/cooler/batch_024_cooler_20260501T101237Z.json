@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_024",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1796,
+      "manufacturer": "unknown",
+      "sku": "TRTLC14C",
+      "mpn": "TRTLC14C",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C14C / 140mm PWM / TRTLC14C",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C14C / 140mm PWM / TRTLC14C"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1797,
+      "manufacturer": "unknown",
+      "sku": "TRTLC14CW",
+      "mpn": "TRTLC14CW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C14CW / 140mm PWM / TRTLC14CW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C14CW / 140mm PWM / TRTLC14CW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1798,
+      "manufacturer": "unknown",
+      "sku": "TRTLC14CS",
+      "mpn": "TRTLC14CS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C14C-S / ARGB / 140mm PWM / TRTLC14CS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C14C-S / ARGB / 140mm PWM / TRTLC14CS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1799,
+      "manufacturer": "unknown",
+      "sku": "TRTLC14CWS",
+      "mpn": "TRTLC14CWS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C14CW-S / ARGB / 140mm PWM / TRTLC14CWS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C14CW-S / ARGB / 140mm PWM / TRTLC14CWS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1800,
+      "manufacturer": "unknown",
+      "sku": "TRTLG12",
+      "mpn": "TRTLG12",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-G12 / 120mm PWM / TRTLG12",
+      "raw_names": [
+        "Thermalright Вентилятор TL-G12 / 120mm PWM / TRTLG12"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1801,
+      "manufacturer": "unknown",
+      "sku": "TRTLG12B",
+      "mpn": "TRTLG12B",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-G12B / 120mm PWM / TRTLG12B",
+      "raw_names": [
+        "Thermalright Вентилятор TL-G12B / 120mm PWM / TRTLG12B"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1802,
+      "manufacturer": "unknown",
+      "sku": "TRTLK12R",
+      "mpn": "TRTLK12R",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-K12R / Reverse / ARGB / 120mm PWM / TRTLK12R",
+      "raw_names": [
+        "Thermalright Вентилятор TL-K12R / Reverse / ARGB / 120mm PWM / TRTLK12R"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1803,
+      "manufacturer": "unknown",
+      "sku": "TRTLP9",
+      "mpn": "TRTLP9",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-P9 / 92mm PWM / TRTLP9",
+      "raw_names": [
+        "Thermalright Вентилятор TL-P9 / 92mm PWM / TRTLP9"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1804,
+      "manufacturer": "unknown",
+      "sku": "TRTLP9W",
+      "mpn": "TRTLP9W",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-P9W / 92mm PWM / TRTLP9W",
+      "raw_names": [
+        "Thermalright Вентилятор TL-P9W / 92mm PWM / TRTLP9W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1805,
+      "manufacturer": "unknown",
+      "sku": "TRTLP9S",
+      "mpn": "TRTLP9S",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-P9-S / ARGB / 92mm PWM / TRTLP9S",
+      "raw_names": [
+        "Thermalright Вентилятор TL-P9-S / ARGB / 92mm PWM / TRTLP9S"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1806,
+      "manufacturer": "unknown",
+      "sku": "TRTLP12",
+      "mpn": "TRTLP12",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-P12 / 120mm PWM / TRTLP12",
+      "raw_names": [
+        "Thermalright Вентилятор TL-P12 / 120mm PWM / TRTLP12"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1807,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12",
+      "mpn": "TRTLS12",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-S12 / ARGB / 120mm PWM / TRTLS12",
+      "raw_names": [
+        "Thermalright Вентилятор TL-S12 / ARGB / 120mm PWM / TRTLS12"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1808,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12W",
+      "mpn": "TRTLS12W",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-S12-W / ARGB / 120mm PWM / TRTLS12W",
+      "raw_names": [
+        "Thermalright Вентилятор TL-S12-W / ARGB / 120mm PWM / TRTLS12W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1809,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12R",
+      "mpn": "TRTLS12R",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-S12R / Reverse / ARGB / 120mm PWM / TRTLS12R",
+      "raw_names": [
+        "Thermalright Вентилятор TL-S12R / Reverse / ARGB / 120mm PWM / TRTLS12R"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1810,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12RW",
+      "mpn": "TRTLS12RW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-S12RW / Reverse / ARGB / 120mm PWM / TRTLS12RW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-S12RW / Reverse / ARGB / 120mm PWM / TRTLS12RW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1811,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12.3P",
+      "mpn": "TRTLS12.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-S12 (Pack of 3) / ARGB / 120mm PWM / TRTLS12.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-S12 (Pack of 3) / ARGB / 120mm PWM / TRTLS12.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1812,
+      "manufacturer": "unknown",
+      "sku": "TRTLS12W.3P",
+      "mpn": "TRTLS12W.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-S12-W (Pack of 3) / ARGB / 120mm PWM / TRTLS12W.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-S12-W (Pack of 3) / ARGB / 120mm PWM / TRTLS12W.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1813,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12",
+      "mpn": "TRTLM12",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12 / ARGB / 120mm PWM / TRTLM12",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12 / ARGB / 120mm PWM / TRTLM12"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1814,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12W",
+      "mpn": "TRTLM12W",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12W / ARGB / 120mm PWM / TRTLM12W",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12W / ARGB / 120mm PWM / TRTLM12W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1815,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12R",
+      "mpn": "TRTLM12R",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12R / Reverse / ARGB / 120mm PWM / TRTLM12R",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12R / Reverse / ARGB / 120mm PWM / TRTLM12R"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1816,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12RW",
+      "mpn": "TRTLM12RW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12RW / Reverse / ARGB / 120mm PWM / TRTLM12RW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12RW / Reverse / ARGB / 120mm PWM / TRTLM12RW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1817,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12S",
+      "mpn": "TRTLM12S",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12-S / ARGB / 120mm PWM / TRTLM12S",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12-S / ARGB / 120mm PWM / TRTLM12S"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1818,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12RS",
+      "mpn": "TRTLM12RS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12R-S / Reverse  / ARGB / 120mm PWM / TRTLM12RS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12R-S / Reverse  / ARGB / 120mm PWM / TRTLM12RS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1819,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12WS",
+      "mpn": "TRTLM12WS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12W-S / ARGB / 120mm PWM / TRTLM12WS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12W-S / ARGB / 120mm PWM / TRTLM12WS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1820,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12RWS",
+      "mpn": "TRTLM12RWS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12RW-S / Reverse / ARGB / 120mm PWM / TRTLM12RWS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12RW-S / Reverse / ARGB / 120mm PWM / TRTLM12RWS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1821,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12.3P",
+      "mpn": "TRTLM12.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12 X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12 X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1822,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12W.3P",
+      "mpn": "TRTLM12W.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12W X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12W.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12W X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12W.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1823,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12Q",
+      "mpn": "TRTLM12Q",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12Q / ARGB / 120mm PWM / TRTLM12Q",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12Q / ARGB / 120mm PWM / TRTLM12Q"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1824,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QR",
+      "mpn": "TRTLM12QR",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12QR / Reverse / ARGB / 120mm PWM / TRTLM12QR",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12QR / Reverse / ARGB / 120mm PWM / TRTLM12QR"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1825,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QW",
+      "mpn": "TRTLM12QW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12QW / ARGB / 120mm PWM / TRTLM12QW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12QW / ARGB / 120mm PWM / TRTLM12QW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

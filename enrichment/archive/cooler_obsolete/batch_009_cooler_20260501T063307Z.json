@@ -1,0 +1,528 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_009",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 816,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00145A",
+      "mpn": "ACFRE00145A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-420 ARGB Black CPU Water Cooler ACFRE00145A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-420 ARGB Black CPU Water Cooler ACFRE00145A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 817,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00153A",
+      "mpn": "ACFRE00153A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III-420 ARGB White CPU Water Cooler ACFRE00153A",
+      "raw_names": [
+        "СЖО Liquid Freezer III-420 ARGB White CPU Water Cooler ACFRE00153A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 818,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00181A",
+      "mpn": "ACFRE00181A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 420 Multi Compatible All-In-One CPU Water Cooler ACFRE00181A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 420 Multi Compatible All-In-One CPU Water Cooler ACFRE00181A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 819,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00185A",
+      "mpn": "ACFRE00185A",
+      "gtin": "",
+      "model": "СЖО Liquid Freezer III Pro 420 A-RGB ACFRE00185A",
+      "raw_names": [
+        "СЖО Liquid Freezer III Pro 420 A-RGB ACFRE00185A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 820,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00175A",
+      "mpn": "ACFAN00175A",
+      "gtin": "",
+      "model": "Хаб на десять корпусных вентиляторов ARCTIC Case Fan Hub to10-x PWM Fan ACFAN00175A",
+      "raw_names": [
+        "Хаб на десять корпусных вентиляторов ARCTIC Case Fan Hub to10-x PWM Fan ACFAN00175A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 821,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00310A",
+      "mpn": "ACFAN00310A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro A-RGB - 3 Pack ACFAN00310A",
+      "raw_names": [
+        "ARCTIC P12 Pro A-RGB - 3 Pack ACFAN00310A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 822,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00311A",
+      "mpn": "ACFAN00311A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro A-RGB (White) ACFAN00311A",
+      "raw_names": [
+        "ARCTIC P12 Pro A-RGB (White) ACFAN00311A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 823,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00308A",
+      "mpn": "ACFAN00308A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro PST (White) ACFAN00308A",
+      "raw_names": [
+        "ARCTIC P12 Pro PST (White) ACFAN00308A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 824,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00312A",
+      "mpn": "ACFAN00312A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro PST CO ACFAN00312A",
+      "raw_names": [
+        "ARCTIC P12 Pro PST CO ACFAN00312A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 825,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00322A",
+      "mpn": "ACFAN00322A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro Reverse A-RGB ACFAN00322A",
+      "raw_names": [
+        "ARCTIC P12 Pro Reverse A-RGB ACFAN00322A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 826,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00332A",
+      "mpn": "ACFAN00332A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro Reverse A-RGB ACFAN00332A",
+      "raw_names": [
+        "ARCTIC P12 Pro Reverse A-RGB ACFAN00332A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 827,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00333A",
+      "mpn": "ACFAN00333A",
+      "gtin": "",
+      "model": "ARCTIC P12 Pro Reverse A-RGB - 3 Pack ACFAN00333A",
+      "raw_names": [
+        "ARCTIC P12 Pro Reverse A-RGB - 3 Pack ACFAN00333A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 828,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00313A",
+      "mpn": "ACFAN00313A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro ACFAN00313A",
+      "raw_names": [
+        "ARCTIC P14 Pro ACFAN00313A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 829,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00315A",
+      "mpn": "ACFAN00315A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro A-RGB ACFAN00315A",
+      "raw_names": [
+        "ARCTIC P14 Pro A-RGB ACFAN00315A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 830,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00318A",
+      "mpn": "ACFAN00318A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro A-RGB (White) ACFAN00318A",
+      "raw_names": [
+        "ARCTIC P14 Pro A-RGB (White) ACFAN00318A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 831,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00314A",
+      "mpn": "ACFAN00314A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro PST ACFAN00314A",
+      "raw_names": [
+        "ARCTIC P14 Pro PST ACFAN00314A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 832,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00319A",
+      "mpn": "ACFAN00319A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro PST - 5 Pack ACFAN00319A",
+      "raw_names": [
+        "ARCTIC P14 Pro PST - 5 Pack ACFAN00319A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 833,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00317A",
+      "mpn": "ACFAN00317A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro PST (White) ACFAN00317A",
+      "raw_names": [
+        "ARCTIC P14 Pro PST (White) ACFAN00317A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 834,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00316A",
+      "mpn": "ACFAN00316A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro PST CO ACFAN00316A",
+      "raw_names": [
+        "ARCTIC P14 Pro PST CO ACFAN00316A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 835,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00323A",
+      "mpn": "ACFAN00323A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro Reverse A-RGB ACFAN00323A",
+      "raw_names": [
+        "ARCTIC P14 Pro Reverse A-RGB ACFAN00323A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 836,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00327A",
+      "mpn": "ACFAN00327A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro Reverse A-RGB - 3 Pack ACFAN00327A",
+      "raw_names": [
+        "ARCTIC P14 Pro Reverse A-RGB - 3 Pack ACFAN00327A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 837,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00324A",
+      "mpn": "ACFAN00324A",
+      "gtin": "",
+      "model": "ARCTIC P14 Pro Reverse A-RGB (White) ACFAN00324A",
+      "raw_names": [
+        "ARCTIC P14 Pro Reverse A-RGB (White) ACFAN00324A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 838,
+      "manufacturer": "unknown",
+      "sku": "GAMMA HUNTER V2",
+      "mpn": "GAMMA HUNTER V2",
+      "gtin": "",
+      "model": "Cooler Deepcool GAMMA HUNTER V2  Soc LGA1851/1700/1200/115X/AM5/AM4",
+      "raw_names": [
+        "Cooler Deepcool GAMMA HUNTER V2  Soc LGA1851/1700/1200/115X/AM5/AM4"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1851",
+          "LGA1700",
+          "LGA1200",
+          "LGA115X",
+          "AM5",
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 843,
+      "manufacturer": "unknown",
+      "sku": "CK-11508  PWM",
+      "mpn": "CK-11508  PWM",
+      "gtin": "",
+      "model": "Cooler Deepcool CK-11508  PWM",
+      "raw_names": [
+        "Cooler Deepcool CK-11508  PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 845,
+      "manufacturer": "unknown",
+      "sku": "CK-11509",
+      "mpn": "CK-11509",
+      "gtin": "",
+      "model": "Cooler Deepcool CK-11509 {Soc-775/1155/1156/1150}",
+      "raw_names": [
+        "Cooler Deepcool CK-11509 {Soc-775/1155/1156/1150}"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA775",
+          "LGA1155",
+          "LGA1156",
+          "LGA1150"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 846,
+      "manufacturer": "unknown",
+      "sku": "CK-11509 PWM",
+      "mpn": "CK-11509 PWM",
+      "gtin": "",
+      "model": "Cooler Deepcool CK-11509 PWM {Soc-775/1155/1156/1150}",
+      "raw_names": [
+        "Cooler Deepcool CK-11509 PWM {Soc-775/1155/1156/1150}"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA775",
+          "LGA1155",
+          "LGA1156",
+          "LGA1150"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 849,
+      "manufacturer": "unknown",
+      "sku": "ALTA 9 PWM 1700",
+      "mpn": "ALTA 9 PWM 1700",
+      "gtin": "",
+      "model": "Cooler Deepcool ALTA 9 PWM 1700",
+      "raw_names": [
+        "Cooler Deepcool ALTA 9 PWM 1700"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 851,
+      "manufacturer": "unknown",
+      "sku": "THETA 15 PWM 1700",
+      "mpn": "THETA 15 PWM 1700",
+      "gtin": "",
+      "model": "Cooler Deepcool THETA 15 PWM 1700 \nDeepCool THETA 15 PWM 1700-Intel 1700, Low profile, screws,TDP 65W",
+      "raw_names": [
+        "Cooler Deepcool THETA 15 PWM 1700 \nDeepCool THETA 15 PWM 1700-Intel 1700, Low profile, screws,TDP 65W"
+      ],
+      "current": {
+        "max_tdp_watts": 65
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 853,
+      "manufacturer": "unknown",
+      "sku": "THETA 20 PWM 1700",
+      "mpn": "THETA 20 PWM 1700",
+      "gtin": "",
+      "model": "Cooler Deepcool THETA 20 PWM 1700 {4pin, 30dB, Al, 95W, 376g, screw}",
+      "raw_names": [
+        "Cooler Deepcool THETA 20 PWM 1700 {4pin, 30dB, Al, 95W, 376g, screw}"
+      ],
+      "current": {
+        "max_tdp_watts": 95
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 858,
+      "manufacturer": "unknown",
+      "sku": "GAMMAXX400",
+      "mpn": "GAMMAXX400",
+      "gtin": "",
+      "model": "Cooler Deepcool GAMMAXX400 RET (BLUE)  {Soc-775/1366/1155/1156/1150/2011/754/939/940, AM2/АМ2+/АМ3/AM3+/FM1}",
+      "raw_names": [
+        "Cooler Deepcool GAMMAXX400 RET (BLUE)  {Soc-775/1366/1155/1156/1150/2011/754/939/940, AM2/АМ2+/АМ3/AM3+/FM1}"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA775",
+          "LGA1366",
+          "LGA1155",
+          "LGA1156",
+          "LGA1150",
+          "LGA2011",
+          "LGA754",
+          "LGA939",
+          "LGA940",
+          "AM2",
+          "AM3",
+          "FM1"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

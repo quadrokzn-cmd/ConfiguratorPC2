@@ -1,0 +1,511 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_015",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1038,
+      "manufacturer": "unknown",
+      "sku": "TF-12015-K",
+      "mpn": "TF-12015-K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12015-K {120x120mm 3pin 1250rpm Black}",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12015-K {120x120mm 3pin 1250rpm Black}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1039,
+      "manufacturer": "unknown",
+      "sku": "TF-12015-W",
+      "mpn": "TF-12015-W",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12015-W",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12015-W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1040,
+      "manufacturer": "unknown",
+      "sku": "TF-12025 WHITE",
+      "mpn": "TF-12025 WHITE",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025 WHITE",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025 WHITE"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1041,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-Pro ARGB Trio",
+      "mpn": "TF-12025-Pro ARGB Trio",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO-ARGB TRIO (3 in 1)",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO-ARGB TRIO (3 in 1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1042,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-ARGB-TRIO-SNOW",
+      "mpn": "TF-12025-ARGB-TRIO-SNOW",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-ARGB-TRIO-SNOW  White (3in1) 120?120?25mm 12V/5V, 1500RPM, ARGB",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-ARGB-TRIO-SNOW  White (3in1) 120?120?25mm 12V/5V, 1500RPM, ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1043,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-Pro ARGB Trio White",
+      "mpn": "TF-12025-Pro ARGB Trio White",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO-ARGB-TRIO WHITE (3 in 1)",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO-ARGB-TRIO WHITE (3 in 1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1044,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO WHITE",
+      "mpn": "TF-12025-PRO WHITE",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-Pro,  120мм, Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-Pro,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1045,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO ARGB",
+      "mpn": "TF-12025-PRO ARGB",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO ARGB",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1046,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO BLACK",
+      "mpn": "TF-12025-PRO BLACK",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO BLACK (120mm PWM, резиновые углы, черный, 500-1800об/мин)  BOX",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO BLACK (120mm PWM, резиновые углы, черный, 500-1800об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1047,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO-ARGB WHITE",
+      "mpn": "TF-12025-PRO-ARGB WHITE",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO-ARGB WHITE",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO-ARGB WHITE"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1048,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO ARGB WHITE",
+      "mpn": "TF-12025-PRO ARGB WHITE",
+      "gtin": "",
+      "model": "Case fan ID-Cooling TF-12025-PRO-ARGB WHITE 120мм ( PWM, резиновые углы, белый, ARGB, 500-1800об/мин)  BOX",
+      "raw_names": [
+        "Case fan ID-Cooling TF-12025-PRO-ARGB WHITE 120мм ( PWM, резиновые углы, белый, ARGB, 500-1800об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1049,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO-ARGB REVERSE",
+      "mpn": "TF-12025-PRO-ARGB REVERSE",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-12025-PRO-ARGB REVERSE (120mm, 1500rpm, 63.2 CFM, 30.5 дБ, PWM 4-pin, ARGB, black)",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-12025-PRO-ARGB REVERSE (120mm, 1500rpm, 63.2 CFM, 30.5 дБ, PWM 4-pin, ARGB, black)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1050,
+      "manufacturer": "unknown",
+      "sku": "WF-14025-XT BLACK",
+      "mpn": "WF-14025-XT BLACK",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling WF-14025-XT BLACK,  140мм, Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling WF-14025-XT BLACK,  140мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1051,
+      "manufacturer": "unknown",
+      "sku": "WF-14025-XT WHITE V2",
+      "mpn": "WF-14025-XT WHITE V2",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling WF-14025-XT WHITE V2 140x140mm 4pin PWM White V2",
+      "raw_names": [
+        "Case Fan ID-Cooling WF-14025-XT WHITE V2 140x140mm 4pin PWM White V2"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1052,
+      "manufacturer": "unknown",
+      "sku": "XF-120-ARGB-K",
+      "mpn": "XF-120-ARGB-K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling XF-120-ARGB-K 120x120mm 4pin PWM black",
+      "raw_names": [
+        "Case Fan ID-Cooling XF-120-ARGB-K 120x120mm 4pin PWM black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1053,
+      "manufacturer": "unknown",
+      "sku": "XF-120-ARGB-W",
+      "mpn": "XF-120-ARGB-W",
+      "gtin": "",
+      "model": "Case fan ID-Cooling XF-120-ARGB-W 120x120mm 4pin PWM white",
+      "raw_names": [
+        "Case fan ID-Cooling XF-120-ARGB-W 120x120mm 4pin PWM white"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1054,
+      "manufacturer": "unknown",
+      "sku": "ZOOMFLOW 360 XT SNOW",
+      "mpn": "ZOOMFLOW 360 XT SNOW",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling ZOOMFLOW 360 XT SNOW,  120мм, Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling ZOOMFLOW 360 XT SNOW,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1055,
+      "manufacturer": "unknown",
+      "sku": "ZOOMFLOW_240XT_SNOW",
+      "mpn": "ZOOMFLOW_240XT_SNOW",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling ZOOMFLOW 240 XT SNOW (White/ARGB) 250W all Intel/AMD",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling ZOOMFLOW 240 XT SNOW (White/ARGB) 250W all Intel/AMD"
+      ],
+      "current": {
+        "max_tdp_watts": 250
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1056,
+      "manufacturer": "unknown",
+      "sku": "DASHFLOW 240 BASIC BLACK",
+      "mpn": "DASHFLOW 240 BASIC BLACK",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling DASHFLOW 240 Basic Black 1150/1155/S1156/1151/1200/1700, AM4/AM5",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling DASHFLOW 240 Basic Black 1150/1155/S1156/1151/1200/1700, AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1057,
+      "manufacturer": "unknown",
+      "sku": "DASHFLOW 240 BASIC WHITE",
+      "mpn": "DASHFLOW 240 BASIC WHITE",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling Dashflow 240 Basic White 1150/1155/S1156/1151/1200/1700, AM4/AM5",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling Dashflow 240 Basic White 1150/1155/S1156/1151/1200/1700, AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1058,
+      "manufacturer": "unknown",
+      "sku": "DASHFLOW 360 BASIC BLACK",
+      "mpn": "DASHFLOW 360 BASIC BLACK",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling Dashflow 360 Basic Black 1150/1155/S1156/1151/1200/1700, AM4/AM5",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling Dashflow 360 Basic Black 1150/1155/S1156/1151/1200/1700, AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1060,
+      "manufacturer": "unknown",
+      "sku": "DASHFLOW 360 XT LITE WHITE",
+      "mpn": "DASHFLOW 360 XT LITE WHITE",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling Dashflow 360 XT LITE WHITE,  Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling Dashflow 360 XT LITE WHITE,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1061,
+      "manufacturer": "unknown",
+      "sku": "SL240",
+      "mpn": "SL240",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling SL240, LCD SCREEN /300W /all Intel /all AMD  Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling SL240, LCD SCREEN /300W /all Intel /all AMD  Ret"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1062,
+      "manufacturer": "unknown",
+      "sku": "SL240 WHITE",
+      "mpn": "SL240 WHITE",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling SL240 WHITE,  Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling SL240 WHITE,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1063,
+      "manufacturer": "unknown",
+      "sku": "SL240 XE",
+      "mpn": "SL240 XE",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling SL240 XE ARGB,  120мм, Ret",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling SL240 XE ARGB,  120мм, Ret"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1065,
+      "manufacturer": "unknown",
+      "sku": "SL360",
+      "mpn": "SL360",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling SL360 LCD SCREEN /350W /all Intel /all AMD Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling SL360 LCD SCREEN /350W /all Intel /all AMD Ret"
+      ],
+      "current": {
+        "max_tdp_watts": 350
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1066,
+      "manufacturer": "unknown",
+      "sku": "SL360 WHITE",
+      "mpn": "SL360 WHITE",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением ID-Cooling SL360 WHITE,  Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением ID-Cooling SL360 WHITE,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1067,
+      "manufacturer": "unknown",
+      "sku": "FX120 ARGB",
+      "mpn": "FX120 ARGB",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling FX120 ARGB (all Intel/AMD socket, TDP 150W, ARGB) (FX120 ARGB)",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling FX120 ARGB (all Intel/AMD socket, TDP 150W, ARGB) (FX120 ARGB)"
+      ],
+      "current": {
+        "max_tdp_watts": 150
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1068,
+      "manufacturer": "unknown",
+      "sku": "FX360 INF White",
+      "mpn": "FX360 INF White",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling FX360 Inf ARGB  WHITE",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling FX360 Inf ARGB  WHITE"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1069,
+      "manufacturer": "unknown",
+      "sku": "DX240 MAX",
+      "mpn": "DX240 MAX",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling DX240 MAX Black 300W all Intel/AMD",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling DX240 MAX Black 300W all Intel/AMD"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_016",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1070,
+      "manufacturer": "unknown",
+      "sku": "DX360 MAX",
+      "mpn": "DX360 MAX",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling DX360 MAX Black 350W all Intel/AMD",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling DX360 MAX Black 350W all Intel/AMD"
+      ],
+      "current": {
+        "max_tdp_watts": 350
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1071,
+      "manufacturer": "unknown",
+      "sku": "DX360 MAX White",
+      "mpn": "DX360 MAX White",
+      "gtin": "",
+      "model": "Система водяного охлаждения ID-Cooling DX360 MAX White",
+      "raw_names": [
+        "Система водяного охлаждения ID-Cooling DX360 MAX White"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1072,
+      "manufacturer": "unknown",
+      "sku": "ABF-1700",
+      "mpn": "ABF-1700",
+      "gtin": "",
+      "model": "Рамка укрепления сокета ID-Cooling ABF-1700 для Socket LGA1700",
+      "raw_names": [
+        "Рамка укрепления сокета ID-Cooling ABF-1700 для Socket LGA1700"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1073,
+      "manufacturer": "unknown",
+      "sku": "ABF-1851",
+      "mpn": "ABF-1851",
+      "gtin": "",
+      "model": "Рамка для коррекции изгиба CPU 1851 ID-COOLING ABF-1851 BOX",
+      "raw_names": [
+        "Рамка для коррекции изгиба CPU 1851 ID-COOLING ABF-1851 BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1074,
+      "manufacturer": "unknown",
+      "sku": "ABF-AM5",
+      "mpn": "ABF-AM5",
+      "gtin": "",
+      "model": "Прижимная рамка ID-Cooling ABF-AM5 (ABF-AM5)",
+      "raw_names": [
+        "Прижимная рамка ID-Cooling ABF-AM5 (ABF-AM5)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1075,
+      "manufacturer": "unknown",
+      "sku": "ZERO M05",
+      "mpn": "ZERO M05",
+      "gtin": "",
+      "model": "Радиатор на SSD M.2 ID-Cooling (Zero M05) Black",
+      "raw_names": [
+        "Радиатор на SSD M.2 ID-Cooling (Zero M05) Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1076,
+      "manufacturer": "unknown",
+      "sku": "DGRDRM2A",
+      "mpn": "DGRDRM2A",
+      "gtin": "",
+      "model": "Радиатор для SSD Digma DGRDRM2A металл Ret",
+      "raw_names": [
+        "Радиатор для SSD Digma DGRDRM2A металл Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1077,
+      "manufacturer": "unknown",
+      "sku": "Zero M15",
+      "mpn": "Zero M15",
+      "gtin": "",
+      "model": "Радиатор на SSD M.2 ID-Cooling (Zero M15) Silver",
+      "raw_names": [
+        "Радиатор на SSD M.2 ID-Cooling (Zero M15) Silver"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1078,
+      "manufacturer": "unknown",
+      "sku": "ZERO M25",
+      "mpn": "ZERO M25",
+      "gtin": "",
+      "model": "Радиатор для SSD ID-COOLING ZERO M25 (M.2 2280, FAN 20mm)",
+      "raw_names": [
+        "Радиатор для SSD ID-COOLING ZERO M25 (M.2 2280, FAN 20mm)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1079,
+      "manufacturer": "unknown",
+      "sku": "FH-10 PWM",
+      "mpn": "FH-10 PWM",
+      "gtin": "",
+      "model": "Хаб для вентилятора ID-Cooling FH-10 PWM",
+      "raw_names": [
+        "Хаб для вентилятора ID-Cooling FH-10 PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1080,
+      "manufacturer": "unknown",
+      "sku": "FH-05 ARGB",
+      "mpn": "FH-05 ARGB",
+      "gtin": "",
+      "model": "Хаб для вентилятора ID-Cooling FH-05 ARGB",
+      "raw_names": [
+        "Хаб для вентилятора ID-Cooling FH-05 ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1081,
+      "manufacturer": "unknown",
+      "sku": "FS-04 ARGB",
+      "mpn": "FS-04 ARGB",
+      "gtin": "",
+      "model": "Разветвитель питания ID-Cooling FS-04 ARGB",
+      "raw_names": [
+        "Разветвитель питания ID-Cooling FS-04 ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1082,
+      "manufacturer": "unknown",
+      "sku": "FS-04",
+      "mpn": "FS-04",
+      "gtin": "",
+      "model": "Разветвитель питания ID-Cooling FS-04 (до 4 контактных вентиляторов)",
+      "raw_names": [
+        "Разветвитель питания ID-Cooling FS-04 (до 4 контактных вентиляторов)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1083,
+      "manufacturer": "unknown",
+      "sku": "FS-06 ARGB",
+      "mpn": "FS-06 ARGB",
+      "gtin": "",
+      "model": "Разветвитель питания ID-Cooling FS-06 ARGB (FS-06 ARGB)",
+      "raw_names": [
+        "Разветвитель питания ID-Cooling FS-06 ARGB (FS-06 ARGB)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1085,
+      "manufacturer": "unknown",
+      "sku": "RC-ARGB",
+      "mpn": "RC-ARGB",
+      "gtin": "",
+      "model": "Контроллер подсветки ID-Cooling RC-ARGB (RC-ARGB)",
+      "raw_names": [
+        "Контроллер подсветки ID-Cooling RC-ARGB (RC-ARGB)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1086,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO SW",
+      "mpn": "TF-12025-PRO SW",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-COOLING TF-12025-PRO SW (120mm, 1500rpm, 70 CFM, 28.9 дБ, PWM 4-pin, white) (TF-12025-PRO SW)",
+      "raw_names": [
+        "Вентилятор для корпуса ID-COOLING TF-12025-PRO SW (120mm, 1500rpm, 70 CFM, 28.9 дБ, PWM 4-pin, white) (TF-12025-PRO SW)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1087,
+      "manufacturer": "unknown",
+      "sku": "IS-40-XT_BLACK",
+      "mpn": "IS-40-XT_BLACK",
+      "gtin": "",
+      "model": "см арт 11045362 Кулер для процессора IS-40-XT BLACK ID-COOLING",
+      "raw_names": [
+        "см арт 11045362 Кулер для процессора IS-40-XT BLACK ID-COOLING"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1088,
+      "manufacturer": "unknown",
+      "sku": "TF-12025-PRO-ARGB TRIO",
+      "mpn": "TF-12025-PRO-ARGB TRIO",
+      "gtin": "",
+      "model": "Вентилятор для процессора ID-Cooling TF-12025-PRO-ARGB TRIO",
+      "raw_names": [
+        "Вентилятор для процессора ID-Cooling TF-12025-PRO-ARGB TRIO"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1089,
+      "manufacturer": "unknown",
+      "sku": "AS-120-ARGB-K TRIO",
+      "mpn": "AS-120-ARGB-K TRIO",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-Cooling AS-120-K Trio ARGB 120х120x25 черный 4-pin 27.2дБ (упак.:3шт) (AS-120-ARGB-K TRIO) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса ID-Cooling AS-120-K Trio ARGB 120х120x25 черный 4-pin 27.2дБ (упак.:3шт) (AS-120-ARGB-K TRIO) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1090,
+      "manufacturer": "unknown",
+      "sku": "AS-120-ARGB-W TRIO",
+      "mpn": "AS-120-ARGB-W TRIO",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-Cooling AS-120-W Trio ARGB 120х120x25 белый 4-pin 27.2дБ (упак.:3шт) (AS-120-ARGB-W TRIO) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса ID-Cooling AS-120-W Trio ARGB 120х120x25 белый 4-pin 27.2дБ (упак.:3шт) (AS-120-ARGB-W TRIO) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1091,
+      "manufacturer": "unknown",
+      "sku": "AS-140-ARGB-K",
+      "mpn": "AS-140-ARGB-K",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-Cooling AS-140-ARGB-K Black",
+      "raw_names": [
+        "Вентилятор для корпуса ID-Cooling AS-140-ARGB-K Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1092,
+      "manufacturer": "unknown",
+      "sku": "AS-140-ARGB-W",
+      "mpn": "AS-140-ARGB-W",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-Cooling AS-140-ARGB-W White",
+      "raw_names": [
+        "Вентилятор для корпуса ID-Cooling AS-140-ARGB-W White"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1093,
+      "manufacturer": "unknown",
+      "sku": "DF-125-K",
+      "mpn": "DF-125-K",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-COOLING DF-125-K 120x120x25мм (60шт./кор, PWM, черный, 0-2150об/мин)  BOX",
+      "raw_names": [
+        "Вентилятор для корпуса ID-COOLING DF-125-K 120x120x25мм (60шт./кор, PWM, черный, 0-2150об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1094,
+      "manufacturer": "unknown",
+      "sku": "FROST X45 2G",
+      "mpn": "FROST X45 2G",
+      "gtin": "",
+      "model": "Термопаста ID-Cooling FROST X45 2g 15.2Вт/(мК) шприц 2гр.",
+      "raw_names": [
+        "Термопаста ID-Cooling FROST X45 2g 15.2Вт/(мК) шприц 2гр."
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1095,
+      "manufacturer": "unknown",
+      "sku": "FROZN A620 PRO SE ARGB SNOW",
+      "mpn": "FROZN A620 PRO SE ARGB SNOW",
+      "gtin": "",
+      "model": "Кулер для процессора ID-Cooling FROZN A620 PRO SE ARGB Snow",
+      "raw_names": [
+        "Кулер для процессора ID-Cooling FROZN A620 PRO SE ARGB Snow"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1096,
+      "manufacturer": "unknown",
+      "sku": "FROZN A410 SE ARGB WHITE",
+      "mpn": "FROZN A410 SE ARGB WHITE",
+      "gtin": "",
+      "model": "Охлаждение CPU Cooler for CPU ID-COOLING FROZN A410 SE ARGB White S1155/1156/1150/1151/1200/1700/1851/AM4/AM5",
+      "raw_names": [
+        "Охлаждение CPU Cooler for CPU ID-COOLING FROZN A410 SE ARGB White S1155/1156/1150/1151/1200/1700/1851/AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1097,
+      "manufacturer": "unknown",
+      "sku": "FROZN A410 SE WHITE",
+      "mpn": "FROZN A410 SE WHITE",
+      "gtin": "",
+      "model": "Охлаждение CPU Cooler for CPU ID-COOLING FROZN A410 SE White S1155/1156/1150/1151/1200/1700/1851/AM4/AM5",
+      "raw_names": [
+        "Охлаждение CPU Cooler for CPU ID-COOLING FROZN A410 SE White S1155/1156/1150/1151/1200/1700/1851/AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1098,
+      "manufacturer": "unknown",
+      "sku": "BOREAS 120",
+      "mpn": "BOREAS 120",
+      "gtin": "",
+      "model": "Вентилятор для корпуса ID-COOLING BOREAS 120 (BOREAS 120)",
+      "raw_names": [
+        "Вентилятор для корпуса ID-COOLING BOREAS 120 (BOREAS 120)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1104,
+      "manufacturer": "unknown",
+      "sku": "FX360 TD WHITE",
+      "mpn": "FX360 TD WHITE",
+      "gtin": "",
+      "model": "СЖО ID-COOLING FX360 TD WHITE (FX360 TD WHITE)",
+      "raw_names": [
+        "СЖО ID-COOLING FX360 TD WHITE (FX360 TD WHITE)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1105,
+      "manufacturer": "unknown",
+      "sku": "E97378/ E41759",
+      "mpn": "E97378/ E41759",
+      "gtin": "",
+      "model": "Cooler Intel Original S1200/1156/1155/1150 97378 (Al+Cu)(BLACK) {ITEM NAME Е97378/E41759}",
+      "raw_names": [
+        "Cooler Intel Original S1200/1156/1155/1150 97378 (Al+Cu)(BLACK) {ITEM NAME Е97378/E41759}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

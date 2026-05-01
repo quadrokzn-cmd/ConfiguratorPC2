@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_014",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1464,
+      "manufacturer": "unknown",
+      "sku": "EX297053RUS",
+      "mpn": "EX297053RUS",
+      "gtin": "",
+      "model": "Exegate EX297053RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025S3P (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 1300RPM, 22dBA)",
+      "raw_names": [
+        "Exegate EX297053RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025S3P (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 1300RPM, 22dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1465,
+      "manufacturer": "unknown",
+      "sku": "EX297054RUS",
+      "mpn": "EX297054RUS",
+      "gtin": "",
+      "model": "Exegate EX297054RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025S3PM (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin+Molex, 1350RPM, 23dBA)",
+      "raw_names": [
+        "Exegate EX297054RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025S3PM (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin+Molex, 1350RPM, 23dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1466,
+      "manufacturer": "unknown",
+      "sku": "EX297056RUS",
+      "mpn": "EX297056RUS",
+      "gtin": "",
+      "model": "Exegate EX297056RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025H3P (120x120x25 мм, Hydraulic bearing (гидродинамический), 3pin, 1450RPM, 24dBA)",
+      "raw_names": [
+        "Exegate EX297056RUS Вентилятор 12В DC ExeGate ExtraSilent ES12025H3P (120x120x25 мм, Hydraulic bearing (гидродинамический), 3pin, 1450RPM, 24dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1467,
+      "manufacturer": "unknown",
+      "sku": "EX297063RUS",
+      "mpn": "EX297063RUS",
+      "gtin": "",
+      "model": "Exegate EX297063RUS Вентилятор 24В DC ExeGate EX04010S3P-24 (40x40x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 7500RMP, 38,5dBA)",
+      "raw_names": [
+        "Exegate EX297063RUS Вентилятор 24В DC ExeGate EX04010S3P-24 (40x40x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 7500RMP, 38,5dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1468,
+      "manufacturer": "unknown",
+      "sku": "EX297064RUS",
+      "mpn": "EX297064RUS",
+      "gtin": "",
+      "model": "Exegate EX297064RUS Вентилятор 24В DC ExeGate EX04010B3P-24 (40x40x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7500RMP, 38,5dBa)",
+      "raw_names": [
+        "Exegate EX297064RUS Вентилятор 24В DC ExeGate EX04010B3P-24 (40x40x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7500RMP, 38,5dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1469,
+      "manufacturer": "unknown",
+      "sku": "EX297065RUS",
+      "mpn": "EX297065RUS",
+      "gtin": "",
+      "model": "Exegate EX297065RUS Вентилятор 24В DC ExeGate EX04015S3P-24 (40x40x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 7500RMP, 32,6dBA)",
+      "raw_names": [
+        "Exegate EX297065RUS Вентилятор 24В DC ExeGate EX04015S3P-24 (40x40x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 7500RMP, 32,6dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1470,
+      "manufacturer": "unknown",
+      "sku": "EX297066RUS",
+      "mpn": "EX297066RUS",
+      "gtin": "",
+      "model": "Exegate EX297066RUS Вентилятор 24В DC ExeGate EX04015B3P-24 (40x40x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7800RMP, 33,1dBA",
+      "raw_names": [
+        "Exegate EX297066RUS Вентилятор 24В DC ExeGate EX04015B3P-24 (40x40x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7800RMP, 33,1dBA"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1471,
+      "manufacturer": "unknown",
+      "sku": "EX297067RUS",
+      "mpn": "EX297067RUS",
+      "gtin": "",
+      "model": "Exegate EX297067RUS Вентилятор 24В DC ExeGate EX04020S3P-24 (40x40x20 мм, Sleeve bearing (подшипник скольжения), 3pin, 7000RMP, 39dBA)",
+      "raw_names": [
+        "Exegate EX297067RUS Вентилятор 24В DC ExeGate EX04020S3P-24 (40x40x20 мм, Sleeve bearing (подшипник скольжения), 3pin, 7000RMP, 39dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1472,
+      "manufacturer": "unknown",
+      "sku": "EX297068RUS",
+      "mpn": "EX297068RUS",
+      "gtin": "",
+      "model": "Exegate EX297068RUS Вентилятор 24В DC ExeGate EX04020B3P-24 (40x40x20 мм, 2-Ball (двойной шарикоподшипник), 3pin, 8000RMP, 33,2dBA)",
+      "raw_names": [
+        "Exegate EX297068RUS Вентилятор 24В DC ExeGate EX04020B3P-24 (40x40x20 мм, 2-Ball (двойной шарикоподшипник), 3pin, 8000RMP, 33,2dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1473,
+      "manufacturer": "unknown",
+      "sku": "EX297069RUS",
+      "mpn": "EX297069RUS",
+      "gtin": "",
+      "model": "Exegate EX297069RUS Вентилятор 24В DC ExeGate EX05010S3P-24 (50x50x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 7200RMP, 39dBA)",
+      "raw_names": [
+        "Exegate EX297069RUS Вентилятор 24В DC ExeGate EX05010S3P-24 (50x50x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 7200RMP, 39dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1474,
+      "manufacturer": "unknown",
+      "sku": "EX297070RUS",
+      "mpn": "EX297070RUS",
+      "gtin": "",
+      "model": "Exegate EX297070RUS Вентилятор 24В DC ExeGate EX05010B3P-24 (50x50x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7000RMP, 42,6dBA)",
+      "raw_names": [
+        "Exegate EX297070RUS Вентилятор 24В DC ExeGate EX05010B3P-24 (50x50x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7000RMP, 42,6dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1475,
+      "manufacturer": "unknown",
+      "sku": "EX297071RUS",
+      "mpn": "EX297071RUS",
+      "gtin": "",
+      "model": "Exegate EX297071RUS Вентилятор 24В DC ExeGate EX05015S3P-24 (50x50x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 7000RMP, 36,8dBA)",
+      "raw_names": [
+        "Exegate EX297071RUS Вентилятор 24В DC ExeGate EX05015S3P-24 (50x50x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 7000RMP, 36,8dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1476,
+      "manufacturer": "unknown",
+      "sku": "EX297072RUS",
+      "mpn": "EX297072RUS",
+      "gtin": "",
+      "model": "Exegate EX297072RUS Вентилятор 24В DC ExeGate EX05015B3P-24 (50x50x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7500RMP, 39,4dBA)",
+      "raw_names": [
+        "Exegate EX297072RUS Вентилятор 24В DC ExeGate EX05015B3P-24 (50x50x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 7500RMP, 39,4dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1477,
+      "manufacturer": "unknown",
+      "sku": "EX297073RUS",
+      "mpn": "EX297073RUS",
+      "gtin": "",
+      "model": "Exegate EX297073RUS Вентилятор 24В DC ExeGate EX06010S3P-24 (60x60x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 3000RMP, 24,1dBA)",
+      "raw_names": [
+        "Exegate EX297073RUS Вентилятор 24В DC ExeGate EX06010S3P-24 (60x60x10 мм, Sleeve bearing (подшипник скольжения), 3pin, 3000RMP, 24,1dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1478,
+      "manufacturer": "unknown",
+      "sku": "EX297074RUS",
+      "mpn": "EX297074RUS",
+      "gtin": "",
+      "model": "Exegate EX297074RUS Вентилятор 24В DC ExeGate EX06010B3P-24 (60x60x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 3200RMP, 24,1dBA)",
+      "raw_names": [
+        "Exegate EX297074RUS Вентилятор 24В DC ExeGate EX06010B3P-24 (60x60x10 мм, 2-Ball (двойной шарикоподшипник), 3pin, 3200RMP, 24,1dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1479,
+      "manufacturer": "unknown",
+      "sku": "EX297076RUS",
+      "mpn": "EX297076RUS",
+      "gtin": "",
+      "model": "Exegate EX297076RUS Вентилятор 24В DC ExeGate EX06015B3P-24 (60x60x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5000RMP, 35,5dBA)",
+      "raw_names": [
+        "Exegate EX297076RUS Вентилятор 24В DC ExeGate EX06015B3P-24 (60x60x15 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5000RMP, 35,5dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1480,
+      "manufacturer": "unknown",
+      "sku": "EX297077RUS",
+      "mpn": "EX297077RUS",
+      "gtin": "",
+      "model": "Exegate EX297077RUS Вентилятор 24В DC ExeGate EX06025S3P-24 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 5000RMP, 34,5dBA)",
+      "raw_names": [
+        "Exegate EX297077RUS Вентилятор 24В DC ExeGate EX06025S3P-24 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 5000RMP, 34,5dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1481,
+      "manufacturer": "unknown",
+      "sku": "EX297078RUS",
+      "mpn": "EX297078RUS",
+      "gtin": "",
+      "model": "Exegate EX297078RUS Вентилятор 24В DC ExeGate EX06025B3P-24 (60x60x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5100RMP, 34,dBA)",
+      "raw_names": [
+        "Exegate EX297078RUS Вентилятор 24В DC ExeGate EX06025B3P-24 (60x60x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5100RMP, 34,dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1482,
+      "manufacturer": "unknown",
+      "sku": "EX297079RUS",
+      "mpn": "EX297079RUS",
+      "gtin": "",
+      "model": "Exegate EX297079RUS Вентилятор 24В DC ExeGate EX08015S3P-24 (80x80x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 2500RMP, 30,1dBA)",
+      "raw_names": [
+        "Exegate EX297079RUS Вентилятор 24В DC ExeGate EX08015S3P-24 (80x80x15 мм, Sleeve bearing (подшипник скольжения), 3pin, 2500RMP, 30,1dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1483,
+      "manufacturer": "unknown",
+      "sku": "EX297081RUS",
+      "mpn": "EX297081RUS",
+      "gtin": "",
+      "model": "Exegate EX297081RUS Вентилятор 24В DC ExeGate EX08020S3P-24 (80x80x20 мм, Sleeve bearing (подшипник скольжения), 3pin, 3900RMP, 41,2dBA)",
+      "raw_names": [
+        "Exegate EX297081RUS Вентилятор 24В DC ExeGate EX08020S3P-24 (80x80x20 мм, Sleeve bearing (подшипник скольжения), 3pin, 3900RMP, 41,2dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1484,
+      "manufacturer": "unknown",
+      "sku": "EX297082RUS",
+      "mpn": "EX297082RUS",
+      "gtin": "",
+      "model": "Exegate EX297082RUS Вентилятор 24В DC ExeGate EX08020B3P-24 (80x80x20 мм, 2-Ball (двойной шарикоподшипник), 3pin, 4000RMP, 42,3dBA)",
+      "raw_names": [
+        "Exegate EX297082RUS Вентилятор 24В DC ExeGate EX08020B3P-24 (80x80x20 мм, 2-Ball (двойной шарикоподшипник), 3pin, 4000RMP, 42,3dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1485,
+      "manufacturer": "unknown",
+      "sku": "EX297083RUS",
+      "mpn": "EX297083RUS",
+      "gtin": "",
+      "model": "Exegate EX297083RUS Вентилятор 24В DC ExeGate EX08025S3P-24 (80x80x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2850RMP, 28dBA)",
+      "raw_names": [
+        "Exegate EX297083RUS Вентилятор 24В DC ExeGate EX08025S3P-24 (80x80x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2850RMP, 28dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1486,
+      "manufacturer": "unknown",
+      "sku": "EX297084RUS",
+      "mpn": "EX297084RUS",
+      "gtin": "",
+      "model": "Exegate EX297084RUS Вентилятор 24В DC ExeGate EX08025B3P-24 (80x80x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2900RMP, 30,6dBA)",
+      "raw_names": [
+        "Exegate EX297084RUS Вентилятор 24В DC ExeGate EX08025B3P-24 (80x80x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2900RMP, 30,6dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1487,
+      "manufacturer": "unknown",
+      "sku": "EX297085RUS",
+      "mpn": "EX297085RUS",
+      "gtin": "",
+      "model": "Exegate EX297085RUS Вентилятор 24В DC ExeGate EX08038S3P-24 (80x80x38 мм, Sleeve bearing (подшипник скольжения), 3pin, 4500RMP, 43,2dBA)",
+      "raw_names": [
+        "Exegate EX297085RUS Вентилятор 24В DC ExeGate EX08038S3P-24 (80x80x38 мм, Sleeve bearing (подшипник скольжения), 3pin, 4500RMP, 43,2dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1488,
+      "manufacturer": "unknown",
+      "sku": "EX297086RUS",
+      "mpn": "EX297086RUS",
+      "gtin": "",
+      "model": "Exegate EX297086RUS Вентилятор 24В DC ExeGate EX09225S3P-24 (92x92x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2800RMP, 34dBA)",
+      "raw_names": [
+        "Exegate EX297086RUS Вентилятор 24В DC ExeGate EX09225S3P-24 (92x92x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2800RMP, 34dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1489,
+      "manufacturer": "unknown",
+      "sku": "EX297087RUS",
+      "mpn": "EX297087RUS",
+      "gtin": "",
+      "model": "Exegate EX297087RUS Вентилятор 24В DC ExeGate EX09225B3P-24 (92x92x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2750RMP, 35dBA)",
+      "raw_names": [
+        "Exegate EX297087RUS Вентилятор 24В DC ExeGate EX09225B3P-24 (92x92x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2750RMP, 35dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1490,
+      "manufacturer": "unknown",
+      "sku": "EX297090RUS",
+      "mpn": "EX297090RUS",
+      "gtin": "",
+      "model": "Exegate EX297090RUS Вентилятор 24В DC ExeGate EX09238S3P-24 (92x92x38 мм, Sleeve bearing (подшипник скольжения), 3pin, 4500RMP, 48,3dBA)",
+      "raw_names": [
+        "Exegate EX297090RUS Вентилятор 24В DC ExeGate EX09238S3P-24 (92x92x38 мм, Sleeve bearing (подшипник скольжения), 3pin, 4500RMP, 48,3dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1491,
+      "manufacturer": "unknown",
+      "sku": "EX297091RUS",
+      "mpn": "EX297091RUS",
+      "gtin": "",
+      "model": "Exegate EX297091RUS Вентилятор 24В DC ExeGate EX09238B3P-24 (92x92x38 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5000RMP, 56,3dBA)",
+      "raw_names": [
+        "Exegate EX297091RUS Вентилятор 24В DC ExeGate EX09238B3P-24 (92x92x38 мм, 2-Ball (двойной шарикоподшипник), 3pin, 5000RMP, 56,3dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1492,
+      "manufacturer": "unknown",
+      "sku": "EX297092RUS",
+      "mpn": "EX297092RUS",
+      "gtin": "",
+      "model": "Exegate EX297092RUS Вентилятор 24В DC ExeGate EX12025S3P-24 (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2100RMP, 35dBA)",
+      "raw_names": [
+        "Exegate EX297092RUS Вентилятор 24В DC ExeGate EX12025S3P-24 (120x120x25 мм, Sleeve bearing (подшипник скольжения), 3pin, 2100RMP, 35dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1493,
+      "manufacturer": "unknown",
+      "sku": "EX297093RUS",
+      "mpn": "EX297093RUS",
+      "gtin": "",
+      "model": "Exegate EX297093RUS Вентилятор 24В DC ExeGate EX12025B3P-24 (120x120x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2200RPM, 35,6dBA)",
+      "raw_names": [
+        "Exegate EX297093RUS Вентилятор 24В DC ExeGate EX12025B3P-24 (120x120x25 мм, 2-Ball (двойной шарикоподшипник), 3pin, 2200RPM, 35,6dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

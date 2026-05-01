@@ -1,0 +1,507 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_022",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1727,
+      "manufacturer": "unknown",
+      "sku": "CNPS9X Optima",
+      "mpn": "CNPS9X Optima",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS9X Optima",
+      "raw_names": [
+        "Cooler Zalman CNPS9X Optima"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1728,
+      "manufacturer": "unknown",
+      "sku": "CNPS9X Optima2",
+      "mpn": "CNPS9X Optima2",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS9X Optima2",
+      "raw_names": [
+        "Cooler Zalman CNPS9X Optima2"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1730,
+      "manufacturer": "unknown",
+      "sku": "CNPS9X",
+      "mpn": "CNPS9X",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS9X PERFORMA BLACK 180W",
+      "raw_names": [
+        "Cooler Zalman CNPS9X PERFORMA BLACK 180W"
+      ],
+      "current": {
+        "max_tdp_watts": 180
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1731,
+      "manufacturer": "unknown",
+      "sku": "CNPS9X BLACK ARGB",
+      "mpn": "CNPS9X BLACK ARGB",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS9X PERFORMA BLACK ARGB 180W",
+      "raw_names": [
+        "Cooler Zalman CNPS9X PERFORMA BLACK ARGB 180W"
+      ],
+      "current": {
+        "max_tdp_watts": 180
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1732,
+      "manufacturer": "unknown",
+      "sku": "CNPS10X PERFORMA WHITE",
+      "mpn": "CNPS10X PERFORMA WHITE",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS10X PERFORMA WHITE,  Ret",
+      "raw_names": [
+        "Cooler Zalman CNPS10X PERFORMA WHITE,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1733,
+      "manufacturer": "unknown",
+      "sku": "CNPS16X White",
+      "mpn": "CNPS16X White",
+      "gtin": "",
+      "model": "Cooler Zalman CNPS16X White RGB (Soc-1151/1200/2011/2066/AM2/AM3/AM4/FM2/FM1, 800-1500 об/мин, 27dB, Al+CU, 880gr) (CNPS16X White)",
+      "raw_names": [
+        "Cooler Zalman CNPS16X White RGB (Soc-1151/1200/2011/2066/AM2/AM3/AM4/FM2/FM1, 800-1500 об/мин, 27dB, Al+CU, 880gr) (CNPS16X White)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1151",
+          "LGA1200",
+          "LGA2011",
+          "LGA2066",
+          "AM2",
+          "AM3",
+          "AM4",
+          "FM2",
+          "FM1"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1734,
+      "manufacturer": "unknown",
+      "sku": "ZM-AF120 ARGB BLACK",
+      "mpn": "ZM-AF120 ARGB BLACK",
+      "gtin": "",
+      "model": "Case fan ZALMAN  ZM-AF120 ARGB черный 4-pin 29.7dB 160gr Ret",
+      "raw_names": [
+        "Case fan ZALMAN  ZM-AF120 ARGB черный 4-pin 29.7dB 160gr Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1735,
+      "manufacturer": "unknown",
+      "sku": "ZM-F1 PLUS SF",
+      "mpn": "ZM-F1 PLUS SF",
+      "gtin": "",
+      "model": "Case fan ZALMAN  ZM-F1 PLUS (SF) / ZE-8025ASH oem",
+      "raw_names": [
+        "Case fan ZALMAN  ZM-F1 PLUS (SF) / ZE-8025ASH oem"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1736,
+      "manufacturer": "unknown",
+      "sku": "ZM-F1 PLUS (SF)",
+      "mpn": "ZM-F1 PLUS (SF)",
+      "gtin": "",
+      "model": "Case fan ZALMAN  ZM-F1 PLUS (SF) / ZE-8025ASH RTL",
+      "raw_names": [
+        "Case fan ZALMAN  ZM-F1 PLUS (SF) / ZE-8025ASH RTL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1737,
+      "manufacturer": "unknown",
+      "sku": "ZM-F2 PLUS (SF)",
+      "mpn": "ZM-F2 PLUS (SF)",
+      "gtin": "",
+      "model": "Case fan ZALMAN  ZM-F2 PLUS (SF) Fan for m / tower (3пин, 92x92x25mm, 20-23дБ, 1500об / мин)",
+      "raw_names": [
+        "Case fan ZALMAN  ZM-F2 PLUS (SF) Fan for m / tower (3пин, 92x92x25mm, 20-23дБ, 1500об / мин)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1738,
+      "manufacturer": "unknown",
+      "sku": "ZM-F3 FDB (SF)",
+      "mpn": "ZM-F3 FDB (SF)",
+      "gtin": "",
+      "model": "Case fan ZALMAN  ZM-F3 FDB (SF)",
+      "raw_names": [
+        "Case fan ZALMAN  ZM-F3 FDB (SF)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1739,
+      "manufacturer": "unknown",
+      "sku": "ALPHA28 Black",
+      "mpn": "ALPHA28 Black",
+      "gtin": "",
+      "model": "Система водяного охлаждения ZALMAN ALPHA28 Black",
+      "raw_names": [
+        "Система водяного охлаждения ZALMAN ALPHA28 Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1740,
+      "manufacturer": "unknown",
+      "sku": "CNPS9X PERFORMA ARGB W",
+      "mpn": "CNPS9X PERFORMA ARGB W",
+      "gtin": "",
+      "model": "Устройство охлаждения(кулер) Zalman CNPS9X Performa White ARGB,  120мм, Ret",
+      "raw_names": [
+        "Устройство охлаждения(кулер) Zalman CNPS9X Performa White ARGB,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1741,
+      "manufacturer": "unknown",
+      "sku": "ALPHA 28 White",
+      "mpn": "ALPHA 28 White",
+      "gtin": "",
+      "model": "Система водяного охлаждения Zalman ALPHA 28 White 140 мм - две секции, 3 pin, радиатор - алюминий",
+      "raw_names": [
+        "Система водяного охлаждения Zalman ALPHA 28 White 140 мм - две секции, 3 pin, радиатор - алюминий"
+      ],
+      "current": {
+        "max_tdp_watts": 180
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1742,
+      "manufacturer": "unknown",
+      "sku": "ZM-AF120 BLACK",
+      "mpn": "ZM-AF120 BLACK",
+      "gtin": "",
+      "model": "Вентилятор Zalman ZM-AF120,  Ret",
+      "raw_names": [
+        "Вентилятор Zalman ZM-AF120,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1743,
+      "manufacturer": "unknown",
+      "sku": "ALPHA2 A24 Black",
+      "mpn": "ALPHA2 A24 Black",
+      "gtin": "",
+      "model": "СВО для процессора Zalman ALPHA2 A24 BLACK",
+      "raw_names": [
+        "СВО для процессора Zalman ALPHA2 A24 BLACK"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1744,
+      "manufacturer": "unknown",
+      "sku": "Reserator5 Z36 White",
+      "mpn": "Reserator5 Z36 White",
+      "gtin": "",
+      "model": "Система охлаждения Zalman Reserator5 Z36 White",
+      "raw_names": [
+        "Система охлаждения Zalman Reserator5 Z36 White"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1746,
+      "manufacturer": "unknown",
+      "sku": "ZM-AF120 ARGB WHITE",
+      "mpn": "ZM-AF120 ARGB WHITE",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Zalman ZM-AF120 ARGB 120х120x26 белый 4-pin 29.7дБ (ZM-AF120 ARGB WHITE) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Zalman ZM-AF120 ARGB 120х120x26 белый 4-pin 29.7дБ (ZM-AF120 ARGB WHITE) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1747,
+      "manufacturer": "unknown",
+      "sku": "PF-M12B PWM",
+      "mpn": "PF-M12B PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-M12B PWM / 120mm 4 pin Hydraulic 900-1600rpm 68CFM 28.5dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-M12B PWM / 120mm 4 pin Hydraulic 900-1600rpm 68CFM 28.5dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1748,
+      "manufacturer": "unknown",
+      "sku": "PF-S12B PWM",
+      "mpn": "PF-S12B PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-S12B PWM / 120mm 4 pin Magnetic Hydraulic 500-2000rpm 68CFM 29.2dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-S12B PWM / 120mm 4 pin Magnetic Hydraulic 500-2000rpm 68CFM 29.2dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1749,
+      "manufacturer": "unknown",
+      "sku": "PF-S12W PWM",
+      "mpn": "PF-S12W PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-S12W PWM / 120mm 4 pin Magnetic Hydraulic 500-2000rpm 68CFM 29.2dBA/ White",
+      "raw_names": [
+        "Вентилятор PentaWave PF-S12W PWM / 120mm 4 pin Magnetic Hydraulic 500-2000rpm 68CFM 29.2dBA/ White"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1750,
+      "manufacturer": "unknown",
+      "sku": "PF-K12BS PWM",
+      "mpn": "PF-K12BS PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12BS PWM / 120mm 4 pin Magnetic Hydraulic 500-1700rpm 76CFM 28.7dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12BS PWM / 120mm 4 pin Magnetic Hydraulic 500-1700rpm 76CFM 28.7dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1751,
+      "manufacturer": "unknown",
+      "sku": "PF-K12WAS PWM",
+      "mpn": "PF-K12WAS PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12WAS PWM / ARGB / 120mm 4 pin Magnetic Hydraulic 500-1700rpm 76CFM 28.7dBA/ White",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12WAS PWM / ARGB / 120mm 4 pin Magnetic Hydraulic 500-1700rpm 76CFM 28.7dBA/ White"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1752,
+      "manufacturer": "unknown",
+      "sku": "PF-K12B PWM",
+      "mpn": "PF-K12B PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12B PWM / 120mm 4 pin Magnetic FDB 500-1850rpm 83CFM 29.7dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12B PWM / 120mm 4 pin Magnetic FDB 500-1850rpm 83CFM 29.7dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1753,
+      "manufacturer": "unknown",
+      "sku": "PF-K12WA PWM",
+      "mpn": "PF-K12WA PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12WA PWM / ARGB / 120mm 4 pin Magnetic FDB 500-1850rpm 83CFM 29.7dBA/ White",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12WA PWM / ARGB / 120mm 4 pin Magnetic FDB 500-1850rpm 83CFM 29.7dBA/ White"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1754,
+      "manufacturer": "unknown",
+      "sku": "PF-K12EX PWM",
+      "mpn": "PF-K12EX PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12EX PWM / 120mm 4 pin Dual NMB Ball Bearing 500-2400rpm 108CFM 38.5dBA/ Gray",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12EX PWM / 120mm 4 pin Dual NMB Ball Bearing 500-2400rpm 108CFM 38.5dBA/ Gray"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1755,
+      "manufacturer": "unknown",
+      "sku": "PF-K12EXP PWM",
+      "mpn": "PF-K12EXP PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-K12EXP PWM / 120mm 4 pin Dual NMB Ball Bearing 500-3000rpm 128CFM 43.5dBA/ Gray",
+      "raw_names": [
+        "Вентилятор PentaWave PF-K12EXP PWM / 120mm 4 pin Dual NMB Ball Bearing 500-3000rpm 128CFM 43.5dBA/ Gray"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1756,
+      "manufacturer": "unknown",
+      "sku": "PF-P12B PWM",
+      "mpn": "PF-P12B PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-P12B PWM / 120mm 4 pin Magnetic FDB 500-2400rpm 75CFM 34.6dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-P12B PWM / 120mm 4 pin Magnetic FDB 500-2400rpm 75CFM 34.6dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1757,
+      "manufacturer": "unknown",
+      "sku": "PF-P12E PWM",
+      "mpn": "PF-P12E PWM",
+      "gtin": "",
+      "model": "Вентилятор PentaWave PF-P12E PWM / 120mm 4 pin Dual NMB Ball Bearing 500-3000rpm 91.5CFM 41.2dBA/ Black",
+      "raw_names": [
+        "Вентилятор PentaWave PF-P12E PWM / 120mm 4 pin Dual NMB Ball Bearing 500-3000rpm 91.5CFM 41.2dBA/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1765,
+      "manufacturer": "unknown",
+      "sku": "MEG CORELIQUID S360",
+      "mpn": "MEG CORELIQUID S360",
+      "gtin": "",
+      "model": "MSI СВО MEG CORELIQUID S360, 360mm, LCD 2.4\"",
+      "raw_names": [
+        "MSI СВО MEG CORELIQUID S360, 360mm, LCD 2.4\""
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    }
+  ]
+}

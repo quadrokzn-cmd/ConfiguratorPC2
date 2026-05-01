@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_032",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1621,
+      "manufacturer": "unknown",
+      "sku": "D12025S12L-CF",
+      "mpn": "D12025S12L-CF",
+      "gtin": "",
+      "model": "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, цветной (D12025S12L-CF)",
+      "raw_names": [
+        "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, цветной (D12025S12L-CF)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1622,
+      "manufacturer": "unknown",
+      "sku": "D12025S12L-R",
+      "mpn": "D12025S12L-R",
+      "gtin": "",
+      "model": "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, красный (D12025S12L-R)",
+      "raw_names": [
+        "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, красный (D12025S12L-R)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1623,
+      "manufacturer": "unknown",
+      "sku": "D12025S12L-B",
+      "mpn": "D12025S12L-B",
+      "gtin": "",
+      "model": "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, синий (D12025S12L-B)",
+      "raw_names": [
+        "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, синий (D12025S12L-B)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1624,
+      "manufacturer": "unknown",
+      "sku": "FB4010S-12L2",
+      "mpn": "FB4010S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB4010S-12L2 40X10 / SLEEVE / 5000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB4010S-12L2 40X10 / SLEEVE / 5000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1625,
+      "manufacturer": "unknown",
+      "sku": "FB4010S-12L3",
+      "mpn": "FB4010S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB4010S-12L3 40X10 / SLEEVE / 5000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB4010S-12L3 40X10 / SLEEVE / 5000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1626,
+      "manufacturer": "unknown",
+      "sku": "FB4010S-12H3",
+      "mpn": "FB4010S-12H3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB4010S-12H3 40X10 / SLEEVE / 6000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB4010S-12H3 40X10 / SLEEVE / 6000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1627,
+      "manufacturer": "unknown",
+      "sku": "FB5010S-12L3",
+      "mpn": "FB5010S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB5010S-12L3 50X10 / SLEEVE / 4200RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB5010S-12L3 50X10 / SLEEVE / 4200RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1628,
+      "manufacturer": "unknown",
+      "sku": "FB5010S-12H3",
+      "mpn": "FB5010S-12H3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB5010S-12H3 50X10 / SLEEVE / 5500RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB5010S-12H3 50X10 / SLEEVE / 5500RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1629,
+      "manufacturer": "unknown",
+      "sku": "FB6010S-12L2",
+      "mpn": "FB6010S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB6010S-12L2 60X10 / SLEEVE / 3200RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB6010S-12L2 60X10 / SLEEVE / 3200RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1630,
+      "manufacturer": "unknown",
+      "sku": "FB6010S-12H3",
+      "mpn": "FB6010S-12H3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB6010S-12H3 60X10 / SLEEVE / 3800RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB6010S-12H3 60X10 / SLEEVE / 3800RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1631,
+      "manufacturer": "unknown",
+      "sku": "FB8025S-12L2",
+      "mpn": "FB8025S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8025S-12L2 80X25 / SLEEVE / 2000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB8025S-12L2 80X25 / SLEEVE / 2000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1632,
+      "manufacturer": "unknown",
+      "sku": "FB8025S-12L3",
+      "mpn": "FB8025S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8025S-12L3 80X25 / SLEEVE / 2000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB8025S-12L3 80X25 / SLEEVE / 2000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1633,
+      "manufacturer": "unknown",
+      "sku": "FB8025S-12H3",
+      "mpn": "FB8025S-12H3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8025S-12H3 80X25 / SLEEVE / 3000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB8025S-12H3 80X25 / SLEEVE / 3000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1634,
+      "manufacturer": "unknown",
+      "sku": "FB8015S-12L3",
+      "mpn": "FB8015S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8015S-12L3 80X15 / SLEEVE / 2000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB8015S-12L3 80X15 / SLEEVE / 2000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1635,
+      "manufacturer": "unknown",
+      "sku": "FB9225S-12L3",
+      "mpn": "FB9225S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9225S-12L3 92X25 / SLEEVE / 1800RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB9225S-12L3 92X25 / SLEEVE / 1800RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1636,
+      "manufacturer": "unknown",
+      "sku": "FB9225S-12H3",
+      "mpn": "FB9225S-12H3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9225S-12H3 92X25 / SLEEVE / 2500RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB9225S-12H3 92X25 / SLEEVE / 2500RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1637,
+      "manufacturer": "unknown",
+      "sku": "FB12025S-12L3",
+      "mpn": "FB12025S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB12025S-12L3 120X25 / SLEEVE / 1200RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB12025S-12L3 120X25 / SLEEVE / 1200RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1638,
+      "manufacturer": "unknown",
+      "sku": "FB12025S-12L2",
+      "mpn": "FB12025S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB12025S-12L2 120X25 / SLEEVE / 1200RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB12025S-12L2 120X25 / SLEEVE / 1200RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1639,
+      "manufacturer": "unknown",
+      "sku": "FB12015S-12L3",
+      "mpn": "FB12015S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB12015S-12L3 120X15 / SLEEVE / 1200RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB12015S-12L3 120X15 / SLEEVE / 1200RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1640,
+      "manufacturer": "unknown",
+      "sku": "FB14025S-12L3",
+      "mpn": "FB14025S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB14025S-12L3 140X25 / SLEEVE / 1200RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB14025S-12L3 140X25 / SLEEVE / 1200RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1641,
+      "manufacturer": "unknown",
+      "sku": "FB5010S-12L2",
+      "mpn": "FB5010S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB5010S-12L2 50X10 / SLEEVE / 4200RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB5010S-12L2 50X10 / SLEEVE / 4200RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1642,
+      "manufacturer": "unknown",
+      "sku": "FB2510S-12H2",
+      "mpn": "FB2510S-12H2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB2510S-12H2 25X10 / SLEEVE / 9000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB2510S-12H2 25X10 / SLEEVE / 9000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1643,
+      "manufacturer": "unknown",
+      "sku": "FB3010S-12L2",
+      "mpn": "FB3010S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB3010S-12L2 30X10 / SLEEVE / 7000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB3010S-12L2 30X10 / SLEEVE / 7000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1644,
+      "manufacturer": "unknown",
+      "sku": "FB8025S-12H4MX",
+      "mpn": "FB8025S-12H4MX",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8025S-12H4MX 80X25 / SLEEVE / 3000RPM / MOLEX / 4P",
+      "raw_names": [
+        "5bites Вентилятор FB8025S-12H4MX 80X25 / SLEEVE / 3000RPM / MOLEX / 4P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1645,
+      "manufacturer": "unknown",
+      "sku": "FB9225S-12H4MX",
+      "mpn": "FB9225S-12H4MX",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9225S-12H4MX 92X25 / SLEEVE / 2500RPM / MOLEX / 4P",
+      "raw_names": [
+        "5bites Вентилятор FB9225S-12H4MX 92X25 / SLEEVE / 2500RPM / MOLEX / 4P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1646,
+      "manufacturer": "unknown",
+      "sku": "FB12025S-12L4MX",
+      "mpn": "FB12025S-12L4MX",
+      "gtin": "",
+      "model": "5bites Вентилятор FB12025S-12L4MX 120X25 / SLEEVE / 1200RPM / MOLEX / 4P",
+      "raw_names": [
+        "5bites Вентилятор FB12025S-12L4MX 120X25 / SLEEVE / 1200RPM / MOLEX / 4P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1647,
+      "manufacturer": "unknown",
+      "sku": "FB6015S-12L2",
+      "mpn": "FB6015S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB6015S-12L2 60X15 / SLEEVE / 3000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB6015S-12L2 60X15 / SLEEVE / 3000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1648,
+      "manufacturer": "unknown",
+      "sku": "FB8015S-12L2",
+      "mpn": "FB8015S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8015S-12L2 80X15 / SLEEVE / 2000RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB8015S-12L2 80X15 / SLEEVE / 2000RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1649,
+      "manufacturer": "unknown",
+      "sku": "FB8025S-12L4MX",
+      "mpn": "FB8025S-12L4MX",
+      "gtin": "",
+      "model": "5bites Вентилятор FB8025S-12L4MX 80X25 / SLEEVE / 2000RPM / MOLEX / 4P",
+      "raw_names": [
+        "5bites Вентилятор FB8025S-12L4MX 80X25 / SLEEVE / 2000RPM / MOLEX / 4P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1650,
+      "manufacturer": "unknown",
+      "sku": "FB9220S-12L3",
+      "mpn": "FB9220S-12L3",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9220S-12L3 92X20 / SLEEVE / 2000RPM / 3P",
+      "raw_names": [
+        "5bites Вентилятор FB9220S-12L3 92X20 / SLEEVE / 2000RPM / 3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

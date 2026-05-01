@@ -1,0 +1,494 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_034",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1696,
+      "manufacturer": "unknown",
+      "sku": "DA360Pro-WHAWXL-GL",
+      "mpn": "DA360Pro-WHAWXL-GL",
+      "gtin": "",
+      "model": "DA360 Pro ARGB Digital WH DA360Pro-WHAWXL-GL",
+      "raw_names": [
+        "DA360 Pro ARGB Digital WH DA360Pro-WHAWXL-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1697,
+      "manufacturer": "unknown",
+      "sku": "DA360Pro-BKAWXX -GL",
+      "mpn": "DA360Pro-BKAWXX -GL",
+      "gtin": "",
+      "model": "DA360 Pro ARGB BK DA360Pro-BKAWXX -GL",
+      "raw_names": [
+        "DA360 Pro ARGB BK DA360Pro-BKAWXX -GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1698,
+      "manufacturer": "unknown",
+      "sku": "DA360Pro-WHAWXX-GL",
+      "mpn": "DA360Pro-WHAWXX-GL",
+      "gtin": "",
+      "model": "DA360 Pro ARGB WH DA360Pro-WHAWXX-GL",
+      "raw_names": [
+        "DA360 Pro ARGB WH DA360Pro-WHAWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1699,
+      "manufacturer": "unknown",
+      "sku": "DA240-BKAWXX-GL",
+      "mpn": "DA240-BKAWXX-GL",
+      "gtin": "",
+      "model": "DA240 ARGB BK DA240-BKAWXX-GL",
+      "raw_names": [
+        "DA240 ARGB BK DA240-BKAWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1700,
+      "manufacturer": "unknown",
+      "sku": "DE360-BKAWXX-GL",
+      "mpn": "DE360-BKAWXX-GL",
+      "gtin": "",
+      "model": "DE360 BK DE360-BKAWXX-GL",
+      "raw_names": [
+        "DE360 BK DE360-BKAWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1701,
+      "manufacturer": "unknown",
+      "sku": "DE360-WHAWXX-GL",
+      "mpn": "DE360-WHAWXX-GL",
+      "gtin": "",
+      "model": "DE360 WH DE360-WHAWXX-GL",
+      "raw_names": [
+        "DE360 WH DE360-WHAWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1702,
+      "manufacturer": "unknown",
+      "sku": "DE360Pro-BKWAXX-GL",
+      "mpn": "DE360Pro-BKWAXX-GL",
+      "gtin": "",
+      "model": "DE360 Pro BK DE360Pro-BKWAXX-GL",
+      "raw_names": [
+        "DE360 Pro BK DE360Pro-BKWAXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1703,
+      "manufacturer": "unknown",
+      "sku": "DE360Pro-WHWAXX-GL",
+      "mpn": "DE360Pro-WHWAXX-GL",
+      "gtin": "",
+      "model": "DE360 Pro WH DE360Pro-WHWAXX-GL",
+      "raw_names": [
+        "DE360 Pro WH DE360Pro-WHWAXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1704,
+      "manufacturer": "unknown",
+      "sku": "DE360Max-BKNWXX-GL",
+      "mpn": "DE360Max-BKNWXX-GL",
+      "gtin": "",
+      "model": "DE360 MAX BK DE360Max-BKNWXX-GL",
+      "raw_names": [
+        "DE360 MAX BK DE360Max-BKNWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1705,
+      "manufacturer": "unknown",
+      "sku": "RZ820-BKNWNX-GL",
+      "mpn": "RZ820-BKNWNX-GL",
+      "gtin": "",
+      "model": "RZ820 Display BK RZ820-BKNWNX-GL",
+      "raw_names": [
+        "RZ820 Display BK RZ820-BKNWNX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1706,
+      "manufacturer": "unknown",
+      "sku": "RZ620-XXNWNX-GL",
+      "mpn": "RZ620-XXNWNX-GL",
+      "gtin": "",
+      "model": "RZ620 RZ620-XXNWNX-GL",
+      "raw_names": [
+        "RZ620 RZ620-XXNWNX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1707,
+      "manufacturer": "unknown",
+      "sku": "RT620-BKAWXX-GL",
+      "mpn": "RT620-BKAWXX-GL",
+      "gtin": "",
+      "model": "RT620 PRO ARGB BK RT620-BKAWXX-GL",
+      "raw_names": [
+        "RT620 PRO ARGB BK RT620-BKAWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1708,
+      "manufacturer": "unknown",
+      "sku": "RT500TC-WHAWYX-GL",
+      "mpn": "RT500TC-WHAWYX-GL",
+      "gtin": "",
+      "model": "RT500 TC ARGB WH RT500TC-WHAWYX-GL",
+      "raw_names": [
+        "RT500 TC ARGB WH RT500TC-WHAWYX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1709,
+      "manufacturer": "unknown",
+      "sku": "R400-WHAWYX-US",
+      "mpn": "R400-WHAWYX-US",
+      "gtin": "",
+      "model": "R400 ARGB WH R400-WHAWYX-US",
+      "raw_names": [
+        "R400 ARGB WH R400-WHAWYX-US"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1710,
+      "manufacturer": "unknown",
+      "sku": "R3-J410WWHAXX-GL",
+      "mpn": "R3-J410WWHAXX-GL",
+      "gtin": "",
+      "model": "PALADIN 400 ARGB R3-J410WWHAXX-GL",
+      "raw_names": [
+        "PALADIN 400 ARGB R3-J410WWHAXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1711,
+      "manufacturer": "unknown",
+      "sku": "R3-J410WXXNXX-GL",
+      "mpn": "R3-J410WXXNXX-GL",
+      "gtin": "",
+      "model": "PALADIN 400 R3-J410WXXNXX-GL",
+      "raw_names": [
+        "PALADIN 400 R3-J410WXXNXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1712,
+      "manufacturer": "unknown",
+      "sku": "R3-J410WWHNXX-GL",
+      "mpn": "R3-J410WWHNXX-GL",
+      "gtin": "",
+      "model": "PALADIN 400 WH R3-J410WWHNXX-GL",
+      "raw_names": [
+        "PALADIN 400 WH R3-J410WWHNXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1713,
+      "manufacturer": "unknown",
+      "sku": "R3-K410WBKSYX-GL",
+      "mpn": "R3-K410WBKSYX-GL",
+      "gtin": "",
+      "model": "PALADIN EX400S R3-K410WBKSYX-GL",
+      "raw_names": [
+        "PALADIN EX400S R3-K410WBKSYX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1714,
+      "manufacturer": "unknown",
+      "sku": "R3-K410WBKNYX-GL",
+      "mpn": "R3-K410WBKNYX-GL",
+      "gtin": "",
+      "model": "PALADIN EX400 R3-K410WBKNYX-GL",
+      "raw_names": [
+        "PALADIN EX400 R3-K410WBKNYX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1715,
+      "manufacturer": "unknown",
+      "sku": "R3-I310WBKSYX-GL",
+      "mpn": "R3-I310WBKSYX-GL",
+      "gtin": "",
+      "model": "PALADIN EX300S R3-I310WBKSYX-GL",
+      "raw_names": [
+        "PALADIN EX300S R3-I310WBKSYX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1716,
+      "manufacturer": "unknown",
+      "sku": "R3-0120WBKBXX-GL",
+      "mpn": "R3-0120WBKBXX-GL",
+      "gtin": "",
+      "model": "E126M B R3-0120WBKBXX-GL",
+      "raw_names": [
+        "E126M B R3-0120WBKBXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1717,
+      "manufacturer": "unknown",
+      "sku": "R3-075XWXXNXX-GL",
+      "mpn": "R3-075XWXXNXX-GL",
+      "gtin": "",
+      "model": "E80 R3-075XWXXNXX-GL",
+      "raw_names": [
+        "E80 R3-075XWXXNXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1718,
+      "manufacturer": "unknown",
+      "sku": "PN:R90Pro-XXNWXX-GL",
+      "mpn": "PN:R90Pro-XXNWXX-GL",
+      "gtin": "",
+      "model": "R90 PRO PN:R90Pro-XXNWXX-GL",
+      "raw_names": [
+        "R90 PRO PN:R90Pro-XXNWXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1719,
+      "manufacturer": "unknown",
+      "sku": "RC567-BKNWYX-GL",
+      "mpn": "RC567-BKNWYX-GL",
+      "gtin": "",
+      "model": "RC600-67 RC567-BKNWYX-GL",
+      "raw_names": [
+        "RC600-67 RC567-BKNWYX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1720,
+      "manufacturer": "unknown",
+      "sku": "R94V2-XXNIXX-GL",
+      "mpn": "R94V2-XXNIXX-GL",
+      "gtin": "",
+      "model": "R94-V2 R94V2-XXNIXX-GL",
+      "raw_names": [
+        "R94-V2 R94V2-XXNIXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1721,
+      "manufacturer": "unknown",
+      "sku": "R94-XXNIXX-GL",
+      "mpn": "R94-XXNIXX-GL",
+      "gtin": "",
+      "model": "R94 R94-XXNIXX-GL",
+      "raw_names": [
+        "R94 R94-XXNIXX-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1722,
+      "manufacturer": "unknown",
+      "sku": "CL-P074-AL12BL-A",
+      "mpn": "CL-P074-AL12BL-A",
+      "gtin": "",
+      "model": "Cooler Tt TOUGHAIR 310 (CL-P074-AL12BL-A) 170W / PWM / all sockets +1700 /Black",
+      "raw_names": [
+        "Cooler Tt TOUGHAIR 310 (CL-P074-AL12BL-A) 170W / PWM / all sockets +1700 /Black"
+      ],
+      "current": {
+        "max_tdp_watts": 170
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1723,
+      "manufacturer": "unknown",
+      "sku": "CL-F082-PL12BL-A",
+      "mpn": "CL-F082-PL12BL-A",
+      "gtin": "",
+      "model": "Кулер для компьютерного корпуса Thermaltake TOUGHFAN 12 Series Radiator Fan (2 Pack)",
+      "raw_names": [
+        "Кулер для компьютерного корпуса Thermaltake TOUGHFAN 12 Series Radiator Fan (2 Pack)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1724,
+      "manufacturer": "unknown",
+      "sku": "CL-F118-PL14BL-A",
+      "mpn": "CL-F118-PL14BL-A",
+      "gtin": "",
+      "model": "Кулер для компьютерного корпуса Thermaltake TOUGHFAN 14 Series Radiator Fan (1 pack)",
+      "raw_names": [
+        "Кулер для компьютерного корпуса Thermaltake TOUGHFAN 14 Series Radiator Fan (1 pack)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1726,
+      "manufacturer": "unknown",
+      "sku": "CL-W416-PL14SW-A",
+      "mpn": "CL-W416-PL14SW-A",
+      "gtin": "",
+      "model": "Система водяного охлаждения Thermaltake TH280 V2 Ultra EX,  140мм, Ret",
+      "raw_names": [
+        "Система водяного охлаждения Thermaltake TH280 V2 Ultra EX,  140мм, Ret"
+      ],
+      "current": {
+        "max_tdp_watts": 250
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    }
+  ]
+}

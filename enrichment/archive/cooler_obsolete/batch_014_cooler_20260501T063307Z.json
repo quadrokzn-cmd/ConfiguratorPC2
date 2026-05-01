@@ -1,0 +1,496 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_014",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1004,
+      "manufacturer": "unknown",
+      "sku": "SE-224-XTS WHITE",
+      "mpn": "SE-224-XTS WHITE",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-224-XTS WHITE,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling SE-224-XTS WHITE,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1005,
+      "manufacturer": "unknown",
+      "sku": "SE-225-XT Black V2",
+      "mpn": "SE-225-XT Black V2",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-225-XT Black V2 S1155/1156/1150/1200/1700/AM4/AM5",
+      "raw_names": [
+        "Cooler ID-Cooling SE-225-XT Black V2 S1155/1156/1150/1200/1700/AM4/AM5"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1006,
+      "manufacturer": "unknown",
+      "sku": "SE-226-XT ARGB SNOW",
+      "mpn": "SE-226-XT ARGB SNOW",
+      "gtin": "",
+      "model": "Cooler ID-Cooling SE-226-XT ARGB SNOW,  120мм, Ret",
+      "raw_names": [
+        "Cooler ID-Cooling SE-226-XT ARGB SNOW,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1007,
+      "manufacturer": "unknown",
+      "sku": "AF-125-W",
+      "mpn": "AF-125-W",
+      "gtin": "",
+      "model": "Cooler ID-Cooling AF-125-W  ( PWM, резиновые углы, белый, 500-2000об/мин)  BOX",
+      "raw_names": [
+        "Cooler ID-Cooling AF-125-W  ( PWM, резиновые углы, белый, 500-2000об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1008,
+      "manufacturer": "unknown",
+      "sku": "FROZN A400 ARGB",
+      "mpn": "FROZN A400 ARGB",
+      "gtin": "",
+      "model": "Cooler ID-Cooling FROZN A400 ARGB",
+      "raw_names": [
+        "Cooler ID-Cooling FROZN A400 ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1010,
+      "manufacturer": "unknown",
+      "sku": "FROZN A410 GDL",
+      "mpn": "FROZN A410 GDL",
+      "gtin": "",
+      "model": "Cooler ID-Cooling FROZN A410 GDL",
+      "raw_names": [
+        "Cooler ID-Cooling FROZN A410 GDL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1011,
+      "manufacturer": "unknown",
+      "sku": "FROZN A610 ARGB WHITE",
+      "mpn": "FROZN A610 ARGB WHITE",
+      "gtin": "",
+      "model": "Cooler ID-Cooling FROZN A610 ARGB Wh,  Ret",
+      "raw_names": [
+        "Cooler ID-Cooling FROZN A610 ARGB Wh,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1014,
+      "manufacturer": "unknown",
+      "sku": "FROZN A620 GDL",
+      "mpn": "FROZN A620 GDL",
+      "gtin": "",
+      "model": "Cooler ID-Cooling FROZN A620 GDL",
+      "raw_names": [
+        "Cooler ID-Cooling FROZN A620 GDL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1016,
+      "manufacturer": "unknown",
+      "sku": "AF-1230-K",
+      "mpn": "AF-1230-K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-1230-K черный",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-1230-K черный"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1017,
+      "manufacturer": "unknown",
+      "sku": "AF-1230-W",
+      "mpn": "AF-1230-W",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-1230-W белый",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-1230-W белый"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1018,
+      "manufacturer": "unknown",
+      "sku": "AF-125-W TRIO",
+      "mpn": "AF-125-W TRIO",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-125-W Trio,  120мм, Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-125-W Trio,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1019,
+      "manufacturer": "unknown",
+      "sku": "AF-125-K TRIO",
+      "mpn": "AF-125-K TRIO",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-125-K Trio,  120мм, Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-125-K Trio,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1020,
+      "manufacturer": "unknown",
+      "sku": "AF-127-ARGB-K",
+      "mpn": "AF-127-ARGB-K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-127-ARGB-K,  Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-127-ARGB-K,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1021,
+      "manufacturer": "unknown",
+      "sku": "AF-127-ARGB-W",
+      "mpn": "AF-127-ARGB-W",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-127-ARGB-W,  Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-127-ARGB-W,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1022,
+      "manufacturer": "unknown",
+      "sku": "AF-127-ARGB-W TRIO",
+      "mpn": "AF-127-ARGB-W TRIO",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AF-127-ARGB-W Trio,  120мм, Ret",
+      "raw_names": [
+        "Case Fan ID-Cooling AF-127-ARGB-W Trio,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1023,
+      "manufacturer": "unknown",
+      "sku": "AF-127-ARGB-K TRIO",
+      "mpn": "AF-127-ARGB-K TRIO",
+      "gtin": "",
+      "model": "Case fan ID-Cooling AF-127-ARGB-K Trio ARGB 120мм черный 4-pin 30дБ (упак.:3шт) Ret",
+      "raw_names": [
+        "Case fan ID-Cooling AF-127-ARGB-K Trio ARGB 120мм черный 4-pin 30дБ (упак.:3шт) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1024,
+      "manufacturer": "unknown",
+      "sku": "AS-120-W TRIO",
+      "mpn": "AS-120-W TRIO",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AS-120-W TRIO",
+      "raw_names": [
+        "Case Fan ID-Cooling AS-120-W TRIO"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1025,
+      "manufacturer": "unknown",
+      "sku": "AS-120-K TRIO",
+      "mpn": "AS-120-K TRIO",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AS-120-K Trio черный 4-pin",
+      "raw_names": [
+        "Case Fan ID-Cooling AS-120-K Trio черный 4-pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1026,
+      "manufacturer": "unknown",
+      "sku": "AS-120-ARGB-K",
+      "mpn": "AS-120-ARGB-K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AS-120-К ARGB",
+      "raw_names": [
+        "Case Fan ID-Cooling AS-120-К ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1027,
+      "manufacturer": "unknown",
+      "sku": "AS-120-ARGB-W",
+      "mpn": "AS-120-ARGB-W",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling AS-120-ARGB-W",
+      "raw_names": [
+        "Case Fan ID-Cooling AS-120-ARGB-W"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1028,
+      "manufacturer": "unknown",
+      "sku": "AS-140-W",
+      "mpn": "AS-140-W",
+      "gtin": "",
+      "model": "Case fan ID-Cooling AS-140-W (140mm, 1800rpm, 72,2 CFM, 24,9 дБ, PWM 4-pin, white)",
+      "raw_names": [
+        "Case fan ID-Cooling AS-140-W (140mm, 1800rpm, 72,2 CFM, 24,9 дБ, PWM 4-pin, white)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1029,
+      "manufacturer": "unknown",
+      "sku": "AS-140-K DUET",
+      "mpn": "AS-140-K DUET",
+      "gtin": "",
+      "model": "Case fan ID-Cooling AS-140-K DUET черный",
+      "raw_names": [
+        "Case fan ID-Cooling AS-140-K DUET черный"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1030,
+      "manufacturer": "unknown",
+      "sku": "AS-140-W DUET",
+      "mpn": "AS-140-W DUET",
+      "gtin": "",
+      "model": "Case fan ID-Cooling AS-140-W DUET белый",
+      "raw_names": [
+        "Case fan ID-Cooling AS-140-W DUET белый"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1031,
+      "manufacturer": "unknown",
+      "sku": "FL-12025K",
+      "mpn": "FL-12025K",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling FL-12025K 120x120x25mm   BOX",
+      "raw_names": [
+        "Case Fan ID-Cooling FL-12025K 120x120x25mm   BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1032,
+      "manufacturer": "unknown",
+      "sku": "NO-12015-XT ARGB",
+      "mpn": "NO-12015-XT ARGB",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling NO-12015-XT ARGB (PWM, Low Noise, супер-тонкий, резиновые углы,700-2000об/мин) BOX",
+      "raw_names": [
+        "Case Fan ID-Cooling NO-12015-XT ARGB (PWM, Low Noise, супер-тонкий, резиновые углы,700-2000об/мин) BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1033,
+      "manufacturer": "unknown",
+      "sku": "NO-12015-XT ARGB SNOW",
+      "mpn": "NO-12015-XT ARGB SNOW",
+      "gtin": "",
+      "model": "Case fan ID-Cooling NO-12015-XT ARGB SNOW,  120мм, Ret",
+      "raw_names": [
+        "Case fan ID-Cooling NO-12015-XT ARGB SNOW,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1034,
+      "manufacturer": "unknown",
+      "sku": "NO-8010-PWM",
+      "mpn": "NO-8010-PWM",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling NO-8010-PWM (NO-8010-PWM)",
+      "raw_names": [
+        "Case Fan ID-Cooling NO-8010-PWM (NO-8010-PWM)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1035,
+      "manufacturer": "unknown",
+      "sku": "NO-9225-SD",
+      "mpn": "NO-9225-SD",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling NO-9225-SD [ID-FAN-NO-9225-SD]",
+      "raw_names": [
+        "Case Fan ID-Cooling NO-9225-SD [ID-FAN-NO-9225-SD]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1036,
+      "manufacturer": "unknown",
+      "sku": "TF-9215 ARGB",
+      "mpn": "TF-9215 ARGB",
+      "gtin": "",
+      "model": "Case Fan ID-Cooling TF-9215-ARGB  (92mm PWM, 4pin, супер-тонкий, ARGB, черный, 800-2500об/мин)  BOX",
+      "raw_names": [
+        "Case Fan ID-Cooling TF-9215-ARGB  (92mm PWM, 4pin, супер-тонкий, ARGB, черный, 800-2500об/мин)  BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1037,
+      "manufacturer": "unknown",
+      "sku": "TF-9215-W",
+      "mpn": "TF-9215-W",
+      "gtin": "",
+      "model": "Case fan ID-Cooling TF-9215-W,  92мм, Ret",
+      "raw_names": [
+        "Case fan ID-Cooling TF-9215-W,  92мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

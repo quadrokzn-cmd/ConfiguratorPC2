@@ -1,0 +1,494 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_020",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1651,
+      "manufacturer": "unknown",
+      "sku": "FB9225S-12L2",
+      "mpn": "FB9225S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9225S-12L2 92X25 / SLEEVE / 1800RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB9225S-12L2 92X25 / SLEEVE / 1800RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1652,
+      "manufacturer": "unknown",
+      "sku": "FB9225S-12L4MX",
+      "mpn": "FB9225S-12L4MX",
+      "gtin": "",
+      "model": "5bites Вентилятор FB9225S-12L4MX 92X25 / SLEEVE / 1800RPM / MOLEX / 4P",
+      "raw_names": [
+        "5bites Вентилятор FB9225S-12L4MX 92X25 / SLEEVE / 1800RPM / MOLEX / 4P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1653,
+      "manufacturer": "unknown",
+      "sku": "FB12015S-12L2",
+      "mpn": "FB12015S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB12015S-12L2 120X15 / SLEEVE / 1200RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB12015S-12L2 120X15 / SLEEVE / 1200RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1654,
+      "manufacturer": "unknown",
+      "sku": "FB14025S-12L2",
+      "mpn": "FB14025S-12L2",
+      "gtin": "",
+      "model": "5bites Вентилятор FB14025S-12L2 140X25 / SLEEVE / 1200RPM / 2P",
+      "raw_names": [
+        "5bites Вентилятор FB14025S-12L2 140X25 / SLEEVE / 1200RPM / 2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1656,
+      "manufacturer": "unknown",
+      "sku": "FX-120-3",
+      "mpn": "FX-120-3",
+      "gtin": "",
+      "model": "PCCooler FX-120-3 FIXED COLOR FAN 120x120x25mm (3pin+Molex, пит. от мат.платы и БП, 1320 об/мин) Retail",
+      "raw_names": [
+        "PCCooler FX-120-3 FIXED COLOR FAN 120x120x25mm (3pin+Molex, пит. от мат.платы и БП, 1320 об/мин) Retail"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1664,
+      "manufacturer": "unknown",
+      "sku": "P5-YN750-G1F",
+      "mpn": "P5-YN750-G1F",
+      "gtin": "",
+      "model": "Блок питания ПК/ PCCOOLER, 750W 80+ Gold (ATX, 3.1, PCIe 5.1 600W, Full modular, 1x24(20+4)pin 550mm, 2xCPU 8(4+4)pin 650mm, 3xPCIe 8(6+2)pin 500mm, 1x12V(2x6) 12+4pin 650mm, 3xSATA*3+MOLEX4pin*1 450+",
+      "raw_names": [
+        "Блок питания ПК/ PCCOOLER, 750W 80+ Gold (ATX, 3.1, PCIe 5.1 600W, Full modular, 1x24(20+4)pin 550mm, 2xCPU 8(4+4)pin 650mm, 3xPCIe 8(6+2)pin 500mm, 1x12V(2x6) 12+4pin 650mm, 3xSATA*3+MOLEX4pin*1 450+"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1665,
+      "manufacturer": "unknown",
+      "sku": "F5R120 BK",
+      "mpn": "F5R120 BK",
+      "gtin": "",
+      "model": "Кулер для корпуса/ PCCooler F5R120 (120x120x25mm, 4-pin PWM, 86.73CFM, 32dBA, 2200RPM, Black)",
+      "raw_names": [
+        "Кулер для корпуса/ PCCooler F5R120 (120x120x25mm, 4-pin PWM, 86.73CFM, 32dBA, 2200RPM, Black)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1669,
+      "manufacturer": "unknown",
+      "sku": "C3 T500 BK",
+      "mpn": "C3 T500 BK",
+      "gtin": "",
+      "model": "Корпус без блока питания/ PCCOOLER C3 T500 BK, Panoramic Mid Tower, Black, TG, 0.7 SPCC, no fans ATX, mATX, mITX 175/400/200mm 1x2.5\", 2x3.5\", 6xPCI 1xUSB-C 3.1, 2xUSB-A 3.0 415x295x368mm",
+      "raw_names": [
+        "Корпус без блока питания/ PCCOOLER C3 T500 BK, Panoramic Mid Tower, Black, TG, 0.7 SPCC, no fans ATX, mATX, mITX 175/400/200mm 1x2.5\", 2x3.5\", 6xPCI 1xUSB-C 3.1, 2xUSB-A 3.0 415x295x368mm"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1670,
+      "manufacturer": "unknown",
+      "sku": "EF120 ARGB BK",
+      "mpn": "EF120 ARGB BK",
+      "gtin": "",
+      "model": "Кулер для корпуса/ PCCooler EF120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB, 37.98CFM, 25.7dBA, 1500RPM, Black)",
+      "raw_names": [
+        "Кулер для корпуса/ PCCooler EF120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB, 37.98CFM, 25.7dBA, 1500RPM, Black)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1671,
+      "manufacturer": "unknown",
+      "sku": "F3 T120 ARGB BK",
+      "mpn": "F3 T120 ARGB BK",
+      "gtin": "",
+      "model": "Кулер для корпуса/ PCCooler F3 T120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB, 46CFM, 21.6dBA, 1800RPM, Black)",
+      "raw_names": [
+        "Кулер для корпуса/ PCCooler F3 T120 ARGB BK (120x120x25mm, 4-pin PWM, ARGB, 46CFM, 21.6dBA, 1800RPM, Black)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1676,
+      "manufacturer": "unknown",
+      "sku": "P5-YK550-B1FWBK1-EU",
+      "mpn": "P5-YK550-B1FWBK1-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler ATX 550W P5-YK550-B1F 80+ bronze (20+4pin) APFC 135mm fan 6xSATA RTL",
+      "raw_names": [
+        "Блок питания PcCooler ATX 550W P5-YK550-B1F 80+ bronze (20+4pin) APFC 135mm fan 6xSATA RTL"
+      ],
+      "current": {
+        "max_tdp_watts": 550
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1677,
+      "manufacturer": "unknown",
+      "sku": "P5-YK850-B1FWBK1-EU",
+      "mpn": "P5-YK850-B1FWBK1-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler P5-YK850-B1F 850W (P5-YK850-B1FWBK1-EU)",
+      "raw_names": [
+        "Блок питания PcCooler P5-YK850-B1F 850W (P5-YK850-B1FWBK1-EU)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1678,
+      "manufacturer": "unknown",
+      "sku": "P5-YN1000-G1FFBK1-EU",
+      "mpn": "P5-YN1000-G1FFBK1-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler P5-YN1000-G1F 1000W (P5-YN1000-G1FFBK1-EU)",
+      "raw_names": [
+        "Блок питания PcCooler P5-YN1000-G1F 1000W (P5-YN1000-G1FFBK1-EU)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1679,
+      "manufacturer": "unknown",
+      "sku": "P5-YS850-G1FFBK1-EU",
+      "mpn": "P5-YS850-G1FFBK1-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler P5-YS850-G1F 850W (P5-YS850-G1FFBK1-EU)",
+      "raw_names": [
+        "Блок питания PcCooler P5-YS850-G1F 850W (P5-YS850-G1FFBK1-EU)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1680,
+      "manufacturer": "unknown",
+      "sku": "P3-F450-W1HWBK0-EU",
+      "mpn": "P3-F450-W1HWBK0-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler P3-F450-W1H 450W (P3-F450-W1HWBK0-EU)",
+      "raw_names": [
+        "Блок питания PcCooler P3-F450-W1H 450W (P3-F450-W1HWBK0-EU)"
+      ],
+      "current": {
+        "max_tdp_watts": 450
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1681,
+      "manufacturer": "unknown",
+      "sku": "C3-A520BKP3-GL",
+      "mpn": "C3-A520BKP3-GL",
+      "gtin": "",
+      "model": "Корпус PcCooler ME200 MESH BK черный без БП ATX 6x120mm 6x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU",
+      "raw_names": [
+        "Корпус PcCooler ME200 MESH BK черный без БП ATX 6x120mm 6x140mm 2xUSB2.0 1xUSB3.0 audio bott PSU"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1682,
+      "manufacturer": "unknown",
+      "sku": "C3B310-WHP0-GL",
+      "mpn": "C3B310-WHP0-GL",
+      "gtin": "",
+      "model": "Корпус PcCooler C3B310 WH белый без БП mATX 8x120mm 4x140mm 1xUSB2.0 1xUSB3.0 audio bott PSU",
+      "raw_names": [
+        "Корпус PcCooler C3B310 WH белый без БП mATX 8x120mm 4x140mm 1xUSB2.0 1xUSB3.0 audio bott PSU"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1683,
+      "manufacturer": "unknown",
+      "sku": "C3D510-WHP3-GL",
+      "mpn": "C3D510-WHP3-GL",
+      "gtin": "",
+      "model": "Корпус PcCooler C3D510 WH ARGB белый без БП ATX 5x120mm 5x140mm 2xUSB3.0 audio bott PSU",
+      "raw_names": [
+        "Корпус PcCooler C3D510 WH ARGB белый без БП ATX 5x120mm 5x140mm 2xUSB3.0 audio bott PSU"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1684,
+      "manufacturer": "unknown",
+      "sku": "C3-T500BKD0-GL",
+      "mpn": "C3-T500BKD0-GL",
+      "gtin": "",
+      "model": "Корпус PcCooler C3 T500 BK черный без БП ATX 9x120mm 5x140mm 2xUSB3.0 audio bott PSU",
+      "raw_names": [
+        "Корпус PcCooler C3 T500 BK черный без БП ATX 9x120mm 5x140mm 2xUSB3.0 audio bott PSU"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1685,
+      "manufacturer": "unknown",
+      "sku": "P5-YS1000-G1FFBK1-EU",
+      "mpn": "P5-YS1000-G1FFBK1-EU",
+      "gtin": "",
+      "model": "Блок питания PcCooler P5-YS1000-G1F 1000W (P5-YS1000-G1FFBK1-EU)",
+      "raw_names": [
+        "Блок питания PcCooler P5-YS1000-G1F 1000W (P5-YS1000-G1FFBK1-EU)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1686,
+      "manufacturer": "unknown",
+      "sku": "DT360-BKAWXY-GL",
+      "mpn": "DT360-BKAWXY-GL",
+      "gtin": "",
+      "model": "DT360 ARGB Display BK DT360-BKAWXY-GL",
+      "raw_names": [
+        "DT360 ARGB Display BK DT360-BKAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1687,
+      "manufacturer": "unknown",
+      "sku": "DT360-WHAWXY-GL",
+      "mpn": "DT360-WHAWXY-GL",
+      "gtin": "",
+      "model": "DT360 ARGB Display WH DT360-WHAWXY-GL",
+      "raw_names": [
+        "DT360 ARGB Display WH DT360-WHAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1688,
+      "manufacturer": "unknown",
+      "sku": "DS360-BKNWXY-GL",
+      "mpn": "DS360-BKNWXY-GL",
+      "gtin": "",
+      "model": "DS360 Display BK DS360-BKNWXY-GL",
+      "raw_names": [
+        "DS360 Display BK DS360-BKNWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1689,
+      "manufacturer": "unknown",
+      "sku": "DS360-WHNWXY-GL",
+      "mpn": "DS360-WHNWXY-GL",
+      "gtin": "",
+      "model": "DS360 Display WH DS360-WHNWXY-GL",
+      "raw_names": [
+        "DS360 Display WH DS360-WHNWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1690,
+      "manufacturer": "unknown",
+      "sku": "D7-S360WBKN-GL",
+      "mpn": "D7-S360WBKN-GL",
+      "gtin": "",
+      "model": "DS360 PRO DIGITAL BK D7-S360WBKN-GL",
+      "raw_names": [
+        "DS360 PRO DIGITAL BK D7-S360WBKN-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1691,
+      "manufacturer": "unknown",
+      "sku": "DC360Pro-BKAWXY-GL",
+      "mpn": "DC360Pro-BKAWXY-GL",
+      "gtin": "",
+      "model": "DC360 Pro ARGB Display BK DC360Pro-BKAWXY-GL",
+      "raw_names": [
+        "DC360 Pro ARGB Display BK DC360Pro-BKAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1692,
+      "manufacturer": "unknown",
+      "sku": "DC360Pro-WHAWXY-GL",
+      "mpn": "DC360Pro-WHAWXY-GL",
+      "gtin": "",
+      "model": "DC360 Pro ARGB Display WH DC360Pro-WHAWXY-GL",
+      "raw_names": [
+        "DC360 Pro ARGB Display WH DC360Pro-WHAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1693,
+      "manufacturer": "unknown",
+      "sku": "DC360-BKAWXY-GL",
+      "mpn": "DC360-BKAWXY-GL",
+      "gtin": "",
+      "model": "DC360 Pro ARGB Digital BK DC360-BKAWXY-GL",
+      "raw_names": [
+        "DC360 Pro ARGB Digital BK DC360-BKAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1694,
+      "manufacturer": "unknown",
+      "sku": "DC360-WHAWXY-GL",
+      "mpn": "DC360-WHAWXY-GL",
+      "gtin": "",
+      "model": "DC360 Pro ARGB Digital WH DC360-WHAWXY-GL",
+      "raw_names": [
+        "DC360 Pro ARGB Digital WH DC360-WHAWXY-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1695,
+      "manufacturer": "unknown",
+      "sku": "DA360Pro-BKAWXL-GL",
+      "mpn": "DA360Pro-BKAWXL-GL",
+      "gtin": "",
+      "model": "DA360 Pro ARGB Digital BK DA360Pro-BKAWXL-GL",
+      "raw_names": [
+        "DA360 Pro ARGB Digital BK DA360Pro-BKAWXL-GL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

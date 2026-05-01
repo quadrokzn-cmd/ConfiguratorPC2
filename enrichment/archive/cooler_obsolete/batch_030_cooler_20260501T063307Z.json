@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_030",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1560,
+      "manufacturer": "unknown",
+      "sku": "EX299908RUS",
+      "mpn": "EX299908RUS",
+      "gtin": "",
+      "model": "Exegate EX299908RUS Вентилятор 24В DC ExeGate EX08015B2P-24 (80x80x15 мм, 2-Ball (двойной шарикоподшипник), 2pin, 2550RPM, 30dBA)",
+      "raw_names": [
+        "Exegate EX299908RUS Вентилятор 24В DC ExeGate EX08015B2P-24 (80x80x15 мм, 2-Ball (двойной шарикоподшипник), 2pin, 2550RPM, 30dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1561,
+      "manufacturer": "unknown",
+      "sku": "EX299909RUS",
+      "mpn": "EX299909RUS",
+      "gtin": "",
+      "model": "Exegate EX299909RUS Вентилятор 24В DC ExeGate EX08020S2P-24 (80x80x20 мм, Sleeve bearing (подшипник скольжения), 2pin, 3900RPM, 41dBA)",
+      "raw_names": [
+        "Exegate EX299909RUS Вентилятор 24В DC ExeGate EX08020S2P-24 (80x80x20 мм, Sleeve bearing (подшипник скольжения), 2pin, 3900RPM, 41dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1562,
+      "manufacturer": "unknown",
+      "sku": "EX299911RUS",
+      "mpn": "EX299911RUS",
+      "gtin": "",
+      "model": "Exegate EX299911RUS Вентилятор 24В DC ExeGate EX08038S2P-24 (80x80x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 43dBA)",
+      "raw_names": [
+        "Exegate EX299911RUS Вентилятор 24В DC ExeGate EX08038S2P-24 (80x80x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 43dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1563,
+      "manufacturer": "unknown",
+      "sku": "EX297088RUS",
+      "mpn": "EX297088RUS",
+      "gtin": "",
+      "model": "Exegate EX297088RUS Вентилятор 24В DC ExeGate EX09238S2P-24 (92x92x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 48dBA)",
+      "raw_names": [
+        "Exegate EX297088RUS Вентилятор 24В DC ExeGate EX09238S2P-24 (92x92x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 48dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1564,
+      "manufacturer": "unknown",
+      "sku": "EX297089RUS",
+      "mpn": "EX297089RUS",
+      "gtin": "",
+      "model": "Exegate EX297089RUS Вентилятор 24В DC ExeGate EX09238B2P-24 (92x92x38 мм, 2-Ball (двойной шарикоподшипник), 2pin, 5000RPM, 56dBA)",
+      "raw_names": [
+        "Exegate EX297089RUS Вентилятор 24В DC ExeGate EX09238B2P-24 (92x92x38 мм, 2-Ball (двойной шарикоподшипник), 2pin, 5000RPM, 56dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1565,
+      "manufacturer": "unknown",
+      "sku": "EX297094RUS",
+      "mpn": "EX297094RUS",
+      "gtin": "",
+      "model": "Exegate EX297094RUS Вентилятор 24В DC ExeGate EX12038S2P-24 (120x120x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 3000RPM, 46dBA)",
+      "raw_names": [
+        "Exegate EX297094RUS Вентилятор 24В DC ExeGate EX12038S2P-24 (120x120x38 мм, Sleeve bearing (подшипник скольжения), 2pin, 3000RPM, 46dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1566,
+      "manufacturer": "unknown",
+      "sku": "EX297095RUS",
+      "mpn": "EX297095RUS",
+      "gtin": "",
+      "model": "Exegate EX297095RUS Вентилятор 24В DC ExeGate EX12038B2P-24 (120x120x38 мм, 2-Ball (двойной шарикоподшипник), 2pin, 3000RPM, 46dBA)",
+      "raw_names": [
+        "Exegate EX297095RUS Вентилятор 24В DC ExeGate EX12038B2P-24 (120x120x38 мм, 2-Ball (двойной шарикоподшипник), 2pin, 3000RPM, 46dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1567,
+      "manufacturer": "unknown",
+      "sku": "EX299912RUS",
+      "mpn": "EX299912RUS",
+      "gtin": "",
+      "model": "Exegate EX299912RUS Вентилятор 5В DC ExeGate ExtraSilent ES03010S2P-5 (30x30x10 мм, Sleeve bearing (подшипник скольжения),2pin, 7000RPM, 22dBA)",
+      "raw_names": [
+        "Exegate EX299912RUS Вентилятор 5В DC ExeGate ExtraSilent ES03010S2P-5 (30x30x10 мм, Sleeve bearing (подшипник скольжения),2pin, 7000RPM, 22dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1568,
+      "manufacturer": "unknown",
+      "sku": "EX299913RUS",
+      "mpn": "EX299913RUS",
+      "gtin": "",
+      "model": "Exegate EX299913RUS Вентилятор 5В DC ExeGate EX03010S2P-5 (30x30x10 мм, Sleeve bearing (подшипник скольжения), 2pin, 9000RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX299913RUS Вентилятор 5В DC ExeGate EX03010S2P-5 (30x30x10 мм, Sleeve bearing (подшипник скольжения), 2pin, 9000RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1569,
+      "manufacturer": "unknown",
+      "sku": "EX299915RUS",
+      "mpn": "EX299915RUS",
+      "gtin": "",
+      "model": "Exegate EX299915RUS Вентилятор 5В DC ExeGate ExtraSilent ES04010S2P-5 (40x40x10 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 22dBA)",
+      "raw_names": [
+        "Exegate EX299915RUS Вентилятор 5В DC ExeGate ExtraSilent ES04010S2P-5 (40x40x10 мм, Sleeve bearing (подшипник скольжения), 2pin, 4500RPM, 22dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1570,
+      "manufacturer": "unknown",
+      "sku": "EX299918RUS",
+      "mpn": "EX299918RUS",
+      "gtin": "",
+      "model": "Exegate EX299918RUS Вентилятор 5В DC ExeGate EX04010B2P-5 (40x40x10 мм, 2-Ball (двойной шарикоподшипник), 2pin, 5500RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX299918RUS Вентилятор 5В DC ExeGate EX04010B2P-5 (40x40x10 мм, 2-Ball (двойной шарикоподшипник), 2pin, 5500RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1571,
+      "manufacturer": "unknown",
+      "sku": "EX299926RUS",
+      "mpn": "EX299926RUS",
+      "gtin": "",
+      "model": "Exegate EX299926RUS Вентилятор 5В DC ExeGate ExtraSilent ES06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 2300RPM, 18dBA)",
+      "raw_names": [
+        "Exegate EX299926RUS Вентилятор 5В DC ExeGate ExtraSilent ES06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 2300RPM, 18dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1572,
+      "manufacturer": "unknown",
+      "sku": "EX299927RUS",
+      "mpn": "EX299927RUS",
+      "gtin": "",
+      "model": "Exegate EX299927RUS Вентилятор 5В DC ExeGate EX06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 3500RPM, 25dBA)",
+      "raw_names": [
+        "Exegate EX299927RUS Вентилятор 5В DC ExeGate EX06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 3500RPM, 25dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1573,
+      "manufacturer": "unknown",
+      "sku": "EX299929RUS",
+      "mpn": "EX299929RUS",
+      "gtin": "",
+      "model": "Exegate EX299929RUS Вентилятор 5В DC ExeGate ExtraPower EP06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 4800RPM, 33dBA)",
+      "raw_names": [
+        "Exegate EX299929RUS Вентилятор 5В DC ExeGate ExtraPower EP06025S2P-5 (60x60x25 мм, Sleeve bearing (подшипник скольжения), 2pin, 4800RPM, 33dBA)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1575,
+      "manufacturer": "unknown",
+      "sku": "D40SM-12A",
+      "mpn": "D40SM-12A",
+      "gtin": "",
+      "model": "Gembird Вентилятор 40x40x10, 3pin, шнур 7см,  [D40SM-12A]",
+      "raw_names": [
+        "Gembird Вентилятор 40x40x10, 3pin, шнур 7см,  [D40SM-12A]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1576,
+      "manufacturer": "unknown",
+      "sku": "D8015SM-3",
+      "mpn": "D8015SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x15, втулка, 3 pin, провод 30 см (D8015SM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x15, втулка, 3 pin, провод 30 см (D8015SM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1577,
+      "manufacturer": "unknown",
+      "sku": "D8015BM-3",
+      "mpn": "D8015BM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x15, подшипник, 3 pin, провод 30 см (D8015BM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x15, подшипник, 3 pin, провод 30 см (D8015BM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1578,
+      "manufacturer": "unknown",
+      "sku": "D40BM-12A",
+      "mpn": "D40BM-12A",
+      "gtin": "",
+      "model": "Gembird Вентилятор 40x40x10, подшипник,  шнур 7см, 3pin [D40BM-12A]",
+      "raw_names": [
+        "Gembird Вентилятор 40x40x10, подшипник,  шнур 7см, 3pin [D40BM-12A]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1579,
+      "manufacturer": "unknown",
+      "sku": "D40SM-12A-25",
+      "mpn": "D40SM-12A-25",
+      "gtin": "",
+      "model": "Gembird Вентилятор 40x40x10, шнур 25см, 3pin [D40SM-12A-25]",
+      "raw_names": [
+        "Gembird Вентилятор 40x40x10, шнур 25см, 3pin [D40SM-12A-25]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1580,
+      "manufacturer": "unknown",
+      "sku": "D50BM-12AS",
+      "mpn": "D50BM-12AS",
+      "gtin": "",
+      "model": "Gembird Вентилятор 50x50x10, подшипник, 3pin, провод 25 см [D50BM-12AS]",
+      "raw_names": [
+        "Gembird Вентилятор 50x50x10, подшипник, 3pin, провод 25 см [D50BM-12AS]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1581,
+      "manufacturer": "unknown",
+      "sku": "D50SM-12AS",
+      "mpn": "D50SM-12AS",
+      "gtin": "",
+      "model": "Gembird Вентилятор 50x50x10 подшипник 12V 0,13A 4500 об/мин [D50SM-12AS]",
+      "raw_names": [
+        "Gembird Вентилятор 50x50x10 подшипник 12V 0,13A 4500 об/мин [D50SM-12AS]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1582,
+      "manufacturer": "unknown",
+      "sku": "D8025HM-3",
+      "mpn": "D8025HM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x25 гидродинамический, 3 pin, провод 30 см (D8025HM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x25 гидродинамический, 3 pin, провод 30 см (D8025HM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1583,
+      "manufacturer": "unknown",
+      "sku": "D9225HM-3",
+      "mpn": "D9225HM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 92x92x25 гидродинамический, 3 pin, провод 30 см (D9225HM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 92x92x25 гидродинамический, 3 pin, провод 30 см (D9225HM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1584,
+      "manufacturer": "unknown",
+      "sku": "D12025HM-3",
+      "mpn": "D12025HM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x25 гидродинамический, 3 pin, провод 30 см (D12025HM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x25 гидродинамический, 3 pin, провод 30 см (D12025HM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1585,
+      "manufacturer": "unknown",
+      "sku": "D14025SM-3",
+      "mpn": "D14025SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 140x140x25  втулка, 3 pin, провод 40 см (D14025SM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 140x140x25  втулка, 3 pin, провод 40 см (D14025SM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1586,
+      "manufacturer": "unknown",
+      "sku": "D14025HM-3",
+      "mpn": "D14025HM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 140x140x25 гидродинамический, 3 pin, провод 40 см (D14025HM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 140x140x25 гидродинамический, 3 pin, провод 40 см (D14025HM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1587,
+      "manufacturer": "unknown",
+      "sku": "S12025H-3P4M",
+      "mpn": "S12025H-3P4M",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x25, гидрод., тихий, 3 pin/4pin Molex, провод 30 см (S12025H-3P4M)",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x25, гидрод., тихий, 3 pin/4pin Molex, провод 30 см (S12025H-3P4M)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1588,
+      "manufacturer": "unknown",
+      "sku": "D14025BM-3",
+      "mpn": "D14025BM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 140x140x25, шарикоподшипник, 3 pin, провод 40 см (D14025BM-3)",
+      "raw_names": [
+        "Gembird Вентилятор 140x140x25, шарикоподшипник, 3 pin, провод 40 см (D14025BM-3)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1589,
+      "manufacturer": "unknown",
+      "sku": "D6015SM-3",
+      "mpn": "D6015SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 60x60x15, втулка, 3pin, провод 25см [D6015SM-3]",
+      "raw_names": [
+        "Gembird Вентилятор 60x60x15, втулка, 3pin, провод 25см [D6015SM-3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1590,
+      "manufacturer": "unknown",
+      "sku": "D6025SM-3",
+      "mpn": "D6025SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 60x60x25, втулка, 3pin, провод 25см [D6025SM-3]",
+      "raw_names": [
+        "Gembird Вентилятор 60x60x25, втулка, 3pin, провод 25см [D6025SM-3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

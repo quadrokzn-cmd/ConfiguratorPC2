@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_007",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 756,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00120A",
+      "mpn": "ACFAN00120A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 PWM PST (black/black)  (ACFAN00120A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 PWM PST (black/black)  (ACFAN00120A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 757,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00118A",
+      "mpn": "ACFAN00118A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 (black/black) - retail (ACFAN00118A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 (black/black) - retail (ACFAN00118A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 758,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00121A",
+      "mpn": "ACFAN00121A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 PWM PST CO (black/black)  (ACFAN00121A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 PWM PST CO (black/black)  (ACFAN00121A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 759,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00130A",
+      "mpn": "ACFAN00130A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Silent (black/black)   (ACFAN00130A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 Silent (black/black)   (ACFAN00130A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 760,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00293A",
+      "mpn": "ACFAN00293A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Max (White) : 200 - 3300 rpm (ACFAN00293A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 Max (White) : 200 - 3300 rpm (ACFAN00293A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 761,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00258A",
+      "mpn": "ACFAN00258A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 PWM PST A-RGB (White) 3 PCS Value Pack ACFAN00258A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 PWM PST A-RGB (White) 3 PCS Value Pack ACFAN00258A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 762,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00309A",
+      "mpn": "ACFAN00309A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Pro A-RGB - retail ACFAN00309A",
+      "raw_names": [
+        "Case fan ARCTIC P12 Pro A-RGB - retail ACFAN00309A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 763,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00289A",
+      "mpn": "ACFAN00289A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 Max - 5 Pack : 200 - 3300 rpm ACFAN00289A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 Max - 5 Pack : 200 - 3300 rpm ACFAN00289A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 764,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00250A",
+      "mpn": "ACFAN00250A",
+      "gtin": "",
+      "model": "Case fan ARCTIC F12 PWM PST Value Pack (Black)  (5pc)  (ACFAN00250A)",
+      "raw_names": [
+        "Case fan ARCTIC F12 PWM PST Value Pack (Black)  (5pc)  (ACFAN00250A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 765,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00145A",
+      "mpn": "ACFAN00145A",
+      "gtin": "",
+      "model": "Case fan ARCTIC F12 PWM Black - retail ACFAN00145A",
+      "raw_names": [
+        "Case fan ARCTIC F12 PWM Black - retail ACFAN00145A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 766,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00170A",
+      "mpn": "ACFAN00170A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 PWM PST (White/White)- retail (ACFAN00170A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 PWM PST (White/White)- retail (ACFAN00170A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 767,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00280A",
+      "mpn": "ACFAN00280A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 Max : 200 - 3300 rpm ACFAN00280A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 Max : 200 - 3300 rpm ACFAN00280A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 768,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00254A",
+      "mpn": "ACFAN00254A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 PWM PST A-RGB  (White) (ACFAN00254A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 PWM PST A-RGB  (White) (ACFAN00254A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 769,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00305A",
+      "mpn": "ACFAN00305A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Pro - retail ACFAN00305A",
+      "raw_names": [
+        "Case fan ARCTIC P12 Pro - retail ACFAN00305A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 770,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00307A",
+      "mpn": "ACFAN00307A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Pro PST - 5 Pack - retail ACFAN00307A",
+      "raw_names": [
+        "Case fan ARCTIC P12 Pro PST - 5 Pack - retail ACFAN00307A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 771,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00306A",
+      "mpn": "ACFAN00306A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 Pro PS - retail ACFAN00306A",
+      "raw_names": [
+        "Case fan ARCTIC P12 Pro PS - retail ACFAN00306A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 772,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00123A",
+      "mpn": "ACFAN00123A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P14 (black/black) - retail (ACFAN00123A)",
+      "raw_names": [
+        "Case fan ARCTIC P14 (black/black) - retail (ACFAN00123A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 773,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00126A",
+      "mpn": "ACFAN00126A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P14 PWM PST CO (black/black) - retail (ACFAN00126A)",
+      "raw_names": [
+        "Case fan ARCTIC P14 PWM PST CO (black/black) - retail (ACFAN00126A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 774,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00197A",
+      "mpn": "ACFAN00197A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P14 PWM PST (white/white) - retail (ACFAN00197A)",
+      "raw_names": [
+        "Case fan ARCTIC P14 PWM PST (white/white) - retail (ACFAN00197A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 775,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00136A",
+      "mpn": "ACFAN00136A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P14 Value Pack (black/black)  (ACFAN00136A)",
+      "raw_names": [
+        "Case fan ARCTIC P14 Value Pack (black/black)  (ACFAN00136A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 776,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00154A",
+      "mpn": "ACFAN00154A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P8 PWM PST Value Pack (Black/Black) - retail (ACFAN00154A)",
+      "raw_names": [
+        "Case fan ARCTIC P8 PWM PST Value Pack (Black/Black) - retail (ACFAN00154A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 777,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00115A",
+      "mpn": "ACFAN00115A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC BioniX P120 (Red)  retail ACFAN00115A",
+      "raw_names": [
+        "Case fan  ARCTIC BioniX P120 (Red)  retail ACFAN00115A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 778,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00138A",
+      "mpn": "ACFAN00138A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P14 PWM PST Value Pack (black/black) (ACFAN00138A)",
+      "raw_names": [
+        "Case fan ARCTIC P14 PWM PST Value Pack (black/black) (ACFAN00138A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 779,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00296A",
+      "mpn": "ACFAN00296A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S12038-4K 600-4000rpm Dual Ball 4-Pin ACFAN00296A",
+      "raw_names": [
+        "Case fan  ARCTIC S12038-4K 600-4000rpm Dual Ball 4-Pin ACFAN00296A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 780,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00303A",
+      "mpn": "ACFAN00303A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S12038-4K 600-4000rpm Dual Ball 4-Pin 3Pack ACFAN00303A",
+      "raw_names": [
+        "Case fan  ARCTIC S12038-4K 600-4000rpm Dual Ball 4-Pin 3Pack ACFAN00303A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 781,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00294A",
+      "mpn": "ACFAN00294A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S12038-8K 800-8000rpm Dual Ball 4-Pin ACFAN00294A",
+      "raw_names": [
+        "Case fan  ARCTIC S12038-8K 800-8000rpm Dual Ball 4-Pin ACFAN00294A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 782,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00302A",
+      "mpn": "ACFAN00302A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC S12038-8K 800-8000rpm Dual Ball 4-Pin 3Pack ACFAN00302A",
+      "raw_names": [
+        "Case fan  ARCTIC S12038-8K 800-8000rpm Dual Ball 4-Pin 3Pack ACFAN00302A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 783,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00167A",
+      "mpn": "ACFAN00167A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC BioniX P120 (Grey/Whit) PWM 200 - 2 100 RPM ACFAN00167A",
+      "raw_names": [
+        "Case fan  ARCTIC BioniX P120 (Grey/Whit) PWM 200 - 2 100 RPM ACFAN00167A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 784,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00116A",
+      "mpn": "ACFAN00116A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC BioniX P120 (White) PWM 200 - 2 100 RPM ACFAN00116A",
+      "raw_names": [
+        "Case fan  ARCTIC BioniX P120 (White) PWM 200 - 2 100 RPM ACFAN00116A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 785,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00232A",
+      "mpn": "ACFAN00232A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P12 PWM PST A-RGB 0dB (3 PCS Value Pack) ACFAN00232A",
+      "raw_names": [
+        "Case fan  ARCTIC P12 PWM PST A-RGB 0dB (3 PCS Value Pack) ACFAN00232A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

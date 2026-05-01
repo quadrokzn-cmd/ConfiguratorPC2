@@ -131,6 +131,18 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     # Кулеры — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
     "idcooling.com",      # ID-Cooling: серия SE/AF (SE-214-XT и др.)
     "pccooler.com.cn",    # PCCooler: БП KF550, YS1200
+    # Кулеры — добавлено на Этапе 11.6.2.3.1 (2026-05-01, рассинхрон с
+    # cooler.md и общим whitelist; AI отказывался ходить на эти домены,
+    # хотя они приемлемы как официальные источники).
+    "cooler-master.com",  # альтернативный домен Cooler Master
+    "be-quiet.net",       # be quiet! — европейский домен
+    "aerocool.com",       # Aerocool — англоязычный домен (есть кулеры/вентиляторы)
+    "ekwb.com",           # EK Water Blocks — кастомные водоблоки/AIO
+    "alphacool.com",      # Alphacool — кастомное жидкостное охлаждение
+    "scythe-eu.com",      # Scythe — европейский домен
+    "silverstonetek.com", # SilverStone — кулеры/корпуса/БП
+    "evga.com",           # EVGA — БП и кулеры (CLC AIO)
+    "endorfy.com",        # Endorfy (бывш. SilentiumPC) — кулеры/вентиляторы
     # Корпуса
     "jonsbo.com",
     "fractal-design.com",

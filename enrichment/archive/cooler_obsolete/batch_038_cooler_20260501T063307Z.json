@@ -1,0 +1,566 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_038",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1826,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRW",
+      "mpn": "TRTLM12QRW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-M12QRW / Reverse / ARGB / 120mm PWM / TRTLM12QRW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-M12QRW / Reverse / ARGB / 120mm PWM / TRTLM12QRW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1827,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QX2.2P",
+      "mpn": "TRTLM12QX2.2P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (2 шт.) TL-M12Q X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QX2.2P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (2 шт.) TL-M12Q X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QX2.2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1828,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRX2.2P",
+      "mpn": "TRTLM12QRX2.2P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (2 шт.) TL-M12QR X2 (Pack of 2) / Reverse / ARGB / 120mm PWM / TRTLM12QRX2.2P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (2 шт.) TL-M12QR X2 (Pack of 2) / Reverse / ARGB / 120mm PWM / TRTLM12QRX2.2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1829,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QWX2.2P",
+      "mpn": "TRTLM12QWX2.2P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (2 шт.) TL-M12QW X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QWX2.2P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (2 шт.) TL-M12QW X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QWX2.2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1830,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRWX2.2P",
+      "mpn": "TRTLM12QRWX2.2P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (2 шт.) TL-M12QRW X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QRWX2.2P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (2 шт.) TL-M12QRW X2 (Pack of 2) / ARGB / 120mm PWM / TRTLM12QRWX2.2P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1831,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QX3.3P",
+      "mpn": "TRTLM12QX3.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12Q X3 / ARGB / 120mm PWM / TRTLM12QX3.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12Q X3 / ARGB / 120mm PWM / TRTLM12QX3.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1832,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QWX3.3P",
+      "mpn": "TRTLM12QWX3.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QW X3 / ARGB / 120mm PWM / TRTLM12QWX3.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QW X3 / ARGB / 120mm PWM / TRTLM12QWX3.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1833,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRX3.3P",
+      "mpn": "TRTLM12QRX3.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QR X3 / Reverse / ARGB / 120mm PWM / TRTLM12QRX3.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QR X3 / Reverse / ARGB / 120mm PWM / TRTLM12QRX3.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1834,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRWX3.3P",
+      "mpn": "TRTLM12QRWX3.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QRW X3 / Reverse / ARGB / 120mm PWM / TRTLM12QRWX3.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QRW X3 / Reverse / ARGB / 120mm PWM / TRTLM12QRWX3.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1835,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QS.3P",
+      "mpn": "TRTLM12QS.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12Q-S X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12QS.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12Q-S X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12QS.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1836,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QWS.3P",
+      "mpn": "TRTLM12QWS.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QW-S X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12QWS.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QW-S X3 (Pack of 3) / ARGB / 120mm PWM / TRTLM12QWS.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1837,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRS.3P",
+      "mpn": "TRTLM12QRS.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QR-S X3 (Pack of 3) / Reverse / ARGB / 120mm PWM / TRTLM12QRS.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QR-S X3 (Pack of 3) / Reverse / ARGB / 120mm PWM / TRTLM12QRS.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1838,
+      "manufacturer": "unknown",
+      "sku": "TRTLM12QRWS.3P",
+      "mpn": "TRTLM12QRWS.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-M12QRW-S X3 (Pack of 3) / Reverse / ARGB / 120mm PWM / TRTLM12QRWS.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-M12QRW-S X3 (Pack of 3) / Reverse / ARGB / 120mm PWM / TRTLM12QRWS.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1839,
+      "manufacturer": "unknown",
+      "sku": "TRAX120RSE",
+      "mpn": "TRAX120RSE",
+      "gtin": "",
+      "model": "Thermalright Кулер Assassin X 120 Refined SE  LGA115X/1200/1700/AM4/AM5 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RSE",
+      "raw_names": [
+        "Thermalright Кулер Assassin X 120 Refined SE  LGA115X/1200/1700/AM4/AM5 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RSE"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1840,
+      "manufacturer": "unknown",
+      "sku": "TRAX120RDAB",
+      "mpn": "TRAX120RDAB",
+      "gtin": "",
+      "model": "Thermalright Кулер Assassin X 120 R Digital ARGB Black  LGA115X/1200/1700/1851/AM4/AM5 (120mm ARGB PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDAB",
+      "raw_names": [
+        "Thermalright Кулер Assassin X 120 R Digital ARGB Black  LGA115X/1200/1700/1851/AM4/AM5 (120mm ARGB PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDAB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1841,
+      "manufacturer": "unknown",
+      "sku": "TRAX120RDAW",
+      "mpn": "TRAX120RDAW",
+      "gtin": "",
+      "model": "Thermalright Кулер Assassin X 120 R Digital ARGB White  LGA115X/1200/1700/1851/AM4/AM5 (120mm ARGB PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDAW",
+      "raw_names": [
+        "Thermalright Кулер Assassin X 120 R Digital ARGB White  LGA115X/1200/1700/1851/AM4/AM5 (120mm ARGB PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDAW"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1842,
+      "manufacturer": "unknown",
+      "sku": "TRAX120RDB",
+      "mpn": "TRAX120RDB",
+      "gtin": "",
+      "model": "Thermalright Кулер Assassin X 120 R Digital Black  LGA115X/1200/1700/1851 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDB",
+      "raw_names": [
+        "Thermalright Кулер Assassin X 120 R Digital Black  LGA115X/1200/1700/1851 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1843,
+      "manufacturer": "unknown",
+      "sku": "TRAX120RDW",
+      "mpn": "TRAX120RDW",
+      "gtin": "",
+      "model": "Thermalright Кулер Assassin X 120 R Digital White  LGA115X/1200/1700/1851 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDW",
+      "raw_names": [
+        "Thermalright Кулер Assassin X 120 R Digital White  LGA115X/1200/1700/1851 (120mm PWM Fan, 4 тепл. трубки 6мм) / TRAX120RDW"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1844,
+      "manufacturer": "unknown",
+      "sku": "TRPA120B",
+      "mpn": "TRPA120B",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 Black  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120B",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 Black  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120B"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1845,
+      "manufacturer": "unknown",
+      "sku": "TRPA120SE",
+      "mpn": "TRPA120SE",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 SE  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SE",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 SE  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SE"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1846,
+      "manufacturer": "unknown",
+      "sku": "TRPA120SEA",
+      "mpn": "TRPA120SEA",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 SE ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEA",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 SE ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEA"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1847,
+      "manufacturer": "unknown",
+      "sku": "TRPA120SEAW",
+      "mpn": "TRPA120SEAW",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 SE White ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEAW",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 SE White ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEAW"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1848,
+      "manufacturer": "unknown",
+      "sku": "TRPA120SEB",
+      "mpn": "TRPA120SEB",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 SE Black LGA115X/1200/1700/1851 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEB",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 SE Black LGA115X/1200/1700/1851 (Dual Tower, 2x120mm PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120SEB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1849,
+      "manufacturer": "unknown",
+      "sku": "TRPA120DAB",
+      "mpn": "TRPA120DAB",
+      "gtin": "",
+      "model": "Thermalright Кулер Peerless Assassin 120 Digital ARGB Black  LGA115X/1200/1700/1851AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120DAB",
+      "raw_names": [
+        "Thermalright Кулер Peerless Assassin 120 Digital ARGB Black  LGA115X/1200/1700/1851AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 6 тепл. трубок 6мм) / TRPA120DAB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1850,
+      "manufacturer": "unknown",
+      "sku": "TRPS120",
+      "mpn": "TRPS120",
+      "gtin": "",
+      "model": "Thermalright Кулер Phantom Spirit 120  LGA115X/1200/1700/2011/2066/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120",
+      "raw_names": [
+        "Thermalright Кулер Phantom Spirit 120  LGA115X/1200/1700/2011/2066/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1851,
+      "manufacturer": "unknown",
+      "sku": "TRPS120EVO",
+      "mpn": "TRPS120EVO",
+      "gtin": "",
+      "model": "Thermalright Кулер Phantom Spirit 120 EVO  LGA115X/1200/1700/2011/2066/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120EVO",
+      "raw_names": [
+        "Thermalright Кулер Phantom Spirit 120 EVO  LGA115X/1200/1700/2011/2066/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120EVO"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1852,
+      "manufacturer": "unknown",
+      "sku": "TRPS120SE",
+      "mpn": "TRPS120SE",
+      "gtin": "",
+      "model": "Thermalright Кулер Phantom Spirit 120 SE  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120SE",
+      "raw_names": [
+        "Thermalright Кулер Phantom Spirit 120 SE  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120SE"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1853,
+      "manufacturer": "unknown",
+      "sku": "TRPS120SEA",
+      "mpn": "TRPS120SEA",
+      "gtin": "",
+      "model": "Thermalright Кулер Phantom Spirit 120 SE ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120SEA",
+      "raw_names": [
+        "Thermalright Кулер Phantom Spirit 120 SE ARGB  LGA115X/1200/1700/AM4/AM5 (Dual Tower, 2x120mm ARGB PWM Fan, медное основание, 7 тепл. трубок 6мм) / TRPS120SEA"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115",
+          "AM4",
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1854,
+      "manufacturer": "unknown",
+      "sku": "TRBCF1700BL.V2",
+      "mpn": "TRBCF1700BL.V2",
+      "gtin": "",
+      "model": "Thermalright Рамка для усиления сокета LGA1700  / LGA 1700-BCF Black V2 / TRBCF1700BL.V2",
+      "raw_names": [
+        "Thermalright Рамка для усиления сокета LGA1700  / LGA 1700-BCF Black V2 / TRBCF1700BL.V2"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1855,
+      "manufacturer": "unknown",
+      "sku": "TRASFAM5BL.V2",
+      "mpn": "TRASFAM5BL.V2",
+      "gtin": "",
+      "model": "Thermalright Рамка для усиления сокета  / AM5 Secure Frame V2 Black / TRASFAM5BL.V2",
+      "raw_names": [
+        "Thermalright Рамка для усиления сокета  / AM5 Secure Frame V2 Black / TRASFAM5BL.V2"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

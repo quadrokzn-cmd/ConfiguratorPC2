@@ -1,0 +1,414 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_013",
+  "filled_at": "2026-05-01T08:30:00Z",
+  "items": [
+    {
+      "id": 960,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративный светильник Hiper Twins H061-1"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративный светильник Hiper Twins H061-1"
+        }
+      }
+    },
+    {
+      "id": 961,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: подставка для охлаждения ноутбука DEEPCOOL N8"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: подставка для охлаждения ноутбука DEEPCOOL N8"
+        }
+      }
+    },
+    {
+      "id": 962,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель CK-11508 V2 отсутствует на официальном сайте DeepCool, отдельной spec-страницы нет"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Модель CK-11508 V2 отсутствует на официальном сайте DeepCool, отдельной spec-страницы нет"
+        }
+      }
+    },
+    {
+      "id": 964,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративные элементы DeepCool PIXEL"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративные элементы DeepCool PIXEL"
+        }
+      }
+    },
+    {
+      "id": 965,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративные элементы DeepCool PIXEL"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: декоративные элементы DeepCool PIXEL"
+        }
+      }
+    },
+    {
+      "id": 966,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: корпус для ПК DeepCool CH170 DIGITAL"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: корпус для ПК DeepCool CH170 DIGITAL"
+        }
+      }
+    },
+    {
+      "id": 967,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: корпус для ПК DeepCool CH170 DIGITAL WH"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не процессорный кулер: корпус для ПК DeepCool CH170 DIGITAL WH"
+        }
+      }
+    },
+    {
+      "id": 969,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 970,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 971,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 972,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 973,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 974,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 976,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 977,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AG500-WH-ARGB-V2-CPU-Cooler-with-Top-Cover-Light-1851-1700-AM5/2025/20915.shtml"
+        }
+      }
+    },
+    {
+      "id": 979,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 981,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuliquidcoolers/LQ360-WH-360mm-Dashboard-Display-Liquid-Cooler-1851-1700-AM5/2025/20035.shtml"
+        }
+      }
+    },
+    {
+      "id": 982,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuliquidcoolers/MYSTIQUE-240-WH-ARGB-5th-Gen-LCD-Liquid-Cooler-1851-1700-AM5/2024/19226.shtml"
+        }
+      }
+    },
+    {
+      "id": 984,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuliquidcoolers/LM240-WH-6th-Gen-ARGB-Liquid-Cooler-with-mini-LCD-Screen/2025/21344.shtml"
+        }
+      }
+    },
+    {
+      "id": 985,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 125,
+          "source_url": "https://www.idcooling.com/product/detail?id=341&name=DK-07A+RAINBOW"
+        },
+        "supported_sockets": {
+          "value": ["AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=341&name=DK-07A+RAINBOW"
+        }
+      }
+    },
+    {
+      "id": 986,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 65,
+          "source_url": "https://www.idcooling.com/product/detail?id=288&name=DK-17+PWM"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700"],
+          "source_url": "https://www.idcooling.com/product/detail?id=288&name=DK-17+PWM"
+        }
+      }
+    },
+    {
+      "id": 987,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 65,
+          "source_url": "https://www.idcooling.com/product/detail?id=550&name=DK-17A"
+        }
+      }
+    },
+    {
+      "id": 988,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 95,
+          "source_url": "https://www.idcooling.com/product/detail?id=467&name=IS-37-XT+BLACK"
+        }
+      }
+    },
+    {
+      "id": 993,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 150,
+          "source_url": "https://www.idcooling.com/product/detail?id=396&name=IS-67-XT+WHITE"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=396&name=IS-67-XT+WHITE"
+        }
+      }
+    },
+    {
+      "id": 994,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 280,
+          "source_url": "https://www.idcooling.com/product/detail?id=235&name=SE-207-XT+BLACK"
+        },
+        "supported_sockets": {
+          "value": ["LGA2066", "LGA2011", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=235&name=SE-207-XT+BLACK",
+          "reason": "LGA1851/1700 не включены: на оф. странице указаны как опция через отдельный upgrade kit (не в комплекте старой поставки)"
+        }
+      }
+    },
+    {
+      "id": 995,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 220,
+          "source_url": "https://www.idcooling.com/product/detail?id=328&name=SE-207-XT+SLIM+SNOW"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "LGA2066", "LGA2011", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=328&name=SE-207-XT+SLIM+SNOW"
+        }
+      }
+    },
+    {
+      "id": 997,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.idcooling.com/product/detail?id=276&name=SE-214-XT+ARGB"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=276&name=SE-214-XT+ARGB"
+        }
+      }
+    },
+    {
+      "id": 999,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.idcooling.com/product/detail?id=281&name=SE-214-XT+ARGB+WHITE"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=281&name=SE-214-XT+ARGB+WHITE"
+        }
+      }
+    },
+    {
+      "id": 1001,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 180,
+          "source_url": "https://www.idcooling.com/product/detail?id=515&name=SE-214-XT+DF+WHITE"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1151", "LGA1150", "LGA1155", "LGA1156", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=515&name=SE-214-XT+DF+WHITE"
+        }
+      }
+    },
+    {
+      "id": 1002,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 200,
+          "source_url": "https://www.idcooling.com/product/detail?id=531&name=SE-214-XT+HAFF+ECO"
+        },
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700", "LGA1200", "LGA1150", "LGA1151", "LGA1155", "AM5", "AM4"],
+          "source_url": "https://www.idcooling.com/product/detail?id=531&name=SE-214-XT+HAFF+ECO"
+        }
+      }
+    }
+  ]
+}

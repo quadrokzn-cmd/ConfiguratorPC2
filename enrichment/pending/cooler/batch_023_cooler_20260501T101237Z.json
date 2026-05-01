@@ -1,0 +1,505 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_023",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1766,
+      "manufacturer": "unknown",
+      "sku": "MPG CORELIQUID K240 V2",
+      "mpn": "MPG CORELIQUID K240 V2",
+      "gtin": "",
+      "model": "MSI СВО MULTI SOCKET MPG CORELIQUID K240 V2",
+      "raw_names": [
+        "MSI СВО MULTI SOCKET MPG CORELIQUID K240 V2"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1767,
+      "manufacturer": "unknown",
+      "sku": "ALSEYE R19",
+      "mpn": "ALSEYE R19",
+      "gtin": "",
+      "model": "ALSEYE Вентилятор ALSEYE R19 LGA1700/1200/20",
+      "raw_names": [
+        "ALSEYE Вентилятор ALSEYE R19 LGA1700/1200/20"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700",
+          "LGA1200"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1768,
+      "manufacturer": "unknown",
+      "sku": "R63",
+      "mpn": "R63",
+      "gtin": "",
+      "model": "ALSEYE Радиатор 2U Coolserver/Alseye R63 LGA1700",
+      "raw_names": [
+        "ALSEYE Радиатор 2U Coolserver/Alseye R63 LGA1700"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1769,
+      "manufacturer": "unknown",
+      "sku": "ETS-F40-BK-ARGB",
+      "mpn": "ETS-F40-BK-ARGB",
+      "gtin": "",
+      "model": "Enermax F40 ARGB Edition (ETS-F40-BK-ARGB)",
+      "raw_names": [
+        "Enermax F40 ARGB Edition (ETS-F40-BK-ARGB)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1770,
+      "manufacturer": "unknown",
+      "sku": "GP-AORUS WATERFORCE 240",
+      "mpn": "GP-AORUS WATERFORCE 240",
+      "gtin": "",
+      "model": "Система водяного охлаждения GIGABYTE Waterforce 240,  120мм, Ret",
+      "raw_names": [
+        "Система водяного охлаждения GIGABYTE Waterforce 240,  120мм, Ret"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1771,
+      "manufacturer": "unknown",
+      "sku": "G89.GA2T36B.R0",
+      "mpn": "G89.GA2T36B.R0",
+      "gtin": "",
+      "model": "Lian Li G89.GA2T36B.R0 Система водяного охлаждения GA II Trinity 360 Black (GA2T36B) / 3x120mm ARGB PWM Fans",
+      "raw_names": [
+        "Lian Li G89.GA2T36B.R0 Система водяного охлаждения GA II Trinity 360 Black (GA2T36B) / 3x120mm ARGB PWM Fans"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1772,
+      "manufacturer": "unknown",
+      "sku": "G89.GA2T36INB.R0",
+      "mpn": "G89.GA2T36INB.R0",
+      "gtin": "",
+      "model": "Lian Li G89.GA2T36INB.R0 Система водяного охлаждения GA II Trinity 360 SL-INF Black (GA2T36INB) / 3x120mm ARGB PWM Fans",
+      "raw_names": [
+        "Lian Li G89.GA2T36INB.R0 Система водяного охлаждения GA II Trinity 360 SL-INF Black (GA2T36INB) / 3x120mm ARGB PWM Fans"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1773,
+      "manufacturer": "unknown",
+      "sku": "G89.GA2T36W.R0",
+      "mpn": "G89.GA2T36W.R0",
+      "gtin": "",
+      "model": "Lian Li G89.GA2T36W.R0 Система водяного охлаждения GA II Trinity 360 White (GA2T36W) / 3x120mm ARGB PWM Fans",
+      "raw_names": [
+        "Lian Li G89.GA2T36W.R0 Система водяного охлаждения GA II Trinity 360 White (GA2T36W) / 3x120mm ARGB PWM Fans"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1774,
+      "manufacturer": "unknown",
+      "sku": "G89.GA2P36B.R1",
+      "mpn": "G89.GA2P36B.R1",
+      "gtin": "",
+      "model": "Lian Li G89.GA2P36B.R1 Система водяного охлаждения GA II Trinity Perfomance 360 Black (GA2P36B) / 3x120mm PWM Fans",
+      "raw_names": [
+        "Lian Li G89.GA2P36B.R1 Система водяного охлаждения GA II Trinity Perfomance 360 Black (GA2P36B) / 3x120mm PWM Fans"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1775,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLV21B.R0",
+      "mpn": "G99.12SLV21B.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12SLV21B.R0 Вентилятор UNI FAN SL120 V2 Black /UF-SL120V2-1B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)",
+      "raw_names": [
+        "Lian Li G99.12SLV21B.R0 Вентилятор UNI FAN SL120 V2 Black /UF-SL120V2-1B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1776,
+      "manufacturer": "unknown",
+      "sku": "G99.12P281W.R0",
+      "mpn": "G99.12P281W.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12P281W.R0 Вентилятор UNI FAN P28 120 White /UF-P28120-1W/ 120х120х28мм (PWM, 300-2600 об/мин, 32.1dBa)",
+      "raw_names": [
+        "Lian Li G99.12P281W.R0 Вентилятор UNI FAN P28 120 White /UF-P28120-1W/ 120х120х28мм (PWM, 300-2600 об/мин, 32.1dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1777,
+      "manufacturer": "unknown",
+      "sku": "G99.12RSLV21B.R0",
+      "mpn": "G99.12RSLV21B.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12RSLV21B.R0 Вентилятор UNI FAN SL120 V2 Reverse Black /UF-RSL120V2-1B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)",
+      "raw_names": [
+        "Lian Li G99.12RSLV21B.R0 Вентилятор UNI FAN SL120 V2 Reverse Black /UF-RSL120V2-1B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1778,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLV21W.R0",
+      "mpn": "G99.12SLV21W.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12SLV21W.R0 Вентилятор UNI FAN SL120 V2 White /UF-SL120V2-1W/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)",
+      "raw_names": [
+        "Lian Li G99.12SLV21W.R0 Вентилятор UNI FAN SL120 V2 White /UF-SL120V2-1W/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1779,
+      "manufacturer": "unknown",
+      "sku": "G99.14SLV21W.R0",
+      "mpn": "G99.14SLV21W.R0",
+      "gtin": "",
+      "model": "Lian Li G99.14SLV21W.R0 Вентилятор UNI FAN SL140 V2 White /UF-SL140V2-1W/ 140х140х28мм (PWM, ARGB, 250-1600 об/мин, 29dBa)",
+      "raw_names": [
+        "Lian Li G99.14SLV21W.R0 Вентилятор UNI FAN SL140 V2 White /UF-SL140V2-1W/ 140х140х28мм (PWM, ARGB, 250-1600 об/мин, 29dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1780,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLIN1B.R0",
+      "mpn": "G99.12SLIN1B.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12SLIN1B.R0 Вентилятор UNI FAN SL-INF 120 Black /UF-SLIN120-1B/ 120х120х25мм (PWM, ARGB, 200-2100 об/мин, 29dBa)",
+      "raw_names": [
+        "Lian Li G99.12SLIN1B.R0 Вентилятор UNI FAN SL-INF 120 Black /UF-SLIN120-1B/ 120х120х25мм (PWM, ARGB, 200-2100 об/мин, 29dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1781,
+      "manufacturer": "unknown",
+      "sku": "G99.12TLLCD1W.R0",
+      "mpn": "G99.12TLLCD1W.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12TLLCD1W.R0 Вентилятор UNI FAN TL LCD 120 White /12TLLCD1W/ 120х125х28мм (1.6” LCD дисплей, PWM, ARGB, 200-1900 об/мин, 27dBa)",
+      "raw_names": [
+        "Lian Li G99.12TLLCD1W.R0 Вентилятор UNI FAN TL LCD 120 White /12TLLCD1W/ 120х125х28мм (1.6” LCD дисплей, PWM, ARGB, 200-1900 об/мин, 27dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1782,
+      "manufacturer": "unknown",
+      "sku": "G99.12TL1W.R0",
+      "mpn": "G99.12TL1W.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12TL1W.R0 Вентилятор UNI FAN TL LED 120 White /12TL1W/ 120х124х28мм (PWM, ARGB, 200-2600 об/мин, 33dBa)",
+      "raw_names": [
+        "Lian Li G99.12TL1W.R0 Вентилятор UNI FAN TL LED 120 White /12TL1W/ 120х124х28мм (PWM, ARGB, 200-2600 об/мин, 33dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1783,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLV23B.R0",
+      "mpn": "G99.12SLV23B.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12SLV23B.R0 Комплект вентиляторов (3шт.) UNI FAN SL120 V2 Black /UF-SL120V2-3B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)",
+      "raw_names": [
+        "Lian Li G99.12SLV23B.R0 Комплект вентиляторов (3шт.) UNI FAN SL120 V2 Black /UF-SL120V2-3B/ 120х120х28мм (PWM, ARGB, 250-2000 об/мин, 29.2dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1784,
+      "manufacturer": "unknown",
+      "sku": "G99.12TLLCD3B.R0",
+      "mpn": "G99.12TLLCD3B.R0",
+      "gtin": "",
+      "model": "Lian Li G99.12TLLCD3B.R0 Комплект вентиляторов (3шт.) UNI FAN TL LCD 120 Black /12TLLCD3B/ 120х125х28мм (1.6” LCD дисплей, PWM, ARGB, 200-1900 об/мин, 27dBa)",
+      "raw_names": [
+        "Lian Li G99.12TLLCD3B.R0 Комплект вентиляторов (3шт.) UNI FAN TL LCD 120 Black /12TLLCD3B/ 120х125х28мм (1.6” LCD дисплей, PWM, ARGB, 200-1900 об/мин, 27dBa)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1785,
+      "manufacturer": "unknown",
+      "sku": "G99.12SLV21W.00",
+      "mpn": "G99.12SLV21W.00",
+      "gtin": "",
+      "model": "Вентилятор Lian-Li SL V2 120 White 120x120x28mm белый 4-pin 29dB Ret",
+      "raw_names": [
+        "Вентилятор Lian-Li SL V2 120 White 120x120x28mm белый 4-pin 29dB Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1786,
+      "manufacturer": "unknown",
+      "sku": "G89.SP750B.00EU",
+      "mpn": "G89.SP750B.00EU",
+      "gtin": "",
+      "model": "Блок питания Lian-Li SFX 750W SP750 80+ gold (20+4pin) APFC 92mm fan 8xSATA Cab Manag RTL",
+      "raw_names": [
+        "Блок питания Lian-Li SFX 750W SP750 80+ gold (20+4pin) APFC 92mm fan 8xSATA Cab Manag RTL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1787,
+      "manufacturer": "unknown",
+      "sku": "G89.GHSLCD36SB.00",
+      "mpn": "G89.GHSLCD36SB.00",
+      "gtin": "",
+      "model": "Lian Li HydroShift LCD 360S Black Система водяного охлаждения (G89.GHSLCD36SB.00/R0)",
+      "raw_names": [
+        "Lian Li HydroShift LCD 360S Black Система водяного охлаждения (G89.GHSLCD36SB.00/R0)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1788,
+      "manufacturer": "unknown",
+      "sku": "G99.12SL1W1W.R0",
+      "mpn": "G99.12SL1W1W.R0",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Lian-Li Uni Fan SL Wireless 120 ARGB 120х124.5x28 белый 4-pin 28.5дБ (G99.12SL1W1W.R0) Ret",
+      "raw_names": [
+        "Вентилятор для корпуса Lian-Li Uni Fan SL Wireless 120 ARGB 120х124.5x28 белый 4-pin 28.5дБ (G99.12SL1W1W.R0) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1789,
+      "manufacturer": "unknown",
+      "sku": "G99.12RCL1W1B.R0",
+      "mpn": "G99.12RCL1W1B.R0",
+      "gtin": "",
+      "model": "Lian Li UNI FAN CL WIRELESS 120 Reverse Blade / 12RCL1W1B BLACK / 120x124x28mm (PWM, ARGB, 2150 об/мин (Max.), 30,8dBa) / G99.12RCL1W1B.R0",
+      "raw_names": [
+        "Lian Li UNI FAN CL WIRELESS 120 Reverse Blade / 12RCL1W1B BLACK / 120x124x28mm (PWM, ARGB, 2150 об/мин (Max.), 30,8dBa) / G99.12RCL1W1B.R0"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1790,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12RBSV2",
+      "mpn": "TRTLC12RBSV2",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C12RB-S V2 / Reverse / ARGB / 120mm PWM / TRTLC12RBSV2",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C12RB-S V2 / Reverse / ARGB / 120mm PWM / TRTLC12RBSV2"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1791,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12RWSV2",
+      "mpn": "TRTLC12RWSV2",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C12RW-S V2 / Reverse / ARGB / 120mm PWM / TRTLC12RWSV2",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C12RW-S V2 / Reverse / ARGB / 120mm PWM / TRTLC12RWSV2"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1792,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12C",
+      "mpn": "TRTLC12C",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C12C / 120mm PWM / TRTLC12C",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C12C / 120mm PWM / TRTLC12C"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1793,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12CW",
+      "mpn": "TRTLC12CW",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C12CW / 120mm PWM / TRTLC12CW",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C12CW / 120mm PWM / TRTLC12CW"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1794,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12CWS",
+      "mpn": "TRTLC12CWS",
+      "gtin": "",
+      "model": "Thermalright Вентилятор TL-C12CW-S / ARGB / 120mm PWM / TRTLC12CWS",
+      "raw_names": [
+        "Thermalright Вентилятор TL-C12CW-S / ARGB / 120mm PWM / TRTLC12CWS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1795,
+      "manufacturer": "unknown",
+      "sku": "TRTLC12C.3P",
+      "mpn": "TRTLC12C.3P",
+      "gtin": "",
+      "model": "Thermalright Комплект вентиляторов (3 шт.) TL-C12C (Pack of 3) / 120mm PWM / TRTLC12C.3P",
+      "raw_names": [
+        "Thermalright Комплект вентиляторов (3 шт.) TL-C12C (Pack of 3) / 120mm PWM / TRTLC12C.3P"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

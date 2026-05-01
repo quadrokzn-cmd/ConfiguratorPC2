@@ -1,0 +1,520 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_018",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1144,
+      "manufacturer": "unknown",
+      "sku": "ICE BURG ARPW 4P WH 3PIN",
+      "mpn": "ICE BURG ARPW 4P WH 3PIN",
+      "gtin": "",
+      "model": "Cooler Formula Ice Burg 3Pin ARGB Soc-AM5/AM4/1200/1700/1851 белый 3-pin 17-34",
+      "raw_names": [
+        "Cooler Formula Ice Burg 3Pin ARGB Soc-AM5/AM4/1200/1700/1851 белый 3-pin 17-34"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1145,
+      "manufacturer": "unknown",
+      "sku": "ICE BURG EX ARPW 6P BK",
+      "mpn": "ICE BURG EX ARPW 6P BK",
+      "gtin": "",
+      "model": "Cooler Formula Ice Burg EX ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34d",
+      "raw_names": [
+        "Cooler Formula Ice Burg EX ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34d"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1146,
+      "manufacturer": "unknown",
+      "sku": "ICE BURG PLUS ARPW 4P BK",
+      "mpn": "ICE BURG PLUS ARPW 4P BK",
+      "gtin": "",
+      "model": "Cooler Formula Ice Burg Plus Bk ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 1",
+      "raw_names": [
+        "Cooler Formula Ice Burg Plus Bk ARGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 1"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1147,
+      "manufacturer": "unknown",
+      "sku": "ICE BURG ARPW 4P WH",
+      "mpn": "ICE BURG ARPW 4P WH",
+      "gtin": "",
+      "model": "Cooler Formula Ice Burg Wh ARGB Soc-AM5/AM4/1200/1700/1851 белый 4-pin 17-34dB",
+      "raw_names": [
+        "Cooler Formula Ice Burg Wh ARGB Soc-AM5/AM4/1200/1700/1851 белый 4-pin 17-34dB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1148,
+      "manufacturer": "unknown",
+      "sku": "AIR BRIDGE WH",
+      "mpn": "AIR BRIDGE WH",
+      "gtin": "",
+      "model": "Case Fan Formula Air Bridge ARGB 120мм белый 4-pin  (AIR BRIDGE WH) Ret 3шт",
+      "raw_names": [
+        "Case Fan Formula Air Bridge ARGB 120мм белый 4-pin  (AIR BRIDGE WH) Ret 3шт"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1149,
+      "manufacturer": "unknown",
+      "sku": "AIR BRIDGE PLUS WH",
+      "mpn": "AIR BRIDGE PLUS WH",
+      "gtin": "",
+      "model": "Case Fan Formula Air Bridge Plus ARGB 120мм белый 4-pin (AIR BRIDGE PLUS WH) Ret 3шт",
+      "raw_names": [
+        "Case Fan Formula Air Bridge Plus ARGB 120мм белый 4-pin (AIR BRIDGE PLUS WH) Ret 3шт"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1150,
+      "manufacturer": "unknown",
+      "sku": "AIR BRIDGE PLUS BK",
+      "mpn": "AIR BRIDGE PLUS BK",
+      "gtin": "",
+      "model": "Case Fan Formula Air Bridge Plus ARGB 120мм черный 4-pin (AIR BRIDGE PLUS BK) Ret 3шт",
+      "raw_names": [
+        "Case Fan Formula Air Bridge Plus ARGB 120мм черный 4-pin (AIR BRIDGE PLUS BK) Ret 3шт"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1151,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 12BK ARPW",
+      "mpn": "COSMIC 12BK ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 12BK ARGB 120мм черный 4-pin (COSMIC 12BK ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 12BK ARGB 120мм черный 4-pin (COSMIC 12BK ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1152,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 12BK FR",
+      "mpn": "COSMIC 12BK FR",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 12BK RGB 120мм черный 3-pin 4-pin (Molex) (COSMIC 12BK FR) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 12BK RGB 120мм черный 3-pin 4-pin (Molex) (COSMIC 12BK FR) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1153,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 12WH ARPW",
+      "mpn": "COSMIC 12WH ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 12WH ARGB 120мм белый 4-pin (COSMIC 12WH ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 12WH ARGB 120мм белый 4-pin (COSMIC 12WH ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1154,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 12WH FR",
+      "mpn": "COSMIC 12WH FR",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 12WH RGB 120мм белый 3-pin 4-pin (Molex) (COSMIC 12WH FR) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 12WH RGB 120мм белый 3-pin 4-pin (Molex) (COSMIC 12WH FR) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1155,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 14BK ARPW",
+      "mpn": "COSMIC 14BK ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 14BK ARGB 140мм черный 4-pin (COSMIC 14BK ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 14BK ARGB 140мм черный 4-pin (COSMIC 14BK ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1156,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 14WH ARPW",
+      "mpn": "COSMIC 14WH ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 14WH ARGB 140мм  белый 4-pin (COSMIC 14WH ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 14WH ARGB 140мм  белый 4-pin (COSMIC 14WH ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1157,
+      "manufacturer": "unknown",
+      "sku": "COSMIC 14WH FR",
+      "mpn": "COSMIC 14WH FR",
+      "gtin": "",
+      "model": "Case Fan Formula Cosmic 14WH RGB 140мм  белый 3-pin 4-pin (Molex) (COSMIC 14WH FR) Ret",
+      "raw_names": [
+        "Case Fan Formula Cosmic 14WH RGB 140мм  белый 3-pin 4-pin (Molex) (COSMIC 14WH FR) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1158,
+      "manufacturer": "unknown",
+      "sku": "FLOE 12BK ARPW",
+      "mpn": "FLOE 12BK ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Floe 12BK ARGB 120мм черный 4-pin (FLOE 12BK ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Floe 12BK ARGB 120мм черный 4-pin (FLOE 12BK ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1159,
+      "manufacturer": "unknown",
+      "sku": "FLOE 12BK ARPW REVERSE",
+      "mpn": "FLOE 12BK ARPW REVERSE",
+      "gtin": "",
+      "model": "Case Fan Formula Floe 12BK Reverse ARGB 120мм черный 4-pin (FLOE 12BK ARPW REVERSE) Ret",
+      "raw_names": [
+        "Case Fan Formula Floe 12BK Reverse ARGB 120мм черный 4-pin (FLOE 12BK ARPW REVERSE) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1160,
+      "manufacturer": "unknown",
+      "sku": "FLOE 12WH ARPW REVERSE",
+      "mpn": "FLOE 12WH ARPW REVERSE",
+      "gtin": "",
+      "model": "Case Fan Formula Floe 12WH Reverse ARGB 120мм белый 4-pin (FLOE 12WH ARPW REVERSE) Ret",
+      "raw_names": [
+        "Case Fan Formula Floe 12WH Reverse ARGB 120мм белый 4-pin (FLOE 12WH ARPW REVERSE) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1161,
+      "manufacturer": "unknown",
+      "sku": "FLOE PLUS 12BK ARPW",
+      "mpn": "FLOE PLUS 12BK ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Floe Plus 12BK ARGB 120мм черный 4-pin (FLOE PLUS 12BK ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Floe Plus 12BK ARGB 120мм черный 4-pin (FLOE PLUS 12BK ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1162,
+      "manufacturer": "unknown",
+      "sku": "FLOE PLUS 12WH ARPW",
+      "mpn": "FLOE PLUS 12WH ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Floe Plus 12WH ARGB 120мм белый 4-pin (FLOE PLUS 12WH ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Floe Plus 12WH ARGB 120мм белый 4-pin (FLOE PLUS 12WH ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1163,
+      "manufacturer": "unknown",
+      "sku": "NULIGHT 12BK ARPW",
+      "mpn": "NULIGHT 12BK ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Nulight 12BK ARGB 120мм черный 4-pin (NULIGHT 12BK ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Nulight 12BK ARGB 120мм черный 4-pin (NULIGHT 12BK ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1164,
+      "manufacturer": "unknown",
+      "sku": "NULIGHT 12BK ARPW REVERSE",
+      "mpn": "NULIGHT 12BK ARPW REVERSE",
+      "gtin": "",
+      "model": "Case Fan Formula Nulight 12BK Reverse ARGB 120мм черный 4-pin (NULIGHT 12BK ARPW REVERSE) Ret",
+      "raw_names": [
+        "Case Fan Formula Nulight 12BK Reverse ARGB 120мм черный 4-pin (NULIGHT 12BK ARPW REVERSE) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1165,
+      "manufacturer": "unknown",
+      "sku": "NULIGHT 12WH ARPW",
+      "mpn": "NULIGHT 12WH ARPW",
+      "gtin": "",
+      "model": "Case Fan Formula Nulight 12WH ARGB 120мм белый 4-pin (NULIGHT 12WH ARPW) Ret",
+      "raw_names": [
+        "Case Fan Formula Nulight 12WH ARGB 120мм белый 4-pin (NULIGHT 12WH ARPW) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1166,
+      "manufacturer": "unknown",
+      "sku": "NULIGHT 12WH ARPW REVERSE",
+      "mpn": "NULIGHT 12WH ARPW REVERSE",
+      "gtin": "",
+      "model": "Case Fan Formula Nulight 12WH Reverse ARGB 120мм белый 4-pin (NULIGHT 12WH ARPW REVERSE) Ret",
+      "raw_names": [
+        "Case Fan Formula Nulight 12WH Reverse ARGB 120мм белый 4-pin (NULIGHT 12WH ARPW REVERSE) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1167,
+      "manufacturer": "unknown",
+      "sku": "4711099472581",
+      "mpn": "4711099472581",
+      "gtin": "",
+      "model": "БП Aerocool Mirage Gold 650W Fully Modular 80+Gold, ATX, RGB, 4+4P x2,PCIe 6+2P x2,PATA x3,SATA x6",
+      "raw_names": [
+        "БП Aerocool Mirage Gold 650W Fully Modular 80+Gold, ATX, RGB, 4+4P x2,PCIe 6+2P x2,PATA x3,SATA x6"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1168,
+      "manufacturer": "unknown",
+      "sku": "BL100",
+      "mpn": "BL100",
+      "gtin": "",
+      "model": "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 120mm PWM Triple Pack / BL100",
+      "raw_names": [
+        "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 120mm PWM Triple Pack / BL100"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1169,
+      "manufacturer": "unknown",
+      "sku": "BL103",
+      "mpn": "BL103",
+      "gtin": "",
+      "model": "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 140mm PWM high-speed Triple-Pack / BL103",
+      "raw_names": [
+        "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 140mm PWM high-speed Triple-Pack / BL103"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1170,
+      "manufacturer": "unknown",
+      "sku": "BL102",
+      "mpn": "BL102",
+      "gtin": "",
+      "model": "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 140mm PWM Triple Pack / BL102",
+      "raw_names": [
+        "Комплект вентиляторов (3 шт.) be quiet! Light Wings White 140mm PWM Triple Pack / BL102"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1171,
+      "manufacturer": "unknown",
+      "sku": "BW015",
+      "mpn": "BW015",
+      "gtin": "",
+      "model": "Be Quiet Pure Loop 2 FX Black 360mm",
+      "raw_names": [
+        "Be Quiet Pure Loop 2 FX Black 360mm"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1172,
+      "manufacturer": "unknown",
+      "sku": "M2",
+      "mpn": "M2",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M2) ARGB 120x120x25mm (PWM, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M2) ARGB 120x120x25mm (PWM, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1173,
+      "manufacturer": "unknown",
+      "sku": "CM21_12_ARGB_WT",
+      "mpn": "CM21_12_ARGB_WT",
+      "gtin": "",
+      "model": "Powercase (CM21-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase (CM21-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

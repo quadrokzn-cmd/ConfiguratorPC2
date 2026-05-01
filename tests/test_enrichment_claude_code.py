@@ -41,11 +41,47 @@ class TestWhitelist:
         added = {"afox-corp.com", "gamerstorm.com"}
         assert added.issubset(OFFICIAL_DOMAINS)
 
+    def test_whitelist_contains_stage_11_6_2_3_1_cooler_additions(self):
+        # Этап 11.6.2.3.1: рассинхрон между cooler.md и schema.py починен.
+        # Все эти домены — официальные производители кулеров/вентиляторов
+        # и должны проходить валидатор.
+        added = {
+            "cooler-master.com", "be-quiet.net", "aerocool.com",
+            "ekwb.com", "alphacool.com", "scythe-eu.com",
+            "silverstonetek.com", "evga.com", "endorfy.com",
+        }
+        assert added.issubset(OFFICIAL_DOMAINS), (
+            f"Отсутствуют в OFFICIAL_DOMAINS: {added - OFFICIAL_DOMAINS}"
+        )
+
     @pytest.mark.parametrize("url", [
         "https://www.afox-corp.com/index.php?m=content&c=index&a=lists&catid=55",
         "https://www.gamerstorm.com/product/PowerSupply/2024-11/2153_15131.shtml",
     ])
     def test_new_2_5v_domains_pass(self, url):
+        assert _validate_source_url(url) == url
+
+    @pytest.mark.parametrize("url", [
+        "https://www.cooler-master.com/catalog/coolers/cpu-air-coolers/",
+        "https://www.be-quiet.net/en/cpu-cooler/dark-rock-pro-4",
+        "https://www.aerocool.com/cases/peripherals/frost-12",
+        "https://www.ekwb.com/shop/ek-aio-360-d-rgb",
+        "https://www.alphacool.com/eisbaer-aurora-360",
+        "https://www.scythe-eu.com/en/products/cpu-cooler/fuma-2",
+        "https://www.silverstonetek.com/en/product/info/case-cooler/AR12-RGB/",
+        "https://www.evga.com/products/product.aspx?pn=400-HY-CL24-V1",
+        "https://www.endorfy.com/en/fortis-5-dual-fan-eg100007",
+    ])
+    def test_new_cooler_domains_pass(self, url):
+        assert _validate_source_url(url) == url
+
+    @pytest.mark.parametrize("url", [
+        # Верхний регистр в наименовании bequiet и т.п. — host сравнивается
+        # case-insensitive, поэтому это тоже должно проходить.
+        "https://www.BeQuiet.com/products/dark-rock-pro-4",
+        "https://WWW.COOLERMASTER.COM/catalog/coolers/",
+    ])
+    def test_cooler_domains_case_insensitive(self, url):
         assert _validate_source_url(url) == url
 
     def test_afox_shop_subdomain_rejected_if_not_in_whitelist(self):

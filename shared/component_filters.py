@@ -16,16 +16,53 @@ import re
 
 
 # Признаки «корпусного» вентилятора в названии: явные слова про корпус
-# и chassis-варианты, плюс типовые модельные шаблоны (AF120/SP140/PWM 120).
+# и chassis/system-варианты, плюс типовые модельные шаблоны (AF120/SP140/PWM 120).
 _CASE_FAN_KEYWORDS = re.compile(
-    r"(корпусн[ыоая]|case[\s\-]?fan|chassis[\s\-]?fan|"
+    r"(корпусн[ыоая]|case[\s\-]?fan|chassis[\s\-]?fan|system[\s\-]?fan|"
     r"вентилятор\s+для\s+корпуса)",
     flags=re.IGNORECASE,
 )
 
-# Модельные паттерны корпусных вентиляторов на 120/140 мм без радиатора.
+# Модельные паттерны корпусных вентиляторов на 80/92/120/140/200 мм
+# без радиатора. AF/SP/PWM/ARGB/RGB/MF — типовые префиксы серий.
 _CASE_FAN_MODELS = re.compile(
-    r"\b(?:AF|SP|PWM|ARGB|RGB)[\-\s]*1[24]0\b",
+    r"\b(?:AF|SP|PWM|ARGB|RGB|MF)[\-\s]*(?:80|92|120|140|200)\b",
+    flags=re.IGNORECASE,
+)
+
+# Серии, которые у вендоров продаются как корпусные вентиляторы
+# (а CPU-кулеры у них идут под другими сериями — см. ниже исключения).
+# Перечислены те, что встречаются в наших прайсах от Netlab / Ресурс Медиа /
+# Green Place и аналогов. Если найдём ещё — расширяем здесь, а не плодим
+# отдельные скрипты.
+#
+# Защита: каждая серия должна включать характерный токен типоразмера
+# (12/14 / 120 / 140), чтобы не задеть однотипные имена CPU-кулеров.
+# Например, ARCTIC Freezer (CPU) тоже начинается на «ARCTIC», но идёт
+# без P/F/BioniX-префикса. Aerocool «Air Frost» — CPU-кулер, а корпусной
+# Aerocool Frost — это «Frost 12/14».
+_CASE_FAN_SERIES = re.compile(
+    # ARCTIC P12 / P14 / F12 / F14 / BioniX (P120 / F140) — корпусные.
+    # BioniX — серия корпусных целиком, ловим её безусловно (даже без
+    # типоразмера сразу после, типоразмер обычно идёт через слово —
+    # «ARCTIC BioniX P120 A-RGB»).
+    r"\barctic\s+(?:bionix|p\s*\d{1,3}|f\s*\d{1,3})\b"
+    # Thermalright TL-* (TL-C12, TL-D12, TL-K12, TL-X12) — корпусные.
+    r"|\bthermalright\s+tl[\-\s][a-z]?\d{1,3}\b"
+    # Aerocool Frost/Force/Motion/Eclipse/Astro/Duo/Saturn 12/14.
+    # «Air Frost» / «Air Force» — это уже CPU-кулеры, поэтому требуем
+    # размер 12 или 14 после ключевого слова.
+    r"|\baerocool\s+(?:frost|force|motion|eclipse|astro|duo|saturn)\s*1[24]\b"
+    # be quiet! Pure Wings / Silent Wings / Light Wings — корпусные
+    # (Pure Rock / Dark Rock / Pure Loop — CPU, не цепляем).
+    r"|\b(?:pure|silent|light)\s+wings\b"
+    # Cooler Master MasterFan / Sickleflow — корпусные.
+    # Hyper / MasterAir / MasterLiquid — CPU-кулеры, не цепляем.
+    r"|\bmasterfan\b|\bsickleflow\b"
+    # Noctua NF-A12 / NF-A14 / NF-S12 / NF-P12 / NF-F12 (часто с суффиксом
+    # вроде «x25» или «PWM») — корпусные. NH-D15 / NH-U12 / NH-L9 — CPU,
+    # не цепляем.
+    r"|\bnf[\-\s][asfp]\d{1,3}(?!\d)",
     flags=re.IGNORECASE,
 )
 
@@ -75,6 +112,8 @@ def is_likely_case_fan(
     if _CASE_FAN_KEYWORDS.search(full):
         return True
     if _CASE_FAN_MODELS.search(full):
+        return True
+    if _CASE_FAN_SERIES.search(full):
         return True
     if _GENERIC_FAN.search(full):
         return True

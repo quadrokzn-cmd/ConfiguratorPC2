@@ -1,0 +1,507 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_011",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 892,
+      "manufacturer": "unknown",
+      "sku": "R-AK620-WHNNMT-G-1",
+      "mpn": "R-AK620-WHNNMT-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AK620 WH",
+      "raw_names": [
+        "Cooler Deepcool AK620 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 893,
+      "manufacturer": "unknown",
+      "sku": "AK620 DIGITAL",
+      "mpn": "AK620 DIGITAL",
+      "gtin": "",
+      "model": "Cooler Deepcool AK620 DIGITAL",
+      "raw_names": [
+        "Cooler Deepcool AK620 DIGITAL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 894,
+      "manufacturer": "unknown",
+      "sku": "AK700 Digital",
+      "mpn": "AK700 Digital",
+      "gtin": "",
+      "model": "Cooler Deepcool AK700 Digital NYX Soc-AM5/AM4/1200/1700/1851 черный 4-pin",
+      "raw_names": [
+        "Cooler Deepcool AK700 Digital NYX Soc-AM5/AM4/1200/1700/1851 черный 4-pin"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 896,
+      "manufacturer": "unknown",
+      "sku": "R-AK620-BKAPMN-G",
+      "mpn": "R-AK620-BKAPMN-G",
+      "gtin": "",
+      "model": "Cooler Deepcool AK620 Digital Pro  Soc-AM5/AM4/1151/1200/2066/1700 (R-AK620-BKAPMN-G)",
+      "raw_names": [
+        "Cooler Deepcool AK620 Digital Pro  Soc-AM5/AM4/1151/1200/2066/1700 (R-AK620-BKAPMN-G)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1151",
+          "LGA1200",
+          "LGA2066",
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 902,
+      "manufacturer": "unknown",
+      "sku": "XFAN80",
+      "mpn": "XFAN80",
+      "gtin": "",
+      "model": "Case fan Deepcool XFAN 80 {80x80x25, Molex, 20dB, 1800rpm, 82g}",
+      "raw_names": [
+        "Case fan Deepcool XFAN 80 {80x80x25, Molex, 20dB, 1800rpm, 82g}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 903,
+      "manufacturer": "unknown",
+      "sku": "XFAN 120",
+      "mpn": "XFAN 120",
+      "gtin": "",
+      "model": "Case fan Deepcool XFAN 120 {120x120x25, 3pin, 26dB, 1300rpm, 180g}",
+      "raw_names": [
+        "Case fan Deepcool XFAN 120 {120x120x25, 3pin, 26dB, 1300rpm, 180g}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 904,
+      "manufacturer": "unknown",
+      "sku": "WINDBLADE120",
+      "mpn": "WINDBLADE120",
+      "gtin": "",
+      "model": "Case fan Deepcool  WIND BLADE 120 (L) {120х120х25 }",
+      "raw_names": [
+        "Case fan Deepcool  WIND BLADE 120 (L) {120х120х25 }"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 905,
+      "manufacturer": "unknown",
+      "sku": "DP-FA-RGB-CF120-1",
+      "mpn": "DP-FA-RGB-CF120-1",
+      "gtin": "",
+      "model": "Case fan Deepcool CF 120 DP-FA-RGB-CF120-1",
+      "raw_names": [
+        "Case fan Deepcool CF 120 DP-FA-RGB-CF120-1"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 906,
+      "manufacturer": "unknown",
+      "sku": "RF120",
+      "mpn": "RF120",
+      "gtin": "",
+      "model": "Case fan Deepcool RF 120 (RGB  LED) { 120x120x25mm, 1300RPM, 21.9dB(A), 48.9CFM\"}",
+      "raw_names": [
+        "Case fan Deepcool RF 120 (RGB  LED) { 120x120x25mm, 1300RPM, 21.9dB(A), 48.9CFM\"}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 907,
+      "manufacturer": "unknown",
+      "sku": "DP-FLED-RF120-BL",
+      "mpn": "DP-FLED-RF120-BL",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Deepcool RF120B (120mm, 1300rpm, 48.9 CFM, 21.9 дБ, Molex, blue light, black/white) (DP-FLED-RF120-BL)",
+      "raw_names": [
+        "Вентилятор для корпуса Deepcool RF120B (120mm, 1300rpm, 48.9 CFM, 21.9 дБ, Molex, blue light, black/white) (DP-FLED-RF120-BL)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 908,
+      "manufacturer": "unknown",
+      "sku": "RF120B",
+      "mpn": "RF120B",
+      "gtin": "",
+      "model": "Case fan Deepcool RF120B (LED Blue подсветка, 1300об/мин)",
+      "raw_names": [
+        "Case fan Deepcool RF120B (LED Blue подсветка, 1300об/мин)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 909,
+      "manufacturer": "unknown",
+      "sku": "RF120R",
+      "mpn": "RF120R",
+      "gtin": "",
+      "model": "Case fan Deepcool RF120R  (LED Red подсветка, 1300об/мин) Retail",
+      "raw_names": [
+        "Case fan Deepcool RF120R  (LED Red подсветка, 1300об/мин) Retail"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 910,
+      "manufacturer": "unknown",
+      "sku": "RF120 FS",
+      "mpn": "RF120 FS",
+      "gtin": "",
+      "model": "Case fan Deepcool RF120FS LED 120мм  Ret",
+      "raw_names": [
+        "Case fan Deepcool RF120FS LED 120мм  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 911,
+      "manufacturer": "unknown",
+      "sku": "RF120W",
+      "mpn": "RF120W",
+      "gtin": "",
+      "model": "Case fan Deepcool RF120W ( LED White подсветка, 1300об/мин) Retail",
+      "raw_names": [
+        "Case fan Deepcool RF120W ( LED White подсветка, 1300об/мин) Retail"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 912,
+      "manufacturer": "unknown",
+      "sku": "FT12 SLIM",
+      "mpn": "FT12 SLIM",
+      "gtin": "",
+      "model": "Case fan Deepcool FT12 SLIM( White LED, черный, 500-1850об/мин)  Color BOX",
+      "raw_names": [
+        "Case fan Deepcool FT12 SLIM( White LED, черный, 500-1850об/мин)  Color BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 913,
+      "manufacturer": "unknown",
+      "sku": "FT9 SLIM",
+      "mpn": "FT9 SLIM",
+      "gtin": "",
+      "model": "Case fan Deepcool FT9 SLIM ( White LED, черный, 1500-2950об/мин)  Color BOX",
+      "raw_names": [
+        "Case fan Deepcool FT9 SLIM ( White LED, черный, 1500-2950об/мин)  Color BOX"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 914,
+      "manufacturer": "unknown",
+      "sku": "R-FD12-BKNPN1-G",
+      "mpn": "R-FD12-BKNPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD12 черный (R-FD12-BKNPN1-G)",
+      "raw_names": [
+        "Case fan Deepcool FD12 черный (R-FD12-BKNPN1-G)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 915,
+      "manufacturer": "unknown",
+      "sku": "R-FD12-BKAPN1-G",
+      "mpn": "R-FD12-BKAPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD12 ARGB черный 4-pin 26.9дБ (R-FD12-BKAPN1-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD12 ARGB черный 4-pin 26.9дБ (R-FD12-BKAPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 916,
+      "manufacturer": "unknown",
+      "sku": "R-FD12-WHNPN1-G",
+      "mpn": "R-FD12-WHNPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD12 белый 4-pin 27.6дБ (R-FD12-WHNPN1-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD12 белый 4-pin 27.6дБ (R-FD12-WHNPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 917,
+      "manufacturer": "unknown",
+      "sku": "R-FD12-WHNPN3-G",
+      "mpn": "R-FD12-WHNPN3-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD12 белый 4-pin 26.9дБ (упак.:3шт) (R-FD12-WHNPN3-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD12 белый 4-pin 26.9дБ (упак.:3шт) (R-FD12-WHNPN3-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 918,
+      "manufacturer": "unknown",
+      "sku": "R-FD14-BKNPN1-G",
+      "mpn": "R-FD14-BKNPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD14 черный (R-FD14-BKNPN1-G)",
+      "raw_names": [
+        "Case fan Deepcool FD14 черный (R-FD14-BKNPN1-G)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 919,
+      "manufacturer": "unknown",
+      "sku": "R-FD14-BKAPN1-G",
+      "mpn": "R-FD14-BKAPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD14 ARGB черный 4-pin 25.6дБ (R-FD14-BKAPN1-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD14 ARGB черный 4-pin 25.6дБ (R-FD14-BKAPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 920,
+      "manufacturer": "unknown",
+      "sku": "R-FD14-WHAPN1-G",
+      "mpn": "R-FD14-WHAPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD14 ARGB белый 4-pin 25.6дБ (R-FD14-WHAPN1-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD14 ARGB белый 4-pin 25.6дБ (R-FD14-WHAPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 921,
+      "manufacturer": "unknown",
+      "sku": "R-FD14-WHNPN1-G",
+      "mpn": "R-FD14-WHNPN1-G",
+      "gtin": "",
+      "model": "Case fan Deepcool FD14 белый 4-pin 25.6дБ (R-FD14-WHNPN1-G) Ret",
+      "raw_names": [
+        "Case fan Deepcool FD14 белый 4-pin 25.6дБ (R-FD14-WHNPN1-G) Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 922,
+      "manufacturer": "unknown",
+      "sku": "CG580 FAN BK",
+      "mpn": "CG580 FAN BK",
+      "gtin": "",
+      "model": "Case fan Deepcool CG580 FAN BK  ( PWM, ARGB, черный, 400-1300. 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG580 FAN BK  ( PWM, ARGB, черный, 400-1300. 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 923,
+      "manufacturer": "unknown",
+      "sku": "CG580 FAN BKR",
+      "mpn": "CG580 FAN BKR",
+      "gtin": "",
+      "model": "Case fan Deepcool CG580 FAN BKR  REVERSE ( PWM, ARGB, черный, 400-1300об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG580 FAN BKR  REVERSE ( PWM, ARGB, черный, 400-1300об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 924,
+      "manufacturer": "unknown",
+      "sku": "CG580 FAN WH",
+      "mpn": "CG580 FAN WH",
+      "gtin": "",
+      "model": "Case fan Deepcool CG580 FAN WH  (PWM, ARGB, белый, 400-1300об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG580 FAN WH  (PWM, ARGB, белый, 400-1300об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 925,
+      "manufacturer": "unknown",
+      "sku": "CG580 FAN WHR",
+      "mpn": "CG580 FAN WHR",
+      "gtin": "",
+      "model": "Case fan Deepcool CG580 FAN WHR REVERSE (PWM, ARGB, белый, 400-1300об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG580 FAN WHR REVERSE (PWM, ARGB, белый, 400-1300об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 926,
+      "manufacturer": "unknown",
+      "sku": "CG530 FAN BK",
+      "mpn": "CG530 FAN BK",
+      "gtin": "",
+      "model": "Case fan Deepcool CG530 FAN BK (PWM, ARGB, черный, 800-1600об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG530 FAN BK (PWM, ARGB, черный, 800-1600об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 927,
+      "manufacturer": "unknown",
+      "sku": "CG530 FAN BKR",
+      "mpn": "CG530 FAN BKR",
+      "gtin": "",
+      "model": "Case fan Deepcool CG530 FAN BKR REVERSE ( PWM, ARGB, черный, 800-1600об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG530 FAN BKR REVERSE ( PWM, ARGB, черный, 800-1600об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

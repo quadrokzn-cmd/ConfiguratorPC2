@@ -1,0 +1,522 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_026",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1856,
+      "manufacturer": "unknown",
+      "sku": "TRAE360V3B",
+      "mpn": "TRAE360V3B",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 360 V3 / Black / 3x120mm ARGB PWM Fans / TRAE360V3B",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 360 V3 / Black / 3x120mm ARGB PWM Fans / TRAE360V3B"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1857,
+      "manufacturer": "unknown",
+      "sku": "TRAE360V3W",
+      "mpn": "TRAE360V3W",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 360 White V3 / 3x120mm ARGB PWM Fans / TRAE360V3W",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 360 White V3 / 3x120mm ARGB PWM Fans / TRAE360V3W"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1858,
+      "manufacturer": "unknown",
+      "sku": "TRAE360V5AB",
+      "mpn": "TRAE360V5AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 360 V5 ARGB Black / Black / 3x120mm ARGB PWM Fans / TRAE360V5AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 360 V5 ARGB Black / Black / 3x120mm ARGB PWM Fans / TRAE360V5AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1859,
+      "manufacturer": "unknown",
+      "sku": "TRAE360V6AB",
+      "mpn": "TRAE360V6AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 360 V6 ARGB Black / Black / 3x120mm ARGB PWM Fans / TRAE360V6AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 360 V6 ARGB Black / Black / 3x120mm ARGB PWM Fans / TRAE360V6AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1860,
+      "manufacturer": "unknown",
+      "sku": "TRAE360V6AW",
+      "mpn": "TRAE360V6AW",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 360 V6 ARGB White / Black / 3x120mm ARGB PWM Fans / TRAE360V6AW",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 360 V6 ARGB White / Black / 3x120mm ARGB PWM Fans / TRAE360V6AW"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1861,
+      "manufacturer": "unknown",
+      "sku": "TRCM360VAB",
+      "mpn": "TRCM360VAB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Core Matrix 360 Vision ARGB Black / 3x120mm ARGB PWM Fans / TRCM360VAB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Core Matrix 360 Vision ARGB Black / 3x120mm ARGB PWM Fans / TRCM360VAB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1862,
+      "manufacturer": "unknown",
+      "sku": "TREV360AB",
+      "mpn": "TREV360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Elite Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TREV360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Elite Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TREV360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1863,
+      "manufacturer": "unknown",
+      "sku": "TRFH360DAB",
+      "mpn": "TRFH360DAB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Horizon 360 Digital ARGB Black / 3x120mm ARGB PWM Fans / TRFH360DAB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Horizon 360 Digital ARGB Black / 3x120mm ARGB PWM Fans / TRFH360DAB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1864,
+      "manufacturer": "unknown",
+      "sku": "TRFI360AB",
+      "mpn": "TRFI360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Infinity 360 Black / 3x120mm ARGB PWM Fans / TRFI360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Infinity 360 Black / 3x120mm ARGB PWM Fans / TRFI360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1865,
+      "manufacturer": "unknown",
+      "sku": "TRFM360DABV2",
+      "mpn": "TRFM360DABV2",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Magic 360 Digital ARGB Black V2 / 3x120mm ARGB PWM Fans / TRFM360DABV2",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Magic 360 Digital ARGB Black V2 / 3x120mm ARGB PWM Fans / TRFM360DABV2"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1866,
+      "manufacturer": "unknown",
+      "sku": "TRFM360DAWV2",
+      "mpn": "TRFM360DAWV2",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Magic 360 Digital ARGB White V2 / 3x120mm ARGB PWM Fans / TRFM360DAWV2",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Magic 360 Digital ARGB White V2 / 3x120mm ARGB PWM Fans / TRFM360DAWV2"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1867,
+      "manufacturer": "unknown",
+      "sku": "TRMV360AB",
+      "mpn": "TRMV360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Mjolnir Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRMV360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Mjolnir Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRMV360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1868,
+      "manufacturer": "unknown",
+      "sku": "TRMV360AW",
+      "mpn": "TRMV360AW",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Mjolnir Vision 360 ARGB White / 3x120mm ARGB PWM Fans / TRMV360AW",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Mjolnir Vision 360 ARGB White / 3x120mm ARGB PWM Fans / TRMV360AW"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1869,
+      "manufacturer": "unknown",
+      "sku": "TRMV360UBPROAB",
+      "mpn": "TRMV360UBPROAB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Mjolnir Vision 360 UB Pro ARGB Black / 3x120mm ARGB PWM Fans / TRMV360UBPROAB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Mjolnir Vision 360 UB Pro ARGB Black / 3x120mm ARGB PWM Fans / TRMV360UBPROAB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1870,
+      "manufacturer": "unknown",
+      "sku": "TRMV360UBPROAW",
+      "mpn": "TRMV360UBPROAW",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Mjolnir Vision 360 UB Pro ARGB White / 3x120mm ARGB PWM Fans / TRMV360UBPROAW",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Mjolnir Vision 360 UB Pro ARGB White / 3x120mm ARGB PWM Fans / TRMV360UBPROAW"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1871,
+      "manufacturer": "unknown",
+      "sku": "TRFW360AB",
+      "mpn": "TRFW360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Warframe 360 Black ARGB / 3x120mm ARGB PWM Fans / TRFW360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Warframe 360 Black ARGB / 3x120mm ARGB PWM Fans / TRFW360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1872,
+      "manufacturer": "unknown",
+      "sku": "TRFWSE360ABV2",
+      "mpn": "TRFWSE360ABV2",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Warframe SE 360 ARGB Black V2 / 3x120mm ARGB PWM Fans / TRFWSE360ABV2",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Warframe SE 360 ARGB Black V2 / 3x120mm ARGB PWM Fans / TRFWSE360ABV2"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1873,
+      "manufacturer": "unknown",
+      "sku": "TRFWSE360AWV2",
+      "mpn": "TRFWSE360AWV2",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Warframe SE 360 ARGB White V2 / 3x120mm ARGB PWM Fans / TRFWSE360AWV2",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Warframe SE 360 ARGB White V2 / 3x120mm ARGB PWM Fans / TRFWSE360AWV2"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1874,
+      "manufacturer": "unknown",
+      "sku": "TRGV360AB",
+      "mpn": "TRGV360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Grand Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRGV360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Grand Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRGV360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1875,
+      "manufacturer": "unknown",
+      "sku": "TRHV360AB",
+      "mpn": "TRHV360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Hyper Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRHV360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Hyper Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRHV360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1876,
+      "manufacturer": "unknown",
+      "sku": "TRSV360B",
+      "mpn": "TRSV360B",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Stream Vision 360 Black / 3x120mm PWM Fans / TRSV360B",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Stream Vision 360 Black / 3x120mm PWM Fans / TRSV360B"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1877,
+      "manufacturer": "unknown",
+      "sku": "TRTV360AB",
+      "mpn": "TRTV360AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Trofeo Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRTV360AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Trofeo Vision 360 ARGB Black / 3x120mm ARGB PWM Fans / TRTV360AB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1878,
+      "manufacturer": "unknown",
+      "sku": "TRWV360TAB",
+      "mpn": "TRWV360TAB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Wonder Vision 360 Turbo ARGB Black / 3x120mm ARGB PWM Fans / TRWV360TAB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Wonder Vision 360 Turbo ARGB Black / 3x120mm ARGB PWM Fans / TRWV360TAB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1879,
+      "manufacturer": "unknown",
+      "sku": "TRWV360UBAB",
+      "mpn": "TRWV360UBAB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Wonder Vision 360 UB ARGB Black / 3x120mm ARGB PWM Fans / TRWV360UBAB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Wonder Vision 360 UB ARGB Black / 3x120mm ARGB PWM Fans / TRWV360UBAB"
+      ],
+      "current": {
+        "max_tdp_watts": 300
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1880,
+      "manufacturer": "unknown",
+      "sku": "TRFW420AB",
+      "mpn": "TRFW420AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Warframe 420 Black ARGB / 3x140mm ARGB PWM Fans / TRFW420AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Warframe 420 Black ARGB / 3x140mm ARGB PWM Fans / TRFW420AB"
+      ],
+      "current": {
+        "max_tdp_watts": 400
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1881,
+      "manufacturer": "unknown",
+      "sku": "TRFW420AW",
+      "mpn": "TRFW420AW",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Warframe 420 White ARGB / 3x140mm ARGB PWM Fans / TRFW420AW",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Warframe 420 White ARGB / 3x140mm ARGB PWM Fans / TRFW420AW"
+      ],
+      "current": {
+        "max_tdp_watts": 400
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1882,
+      "manufacturer": "unknown",
+      "sku": "TRAE240ABV3",
+      "mpn": "TRAE240ABV3",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 240 Black ARGB V3 / 2x120mm ARGB PWM Fans / TRAE240ABV3",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 240 Black ARGB V3 / 2x120mm ARGB PWM Fans / TRAE240ABV3"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1883,
+      "manufacturer": "unknown",
+      "sku": "TRAE240AWV3",
+      "mpn": "TRAE240AWV3",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 240 White ARGB V3 / 2x120mm ARGB PWM Fans / TRAE240AWV3",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 240 White ARGB V3 / 2x120mm ARGB PWM Fans / TRAE240AWV3"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1884,
+      "manufacturer": "unknown",
+      "sku": "TRAE240V5AB",
+      "mpn": "TRAE240V5AB",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Aqua Elite 240 V5 ARGB Black / 2x120mm ARGB PWM Fans / TRAE240V5AB",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Aqua Elite 240 V5 ARGB Black / 2x120mm ARGB PWM Fans / TRAE240V5AB"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1885,
+      "manufacturer": "unknown",
+      "sku": "TRFI240B",
+      "mpn": "TRFI240B",
+      "gtin": "",
+      "model": "Thermalright Система водяного охлаждения Frozen Infinity 240 Black / 2x120mm ARGB PWM Fans / TRFI240B",
+      "raw_names": [
+        "Thermalright Система водяного охлаждения Frozen Infinity 240 Black / 2x120mm ARGB PWM Fans / TRFI240B"
+      ],
+      "current": {
+        "max_tdp_watts": 200
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    }
+  ]
+}

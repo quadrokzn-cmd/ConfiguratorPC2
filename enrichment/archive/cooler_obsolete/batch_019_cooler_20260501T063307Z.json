@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_019",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1174,
+      "manufacturer": "unknown",
+      "sku": "CM21-14W ARGB",
+      "mpn": "CM21-14W ARGB",
+      "gtin": "",
+      "model": "Вентилятор Powercase (CM21-14W ARGB) White 140x140x25мм (PWM, 100шт./кор, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Вентилятор Powercase (CM21-14W ARGB) White 140x140x25мм (PWM, 100шт./кор, 4pin +ARGB Sync, 800-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1175,
+      "manufacturer": "unknown",
+      "sku": "M52-12 ARGB",
+      "mpn": "M52-12 ARGB",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M52-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1800±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M52-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1800±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1176,
+      "manufacturer": "unknown",
+      "sku": "M55-12 ARGB",
+      "mpn": "M55-12 ARGB",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M55-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M55-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1177,
+      "manufacturer": "unknown",
+      "sku": "M55-12W ARGB",
+      "mpn": "M55-12W ARGB",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M55-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1800±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M55-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1800±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1178,
+      "manufacturer": "unknown",
+      "sku": "M55MR-12W ARGB",
+      "mpn": "M55MR-12W ARGB",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M55MR-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M55MR-12W ARGB) White 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1179,
+      "manufacturer": "unknown",
+      "sku": "M61-12 ARGB",
+      "mpn": "M61-12 ARGB",
+      "gtin": "",
+      "model": "Powercase Вентилятор (M61-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk",
+      "raw_names": [
+        "Powercase Вентилятор (M61-12 ARGB) Black 120x120x25mm (PWM, 100шт./кор, 4pin PWM (M+F)+ 3pin ARGB (M+F), 600-1500±10% об/мин) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1180,
+      "manufacturer": "unknown",
+      "sku": "CM000001649",
+      "mpn": "CM000001649",
+      "gtin": "",
+      "model": "CROWN Кулер для процессора CM-5 (Для Intel и AMD,TDP до 187 Ватт,5шт. теплопроводных трубок,Синяя светодиодная подсветка,Гидродинамическиий подшипник,Размер: 148*126*85 мм)",
+      "raw_names": [
+        "CROWN Кулер для процессора CM-5 (Для Intel и AMD,TDP до 187 Ватт,5шт. теплопроводных трубок,Синяя светодиодная подсветка,Гидродинамическиий подшипник,Размер: 148*126*85 мм)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1181,
+      "manufacturer": "unknown",
+      "sku": "CM000003173",
+      "mpn": "CM000003173",
+      "gtin": "",
+      "model": "CROWN Кулер для процессора CM-80 (Для Intel и AMD, TDP до 65 Ватт, коннектор 3 pin, Низкая посадка радиатора , Гидродинамический подшипник, Размер: 115*103*42 мм, в белой упаковке) (OEM)",
+      "raw_names": [
+        "CROWN Кулер для процессора CM-80 (Для Intel и AMD, TDP до 65 Ватт, коннектор 3 pin, Низкая посадка радиатора , Гидродинамический подшипник, Размер: 115*103*42 мм, в белой упаковке) (OEM)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1182,
+      "manufacturer": "unknown",
+      "sku": "CM000003693",
+      "mpn": "CM000003693",
+      "gtin": "",
+      "model": "CROWN Кулер для процессора CM-80 v2 (Для Intel + 1700 и AMD, TDP до 65 Ватт, коннектор 3 pin, Низкая посадка радиатора , Гидродинамический  подшипник, Размер: 115*103*42 мм)",
+      "raw_names": [
+        "CROWN Кулер для процессора CM-80 v2 (Для Intel + 1700 и AMD, TDP до 65 Ватт, коннектор 3 pin, Низкая посадка радиатора , Гидродинамический  подшипник, Размер: 115*103*42 мм)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1183,
+      "manufacturer": "unknown",
+      "sku": "CM000002228",
+      "mpn": "CM000002228",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1231 (120*120*25мм;Синее LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1231 (120*120*25мм;Синее LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1184,
+      "manufacturer": "unknown",
+      "sku": "CM000002229",
+      "mpn": "CM000002229",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1232 (120*120*25мм;Зелёное LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1232 (120*120*25мм;Зелёное LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1185,
+      "manufacturer": "unknown",
+      "sku": "CM000002230",
+      "mpn": "CM000002230",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1233 (120*120*25мм;Оранжевое LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1233 (120*120*25мм;Оранжевое LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1186,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1230",
+      "mpn": "CMCF-12025S-1230",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1230 (120*120*25мм;Красное LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1230 (120*120*25мм;Красное LED кольцо;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1187,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1222",
+      "mpn": "CMCF-12025S-1222",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1222 (120*120*25мм;Зелёный 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1222 (120*120*25мм;Зелёный 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1188,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1223",
+      "mpn": "CMCF-12025S-1223",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1223 CMCF-12025S-1223 (120*120*25мм;Оранжевый 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1223 CMCF-12025S-1223 (120*120*25мм;Оранжевый 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1189,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1221",
+      "mpn": "CMCF-12025S-1221",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1221  (120*120*25мм;Синий 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1221  (120*120*25мм;Синий 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1190,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1220",
+      "mpn": "CMCF-12025S-1220",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1220 (120*120*25мм;Красный 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1220 (120*120*25мм;Красный 16LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1191,
+      "manufacturer": "unknown",
+      "sku": "CMCF-12025S-1213",
+      "mpn": "CMCF-12025S-1213",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1213 (120*120*25мм;Оранжевый 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1213 (120*120*25мм;Оранжевый 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1192,
+      "manufacturer": "unknown",
+      "sku": "CM000002221",
+      "mpn": "CM000002221",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1212 (120*120*25мм;Зелёный 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1212 (120*120*25мм;Зелёный 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1193,
+      "manufacturer": "unknown",
+      "sku": "CM000002219",
+      "mpn": "CM000002219",
+      "gtin": "",
+      "model": "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1210 (120*120*25мм;Красный 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)",
+      "raw_names": [
+        "CROWN Вентилятор для компьютерного корпуса CMCF-12025S-1210 (120*120*25мм;Красный 4LED;1500 об/мин;35CFM;20Дб;Подшипник скольжения;3pin+MOLEX(папа-мама) 40+10см)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1194,
+      "manufacturer": "unknown",
+      "sku": "CM-CP3.5U32C2",
+      "mpn": "CM-CP3.5U32C2",
+      "gtin": "",
+      "model": "CROWN Панель CM-CP3.5U32C2 2 порта USB 3.0 и два высокоскоростных порта Type-C во внешний отсек 3.5\"",
+      "raw_names": [
+        "CROWN Панель CM-CP3.5U32C2 2 порта USB 3.0 и два высокоскоростных порта Type-C во внешний отсек 3.5\""
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1195,
+      "manufacturer": "unknown",
+      "sku": "EX166186RUS",
+      "mpn": "EX166186RUS",
+      "gtin": "",
+      "model": "Exegate EX166186RUS Вентилятор ExeGate Mirage-S 40x40x10 подшипник скольжения, 5500 RPM, 23dB, 3pin",
+      "raw_names": [
+        "Exegate EX166186RUS Вентилятор ExeGate Mirage-S 40x40x10 подшипник скольжения, 5500 RPM, 23dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1196,
+      "manufacturer": "unknown",
+      "sku": "EX166174RUS",
+      "mpn": "EX166174RUS",
+      "gtin": "",
+      "model": "Exegate EX166174RUS Вентилятор ExeGate Mirage-S 80x80x25 подшипник скольжения, 2000 RPM, 23dB, 3pin",
+      "raw_names": [
+        "Exegate EX166174RUS Вентилятор ExeGate Mirage-S 80x80x25 подшипник скольжения, 2000 RPM, 23dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1197,
+      "manufacturer": "unknown",
+      "sku": "EX166175RUS",
+      "mpn": "EX166175RUS",
+      "gtin": "",
+      "model": "Exegate EX166175RUS Вентилятор ExeGate Mirage-S 92x92x25 подшипник скольжения, 1800 RPM, 23dB, 3pin",
+      "raw_names": [
+        "Exegate EX166175RUS Вентилятор ExeGate Mirage-S 92x92x25 подшипник скольжения, 1800 RPM, 23dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1198,
+      "manufacturer": "unknown",
+      "sku": "EX166176RUS",
+      "mpn": "EX166176RUS",
+      "gtin": "",
+      "model": "Exegate EX166176RUS Вентилятор ExeGate Mirage-S 120x120x25 подшипник скольжения, 1200 RPM, 25dB, 3pin",
+      "raw_names": [
+        "Exegate EX166176RUS Вентилятор ExeGate Mirage-S 120x120x25 подшипник скольжения, 1200 RPM, 25dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1199,
+      "manufacturer": "unknown",
+      "sku": "EX180972RUS",
+      "mpn": "EX180972RUS",
+      "gtin": "",
+      "model": "Exegate EX180972RUS Вентилятор ExeGate Mirage-S 50x50x10 подшипник скольжения, 4500 RPM, 24dB, 3pin",
+      "raw_names": [
+        "Exegate EX180972RUS Вентилятор ExeGate Mirage-S 50x50x10 подшипник скольжения, 4500 RPM, 24dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1200,
+      "manufacturer": "unknown",
+      "sku": "EX180973RUS",
+      "mpn": "EX180973RUS",
+      "gtin": "",
+      "model": "Exegate EX180973RUS Вентилятор ExeGate Mirage-S 80x80x15 подшипник скольжения, 2000 RPM, 23dB, 3pin",
+      "raw_names": [
+        "Exegate EX180973RUS Вентилятор ExeGate Mirage-S 80x80x15 подшипник скольжения, 2000 RPM, 23dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1201,
+      "manufacturer": "unknown",
+      "sku": "EX241638RUS",
+      "mpn": "EX241638RUS",
+      "gtin": "",
+      "model": "Exegate EX241638RUS Вентилятор ExeGate Mirage-S 140x140x25 подшипник скольжения, 1200 RPM, 25dB, 3pin",
+      "raw_names": [
+        "Exegate EX241638RUS Вентилятор ExeGate Mirage-S 140x140x25 подшипник скольжения, 1200 RPM, 25dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1202,
+      "manufacturer": "unknown",
+      "sku": "EX253943RUS",
+      "mpn": "EX253943RUS",
+      "gtin": "",
+      "model": "Exegate EX253943RUS Вентилятор ExeGate Mirage-H 50x50x10 гидродинамический подшипник, 4500 RPM, 22dB, 3pin",
+      "raw_names": [
+        "Exegate EX253943RUS Вентилятор ExeGate Mirage-H 50x50x10 гидродинамический подшипник, 4500 RPM, 22dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1203,
+      "manufacturer": "unknown",
+      "sku": "EX253944RUS",
+      "mpn": "EX253944RUS",
+      "gtin": "",
+      "model": "Exegate EX253944RUS Вентилятор ExeGate Mirage-S 60x60x10 подшипник скольжения, 3500 RPM, 26dB, 3pin",
+      "raw_names": [
+        "Exegate EX253944RUS Вентилятор ExeGate Mirage-S 60x60x10 подшипник скольжения, 3500 RPM, 26dB, 3pin"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,503 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_010",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 860,
+      "manufacturer": "unknown",
+      "sku": "GAMMAXX 400 BLUE BASIC LGA 170",
+      "mpn": "GAMMAXX 400 BLUE BASIC LGA 170",
+      "gtin": "",
+      "model": "Cooler Deepcool GAMMAXX 400 BLUE BASIC LGA 1700 RTL",
+      "raw_names": [
+        "Cooler Deepcool GAMMAXX 400 BLUE BASIC LGA 1700 RTL"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 861,
+      "manufacturer": "unknown",
+      "sku": "GAMMAXX GTE V2",
+      "mpn": "GAMMAXX GTE V2",
+      "gtin": "",
+      "model": "Cooler Deepcool GAMMAXX GTE V2 RGB Intel 1700/1366/115*, AMD AM*/FM*, TDP 180W\"",
+      "raw_names": [
+        "Cooler Deepcool GAMMAXX GTE V2 RGB Intel 1700/1366/115*, AMD AM*/FM*, TDP 180W\""
+      ],
+      "current": {
+        "max_tdp_watts": 180
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 862,
+      "manufacturer": "unknown",
+      "sku": "AG400 LED",
+      "mpn": "AG400 LED",
+      "gtin": "",
+      "model": "см арт 1935975 Cooler Deepcool AG400 LED,  120мм, Ret",
+      "raw_names": [
+        "см арт 1935975 Cooler Deepcool AG400 LED,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 863,
+      "manufacturer": "unknown",
+      "sku": "AG400 LED 1700",
+      "mpn": "AG400 LED 1700",
+      "gtin": "",
+      "model": "Cooler Deepcool AG400 LED 1700 NATIVE",
+      "raw_names": [
+        "Cooler Deepcool AG400 LED 1700 NATIVE"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 864,
+      "manufacturer": "unknown",
+      "sku": "R-AG400-BKNDMN-G-2",
+      "mpn": "R-AG400-BKNDMN-G-2",
+      "gtin": "",
+      "model": "Cooler Deepcool AG400 Digital BK,  120мм, Ret",
+      "raw_names": [
+        "Cooler Deepcool AG400 Digital BK,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 865,
+      "manufacturer": "unknown",
+      "sku": "R-AG400-WHNDMN-G-1",
+      "mpn": "R-AG400-WHNDMN-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AG400 Digital WH,  120мм, Ret",
+      "raw_names": [
+        "Cooler Deepcool AG400 Digital WH,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 866,
+      "manufacturer": "unknown",
+      "sku": "AG400 DIGITAL WH ARGB",
+      "mpn": "AG400 DIGITAL WH ARGB",
+      "gtin": "",
+      "model": "Cooler Deepcool AG400 Digital Wh ARGB,  Ret",
+      "raw_names": [
+        "Cooler Deepcool AG400 Digital Wh ARGB,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 867,
+      "manufacturer": "unknown",
+      "sku": "R-AG400-BKADMP-G-1",
+      "mpn": "R-AG400-BKADMP-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AG400 DIGITAL PLUS",
+      "raw_names": [
+        "Cooler Deepcool AG400 DIGITAL PLUS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 868,
+      "manufacturer": "unknown",
+      "sku": "R-AG500-BKADMN-G-1",
+      "mpn": "R-AG500-BKADMN-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AG500 DIGITAL ARGB",
+      "raw_names": [
+        "Cooler Deepcool AG500 DIGITAL ARGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 869,
+      "manufacturer": "unknown",
+      "sku": "AG500 DIGITAL ARGB",
+      "mpn": "AG500 DIGITAL ARGB",
+      "gtin": "",
+      "model": "Cooler Deepcool AG500 Digital ARGB,  120мм, Ret",
+      "raw_names": [
+        "Cooler Deepcool AG500 Digital ARGB,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 870,
+      "manufacturer": "unknown",
+      "sku": "R-AG500-BKNDMN-G-2",
+      "mpn": "R-AG500-BKNDMN-G-2",
+      "gtin": "",
+      "model": "Cooler DeepCool AG500 DIGITAL BK (R-AG500-BKNDMN-G-2)",
+      "raw_names": [
+        "Cooler DeepCool AG500 DIGITAL BK (R-AG500-BKNDMN-G-2)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 871,
+      "manufacturer": "unknown",
+      "sku": "AG620",
+      "mpn": "AG620",
+      "gtin": "",
+      "model": "Cooler Deepcool AG620, 20мм, Ret",
+      "raw_names": [
+        "Cooler Deepcool AG620, 20мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 872,
+      "manufacturer": "unknown",
+      "sku": "R-AG620-BKANMN-G-2",
+      "mpn": "R-AG620-BKANMN-G-2",
+      "gtin": "",
+      "model": "Cooler Deepcool AG620 BK ARGB [R-AG620-BKANMN-G-2]",
+      "raw_names": [
+        "Cooler Deepcool AG620 BK ARGB [R-AG620-BKANMN-G-2]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 873,
+      "manufacturer": "unknown",
+      "sku": "AG620 DIGITAL",
+      "mpn": "AG620 DIGITAL",
+      "gtin": "",
+      "model": "Cooler Deepcool AG620 Digital,  120мм, Ret",
+      "raw_names": [
+        "Cooler Deepcool AG620 Digital,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 874,
+      "manufacturer": "unknown",
+      "sku": "AG620 DIGITAL BK ARGB",
+      "mpn": "AG620 DIGITAL BK ARGB",
+      "gtin": "",
+      "model": "Cooler Deepcool AG620 Digital Bk ARGB,  Ret",
+      "raw_names": [
+        "Cooler Deepcool AG620 Digital Bk ARGB,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 875,
+      "manufacturer": "unknown",
+      "sku": "AS500 Plus",
+      "mpn": "AS500 Plus",
+      "gtin": "",
+      "model": "Cooler Deepcool  AS500 Plus",
+      "raw_names": [
+        "Cooler Deepcool  AS500 Plus"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 876,
+      "manufacturer": "unknown",
+      "sku": "ASSASSIN IV VC VISION",
+      "mpn": "ASSASSIN IV VC VISION",
+      "gtin": "",
+      "model": "Cooler Deepcool ASSASSIN IV VC VISION",
+      "raw_names": [
+        "Cooler Deepcool ASSASSIN IV VC VISION"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 877,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-WHNNMN-G-1",
+      "mpn": "R-AK400-WHNNMN-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 WH",
+      "raw_names": [
+        "Cooler Deepcool AK400 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 878,
+      "manufacturer": "unknown",
+      "sku": "AK400 DIGITAL",
+      "mpn": "AK400 DIGITAL",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 DIGITAL",
+      "raw_names": [
+        "Cooler Deepcool AK400 DIGITAL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 879,
+      "manufacturer": "unknown",
+      "sku": "AK400 DIGITAL WH",
+      "mpn": "AK400 DIGITAL WH",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 Digital Wh,  Ret",
+      "raw_names": [
+        "Cooler Deepcool AK400 Digital Wh,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 880,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-WHADMN-G",
+      "mpn": "R-AK400-WHADMN-G",
+      "gtin": "",
+      "model": "см арт  11029921 Cooler Deepcool AK400 DIGITAL WH",
+      "raw_names": [
+        "см арт  11029921 Cooler Deepcool AK400 DIGITAL WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 881,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-BKNNMN-G-2",
+      "mpn": "R-AK400-BKNNMN-G-2",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 ZERO DARK",
+      "raw_names": [
+        "Cooler Deepcool AK400 ZERO DARK"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 882,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-BKNNMD-G-1",
+      "mpn": "R-AK400-BKNNMD-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 ZERO DARK PLUS",
+      "raw_names": [
+        "Cooler Deepcool AK400 ZERO DARK PLUS"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 883,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-BKAPMN-G",
+      "mpn": "R-AK400-BKAPMN-G",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 Digital Pro ARGB Soc-AM5/AM4/1151/1200/1700 черный (R-AK400-BKAPMN-G)",
+      "raw_names": [
+        "Cooler Deepcool AK400 Digital Pro ARGB Soc-AM5/AM4/1151/1200/1700 черный (R-AK400-BKAPMN-G)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1151",
+          "LGA1200",
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 884,
+      "manufacturer": "unknown",
+      "sku": "R-AK400-WPNPMN-G",
+      "mpn": "R-AK400-WPNPMN-G",
+      "gtin": "",
+      "model": "Cooler Deepcool AK400 PINK LIMITED (R-AK400-WPNPMN-G)",
+      "raw_names": [
+        "Cooler Deepcool AK400 PINK LIMITED (R-AK400-WPNPMN-G)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 886,
+      "manufacturer": "unknown",
+      "sku": "AK500 ZERO DARK",
+      "mpn": "AK500 ZERO DARK",
+      "gtin": "",
+      "model": "Cooler Deepcool AK500 ZERO DARK",
+      "raw_names": [
+        "Cooler Deepcool AK500 ZERO DARK"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 887,
+      "manufacturer": "unknown",
+      "sku": "R-AK500-WHADMN-G",
+      "mpn": "R-AK500-WHADMN-G",
+      "gtin": "",
+      "model": "Cooler Deepcool AK500 DIGITAL WH",
+      "raw_names": [
+        "Cooler Deepcool AK500 DIGITAL WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 888,
+      "manufacturer": "unknown",
+      "sku": "AK500 DIGITAL",
+      "mpn": "AK500 DIGITAL",
+      "gtin": "",
+      "model": "Cooler Deepcool AK500 Digital,  Ret",
+      "raw_names": [
+        "Cooler Deepcool AK500 Digital,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 890,
+      "manufacturer": "unknown",
+      "sku": "AK620",
+      "mpn": "AK620",
+      "gtin": "",
+      "model": "Cooler Deepcool AK620",
+      "raw_names": [
+        "Cooler Deepcool AK620"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 891,
+      "manufacturer": "unknown",
+      "sku": "R-AK620-BKNNMT-G-1",
+      "mpn": "R-AK620-BKNNMT-G-1",
+      "gtin": "",
+      "model": "Cooler Deepcool AK620 ZERO DARK [R-AK620-BKNNMT-G-1]",
+      "raw_names": [
+        "Cooler Deepcool AK620 ZERO DARK [R-AK620-BKNNMT-G-1]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

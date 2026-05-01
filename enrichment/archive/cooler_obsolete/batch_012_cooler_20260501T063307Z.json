@@ -1,0 +1,516 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_012",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 928,
+      "manufacturer": "unknown",
+      "sku": "CG530 FAN WH",
+      "mpn": "CG530 FAN WH",
+      "gtin": "",
+      "model": "Case fan Deepcool CG530 FAN WH (PWM, ARGB, белый, 800-1600об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG530 FAN WH (PWM, ARGB, белый, 800-1600об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 929,
+      "manufacturer": "unknown",
+      "sku": "CG530 FAN WHR",
+      "mpn": "CG530 FAN WHR",
+      "gtin": "",
+      "model": "Case fan Deepcool CG530 FAN WHR REVERSE (PWM, ARGB, белый, 800-1600об/мин, 120мм) Bulk",
+      "raw_names": [
+        "Case fan Deepcool CG530 FAN WHR REVERSE (PWM, ARGB, белый, 800-1600об/мин, 120мм) Bulk"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 930,
+      "manufacturer": "unknown",
+      "sku": "R-LS520-BKAMNT-G-1",
+      "mpn": "R-LS520-BKAMNT-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LS520",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LS520"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 931,
+      "manufacturer": "unknown",
+      "sku": "R-LS520-WHAMNT-G-1",
+      "mpn": "R-LS520-WHAMNT-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LS520 WH",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LS520 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 932,
+      "manufacturer": "unknown",
+      "sku": "R-LE500-BKLNMC-G-1",
+      "mpn": "R-LE500-BKLNMC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LE500",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LE500"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 933,
+      "manufacturer": "unknown",
+      "sku": "R-LE520-BKAMMN-G-1",
+      "mpn": "R-LE520-BKAMMN-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LE520",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LE520"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 934,
+      "manufacturer": "unknown",
+      "sku": "R-LE720-BKAMMN-G-1",
+      "mpn": "R-LE720-BKAMMN-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LE720",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LE720"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 935,
+      "manufacturer": "unknown",
+      "sku": "R-LD240-BKMSN-G-1",
+      "mpn": "R-LD240-BKMSN-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LD240 черный (R-LD240-BKMSN-G-1)",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LD240 черный (R-LD240-BKMSN-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 936,
+      "manufacturer": "unknown",
+      "sku": "R-LD360-BKMSN-G-1",
+      "mpn": "R-LD360-BKMSN-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LD360 черный (R-LD360-BKMSN-G-1)",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LD360 черный (R-LD360-BKMSN-G-1)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 937,
+      "manufacturer": "unknown",
+      "sku": "R-LD360-WHDMMN-G-1",
+      "mpn": "R-LD360-WHDMMN-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LD360 ARGB Soc-AM5/AM4/1151/1200/1700 белый (R-LD360-WHDMMN-G-1)",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LD360 ARGB Soc-AM5/AM4/1151/1200/1700 белый (R-LD360-WHDMMN-G-1)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1151",
+          "LGA1200",
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 938,
+      "manufacturer": "unknown",
+      "sku": "R-LT240-BKAMNC-G-1",
+      "mpn": "R-LT240-BKAMNC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением DeepCool LT240,  120мм, Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением DeepCool LT240,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 939,
+      "manufacturer": "unknown",
+      "sku": "R-LT360-BKAMNC-G-1",
+      "mpn": "R-LT360-BKAMNC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением DeepCool LT360,  120мм, Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением DeepCool LT360,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 940,
+      "manufacturer": "unknown",
+      "sku": "R-LT360-WHAMNC-G-1",
+      "mpn": "R-LT360-WHAMNC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT360 ARGB Soc-AM5/AM4/1151/1200/1700 белый 4-pin 38.71dB Al 1856gr Ret (R-LT360-WHAMNC-G-1)",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT360 ARGB Soc-AM5/AM4/1151/1200/1700 белый 4-pin 38.71dB Al 1856gr Ret (R-LT360-WHAMNC-G-1)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1151",
+          "LGA1200",
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 941,
+      "manufacturer": "unknown",
+      "sku": "LT520 WH",
+      "mpn": "LT520 WH",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT520 WH,  Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT520 WH,  Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 942,
+      "manufacturer": "unknown",
+      "sku": "R-LT720-WHAMNF-G-1",
+      "mpn": "R-LT720-WHAMNF-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT720 WH",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT720 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 943,
+      "manufacturer": "unknown",
+      "sku": "R-LT520-WHAMNF-G-1",
+      "mpn": "R-LT520-WHAMNF-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT520 WH",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT520 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 944,
+      "manufacturer": "unknown",
+      "sku": "R-LT520-BKAMNF-G-1",
+      "mpn": "R-LT520-BKAMNF-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT520",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT520"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 945,
+      "manufacturer": "unknown",
+      "sku": "R-LT720-BKAMNF-G-1",
+      "mpn": "R-LT720-BKAMNF-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LT720",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LT720"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 946,
+      "manufacturer": "unknown",
+      "sku": "LQ360",
+      "mpn": "LQ360",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LQ360",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LQ360"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 947,
+      "manufacturer": "unknown",
+      "sku": "LQ240",
+      "mpn": "LQ240",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool LQ240",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool LQ240"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 950,
+      "manufacturer": "unknown",
+      "sku": "MYSTIQUE 240",
+      "mpn": "MYSTIQUE 240",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool Mystique 240,  120мм, Ret",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool Mystique 240,  120мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 951,
+      "manufacturer": "unknown",
+      "sku": "MYSTIQUE 240 WH",
+      "mpn": "MYSTIQUE 240 WH",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool MYSTIQUE 240 WH",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool MYSTIQUE 240 WH"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 952,
+      "manufacturer": "unknown",
+      "sku": "R-LX550-BKDSNC-G-1",
+      "mpn": "R-LX550-BKDSNC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool Mystique 240 LX550",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool Mystique 240 LX550"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 953,
+      "manufacturer": "unknown",
+      "sku": "MYSTIQUE 360",
+      "mpn": "MYSTIQUE 360",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool MYSTIQUE 360",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool MYSTIQUE 360"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 954,
+      "manufacturer": "unknown",
+      "sku": "R-LX750-BKADSNC-G-1",
+      "mpn": "R-LX750-BKADSNC-G-1",
+      "gtin": "",
+      "model": "Кулер с водяным охлаждением Deepcool Mystique 360 ARGB Soc-AM5/AM4/1200/1700/1851 черный (R-LX750-BKADSNC-G-1)",
+      "raw_names": [
+        "Кулер с водяным охлаждением Deepcool Mystique 360 ARGB Soc-AM5/AM4/1200/1700/1851 черный (R-LX750-BKADSNC-G-1)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 955,
+      "manufacturer": "unknown",
+      "sku": "EM009-MKNNIN-G-1",
+      "mpn": "EM009-MKNNIN-G-1",
+      "gtin": "",
+      "model": "Комплект креплений DeepCool  EM009-MKNNIN-G-1 для сокета LGA 1700 /some models( GAMMAXX 400/GTE/GT Series)",
+      "raw_names": [
+        "Комплект креплений DeepCool  EM009-MKNNIN-G-1 для сокета LGA 1700 /some models( GAMMAXX 400/GTE/GT Series)"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 956,
+      "manufacturer": "unknown",
+      "sku": "H833-6",
+      "mpn": "H833-6",
+      "gtin": "",
+      "model": "Бра HIPER H833-6 LED 10Вт BLACK",
+      "raw_names": [
+        "Бра HIPER H833-6 LED 10Вт BLACK"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 957,
+      "manufacturer": "unknown",
+      "sku": "H829-3",
+      "mpn": "H829-3",
+      "gtin": "",
+      "model": "Светильник Hiper Melissa H829-3 7Вт 4000K цв.св.:белый нейтральный кофейный",
+      "raw_names": [
+        "Светильник Hiper Melissa H829-3 7Вт 4000K цв.св.:белый нейтральный кофейный"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 958,
+      "manufacturer": "unknown",
+      "sku": "H064-1",
+      "mpn": "H064-1",
+      "gtin": "",
+      "model": "Светильник встраиваемый прозрачный круглый H064-1 MR16+3Вт LED Диаметр 9,5см LED + GU5.3",
+      "raw_names": [
+        "Светильник встраиваемый прозрачный круглый H064-1 MR16+3Вт LED Диаметр 9,5см LED + GU5.3"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 959,
+      "manufacturer": "unknown",
+      "sku": "H824-2",
+      "mpn": "H824-2",
+      "gtin": "",
+      "model": "Бра Hiper Jennie H824-2 40Вт хром",
+      "raw_names": [
+        "Бра Hiper Jennie H824-2 40Вт хром"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

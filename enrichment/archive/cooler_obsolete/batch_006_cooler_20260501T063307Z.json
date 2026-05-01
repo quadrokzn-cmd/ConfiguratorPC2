@@ -1,0 +1,507 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_006",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 722,
+      "manufacturer": "unknown",
+      "sku": "CBR-CF-8025-1600B",
+      "mpn": "CBR-CF-8025-1600B",
+      "gtin": "",
+      "model": "CBR Вентилятор для корпуса CBR-CF-8025-1600B, 80x80x25 мм, 3-pin+molex, 1600 RPM, 30 CFM, 24.6 dBA",
+      "raw_names": [
+        "CBR Вентилятор для корпуса CBR-CF-8025-1600B, 80x80x25 мм, 3-pin+molex, 1600 RPM, 30 CFM, 24.6 dBA"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 723,
+      "manufacturer": "unknown",
+      "sku": "CBR-CF-12025-1200B",
+      "mpn": "CBR-CF-12025-1200B",
+      "gtin": "",
+      "model": "CBR Вентилятор для корпуса CBR-CF-12025-1200B, 120x120x25 мм, 3-pin+molex, 1200 RPM, 36 CFM, 25 dBA",
+      "raw_names": [
+        "CBR Вентилятор для корпуса CBR-CF-12025-1200B, 120x120x25 мм, 3-pin+molex, 1200 RPM, 36 CFM, 25 dBA"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 728,
+      "manufacturer": "unknown",
+      "sku": "ACALP00040A",
+      "mpn": "ACALP00040A",
+      "gtin": "",
+      "model": "Cooler  Arctic Alpine 17  ACALP00040A",
+      "raw_names": [
+        "Cooler  Arctic Alpine 17  ACALP00040A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 729,
+      "manufacturer": "unknown",
+      "sku": "ACALP00041A",
+      "mpn": "ACALP00041A",
+      "gtin": "",
+      "model": "Cooler  Arctic Alpine 17 CO ACALP00041A",
+      "raw_names": [
+        "Cooler  Arctic Alpine 17 CO ACALP00041A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 730,
+      "manufacturer": "unknown",
+      "sku": "ACALP00042A",
+      "mpn": "ACALP00042A",
+      "gtin": "",
+      "model": "Cooler Arctic Alpine 17LP  socket Intel 1700 ACALP00042A",
+      "raw_names": [
+        "Cooler Arctic Alpine 17LP  socket Intel 1700 ACALP00042A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 731,
+      "manufacturer": "unknown",
+      "sku": "ACALP00035A",
+      "mpn": "ACALP00035A",
+      "gtin": "",
+      "model": "Cooler Arctic  Alpine 23 ACALP00035A",
+      "raw_names": [
+        "Cooler Arctic  Alpine 23 ACALP00035A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 732,
+      "manufacturer": "unknown",
+      "sku": "ACALP00036A",
+      "mpn": "ACALP00036A",
+      "gtin": "",
+      "model": "Cooler Arctic  Alpine 23 CO ACALP00036A",
+      "raw_names": [
+        "Cooler Arctic  Alpine 23 CO ACALP00036A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 733,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00083A",
+      "mpn": "ACFRE00083A",
+      "gtin": "",
+      "model": "Cooler Arctic Cooling  Freezer A13 X  AM4 (ACFRE00083A )",
+      "raw_names": [
+        "Cooler Arctic Cooling  Freezer A13 X  AM4 (ACFRE00083A )"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 734,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00112A",
+      "mpn": "ACFRE00112A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer A35 ACFRE00112A",
+      "raw_names": [
+        "Cooler Arctic Freezer A35 ACFRE00112A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 735,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00158A",
+      "mpn": "ACFRE00158A",
+      "gtin": "",
+      "model": "Freezer 4U-SP5 AMD: SP5 ACFRE00158A",
+      "raw_names": [
+        "Freezer 4U-SP5 AMD: SP5 ACFRE00158A"
+      ],
+      "current": {
+        "supported_sockets": [
+          "SP5"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 736,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00161A",
+      "mpn": "ACFRE00161A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 8A ACFRE00161A",
+      "raw_names": [
+        "Cooler Arctic Freezer 8A ACFRE00161A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 737,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00115A",
+      "mpn": "ACFRE00115A",
+      "gtin": "",
+      "model": "Cooler Arctic  Freezer A35 ARGB AM4  ACFRE00115A",
+      "raw_names": [
+        "Cooler Arctic  Freezer A35 ARGB AM4  ACFRE00115A"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 738,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00114A",
+      "mpn": "ACFRE00114A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer A35 RGB AM4   ACFRE00114A",
+      "raw_names": [
+        "Cooler Arctic Freezer A35 RGB AM4   ACFRE00114A"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM4"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 739,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00104A",
+      "mpn": "ACFRE00104A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer i35 ARGB Intel® 1700, 1200, 115X ACFRE00104A",
+      "raw_names": [
+        "Cooler Arctic Freezer i35 ARGB Intel® 1700, 1200, 115X ACFRE00104A"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA115X"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 740,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00122A",
+      "mpn": "ACFRE00122A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 36 CO ACFRE00122A",
+      "raw_names": [
+        "Cooler Arctic Freezer 36 CO ACFRE00122A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 741,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00121A",
+      "mpn": "ACFRE00121A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 36 ACFRE00121A",
+      "raw_names": [
+        "Cooler Arctic Freezer 36 ACFRE00121A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 742,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00125A",
+      "mpn": "ACFRE00125A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 36 A-RGB (White) ACFRE00125A",
+      "raw_names": [
+        "Cooler Arctic Freezer 36 A-RGB (White) ACFRE00125A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 743,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00124A",
+      "mpn": "ACFRE00124A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 36 A-RGB (Black) ACFRE00124A",
+      "raw_names": [
+        "Cooler Arctic Freezer 36 A-RGB (Black) ACFRE00124A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 744,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00123A",
+      "mpn": "ACFRE00123A",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 36 (Black) ACFRE00123A",
+      "raw_names": [
+        "Cooler Arctic Freezer 36 (Black) ACFRE00123A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 745,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00133B",
+      "mpn": "ACFRE00133B",
+      "gtin": "",
+      "model": "Cooler Arctic Freezer 4U-M Rev.2 ACFRE00133B",
+      "raw_names": [
+        "Cooler Arctic Freezer 4U-M Rev.2 ACFRE00133B"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 746,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00147A",
+      "mpn": "ACFAN00147A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P8 (black/black) l (ACFAN00147A)",
+      "raw_names": [
+        "Case fan ARCTIC P8 (black/black) l (ACFAN00147A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 747,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00150A",
+      "mpn": "ACFAN00150A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P8 PWM PST (black/black)  (ACFAN00150A)",
+      "raw_names": [
+        "Case fan ARCTIC P8 PWM PST (black/black)  (ACFAN00150A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 748,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00286A",
+      "mpn": "ACFAN00286A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P8 MAX (Black) (ACFAN00286A )",
+      "raw_names": [
+        "Case fan ARCTIC P8 MAX (Black) (ACFAN00286A )"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 749,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00301A",
+      "mpn": "ACFAN00301A",
+      "gtin": "",
+      "model": "Case fan  ARCTIC P8 Silent Black- 5 Pack ACFAN00301A",
+      "raw_names": [
+        "Case fan  ARCTIC P8 Silent Black- 5 Pack ACFAN00301A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 750,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00295A",
+      "mpn": "ACFAN00295A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P8 Slim PWM PST  (ACFAN00295A)",
+      "raw_names": [
+        "Case fan ARCTIC P8 Slim PWM PST  (ACFAN00295A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 751,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00300A",
+      "mpn": "ACFAN00300A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P9 Max (Black) ACFAN00300A",
+      "raw_names": [
+        "Case fan ARCTIC P9 Max (Black) ACFAN00300A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 752,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00298A",
+      "mpn": "ACFAN00298A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P9 PWM PST (Black) ACFAN00298A",
+      "raw_names": [
+        "Case fan ARCTIC P9 PWM PST (Black) ACFAN00298A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 753,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00299A",
+      "mpn": "ACFAN00299A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P9 PWM PST CO (Black) ACFAN00299A",
+      "raw_names": [
+        "Case fan ARCTIC P9 PWM PST CO (Black) ACFAN00299A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 754,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00297A",
+      "mpn": "ACFAN00297A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P9 Silent (Black) ACFAN00297A",
+      "raw_names": [
+        "Case fan ARCTIC P9 Silent (Black) ACFAN00297A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 755,
+      "manufacturer": "unknown",
+      "sku": "ACFAN00119A",
+      "mpn": "ACFAN00119A",
+      "gtin": "",
+      "model": "Case fan ARCTIC P12 PWM (black/black)- retail (ACFAN00119A)",
+      "raw_names": [
+        "Case fan ARCTIC P12 PWM (black/black)- retail (ACFAN00119A)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

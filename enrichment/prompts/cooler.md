@@ -25,8 +25,12 @@
 **Whitelist оф. доменов кулеров** (только эти URL пройдут валидатор;
 вне списка — `null` + reason):
 `thermalright.com`, `arctic.de`, `arctic.ac`, `noctua.at`, `corsair.com`,
-`deepcool.com`, `gamerstorm.com`, `bequiet.com`, `coolermaster.com`,
-`alseye.com`, `idcooling.com`, `pccooler.com.cn`.
+`deepcool.com`, `gamerstorm.com`, `bequiet.com`, `be-quiet.net`,
+`coolermaster.com`, `cooler-master.com`, `alseye.com`, `idcooling.com`,
+`pccooler.com.cn`, `aerocool.io`, `aerocool.com`, `ekwb.com`,
+`alphacool.com`, `scythe-eu.com`, `silverstonetek.com`, `evga.com`,
+`endorfy.com`, `lian-li.com`, `fractal-design.com`, `zalman.com`,
+`formula-pc.ru`.
 
 Магазины (DNS, Citilink, Ozon, Wildberries, Amazon, Newegg) и
 агрегаторы/обзорщики (3DNews, Tom's Hardware, TechPowerUp, iXBT) —

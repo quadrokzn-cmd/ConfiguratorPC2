@@ -1,0 +1,551 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_017",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1106,
+      "manufacturer": "unknown",
+      "sku": "M23905",
+      "mpn": "M23905",
+      "gtin": "",
+      "model": "Cooler Intel ORIGINAL s1700 Laminar RS1 ( Al ) (M23905)",
+      "raw_names": [
+        "Cooler Intel ORIGINAL s1700 Laminar RS1 ( Al ) (M23905)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1107,
+      "manufacturer": "unknown",
+      "sku": "M23901",
+      "mpn": "M23901",
+      "gtin": "",
+      "model": "Cooler Intel Original  s1700 Laminar RM1 ( Al+Cu ) (M23901)",
+      "raw_names": [
+        "Cooler Intel Original  s1700 Laminar RM1 ( Al+Cu ) (M23901)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1108,
+      "manufacturer": "unknown",
+      "sku": "M23901w/b",
+      "mpn": "M23901w/b",
+      "gtin": "",
+      "model": "Cooler Intel Original  s1700 Laminar RM1 ( Al+Cu ) (M23901)  without box",
+      "raw_names": [
+        "Cooler Intel Original  s1700 Laminar RM1 ( Al+Cu ) (M23901)  without box"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1109,
+      "manufacturer": "unknown",
+      "sku": "BAS AUG PWM",
+      "mpn": "BAS AUG PWM",
+      "gtin": "",
+      "model": "Cooler Aerocool BAS AUG 125W/ Intel 115*/AMD/ PWM/ Clip 4713105960839",
+      "raw_names": [
+        "Cooler Aerocool BAS AUG 125W/ Intel 115*/AMD/ PWM/ Clip 4713105960839"
+      ],
+      "current": {
+        "max_tdp_watts": 125
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1110,
+      "manufacturer": "unknown",
+      "sku": "Verkho Plus PWM",
+      "mpn": "Verkho Plus PWM",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho Plus 110W/ Intel 115*/775/1200/1700 /AMD/ PWM/ Clip",
+      "raw_names": [
+        "Cooler Aerocool Verkho Plus 110W/ Intel 115*/775/1200/1700 /AMD/ PWM/ Clip"
+      ],
+      "current": {
+        "max_tdp_watts": 110
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1111,
+      "manufacturer": "unknown",
+      "sku": "Verkho i",
+      "mpn": "Verkho i",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho I 90W(4пин, 775/1155, 12.2-29.7дБ, 1200-2500об/мин, Al PWM/ Clip)",
+      "raw_names": [
+        "Cooler Aerocool Verkho I 90W(4пин, 775/1155, 12.2-29.7дБ, 1200-2500об/мин, Al PWM/ Clip)"
+      ],
+      "current": {
+        "max_tdp_watts": 90
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1113,
+      "manufacturer": "unknown",
+      "sku": "Verkho 2 PWM",
+      "mpn": "Verkho 2 PWM",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho 2 110W / PWM / Intel 115*/775/1200/1700 / AMD",
+      "raw_names": [
+        "Cooler Aerocool Verkho 2 110W / PWM / Intel 115*/775/1200/1700 / AMD"
+      ],
+      "current": {
+        "max_tdp_watts": 110
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1114,
+      "manufacturer": "unknown",
+      "sku": "Verkho 2 PLUS PWM",
+      "mpn": "Verkho 2 PLUS PWM",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho 2 PLUS PWM",
+      "raw_names": [
+        "Cooler Aerocool Verkho 2 PLUS PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1115,
+      "manufacturer": "unknown",
+      "sku": "Verkho 3",
+      "mpn": "Verkho 3",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho 3 120W/ Intel 115*/AMD/ PWM/ Clip",
+      "raw_names": [
+        "Cooler Aerocool Verkho 3 120W/ Intel 115*/AMD/ PWM/ Clip"
+      ],
+      "current": {
+        "max_tdp_watts": 120
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1117,
+      "manufacturer": "unknown",
+      "sku": "Verkho 3 Plus PWM",
+      "mpn": "Verkho 3 Plus PWM",
+      "gtin": "",
+      "model": "Cooler Aerocool Verkho 3 Plus  125W/ Intel 115*/AMD/ PWM/ Clip",
+      "raw_names": [
+        "Cooler Aerocool Verkho 3 Plus  125W/ Intel 115*/AMD/ PWM/ Clip"
+      ],
+      "current": {
+        "max_tdp_watts": 125
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1118,
+      "manufacturer": "unknown",
+      "sku": "4718009159600",
+      "mpn": "4718009159600",
+      "gtin": "",
+      "model": "Cooler Aerocool Cylon 4 145W / ARGB / PWM / Intel 115*/775/2066/2011/AMD / Heat pipe 6mm x4\"",
+      "raw_names": [
+        "Cooler Aerocool Cylon 4 145W / ARGB / PWM / Intel 115*/775/2066/2011/AMD / Heat pipe 6mm x4\""
+      ],
+      "current": {
+        "max_tdp_watts": 145
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1119,
+      "manufacturer": "unknown",
+      "sku": "Core Plus",
+      "mpn": "Core Plus",
+      "gtin": "",
+      "model": "Cooler Aerocool Core Plus  ARGB {110W / ARGB / PWM / Intel 115*/775/1200/1700 AMD / Clip\"}",
+      "raw_names": [
+        "Cooler Aerocool Core Plus  ARGB {110W / ARGB / PWM / Intel 115*/775/1200/1700 AMD / Clip\"}"
+      ],
+      "current": {
+        "max_tdp_watts": 110
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1120,
+      "manufacturer": "unknown",
+      "sku": "AIR FROST 2 FRGB 3P",
+      "mpn": "AIR FROST 2 FRGB 3P",
+      "gtin": "",
+      "model": "Cooler Aerocool Air Frost 2,  90мм, Ret",
+      "raw_names": [
+        "Cooler Aerocool Air Frost 2,  90мм, Ret"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1121,
+      "manufacturer": "unknown",
+      "sku": "4710562750188",
+      "mpn": "4710562750188",
+      "gtin": "",
+      "model": "Cooler Aerocool Air Frost Plus RGB S1700/1155/1156/1150/1366/775/AM2+/AM2/AM3/AM3+/AM4/FM1/FM2/FM3",
+      "raw_names": [
+        "Cooler Aerocool Air Frost Plus RGB S1700/1155/1156/1150/1366/775/AM2+/AM2/AM3/AM3+/AM4/FM1/FM2/FM3"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM2",
+          "AM3",
+          "AM4",
+          "FM1",
+          "FM2",
+          "FM3"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1122,
+      "manufacturer": "unknown",
+      "sku": "Frost 8 RGB",
+      "mpn": "Frost 8 RGB",
+      "gtin": "",
+      "model": "Fan Aerocool Frost 8 RGB",
+      "raw_names": [
+        "Fan Aerocool Frost 8 RGB"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1123,
+      "manufacturer": "unknown",
+      "sku": "Force 12  Black",
+      "mpn": "Force 12  Black",
+      "gtin": "",
+      "model": "Fan Aerocool Force 12 / 120mm/ 3pin+4pin/ Black",
+      "raw_names": [
+        "Fan Aerocool Force 12 / 120mm/ 3pin+4pin/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1124,
+      "manufacturer": "unknown",
+      "sku": "4718009158016",
+      "mpn": "4718009158016",
+      "gtin": "",
+      "model": "Fan Aerocool Force 12 PWM (120x120x25mm, 4-pin PWM, 500-1500 об/мин, 18.2-27.5dB) (4718009158016)",
+      "raw_names": [
+        "Fan Aerocool Force 12 PWM (120x120x25mm, 4-pin PWM, 500-1500 об/мин, 18.2-27.5dB) (4718009158016)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1125,
+      "manufacturer": "unknown",
+      "sku": "Motion 12",
+      "mpn": "Motion 12",
+      "gtin": "",
+      "model": "Fan Aerocool Motion 12 / 120mm / molex / Black",
+      "raw_names": [
+        "Fan Aerocool Motion 12 / 120mm / molex / Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1126,
+      "manufacturer": "unknown",
+      "sku": "Motion 12 Plus120",
+      "mpn": "Motion 12 Plus120",
+      "gtin": "",
+      "model": "Fan Aerocool Motion 12 Plus / 120mm/ 3pin+Molex/ Black",
+      "raw_names": [
+        "Fan Aerocool Motion 12 Plus / 120mm/ 3pin+Molex/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1127,
+      "manufacturer": "unknown",
+      "sku": "Frost 12",
+      "mpn": "Frost 12",
+      "gtin": "",
+      "model": "Fan Aerocool Frost 12 / 120mm/ 3pin+4pin/ RGB led",
+      "raw_names": [
+        "Fan Aerocool Frost 12 / 120mm/ 3pin+4pin/ RGB led"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1128,
+      "manufacturer": "unknown",
+      "sku": "FROST 12 FRGB PWM",
+      "mpn": "FROST 12 FRGB PWM",
+      "gtin": "",
+      "model": "Fan Aerocool FROST 12   FRGB 4P / 120mm/ +4pin/ RGB led FROST 12 FRGB PWM",
+      "raw_names": [
+        "Fan Aerocool FROST 12   FRGB 4P / 120mm/ +4pin/ RGB led FROST 12 FRGB PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1130,
+      "manufacturer": "unknown",
+      "sku": "4718009158122",
+      "mpn": "4718009158122",
+      "gtin": "",
+      "model": "Fan Aerocool ECLIPSE 12 RGB  4718009158122",
+      "raw_names": [
+        "Fan Aerocool ECLIPSE 12 RGB  4718009158122"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1132,
+      "manufacturer": "unknown",
+      "sku": "Astro 12 ARGB",
+      "mpn": "Astro 12 ARGB",
+      "gtin": "",
+      "model": "Вентилятор для корпуса AeroCool Astro 12 ARGB, 120мм, 1000rpm, 17.5 дБ, 6-pin, 1шт, (Astro 12 ARGB)",
+      "raw_names": [
+        "Вентилятор для корпуса AeroCool Astro 12 ARGB, 120мм, 1000rpm, 17.5 дБ, 6-pin, 1шт, (Astro 12 ARGB)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1134,
+      "manufacturer": "unknown",
+      "sku": "4710562752571",
+      "mpn": "4710562752571",
+      "gtin": "",
+      "model": "Вентилятор для корпуса Aerocool Duo 12 ARGB (120mm, 6pin, 1000 об/мин, RGB) (4710562752571)",
+      "raw_names": [
+        "Вентилятор для корпуса Aerocool Duo 12 ARGB (120mm, 6pin, 1000 об/мин, RGB) (4710562752571)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1135,
+      "manufacturer": "unknown",
+      "sku": "4711099470235",
+      "mpn": "4711099470235",
+      "gtin": "",
+      "model": "Охлаждение CPU Cooler for CPU Aerocool Cylon 3H ARGB S1155/1150/1200/1700/775/AM2+/AM2/AM3/AM3+/AM4/FM1/FM2/FM3",
+      "raw_names": [
+        "Охлаждение CPU Cooler for CPU Aerocool Cylon 3H ARGB S1155/1150/1200/1700/775/AM2+/AM2/AM3/AM3+/AM4/FM1/FM2/FM3"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM2",
+          "AM3",
+          "AM4",
+          "FM1",
+          "FM2",
+          "FM3"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1136,
+      "manufacturer": "unknown",
+      "sku": "VERKHO 2",
+      "mpn": "VERKHO 2",
+      "gtin": "",
+      "model": "Cooler Formula AC Verkho 2 Soc-AM5/AM4/1200/1700/1851 черный/синий 4-pin 15-25 VERKHO 2",
+      "raw_names": [
+        "Cooler Formula AC Verkho 2 Soc-AM5/AM4/1200/1700/1851 черный/синий 4-pin 15-25 VERKHO 2"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1137,
+      "manufacturer": "unknown",
+      "sku": "Formula Verkho Plus",
+      "mpn": "Formula Verkho Plus",
+      "gtin": "",
+      "model": "Cooler Formula AC Verkho Plus Soc-AM5/AM4/1200/1700/1851 черный/синий 4-pin 10",
+      "raw_names": [
+        "Cooler Formula AC Verkho Plus Soc-AM5/AM4/1200/1700/1851 черный/синий 4-pin 10"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1141,
+      "manufacturer": "unknown",
+      "sku": "ASTRAL PLUS FRPW 4P",
+      "mpn": "ASTRAL PLUS FRPW 4P",
+      "gtin": "",
+      "model": "Cooler Formula Astral Plus RGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34dB",
+      "raw_names": [
+        "Cooler Formula Astral Plus RGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34dB"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1142,
+      "manufacturer": "unknown",
+      "sku": "ASTRAL FRPW 2P",
+      "mpn": "ASTRAL FRPW 2P",
+      "gtin": "",
+      "model": "Cooler Formula Astral RGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34dB Al+C",
+      "raw_names": [
+        "Cooler Formula Astral RGB Soc-AM5/AM4/1200/1700/1851 черный 4-pin 17-34dB Al+C"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1143,
+      "manufacturer": "unknown",
+      "sku": "ICE BOID 2PSDB",
+      "mpn": "ICE BOID 2PSDB",
+      "gtin": "",
+      "model": "Cooler Formula Ice Boid 2PSDB Soc-AM5/AM4/1200/1700/1851 серебристый/черный 4-",
+      "raw_names": [
+        "Cooler Formula Ice Boid 2PSDB Soc-AM5/AM4/1200/1700/1851 серебристый/черный 4-"
+      ],
+      "current": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1200",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    }
+  ]
+}

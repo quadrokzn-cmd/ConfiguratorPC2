@@ -1,0 +1,418 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_009",
+  "filled_at": "2026-05-01T07:30:00Z",
+  "items": [
+    {
+      "id": 816,
+      "fields": {
+        "supported_sockets": {
+          "value": ["AM5", "AM4", "LGA1700", "LGA1851"],
+          "source_url": "https://www.arctic.de/en/blog/compatibility-upgrade-for-liquid-freezer-iii"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 817,
+      "fields": {
+        "supported_sockets": {
+          "value": ["AM5", "AM4", "LGA1700", "LGA1851"],
+          "source_url": "https://www.arctic.de/en/blog/compatibility-upgrade-for-liquid-freezer-iii"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 818,
+      "fields": {
+        "supported_sockets": {
+          "value": ["AM5", "AM4", "LGA1700", "LGA1851"],
+          "source_url": "https://www.arctic.de/en/blog/compatibility-upgrade-for-liquid-freezer-iii"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 819,
+      "fields": {
+        "supported_sockets": {
+          "value": ["AM5", "AM4", "LGA1700", "LGA1851"],
+          "source_url": "https://www.arctic.de/en/blog/compatibility-upgrade-for-liquid-freezer-iii"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 820,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для корпусных вентиляторов, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Хаб для корпусных вентиляторов, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 821,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 822,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 823,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 824,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 825,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 826,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 827,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 828,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 829,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 830,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 831,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 832,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 833,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 834,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 835,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 836,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 837,
+      "fields": {
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 838,
+      "fields": {
+        "max_tdp_watts": {
+          "value": 65,
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMA-HUNTER-V2-Top-Flow-CPU-Cooler-1851-1700-AM5/2024/18928.shtml"
+        }
+      }
+    },
+    {
+      "id": 843,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1200", "LGA1151", "LGA1150", "LGA1155"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/2021/15195.shtml"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 845,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 846,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 849,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1851", "LGA1700"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/ALTA-9-PWM-Compact-CPU-Cooler-1851-1700/2022/16194.shtml"
+        },
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    },
+    {
+      "id": 851,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1700"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/THETA-15-PWM-Compact-CPU-Cooler-1700/2022/16190.shtml"
+        }
+      }
+    },
+    {
+      "id": 853,
+      "fields": {
+        "supported_sockets": {
+          "value": ["LGA1700"],
+          "source_url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/THETA-20-PWM-1700-Compact-CPU-Cooler-1851-1700/2022/16191.shtml"
+        }
+      }
+    },
+    {
+      "id": 858,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,492 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_018",
+  "generated_at": "2026-05-01T10:12:37+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1591,
+      "manufacturer": "unknown",
+      "sku": "D7015SM-3",
+      "mpn": "D7015SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 70x70x15, втулка, 3pin, провод 25см [D7015SM-3]",
+      "raw_names": [
+        "Gembird Вентилятор 70x70x15, втулка, 3pin, провод 25см [D7015SM-3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1592,
+      "manufacturer": "unknown",
+      "sku": "FANPS",
+      "mpn": "FANPS",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x25, втулка, 2 pin, провод 30 см (FANPS)",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x25, втулка, 2 pin, провод 30 см (FANPS)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1593,
+      "manufacturer": "unknown",
+      "sku": "S8025H-3P4M",
+      "mpn": "S8025H-3P4M",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x25, гидрод., тихий, 3 pin/4pin Molex, провод 30 см (S8025H-3P4M)",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x25, гидрод., тихий, 3 pin/4pin Molex, провод 30 см (S8025H-3P4M)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1594,
+      "manufacturer": "unknown",
+      "sku": "FANCASE3/BALL",
+      "mpn": "FANCASE3/BALL",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 120x120x25mm, ball, узкий разъем 3 pin [FANCASE3/BALL]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 120x120x25mm, ball, узкий разъем 3 pin [FANCASE3/BALL]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1595,
+      "manufacturer": "unknown",
+      "sku": "FANCASE3",
+      "mpn": "FANCASE3",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 120x120x25mm, sleeve, узкий разъем 3pin [FANCASE3]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 120x120x25mm, sleeve, узкий разъем 3pin [FANCASE3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1596,
+      "manufacturer": "unknown",
+      "sku": "FANCASE/BALL",
+      "mpn": "FANCASE/BALL",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 80x80x25mm, ball, узкий разъем 3 pin [FANCASE/BALL]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 80x80x25mm, ball, узкий разъем 3 pin [FANCASE/BALL]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1597,
+      "manufacturer": "unknown",
+      "sku": "FANCASE",
+      "mpn": "FANCASE",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 80x80x25mm, sleeve, узкий разъем 3pin [FANCASE]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 80x80x25mm, sleeve, узкий разъем 3pin [FANCASE]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1598,
+      "manufacturer": "unknown",
+      "sku": "FANCASE-4",
+      "mpn": "FANCASE-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 80x80x25mm, широкий разъем 4pin [FANCASE-4]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 80x80x25mm, широкий разъем 4pin [FANCASE-4]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1599,
+      "manufacturer": "unknown",
+      "sku": "FANCASE2/BALL",
+      "mpn": "FANCASE2/BALL",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 92x92x25mm, ball, узкий разъем 3 pin [FANCASE2/BALL]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 92x92x25mm, ball, узкий разъем 3 pin [FANCASE2/BALL]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1600,
+      "manufacturer": "unknown",
+      "sku": "FANCASE2",
+      "mpn": "FANCASE2",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 92x92x25mm, sleeve, узкий разъем 3pin [FANCASE2]",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 92x92x25mm, sleeve, узкий разъем 3pin [FANCASE2]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1601,
+      "manufacturer": "unknown",
+      "sku": "D12025SM-4",
+      "mpn": "D12025SM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 120x120x25, втулка, 4 pin, провод 30 см (D12025SM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 120x120x25, втулка, 4 pin, провод 30 см (D12025SM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1602,
+      "manufacturer": "unknown",
+      "sku": "D8025HM-4",
+      "mpn": "D8025HM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 80x80x25, гидродинамический, 4 pin, провод 30 см (D8025HM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 80x80x25, гидродинамический, 4 pin, провод 30 см (D8025HM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1603,
+      "manufacturer": "unknown",
+      "sku": "D8025SM-4",
+      "mpn": "D8025SM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 80x80x25, втулка, 4 pin, провод 30 см (D8025SM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 80x80x25, втулка, 4 pin, провод 30 см (D8025SM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1604,
+      "manufacturer": "unknown",
+      "sku": "D9025HM-4",
+      "mpn": "D9025HM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 90x90x25, гидродинамический, 4 pin, провод 30 см (D9025HM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 90x90x25, гидродинамический, 4 pin, провод 30 см (D9025HM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1605,
+      "manufacturer": "unknown",
+      "sku": "D9225HM-4",
+      "mpn": "D9225HM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 92x92x25, гидродинамический, 4 pin, провод 30 см (D9225HM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 92x92x25, гидродинамический, 4 pin, провод 30 см (D9225HM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1606,
+      "manufacturer": "unknown",
+      "sku": "D9225SM-4",
+      "mpn": "D9225SM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 92x92x25, втулка, 4 pin, провод 30 см (D9225SM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 92x92x25, втулка, 4 pin, провод 30 см (D9225SM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1607,
+      "manufacturer": "unknown",
+      "sku": "D9025SM-4",
+      "mpn": "D9025SM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор для корпуса 90x90x25, втулка, 4 pin, провод 30 см (D9025SM-4)",
+      "raw_names": [
+        "Gembird Вентилятор для корпуса 90x90x25, втулка, 4 pin, провод 30 см (D9025SM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1608,
+      "manufacturer": "unknown",
+      "sku": "FANCASE/BALL-3100",
+      "mpn": "FANCASE/BALL-3100",
+      "gtin": "",
+      "model": "Gembird Вентилятор 80x80x25, подшипник, 3 pin, провод 30 см, 3100 об/мин [FANCASE/BALL-3100]",
+      "raw_names": [
+        "Gembird Вентилятор 80x80x25, подшипник, 3 pin, провод 30 см, 3100 об/мин [FANCASE/BALL-3100]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1609,
+      "manufacturer": "unknown",
+      "sku": "AC9225S22H",
+      "mpn": "AC9225S22H",
+      "gtin": "",
+      "model": "Gembird Вентилятор 92x92x25 AC 220 втулка 2 pin провод 30 см [AC9225S22H]",
+      "raw_names": [
+        "Gembird Вентилятор 92x92x25 AC 220 втулка 2 pin провод 30 см [AC9225S22H]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1610,
+      "manufacturer": "unknown",
+      "sku": "S14025H-3P4M",
+      "mpn": "S14025H-3P4M",
+      "gtin": "",
+      "model": "Gembird Вентилятор 140x140x25 гидрод тихий 3 pin/4pin Molex провод 40 см [S14025H-3P4M]",
+      "raw_names": [
+        "Gembird Вентилятор 140x140x25 гидрод тихий 3 pin/4pin Molex провод 40 см [S14025H-3P4M]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1611,
+      "manufacturer": "unknown",
+      "sku": "AC9225B22H",
+      "mpn": "AC9225B22H",
+      "gtin": "",
+      "model": "Gembird Вентилятор 92x92x25 AC 220 подшипник 2 pin провод 30 см [AC9225B22H]",
+      "raw_names": [
+        "Gembird Вентилятор 92x92x25 AC 220 подшипник 2 pin провод 30 см [AC9225B22H]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1612,
+      "manufacturer": "unknown",
+      "sku": "AC12025S22H",
+      "mpn": "AC12025S22H",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x25 AC 220 втулка 2 pin провод 30 см [AC12025S22H]",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x25 AC 220 втулка 2 pin провод 30 см [AC12025S22H]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1613,
+      "manufacturer": "unknown",
+      "sku": "AC12025B22H",
+      "mpn": "AC12025B22H",
+      "gtin": "",
+      "model": "Вентилятор Gembird 120x120x25 AC 220 подшипник 2 pin провод 30 см [AC12025B22H]",
+      "raw_names": [
+        "Вентилятор Gembird 120x120x25 AC 220 подшипник 2 pin провод 30 см [AC12025B22H]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1614,
+      "manufacturer": "unknown",
+      "sku": "S9225H-3P4M",
+      "mpn": "S9225H-3P4M",
+      "gtin": "",
+      "model": "Gembird Вентилятор 92x92x25 гидродинамический тихий 3 pin/4pin Molex провод 30 см [S9225H-3P4M]",
+      "raw_names": [
+        "Gembird Вентилятор 92x92x25 гидродинамический тихий 3 pin/4pin Molex провод 30 см [S9225H-3P4M]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1615,
+      "manufacturer": "unknown",
+      "sku": "D12025HM-4",
+      "mpn": "D12025HM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x25 гидродинамический 4 pin провод 30 см (D12025HM-4)",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x25 гидродинамический 4 pin провод 30 см (D12025HM-4)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1616,
+      "manufacturer": "unknown",
+      "sku": "D12038SM-4",
+      "mpn": "D12038SM-4",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x38 втулка 4 pin провод 40 см [D12038SM-4]",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x38 втулка 4 pin провод 40 см [D12038SM-4]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1617,
+      "manufacturer": "unknown",
+      "sku": "D6025HM-3",
+      "mpn": "D6025HM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор  60x60x25 гидродинамический 3 pin провод 25 см [D6025HM-3]",
+      "raw_names": [
+        "Gembird Вентилятор  60x60x25 гидродинамический 3 pin провод 25 см [D6025HM-3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1618,
+      "manufacturer": "unknown",
+      "sku": "D12038SM-3",
+      "mpn": "D12038SM-3",
+      "gtin": "",
+      "model": "Gembird Вентилятор 120x120x38 втулка 3 pin провод 40 см [D12038SM-3]",
+      "raw_names": [
+        "Gembird Вентилятор 120x120x38 втулка 3 pin провод 40 см [D12038SM-3]"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1619,
+      "manufacturer": "unknown",
+      "sku": "D12038HM-4",
+      "mpn": "D12038HM-4",
+      "gtin": "",
+      "model": "Вентилятор Gembird D12038HM-4 120x120x38 гидродинамический 4 pin провод 40 см",
+      "raw_names": [
+        "Вентилятор Gembird D12038HM-4 120x120x38 гидродинамический 4 pin провод 40 см"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1620,
+      "manufacturer": "unknown",
+      "sku": "D12025S12L-W",
+      "mpn": "D12025S12L-W",
+      "gtin": "",
+      "model": "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, белый (D12025S12L-W)",
+      "raw_names": [
+        "Вентилятор Gembird с подсветкой, 120x120x25, гидродин., 3pin/4pin Molex, провод 35см, белый (D12025S12L-W)"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    }
+  ]
+}

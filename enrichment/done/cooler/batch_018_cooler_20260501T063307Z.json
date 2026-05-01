@@ -1,0 +1,448 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_018",
+  "filled_at": "2026-05-01T07:15:00Z",
+  "items": [
+    {
+      "id": 1144,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Formula Ice Burg — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        }
+      }
+    },
+    {
+      "id": 1145,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Formula Ice Burg EX — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        }
+      }
+    },
+    {
+      "id": 1146,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Formula Ice Burg Plus — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        }
+      }
+    },
+    {
+      "id": 1147,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Formula Ice Burg Wh — бренд Formula отсутствует в whitelist оф. доменов кулеров; max TDP не опубликован на доступных оф. источниках"
+        }
+      }
+    },
+    {
+      "id": 1148,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1149,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1150,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1151,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1152,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1153,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1154,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1155,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1156,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1157,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1158,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1159,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1160,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1161,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1162,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1163,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1164,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1165,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1166,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер"
+        }
+      }
+    },
+    {
+      "id": 1167,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Aerocool Mirage Gold 650W — это блок питания (PSU), а не процессорный кулер; позиция ошибочно отнесена к категории cooler"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Aerocool Mirage Gold 650W — это блок питания (PSU), а не процессорный кулер; позиция ошибочно отнесена к категории cooler"
+        }
+      }
+    },
+    {
+      "id": 1168,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 120mm Triple Pack — комплект корпусных вентиляторов)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 120mm Triple Pack — комплект корпусных вентиляторов)"
+        }
+      }
+    },
+    {
+      "id": 1169,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm high-speed Triple Pack — комплект корпусных вентиляторов)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm high-speed Triple Pack — комплект корпусных вентиляторов)"
+        }
+      }
+    },
+    {
+      "id": 1170,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm Triple Pack — комплект корпусных вентиляторов)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (be quiet! Light Wings 140mm Triple Pack — комплект корпусных вентиляторов)"
+        }
+      }
+    },
+    {
+      "id": 1171,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "not published"
+        },
+        "supported_sockets": {
+          "value": [
+            "LGA1851",
+            "LGA1700",
+            "LGA1200",
+            "LGA1150",
+            "LGA1151",
+            "LGA1155",
+            "LGA2066",
+            "LGA2011",
+            "LGA2011-3",
+            "AM5",
+            "AM4"
+          ],
+          "source_url": "https://www.bequiet.com/en/watercooler/3743"
+        }
+      }
+    },
+    {
+      "id": 1172,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase M2 ARGB 120mm — отдельный корпусной вентилятор)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase M2 ARGB 120mm — отдельный корпусной вентилятор)"
+        }
+      }
+    },
+    {
+      "id": 1173,
+      "fields": {
+        "max_tdp_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase CM21-12W ARGB 120mm — отдельный корпусной вентилятор)"
+        },
+        "supported_sockets": {
+          "value": null,
+          "source_url": null,
+          "reason": "Корпусной вентилятор, не процессорный кулер (Powercase CM21-12W ARGB 120mm — отдельный корпусной вентилятор)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "category": "cooler",
+  "batch_id": "batch_041",
+  "generated_at": "2026-05-01T06:33:07+00:00",
+  "target_fields": [
+    "max_tdp_watts",
+    "supported_sockets"
+  ],
+  "case_psu_pass": false,
+  "items": [
+    {
+      "id": 1921,
+      "manufacturer": "unknown",
+      "sku": "ACFRE00144A_DP",
+      "mpn": "ACFRE00144A_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки СЖО Liquid Freezer III-360 ARGB Black CPU Water Cooler ACFRE00144A",
+      "raw_names": [
+        "Повреждение упаковки СЖО Liquid Freezer III-360 ARGB Black CPU Water Cooler ACFRE00144A"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1923,
+      "manufacturer": "unknown",
+      "sku": "Force 12  Black_DP",
+      "mpn": "Force 12  Black_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Fan Aerocool Force 12 / 120mm/ 3pin+4pin/ Black",
+      "raw_names": [
+        "Повреждение упаковки Fan Aerocool Force 12 / 120mm/ 3pin+4pin/ Black"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1924,
+      "manufacturer": "unknown",
+      "sku": "DK-03_DP",
+      "mpn": "DK-03_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler ID-Cooling DK-03  LGA1700/1200/115X/AM4/AM3/+/AM2/+/FM2/+/FM1",
+      "raw_names": [
+        "Повреждение упаковки Cooler ID-Cooling DK-03  LGA1700/1200/115X/AM4/AM3/+/AM2/+/FM2/+/FM1"
+      ],
+      "current": {
+        "supported_sockets": [
+          "LGA1700",
+          "LGA1200",
+          "LGA115X",
+          "AM4",
+          "AM3",
+          "AM2",
+          "FM2",
+          "FM1"
+        ]
+      },
+      "to_fill": [
+        "max_tdp_watts"
+      ]
+    },
+    {
+      "id": 1925,
+      "manufacturer": "unknown",
+      "sku": "TF-12015-K_DP",
+      "mpn": "TF-12015-K_DP",
+      "gtin": "",
+      "model": "Поврежденная упаковка Case Fan ID-Cooling TF-12015-K {120x120mm 3pin 1250rpm Black}",
+      "raw_names": [
+        "Поврежденная упаковка Case Fan ID-Cooling TF-12015-K {120x120mm 3pin 1250rpm Black}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1926,
+      "manufacturer": "unknown",
+      "sku": "XFAN80_DP",
+      "mpn": "XFAN80_DP",
+      "gtin": "",
+      "model": "Поврежденная упаковка Case fan Deepcool XFAN 80 {80x80x25, Molex, 20dB, 1800rpm, 82g}",
+      "raw_names": [
+        "Поврежденная упаковка Case fan Deepcool XFAN 80 {80x80x25, Molex, 20dB, 1800rpm, 82g}"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1927,
+      "manufacturer": "unknown",
+      "sku": "E97379_DP",
+      "mpn": "E97379_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Intel Original S1156/1155/1150 (Al) {PWM} ( i3/G E97379 )",
+      "raw_names": [
+        "Повреждение упаковки Cooler Intel Original S1156/1155/1150 (Al) {PWM} ( i3/G E97379 )"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1929,
+      "manufacturer": "unknown",
+      "sku": "CK-11508  PWM_DP",
+      "mpn": "CK-11508  PWM_DP",
+      "gtin": "",
+      "model": "Повреждение упаковки Cooler Deepcool CK-11508  PWM",
+      "raw_names": [
+        "Повреждение упаковки Cooler Deepcool CK-11508  PWM"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1932,
+      "manufacturer": "Aerocool",
+      "sku": "AF-1225S",
+      "mpn": "AF-1225S",
+      "gtin": "",
+      "model": "Вентилятор Chieftec AF-1225S (120мм, 27dB, 1350rpm, 3pin+Molex) RTL",
+      "raw_names": [
+        "Вентилятор Chieftec AF-1225S (120мм, 27dB, 1350rpm, 3pin+Molex) RTL"
+      ],
+      "current": {},
+      "to_fill": [
+        "max_tdp_watts",
+        "supported_sockets"
+      ]
+    },
+    {
+      "id": 1935,
+      "manufacturer": "ID-Cooling",
+      "sku": "SE-903-SD_V3",
+      "mpn": "SE-903-SD_V3",
+      "gtin": "",
+      "model": "Кулер ID-Cooling SE-903-SD (универсальный, 130W, 23.1 dB, 2000 rpm, 92мм, 3pin, медь+алюминий) RTL",
+      "raw_names": [
+        "Кулер ID-Cooling SE-903-SD (универсальный, 130W, 23.1 dB, 2000 rpm, 92мм, 3pin, медь+алюминий) RTL"
+      ],
+      "current": {
+        "max_tdp_watts": 130
+      },
+      "to_fill": [
+        "supported_sockets"
+      ]
+    }
+  ]
+}
