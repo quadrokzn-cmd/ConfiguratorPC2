@@ -662,3 +662,70 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
 Прод-метрики будут добавлены сюда после ШАГ 8 (применение через
 railway ssh после редеплоя).
 
+## 17. Storage AI-обогащение (11.6.2.6.1b) — итоги
+
+**AI-блок Storage закрыт.** Все 6 batch'ей (160 items) обработаны
+через Claude Code WebSearch/WebFetch с применением 5 защитных слоёв
+из [`storage.md`](../enrichment/prompts/storage.md). Результаты в
+`enrichment/done/storage/batch_001..006_*.json`.
+
+Импорт локально (Win11 dev, `enrich_import.py --keep-source`):
+**35 items / 37 полей** (interface 22, form_factor 15), 0 ошибок
+валидации. Подробности — в roadmap §11.6.2.6.1b. Прод-метрики
+(до/после) — там же после ШАГ 5–6.
+
+**Honest-null breakdown** (~62 полей null с reason):
+- 26 полей: External USB-SSD (валидатор-ENUM, см. §18 ниже).
+- 9 полей: U.2/U.3 form factor (валидатор-ENUM, §18).
+- 13 полей: AMD Radeon R5 — datasheet вне whitelist-доменов
+  (Galaxy/AMD-OEM, EOL, amd.com не публикует spec-страницы).
+- 12 полей: QUMO Novation — `qumo.ru` вне whitelist.
+- 18 полей: не-storage в категории (5 DDR-RAM Silicon Power/AGI/Digma
+  + 1 кулер Digma D-CPC95-PWM2, 4 поля null × 6 items = частично 18
+  с учётом разной длины to_fill).
+- 3 поля: СЭМПЛ-позиции без производителя (SCY/MS/CBR-test).
+- 1 поле: Hikvision — `hikvision.com` вне whitelist.
+- 2 поля: Micron Enterprise (5300 PRO / 7450 PRO) — `micron.com`
+  вне whitelist; Crucial-консумерская ветка не включает DC-серии.
+
+## 18. Validator storage не поддерживает USB / External / U.2 — расширить при потребности
+
+`_v_storage_form_factor` принимает только `2.5"/3.5"/M.2/mSATA`,
+`_v_storage_interface` — только `SATA/NVMe/SAS`. Это намеренное
+ограничение под текущую матрицу совместимости конфигуратора (внешние
+SSD не входят в сборку ПК). Реально продаваемые форм-факторы и
+интерфейсы, **не покрытые** валидатором, на 11.6.2.6.1b ушли в
+honest-null с reason «вне enum валидатора, техдолг расширения»:
+
+- **External USB-SSD** (~13 items): A-DATA SC740/SC750/SD620/SD810/
+  SE880, Silicon Power DS72. У них `interface ∈ {USB 3.2 Gen 1/2,
+  USB-C, Thunderbolt}`, `form_factor = External` (нет 2.5"/M.2).
+  `storage_type=SSD` и `capacity_gb` корректно пишутся в БД из
+  `current` или regex'а.
+- **U.2/U.3 enterprise SSD** (~9 items): Samsung PM1733, Intel/
+  Solidigm P4510, P4610, D7-P5510, D7-P5520, D5-P5530, P5620.
+  `form_factor = U.2` (физически 2.5", но электрически SFF-8639/U.2),
+  `interface = NVMe` (валидатор это принимает), `storage_type = SSD`
+  и `capacity_gb` штатно.
+
+**Объём пробела суммарно**: ~22 видимых items. Решение: оставить как
+есть до момента, когда конфигуратор начнёт поддерживать сборку под
+портативные SSD (внешние корпуса) или серверные шасси с U.2-слотами
+(SFF-8639). Тогда:
+
+- Расширить enum `_v_storage_form_factor` на `External` / `U.2` / `U.3`
+  / `E1.S` / `E3.S` (минимум — `External` и `U.2`).
+- Расширить enum `_v_storage_interface` на `USB 3.2 Gen 1` /
+  `USB 3.2 Gen 2` / `USB-C` / `Thunderbolt 3` / `Thunderbolt 4`.
+- Миграция БД: на текущей схеме `storages.form_factor` и
+  `storages.interface` — `TEXT` без CHECK constraint, поэтому миграция
+  чисто на уровне валидатора + повторный AI-проход по этим items без
+  правки таблицы.
+- Конфигуратор: добавить флаг «External SSD» в матрицу совместимости
+  (всегда совместим, не занимает SATA/M.2-слот мат.платы).
+
+Альтернатива (если внешние/U.2 не нужны): пометить эти 22 items
+`is_hidden=TRUE` через миграцию вида 026 (ExeGate Kingston SNA), как
+сделано на 6.0b для misclassified. Тогда они исчезнут из видимого
+каталога, и AI 6.1b честно их не трогал бы.
+

@@ -1,0 +1,210 @@
+{
+  "category": "storage",
+  "batch_id": "batch_001",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://semiconductor.samsung.com/consumer-storage/internal-ssd/980pro/",
+    "https://us.transcend-info.com/product/internal-ssd/mte300s",
+    "https://www.crucial.com/ssd/e100/ct1000e100ssd8",
+    "https://us.transcend-info.com/product/internal-ssd/ssd225s",
+    "https://www.westerndigital.com/products/internal-drives/wd-green-sn350-nvme-ssd",
+    "https://us.transcend-info.com/product/internal-ssds/ssd220",
+    "https://www.crucial.com/ssd/p310/ct4000p310ssd8",
+    "https://us.transcend-info.com/support/product/internal-ssd/ssd230s",
+    "https://us.transcend-info.com/product/internal-ssd/mte400s",
+    "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276687.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276539.html"
+  ],
+  "items": [
+    {
+      "id": 817,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Gen 2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 818,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Gen 2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 819,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 820,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 821,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/980pro/"}
+      }
+    },
+    {
+      "id": 823,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://us.transcend-info.com/product/internal-ssd/mte300s"}
+      }
+    },
+    {
+      "id": 832,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.crucial.com/ssd/e100/ct1000e100ssd8"}
+      }
+    },
+    {
+      "id": 836,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://us.transcend-info.com/product/internal-ssd/ssd225s"}
+      }
+    },
+    {
+      "id": 838,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-green-sn350-nvme-ssd"}
+      }
+    },
+    {
+      "id": 839,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://us.transcend-info.com/product/internal-ssds/ssd220"}
+      }
+    },
+    {
+      "id": 840,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://us.transcend-info.com/product/internal-ssd/mte300s"}
+      }
+    },
+    {
+      "id": 841,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 844,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.crucial.com/ssd/p310/ct4000p310ssd8"}
+      }
+    },
+    {
+      "id": 845,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://us.transcend-info.com/support/product/internal-ssd/ssd230s"}
+      }
+    },
+    {
+      "id": 847,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Gen 2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 848,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Gen 2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 849,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Type-C — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 850,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Type-C — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 851,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 Type-C — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 852,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 857,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://us.transcend-info.com/product/internal-ssd/mte300s"}
+      }
+    },
+    {
+      "id": 858,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://us.transcend-info.com/product/internal-ssd/mte400s"}
+      }
+    },
+    {
+      "id": 859,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://us.transcend-info.com/support/product/internal-ssd/ssd230s"}
+      }
+    },
+    {
+      "id": 887,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276687.html"}
+      }
+    },
+    {
+      "id": 888,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276536.html"}
+      }
+    },
+    {
+      "id": 889,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex280461.html"}
+      }
+    },
+    {
+      "id": 890,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276688.html"}
+      }
+    },
+    {
+      "id": 891,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex280462.html"}
+      }
+    },
+    {
+      "id": 892,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276539.html"}
+      }
+    },
+    {
+      "id": 893,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276683.html"}
+      }
+    }
+  ]
+}

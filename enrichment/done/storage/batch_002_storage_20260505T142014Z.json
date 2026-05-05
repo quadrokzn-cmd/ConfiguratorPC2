@@ -1,0 +1,215 @@
+{
+  "category": "storage",
+  "batch_id": "batch_002",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276689.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex280463.html",
+    "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276690.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276685.html",
+    "https://www.exegate.ru/catalogue/ssd/next/ssdm2/ex280467.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280464.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280471.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282320.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280465.html",
+    "https://www.exegate.ru/catalogue/ssd/next/ssdm2/ex280469.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282321.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280472.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280466.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282322.html",
+    "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280473.html",
+    "https://www.adata.com/en/feature/595/",
+    "https://www.solidigm.com/en/products/data-center/ssd-d3-series/ssd-d3-s4520-series-480gb-m-2-80mm-sata-6gb-s-3d4-tlc.html",
+    "https://www.solidigm.com/products/data-center/d7/p5510.html",
+    "https://www.solidigm.com/products/data-center/d3/s4510.html",
+    "https://www.solidigm.com/products/data-center/d3/s4520.html",
+    "https://www.solidigm.com/products/data-center/d7/p5520.html"
+  ],
+  "items": [
+    {
+      "id": 894,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276689.html"}
+      }
+    },
+    {
+      "id": 895,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex280463.html"}
+      }
+    },
+    {
+      "id": 896,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssd25/ex276690.html"}
+      }
+    },
+    {
+      "id": 897,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssd25/ex276685.html"}
+      }
+    },
+    {
+      "id": 899,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssdm2/ex280467.html"}
+      }
+    },
+    {
+      "id": 900,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280464.html"}
+      }
+    },
+    {
+      "id": 901,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280471.html"}
+      }
+    },
+    {
+      "id": 902,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282320.html"}
+      }
+    },
+    {
+      "id": 903,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280465.html"}
+      }
+    },
+    {
+      "id": 904,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/next/ssdm2/ex280469.html"}
+      }
+    },
+    {
+      "id": 905,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282321.html"}
+      }
+    },
+    {
+      "id": 906,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280472.html"}
+      }
+    },
+    {
+      "id": 907,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2/ex280466.html"}
+      }
+    },
+    {
+      "id": 908,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex282322.html"}
+      }
+    },
+    {
+      "id": 909,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.exegate.ru/catalogue/ssd/nextpro/ssdm2p/ex280473.html"}
+      }
+    },
+    {
+      "id": 912,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.adata.com/en/feature/595/"}
+      }
+    },
+    {
+      "id": 913,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB 3.2 — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 917,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.solidigm.com/en/products/data-center/ssd-d3-series/ssd-d3-s4520-series-480gb-m-2-80mm-sata-6gb-s-3d4-tlc.html"}
+      }
+    },
+    {
+      "id": 930,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": "NVMe", "source_url": "https://www.solidigm.com/products/data-center/d7/p5510.html"}
+      }
+    },
+    {
+      "id": 934,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": "NVMe", "source_url": "https://www.solidigm.com/products/data-center/d7/p5510.html"}
+      }
+    },
+    {
+      "id": 935,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.solidigm.com/products/data-center/d3/s4510.html"},
+        "interface": {"value": "SATA", "source_url": "https://www.solidigm.com/products/data-center/d3/s4510.html"}
+      }
+    },
+    {
+      "id": 936,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": "NVMe", "source_url": "https://www.solidigm.com/products/data-center/d7/p5510.html"}
+      }
+    },
+    {
+      "id": 937,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 938,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 942,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 945,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (P5620 серверный) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 946,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.solidigm.com/products/data-center/d3/s4520.html"}
+      }
+    },
+    {
+      "id": 947,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (P5620 серверный) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 948,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (D7-P5520) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    },
+    {
+      "id": 950,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "U.2 (D5-P5530, 2.5in PCIe) не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"}
+      }
+    }
+  ]
+}

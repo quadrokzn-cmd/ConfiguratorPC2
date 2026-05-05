@@ -1,0 +1,214 @@
+{
+  "category": "storage",
+  "batch_id": "batch_003",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://americas.kioxia.com/en-us/business/ssd/enterprise-ssd/pm7-v.html",
+    "https://www.kingston.com/en/ssd/kc600-sata-solid-state-drive",
+    "https://semiconductor.samsung.com/consumer-storage/internal-ssd/980/",
+    "https://semiconductor.samsung.com/consumer-storage/internal-ssd/870evo/",
+    "https://semiconductor.samsung.com/consumer-storage/internal-ssd/990pro/",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340_panther_sataiii",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340x_sataiii",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/ast280_m2_sataiii",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4x_m2_pcie_gen3x4",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280q4u_m2_pcie_gen4x4",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280q4l",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4u_m2_pcie_gen3x4",
+    "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4u_pro_m2_pcie_gen3x4",
+    "https://www.apacer.com/en/news/news-and-events/content/as2280f4",
+    "https://www.crucial.com/ssd/e100/ct1000e100ssd8",
+    "https://www.crucial.com/ssd/p3/ct2000p3ssd8",
+    "https://www.silicon-power.com/product-detail/slim_s55/",
+    "https://www.silicon-power.com/web/us/product-Ace_A56",
+    "https://www.silicon-power.com/product-detail/ace_a55/",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2280/"
+  ],
+  "items": [
+    {
+      "id": 958,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://americas.kioxia.com/en-us/business/ssd/enterprise-ssd/pm7-v.html"}
+      }
+    },
+    {
+      "id": 961,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.kingston.com/en/ssd/kc600-sata-solid-state-drive"}
+      }
+    },
+    {
+      "id": 962,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.kingston.com/en/ssd/kc600-sata-solid-state-drive"}
+      }
+    },
+    {
+      "id": 971,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/980/"}
+      }
+    },
+    {
+      "id": 973,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/870evo/"},
+        "interface": {"value": "SATA", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/870evo/"}
+      }
+    },
+    {
+      "id": 974,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/980/"}
+      }
+    },
+    {
+      "id": 976,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://semiconductor.samsung.com/consumer-storage/internal-ssd/990pro/"}
+      }
+    },
+    {
+      "id": 979,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340_panther_sataiii"},
+        "interface": {"value": "SATA", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340_panther_sataiii"}
+      }
+    },
+    {
+      "id": 980,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340x_sataiii"},
+        "interface": {"value": "SATA", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340x_sataiii"}
+      }
+    },
+    {
+      "id": 982,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340_panther_sataiii"},
+        "interface": {"value": "SATA", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340_panther_sataiii"}
+      }
+    },
+    {
+      "id": 983,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340x_sataiii"},
+        "interface": {"value": "SATA", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as340x_sataiii"}
+      }
+    },
+    {
+      "id": 984,
+      "fields": {
+        "interface": {"value": "SATA", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/ast280_m2_sataiii"}
+      }
+    },
+    {
+      "id": 986,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4x_m2_pcie_gen3x4"}
+      }
+    },
+    {
+      "id": 994,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280q4u_m2_pcie_gen4x4"}
+      }
+    },
+    {
+      "id": 995,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280q4l"}
+      }
+    },
+    {
+      "id": 996,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4u_m2_pcie_gen3x4"}
+      }
+    },
+    {
+      "id": 997,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280p4u_pro_m2_pcie_gen3x4"}
+      }
+    },
+    {
+      "id": 998,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/product/personal-product/detail/personal_ssd/as2280q4l"}
+      }
+    },
+    {
+      "id": 999,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/news/news-and-events/content/as2280f4"}
+      }
+    },
+    {
+      "id": 1000,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/news/news-and-events/content/as2280f4"}
+      }
+    },
+    {
+      "id": 1001,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.crucial.com/ssd/e100/ct1000e100ssd8"}
+      }
+    },
+    {
+      "id": 1004,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Бренд Micron Enterprise SSD (5300 PRO) — micron.com вне whitelist; Crucial-консумерская ветка не покрывает 5300 PRO; honest-null"}
+      }
+    },
+    {
+      "id": 1009,
+      "fields": {
+        "form_factor": {"value": "M.2", "source_url": "https://www.crucial.com/ssd/p3/ct2000p3ssd8"}
+      }
+    },
+    {
+      "id": 1011,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "Бренд Micron Enterprise SSD (7450 PRO) — micron.com вне whitelist; Crucial-консумерская ветка не покрывает; honest-null"}
+      }
+    },
+    {
+      "id": 1014,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/product-detail/slim_s55/"}
+      }
+    },
+    {
+      "id": 1015,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/web/product-A60"}
+      }
+    },
+    {
+      "id": 1016,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/web/us/product-Ace_A56"}
+      }
+    },
+    {
+      "id": 1017,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/product-detail/ace_a55/"}
+      }
+    },
+    {
+      "id": 1018,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2280/"}
+      }
+    },
+    {
+      "id": 1019,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/web/product-A60"}
+      }
+    }
+  ]
+}

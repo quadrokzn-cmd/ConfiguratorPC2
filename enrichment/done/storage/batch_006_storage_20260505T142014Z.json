@@ -1,0 +1,77 @@
+{
+  "category": "storage",
+  "batch_id": "batch_006",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://www.msi.com/Storage/SPATIUM-M580-PCIe-5.0-NVMe-M.2-FROZR/Overview",
+    "https://www.gigabyte.com/Solid-State-Drive/GIGABYTE-SSD-240GB",
+    "https://www.gigabyte.com/SSD/GIGABYTE-SSD-256GB",
+    "https://www.gigabyte.com/SSD/GIGABYTE-SSD-480GB",
+    "https://www.gigabyte.com/SSD/GIGABYTE-SSD-1TB",
+    "https://www.msi.com/Storage/SPATIUM-S270-SATA-2.5",
+    "https://www.apacer.com/en/news/news-and-events/content/as2280f4"
+  ],
+  "items": [
+    {
+      "id": 1150,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.msi.com/Storage/SPATIUM-M580-PCIe-5.0-NVMe-M.2-FROZR/Overview"}
+      }
+    },
+    {
+      "id": 1151,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.gigabyte.com/Solid-State-Drive/GIGABYTE-SSD-240GB"}
+      }
+    },
+    {
+      "id": 1152,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.gigabyte.com/SSD/GIGABYTE-SSD-256GB"}
+      }
+    },
+    {
+      "id": 1153,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.gigabyte.com/SSD/GIGABYTE-SSD-480GB"}
+      }
+    },
+    {
+      "id": 1154,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.gigabyte.com/SSD/GIGABYTE-SSD-1TB"}
+      }
+    },
+    {
+      "id": 1169,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.msi.com/Storage/SPATIUM-S270-SATA-2.5"},
+        "interface": {"value": "SATA", "source_url": "https://www.msi.com/Storage/SPATIUM-S270-SATA-2.5"}
+      }
+    },
+    {
+      "id": 1171,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "СЭМПЛ — тестовый образец без производителя/MPN; бренд SCY на whitelist отсутствует; honest-null"}
+      }
+    },
+    {
+      "id": 1172,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "СЭМПЛ — тестовый образец без производителя/MPN; бренд MS на whitelist отсутствует; honest-null"}
+      }
+    },
+    {
+      "id": 1175,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "СЭМПЛ CBR — оф. сайт cbr.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1185,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.apacer.com/en/news/news-and-events/content/as2280f4"}
+      }
+    }
+  ]
+}

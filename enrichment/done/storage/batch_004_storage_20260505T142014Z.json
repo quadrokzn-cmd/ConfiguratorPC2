@@ -1,0 +1,206 @@
+{
+  "category": "storage",
+  "batch_id": "batch_004",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://www.silicon-power.com/product-detail/slim_s55/",
+    "https://www.silicon-power.com/web/us/product-Ace_A56",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2280/",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2230/",
+    "https://www.silicon-power.com/product-detail/ace_a55/",
+    "https://www.silicon-power.com/product-detail/Slim_S56/",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_3x4_UD80/",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD85/",
+    "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_XS70/",
+    "https://www.westerndigital.com/products/internal-drives/wd-blue-sn570-nvme-ssd",
+    "https://www.westerndigital.com/products/internal-drives/wd-black-sn850-nvme-ssd",
+    "https://www.westerndigital.com/products/internal-drives/wd-blue-sa510-sata-2-5-ssd",
+    "https://www.westerndigital.com/products/internal-drives/wd-red-sa500-sata-2-5-ssd"
+  ],
+  "items": [
+    {
+      "id": 1020,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/product-detail/slim_s55/"}
+      }
+    },
+    {
+      "id": 1021,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/web/us/product-Ace_A56"}
+      }
+    },
+    {
+      "id": 1022,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2280/"}
+      }
+    },
+    {
+      "id": 1023,
+      "fields": {
+        "form_factor": {"value": "M.2", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2230/"},
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2230/"}
+      }
+    },
+    {
+      "id": 1024,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/product-detail/ace_a55/"}
+      }
+    },
+    {
+      "id": 1025,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/web/us/product-Ace_A56"}
+      }
+    },
+    {
+      "id": 1027,
+      "fields": {
+        "storage_type": {"value": "SSD", "source_url": "https://www.silicon-power.com/product-detail/Slim_S56/"}
+      }
+    },
+    {
+      "id": 1028,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/product-detail/slim_s55/"}
+      }
+    },
+    {
+      "id": 1029,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD85/"}
+      }
+    },
+    {
+      "id": 1030,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.silicon-power.com/web/us/product-Ace_A56"}
+      }
+    },
+    {
+      "id": 1031,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_3x4_UD80/"}
+      }
+    },
+    {
+      "id": 1032,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_XS70/"}
+      }
+    },
+    {
+      "id": 1034,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.silicon-power.com/product-detail/PCIe_Gen_4x4_UD90_2280/"}
+      }
+    },
+    {
+      "id": 1035,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: позиция — DDR4 DIMM-память Silicon Power, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: DDR4 DIMM, ошибочно классифицирована"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: DDR4 DIMM, ошибочно классифицирована"}
+      }
+    },
+    {
+      "id": 1036,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "External портативный USB-SSD (DS72) — не входит в текущий enum валидатора (2.5\"/3.5\"/M.2/mSATA), техдолг расширения"},
+        "interface": {"value": null, "source_url": null, "reason": "USB-A/USB-C — не входит в текущий enum валидатора (SATA/NVMe/SAS), техдолг расширения"}
+      }
+    },
+    {
+      "id": 1037,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1038,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1039,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1040,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1041,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1042,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1043,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1044,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1045,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1046,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1048,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд QUMO, оф. сайт qumo.ru вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1049,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-blue-sn570-nvme-ssd"}
+      }
+    },
+    {
+      "id": 1051,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-black-sn850-nvme-ssd"}
+      }
+    },
+    {
+      "id": 1058,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-blue-sa510-sata-2-5-ssd"}
+      }
+    },
+    {
+      "id": 1059,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-red-sa500-sata-2-5-ssd"}
+      }
+    }
+  ]
+}

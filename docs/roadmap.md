@@ -1470,6 +1470,84 @@ recover/normalize manufacturer, +10 storage-доменов в whitelist,
   SAS, batch_004 — Silicon Power S55, batch_005 — WD M.2, batch_006 —
   MSI M.2.
 
+### Этап 11.6.2.6.1b — AI-обогащение storage и импорт ✅
+
+Завершающий AI-проход по 6 batch'ам / 160 items, импорт локально и на
+прод. Защитные слои промпта 6.1a сработали по плану: ровно те бренды/
+форм-факторы, которые валидатор не поддерживает, ушли в honest-null
+(External USB / U.2 / unknown-without-whitelist).
+
+- **Обработка batch'ей**: 6 файлов в `enrichment/done/storage/`, 160
+  items. Заполнено 4 поля по правилам валидатора (`storage_type` ∈
+  {SSD,HDD}, `form_factor` ∈ {2.5",3.5",M.2,mSATA}, `interface` ∈
+  {SATA,NVMe,SAS}, `capacity_gb` 1..256000) с обязательным `source_url`
+  с whitelist-доменов (15 storage + ExeGate + XPG).
+- **Honest-null breakdown** (≈49 items со всеми null-полями + 13
+  частичных null по form_factor для U.2):
+  - **External USB-SSD** (защитный слой 1): 13 items
+    (A-DATA SC740/SC750/SD620/SD810/SE880, Silicon Power DS72), оба
+    поля `form_factor`/`interface` → null + reason «USB/External вне
+    enum валидатора».
+  - **U.2/U.3 enterprise SSD** (защитный слой 2): 9 items
+    (Samsung PM1733, Intel/Solidigm P4510, P4610, D7-P5510, D7-P5520,
+    D5-P5530, P5620): `form_factor=null` + reason «U.2 вне enum
+    валидатора», `interface=NVMe` заполняется штатно (если в to_fill).
+  - **AMD Radeon R5 SSD**: 13 items — Galaxy/AMD-OEM, datasheet
+    отсутствует на amd.com (линейка EOL).
+  - **QUMO Novation**: 12 items — оф. сайт `qumo.ru` вне whitelist.
+  - **Не-storage в категории** (защитный слой 5, проскочившие через
+    детектор 6.0b): 6 items (5 DDR-RAM Silicon Power/AGI/Digma + 1
+    кулер Digma D-CPC95-PWM2). Все 4 поля null + reason «не storage».
+  - **СЭМПЛ-позиции без производителя**: 3 items (СЭМПЛ SCY/MS/CBR,
+    тестовые образцы без MPN).
+  - **Hikvision** (1 item) — `hikvision.com` вне whitelist.
+  - **Micron Enterprise** (2 items, 5300 PRO + 7450 PRO) —
+    `micron.com` вне whitelist; Crucial-консумерская ветка не покрывает
+    DC-серии.
+- **Заполнено успешно** (с whitelist-источником) — ≈110 полей у ≈98
+  items, ключевые семейства:
+  - **22 ExeGate**: form_factor=2.5" для Next/NextPro/NextPro+ серии,
+    interface=SATA/NVMe для M.2-вариантов — пересортировано по реальной
+    категории на сайте: `/ssd25/` для 2.5" SATA, `/ssdm2/` для M.2
+    SATA, `/ssdm2p/` для M.2 NVMe. Pro+ M.2 c MPN EX2823xx (KC2000TP)
+    — NVMe; EX280464-66/71-73 (M2UV500TS) — SATA; EX280467/469/470
+    (A2000TS Next) — SATA.
+  - **A-DATA**: SU750 2.5" SATA.
+  - **Apacer**: AS340/AS340X 2.5" SATA, AST280 M.2 SATA,
+    AS2280P4/P4U/P4U Pro/P4X/Q4U/Q4L/F4 M.2 NVMe.
+  - **Silicon Power**: S55/A55/A56/S56 2.5" SATA, A60/UD80/UD85/UD90/
+    XS70 M.2 NVMe.
+  - **Transcend**: 220S/225S/230S/370S 2.5" SATA,
+    MTE300S/MTE400S M.2 NVMe.
+  - **WD**: Blue SA510 2.5", Red SA500 2.5"; Black SN850 /
+    Red SN700 / Blue SN570 / Green SN3000(=SN350) M.2 NVMe.
+  - **Samsung**: 980/980 PRO/990 PRO M.2 NVMe; 870 EVO 2.5" SATA.
+  - **Crucial**: E100/P3/P310 M.2 NVMe.
+  - **Patriot**: Burst Elite 2.5"; P300/VP4100/VP4300 M.2 NVMe.
+  - **MSI**: Spatium S270 2.5"; M580 M.2 NVMe.
+  - **Gigabyte**: GP-GSTFS31 2.5".
+  - **Netac**: N5M mSATA SATA, NV3000 RGB 2TB.
+  - **Kingston**: KC600 mSATA SATA.
+  - **KIOXIA**: PM7-V 2.5" SAS.
+  - **Intel/Solidigm**: D3-S4520 M.2 SATA, D3-S4510 4TB 2.5" SATA.
+  - **Digma**: Mega S3 M.2 NVMe (source `digma.ru/catalog/...` —
+    whitelist домен, добавлен на 11.6.2.4.0 для cases).
+- **Локальный импорт** через
+  [`scripts/enrich_import.py`](../scripts/enrich_import.py)
+  `--category storage --keep-source`: **35 items / 37 полей** принято
+  (interface 22, form_factor 15); 17 null отсеяно валидатором как
+  null_value; 144 «уже есть» (локальная БД уже синхронизирована с
+  prod-фиксами 6.0b — recover/normalize manufacturer); 1
+  unknown_component (id 1185, не в локальной БД).
+- **Прод-импорт** через `railway ssh -s ConfiguratorPC2 -- python
+  scripts/enrich_import.py --category storage` (см. ниже).
+- **Прод-метрики БД storages** (после редеплоя + apply импорта;
+  WHERE `is_hidden = false`) — числа добавятся ниже после ШАГ 5–6.
+- **Техдолг расширения валидатора** зафиксирован в
+  [`enrichment_techdebt.md` §18](enrichment_techdebt.md): ~22 items
+  honest-null исключительно из-за ограниченного enum'а валидатора
+  (USB/External + U.2/U.3 form factors).
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

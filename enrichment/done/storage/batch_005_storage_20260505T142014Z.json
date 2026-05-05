@@ -1,0 +1,213 @@
+{
+  "category": "storage",
+  "batch_id": "batch_005",
+  "filled_at": "2026-05-05T15:00:00Z",
+  "sources_used": [
+    "https://www.westerndigital.com/products/internal-drives/wd-red-sn700-nvme-ssd",
+    "https://www.patriotmemory.com/products/burst-elite-sata-iii-2-5-ssd",
+    "https://www.patriotmemory.com/products/p300-pcie-m-2-internal-ssd",
+    "https://viper.patriotmemory.com/products/viper-vp4300-pcie-m-2-gen4x4-solid-state-drive",
+    "https://viper.patriotmemory.com/products/viper-vp4100-pcie-m-2-solid-state-drive-viper-gaming-by-patriot-memory",
+    "https://www.netac.com/product/N5M-12.html",
+    "https://www.netac.com/product/NV3000-RGB-121.html",
+    "https://us.transcend-info.com/product/internal-ssd/ssd370s",
+    "https://digma.ru/catalog/it-products/components/ssd/ssd-digma-pci-e-x4-1tb-dgsm3001ts33t-mega-s3-m-2-2280-1618786/",
+    "https://www.msi.com/Storage/SPATIUM-M580-PCIe-5.0-NVMe-M.2-FROZR/Overview"
+  ],
+  "items": [
+    {
+      "id": 1063,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-red-sn700-nvme-ssd"}
+      }
+    },
+    {
+      "id": 1067,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.westerndigital.com/products/internal-drives/wd-red-sn700-nvme-ssd"}
+      }
+    },
+    {
+      "id": 1069,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://www.patriotmemory.com/products/burst-elite-sata-iii-2-5-ssd"}
+      }
+    },
+    {
+      "id": 1070,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.patriotmemory.com/products/p300-pcie-m-2-internal-ssd"}
+      }
+    },
+    {
+      "id": 1071,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://viper.patriotmemory.com/products/viper-vp4300-pcie-m-2-gen4x4-solid-state-drive"}
+      }
+    },
+    {
+      "id": 1076,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://viper.patriotmemory.com/products/viper-vp4100-pcie-m-2-solid-state-drive-viper-gaming-by-patriot-memory"}
+      }
+    },
+    {
+      "id": 1088,
+      "fields": {
+        "form_factor": {"value": "mSATA", "source_url": "https://www.netac.com/product/N5M-12.html"},
+        "interface": {"value": "SATA", "source_url": "https://www.netac.com/product/N5M-12.html"}
+      }
+    },
+    {
+      "id": 1091,
+      "fields": {
+        "form_factor": {"value": "mSATA", "source_url": "https://www.netac.com/product/N5M-12.html"},
+        "interface": {"value": "SATA", "source_url": "https://www.netac.com/product/N5M-12.html"}
+      }
+    },
+    {
+      "id": 1097,
+      "fields": {
+        "capacity_gb": {"value": 2000, "source_url": "https://www.netac.com/product/NV3000-RGB-121.html"}
+      }
+    },
+    {
+      "id": 1103,
+      "fields": {
+        "form_factor": {"value": "2.5\"", "source_url": "https://us.transcend-info.com/product/internal-ssd/ssd370s"}
+      }
+    },
+    {
+      "id": 1108,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1114,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1115,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1116,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1117,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1118,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1120,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1121,
+      "fields": {
+        "interface": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1122,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"},
+        "interface": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1123,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R3MP30 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1125,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1127,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "AMD R5 SSD (Galaxy/AMD-партнёр) не имеет product page на amd.com — линейка EOL, datasheet недоступен на whitelist-доменах"}
+      }
+    },
+    {
+      "id": 1130,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: позиция — DDR4 DIMM-память AGI, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: DDR4 DIMM, ошибочно классифицирована"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: DDR4 DIMM, ошибочно классифицирована"}
+      }
+    },
+    {
+      "id": 1132,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://digma.ru/catalog/it-products/components/ssd/ssd-digma-pci-e-x4-1tb-dgsm3001ts33t-mega-s3-m-2-2280-1618786/"}
+      }
+    },
+    {
+      "id": 1134,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM-память Digma, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM, ошибочно классифицирована"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM, ошибочно классифицирована"}
+      }
+    },
+    {
+      "id": 1135,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM-память Digma, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM, ошибочно классифицирована"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: DDR3 DIMM, ошибочно классифицирована"}
+      }
+    },
+    {
+      "id": 1136,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: позиция — кулер CPU Digma D-CPC95-PWM2, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: кулер, ошибочно классифицирован"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: кулер, ошибочно классифицирован"},
+        "capacity_gb": {"value": null, "source_url": null, "reason": "Не storage: кулер, ошибочно классифицирован"}
+      }
+    },
+    {
+      "id": 1137,
+      "fields": {
+        "storage_type": {"value": null, "source_url": null, "reason": "Не storage: DDR5 DIMM-память Digma, ошибочно классифицирована"},
+        "form_factor": {"value": null, "source_url": null, "reason": "Не storage: DDR5 DIMM, ошибочно классифицирована"},
+        "interface": {"value": null, "source_url": null, "reason": "Не storage: DDR5 DIMM, ошибочно классифицирована"}
+      }
+    },
+    {
+      "id": 1138,
+      "fields": {
+        "form_factor": {"value": null, "source_url": null, "reason": "Бренд Hikvision, оф. сайт hikvision.com вне whitelist; honest-null"}
+      }
+    },
+    {
+      "id": 1149,
+      "fields": {
+        "interface": {"value": "NVMe", "source_url": "https://www.msi.com/Storage/SPATIUM-M580-PCIe-5.0-NVMe-M.2-FROZR/Overview"}
+      }
+    }
+  ]
+}
