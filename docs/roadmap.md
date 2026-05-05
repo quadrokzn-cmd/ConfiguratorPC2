@@ -1308,9 +1308,18 @@ AI-обогащение оставшихся 143 видимых PSU без `powe
   прод-id (7 items: 1517–1523, 1485, 1480 + другие) — ожидаемое:
   PcCooler/Aerocool Mirage и часть Ginzzu/Aerocool появились на
   проде после последнего sync прайсов в локальную БД.
-- **Прод-импорт** (после деплоя `--category psu`):
-  TODO: заполнить цифрами после прогона.
-- **Honest-null breakdown по причинам** (54 items):
+- **Прод-импорт** (после деплоя 5.1b → e6/f9eebdd на проде, через
+  `railway ssh -- python scripts/enrich_import.py --category psu`):
+  **143 items в работе, 83 поля принято у 83 компонентов**, 0
+  отклонено, 60 honest-null зарегистрированы. На проде на 1 item
+  больше совпало с БД, чем локально (83 vs 82 на местной БД), —
+  Aerocool Mirage Gold 650W (id=1520) и/или Aerocool VX 550 PLUS DP
+  (id=1480) присутствуют только на проде.
+- **SQL-статистика прода `psus WHERE is_hidden=FALSE`**:
+  - **ДО 5.1b:** total=1415, power_filled=1271, power_null=144.
+  - **ПОСЛЕ 5.1b:** total=1415, power_filled=1354, power_null=61.
+  - Δ = +83 заполнения, точно совпадает с принятыми импортом.
+- **Honest-null breakdown по причинам** (60 items на проде):
   - 21 Gembird NPA-AC*/NPA-DC* + 1 BURO BUM-* — адаптеры (защитный
     слой 1).
   - 22 Ginzzu — `ginzzu.com` офлайн, datasheet на whitelist
