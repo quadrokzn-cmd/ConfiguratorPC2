@@ -1185,6 +1185,70 @@ whitelist + bulk-null fallback).
 - **Полный pytest -n auto: 1129 passed, 2 skipped** (без регрессий
   относительно baseline 11.7).
 
+### Этап 11.6.2.5.1a — Подготовка AI-обогащения PSU ✅
+
+Перед AI-обогащением 144 видимых PSU без `power_watts` (после
+аудита/прокладки 11.6.2.5.0a/b/c) выгружаем batch'и с прода и
+финализируем upstream-классификатор.
+
+- **Аудит NULL-распределения по 5 полям psus** (через
+  `railway ssh -- python -` + psycopg2 на проде, `psql` в Railway-shell
+  недоступен): `total_visible=1415`. NULL: `power_watts=144`,
+  `form_factor=1415` (100%), `efficiency_rating=1415`,
+  `modularity=1415`, `has_12vhpwr=1415`. **Решение**: на этап
+  11.6.2.5.1a берём только `power_watts` (целевое поле в
+  `TARGET_FIELDS["psu"]` — оно одно). Остальные 4 поля никогда не
+  заполнялись (100% NULL у всех 1415 PSU) — это самостоятельная
+  инициатива на 11.6.2.5.1b+; включать их сейчас раздуло бы выгрузку с
+  ~5 batch'ей до ~47 (1415 / 30).
+- **Upstream-классификатор: подключение
+  `is_likely_non_psu_in_psus` в [`orchestrator.py`](../app/services/price_loaders/orchestrator.py)**
+  (упустили в 5.0c — детектор был добавлен только в reclassify-скрипт
+  пост-фактум). Теперь оба детектора работают через OR на стадии
+  `_create_skeleton`: `is_likely_psu_adapter(...) OR
+  is_likely_non_psu_in_psus(...)` → `is_hidden=TRUE`. Любой адаптер/
+  PoE-инжектор/корпус/кулер/вентилятор, попавший в категорию `psu` при
+  загрузке прайса, сразу скрывается — AI-обогащение 5.1 не тратит
+  тулколлы на его поиск.
+- **Промпт [`enrichment/prompts/psu.md`](../enrichment/prompts/psu.md)**
+  — переписан с нуля по образцу `case.md`/`cooler.md` (313 строк):
+  - 4 защитных слоя: PSU-адаптеры (бренд-серии Gembird NPA-AC*,
+    KS-is, BURO BUM-*, ORIENT PU-C/SAP-/PA-, GOPOWER, WAVLINK,
+    Ubiquiti POE-, Бастион РАПАН), не-PSU позиции (Корпус/Кулер/
+    Вентилятор/MasterBox/AIO/Mid-tower), Ginzzu (домен `ginzzu.com`
+    офлайн → honest-null **без обращения к WebSearch**, экономия
+    тулколлов), `manufacturer="unknown"` (попытка извлечь бренд из
+    raw_name перед поиском);
+  - 25+ доменов whitelist'а (PSU-секция + кросс-категорийные вендоры,
+    тоже выпускающие PSU: thermaltake, corsair, deepcool, coolermaster,
+    aerocool, evga, silverstonetek, bequiet, xpg, raijintek, gamemax,
+    pccooler, lian-li, powerman-pc.ru, formula-pc.ru, accord-pc.ru,
+    kingprice.ru), синхронизирован с
+    [`schema.py::OFFICIAL_DOMAINS`](../app/services/enrichment/claude_code/schema.py)
+    (после расширения 5.0c +5 доменов: exegate.ru, crown-micro.com,
+    gamemaxpc.com, formulav-line.com, super-flower.com.tw);
+  - подсказки по 12 топ-NULL брендам (ExeGate PPH/PPX, Aerocool/
+    Formula KCAS «(ex Aerocool)» → formulav-line.com, Deepcool/
+    GamerStorm, CHIEFTEC SteelPower/Polaris, Thermaltake Smart/
+    Toughpower, Zalman ZM/TX/MegaMax, PcCooler KF/P5, POWERMAN PMP,
+    Crown CM-PS, XPG PROBE/PYMCORE/KYBER, Ubiquiti POE-);
+  - 3 примера input/output на реальных кейсах БД (ExeGate 650PPH,
+    Ginzzu SA400 → null, Gembird NPA-AC4 → null с двойным защитным
+    слоем).
+- **Выгрузка batch'ей с прода** через
+  [`scripts/enrich_export_prod.py`](../scripts/enrich_export_prod.py)
+  `--category psu --batch-size 30 --force`: **8 файлов в
+  enrichment/pending/psu/, 240 items**. Сюрприз: больше ожидаемых 5
+  batch'ей (144 / 30), потому что
+  [`exporter._build_select_sql`](../app/services/enrichment/claude_code/exporter.py)
+  не фильтрует по `is_hidden` — выгружает все 241 строки с
+  `power_watts IS NULL` (144 visible + 97 hidden, минус 1 уже в
+  pending/batch_001.json). 97 hidden — адаптеры/корпуса/кулеры,
+  скрытые на 5.0a/b/c; защитные слои в `psu.md` корректно вернут им
+  null, AI потратит тулколлы впустую — но это безопасный wasted-cost.
+  Считать самостоятельным техдолгом: заинженерить `is_hidden=false`
+  фильтр в exporter.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

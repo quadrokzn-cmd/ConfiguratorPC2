@@ -55,6 +55,7 @@ from shared.component_filters import (
     is_likely_drive_cage,
     is_likely_gpu_support_bracket,
     is_likely_loose_case_fan,
+    is_likely_non_psu_in_psus,
     is_likely_pcie_riser,
     is_likely_psu_adapter,
 )
@@ -216,15 +217,22 @@ def _create_skeleton(
     ):
         values["is_hidden"] = True
 
-    # Этап 11.6.2.5.0b: адаптеры/зарядные/PoE-инжекторы/dock-станции,
-    # ошибочно классифицированные как PSU (Gembird NPA-AC, KS-is, ORIENT
-    # PU-C/SAP-, BURO BUM-*, Ubiquiti POE, FSP FSP040, Бастион РАПАН),
-    # при создании скелета помечаем is_hidden=True. Защитные слои внутри
-    # детектора (ATX/SFX/80+/мощность ≥200W/серии CBR/Exegate UN/Ginzzu
-    # CB/XPG KYBER/Zalman ZM/Aerocool Mirage/Powerman PM/1STPLAYER NGDP/
-    # Thermaltake Smart) не трогают настоящие ATX-PSU. См. подробности
-    # в docs/enrichment_techdebt.md, секция «PSU audit (11.6.2.5.0a/b)».
-    if table == "psus" and is_likely_psu_adapter(row.name, row.brand):
+    # Этап 11.6.2.5.0b/c: адаптеры/зарядные/PoE-инжекторы/dock-станции
+    # (is_likely_psu_adapter) + корпуса/кулеры/вентиляторы/радиаторы,
+    # попавшие в psus (is_likely_non_psu_in_psus, добавлен на 11.6.2.5.0c —
+    # ловит ситуации «model начинается с Корпус/Кулер/Вентилятор/MasterBox/
+    # AIO/Mid-tower»). Оба детектора применяются логическим OR. При создании
+    # скелета такие позиции помечаются is_hidden=True, чтобы AI-обогащение
+    # на 11.6.2.5.1 не тратило тулколлы на поиск power_watts у не-PSU.
+    # Защитные слои внутри детекторов (ATX/SFX/80+/мощность ≥200W/серии CBR/
+    # Exegate UN/Ginzzu CB/XPG KYBER/Zalman ZM/Aerocool Mirage/Powerman PM/
+    # 1STPLAYER NGDP/Thermaltake Smart/«Блок питания»/«Power Supply») не
+    # трогают настоящие ATX-PSU. См. подробности в
+    # docs/enrichment_techdebt.md, секция «PSU audit (11.6.2.5.0a/b/c)».
+    if table == "psus" and (
+        is_likely_psu_adapter(row.name, row.brand)
+        or is_likely_non_psu_in_psus(row.name, row.brand)
+    ):
         values["is_hidden"] = True
 
     # Доп. страховка: запрашиваем актуальный список NOT NULL-колонок,
