@@ -223,3 +223,68 @@ class TestIsLikelyNonStorageDefenseLayers:
         assert is_likely_non_storage(
             "Какой-то непонятный текст без маркеров",
         ) is False
+
+
+class TestIsLikelyNonStorageRamAndCoolerMisclassified:
+    """Этап 11.6.2.7: хвост misclassified storages — попавшие в категорию
+    модули ОЗУ (Silicon Power / AGI / Digma DDR4 SO-DIMM) и одиночные
+    CPU-кулеры (Digma D-CPC95). Ловить по DDR-маркерам и явному «кулер».
+    """
+
+    def test_silicon_power_ddr4_so_dimm(self):
+        """Silicon Power DDR4 SO-DIMM 8GB — модуль ОЗУ, не накопитель.
+        В реальном raw_name есть «DDR4» и «SO-DIMM» — два независимых
+        триггера. Защита по NVMe/M.2/2280/mSATA не сработает (этих токенов
+        нет), а capacity_gb у RAM-модулей в storages обычно NULL."""
+        assert is_likely_non_storage(
+            "Silicon Power 8GB DDR4 2400MHz SO-DIMM SP008GBSFU240B02",
+            "Silicon Power",
+        ) is True
+
+    def test_agi_ddr4_dimm(self):
+        """AGI DDR4 8GB DIMM — десктопный модуль ОЗУ."""
+        assert is_likely_non_storage(
+            "AGI Memory 8GB DDR4 3200MHz DIMM AGI320008UD138",
+            "AGI",
+        ) is True
+
+    def test_digma_ddr4_so_dimm(self):
+        """Digma DDR4 8GB SO-DIMM — ноутбучный модуль ОЗУ."""
+        assert is_likely_non_storage(
+            "Digma 8GB DDR4 2666MHz SO-DIMM DGMAS42666008S",
+            "Digma",
+        ) is True
+
+    def test_digma_d_cpc95_cpu_cooler(self):
+        """Digma D-CPC95 — CPU-кулер, попавший в storages. Триггер
+        «кулер»; в имени нет ни DDR, ни накопительных маркеров —
+        защита по NVMe/M.2 не сработает, и слово «кулер» одиночно
+        ловится как mis-categorized аксессуар."""
+        assert is_likely_non_storage(
+            "Кулер для процессора Digma D-CPC95 LGA 1700/1200/115X/AM4/AM5",
+            "Digma",
+        ) is True
+
+    def test_synthetic_oem_ram_russian(self):
+        """Синтетика: «Оперативная память Kingston 16GB DDR4» —
+        классическая ошибка upstream-классификации в storages."""
+        assert is_likely_non_storage(
+            "Оперативная память Kingston 16GB DDR4 KVR26S19D8/16",
+            "Kingston",
+        ) is True
+
+    def test_synthetic_cpu_fan_for_processor(self):
+        """Синтетика: «Вентилятор для процессора 4Pin» — одиночный
+        CPU-вентилятор, ошибочно в storages."""
+        assert is_likely_non_storage(
+            "Вентилятор для процессора Cooler Master 4Pin 92mm",
+        ) is True
+
+    def test_real_ssd_with_ddr_drive_cache_text_not_matched(self):
+        """Защита: реальный SSD с упоминанием «DRAM-кэш» не должен
+        ложно матчить — там нет «DDR3/4/5» или «DIMM», только «DRAM».
+        Вдобавок защита по NVMe/M.2/2280 спасёт явно."""
+        assert is_likely_non_storage(
+            "Samsung 980 PRO 1TB NVMe M.2 2280 SSD with DRAM cache",
+            "Samsung",
+        ) is False

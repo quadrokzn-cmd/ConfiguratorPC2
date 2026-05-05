@@ -1571,6 +1571,136 @@ recover/normalize manufacturer, +10 storage-доменов в whitelist,
   (USB/External + U.2/U.3 form factors). Чтобы их закрыть, нужно либо
   расширить enum + переобогатить, либо помечать `is_hidden=TRUE`.
 
+### Этап 11.6.2.7 — Финал AI-блока: чистка storage + AI motherboard + сводная статистика ✅
+
+Замыкающий подэтап AI-блока 11.6.2.x: убирает остаточные хвосты
+после 11.6.2.6.1b (5 misclassified items в storages, 1 single-row
+data bug, 3 whitelist gaps) и закрывает последнюю «маленькую»
+категорию по AI — motherboards (3 NULL ячейки в 2 mining-платах
+AFOX). Дополнительно собирает финальную сводку покрытия по 6
+категориям AI-блока на проде.
+
+- **Расширение `is_likely_non_storage`**
+  ([`shared/component_filters.py`](../shared/component_filters.py))
+  на этапе 11.6.2.7: новые позитивные маркеры — `DDR3/4/5`,
+  `DIMM`/`UDIMM`/`SO-DIMM`, «оперативная память», `\bкулер\b` /
+  `\bcooler\b`, «вентилятор для CPU/процессора». Защитные слои
+  (capacity≥32, storage_type, NVMe/M.2/2280/mSATA в имени) — без
+  изменений. **+9 тестов** в
+  [`tests/test_shared/test_non_storage_detector.py`](../tests/test_shared/test_non_storage_detector.py)
+  (Silicon Power DDR4, AGI DDR4, Digma DDR3 SO-DIMM, Digma D-CPC95
+  CPU-кулер, оперативная память Kingston, CPU-вентилятор; +
+  негативный кейс на «Samsung 980 PRO with DRAM cache» — защита по
+  NVMe/M.2 спасает). Всего 33 теста, все зелёные.
+- **Прогон [`scripts/reclassify_storage_misclassified.py`](../scripts/reclassify_storage_misclassified.py)**:
+  - Локально: dry → 5 кандидатов (4 RAM Silicon Power/AGI/Digma + 1
+    кулер Digma D-CPC95) → apply, помечено `is_hidden=TRUE`.
+  - На проде после redeploy 11.6.2.7 — `railway ssh -- python
+    scripts/reclassify_storage_misclassified.py --dry-run` сначала,
+    затем `--apply`.
+- **Миграция [`027_fix_storage_data_bugs.sql`](../migrations/027_fix_storage_data_bugs.sql)**:
+  точечный фикс ошибочного `interface='SAS'` у `storages.id=1059`
+  (WD Red WDS100T1R0A — SATA-SSD серии Red SA500, не SAS).
+  Идемпотентно через `AND interface='SAS'`. Применено локально,
+  на прод приедет автоматически apply_migrations.py при redeploy.
+- **Whitelist expansion** в
+  [`schema.py::OFFICIAL_DOMAINS`](../app/services/enrichment/claude_code/schema.py)
+  (storage-секция 11.6.2.7) — три домена, проверенные через
+  WebFetch / WebSearch:
+  - `qumo.ru` (verified) — раздел `/catalog/ssd/`, потребительские
+    SSD QUMO Novation/Forsage/Compass.
+  - `micron.com` (verified) — client/data-center/auto SSD, родительский
+    бренд Crucial, datasheet'ы DC-серий 5300/7450 PRO только тут.
+  - `hikvision.com` (verified) — собственные SSD под маркой Hikvision
+    (D210pro, T100 Portable, E1000), datasheet'ы есть в `/content/dam/`.
+  Закрывают 15 honest-null из 11.6.2.6.1b (qumo 12, micron 2,
+  hikvision 1). Технологически разблокирует возможный re-run
+  обогащения по этим брендам, но повторный прогон AI на этом этапе
+  НЕ выполняется (объём не оправдан).
+- **AI-обогащение motherboards (inline)**: на проде осталось 3
+  NULL-ячейки в 2 строках (chipset_null=2, socket_null=1):
+  - `id=378 AFOX AFHM65-ETH8EX` — chipset NULL, socket NULL.
+  - `id=379 AFOX AFB250-BTC12EX` — chipset NULL (socket=LGA1151
+    уже корректен из regex).
+
+  Из-за малого объёма (2 платы) AI-обогащение выполнено инлайн,
+  без batch-pipeline:
+  - Минималистичный промпт-документ
+    [`enrichment/prompts/motherboard.md`](../enrichment/prompts/motherboard.md)
+    переписан по образцу `storage.md` / `psu.md`: целевые поля,
+    защитные слои (mining AFOX hard-coded факты, BGA-as-no-socket,
+    whitelist), нормализация значений, honest-null, чек-лист.
+  - Inline-скрипт [`scripts/_motherboard_inline_enrich.py`](../scripts/_motherboard_inline_enrich.py)
+    с hard-coded findings от WebSearch+WebFetch на `afox-corp.com`,
+    прогоном через `validate_field('motherboard', ...)` и прямой
+    записью в `motherboards` + upsert в `component_field_sources`
+    с `source='claude_code'`, `source_detail='from_web_search'`.
+    Запуск: локальный dry → apply, прод — `cat ... | railway ssh
+    -- python - --apply` (стандартное поведение «нет файла на
+    проде, передаём через stdin»).
+  - Результат на проде: chipset=`HM65` для id=378 (источник
+    `https://www.afox-corp.com/show-105-413-1.html`), chipset=`B250`
+    для id=379 (источник близнеца AFB250-ETH12EX
+    `https://www.afox-corp.com/index.php?...&catid=105&id=434` —
+    серия AFB250 в номенклатуре AFOX жёстко закодирована = Intel
+    B250, BTC и ETH-варианты с одним PCB и чипсетом).
+  - id=378 socket остался NULL (honest-null): на оф. странице
+    указано «CPU ON-BOARD, embedded Intel Celeron Sandy Bridge /
+    Ivy Bridge Processor on-Board», конкретного BGA-кода в spec'е
+    нет, защитный слой 2 промпта возвращает null с reason.
+- **SQL motherboards до/после** (на проде, через
+  [`scripts/_motherboard_null_audit.py`](../scripts/_motherboard_null_audit.py)):
+  | Поле          | ДО (6.1b) | ПОСЛЕ (7) | Покрытие ПОСЛЕ |
+  |---------------|----------:|----------:|---------------:|
+  | total_visible |      963  |      963  |        100.0 % |
+  | chipset       |      961  |      963  |        100.0 % |
+  | socket        |      962  |      962  |         99.9 % |
+  | memory_type   |      963  |      963  |        100.0 % |
+  | has_m2_slot   |      963  |      963  |        100.0 % |
+- **Сводная статистика AI-блока 11.6.2.x на проде** (через
+  [`scripts/_ai_block_coverage_prod.py`](../scripts/_ai_block_coverage_prod.py),
+  ключевые поля):
+
+  | Категория     | Total visible | Поле                          | % filled |
+  |---------------|--------------:|-------------------------------|---------:|
+  | gpus          |          798  | tdp_watts                     |   74.4 % |
+  | gpus          |          798  | video_outputs                 |   76.9 % |
+  | gpus          |          798  | vram_gb                       |   98.0 % |
+  | gpus          |          798  | vram_type                     |   97.9 % |
+  | coolers       |         1076  | max_tdp_watts                 |   64.4 % |
+  | coolers       |         1076  | supported_sockets             |   82.3 % |
+  | cases         |         1946  | has_psu_included              |   95.1 % |
+  | cases         |         1946  | supported_form_factors        |   91.1 % |
+  | cases         |         1946  | included_psu_watts (when has) |   96.7 % |
+  | psus          |         1415  | power_watts                   |   95.7 % |
+  | storages      |         1185  | interface                     |   97.6 % |
+  | storages      |         1185  | form_factor                   |   95.9 % |
+  | storages      |         1185  | storage_type                  |   99.4 % |
+  | storages      |         1185  | capacity_gb                   |   99.9 % |
+  | motherboards  |          963  | chipset                       |  100.0 % |
+  | motherboards  |          963  | socket                        |   99.9 % |
+  | motherboards  |          963  | memory_type                   |  100.0 % |
+  | motherboards  |          963  | has_m2_slot                   |  100.0 % |
+
+### Сводный итог блока 11.6.2.x — AI-обогащение характеристик ✅
+
+Полугодовой блок 11.6.2.x закрыл переход от единичных regex-правил
+к системному AI-обогащению характеристик через Claude Code и
+WebSearch/WebFetch. Архитектурно — общий orchestrator (exporter →
+manual prompts → importer → validators), цепочка детекторов
+мусора в `shared/component_filters.py` (case-fan, thermal-paste,
+PSU-adapter, non-storage, и т. д.) с защитными слоями, и
+whitelist оф. доменов в `schema.py::OFFICIAL_DOMAINS` (~70 доменов
+с прохождением WebFetch-верификации). По 6 категориям выходные
+покрытия (см. таблицу выше) — от 64 % (cooler max_tdp_watts, где
+half-height/profile позиции принципиально отсутствуют в
+datasheet'ах) до 99-100 % (motherboard chipset/socket/memory_type/
+has_m2_slot, storage capacity_gb/storage_type). Остаточные NULL
+зафиксированы в [`enrichment_techdebt.md`](enrichment_techdebt.md)
+как known-unknowns: §17 расширение валидатора (USB/External + U.2),
+§14/§15 EOL-бренды без datasheet (AMD R5 OEM, Ginzzu offline),
+§14 (PowerMan серверные с поправкой названия) и т. п.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил
@@ -1640,3 +1770,4 @@ recover/normalize manufacturer, +10 storage-доменов в whitelist,
 | 024_psu_misclassification.sql                   | Этап 11.6.2.5.0b |
 | 025_storage_misclassification.sql               | Этап 11.6.2.6.0b |
 | 026_storage_misclassification_kingston_bracket.sql | Этап 11.6.2.6.0b |
+| 027_fix_storage_data_bugs.sql                   | Этап 11.6.2.7    |

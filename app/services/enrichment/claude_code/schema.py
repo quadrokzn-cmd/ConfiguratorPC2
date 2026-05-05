@@ -214,6 +214,14 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "sandisk.com",         # SanDisk: Plus/Ultra/Extreme внутренние и портативные SSD
     "synology.com",        # Synology: SAT5210 / SNV3410 SSDs — собственная enterprise-серия
     "kioxia.com",          # KIOXIA (бывш. Toshiba Memory): EXCERIA G2 / EXCERIA PLUS G3 — современные NVMe SSD заменили линейку Toshiba
+    # Накопители — добавлено на Этапе 11.6.2.7 (2026-05-05, проверено
+    # WebFetch / WebSearch). Закрывают whitelist gaps по итогам прохода
+    # 11.6.2.6.1b: для qumo.ru (12 honest-null), micron.com (2),
+    # hikvision.com (1) AI-обогащение возвращало null+reason «домен не в
+    # whitelist», хотя это легитимные оф. сайты вендоров.
+    "qumo.ru",             # QUMO: каталог /catalog/ssd/ — Novation/Forsage/Compass потребительские SSD (российский бренд)
+    "micron.com",          # Micron Technology: client/data-center/auto SSDs — родительский бренд Crucial, datasheet'ы только на головном сайте
+    "hikvision.com",       # Hikvision: серии D210pro / T100 Portable / E1000 — собственные SSD под маркой Hikvision
     # SBC (одноплатные компьютеры и корпуса для них)
     "raspberrypi.com",
     "radxa.com",
