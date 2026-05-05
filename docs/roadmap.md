@@ -1051,6 +1051,88 @@ whitelist + bulk-null fallback).
   gitignored `scripts/reports/`; решение по их продвижению в `scripts/`
   proper отложено в техдолг.
 
+### Этап 11.6.2.5.0a — Аудит мусора и unknown-bucket в категории PSU ✅
+
+Запущен через `railway ssh`-обёртку
+[`scripts/_psu_audit.py`](../scripts/_psu_audit.py) на проде.
+Раскрыл три класса проблем:
+
+1. **234 NULL `psus.power_watts`** в видимом каталоге, из которых
+   232 — в bucket `manufacturer='unknown'`. AI-обогащение (этап 11.6.2.5.1)
+   без бренда не сможет искать спеку в whitelist-доменах.
+2. **9 элементов в `coolers` с PSU-маркерами**: 7 настоящих PSU
+   (Aerocool Mirage Gold 650W, PCCOOLER P5-YN750, PcCooler P5-YK850/
+   YN1000/YS850/YS1000/P3-F450) попали в coolers потому что у поставщика
+   в raw_name есть слово «PCCOOLER»/«Aerocool» в окружении кулерных
+   маркеров; ещё 2 — case-дубли уже существующих корпусов в `cases`
+   (PcCooler C3B310/C3D510).
+3. **120 «PSU-маркеров» в `cases`** — все валидные (корпуса с PSU
+   в комплекте, например, Chieftec Hawk «PSU bottom», 1STPLAYER
+   1300W в наличии). Ни один из них не подлежит миграции.
+
+Подключённая колонка PSU.brand в БД называется `psus.manufacturer`
+(не `brand`); supplier-side таблица `supplier_prices` НЕ имеет
+отдельной колонки бренда — есть только `raw_name`. Восстановление
+бренда возможно только regex'ом по raw_name.
+
+### Этап 11.6.2.5.0b — Действия на основе диагностики 5.0a ✅
+
+Системный фикс трёх проблем + закрытие пунктов техдолга #2 и #3
+(см. `docs/enrichment_techdebt.md §15`).
+
+- **Детектор `is_likely_psu_adapter`** в
+  [`shared/component_filters.py`](../shared/component_filters.py).
+  Узкие маркеры (адаптер, переходник, зарядное, charger, POE,
+  USB-PD, powerbank, dock-station, «блок питания для ноутбука»,
+  ББП) + бренд-серии гарантированно-адаптерных позиций (Gembird
+  NPA-AC/DC, KS-is, BURO BUM-*/BU-PA, ORIENT PU-C/SAP-/PA-,
+  GOPOWER, WAVLINK, FSP FSP040, Ubiquiti POE, Бастион РАПАН).
+  Три защитных слоя предотвращают ложные срабатывания на настоящих
+  ATX/SFX-PSU: (1) форм-фактор в имени (ATX/SFX/TFX/EPS/80+/модульн),
+  (2) явная мощность ≥200W, (3) серия настоящего PSU из whitelist
+  (CBR ATX, Exegate UN/PPH/PPX, Ginzzu CB/PC, XPG KYBER/CORE REACTOR,
+  Zalman ZM, Aerocool Mirage/Cylon/KCAS, Powerman PM, 1STPLAYER NGDP,
+  Thermaltake Smart, Formula VX/KCAS).
+- **33 теста** в
+  [`tests/test_shared/test_psu_adapter_detector.py`](../tests/test_shared/test_psu_adapter_detector.py)
+  на реальных raw_name из БД (positives + negatives + защитные слои).
+- **Upstream-классификация в orchestrator**: в
+  [`app/services/price_loaders/orchestrator.py`](../app/services/price_loaders/orchestrator.py)
+  по образцу case-блока (стр. 209) добавлен psu-блок — новые скелеты
+  с `table='psus'` сразу помечаются `is_hidden=TRUE`, если совпал
+  детектор. Это фиксит проблему апстрима: «исчезнувший» адаптер не
+  появится снова при следующей загрузке прайса.
+- **Скрипт `scripts/recover_psu_manufacturer.py`** — восстанавливает
+  `psus.manufacturer` для bucket 'unknown' regex-паттернами по
+  `supplier_prices.raw_name`. 25 PSU-брендов с приоритетом от длинных
+  (Cooler Master, 1STPLAYER, PCCooler, be quiet!) к коротким
+  (CBR, FSP, ACD), очистка префикса «Повреждение упаковки»/«Поврежденная
+  упаковка»/«Повреждение упраковки» (типичная опечатка поставщика)
+  перед матчингом, аудит-event на массовое обновление.
+- **Скрипт `scripts/reclassify_psu_misclassified.py`** — идемпотентно
+  прогоняет `is_likely_psu_adapter` по `psus.is_hidden=false` и помечает
+  кандидатов `is_hidden=TRUE`.
+- **Миграция [024_psu_misclassification.sql](../migrations/024_psu_misclassification.sql)**:
+  INSERT в psus 7 настоящих PSU из coolers (с правильным manufacturer
+  Aerocool/PCCOOLER/PcCooler), UPDATE coolers SET is_hidden=TRUE для
+  тех же 7 + 2 case-дублей. Идемпотентна (NOT EXISTS, проверка
+  is_hidden=FALSE перед UPDATE), на проде применяется автоматически
+  через `scripts/apply_migrations.py` при ближайшем редеплое.
+- **Локальные метрики (apply)**:
+  - reclassify_psu_misclassified: помечено `is_hidden=TRUE` — 79
+    (Ubiquiti POE 5, Cisco POE 1, FSP GROUP 1, и 72 unknown-bucket).
+  - recover_psu_manufacturer: восстановлено бренда — 662
+    (ExeGate 292, Deepcool 51, Thermaltake 51, 1STPLAYER 43,
+    Aerocool 43, CHIEFTEC 36, Ginzzu 22, XPG 22, CBR 21, Cooler Master 18,
+    Zalman 18, FSP 14, Powercase 9, Formula 9 и др.).
+- **Отложено в 5.0c**: нормализация регистра `psus.manufacturer`
+  (Deepcool/DEEPCOOL, ZALMAN/Zalman); расширение whitelist под HSPD,
+  Formula V Line, Super Flower, BLOODY, SAMA, Gooxi, Foxconn (нужен
+  web-research официальных доменов); ~25 строк cases/coolers,
+  ошибочно попавших в psus (Корпус Thermaltake, Cooler Master MasterBox,
+  Кулер DeepCool — отдельный детектор `is_likely_misc_in_psu` или
+  ручной разбор на 5.1).
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил
@@ -1117,3 +1199,4 @@ whitelist + bulk-null fallback).
 | 021_price_uploads_report_json.sql               | Этап 11.2      |
 | 022_supplier_prices_raw_name.sql                | Этап 11.4      |
 | 023_component_field_sources_source_detail.sql   | Этап 11.6.1    |
+| 024_psu_misclassification.sql                   | Этап 11.6.2.5.0b |

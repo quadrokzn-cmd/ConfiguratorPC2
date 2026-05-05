@@ -455,3 +455,153 @@ def is_likely_gpu_support_bracket(
     if _has_case_housing_hint(full):
         return False
     return bool(_GPU_SUPPORT_KEYWORDS.search(full))
+
+
+# ---------------------------------------------------------------------------
+# Детектор адаптеров / зарядных устройств / PoE-инжекторов в категории psu
+# (этап 11.6.2.5.0b).
+# ---------------------------------------------------------------------------
+# По итогам аудита 5.0a в bucket manufacturer='unknown' категории psu (232 шт)
+# обнаружились ~70 не-PSU позиций: Gembird NPA-AC* / NPA-DC* (универсальные
+# адаптеры и зарядки для ноутбуков), KS-is KS-* (универсальные адаптеры
+# / зарядные PD USB-C), BURO BUM-* / BU-PA* (ноутбучные блоки питания
+# и переходники Apple), ORIENT PU-C* / SAP-* / PA-* (DC-блоки), ББП Бастион
+# РАПАН (батарейные блоки питания для охранных систем), Ubiquiti POE-*,
+# FSP FSP040 (ноутбучный 40W), GOPOWER, WAVLINK и пр.
+#
+# Детектор работает на инверсии: сначала защитный слой ловит признаки
+# «настоящего ATX/SFX-PSU» (форм-фактор, 80+, мощность ≥200W, серии CBR/
+# Exegate UN/Ginzzu CB/PC, XPG KYBER, Zalman ZM, Aerocool Mirage/Cylon/KCAS,
+# Powerman PM, 1STPLAYER NGDP, Thermaltake Smart и т. д.). Если защита
+# сработала — возвращаем False, даже если в имени есть слово «адаптер».
+# Логика: «80+ Bronze ATX 750W "Smart BX1"» с APFC не должно ложиться по
+# слабому совпадению со словом «adapter» где-то в дополнительной строке.
+# Только потом проверяются позитивные маркеры.
+
+# Защитный слой 1 (форм-факторы и стандарт): ATX / ATX12V / ATX 3.0 / SFX /
+# TFX / EPS / явный 80+ или 80 PLUS / слово «модульн». Lookahead на
+# (?:\b|\d) нужен, чтобы поймать «ATX12V», «ATX3.0», «ATX 2.52» одинаково.
+_PSU_REAL_FORM_FACTOR = re.compile(
+    r"\bATX(?:\b|\d)|"
+    r"\bSFX\b|\bTFX\b|\bEPS\b|"
+    r"модульн|"
+    r"\b80[\s\-]?(?:\+|PLUS)\b",
+    flags=re.IGNORECASE,
+)
+
+# Защитный слой 2 (мощность ≥200W). Ловит «450W», «600 Вт», «850Вт».
+# Не ловит код модели типа «CB450» (без буквы W/Вт) и «W700» (буква
+# перед числом). Порог 200 безопасен: ноутбучные адаптеры в нашей БД
+# идут до 150Вт включительно.
+_PSU_REAL_WATTAGE = re.compile(
+    r"(?<![A-Za-z])([2-9]\d{2,3})\s*(?:W\b|Вт\b|Watt\b)",
+    flags=re.IGNORECASE,
+)
+
+# Защитный слой 3: серии гарантированно-настоящих PSU (whitelist).
+# Если в имени совпала одна из этих серий — позиция считается PSU,
+# даже если защитные слои 1-2 не сработали. Перечень основан на брендах,
+# реально встретившихся в bucket unknown (id 731-747 CBR, id 921 Exegate
+# UN450, id 1267-1277 Ginzzu CB/PC, id 1452-1463 XPG KYBER/CORE REACTOR,
+# id 1066 1STPLAYER NGDP, id 1110/1480 Aerocool VX, id 1483 Aerocool VX
+# через защиту 80+).
+_PSU_REAL_SERIES = re.compile(
+    r"\bCBR\s+ATX\b|"
+    r"\bExe[Gg]ate\s+(?:UN|UNS|XP|AA|AAA|CP|PPE|PPX|NPX|NPXE|PPH|650PPH)|"
+    r"\bGinzzu\s+(?:CB|PB|PC|MC|SA|SB)\d+|"
+    r"\bXPG\s+(?:KYBER|CORE\s+REACTOR|PROBE|PYMCORE)|"
+    r"\bZalman\s+ZM\d+|"
+    r"\bAerocool\s+(?:Mirage|Cylon|KCAS|VX)|"
+    r"\bPower[\s\-]?man\s+(?:PM|PMP)|"
+    r"\b1\s*ST\s*PLAYER\s+NGDP|"
+    r"\bThermaltake\s+(?:Smart|TR2|Toughpower)|"
+    r"\bFormula\s+(?:VX|KCAS|V\s*Line)",
+    flags=re.IGNORECASE,
+)
+
+# Позитив 1 (общие маркеры): прямые слова про адаптер/зарядку/POE/dock-
+# станцию/power-bank, а также фраза «блок питания для ноутбука/нетбука»
+# (бытовые ноутбучные зарядки часто называют «блок питания», поэтому
+# одной только подстроки «блок питания» недостаточно — нужна привязка
+# к ноутбуку/нетбуку/Apple/Lenovo и т. п.).
+_PSU_ADAPTER_KEYWORDS = re.compile(
+    r"\bадаптер\b|"
+    r"\bпереходник\b|"
+    r"\bзарядн\w+|"
+    r"\bcharger\b|charging|"
+    r"\bpower[\s\-]*delivery\b|\busb[\s\-]?pd\b|"
+    r"\bpoe\b|injector|"
+    r"powerbank|\bpower\s*bank\b|"
+    r"dock[\s\-]?station|"
+    r"блок\s+питания\s+для\s+ноутбук|"
+    r"блок\s+питания\s+для\s+нетбук|"
+    r"блок\s+питания\s+для\s+Apple|"
+    r"для\s+Яндекс|"
+    r"для\s+мониторов|"
+    r"\bББП\b",
+    flags=re.IGNORECASE,
+)
+
+# Позитив 2 (бренд-серии): Gembird NPA-AC/DC, KS-is (вся серия —
+# универсальные адаптеры/зарядки), BURO BUM-* (ноутбучные БП) и
+# BU-PA* (переходники Apple), ORIENT PU-C/USB-/SAP-/PA-, GOPOWER,
+# WAVLINK, FSP FSP040 (ноутбучный 40W), Ubiquiti POE, Бастион РАПАН.
+# Эти серии в нашей БД полностью адаптерные — совпадение бренд-серии
+# означает «не настоящий PSU».
+_PSU_ADAPTER_BRAND_SERIES = re.compile(
+    r"\bGembird\s+NPA[-\s]?(?:AC|DC)\d+\b|"
+    r"\bKS-is\b|"
+    r"\bBURO\s+BUM[-\s]?\d+|"
+    r"\bBuro\s+BU-PA\d+|"
+    r"\bORIENT\s+(?:PU-C|USB-\d|SAP-|PA-\d)|"
+    r"\bGOPOWER\b|"
+    r"\bWAVLINK\b|"
+    r"\bFSP\s*FSP\s*0\d{2}\b|"
+    r"\bUbiquiti\s+POE\b|"
+    r"Бастион\s+РАПАН",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_psu_adapter(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на адаптер питания / зарядное
+    устройство / PoE-инжектор / dock-станцию / ноутбучный блок питания,
+    ошибочно классифицированную как PSU (этап 11.6.2.5.0b).
+
+    Защита (любой → НЕ адаптер):
+    1. форм-фактор PSU в имени (ATX/SFX/TFX/EPS, 80+, модульн);
+    2. явная мощность ≥200W (\\d{3,4}\\s*W/Вт/Watt);
+    3. серия настоящего PSU из whitelist (CBR ATX, Exegate UN/PPH/PPX,
+       Ginzzu CB/PC, XPG KYBER, Zalman ZM, Aerocool Mirage/Cylon/KCAS,
+       Powerman PM, 1STPLAYER NGDP, Thermaltake Smart, Formula VX/KCAS).
+
+    Позитив (любой → адаптер):
+    * общие слова: адаптер / переходник / зарядное / charger / POE /
+      USB-PD / powerbank / dock-station / «блок питания для ноутбука»;
+    * бренд-серии: Gembird NPA-AC/DC, KS-is, BURO BUM-*/BU-PA-*,
+      ORIENT PU-C/USB-/SAP-/PA-, GOPOWER, WAVLINK, FSP FSP040,
+      Ubiquiti POE, Бастион РАПАН.
+
+    Защитное поведение: пустой name → False (нечего скрывать без
+    позитивной находки).
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+
+    if _PSU_REAL_FORM_FACTOR.search(full):
+        return False
+    if _PSU_REAL_WATTAGE.search(full):
+        return False
+    if _PSU_REAL_SERIES.search(full):
+        return False
+
+    if _PSU_ADAPTER_BRAND_SERIES.search(full):
+        return True
+    if _PSU_ADAPTER_KEYWORDS.search(full):
+        return True
+
+    return False

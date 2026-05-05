@@ -489,3 +489,50 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
    Plus 120мм" с производителем Aerocool).
 5. **Formula-mapping.** "Formula" в нашей БД на 99% — это Formula V
    Line. Подумать о добавлении `formulav-line.com` в whitelist.
+
+## 15. PSU audit (11.6.2.5.0a/b)
+
+**Контекст.** На начало этапа 5.0 в категории `psus` было 234 видимых
+строки с `power_watts IS NULL`, из которых 232 — в bucket
+`manufacturer='unknown'`. AI-обогащение не может заполнить мощность,
+пока бренд неизвестен (нечего искать в whitelist-доменах). Аудит
+[`scripts/_psu_audit.py`](../scripts/_psu_audit.py) на проде
+(этап 5.0a) показал три класса проблем.
+
+| # | Проблема | Объём | Стратегия |
+|---|---|---:|---|
+| 1 | Адаптеры/POE/charger/USB-PD/dock-station, ошибочно классифицированные как PSU. | ~70 (Gembird NPA-AC, KS-is, ORIENT PU-C/SAP-, BURO BUM-*, Ubiquiti POE, FSP FSP040, ББП Бастион РАПАН и т. д.) | Детектор `is_likely_psu_adapter` в [`shared/component_filters.py`](../shared/component_filters.py), upstream-классификация в `orchestrator.py`, разовая чистка — `scripts/reclassify_psu_misclassified.py`. |
+| 2 | 7 настоящих PSU PcCooler/Aerocool в `coolers` (PCCooler P5-YK850, Aerocool Mirage Gold, ...). | 7 + 2 case-дубля (PcCooler C3B310/C3D510 уже есть в `cases`). | Миграция [`migrations/024_psu_misclassification.sql`](../migrations/024_psu_misclassification.sql): INSERT в psus + UPDATE coolers SET is_hidden=TRUE. |
+| 3 | bucket `manufacturer='unknown'` с реальными ATX/SFX-PSU (CBR/Exegate UN/Ginzzu CB-PC/XPG KYBER/Zalman ZM/...). | ~150 | `scripts/recover_psu_manufacturer.py` — regex по `supplier_prices.raw_name`, 25 PSU-брендов с приоритетом от длинных к коротким. |
+
+**Закрыто этапом 5.0b:**
+
+- ~~#2: 7 PSU из coolers перенесены~~ — миграция 024 идемпотентна, на проде применяется автоматически через `scripts/apply_migrations.py` при ближайшем редеплое.
+- ~~#3: детектор PSU-adapter работает~~ — `is_likely_psu_adapter` подключён в orchestrator (новые прайсы скрывают адаптеры сразу при создании скелета), reclassify-скрипт идемпотентно вычистил уже существующие.
+
+**Открытое (отложено в 5.0c):**
+
+1. Нормализация регистра `psus.manufacturer` (DEEPCOOL/Deepcool, ZALMAN/Zalman, CHIEFTEC/Chieftec). По текущей БД дубли:
+   `Deepcool` 61 vs `DEEPCOOL` 12, `CHIEFTEC` 41 vs `Chieftec` 2,
+   `Zalman` 28 vs `ZALMAN` 10, `Thermaltake` 26 vs `THERMALTAKE` 3,
+   `Formula` 12 vs `FORMULA` 11 vs `Formula V` 28.
+2. Расширение whitelist под бренды без оф. домена в наборе:
+   HSPD, Formula V Line, Super Flower, BLOODY, SAMA, Gooxi, Foxconn —
+   требует web-research официальных доменов и спеков.
+3. Misc-категория «cases/coolers внутри psus»: ~25 строк
+   (`Корпус Thermaltake`, `Cooler Master MasterBox`, `Кулер DeepCool`,
+   `Вентилятор Thermaltake CT120`) попали в категорию psus при
+   первичной загрузке из-за слов «PCCOOLER»/«Cooler Master» в
+   raw_name. Детектор `is_likely_psu_adapter` их не ловит (нет маркеров
+   адаптера). Решение: либо отдельный детектор `is_likely_misc_in_psu`,
+   либо ручная переклассификация на 5.1.
+
+**Метрики этапа (локальная БД, 5.0b apply):**
+
+- Помечено `is_hidden=TRUE` детектором PSU-adapter: **79** (Ubiquiti POE 5, Cisco POE 1, FSP GROUP 1, и 72 unknown-bucket — Gembird NPA-AC*, KS-is, ORIENT, BURO, ББП Бастион).
+- Восстановлено `manufacturer` regex'ом по supplier_prices.raw_name:
+  **662** (топ: ExeGate 292, Deepcool 51, Thermaltake 51, 1STPLAYER 43,
+  Aerocool 43, CHIEFTEC 36, Ginzzu 22, XPG 22, CBR 21, Cooler Master 18).
+
+Прод-метрики будут добавлены сюда после ШАГ 9 (применение через railway ssh).
+
