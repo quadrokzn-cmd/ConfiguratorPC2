@@ -589,3 +589,76 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
   работает для всех 8 категорий, не только PSU. Покрыто тестом
   `test_export_skips_hidden_components`.
 
+## 16. Storage audit (11.6.2.6.0a/b)
+
+**Контекст.** На начало этапа 6.0 в категории `storages` было 1187
+видимых строк. NULL по обязательным/важным полям: `interface` 97,
+`form_factor` 95, `storage_type` 9, `capacity_gb` 4. Аудит
+[`scripts/_storage_audit.py`](../scripts/_storage_audit.py) на проде
+(этап 6.0a) показал четыре класса проблем.
+
+| # | Проблема | Объём | Стратегия |
+|---|---|---:|---|
+| 1 | Аксессуары, ошибочно классифицированные как storage. | 2 (`id 782` Kingston SNA-BR2/35, `id 1133` Digma DGBRT2535 — рамки 2.5"→3.5"). | Детектор `is_likely_non_storage` в [`shared/component_filters.py`](../shared/component_filters.py), upstream-классификация в `orchestrator.py`, разовая чистка — `scripts/reclassify_storage_misclassified.py`. |
+| 2 | Чужие в `motherboards`. | 3 (`id 794` ASUS E5402WVAK моноблок, `id 805` ESD-S1CL enclosure, `id 811` ESD-S1C enclosure). | Миграция [`migrations/025_storage_misclassification.sql`](../migrations/025_storage_misclassification.sql): только UPDATE → `is_hidden=TRUE`, без INSERT (ни в storages, ни куда-либо ещё). |
+| 3 | bucket `manufacturer='unknown'`. | ~315 (в основном ExeGate M.2 Next/NextPro/NextPro+, плюс отдельные Apacer/Silicon Power/Netac/WD/Patriot/Crucial и др.). | `scripts/fix_storage_manufacturer.py --recover` — regex по `model + supplier_prices.raw_name`, 30+ storage-брендов с приоритетом от длинных к коротким. |
+| 4 | Регистровый разнобой 14 канонических брендов. | 354 локально (топ: WD→Western Digital 165, ADATA→A-DATA 49, Samsung Electronics→Samsung 27, SEAGATE→Seagate 19, PATRIOT→Patriot 19, SHENZHEN KINGSPEC ELECTRONICS TECHNOLOGY CO LTD→KingSpec 18, NETAC→Netac 17, TOSHIBA→Toshiba 11, AGI TECHNOLOGY CO., LTD→AGI 9). | `scripts/fix_storage_manufacturer.py --normalize` с маппингом по lower-case ключам и prefix-match для длинных корпоративных форм («Samsung Electronics Co., Ltd.» и т. п.). |
+
+**Закрыто этапом 6.0b (2026-05-05).**
+
+- ~~#1: детектор non-storage~~ —
+  [`is_likely_non_storage`](../shared/component_filters.py) ловит
+  узким regex'ом фактический мусор (крепления для SSD/HDD, переходники
+  2.5" без контекста GB, конверсия 2.5"→3.5", card-reader/USB-hub) +
+  профилактически card-reader / кардридер / USB-hub /
+  USB-концентратор. Защитные слои: `capacity_gb ≥ 32`, непустой
+  `storage_type`, форм-факторные/технологические маркеры NVMe / M.2 /
+  2280 / mSATA / U.2 в имени. Слова «SSD»/«HDD» намеренно НЕ включены
+  в защиту — они появляются в самих триггер-фразах вида «крепления
+  для SSD/HDD» и заблокировали бы основной кейс id=782/1133. 26
+  юнит-тестов в `tests/test_shared/test_non_storage_detector.py`.
+- ~~#1: upstream-классификация~~ — в
+  [`orchestrator.py::_create_skeleton`](../app/services/price_loaders/orchestrator.py)
+  при `table == "storages"` детектор вызывается на стадии создания
+  скелета: рамка 2.5"→3.5" / card-reader / USB-hub из новых прайсов
+  скрывается сразу, AI-обогащение 6.1 не тратит тулколлы.
+- ~~#1: разовая чистка~~ — `scripts/reclassify_storage_misclassified.py`
+  идемпотентен (один audit-event, общий backup-rollback).
+- ~~#2: миграция misclassified в motherboards~~ — миграция 025
+  идемпотентна (UPDATE с `AND is_hidden = FALSE`), на проде применяется
+  через `apply_migrations.py` при ближайшем редеплое. Сохранение
+  `supplier_prices`-связок намеренно: при следующей загрузке прайсов
+  компонент остаётся скрытым, но ссылки не ломаются.
+- ~~#3 + #4: recover + normalize manufacturer~~ — единый скрипт
+  `scripts/fix_storage_manufacturer.py` с режимами `--recover` /
+  `--normalize` / `--apply` (запуск обоих режимов последовательно
+  recover → normalize). По умолчанию dry-run. Локально (`--apply`):
+  **212 recovered + 354 normalized** за один прогон, повторный запуск
+  даёт **0 + 0** (идемпотентность).
+- ~~Расширение storage-whitelist~~: **+10 доменов** в
+  `OFFICIAL_DOMAINS`, верифицированы WebFetch / WebSearch:
+  `crucial.com`, `samsung.com`, `transcend-info.com`, `adata.com`,
+  `solidigm.com`, `silicon-power.com`, `patriotmemory.com`,
+  `sandisk.com`, `synology.com`, `kioxia.com`. До 6.0b в
+  storage-секции было только 5 доменов (`kingston.com`,
+  `westerndigital.com`, `seagate.com`, `netac.com`, `apacer.com`),
+  AI-обогащение 6.1 без расширения отказывалось ходить на
+  datasheet'ы Crucial MX/BX, Samsung 980, Transcend SSD220/MTE220,
+  Patriot P210, A-DATA SU650 и т. д.
+
+**Метрики этапа (локальная БД, 6.0b apply):**
+
+- Помечено `is_hidden=TRUE` детектором non-storage: **1** (`id 1099`
+  Digma DGBRT2535 локально; на проде их два — id 782 + id 1133).
+- Восстановлено `manufacturer` (recover) regex'ом по
+  supplier_prices.raw_name: **212** (топ: ExeGate 25, Apacer 23,
+  Silicon Power 23, Netac 22, Western Digital 21, Patriot 13,
+  Crucial 11, MSI 11, A-DATA 10, Kingston 10).
+- Нормализовано `manufacturer` (normalize) к каноническим формам:
+  **354** (топ: WD→Western Digital 165, ADATA→A-DATA 49, Samsung
+  Electronics→Samsung 27, SEAGATE→Seagate 19, PATRIOT→Patriot 19,
+  SHENZHEN KINGSPEC ELECTRONICS TECHNOLOGY CO LTD→KingSpec 18).
+
+Прод-метрики будут добавлены сюда после ШАГ 8 (применение через
+railway ssh после редеплоя).
+

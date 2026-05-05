@@ -200,6 +200,20 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "seagate.com",        # Seagate: HDD
     "netac.com",          # Netac: SSD N600S, N5M, Z9
     "apacer.com",         # Apacer: SSD
+    # Накопители — добавлено на Этапе 11.6.2.6.0b (2026-05-05, проверено
+    # WebFetch). Закрывают пробелы перед AI-обогащением 11.6.2.6.1: бренды
+    # с большой долей видимых SSD/HDD в текущем каталоге, но без своих
+    # доменов в whitelist (AI отказывался ходить на datasheet'ы).
+    "crucial.com",         # Crucial (Micron): MX/BX/P3/T700 — SATA/NVMe SSD
+    "samsung.com",         # Samsung: 980 PRO / 990 PRO / 870 EVO (semiconductor.samsung.com — поддомен ловится через subdomain match)
+    "transcend-info.com",  # Transcend: SSD220S/MTE220S/MSA452T mSATA, Embedded SSDs
+    "adata.com",           # A-DATA: SU650/SU750/SU800/Legend SSD-серии
+    "solidigm.com",        # Solidigm (бывшая Intel SSD division): P41 Plus, D7, D5
+    "silicon-power.com",   # Silicon Power: A55/A58/A60, PX10/PC60 портативные, UD/PA внутренние
+    "patriotmemory.com",   # Patriot Memory: P210/P310/P400, Viper VP4300 NVMe
+    "sandisk.com",         # SanDisk: Plus/Ultra/Extreme внутренние и портативные SSD
+    "synology.com",        # Synology: SAT5210 / SNV3410 SSDs — собственная enterprise-серия
+    "kioxia.com",          # KIOXIA (бывш. Toshiba Memory): EXCERIA G2 / EXCERIA PLUS G3 — современные NVMe SSD заменили линейку Toshiba
     # SBC (одноплатные компьютеры и корпуса для них)
     "raspberrypi.com",
     "radxa.com",

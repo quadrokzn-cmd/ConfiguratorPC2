@@ -1333,6 +1333,75 @@ AI-обогащение оставшихся 143 видимых PSU без `powe
     PSU (защитный слой 2).
   - 0 EOL — все остальные модели находятся в активных каталогах.
 
+### Этап 11.6.2.6.0b — Действия по итогам аудита storages ✅
+
+Закрывает 4 класса проблем, обнаруженных аудитом 6.0a в категории
+`storages` (диагностика — `scripts/_storage_audit.py`). Подготовка
+перед AI-обогащением 11.6.2.6.1 (заполнение NULL по `interface`,
+`form_factor`, `storage_type`, `capacity_gb`).
+
+- **Детектор `is_likely_non_storage`** в
+  [`shared/component_filters.py`](../shared/component_filters.py).
+  Узкий regex по фактическому мусору («крепления для (твердотельного
+  диска|HDD|SSD)», «переходник/адаптер/рамка/кронштейн 2.5» БЕЗ
+  контекста GB/ГБ, конверсия 2.5"→3.5") + профилактически card-reader
+  / кардридер / USB-hub / USB-концентратор. Защитные слои:
+  `capacity_gb≥32`, непустой `storage_type`, форм-факторные маркеры
+  NVMe / M.2 / 2280 / mSATA / U.2 в имени. Слова «SSD»/«HDD» намеренно
+  НЕ включены в защиту — они появляются в самих триггер-фразах.
+  **26 юнит-тестов** в
+  [`tests/test_shared/test_non_storage_detector.py`](../tests/test_shared/test_non_storage_detector.py)
+  (положительные id 782 / 1133 + синтетика card-reader/USB-hub;
+  отрицательные — Samsung 980, WD Blue, Kingston A2000, Crucial MX,
+  ExeGate Next/NextPro+, Toshiba MQ, Netac N600S, Transcend mSATA).
+- **Upstream-классификатор в
+  [`orchestrator.py::_create_skeleton`](../app/services/price_loaders/orchestrator.py)**.
+  При `table == "storages"` детектор вызывается на стадии создания
+  скелета: рамка / card-reader / USB-hub из новых прайсов скрывается
+  сразу, AI-обогащение 6.1 не тратит тулколлы.
+- **`scripts/reclassify_storage_misclassified.py`** —
+  идемпотентный скрипт для разовой чистки уже существующих storages
+  (по образцу `reclassify_psu_misclassified.py`). Один audit-event,
+  общий backup-rollback, `--dry-run` по умолчанию.
+- **Миграция
+  [`migrations/025_storage_misclassification.sql`](../migrations/025_storage_misclassification.sql)**.
+  UPDATE `motherboards` SET `is_hidden=TRUE` для 3 строк (id 794
+  ASUS E5402WVAK моноблок, id 805 ESD-S1CL enclosure, id 811 ESD-S1C
+  enclosure). INSERT в storages не делается — enclosures и моноблок
+  не подходят под схему storages, достаточно скрыть. Идемпотентно
+  через `AND is_hidden = FALSE`.
+- **`scripts/fix_storage_manufacturer.py`** — единый скрипт
+  recover + normalize в одном файле (поскольку оба правят одно поле
+  `storages.manufacturer` и разводить в два файла бессмысленно).
+  Режимы:
+  - `--recover` — для bucket `'unknown'` regex по `model +
+    supplier_prices.raw_name`, 30+ паттернов с приоритетом от длинных
+    к коротким (Western Digital раньше WD, KingSpec раньше KING-SPEC и
+    т. п.). Не-накопители (по `is_likely_non_storage`) пропускаются —
+    бренд им не нужен.
+  - `--normalize` — маппинг 14 канонических форм брендов к
+    каноническим (`WD`/`Western Digital` → `Western Digital`,
+    `ADATA`/`A-DATA` → `A-DATA`, `Samsung Electronics` → `Samsung`,
+    `SHENZHEN KINGSPEC ELECTRONICS TECHNOLOGY CO LTD` → `KingSpec`
+    через prefix-match для длинных корпоративных форм, и т. д.).
+  - `--apply` — запускает оба режима последовательно (recover →
+    normalize) и применяет в БД. По умолчанию `--dry-run`.
+- **Whitelist-расширение под storage** в
+  [`schema.py::OFFICIAL_DOMAINS`](../app/services/enrichment/claude_code/schema.py):
+  **+10 доменов**, верифицированы WebFetch / WebSearch:
+  `crucial.com`, `samsung.com`, `transcend-info.com`, `adata.com`,
+  `solidigm.com`, `silicon-power.com`, `patriotmemory.com`,
+  `sandisk.com`, `synology.com`, `kioxia.com`. До 6.0b в
+  storage-секции whitelist было только 5 доменов
+  (`kingston.com`, `westerndigital.com`, `seagate.com`, `netac.com`,
+  `apacer.com`).
+- **Локальные метрики (apply)**: 1 помечено `is_hidden=TRUE`
+  (`id 1099` Digma DGBRT2535; на проде их два — id 782 + id 1133),
+  **212 recovered + 354 normalized** за один прогон,
+  повторный — 0 + 0 (идемпотентность).
+- **pytest -n auto**: **1156 passed + 2 skipped** (~59 сек), 0
+  регрессий.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил
@@ -1400,3 +1469,4 @@ AI-обогащение оставшихся 143 видимых PSU без `powe
 | 022_supplier_prices_raw_name.sql                | Этап 11.4      |
 | 023_component_field_sources_source_detail.sql   | Этап 11.6.1    |
 | 024_psu_misclassification.sql                   | Этап 11.6.2.5.0b |
+| 025_storage_misclassification.sql               | Этап 11.6.2.6.0b |

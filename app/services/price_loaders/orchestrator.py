@@ -56,6 +56,7 @@ from shared.component_filters import (
     is_likely_gpu_support_bracket,
     is_likely_loose_case_fan,
     is_likely_non_psu_in_psus,
+    is_likely_non_storage,
     is_likely_pcie_riser,
     is_likely_psu_adapter,
 )
@@ -233,6 +234,17 @@ def _create_skeleton(
         is_likely_psu_adapter(row.name, row.brand)
         or is_likely_non_psu_in_psus(row.name, row.brand)
     ):
+        values["is_hidden"] = True
+
+    # Этап 11.6.2.6.0b: рамки-переходники 2.5"→3.5", card-reader, USB-hub
+    # и прочие аксессуары, ошибочно классифицированные как storage. При
+    # создании скелета помечаем is_hidden=True, чтобы AI-обогащение
+    # 11.6.2.6.1 не тратило тулколлы на поиск capacity_gb / interface
+    # у рамки SNA-BR2/35. Защитные слои детектора (capacity_gb≥32 /
+    # storage_type / форм-факторы NVMe/M.2/2280/mSATA/U.2) не трогают
+    # настоящие SSD/HDD топ-брендов. См. подробности в
+    # docs/enrichment_techdebt.md, секция «Storage audit (11.6.2.6.0a/b)».
+    if table == "storages" and is_likely_non_storage(row.name, row.brand):
         values["is_hidden"] = True
 
     # Доп. страховка: запрашиваем актуальный список NOT NULL-колонок,
