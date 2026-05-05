@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Автозагрузка прайсов — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6">
+    <h1 class="portal-greeting">Автозагрузка прайсов</h1>
+    <p class="portal-greeting-sub">
+      Ежедневно в 04:00 МСК планировщик портала тянет прайсы у поставщиков
+      с включённой автозагрузкой и обновляет <code>supplier_prices</code>
+      без участия человека. Этот раздел показывает состояние подключений
+      и журнал последних запусков. Чтобы загрузить прайс прямо сейчас —
+      нажмите «Запустить» (кнопка блокируется на {{ throttle_minutes }} минут после
+      каждого запуска, чтобы не уйти в rate-limit).
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+
+  {# === Сводка по 6 поставщикам ============================================ #}
+  <section class="card overflow-hidden mb-6">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Поставщики</h2>
+    </div>
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Поставщик</th>
+          <th class="text-left w-32">Канал</th>
+          <th class="text-left w-28">Авто</th>
+          <th class="text-left w-28">Статус</th>
+          <th class="text-left w-44">Последний успех</th>
+          <th class="text-left">Последняя ошибка</th>
+          <th class="text-right w-44">Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in suppliers %}
+        <tr data-testid="auto-row-{{ s.slug }}">
+          <td class="text-ink-primary font-medium">{{ s.name }}</td>
+          <td class="text-ink-secondary">{{ s.channel_label }}</td>
+          <td>
+            {% if s.has_fetcher %}
+              <form method="post" action="/admin/auto-price-loads/{{ s.slug }}/toggle"
+                    class="inline-block">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="submit"
+                        class="btn btn-sm {% if s.enabled %}btn-primary{% else %}btn-secondary{% endif %}"
+                        data-testid="toggle-{{ s.slug }}">
+                  {% if s.enabled %}ON{% else %}OFF{% endif %}
+                </button>
+              </form>
+            {% else %}
+              <span class="badge badge-neutral">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if s.status == 'success' %}
+              <span class="badge badge-success">success</span>
+            {% elif s.status == 'running' %}
+              <span class="badge badge-warning">running</span>
+            {% elif s.status == 'error' %}
+              <span class="badge badge-danger">error</span>
+            {% else %}
+              <span class="badge badge-neutral">{{ s.status }}</span>
+            {% endif %}
+          </td>
+          <td class="text-ink-secondary text-small font-mono whitespace-nowrap">
+            {{ s.last_success_msk }}
+          </td>
+          <td class="text-ink-secondary text-small">
+            {% if s.last_error_message %}
+              <span class="text-danger-500" title="{{ s.last_error_message }}">
+                {{ s.last_error_message|truncate(80, true, '…') }}
+              </span>
+              <div class="text-caption text-ink-muted">{{ s.last_error_msk }}</div>
+            {% else %}
+              <span class="text-ink-muted">—</span>
+            {% endif %}
+          </td>
+          <td class="text-right">
+            {% if s.has_fetcher %}
+              <form method="post" action="/admin/auto-price-loads/{{ s.slug }}/run"
+                    class="inline-block"
+                    onsubmit="return confirm('Запустить автозагрузку прайса для «{{ s.name }}»? Это может занять несколько минут.');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="submit"
+                        class="btn btn-sm btn-secondary"
+                        data-testid="run-{{ s.slug }}"
+                        {% if s.run_disabled %}disabled title="{{ s.run_disabled_reason }}"{% endif %}>
+                  Запустить
+                </button>
+              </form>
+            {% else %}
+              <button type="button" class="btn btn-sm btn-secondary"
+                      data-testid="run-{{ s.slug }}"
+                      disabled title="Канал не подключён">
+                Запустить
+              </button>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  {# === Журнал последних запусков ========================================== #}
+  <section class="card overflow-hidden">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Журнал запусков</h2>
+      <p class="text-caption text-ink-muted">
+        Последние {{ runs|length }} записей. Полная история — в журнале действий.
+      </p>
+    </div>
+    {% if runs %}
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left w-44">Старт (МСК)</th>
+          <th class="text-left">Поставщик</th>
+          <th class="text-left w-28">Тип</th>
+          <th class="text-left w-28">Статус</th>
+          <th class="text-left w-44">Финиш (МСК)</th>
+          <th class="text-left">Ошибка</th>
+          <th class="text-right w-32">price_upload</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in runs %}
+        <tr data-testid="run-row-{{ r.id }}">
+          <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
+            {{ r.started_msk }}
+          </td>
+          <td class="text-ink-primary">{{ r.supplier_slug }}</td>
+          <td class="text-ink-secondary text-small">{{ r.triggered_by }}</td>
+          <td>
+            {% if r.status == 'success' %}
+              <span class="badge badge-success">success</span>
+            {% elif r.status == 'running' %}
+              <span class="badge badge-warning">running</span>
+            {% else %}
+              <span class="badge badge-danger">{{ r.status }}</span>
+            {% endif %}
+          </td>
+          <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
+            {{ r.finished_msk }}
+          </td>
+          <td class="text-ink-secondary text-small">
+            {% if r.error_message %}
+              <span class="text-danger-500">{{ r.error_message|truncate(80, true, '…') }}</span>
+            {% else %}
+              <span class="text-ink-muted">—</span>
+            {% endif %}
+          </td>
+          <td class="text-right text-ink-secondary font-mono text-small">
+            {% if r.price_upload_id %}#{{ r.price_upload_id }}{% else %}—{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="card-pad pt-2">
+      <p class="text-ink-muted text-small">Запусков ещё не было.</p>
+    </div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

@@ -76,3 +76,10 @@ ACTION_PRICE_UPLOAD_VIEW     = "price_upload.view"
 ACTION_PRICE_UPLOAD_START    = "price_upload.start"
 ACTION_PRICE_UPLOAD_COMPLETE = "price_upload.complete"
 ACTION_PRICE_UPLOAD_FAILED   = "price_upload.failed"
+
+
+# --- Auto price loads (этап 12.3: автозагрузка прайсов от поставщиков) -
+
+ACTION_AUTO_PRICE_VIEW   = "auto_price.view"
+ACTION_AUTO_PRICE_RUN    = "auto_price.run"
+ACTION_AUTO_PRICE_TOGGLE = "auto_price.toggle"

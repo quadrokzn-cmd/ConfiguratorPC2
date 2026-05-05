@@ -835,3 +835,48 @@ def load_price(
         logger.warning("auto-hook OpenAI пропущен из-за ошибки: %s", exc)
 
     return result
+
+
+# ---------------------------------------------------------------------------
+# Этап 12.3: общий вход «строки уже распарсены» для авто-загрузчиков по API.
+# ---------------------------------------------------------------------------
+
+def save_price_rows(
+    *,
+    supplier_name: str,
+    source: str,
+    rows,
+) -> dict:
+    """Прогоняет уже распарсенные PriceRow через тот же pipeline, что и
+    XLSX-loader: supplier_prices upsert, mapping, unmapped, disappeared,
+    запись price_uploads.
+
+    Используется auto-fetcher'ами (app.services.auto_price.fetchers.*),
+    которые получают данные не из файла, а из REST-API/IMAP/URL.
+
+    Аргументы:
+      supplier_name — точное имя поставщика как в suppliers.name.
+      source        — что попадёт в price_uploads.filename. Для API —
+                      условное имя вида 'auto_treolan_api_2026-05-05.json',
+                      чтобы UI журнала отличал автозагрузки от ручных.
+      rows          — Iterable[PriceRow].
+
+    Возвращает тот же dict, что и load_price() (с upload_id, статусом,
+    счётчиками и duration_seconds).
+    """
+    rows_list = list(rows)
+    _supplier = supplier_name  # лишь чтобы не путаться с class-attr ниже
+
+    class _RowsLoader(BasePriceLoader):
+        supplier_name = _supplier  # совпадает с suppliers.name
+
+        @classmethod
+        def detect(cls, filename: str) -> bool:  # noqa: ARG003
+            # Авто-fetcher'ы вызываются явно через runner, имя файла
+            # никем не парсится.
+            return False
+
+        def iter_rows(self, _filepath):  # noqa: ARG002
+            yield from rows_list
+
+    return load_price(source, loader=_RowsLoader())

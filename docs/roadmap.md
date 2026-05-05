@@ -1730,6 +1730,51 @@ has_m2_slot, storage capacity_gb/storage_type). Остаточные NULL
   с инструкциями по `-n0`/`-p no:xdist` для отладки одного теста.
 - Всего после этапа — **947 passed + 2 skipped**, баг-в-баг с baseline.
 
+### Этап 12.3 — Автозагрузка прайса Treolan через REST API + общий каркас auto_price_loads ✅
+
+Первый подэтап блока 12.x — переход от ручной загрузки прайсов
+(`/admin/price-uploads`, этап 11.2) к ежедневной автоматической
+тяге через APScheduler. На 12.3 подключён один канал — Treolan REST API
+(JWT Bearer, `POST /v1/Catalog/Get` со всем складом). Заодно заложен
+общий каркас:
+
+- **Таблицы** `auto_price_loads` (state по 6 поставщикам) и
+  `auto_price_load_runs` (журнал каждого запуска). Миграция
+  `028_auto_price_loads.sql`. Seed по 6 slug'ам, `enabled=FALSE`.
+- **Сервис-слой** в `app/services/auto_price/`:
+  - `base.BaseAutoFetcher` + регистр `@register_fetcher` —
+    добавление нового канала = новый класс-наследник.
+  - `runner.run_auto_load(slug, triggered_by)` — оркестратор:
+    пишет run-row, ловит ошибки, пушит в Sentry, обновляет state.
+  - `MANUAL_THROTTLE_SECONDS = 300` — защита кнопки «Запустить»
+    в UI от случайного даблклика и rate-limit поставщика.
+- **TreolanFetcher** в `fetchers/treolan.py`:
+  - кеш JWT-токена в process memory (sub-1ч до exp);
+  - fallback с `/v1/auth/token` на `/v1/auth/login`;
+  - retry 3× с backoff 5/15/45 на 5xx и сетевых ошибках;
+  - 401 → один сброс кеша и повтор;
+  - конвертация USD→RUB через свежий `exchange_rates`.
+- **Общий save-pipeline**: `orchestrator.save_price_rows()` — внутренний
+  фасад, через который XLSX-loader и API-fetcher идут в одну и ту же
+  pipeline (upsert supplier_prices, mapping, disappeared, price_uploads).
+  Старый `load_price(filepath, ...)` не тронут — существующие тесты
+  адаптеров продолжают работать.
+- **APScheduler** в `portal/scheduler.py`: новый job
+  `auto_price_loads_daily` cron 04:00 МСК (после daily_backup в 03:00 —
+  если что-то сломает supplier_prices, есть свежий снимок). Активация
+  под тем же `RUN_BACKUP_SCHEDULER`/`APP_ENV=production`.
+- **UI** `/admin/auto-price-loads` (admin-only): таблица 6 поставщиков
+  с переключателем «Авто», кнопкой «Запустить», статусом и описанием
+  последней ошибки; журнал последних 20 запусков. Audit-actions
+  `auto_price.view`/`auto_price.run`/`auto_price.toggle`.
+- **Env-переменные** (Railway portal-сервис): `TREOLAN_API_LOGIN`,
+  `TREOLAN_API_PASSWORD`, опционально `TREOLAN_API_BASE_URL`.
+
+Что **отложено** для 12.1 / 12.2 / 12.4:
+- IMAP-канал (OCS, Merlion-почта).
+- Прямые URL-каналы (Netlab, Ресурс Медиа, Green Place).
+- UI-конфиг кред в портале (сейчас — только через env).
+
 ## Принцип ведения этапов
 
 - Один этап = одна логически связанная фича (или редизайн целого
@@ -1771,3 +1816,4 @@ has_m2_slot, storage capacity_gb/storage_type). Остаточные NULL
 | 025_storage_misclassification.sql               | Этап 11.6.2.6.0b |
 | 026_storage_misclassification_kingston_bracket.sql | Этап 11.6.2.6.0b |
 | 027_fix_storage_data_bugs.sql                   | Этап 11.6.2.7    |
+| 028_auto_price_loads.sql                        | Этап 12.3        |

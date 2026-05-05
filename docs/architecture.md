@@ -232,6 +232,33 @@ Pipeline:
   парсинга НЕ продублирована: portal-роутер импортирует
   `app.services.price_loaders.orchestrator.load_price` напрямую — это
   тот же код, что у CLI.
+- Авто — `app.services.auto_price.fetchers.*` через
+  `orchestrator.save_price_rows()` (см. ниже).
+
+### `auto_price/` — автозагрузка прайсов (этап 12.3, блок 12.x)
+
+Каркас для ежедневной автоматической тяги прайсов от 6 поставщиков
+без участия человека (в отличие от ручной `/admin/price-uploads`).
+
+- `base.BaseAutoFetcher` + регистр `@register_fetcher` — добавление
+  нового канала = новый класс-наследник с `supplier_slug` и
+  `fetch_and_save()`.
+- `runner.run_auto_load(slug, triggered_by)` — оркестратор: пишет
+  state в `auto_price_loads` и журнал в `auto_price_load_runs`,
+  ловит ошибки в Sentry, throttle для `manual` (5 мин).
+- `fetchers/treolan.py` — REST API + JWT (12.3). На очереди: IMAP
+  (12.1/12.2), URL (12.4) — см. [auto_price_loads.md](auto_price_loads.md).
+- Save-pipeline общий с XLSX-loader'ом: `auto_price.fetchers.*` собирают
+  `PriceRow[]` и зовут внутренний фасад
+  `orchestrator.save_price_rows(supplier_name, source, rows)` — тот же
+  upsert/mapping/disappeared/`price_uploads`, что и у ручной загрузки.
+- APScheduler `auto_price_loads_daily` cron 04:00 МСК (после
+  `daily_backup` в 03:00) обходит все строки `auto_price_loads`
+  с `enabled=TRUE` и зовёт `run_auto_load(slug, 'scheduled')`.
+- UI `/admin/auto-price-loads` (admin-only): таблица 6 поставщиков,
+  переключатель «Авто», кнопка «Запустить», статус/последняя ошибка,
+  журнал последних 20 запусков.
+- Подробности: [auto_price_loads.md](auto_price_loads.md).
 
 ### `enrichment/` — обогащение характеристик компонентов
 

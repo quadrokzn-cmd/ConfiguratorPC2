@@ -32,6 +32,14 @@ _BACKUP_TIMEZONE = "Europe/Moscow"
 _BACKUP_HOUR = 3
 _BACKUP_MINUTE = 0
 
+# Этап 12.3: ежедневная авто-загрузка прайсов поставщиков. 04:00 МСК
+# выбрано после daily_backup в 03:00 — если что-то сломает supplier_prices,
+# свежий бекап БД уже снят. По всем slug'ам с auto_price_loads.enabled=TRUE
+# вызываем run_auto_load(triggered_by='scheduled'). Ошибки одного
+# поставщика не должны останавливать остальных.
+_AUTO_PRICE_HOUR = 4
+_AUTO_PRICE_MINUTE = 0
+
 # Этап 9В.4: ретенция аудит-лога. По умолчанию 180 дней — можно
 # переопределить через AUDIT_RETENTION_DAYS. Если в B2 лежат бекапы,
 # старые записи останутся доступны через них (бекапы — наш долгосрочный
@@ -111,6 +119,64 @@ def _job_audit_retention() -> None:
         )
 
 
+def _job_auto_price_loads_daily() -> None:
+    """Этап 12.3: ежедневный обход всех поставщиков с enabled=TRUE
+    в auto_price_loads. Каждого запускаем через run_auto_load —
+    он сам пишет в auto_price_loads/auto_price_load_runs и в Sentry.
+    Ошибка одного не останавливает остальных.
+    """
+    try:
+        from sqlalchemy import text as _t
+        from shared.db import engine
+        from app.services.auto_price.runner import run_auto_load
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: auto_price_loads — не удалось импортировать "
+            "runner (%s: %s)", type(exc).__name__, exc,
+        )
+        return
+
+    try:
+        with engine.begin() as conn:
+            rows = conn.execute(
+                _t(
+                    "SELECT supplier_slug FROM auto_price_loads "
+                    "WHERE enabled = TRUE ORDER BY supplier_slug"
+                )
+            ).all()
+        slugs = [r.supplier_slug for r in rows]
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: auto_price_loads — не удалось прочитать "
+            "список enabled (%s: %s)", type(exc).__name__, exc,
+        )
+        return
+
+    if not slugs:
+        logger.info(
+            "scheduler/portal: auto_price_loads — нет включённых поставщиков, пропуск.",
+        )
+        return
+
+    logger.info(
+        "scheduler/portal: auto_price_loads — старт по %d поставщикам: %s",
+        len(slugs), ", ".join(slugs),
+    )
+    for slug in slugs:
+        try:
+            run_auto_load(slug, triggered_by="scheduled")
+            logger.info(
+                "scheduler/portal: auto_price_loads — %s: ok", slug,
+            )
+        except Exception as exc:
+            # run_auto_load уже залогировал и отправил в Sentry; здесь
+            # просто двигаемся к следующему поставщику.
+            logger.warning(
+                "scheduler/portal: auto_price_loads — %s: %s: %s",
+                slug, type(exc).__name__, exc,
+            )
+
+
 def _is_enabled() -> bool:
     """Решает, нужно ли стартовать scheduler портала.
 
@@ -179,12 +245,30 @@ def init_scheduler() -> BackgroundScheduler | None:
         replace_existing=True,
     )
 
+    # 12.3: ежедневная авто-загрузка прайсов в 04:00 МСК. Под тем же
+    # флагом RUN_BACKUP_SCHEDULER, что и бекапы — на pytest и dev-машине
+    # (без явного флага) задача не зарегистрируется, чтобы тесты не лезли
+    # к Treolan API.
+    sched.add_job(
+        _job_auto_price_loads_daily,
+        trigger=CronTrigger(
+            hour=_AUTO_PRICE_HOUR,
+            minute=_AUTO_PRICE_MINUTE,
+            timezone=_BACKUP_TIMEZONE,
+        ),
+        id="auto_price_loads_daily",
+        name="auto price loads — все enabled (04:00 МСК)",
+        replace_existing=True,
+    )
+
     sched.start()
     _scheduler = sched
     logger.info(
         "scheduler/portal: запущен (daily_backup %02d:%02d МСК, "
-        "audit_retention вс 04:00 МСК, retention=%d дней).",
+        "audit_retention вс 04:00 МСК, retention=%d дней, "
+        "auto_price_loads %02d:%02d МСК).",
         _BACKUP_HOUR, _BACKUP_MINUTE, _audit_retention_days(),
+        _AUTO_PRICE_HOUR, _AUTO_PRICE_MINUTE,
     )
     return sched
 

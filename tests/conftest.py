@@ -131,6 +131,7 @@ _MIGRATIONS = [
     "021_price_uploads_report_json.sql",
     "022_supplier_prices_raw_name.sql",
     "023_component_field_sources_source_detail.sql",
+    "028_auto_price_loads.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
@@ -138,6 +139,8 @@ _MIGRATIONS = [
 # здесь специально нет — `DROP TABLE IF EXISTS` на каждое имя в этом списке
 # по дизайну безопасно.
 _ALL_TABLES = [
+    "auto_price_load_runs",     # 028
+    "auto_price_loads",         # 028
     "audit_log",                # 018
     "exchange_rates",           # 015
     "sent_emails",              # 011
