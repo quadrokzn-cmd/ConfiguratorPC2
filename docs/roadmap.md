@@ -1470,3 +1470,4 @@ AI-обогащение оставшихся 143 видимых PSU без `powe
 | 023_component_field_sources_source_detail.sql   | Этап 11.6.1    |
 | 024_psu_misclassification.sql                   | Этап 11.6.2.5.0b |
 | 025_storage_misclassification.sql               | Этап 11.6.2.6.0b |
+| 026_storage_misclassification_kingston_bracket.sql | Этап 11.6.2.6.0b |
