@@ -1249,6 +1249,81 @@ whitelist + bulk-null fallback).
   Считать самостоятельным техдолгом: заинженерить `is_hidden=false`
   фильтр в exporter.
 
+### Этап 11.6.2.5.1b — Фикс exporter (is_hidden) и AI-обогащение PSU ✅
+
+Закрывает техдолг exporter, обнаруженный на 5.1a (240 items в pending/
+вместо ожидаемых 144 из-за выгрузки скрытых PSU), и проводит
+AI-обогащение оставшихся 143 видимых PSU без `power_watts`.
+
+- **Фикс
+  [`exporter._build_select_sql`](../app/services/enrichment/claude_code/exporter.py):
+  WHERE is_hidden = FALSE AND (...)** — теперь скрытые компоненты
+  любой категории не попадают в pending-batch'и. Покрыто тестом
+  `test_export_skips_hidden_components` в
+  [`tests/test_enrichment/test_export_v2.py`](../tests/test_enrichment/test_export_v2.py).
+- **Фильтрация уже выгруженных pending-batch'ей** (одноразово, через
+  railway ssh + получение списка hidden PSU id с прода): из 240
+  выгруженных items отфильтровано 97 скрытых, осталось 143 в 7
+  файлах. После пуша 5.1b сам exporter уже корректно фильтрует, эта
+  процедура больше не понадобится.
+- **AI-обогащение 143 items** (7 batch-файлов, ~30 web_search/
+  web_fetch тулколлов вместо «по 1-2 на каждый item», за счёт
+  батч-поиска по сериям):
+  - **batch_001** — 20 Gembird NPA-AC*/NPA-DC* — все honest-null
+    через защитный слой 1 (PSU-адаптеры), без обращения к WebSearch.
+  - **batch_002** — 1 BURO BUM-* (автомобильный адаптер 12-20V) —
+    null через защитный слой 1.
+  - **batch_004** — 28 ExeGate (PPH-LT, XP, PPX, AA, AB, CP, AAA,
+    UNS, UN, PPE, NPX) — все 28 подтверждены через каталоги серий
+    на `exegate.ru/catalogue/power/<series>/`.
+  - **batch_005** — 27 items: 2 ExeGate (700NPXE, 700PPX), 1
+    Aerocool VX Plus 800, 10 CHIEFTEC (BDK/PPS/BDF/BBS/GPX/BFX/BPX),
+    9 Deepcool GamerStorm (PF*L → deepcool.com PF*D, PN850M/PN750M
+    Gen.5 ATX 3.1, PQ650G/PQ750G/PQ850G/PQ1200G WH → gamerstorm.com),
+    5 Deepcool PS650G/PS750G/PS850G/WH → null (на whitelist-доменах
+    PS-серия не найдена; вероятная опечатка PS↔PQ в прайсе вендора,
+    по аналогии не оцениваем).
+  - **batch_006** — 27 items: 1 CoolerMaster Elite NEX W700, 21
+    Ginzzu (защитный слой 3, без WebSearch), 2 GIGABYTE GP-UD850GM/
+    UD750GM, 3 POWERMAN PMP/PM (powerman-pc.ru возвращает
+    ECONNREFUSED — datasheet на whitelist-домене недоступен → null).
+  - **batch_007** — 11 items: 1 POWERMAN pm-300sfx (null,
+    powerman-pc.ru недоступен), 6 Thermaltake (Smart BM3 750, Smart
+    W3 600/700, Smart BX1 SE 550, TR2 S 550), 2 Thermaltake TH240 V2
+    Ultra (АИО, защитный слой 2 — не PSU), 3 Zalman (ZM500-XE II,
+    ZM600-XE II, ZM500-TX II MegaMax).
+  - **batch_008** — 29 items: 1 Zalman ZM750-TMX2 TeraMax II Gold,
+    2 Crown CM-PS400/CM-PS450W smart, 11 Aerocool Formula VX «(ex
+    Aerocool)» 350-750 → aerocool.io vx-plus-NNN, 4 Aerocool Formula
+    KCAS PLUS 500-800 → aerocool.io kcas-plus-NNNw, 1 Aerocool
+    Mirage Gold 650W, 2 XPG PROBE600B/PYMCORE750G, 2 Zalman ZM600-XE
+    II/ZM400-XEII (повреждение упаковки — те же URL что в основном
+    каталоге), 1 Ginzzu PC700 → null, 6 PcCooler P5-YK/YS/YN/F →
+    null (pccooler.com.cn whitelist-домен не индексируется в
+    поиске; pccooler.com без .cn в whitelist не входит).
+- **Локальный sanity-import** (`scripts/enrich_import.py --category
+  psu --keep-source`): **89 items совпали с локальной БД, 82 поля
+  принято** (все power_watts), 0 reject, 54 honest-null
+  зарегистрированы как «AI отказался — поле пустое». Расхождение с
+  прод-id (7 items: 1517–1523, 1485, 1480 + другие) — ожидаемое:
+  PcCooler/Aerocool Mirage и часть Ginzzu/Aerocool появились на
+  проде после последнего sync прайсов в локальную БД.
+- **Прод-импорт** (после деплоя `--category psu`):
+  TODO: заполнить цифрами после прогона.
+- **Honest-null breakdown по причинам** (54 items):
+  - 21 Gembird NPA-AC*/NPA-DC* + 1 BURO BUM-* — адаптеры (защитный
+    слой 1).
+  - 22 Ginzzu — `ginzzu.com` офлайн, datasheet на whitelist
+    недоступен (защитный слой 3, без WebSearch).
+  - 4 POWERMAN — `powerman-pc.ru` ECONNREFUSED.
+  - 6 PcCooler P5-YK/YS/YN/F — `pccooler.com.cn` (whitelist) не
+    индексируется в поиске; pccooler.com без .cn не в whitelist.
+  - 5 Deepcool PS650G/PS750G/PS850G + WH — модель не найдена на
+    whitelist-доменах (вероятная опечатка PS↔PQ).
+  - 2 Thermaltake TH240 V2 Ultra — система водяного охлаждения, не
+    PSU (защитный слой 2).
+  - 0 EOL — все остальные модели находятся в активных каталогах.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

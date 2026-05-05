@@ -1,0 +1,208 @@
+{
+  "category": "psu",
+  "batch_id": "batch_001",
+  "filled_at": "2026-05-05T09:00:00Z",
+  "sources_used": [],
+  "items": [
+    {
+      "id": 639,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC4), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 640,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC5), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 641,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC6), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 642,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC7), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 643,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC8), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 644,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC32), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 645,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC9), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 646,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC10), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 647,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC11), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 648,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC12), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 649,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC34), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 650,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC13), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 651,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC14), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 652,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC15), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 653,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC40), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 654,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC16), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 655,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC42), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 656,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер/зарядное (Gembird NPA-AC39), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 663,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер для ноутбука (Gembird NPA-DC8), не системный блок питания"
+        }
+      }
+    },
+    {
+      "id": 664,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер для ноутбука (Gembird NPA-DC9), не системный блок питания"
+        }
+      }
+    }
+  ]
+}

@@ -139,7 +139,14 @@ def _build_select_sql(category: str, target_fields: list[str]) -> tuple[str, dic
                 clauses.append(f"{f} IS NULL")
         where = " OR ".join(clauses)
 
-    sql = f"SELECT {cols_sql} FROM {table} WHERE {where} ORDER BY id"
+    # 11.6.2.5.1b: скрытые компоненты не выгружаются на AI-обогащение.
+    # На проде ~97 PSU помечены is_hidden=TRUE (скелеты, не-PSU,
+    # адаптеры). Без этого фильтра exporter тратил бы AI-квоту на
+    # позиции, которые всё равно не показываются в подборе.
+    sql = (
+        f"SELECT {cols_sql} FROM {table} "
+        f"WHERE is_hidden = FALSE AND ({where}) ORDER BY id"
+    )
     return sql, {}
 
 

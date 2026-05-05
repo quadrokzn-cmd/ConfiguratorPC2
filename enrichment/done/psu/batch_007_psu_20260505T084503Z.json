@@ -1,0 +1,28 @@
+{
+  "category": "psu",
+  "batch_id": "batch_007",
+  "filled_at": "2026-05-05T11:00:00Z",
+  "sources_used": [
+    "https://www.thermaltake.com/smart-bm3-bronze-750w-tt-premium-edition.html",
+    "https://latam.thermaltake.com/smart-w3-600w.html",
+    "https://latam.thermaltake.com/smart-w3-700w.html",
+    "https://www.thermaltake.com/smart-bx1-se-550w.html",
+    "https://www.thermaltake.com/tr2-s-550w.html",
+    "https://www.zalman.com/US/Product/ProductDetail.do?productSeq=1064",
+    "https://www.zalman.com/US/Product/ProductDetail.do?productSeq=1068",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=405"
+  ],
+  "items": [
+    {"id": 1328, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "powerman-pc.ru: соединение отказано (ECONNREFUSED), datasheet POWERMAN pm-300sfx на whitelist-домене недоступен; по аналогии не оцениваем"}}},
+    {"id": 1353, "fields": {"power_watts": {"value": 750, "source_url": "https://www.thermaltake.com/smart-bm3-bronze-750w-tt-premium-edition.html"}}},
+    {"id": 1361, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Не PSU (Thermaltake TH240 V2 Ultra EX — система водяного охлаждения, mpn CL-W414-PL12SW-A), категоризация ошибочна"}}},
+    {"id": 1365, "fields": {"power_watts": {"value": 600, "source_url": "https://latam.thermaltake.com/smart-w3-600w.html"}}},
+    {"id": 1366, "fields": {"power_watts": {"value": 700, "source_url": "https://latam.thermaltake.com/smart-w3-700w.html"}}},
+    {"id": 1367, "fields": {"power_watts": {"value": 550, "source_url": "https://www.thermaltake.com/smart-bx1-se-550w.html"}}},
+    {"id": 1368, "fields": {"power_watts": {"value": 550, "source_url": "https://www.thermaltake.com/tr2-s-550w.html"}}},
+    {"id": 1372, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Не PSU (Thermaltake TH240 V2 Ultra ARGB — система водяного охлаждения, mpn CL-W383-PL12SW-A), категоризация ошибочна"}}},
+    {"id": 1386, "fields": {"power_watts": {"value": 500, "source_url": "https://www.zalman.com/US/Product/ProductDetail.do?productSeq=1064"}}},
+    {"id": 1387, "fields": {"power_watts": {"value": 600, "source_url": "https://www.zalman.com/US/Product/ProductDetail.do?productSeq=1068"}}},
+    {"id": 1390, "fields": {"power_watts": {"value": 500, "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=405"}}}
+  ]
+}

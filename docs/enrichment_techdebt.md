@@ -576,3 +576,16 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
   manufacturer'а в БД. UPDATE на унификацию регистра — косметика, не
   блокирует AI-обогащение.
 
+**Закрыто этапом 5.1b (2026-05-05).**
+
+- ~~Exporter не фильтрует `is_hidden=TRUE`~~ — обнаружено на 5.1a:
+  `enrich_export_prod.py --category psu` выгрузил 240 items вместо
+  ожидаемых 144 (плюс 97 уже скрытых на 5.0a/b/c позиций — адаптеры,
+  не-PSU, mining-PSU). Защитные слои в `psu.md` корректно вернули бы
+  им honest-null, но AI потратил бы тулколлы впустую и pending/
+  раздулся бы в 1,67×. На 5.1b в
+  [`exporter._build_select_sql`](../app/services/enrichment/claude_code/exporter.py)
+  добавлен жёсткий префикс `WHERE is_hidden = FALSE AND (...)` —
+  работает для всех 8 категорий, не только PSU. Покрыто тестом
+  `test_export_skips_hidden_components`.
+

@@ -1,0 +1,18 @@
+{
+  "category": "psu",
+  "batch_id": "batch_002",
+  "filled_at": "2026-05-05T09:05:00Z",
+  "sources_used": [],
+  "items": [
+    {
+      "id": 695,
+      "fields": {
+        "power_watts": {
+          "value": null,
+          "source_url": null,
+          "reason": "PSU-адаптер автомобильный (BURO BUM-0220B65, 65W 12-20V), не системный блок питания"
+        }
+      }
+    }
+  ]
+}

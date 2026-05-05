@@ -1,0 +1,39 @@
+{
+  "category": "psu",
+  "batch_id": "batch_006",
+  "filled_at": "2026-05-05T10:30:00Z",
+  "sources_used": [
+    "https://www.coolermaster.com/en-global/products/elite-nex-230v-700/",
+    "https://www.gigabyte.com/Power-Supply/GP-UD850GM",
+    "https://www.gigabyte.com/Power-Supply/GP-UD750GM"
+  ],
+  "items": [
+    {"id": 1248, "fields": {"power_watts": {"value": 700, "source_url": "https://www.coolermaster.com/en-global/products/elite-nex-230v-700/"}}},
+    {"id": 1261, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1262, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1263, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1264, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1265, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1266, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1267, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1268, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1269, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1270, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1271, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1272, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1273, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1274, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1275, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1276, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1277, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1278, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1279, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1280, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1281, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "Ginzzu PSU: оф. сайт ginzzu.com офлайн, datasheet недоступен"}}},
+    {"id": 1288, "fields": {"power_watts": {"value": 850, "source_url": "https://www.gigabyte.com/Power-Supply/GP-UD850GM"}}},
+    {"id": 1289, "fields": {"power_watts": {"value": 750, "source_url": "https://www.gigabyte.com/Power-Supply/GP-UD750GM"}}},
+    {"id": 1324, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "powerman-pc.ru: соединение отказано (ECONNREFUSED), datasheet POWERMAN PMP-450ATX на whitelist-домене недоступен; по аналогии не оцениваем"}}},
+    {"id": 1325, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "powerman-pc.ru: соединение отказано (ECONNREFUSED), datasheet POWERMAN PMP-500ATX на whitelist-домене недоступен; по аналогии не оцениваем"}}},
+    {"id": 1327, "fields": {"power_watts": {"value": null, "source_url": null, "reason": "powerman-pc.ru: соединение отказано (ECONNREFUSED), datasheet POWERMAN PM-400ATX APFC на whitelist-домене недоступен; по аналогии не оцениваем"}}}
+  ]
+}

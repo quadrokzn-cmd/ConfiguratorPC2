@@ -192,6 +192,38 @@ def test_export_filters_not_applicable_drops_item_when_only_field(
 
 
 # ---------------------------------------------------------------------------
+# 1b) Фильтр is_hidden (этап 11.6.2.5.1b)
+# ---------------------------------------------------------------------------
+
+
+def test_export_skips_hidden_components(db_session, enrichment_tmp):
+    """Скрытые компоненты (is_hidden=TRUE) не выгружаются на AI-обогащение,
+    даже если у них NULL целевые поля.
+
+    На проде этап 11.6.2.5.0c пометил ~97 PSU как is_hidden=TRUE
+    (скелеты, не-PSU, адаптеры). До 11.6.2.5.1b exporter их игнорировал
+    и выгружал в pending/, что приводило к лишним 97 items в batch'ах.
+    """
+    visible_id = _insert_gpu(
+        db_session, model="Visible-GPU", manufacturer="MSI", sku="VIS-1",
+    )
+    hidden_id = _insert_gpu(
+        db_session, model="Hidden-GPU", manufacturer="MSI", sku="HID-1",
+        is_hidden=True,
+    )
+    db_session.commit()
+
+    result = export_category("gpu", batch_size=10)
+    assert result["status"] == "success"
+    assert result["exported"] == 1
+
+    payload = _read_batch(enrichment_tmp / "pending" / "gpu" / result["batches"][0])
+    item_ids = [it["id"] for it in payload["items"]]
+    assert visible_id in item_ids
+    assert hidden_id not in item_ids
+
+
+# ---------------------------------------------------------------------------
 # 2) raw_names + mpn + gtin
 # ---------------------------------------------------------------------------
 
