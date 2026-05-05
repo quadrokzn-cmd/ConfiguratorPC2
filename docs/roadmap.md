@@ -1402,6 +1402,74 @@ AI-обогащение оставшихся 143 видимых PSU без `powe
 - **pytest -n auto**: **1156 passed + 2 skipped** (~59 сек), 0
   регрессий.
 
+### Этап 11.6.2.6.1a — Подготовка AI-обогащения storage ✅
+
+После прокладки 11.6.2.6.0b (детектор `is_likely_non_storage`,
+recover/normalize manufacturer, +10 storage-доменов в whitelist,
+скрытие 1 misclassified Digma + 2 Kingston SNA-BR2/35, миграции 025
+и 026) — выгружаем batch'и storages с прода для финального AI-прохода.
+
+- **Аудит NULL-распределения по 4 целевым полям storages** на проде
+  (через `railway ssh -- python -` + psycopg2; `psql` в Railway-shell
+  недоступен): `total_visible=1185`. NULL: `interface=96`,
+  `form_factor=94`, `storage_type=8`, `capacity_gb=2`. Топ-NULL по
+  брендам: `unknown` 45, ExeGate 22, Silicon Power 21, Apacer 14,
+  A-DATA 12, Transcend 9, WD 7, Samsung 6, Digma 5, Patriot 4,
+  Crucial 4, MSI 3, Netac 3, Kingston 2, Hikvision 1.
+- **Промпт [`enrichment/prompts/storage.md`](../enrichment/prompts/storage.md)**
+  — переписан с нуля по образцу `psu.md`/`case.md` (366 строк, было 60
+  строк-заглушки 2.5Б):
+  - 5 защитных слоёв: External/USB-SSD (валидатор не принимает USB и
+    External — `interface`/`form_factor` → null с reason, `storage_type`
+    и `capacity_gb` заполняются нормально), U.2/U.3/E1.S enterprise SSD
+    (form_factor → null), M.2 SATA vs M.2 NVMe (явное различение —
+    валидатор интерпретирует PCIe-only без SATA как NVMe),
+    `manufacturer="unknown"` (попытка извлечь бренд из raw_name; CBR и
+    другие бренды вне whitelist → honest-null), не-storage в категории
+    (после 6.0b детектор должен спрятать на upstream, но защита от
+    случайных проскоков остаётся);
+  - whitelist 15 storage-доменов синхронизирован с
+    [`schema.py::OFFICIAL_DOMAINS`](../app/services/enrichment/claude_code/schema.py)
+    (5 исходных + 10 добавленных на 11.6.2.6.0b: `crucial.com`,
+    `samsung.com`, `transcend-info.com`, `adata.com`, `solidigm.com`,
+    `silicon-power.com`, `patriotmemory.com`, `sandisk.com`,
+    `synology.com`, `kioxia.com`) + кросс-категорийные `exegate.ru`
+    (Next/NextPro/NextPro+ SSD) и `xpg.com` (XPG SX/Atom);
+  - подсказки по 16 топ-NULL брендам (Kingston, WD, Seagate, Samsung
+    `semiconductor.samsung.com/consumer-storage`, Crucial, Transcend
+    SSD220S/MTE220S/MSA452T, A-DATA SU/Legend/SC/SD-серии, XPG, Solidigm
+    P41 Plus / D7-D5 enterprise, Silicon Power A55/A60/UD/PA/PX10/PC60,
+    Patriot P210/P310/P400/Viper, SanDisk Plus/Ultra/Extreme,
+    Synology SAT5210/SNV3410, KIOXIA EXCERIA G2/G3, Netac, Apacer,
+    ExeGate Next/NextPro);
+  - явные правила нормализации значений с указанием на нормализатор
+    в валидаторе (M.2 длины 2280/2230/2242/22110 → `M.2`; PCIe-only
+    без SATA → `NVMe`; маркетинговая десятичная нотация для
+    `capacity_gb`);
+  - 3 примера input/output на реальных кейсах БД (Samsung 980 PRO M.2
+    NVMe — типичный M.2 PCIe → NVMe, ExeGate Next 2.5" SATA — топ-кластер
+    NULL.form_factor, A-DATA SC740 External USB-SSD — защитный слой 1
+    с двойным null + reason на form_factor и interface).
+- **Техдолг ENUM-расширения валидатора**: текущий `_v_storage_form_factor`
+  принимает только `2.5"/3.5"/M.2/mSATA`, `_v_storage_interface` —
+  только `SATA/NVMe/SAS`. Реально продаваемые форм-факторы `External`,
+  `U.2`, `U.3`, `E1.S` и интерфейс `USB 3.x` пока возвращаются как null
+  с reason — собираются в честный techdebt-список в `storage.md`
+  (защитные слои 1 и 2). Расширение enum'а валидатора + миграция БД —
+  отдельный этап 11.6.2.6.2 / 11.6.3.x по итогам.
+- **Выгрузка batch'ей с прода** через
+  [`scripts/enrich_export_prod.py`](../scripts/enrich_export_prod.py)
+  `--category storage --batch-size 30 --force`: **6 файлов в
+  enrichment/pending/storage/, 160 items**. Чуть больше ожидаемых
+  ~100-110, потому что exporter выгружает строки с **любым** NULL из 4
+  целевых полей (an OR-фильтр), а не только видимый «иссечённый» хвост
+  (96+94+8+2 даёт пересечения; например, ExeGate Next имеет NULL только
+  по form_factor, а Samsung 980 PRO — только по interface). Сэмплы
+  раскладки по batch'ам подтверждают разнообразие: batch_001 — A-DATA
+  External USB, batch_002 — ExeGate Next, batch_003 — KIOXIA Enterprise
+  SAS, batch_004 — Silicon Power S55, batch_005 — WD M.2, batch_006 —
+  MSI M.2.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил
