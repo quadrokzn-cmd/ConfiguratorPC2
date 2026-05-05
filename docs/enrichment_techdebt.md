@@ -659,8 +659,20 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
   Electronics→Samsung 27, SEAGATE→Seagate 19, PATRIOT→Patriot 19,
   SHENZHEN KINGSPEC ELECTRONICS TECHNOLOGY CO LTD→KingSpec 18).
 
-Прод-метрики будут добавлены сюда после ШАГ 8 (применение через
-railway ssh после редеплоя).
+**Прод-метрики (apply 6.0b → before 6.1b → after 6.1b):**
+
+| Поле          | До 6.0b | До 6.1b (= после 6.0b) | После 6.1b |
+|---------------|--------:|------------------------:|-----------:|
+| total_visible |    1187 |                  1185   |      1185  |
+| interface     |    1090 |                  1089   |      1156  |
+| form_factor   |    1092 |                  1091   |      1137  |
+| storage_type  |    1178 |                  1177   |      1178  |
+| capacity_gb   |    1183 |                  1183   |      1184  |
+
+После 6.0b видимость снизилась на 2 (id 782 Kingston SNA-BR2/35 и id
+1133 Digma DGBRT2535-2.5"→3.5" frame), что и было целью миграций 025
++ 026. После 6.1b interface закрыт на +67, form_factor на +46
+(см. §17 / roadmap §11.6.2.6.1b).
 
 ## 17. Storage AI-обогащение (11.6.2.6.1b) — итоги
 

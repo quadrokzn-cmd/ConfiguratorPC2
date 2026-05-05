@@ -1540,13 +1540,36 @@ recover/normalize manufacturer, +10 storage-доменов в whitelist,
   prod-фиксами 6.0b — recover/normalize manufacturer); 1
   unknown_component (id 1185, не в локальной БД).
 - **Прод-импорт** через `railway ssh -s ConfiguratorPC2 -- python
-  scripts/enrich_import.py --category storage` (см. ниже).
-- **Прод-метрики БД storages** (после редеплоя + apply импорта;
-  WHERE `is_hidden = false`) — числа добавятся ниже после ШАГ 5–6.
+  scripts/enrich_import.py --category storage`: **105 items / 115
+  полей** принято (interface 67, form_factor 46, storage_type 1,
+  capacity_gb 1); 84 null отсеяно валидатором как null_value;
+  0 «уже есть»; 0 ошибок валидации. Подтверждает, что pending была
+  построена точно по реальным NULL-пробелам прода (в отличие от
+  локали, где БД уже была частично заполнена 6.0b-фиксами).
+- **Прод-метрики БД storages** (WHERE `is_hidden = false`) через
+  [`scripts/_storage_stats_prod.py`](../scripts/_storage_stats_prod.py):
+  | Поле          | ДО (6.0b) | ПОСЛЕ (6.1b) | Δ    | Покрытие ПОСЛЕ |
+  |---------------|----------:|-------------:|-----:|---------------:|
+  | total_visible |     1185  |        1185  |   0  |          100 % |
+  | interface     |     1089  |        1156  |  +67 |         97.6 % |
+  | form_factor   |     1091  |        1137  |  +46 |         95.9 % |
+  | storage_type  |     1177  |        1178  |   +1 |         99.4 % |
+  | capacity_gb   |     1183  |        1184  |   +1 |         99.9 % |
+- **Остаточные NULL после 6.1b** (см. техдолг §17/§18):
+  - interface NULL = 29: ~9 AMD R5 (datasheet вне whitelist),
+    ~12 QUMO (qumo.ru вне whitelist), 1 Micron 7450 PRO, 3 СЭМПЛ
+    (SCY/MS/CBR), не-storage RAM/cooler с already-null current.
+  - form_factor NULL = 48: 9 U.2 enterprise (validator-ENUM, §18),
+    13 External USB-SSD (validator-ENUM, §18), ~13 AMD R5,
+    ~9 QUMO 2.5", 1 Hikvision, ~3 СЭМПЛ.
+  - storage_type NULL = 7: 6 RAM/cooler items не-storage (защитный
+    слой 5) + 1 Micron Enterprise.
+  - capacity_gb NULL = 1: 1 СЭМПЛ-позиция без указанной ёмкости.
 - **Техдолг расширения валидатора** зафиксирован в
   [`enrichment_techdebt.md` §18](enrichment_techdebt.md): ~22 items
   honest-null исключительно из-за ограниченного enum'а валидатора
-  (USB/External + U.2/U.3 form factors).
+  (USB/External + U.2/U.3 form factors). Чтобы их закрыть, нужно либо
+  расширить enum + переобогатить, либо помечать `is_hidden=TRUE`.
 
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
