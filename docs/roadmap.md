@@ -1018,14 +1018,18 @@ whitelist + bulk-null fallback).
   `python scripts/enrich_import.py --category case --keep-source` →
   92 компонента обновлено, **165 полей записано** (92
   `supported_form_factors` + 73 `has_psu_included`), 0 отклонено.
-- **Прод-импорт** через `railway ssh`: `<TBD после прод-импорта>`.
+- **Прод-импорт** через `railway ssh`: 112 компонентов обновлено,
+  **203 поля записано** (112 `supported_form_factors` + 91
+  `has_psu_included`), 0 отклонено, 0 ошибок. Прод даёт больше
+  записей чем локаль (203 vs 165), потому что на проде до этого
+  этапа было больше NULL-baseline.
 - **SQL ДО/ПОСЛЕ (prod)**:
-  | Метрика | ДО | ПОСЛЕ |
-  |--|--:|--:|
-  | total_visible | 1946 | <TBD> |
-  | supported_form_factors заполнено | 1660 | <TBD> |
-  | has_psu_included заполнено | 1759 | <TBD> |
-  | watts_resolved (psu=false ИЛИ watts заполнен) | 1757 | <TBD> |
+  | Метрика | ДО | ПОСЛЕ | Δ |
+  |--|--:|--:|--:|
+  | total_visible | 1946 | 1946 | 0 |
+  | supported_form_factors заполнено | 1660 (85.3%) | 1772 (91.0%) | +112 |
+  | has_psu_included заполнено | 1759 (90.4%) | 1850 (95.1%) | +91 |
+  | watts_resolved (psu=false ИЛИ watts заполнен) | 1757 (90.3%) | 1846 (94.9%) | +89 |
 - **Сюрпризы**:
   - **GameMax-домен**: в whitelist `gamemax.com`, но реальный сайт
     производителя — `gamemaxpc.com`. Все 7 GameMax → honest-null.
