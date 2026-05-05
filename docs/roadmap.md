@@ -987,6 +987,66 @@ Aerocool Core Plus 120мм, попал в категорию ошибочно).
 - **Артефакт**: AI-обогащение в этом этапе НЕ запускается — это фаза
   для параллельных пользовательских чатов в фоне.
 
+### Этап 11.6.2.4.1b — AI-обогащение категории Case ✅
+
+Параллельные AI-чаты Claude Code обработали 8 batch'ей с прода
+(230 items, бренды разложены через классификатор по 25 доменам
+whitelist + bulk-null fallback).
+
+- **Стратегия обработки**:
+  - Перед запуском AI прогнан скрипт-классификатор
+    `scripts/reports/process_case_bulk_null.py`: 100 items с
+    брендами вне OFFICIAL_DOMAINS / SBC / accessory / unknown сразу
+    помечены `null` с reason без web-поиска (Ginzzu 73, ExeGate/Crown/
+    Zircon/PowerCool/1stPlayer 12, Thermalright LCD-дисплеи 4,
+    InWin-аксессуары 5, ExeGate-рельсы 1, прочее 6).
+  - Оставшиеся 130 items разделены на 15 brand-кластеров и переданы
+    параллельным AI-агентам (general-purpose subagents) по
+    1 file/brand с обязательным ограничением источника на конкретный
+    whitelist-домен.
+- **AI-исследование** дало 116 items с реальными данными и 14
+  honest-null:
+  - **С данными**: Deepcool 36/36, Zalman 20/20, XPG 19/20, InWin
+    11/13, Lian Li 11/11, Phanteks 5/5, Thermaltake 5/5, Aerocool
+    2/3, Foxline 2/2, Chieftec 1/1.
+  - **Honest-null**: GameMax 0/7 (реальный домен — `gamemaxpc.com`,
+    не `gamemax.com` из whitelist), Powerman 0/3 (powerman-pc.ru
+    недоступен — ECONNREFUSED), Formula 0/2 (реальный бренд
+    Formula V Line на formulav-line.com), Accord 0/1, HPE 0/1
+    (XASTRA — российский OEM, не HPE).
+- **Локальный импорт**:
+  `python scripts/enrich_import.py --category case --keep-source` →
+  92 компонента обновлено, **165 полей записано** (92
+  `supported_form_factors` + 73 `has_psu_included`), 0 отклонено.
+- **Прод-импорт** через `railway ssh`: `<TBD после прод-импорта>`.
+- **SQL ДО/ПОСЛЕ (prod)**:
+  | Метрика | ДО | ПОСЛЕ |
+  |--|--:|--:|
+  | total_visible | 1946 | <TBD> |
+  | supported_form_factors заполнено | 1660 | <TBD> |
+  | has_psu_included заполнено | 1759 | <TBD> |
+  | watts_resolved (psu=false ИЛИ watts заполнен) | 1757 | <TBD> |
+- **Сюрпризы**:
+  - **GameMax-домен**: в whitelist `gamemax.com`, но реальный сайт
+    производителя — `gamemaxpc.com`. Все 7 GameMax → honest-null.
+    Кандидат на правку whitelist в следующей итерации (см.
+    `docs/enrichment_techdebt.md §13`).
+  - **powerman-pc.ru**: домен недоступен (ECONNREFUSED) во время
+    AI-прохода. 3 POWERMAN-items получили honest-null. Можно
+    повторить когда домен поднимется.
+  - **Формат-баги у 2 субагентов**: InWin вернул `source` вместо
+    `source_url` (18 полей), Thermaltake — bare bool/list вместо
+    обёртки `{"value": ..., "source_url": "..."}` (10 полей).
+    Оба исправлены вручную (для Thermaltake заново найдены URL
+    через web_search). Это будущий пункт в `_общие_правила.md` —
+    более жёсткий пример output-формата.
+- **Артефакты в коммите**: `enrichment/done/case/batch_*.json`
+  (8 файлов с результатами AI). Вспомогательные скрипты
+  (`scripts/reports/process_case_bulk_null.py`, `split_case_manifest.py`,
+  `merge_case_research.py`, `stats_case_enrichment.py`) лежат в
+  gitignored `scripts/reports/`; решение по их продвижению в `scripts/`
+  proper отложено в техдолг.
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

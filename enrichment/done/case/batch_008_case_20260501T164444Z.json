@@ -1,0 +1,351 @@
+{
+  "category": "case",
+  "batch_id": "batch_008",
+  "filled_at": "2026-05-04T19:48:07.568982+00:00",
+  "sources_used": [
+    "https://fox-line.ru/catalog/cases/fl-1004-tfx230b-85.html",
+    "https://phanteks.com/product/enthoo-pro-tg/",
+    "https://www.xpg.com/en/xpg/pc-component-invader-x-btf-mid-tower-chassis?tab=spec",
+    "https://www.xpg.com/en/xpg/pc-component-invader-x-mini-compact-mid-tower-chassis?tab=spec",
+    "https://www.xpg.com/en/xpg/pc-component-valor-mesh-compact-mid-tower-chassis?tab=spec",
+    "https://www.xpg.com/us/xpg/692?tab=desc",
+    "https://www.xpg.com/us/xpg/pc-component-valor-storm-mid-tower-chassis?tab=spec",
+    "https://www.xpg.com/us/xpg/pc-components-mesh-nano?tab=spec"
+  ],
+  "items": [
+    {
+      "id": 1724,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-btf-mid-tower-chassis?tab=spec",
+          "reason": "Поддерживает стандартные ATX/Micro-ATX/Mini-ITX и параллельно ATX/m-ATX Reverse-Connector (BTF) платы."
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-btf-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length до 240mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1725,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-btf-mid-tower-chassis?tab=spec",
+          "reason": "Поддерживает стандартные ATX/Micro-ATX/Mini-ITX и параллельно ATX/m-ATX Reverse-Connector (BTF) платы."
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-btf-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length до 240mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1726,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-mini-compact-mid-tower-chassis?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-mini-compact-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length до 180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1727,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-mini-compact-mid-tower-chassis?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-invader-x-mini-compact-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length до 180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1732,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/692?tab=desc"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/692?tab=desc",
+          "reason": "В spec указана только PSU Length до 160mm; БП в комплект не входит, в коробке 2 фана VENTO 120."
+        }
+      }
+    },
+    {
+      "id": 1733,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/692?tab=desc"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/692?tab=desc",
+          "reason": "В spec указана только PSU Length до 160mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1734,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-valor-mesh-compact-mid-tower-chassis?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-valor-mesh-compact-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length 160-180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1735,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-valor-mesh-compact-mid-tower-chassis?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-valor-mesh-compact-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length 160-180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1736,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-valor-storm-mid-tower-chassis?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-valor-storm-mid-tower-chassis?tab=spec",
+          "reason": "В spec указана только PSU Length 160-180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1737,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это система жидкостного охлаждения XPG LEVANTE II 360 (AIO), а не корпус ПК — поле не применимо."
+        },
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Это система жидкостного охлаждения XPG LEVANTE II 360 (AIO), а не корпус ПК — поле не применимо."
+        }
+      }
+    },
+    {
+      "id": 1738,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/pc-components-mesh-nano?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/pc-components-mesh-nano?tab=spec",
+          "reason": "В spec указана только PSU Length до 170mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1739,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/pc-components-mesh-nano?tab=spec"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/pc-components-mesh-nano?tab=spec",
+          "reason": "В spec указана только PSU Length до 170mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1813,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "XASTRA — российский OEM-бренд, не имеет отношения к HPE. Карточка A700-1FA36A-C10-UC на hpe.com не найдена. Honest-null."
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "XASTRA — российский OEM-бренд, не имеет отношения к HPE. Карточка A700-1FA36A-C10-UC на hpe.com не найдена. Honest-null."
+        }
+      }
+    },
+    {
+      "id": 1899,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1900,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1901,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1902,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Thermalright LCD дисплей (не корпус) не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1906,
+      "fields": {
+        "has_psu_included": {
+          "value": true,
+          "source_url": "https://fox-line.ru/catalog/cases/fl-1004-tfx230b-85.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://fox-line.ru/catalog/cases/fl-1004-tfx230b-85.html"
+        }
+      }
+    },
+    {
+      "id": 1914,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        }
+      }
+    },
+    {
+      "id": 1916,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "SSI-EEB",
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://phanteks.com/product/enthoo-pro-tg/"
+        }
+      }
+    }
+  ]
+}

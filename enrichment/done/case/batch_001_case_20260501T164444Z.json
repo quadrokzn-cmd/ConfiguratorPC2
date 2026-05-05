@@ -1,0 +1,502 @@
+{
+  "category": "case",
+  "batch_id": "batch_001",
+  "filled_at": "2026-05-04T19:48:07.553469+00:00",
+  "sources_used": [
+    "https://aerocool.io/product/atomic/",
+    "https://aerocool.io/product/nighthawk-duo/",
+    "https://ipc.in-win.com/pedestal-tower-air-liquid-tower-iw-pl-070",
+    "https://ipc.in-win.com/rackmount-chassis-iw-r200-01n",
+    "https://ipc.in-win.com/rackmount-chassis-iw-r400-01n",
+    "https://ipc.in-win.com/soho-smb-iw-ms04",
+    "https://www.chieftec.eu/products-detail/570/GA-01B-M-OP",
+    "https://www.deepcool.com/products/Cases/2021/14307.shtml",
+    "https://www.deepcool.com/products/Cases/CC360-ARGB-M-ATX-Airflow-Case/2023/16791.shtml",
+    "https://www.deepcool.com/products/Cases/CC560-MESH-WH-V2-Mid-Tower-Airflow-Case/2024/19089.shtml",
+    "https://www.deepcool.com/products/Cases/CC560-V2-Mid-Tower-Airflow-Case/2023/17782.shtml",
+    "https://www.deepcool.com/products/Cases/MATREXX55-MESH-V4-C-ATX-Airflow-Case/2024/18146.shtml",
+    "https://www.deepcool.com/products/Cases/MATREXX55-V4-C-ATX-Glass-Panel-Case/2024/18145.shtml",
+    "https://www.deepcool.com/products/Cases/MORPHEUS-Modular-High-Airflow-ATX-Case/2023/17501.shtml",
+    "https://www.deepcool.com/products/Cases/Matrexx-50-ADD-RGB-4F-Mid-Tower-ATX-Case/2021/4659.shtml",
+    "https://www.deepcool.com/products/Cases/Matrexx-55-V3-RGB-Mid-Tower-ATX-Case/2021/4654.shtml"
+  ],
+  "items": [
+    {
+      "id": 945,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r400-01n"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r400-01n"
+        }
+      }
+    },
+    {
+      "id": 946,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r400-01n"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r400-01n"
+        }
+      }
+    },
+    {
+      "id": 947,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r200-01n"
+        }
+      }
+    },
+    {
+      "id": 948,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://ipc.in-win.com/rackmount-chassis-iw-r200-01n"
+        }
+      }
+    },
+    {
+      "id": 949,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/soho-smb-iw-ms04"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX"
+          ],
+          "source_url": "https://ipc.in-win.com/soho-smb-iw-ms04"
+        }
+      }
+    },
+    {
+      "id": 950,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/soho-smb-iw-ms04"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX"
+          ],
+          "source_url": "https://ipc.in-win.com/soho-smb-iw-ms04"
+        }
+      }
+    },
+    {
+      "id": 951,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/pedestal-tower-air-liquid-tower-iw-pl-070"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://ipc.in-win.com/pedestal-tower-air-liquid-tower-iw-pl-070"
+        }
+      }
+    },
+    {
+      "id": 952,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        }
+      }
+    },
+    {
+      "id": 953,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        }
+      }
+    },
+    {
+      "id": 954,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        }
+      }
+    },
+    {
+      "id": 955,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Аксессуар для корпуса (направляющие/ручки/рельсы), не корпус ПК"
+        }
+      }
+    },
+    {
+      "id": 1051,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://aerocool.io/product/atomic/"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://aerocool.io/product/atomic/"
+        }
+      }
+    },
+    {
+      "id": 1057,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://aerocool.io/product/nighthawk-duo/"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://aerocool.io/product/nighthawk-duo/"
+        }
+      }
+    },
+    {
+      "id": 1058,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка ACC-M3302 не найдена на accord-pc.ru (домен не индексируется и не отвечает на прямой fetch). Согласно правилу honest-null."
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка ACC-M3302 не найдена на accord-pc.ru (домен не индексируется и не отвечает на прямой fetch). Согласно правилу honest-null."
+        }
+      }
+    },
+    {
+      "id": 1066,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": "https://aerocool.io/product/core-plus/",
+          "reason": "Product is a CPU air cooler, not a PC case; field not applicable."
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": "https://aerocool.io/product/core-plus/",
+          "reason": "Product is a CPU air cooler, not a PC case; field not applicable."
+        }
+      }
+    },
+    {
+      "id": 1068,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.chieftec.eu/products-detail/570/GA-01B-M-OP"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.chieftec.eu/products-detail/570/GA-01B-M-OP"
+        }
+      }
+    },
+    {
+      "id": 1082,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1083,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1105,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1106,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд 1stPlayer не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1189,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/2021/14307.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX",
+            "MATX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/2021/14307.shtml"
+        }
+      }
+    },
+    {
+      "id": 1194,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/Matrexx-50-ADD-RGB-4F-Mid-Tower-ATX-Case/2021/4659.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/Matrexx-50-ADD-RGB-4F-Mid-Tower-ATX-Case/2021/4659.shtml"
+        }
+      }
+    },
+    {
+      "id": 1195,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/Matrexx-50-ADD-RGB-4F-Mid-Tower-ATX-Case/2021/4659.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/Matrexx-50-ADD-RGB-4F-Mid-Tower-ATX-Case/2021/4659.shtml"
+        }
+      }
+    },
+    {
+      "id": 1197,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/Matrexx-55-V3-RGB-Mid-Tower-ATX-Case/2021/4654.shtml"
+        }
+      }
+    },
+    {
+      "id": 1200,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/MATREXX55-V4-C-ATX-Glass-Panel-Case/2024/18145.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/MATREXX55-V4-C-ATX-Glass-Panel-Case/2024/18145.shtml"
+        }
+      }
+    },
+    {
+      "id": 1201,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/MATREXX55-MESH-V4-C-ATX-Airflow-Case/2024/18146.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/MATREXX55-MESH-V4-C-ATX-Airflow-Case/2024/18146.shtml"
+        }
+      }
+    },
+    {
+      "id": 1205,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/MORPHEUS-Modular-High-Airflow-ATX-Case/2023/17501.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/MORPHEUS-Modular-High-Airflow-ATX-Case/2023/17501.shtml"
+        }
+      }
+    },
+    {
+      "id": 1206,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CC360-ARGB-M-ATX-Airflow-Case/2023/16791.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CC360-ARGB-M-ATX-Airflow-Case/2023/16791.shtml"
+        }
+      }
+    },
+    {
+      "id": 1207,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CC560-MESH-WH-V2-Mid-Tower-Airflow-Case/2024/19089.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CC560-MESH-WH-V2-Mid-Tower-Airflow-Case/2024/19089.shtml"
+        }
+      }
+    },
+    {
+      "id": 1208,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CC560-V2-Mid-Tower-Airflow-Case/2023/17782.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CC560-V2-Mid-Tower-Airflow-Case/2023/17782.shtml"
+        }
+      }
+    }
+  ]
+}

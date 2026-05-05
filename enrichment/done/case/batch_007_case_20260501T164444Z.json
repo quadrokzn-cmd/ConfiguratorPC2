@@ -1,0 +1,552 @@
+{
+  "category": "case",
+  "batch_id": "batch_007",
+  "filled_at": "2026-05-04T19:48:07.566984+00:00",
+  "sources_used": [
+    "https://lian-li.com/product/lancool-207/",
+    "https://lian-li.com/product/lancool-iii/",
+    "https://lian-li.com/product/o11-air-mini/",
+    "https://lian-li.com/product/o11-dynamic-evo-xl/",
+    "https://lian-li.com/product/o11-vision-compact/",
+    "https://lian-li.com/product/o11-vision/",
+    "https://lian-li.com/product/o11d-evo-rgb/",
+    "https://lian-li.com/product/sup-01/",
+    "https://phanteks.com/product/enthoo-pro-2-cp/",
+    "https://phanteks.com/product/enthoo-pro-2-server-edition-cp/",
+    "https://phanteks.com/product/enthoo-pro-tg/",
+    "https://phanteks.com/product/evolv-x2-black/",
+    "https://www.xpg.com/en/xpg/pc-component-battlecruiser-ii-super-mid-tower-chassis",
+    "https://www.xpg.com/us/feature/640/",
+    "https://www.xpg.com/us/xpg/638?tab=specification",
+    "https://www.xpg.com/us/xpg/840?tab=spec",
+    "https://www.xpg.com/us/xpg/pc-component-CRUISER-SUPER-MID-TOWER-CHASSIS?tab=specification",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1628",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1634",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1645",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1652"
+  ],
+  "items": [
+    {
+      "id": 1667,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1628"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1628"
+        }
+      }
+    },
+    {
+      "id": 1668,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1645"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1645"
+        }
+      }
+    },
+    {
+      "id": 1670,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1634"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1634"
+        }
+      }
+    },
+    {
+      "id": 1671,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1652"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1652"
+        }
+      }
+    },
+    {
+      "id": 1673,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Crown не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Crown не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1674,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Crown не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1675,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Crown не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Crown не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1684,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "SSI-EEB",
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://phanteks.com/product/enthoo-pro-tg/"
+        }
+      }
+    },
+    {
+      "id": 1686,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "XL-ATX",
+            "SSI-EEB",
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://phanteks.com/product/enthoo-pro-2-cp/"
+        }
+      }
+    },
+    {
+      "id": 1687,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "XL-ATX",
+            "SSI-EEB",
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://phanteks.com/product/enthoo-pro-2-server-edition-cp/"
+        }
+      }
+    },
+    {
+      "id": 1688,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://phanteks.com/product/evolv-x2-black/"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://phanteks.com/product/evolv-x2-black/"
+        }
+      }
+    },
+    {
+      "id": 1689,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11-vision/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11-vision/"
+        }
+      }
+    },
+    {
+      "id": 1690,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11d-evo-rgb/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11d-evo-rgb/"
+        }
+      }
+    },
+    {
+      "id": 1691,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11d-evo-rgb/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11d-evo-rgb/"
+        }
+      }
+    },
+    {
+      "id": 1693,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/lancool-iii/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-iii/"
+        }
+      }
+    },
+    {
+      "id": 1694,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/lancool-iii/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-iii/"
+        }
+      }
+    },
+    {
+      "id": 1700,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11-dynamic-evo-xl/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11-dynamic-evo-xl/"
+        }
+      }
+    },
+    {
+      "id": 1701,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11-air-mini/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11-air-mini/"
+        }
+      }
+    },
+    {
+      "id": 1709,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/sup-01/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/sup-01/"
+        }
+      }
+    },
+    {
+      "id": 1710,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        }
+      }
+    },
+    {
+      "id": 1711,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/lancool-207/"
+        }
+      }
+    },
+    {
+      "id": 1712,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://lian-li.com/product/o11-vision-compact/"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://lian-li.com/product/o11-vision-compact/"
+        }
+      }
+    },
+    {
+      "id": 1716,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/feature/640/",
+          "reason": "Оф. страница XPG BATTLECRUISER указывает поддержку до E-ATX (300mm) включительно; super mid-tower стандартно покрывает E-ATX/ATX/MATX/ITX."
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/feature/640/",
+          "reason": "В spec корпуса указана только PSU Length clearance; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1717,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-battlecruiser-ii-super-mid-tower-chassis"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-battlecruiser-ii-super-mid-tower-chassis",
+          "reason": "В spec указано только PSU Length 225mm; БП в комплект не входит, в коробке только 4x VENTO 120 ARGB."
+        }
+      }
+    },
+    {
+      "id": 1718,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-battlecruiser-ii-super-mid-tower-chassis"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/en/xpg/pc-component-battlecruiser-ii-super-mid-tower-chassis",
+          "reason": "В spec указано только PSU Length 225mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1719,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-CRUISER-SUPER-MID-TOWER-CHASSIS?tab=specification"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-CRUISER-SUPER-MID-TOWER-CHASSIS?tab=specification",
+          "reason": "В spec указана только PSU Length до 180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1720,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX",
+            "SSI-CEB",
+            "SSI-EEB"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-CRUISER-SUPER-MID-TOWER-CHASSIS?tab=specification"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/pc-component-CRUISER-SUPER-MID-TOWER-CHASSIS?tab=specification",
+          "reason": "В spec указана только PSU Length до 180mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1721,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/840?tab=spec",
+          "reason": "Оф. карточка XPG DEFENDER описывает шасси как full size E-ATX (492x220x441 mm); для XPG mid-tower стандартный набор поддерживаемых ФФ — E-ATX/ATX/MATX/ITX."
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/840?tab=spec",
+          "reason": "В spec указана только PSU Length до 220mm; БП в комплект не входит."
+        }
+      }
+    },
+    {
+      "id": 1722,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/638?tab=specification"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/638?tab=specification",
+          "reason": "В spec указана только PSU Length до 225mm; БП в комплект не входит, в коробке 2 пред-установленных VENTO 120 fan."
+        }
+      }
+    },
+    {
+      "id": 1723,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.xpg.com/us/xpg/638?tab=specification"
+        },
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.xpg.com/us/xpg/638?tab=specification",
+          "reason": "В spec указана только PSU Length до 225mm; БП в комплект не входит."
+        }
+      }
+    }
+  ]
+}

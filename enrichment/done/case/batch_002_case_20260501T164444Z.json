@@ -1,0 +1,502 @@
+{
+  "category": "case",
+  "batch_id": "batch_002",
+  "filled_at": "2026-05-04T19:48:07.554440+00:00",
+  "sources_used": [
+    "https://fox-line.ru/catalog/cases/fl-302-fz450.html",
+    "https://www.deepcool.com/products/Cases/CG330-3F-Panoramic-Glass-Panels-Dual-Chamber-M-ATX-Case/2025/21959.shtml",
+    "https://www.deepcool.com/products/Cases/CG380-3F-Panoramic-Dual-Tempered-Glass-M-ATX-Case/2025/21782.shtml",
+    "https://www.deepcool.com/products/Cases/CH160-Mesh-WH-Portable-High-Airflow-mini-ITX-Case/2024/19463.shtml",
+    "https://www.deepcool.com/products/Cases/CH160-PLUS-Portable-M-ATX-Compact-Case/2025/21475.shtml",
+    "https://www.deepcool.com/products/Cases/CH160-PLUS-WH-Portable-M-ATX-Compact-Case/2025/21476.shtml",
+    "https://www.deepcool.com/products/Cases/CH160-Portable-High-Airflow-M-ITX-Case/2024/18115.shtml",
+    "https://www.deepcool.com/products/Cases/CH160-WH-Portable-High-Airflow-M-ITX-Case/2024/18116.shtml",
+    "https://www.deepcool.com/products/Cases/CH170-PLUS-Vertical-M-ATX-Compact-Case/2025/21494.shtml",
+    "https://www.deepcool.com/products/Cases/CH260-High-Airflow-M-ATX-Compact-Case-Supports-Rear-Connector-Motherboards/2025/20030.shtml",
+    "https://www.deepcool.com/products/Cases/CH270-Digital-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20032.shtml",
+    "https://www.deepcool.com/products/Cases/CH270-Digital-WH-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20033.shtml",
+    "https://www.deepcool.com/products/Cases/CH270-High-Airflow-Vertical-M-ATX-Compact-Case/2025/22167.shtml",
+    "https://www.deepcool.com/products/Cases/CH360-DIGITAL-M-ATX-Airflow-Case-With-Status-Screen/2023/17715.shtml",
+    "https://www.deepcool.com/products/Cases/CH360-New-Generation-of-Airflow-M-ATX-Case/2023/17713.shtml",
+    "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml",
+    "https://www.deepcool.com/products/Cases/CH690-DIGITAL-Tempered-Glass-Panels-Single-Chamber-ATX-FISHTANK-Case/2024/19911.shtml",
+    "https://www.deepcool.com/products/Cases/CK560-Mid-Tower-ATX-Case-Airflow/2021/14924.shtml",
+    "https://www.deepcool.com/products/Cases/CL660-Optimized-ATX-Case-with-an-Innovative-Compartmentalized-Design/2025/22173.shtml",
+    "https://www.deepcool.com/products/Cases/CL6600-Innovative-Compartmentalized-Compact-ATX-Case/2025/22175.shtml",
+    "https://www.deepcool.com/products/Cases/CL6600-WH-Innovative-Compartmentalized-Compact-ATX-Case/2025/22176.shtml",
+    "https://www.deepcool.com/products/Cases/R-BKAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16787.shtml",
+    "https://www.deepcool.com/products/Cases/fulltowercases/R-WHAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16788.shtml"
+  ],
+  "items": [
+    {
+      "id": 1209,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CK560-Mid-Tower-ATX-Case-Airflow/2021/14924.shtml"
+        }
+      }
+    },
+    {
+      "id": 1210,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CG330-3F-Panoramic-Glass-Panels-Dual-Chamber-M-ATX-Case/2025/21959.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CG330-3F-Panoramic-Glass-Panels-Dual-Chamber-M-ATX-Case/2025/21959.shtml"
+        }
+      }
+    },
+    {
+      "id": 1211,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CG380-3F-Panoramic-Dual-Tempered-Glass-M-ATX-Case/2025/21782.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CG380-3F-Panoramic-Dual-Tempered-Glass-M-ATX-Case/2025/21782.shtml"
+        }
+      }
+    },
+    {
+      "id": 1217,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-Portable-High-Airflow-M-ITX-Case/2024/18115.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-Portable-High-Airflow-M-ITX-Case/2024/18115.shtml"
+        }
+      }
+    },
+    {
+      "id": 1218,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-WH-Portable-High-Airflow-M-ITX-Case/2024/18116.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-WH-Portable-High-Airflow-M-ITX-Case/2024/18116.shtml"
+        }
+      }
+    },
+    {
+      "id": 1219,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-Mesh-WH-Portable-High-Airflow-mini-ITX-Case/2024/19463.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-Mesh-WH-Portable-High-Airflow-mini-ITX-Case/2024/19463.shtml"
+        }
+      }
+    },
+    {
+      "id": 1220,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-PLUS-Portable-M-ATX-Compact-Case/2025/21475.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-PLUS-Portable-M-ATX-Compact-Case/2025/21475.shtml"
+        }
+      }
+    },
+    {
+      "id": 1221,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-PLUS-WH-Portable-M-ATX-Compact-Case/2025/21476.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH160-PLUS-WH-Portable-M-ATX-Compact-Case/2025/21476.shtml"
+        }
+      }
+    },
+    {
+      "id": 1222,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH170-PLUS-Vertical-M-ATX-Compact-Case/2025/21494.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH170-PLUS-Vertical-M-ATX-Compact-Case/2025/21494.shtml"
+        }
+      }
+    },
+    {
+      "id": 1223,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH170-PLUS-Vertical-M-ATX-Compact-Case/2025/21494.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH170-PLUS-Vertical-M-ATX-Compact-Case/2025/21494.shtml"
+        }
+      }
+    },
+    {
+      "id": 1224,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-Digital-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20032.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-Digital-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20032.shtml"
+        }
+      }
+    },
+    {
+      "id": 1225,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-Digital-WH-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20033.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-Digital-WH-High-Airflow-Vertical-M-ATX-Compact-Case-with-Data-Screen/2025/20033.shtml"
+        }
+      }
+    },
+    {
+      "id": 1226,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-High-Airflow-Vertical-M-ATX-Compact-Case/2025/22167.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH270-High-Airflow-Vertical-M-ATX-Compact-Case/2025/22167.shtml"
+        }
+      }
+    },
+    {
+      "id": 1228,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-DIGITAL-M-ATX-Airflow-Case-With-Status-Screen/2023/17715.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-DIGITAL-M-ATX-Airflow-Case-With-Status-Screen/2023/17715.shtml"
+        }
+      }
+    },
+    {
+      "id": 1229,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-New-Generation-of-Airflow-M-ATX-Case/2023/17713.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-New-Generation-of-Airflow-M-ATX-Case/2023/17713.shtml"
+        }
+      }
+    },
+    {
+      "id": 1230,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-DIGITAL-M-ATX-Airflow-Case-With-Status-Screen/2023/17715.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH360-DIGITAL-M-ATX-Airflow-Case-With-Status-Screen/2023/17715.shtml"
+        }
+      }
+    },
+    {
+      "id": 1232,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml"
+        }
+      }
+    },
+    {
+      "id": 1233,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml"
+        }
+      }
+    },
+    {
+      "id": 1234,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml"
+        }
+      }
+    },
+    {
+      "id": 1235,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH690-DIGITAL-Tempered-Glass-Panels-Single-Chamber-ATX-FISHTANK-Case/2024/19911.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH690-DIGITAL-Tempered-Glass-Panels-Single-Chamber-ATX-FISHTANK-Case/2024/19911.shtml"
+        }
+      }
+    },
+    {
+      "id": 1236,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CH260-High-Airflow-M-ATX-Compact-Case-Supports-Rear-Connector-Motherboards/2025/20030.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CH260-High-Airflow-M-ATX-Compact-Case-Supports-Rear-Connector-Motherboards/2025/20030.shtml"
+        }
+      }
+    },
+    {
+      "id": 1237,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CL6600-Innovative-Compartmentalized-Compact-ATX-Case/2025/22175.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CL6600-Innovative-Compartmentalized-Compact-ATX-Case/2025/22175.shtml"
+        }
+      }
+    },
+    {
+      "id": 1238,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CL6600-WH-Innovative-Compartmentalized-Compact-ATX-Case/2025/22176.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CL6600-WH-Innovative-Compartmentalized-Compact-ATX-Case/2025/22176.shtml"
+        }
+      }
+    },
+    {
+      "id": 1239,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/CL660-Optimized-ATX-Case-with-an-Innovative-Compartmentalized-Design/2025/22173.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/CL660-Optimized-ATX-Case-with-an-Innovative-Compartmentalized-Design/2025/22173.shtml"
+        }
+      }
+    },
+    {
+      "id": 1240,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/fulltowercases/R-WHAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16788.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/fulltowercases/R-WHAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16788.shtml"
+        }
+      }
+    },
+    {
+      "id": 1241,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.deepcool.com/products/Cases/R-BKAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16787.shtml"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.deepcool.com/products/Cases/R-BKAAE1-C-1-Mid-Tower-ATX-Gaming-Case/2023/16787.shtml"
+        }
+      }
+    },
+    {
+      "id": 1242,
+      "fields": {
+        "has_psu_included": {
+          "value": true,
+          "source_url": "https://fox-line.ru/catalog/cases/fl-302-fz450.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://fox-line.ru/catalog/cases/fl-302-fz450.html"
+        }
+      }
+    },
+    {
+      "id": 1263,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Formula Crystal Z8 FLOE Black не найдена на formula-pc.ru. Реальный производитель — Formula V Line (formulav-line.com), но этот домен не входит в whitelist оф. источников."
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Formula Crystal Z8 FLOE Black не найдена на formula-pc.ru. Реальный производитель — Formula V Line (formulav-line.com), но этот домен не входит в whitelist оф. источников."
+        }
+      }
+    },
+    {
+      "id": 1264,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Formula Crystal Z9 FLOE Black не найдена на formula-pc.ru. Реальный производитель — Formula V Line (formulav-line.com), но этот домен не входит в whitelist оф. источников."
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Formula Crystal Z9 FLOE Black не найдена на formula-pc.ru. Реальный производитель — Formula V Line (formulav-line.com), но этот домен не входит в whitelist оф. источников."
+        }
+      }
+    },
+    {
+      "id": 1283,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели H601 не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — это иной домен, вне whitelist."
+        }
+      }
+    }
+  ]
+}

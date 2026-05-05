@@ -1,0 +1,483 @@
+{
+  "category": "case",
+  "batch_id": "batch_006",
+  "filled_at": "2026-05-04T19:48:07.564966+00:00",
+  "sources_used": [
+    "https://ipc.in-win.com/pedestal-tower-iw-pe689",
+    "https://www.in-win.com/en/gaming-chassis/n127",
+    "https://www.thermaltake.com/core-p3-tg.html",
+    "https://www.thermaltake.com/cte-e550-tg-gravel-sand-mid-tower-chassis.html",
+    "https://www.thermaltake.com/level-20-mt-argb.html",
+    "https://www.thermaltake.com/thermaltake-divider-170-tg-snow-argb-micro-chassis.html",
+    "https://www.thermaltake.com/thermaltake-divider-370-tg-argb-mid-tower-chassis.html",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1080",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1270",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1362",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1366",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1481",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1597",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1632",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1639",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=171",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1717",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=747",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=878",
+    "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=879"
+  ],
+  "items": [
+    {
+      "id": 1469,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "powerman-pc.ru недоступен (ECONNREFUSED); косвенный вывод из MPN без whitelist-источника не принимается"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "powerman-pc.ru недоступен (ECONNREFUSED); карточка EK303BK не получена"
+        }
+      }
+    },
+    {
+      "id": 1470,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "powerman-pc.ru недоступен (ECONNREFUSED); косвенный вывод из MPN без whitelist-источника не принимается"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "powerman-pc.ru недоступен (ECONNREFUSED); карточка ST616BK не получена"
+        }
+      }
+    },
+    {
+      "id": 1471,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не удалось определить бренд по raw_name; нет соответствия в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Не удалось определить бренд по raw_name; нет соответствия в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1476,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "reason": "Model InWin ENR708 (BL) not found on in-win.com via search; no product page accessible",
+          "source_url": null
+        },
+        "supported_form_factors": {
+          "value": null,
+          "reason": "Model InWin ENR708 (BL) not found on in-win.com via search; no spec page accessible",
+          "source_url": null
+        }
+      }
+    },
+    {
+      "id": 1480,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "reason": "Model InWin BM677 not found on in-win.com via search (only generic BM Series page available; no BM677 product page)",
+          "source_url": null
+        },
+        "supported_form_factors": {
+          "value": null,
+          "reason": "Model InWin BM677 not found on in-win.com via search; cannot verify form factor from official source",
+          "source_url": null
+        }
+      }
+    },
+    {
+      "id": 1482,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB"
+          ],
+          "source_url": "https://ipc.in-win.com/pedestal-tower-iw-pe689"
+        }
+      }
+    },
+    {
+      "id": 1483,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://ipc.in-win.com/pedestal-tower-iw-pe689"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB"
+          ],
+          "source_url": "https://ipc.in-win.com/pedestal-tower-iw-pe689"
+        }
+      }
+    },
+    {
+      "id": 1484,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "SSI-CEB"
+          ],
+          "source_url": "https://ipc.in-win.com/pedestal-tower-iw-pe689"
+        }
+      }
+    },
+    {
+      "id": 1486,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.in-win.com/en/gaming-chassis/n127"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.in-win.com/en/gaming-chassis/n127"
+        }
+      }
+    },
+    {
+      "id": 1595,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/level-20-mt-argb.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.thermaltake.com/level-20-mt-argb.html"
+        }
+      }
+    },
+    {
+      "id": 1606,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/core-p3-tg.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.thermaltake.com/core-p3-tg.html"
+        }
+      }
+    },
+    {
+      "id": 1609,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/thermaltake-divider-370-tg-argb-mid-tower-chassis.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.thermaltake.com/thermaltake-divider-370-tg-argb-mid-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 1617,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/thermaltake-divider-170-tg-snow-argb-micro-chassis.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.thermaltake.com/thermaltake-divider-170-tg-snow-argb-micro-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 1623,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.thermaltake.com/cte-e550-tg-gravel-sand-mid-tower-chassis.html"
+        },
+        "supported_form_factors": {
+          "value": [
+            "E-ATX",
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.thermaltake.com/cte-e550-tg-gravel-sand-mid-tower-chassis.html"
+        }
+      }
+    },
+    {
+      "id": 1626,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=171"
+        }
+      }
+    },
+    {
+      "id": 1627,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=747"
+        }
+      }
+    },
+    {
+      "id": 1628,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1362"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1362"
+        }
+      }
+    },
+    {
+      "id": 1629,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=878"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=878"
+        }
+      }
+    },
+    {
+      "id": 1630,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391"
+        }
+      }
+    },
+    {
+      "id": 1631,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1717"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1717"
+        }
+      }
+    },
+    {
+      "id": 1632,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=879"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=879"
+        }
+      }
+    },
+    {
+      "id": 1633,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1080"
+        }
+      }
+    },
+    {
+      "id": 1641,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1270"
+        }
+      }
+    },
+    {
+      "id": 1644,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391"
+        }
+      }
+    },
+    {
+      "id": 1658,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1366"
+        }
+      }
+    },
+    {
+      "id": 1660,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1481"
+        }
+      }
+    },
+    {
+      "id": 1661,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391"
+        },
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1391"
+        }
+      }
+    },
+    {
+      "id": 1662,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1597"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1597"
+        }
+      }
+    },
+    {
+      "id": 1663,
+      "fields": {
+        "supported_form_factors": {
+          "value": [
+            "ATX",
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1639"
+        }
+      }
+    },
+    {
+      "id": 1666,
+      "fields": {
+        "has_psu_included": {
+          "value": false,
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1632"
+        },
+        "supported_form_factors": {
+          "value": [
+            "MATX",
+            "ITX"
+          ],
+          "source_url": "https://www.zalman.com/EN/Product/ProductDetail.do?productSeq=1632"
+        }
+      }
+    }
+  ]
+}

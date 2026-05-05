@@ -1,0 +1,348 @@
+{
+  "category": "case",
+  "batch_id": "batch_003",
+  "filled_at": "2026-05-04T19:48:07.557441+00:00",
+  "sources_used": [],
+  "items": [
+    {
+      "id": 1284,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели H602 не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — иной домен, вне whitelist."
+        }
+      }
+    },
+    {
+      "id": 1296,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Ultra Star (X05) не найдена на gamemax.com (whitelist)."
+        }
+      }
+    },
+    {
+      "id": 1303,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Zorro Black не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — иной домен, вне whitelist."
+        }
+      }
+    },
+    {
+      "id": 1304,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Zorro White не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — иной домен, вне whitelist."
+        }
+      }
+    },
+    {
+      "id": 1305,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Vista AW не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — иной домен, вне whitelist."
+        }
+      }
+    },
+    {
+      "id": 1309,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Zircon не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Zircon не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1316,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Zircon не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1317,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Zircon не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1322,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Карточка модели Cute Owl не найдена на gamemax.com (whitelist). Материалы доступны только на gamemaxpc.com — иной домен, вне whitelist."
+        }
+      }
+    },
+    {
+      "id": 1326,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1327,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1328,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1329,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1330,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1331,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1335,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1336,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1337,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1338,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1339,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1340,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1341,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1342,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1345,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1346,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1347,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1348,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1349,
+      "fields": {
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1351,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    },
+    {
+      "id": 1352,
+      "fields": {
+        "has_psu_included": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        },
+        "supported_form_factors": {
+          "value": null,
+          "source_url": null,
+          "reason": "Бренд Ginzzu не входит в whitelist оф. доменов"
+        }
+      }
+    }
+  ]
+}

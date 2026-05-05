@@ -348,6 +348,7 @@ UPDATE в проде, без batch-инфраструктуры.
 |------|-----------|------|---------|
 | 11.6.2.3.3 | cooler | 2026-04-30 | Пилотный — первый прогон через `enrich_export_prod.py`. |
 | 11.6.2.4.1a | case | 2026-05-01 | 8 batch'ей с прода (230 items). Прод оказался намного чище, чем ожидалось (288 кандидатов вместо ~1840 — derived/regex закрыли больше полей). Также пофикшен Windows-баг wrapper'а: `subprocess.run(["railway", ...])` не находил `railway.CMD`; теперь имя бинаря резолвится через `shutil.which`. |
+| 11.6.2.4.1b | case | 2026-05-05 | AI-обогащение тех же 230 items через 11 параллельных subagent'ов + bulk-null процессор для 100 non-whitelist items. Локальный импорт: 165 полей у 92 компонентов, 0 отклонений. Прод-импорт: см. §14. |
 
 ## 13. Аудит и переклассификация мусора в категории Case (этап 11.6.2.4.0)
 
@@ -434,3 +435,57 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
   отчёт последнего прогона (gitignored).
 * `scripts/reports/reclassify_cases_trash_backup_YYYYMMDD.sql` —
   rollback (gitignored).
+
+## 14. AI-обогащение Case (этап 11.6.2.4.1b) — итоги
+
+**Контекст.** 230 видимых cases с NULL в `supported_form_factors`
+и/или `has_psu_included` после прошлого этапа. Сценарий: 11
+параллельных subagent'ов Claude Code, по одному на бренд-кластер,
+плюс bulk-null процессор для items с брендом вне whitelist.
+
+**Распределение по результату (130 whitelist + 100 bulk-null = 230):**
+
+| Категория | items | Результат | Причина |
+|-----------|------:|-----------|---------|
+| Whitelist brand, данные найдены | 116 | success | — |
+| Whitelist brand, honest-null | 14 | null + reason | см. ниже |
+| Bulk-null: бренд не в whitelist | 88 | null + reason | Ginzzu 73, ExeGate/Crown/Zircon/PowerCool/1stPlayer 12, Thermalright LCD 4 (LCD-дисплей, не корпус) |
+| Bulk-null: SBC-защитный слой | 0 | null + reason | детектор не сработал в этом батче (Ginzzu и пр. — не SBC) |
+| Bulk-null: аксессуары | 5 | null + reason | InWin направляющие/ручки (ID 953-955), ExeGate-рельсы 1914 |
+| Bulk-null: бренд не определён | 6 | null + reason | EK303BK / EL555BK / EC046U3 / BA831BK / S345-450W (POWERMAN-серии без явного бренда в имени) |
+
+**Локальный импорт:** 165 полей принято (92 form_factors + 73 psu) у
+92 компонентов, 0 отклонено.
+
+**Honest-null breakdown (14 items с whitelist-брендом, но без данных):**
+
+| Бренд | items | Причина |
+|-------|------:|---------|
+| GameMax | 7 | Реальный домен — `gamemaxpc.com`, не `gamemax.com` (в whitelist). Все 7 → null. |
+| Powerman | 3 | `powerman-pc.ru` недоступен (ECONNREFUSED во время AI-прохода). Все 3 → null. |
+| Formula | 2 | "Formula" в БД — это **Formula V Line** (`formulav-line.com`), не Formula PC. |
+| Accord | 1 | `accord-pc.ru` не индексируется поиском, через WebFetch недоступен. |
+| HPE (XASTRA) | 1 | XASTRA A700 — российский OEM, не имеет отношения к HPE. На `hpe.com` отсутствует. |
+| InWin | 2 | Модели ENR708 и BM677 не найдены на `in-win.com` (вероятно EOL/региональные). |
+| Aerocool | 1 | id=1066 ARCT Core Plus 120мм — это CPU-кулер, не корпус (попал в cases ошибочно — пере-кандидат для is_likely_loose_case_fan). |
+| XPG | 1 | id=1737 LEVANTE II 360 — AIO СЖО, не корпус (мисс-классификация). |
+
+**Кандидаты в техдолг по итогам этапа:**
+
+1. **GameMax-домен в whitelist.** Поменять `gamemax.com` →
+   `gamemaxpc.com` в `OFFICIAL_DOMAINS` (или добавить оба) — это
+   разблокирует 7 items на следующем прогоне.
+2. **Powerman повторить.** 3 POWERMAN-items оставлены null с reason
+   "domain unreachable". Запустить разовый AI-прогон по powerman-pc.ru
+   когда домен поднимется.
+3. **Формат-баги subagent'ов** (см. также §12). InWin вернул `source`
+   вместо `source_url`, Thermaltake — bare values без обёртки. Оба
+   починены руками. **Действие**: уточнить пример output-формата в
+   `enrichment/prompts/_общие_правила.md` (более жёсткий пример +
+   negative-пример).
+4. **Re-classify Aerocool 1066 / XPG 1737.** Это CPU-кулер и AIO,
+   попавшие в cases. Расширить детекторы из 11.6.2.4.0 (либо
+   обновить `is_likely_loose_case_fan` чтобы ловил формулировку "Core
+   Plus 120мм" с производителем Aerocool).
+5. **Formula-mapping.** "Formula" в нашей БД на 99% — это Formula V
+   Line. Подумать о добавлении `formulav-line.com` в whitelist.
