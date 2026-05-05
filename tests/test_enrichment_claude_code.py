@@ -137,6 +137,49 @@ class TestWhitelist:
         with pytest.raises(ValidationError):
             _validate_source_url("https://nvidia.com.evil.ru/product")
 
+    # --- Этап 11.6.2.5.0c ---
+    def test_whitelist_contains_stage_11_6_2_5_0c_psu_additions(self):
+        """5 PSU-доменов добавлены перед AI-обогащением 11.6.2.5.1."""
+        added = {
+            "exegate.ru", "crown-micro.com", "gamemaxpc.com",
+            "formulav-line.com", "super-flower.com.tw",
+        }
+        assert added.issubset(OFFICIAL_DOMAINS), (
+            f"Отсутствуют в OFFICIAL_DOMAINS: {added - OFFICIAL_DOMAINS}"
+        )
+
+    @pytest.mark.parametrize("url", [
+        "https://www.exegate.ru/catalogue/psu/",
+        "https://crown-micro.com/products/cm-ps500-superior",
+        "https://gamemaxpc.com/psu/lion-core-1200p",
+        "https://formulav-line.com/products/psu/",
+        "https://www.super-flower.com.tw/en/products/leadex-titanium-1000w",
+    ])
+    def test_psu_5_0c_urls_pass(self, url):
+        assert _validate_source_url(url) == url
+
+    def test_url_host_case_insensitive(self):
+        """Whitelist matching должен быть регистронезависимым по host:
+        DEEPCOOL.COM, Deepcool.com, deepcool.com — все валидны.
+        urllib.parse.urlparse даёт hostname в lowercase для большинства
+        случаев, но дополнительно мы lower'им и host, и whitelist —
+        страховка от регрессий, если кто-то добавит «Aerocool.com»
+        с заглавной в schema.py.
+        """
+        for url in (
+            "https://DEEPCOOL.COM/product/AS500",
+            "https://Deepcool.com/product/AS500",
+            "https://deepcool.com/product/AS500",
+            "https://DeepCool.Com/product/AS500",
+        ):
+            assert _validate_source_url(url) == url
+
+    def test_url_host_with_uppercase_subdomain(self):
+        """Поддомены тоже case-insensitive."""
+        assert _validate_source_url(
+            "https://SUPPORT.HP.COM/us-en/product/123"
+        ) != ""
+
 
 # ----------------------------------------------------------------------
 # derive_needs_extra_power

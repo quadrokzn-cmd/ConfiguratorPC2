@@ -183,6 +183,17 @@ OFFICIAL_DOMAINS: frozenset[str] = frozenset({
     "fsplifestyle.com",   # FSP Group — потребительская ветка
     # БП — добавлено на Этапе 2.5В (2026-04-24, проверено WebFetch):
     "gamerstorm.com",     # GamerStorm — активный суб-бренд Deepcool (серии PN-D/PN-M), для legacy-моделей вроде PN1000D datasheet только здесь
+    # БП — добавлено на Этапе 11.6.2.5.0c (2026-05-05, проверено WebFetch).
+    # Перед AI-обогащением 11.6.2.5.1 закрываем основные пробелы по
+    # топ-вендорам с NULL.power_watts (ExeGate 30, Crown 1, Formula V Line
+    # 11+, GameMax 7, Super Flower — топ-PSU-производитель). thermaltake/
+    # deepcool/aerocool/coolermaster/corsair/bequiet/evga/xpg/silverstonetek/
+    # raijintek/lian-li/asus/msi/gigabyte уже присутствуют выше.
+    "exegate.ru",         # ExeGate — официальный сайт, БП в каталоге
+    "crown-micro.com",    # Crown Micro — серия CM-PS500/600/650/700/850
+    "gamemaxpc.com",      # GameMax — официальный сайт (не gamemax.com, см. техдолг §14)
+    "formulav-line.com",  # Formula V Line (Тайвань) — БП/корпуса/кулеры
+    "super-flower.com.tw", # Super Flower — серия LEADEX (топ-OEM PSU)
     # Накопители (HDD/SSD) — добавлено на Этапе 2.5Б (2026-04-24, оркестратор)
     "kingston.com",       # Kingston: SSD и аксессуары
     "westerndigital.com", # WD: HDD/SSD

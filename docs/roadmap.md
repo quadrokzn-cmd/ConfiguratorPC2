@@ -1133,6 +1133,58 @@ whitelist + bulk-null fallback).
   Кулер DeepCool — отдельный детектор `is_likely_misc_in_psu` или
   ручной разбор на 5.1).
 
+### Этап 11.6.2.5.0c — Финальная прокладка перед AI-обогащением PSU ✅
+
+Закрывает два пункта техдолга 5.0b (см. `docs/enrichment_techdebt.md §15`,
+секция «Закрыто этапом 5.0c») перед AI-обогащением 11.6.2.5.1.
+
+- **Детектор `is_likely_non_psu_in_psus`** в
+  [`shared/component_filters.py`](../shared/component_filters.py) —
+  ловит корпуса/кулеры/вентиляторы, ошибочно попавшие в `psus` при
+  первичной загрузке прайсов (детектор `is_likely_psu_adapter` их не
+  цеплял — нет маркеров адаптера). Жёсткий триггер по leading-маркеру
+  («Корпус …», «Кулер …», «Вентилятор …», «Устройство охлажд …»,
+  «Chassis», «Mid/Mini/Full-tower») плюс позитивный маркер
+  («MasterBox», «AIO», «PC Cooling Fan», «к корпусам») в середине
+  строки с защитными слоями: `«Блок питания»`/`Power Supply`, серия
+  настоящего PSU из whitelist (`_PSU_REAL_SERIES`), явная мощность
+  ≥200W (`_PSU_REAL_WATTAGE`). Защита по форм-фактору (ATX/SFX) НЕ
+  применяется — у корпусов это атрибут совместимости и она бы дала
+  ложно-отрицательные.
+- **Подключение в [`scripts/reclassify_psu_misclassified.py`](../scripts/reclassify_psu_misclassified.py)**:
+  оба детектора (`is_likely_psu_adapter` + `is_likely_non_psu_in_psus`)
+  работают через OR. Скрипт не дублируется, остаётся идемпотентным,
+  audit-event помечен `stage="11.6.2.5.0c"`.
+- **8 новых юнит-тестов** в
+  [`tests/test_shared/test_component_filters.py::TestIsLikelyNonPsuInPsus`](../tests/test_shared/test_component_filters.py)
+  на реальных model-строках из БД (positives + negatives + защитные слои).
+- **+5 доменов в OFFICIAL_DOMAINS** ([`schema.py`](../app/services/enrichment/claude_code/schema.py)),
+  верифицированы WebFetch'ем: `exegate.ru` (топ-1 PSU-вендор по NULL),
+  `crown-micro.com` (CM-PS серия), `gamemaxpc.com` (исправление
+  пробела `gamemax.com` → `gamemaxpc.com` из техдолга 14.1),
+  `formulav-line.com` (исправление пробела из техдолга 14.5),
+  `super-flower.com.tw` (LEADEX серия, топ-OEM PSU). Большинство
+  топ-PSU-вендоров (thermaltake/deepcool/aerocool/coolermaster/corsair/
+  bequiet/evga/xpg/silverstonetek/raijintek/lian-li/msi/asus/gigabyte/
+  powerman-pc.ru/hiper.ru/digma.ru/accord-pc.ru/formula-pc.ru/
+  fox-line.ru/acd-group.com) уже были в whitelist до 5.0c.
+- **Whitelist matching case-insensitive (страховка)** в
+  [`validators.py`](../app/services/enrichment/claude_code/validators.py):
+  явный `_OFFICIAL_DOMAINS_LOWER = frozenset(d.lower() for d in OFFICIAL_DOMAINS)`,
+  вычисляется при импорте. URL-host уже приводился к lower, теперь
+  и whitelist гарантированно сравнивается в lowercase — защита от
+  регрессии, если кто-то добавит «Aerocool.com» с заглавной буквы.
+  Покрыто `test_url_host_case_insensitive` (4 варианта регистра).
+- **Локальные метрики (apply)**: помечено `is_hidden=TRUE` — **26**
+  (19 Thermaltake корпуса+кулеры+вентиляторы CT120/CT140/Astria/AX700,
+  3 Cooler Master MasterBox, 2 unknown «Корпус MSI Forge»+«Кулер
+  для Thermaltake CT120», 1 CHIEFTEC «Корпус Hawk», 1 Deepcool
+  «Кулер AN400»). 0 ложно-положительных по 8 настоящим PSU из той же
+  выборки SQL (Aerocool SX400/VX-700, Cooler Master Elite NEX,
+  Crown CM-PS500W, FSP FSP550, Zircon ATX 400W/450W, INWIN 400W).
+- **Полный pytest -n auto: 1129 passed, 2 skipped** (без регрессий
+  относительно baseline 11.7).
+
 ### Этап 11.7 — pytest-xdist + ускорение топ-10 медленных тестов ✅
 
 Полный прогон тестов с этапа 11.2 занимал ~6:47 — заметно тормозил

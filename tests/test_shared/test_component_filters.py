@@ -13,6 +13,7 @@ from shared.component_filters import (
     is_likely_case_fan,
     is_likely_external_storage,
     is_likely_mounting_kit,
+    is_likely_non_psu_in_psus,
     is_likely_thermal_paste,
 )
 
@@ -291,3 +292,146 @@ class TestIsLikelyExternalStorageStub:
         ) is False
         assert is_likely_external_storage(None) is False
         assert is_likely_external_storage("") is False
+
+
+class TestIsLikelyNonPsuInPsus:
+    """Этап 11.6.2.5.0c: корпуса / кулеры / вентиляторы внутри psus.
+
+    Положительные кейсы взяты из реального дампа локальной БД (выборка по
+    SQL из ШАГ 1: model ~* '(корпус|кулер|вентилятор|...)').
+    Отрицательные кейсы — тоже из дампа, это настоящие PSU, у которых в
+    названии случайно встречается слово «вентилятор» / «корпус» как
+    атрибут совместимости.
+    """
+
+    def test_leading_korpus_marked(self):
+        """Имя начинается с «Корпус …» — это корпус, а не PSU."""
+        assert is_likely_non_psu_in_psus(
+            "Корпус Chieftec Hawk черный без БП ATX 2x80mm 4x120mm"
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Корпус Thermaltake CTE C750 TG ARGB белый без БП ATX"
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Корпус XL-ATX Thermaltake AX700 CA-11B-00F1NN-00 черный, без БП"
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Корпус Thermaltake The Tower 300 mATX без БП Limestone"
+        ) is True
+
+    def test_leading_kuler_or_ventilator_marked(self):
+        """Имя начинается с «Кулер» / «Вентилятор» — нон-PSU."""
+        assert is_likely_non_psu_in_psus(
+            "Кулер DeepCool AN400 (R-AN400-SRWNMN-G)"
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Вентилятор в корпус Thermaltake TOUGHFAN 12 [CL-F117-PL12BL-A]"
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Кулер для компьютерного корпуса, Thermaltake, CT140 ARGB Sync"
+        ) is True
+        # «Устройство охлаждения(кулер) Astria 600 ARGB ... 265W» — слово
+        # «265W» защитой по wattage НЕ должно прикрыть, потому что строка
+        # начинается с «Устройство охлажден».
+        assert is_likely_non_psu_in_psus(
+            "Устройство охлаждения(кулер) Thermaltake Astria 600 ARGB "
+            "Soc-AM5/AM4/1200/1700/1851 черный 4-pin 26.8dB Al 265W Ret"
+        ) is True
+
+    def test_masterbox_in_middle_marked(self):
+        """«MasterBox» — серия корпусов Cooler Master, не PSU. Имя
+        начинается с бренда «Cooler Master MasterBox …» — leading-маркер
+        не сработает, но позитивный _NON_PSU_KEYWORDS поймает MasterBox.
+        """
+        assert is_likely_non_psu_in_psus(
+            "Cooler Master MasterBox NR200P V2 белый без БП miniITX 3x120mm",
+            manufacturer="Cooler Master",
+        ) is True
+        assert is_likely_non_psu_in_psus(
+            "Cooler Master MasterBox Q300L V2 черный без БП mATX 4x120mm"
+        ) is True
+
+    def test_real_psu_with_blok_pitaniya_keyword_protected(self):
+        """«Блок питания …» в имени — это явно PSU, даже если рядом стоит
+        слово «вентилятор» (характеристика самого БП) или «для корпуса».
+        """
+        # FSP FSP550-50FS — настоящий ATX-PSU, в имени упоминается «корпус».
+        assert is_likely_non_psu_in_psus(
+            "Блок питания FSP FSP550-50FS для корпуса Chenbro",
+            manufacturer="FSP GROUP",
+        ) is False
+        # Aerocool VX-700 — настоящий PSU, в имени есть «120mm fan,
+        # RGB-подсветка вентилятора».
+        assert is_likely_non_psu_in_psus(
+            "Блок питания Aerocool VX-700 RGB PLUS (ATX 2.3, 700W, "
+            "120mm fan, RGB-подсветка вентилятора) Box",
+            manufacturer="Aerocool",
+        ) is False
+        # Cooler Master Elite NEX W700 — настоящий PSU, в имени есть
+        # «120-мм тихий вентилятор» как атрибут.
+        assert is_likely_non_psu_in_psus(
+            "Блок питания CoolerMaster Elite NEX W700 230V Active PFC КПД "
+            "85% 200-240V. Входящий в комплект 120-мм тихий вентилятор",
+            manufacturer="Cooler Master",
+        ) is False
+        # CROWN CM-PS500W — настоящий PSU, в имени есть «длина корпуса 140мм».
+        assert is_likely_non_psu_in_psus(
+            "CROWN Блок питания CM-PS500W PRO (ATX, 500W, 80 PLUS SILVER, "
+            "длина корпуса 140мм, FAN120)",
+            manufacturer="Crown",
+        ) is False
+
+    def test_real_psu_with_high_wattage_protected(self):
+        """Защита по watts: если в имени \\d{3,4}\\s*W ≥200W, это
+        PSU, даже если рядом «вентилятор» / «корпус» (например, описание
+        размера вентилятора БП или «к корпусам»).
+        """
+        # Aerocool 400W SX400 — SFX-PSU, в имени «размер вентилятора 80x80 мм»
+        assert is_likely_non_psu_in_psus(
+            "Aerocool 400W SX400 (Мощность: 400W, форм-фактор: SFX, "
+            "размер вентилятора: 80x80 мм)",
+            manufacturer="Aerocool",
+        ) is False
+        # INWIN 400W OEM «к корпусам BK» — настоящий OEM-PSU
+        assert is_likely_non_psu_in_psus(
+            "INWIN 400W OEM [RB-S400BN1-0 H] к корпусам BK"
+        ) is False
+        # Zircon ATX 400W — настоящий PSU
+        assert is_likely_non_psu_in_psus(
+            "Zircon Блок питания ATX 400W ATX-400W Black, Безвентиляторный"
+        ) is False
+
+    def test_psu_series_whitelist_protected(self):
+        """Серии настоящих PSU (Mirage/NGDP/KYBER/UN/CB/PC/Smart BX) не
+        помечаются, даже если в имени есть слабый нон-PSU маркер."""
+        # Aerocool Mirage Gold — настоящий PSU из 5.0a
+        assert is_likely_non_psu_in_psus(
+            "Aerocool Mirage Gold 750W модульный (с вентилятором 140mm)",
+            manufacturer="Aerocool",
+        ) is False
+        # Thermaltake Smart 600W — Smart-серия в whitelist
+        assert is_likely_non_psu_in_psus(
+            "Thermaltake Smart 600W (с тихим вентилятором)",
+            manufacturer="Thermaltake",
+        ) is False
+
+    def test_neutral_psu_name_not_marked(self):
+        """Обычные PSU без слов корпус/кулер/вентилятор — не помечать."""
+        assert is_likely_non_psu_in_psus(
+            "ATX 750W 80+ Bronze APFC модульный",
+        ) is False
+        assert is_likely_non_psu_in_psus(
+            "ExeGate UN500 500W ATX",
+            manufacturer="ExeGate",
+        ) is False
+        assert is_likely_non_psu_in_psus(
+            "Ginzzu CB650 650W ATX",
+            manufacturer="Ginzzu",
+        ) is False
+
+    def test_empty_name_returns_false(self):
+        """Пустые входы → False."""
+        assert is_likely_non_psu_in_psus(None) is False
+        assert is_likely_non_psu_in_psus("") is False
+        assert is_likely_non_psu_in_psus("   ") is False
+        assert is_likely_non_psu_in_psus(None, "Cooler Master") is False

@@ -1,30 +1,27 @@
-"""Переклассификация мусора в psus (этап 11.6.2.5.0b).
+"""Переклассификация мусора в psus (этапы 11.6.2.5.0b и 11.6.2.5.0c).
 
 Зачем
 -----
 В категории psu могут оказываться позиции, которые не являются
-полноценным ATX/SFX блоком питания: универсальные адаптеры (Gembird
-NPA-AC, KS-is, ORIENT PU-C/SAP-, BURO BUM-*, GOPOWER, WAVLINK),
-ноутбучные зарядки (FSP FSP040), PoE-инжекторы (Ubiquiti POE),
-батарейные блоки питания для охранных систем (ББП Бастион РАПАН) и
-прочие dock-станции / USB-PD-зарядки. Они засоряют выдачу PSU и
-портят AI-обогащение (нет смысла искать у них power_watts / efficiency).
+полноценным ATX/SFX блоком питания. Скрипт прогоняет два детектора
+из `shared.component_filters` (логически OR; кандидат на is_hidden,
+если совпал хотя бы один):
 
-Скрипт идемпотентно прогоняет is_likely_psu_adapter из
-shared.component_filters по всем УЖЕ существующим видимым psus и
-помечает кандидатов is_hidden=TRUE. Один общий audit-event на массовое
-обновление.
+1. `is_likely_psu_adapter` (5.0b) — универсальные адаптеры (Gembird
+   NPA-AC, KS-is, ORIENT PU-C/SAP-, BURO BUM-*, GOPOWER, WAVLINK),
+   ноутбучные зарядки (FSP FSP040), PoE-инжекторы (Ubiquiti POE),
+   батарейные блоки питания для охранных систем (ББП Бастион РАПАН) и
+   прочие dock-станции / USB-PD-зарядки.
 
-Защитный слой
--------------
-Внутри детектора три защитных слоя: (1) форм-фактор PSU в имени
-(ATX/SFX/TFX/EPS, 80+, модульный), (2) явная мощность ≥200W,
-(3) серия настоящего PSU из whitelist (CBR ATX, Exegate UN/PPH/PPX,
-Ginzzu CB/PC, XPG KYBER, Zalman ZM, Aerocool Mirage/Cylon/KCAS,
-Powerman PM, 1STPLAYER NGDP, Thermaltake Smart, Formula VX/KCAS).
-Если совпало — возвращаем False, даже при позитивных маркерах
-адаптера. Это защищает повреждённые упаковкой настоящие PSU
-(«Повреждение упаковки CBR ATX 600W…» и т. п.).
+2. `is_likely_non_psu_in_psus` (5.0c) — корпуса, кулеры и
+   вентиляторы, попавшие в psus при первичной загрузке прайсов
+   («Корпус Thermaltake», «Cooler Master MasterBox», «Кулер DeepCool»,
+   «Вентилятор Thermaltake CT120» и т. п.). У них не имеет смысла
+   искать `power_watts` AI-обогащением.
+
+Оба детектора идемпотентны и имеют защитные слои против ложных
+срабатываний (см. их docstring'и). Один audit-event на массовое
+обновление, общий бэкап-rollback.
 
 Запуск
 ------
@@ -59,7 +56,10 @@ from sqlalchemy import create_engine, text
 
 from shared.audit import write_audit
 from shared.audit_actions import ACTION_COMPONENT_HIDE
-from shared.component_filters import is_likely_psu_adapter
+from shared.component_filters import (
+    is_likely_non_psu_in_psus,
+    is_likely_psu_adapter,
+)
 
 
 def _connect():
@@ -94,12 +94,14 @@ def _fetch_visible_psus(engine) -> list:
 
 
 def _is_candidate(row) -> bool:
-    """Применяем детектор к конкатенации model + всех raw_names.
+    """Применяем оба детектора (адаптер + корпус/кулер/вентилятор) к
+    конкатенации model + всех raw_names. Логически OR: кандидат, если
+    совпал хотя бы один.
 
-    Это нужно потому что бренд иногда есть только в raw_name (например,
-    «Gembird NPA-AC1D» — manufacturer=unknown, NPA-AC бренд-серия видна
-    только в имени). Конкатенация повышает recall, защитные слои внутри
-    детектора защищают от ложных срабатываний.
+    Конкатенация нужна, потому что бренд иногда есть только в raw_name
+    (например, «Gembird NPA-AC1D» — manufacturer=unknown, NPA-AC
+    бренд-серия видна только в имени). Защитные слои внутри детекторов
+    защищают от ложных срабатываний.
     """
     parts: list[str] = []
     if row.model:
@@ -112,7 +114,11 @@ def _is_candidate(row) -> bool:
     full = " | ".join(parts)
     if not full.strip():
         return False
-    return is_likely_psu_adapter(full, row.manufacturer)
+    if is_likely_psu_adapter(full, row.manufacturer):
+        return True
+    if is_likely_non_psu_in_psus(full, row.manufacturer):
+        return True
+    return False
 
 
 def find_candidates(engine) -> list:
@@ -231,8 +237,8 @@ def reclassify(
             target_type="psu",
             target_id=f"bulk:{hidden}",
             payload={
-                "stage":  "11.6.2.5.0b",
-                "reason": "psu_adapter_misclassification",
+                "stage":  "11.6.2.5.0c",
+                "reason": "psu_adapter_or_non_psu_misclassification",
                 "ids":    ids[:200],
                 "total":  hidden,
             },

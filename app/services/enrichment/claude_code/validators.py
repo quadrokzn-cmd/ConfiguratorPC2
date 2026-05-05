@@ -97,6 +97,17 @@ def _as_enum(value: Any, *, allowed: set[str], normalize_map: dict[str, str] | N
 # -----------------------------------------------------------------------------
 # Проверка URL источника: только HTTPS, домен из белого списка
 # -----------------------------------------------------------------------------
+# Кэш lower-case вариантов whitelist-доменов. Сам whitelist уже целиком в
+# lowercase, но если кто-то добавит «Aerocool.com» с заглавной буквы —
+# мы хотим, чтобы matching всё равно работал. Логика case-insensitive
+# реализована явно (host.lower() vs dom.lower()), а не неявно через
+# полагание на содержимое whitelist'а. Пересчитывается единожды при
+# импорте модуля.
+_OFFICIAL_DOMAINS_LOWER: frozenset[str] = frozenset(
+    d.lower() for d in OFFICIAL_DOMAINS
+)
+
+
 def _validate_source_url(url: Any) -> str:
     if url is None or (isinstance(url, str) and not url.strip()):
         raise ValidationError("missing_url")
@@ -111,8 +122,9 @@ def _validate_source_url(url: Any) -> str:
     host = (parsed.hostname or "").lower()
     if not host:
         raise ValidationError("bad_url:no_host")
-    # Поддомены любых доменов из белого списка тоже разрешены
-    for dom in OFFICIAL_DOMAINS:
+    # Поддомены любых доменов из белого списка тоже разрешены. Сравнение
+    # case-insensitive: host уже в lower, _OFFICIAL_DOMAINS_LOWER тоже.
+    for dom in _OFFICIAL_DOMAINS_LOWER:
         if host == dom or host.endswith("." + dom):
             return s
     raise ValidationError(f"bad_domain:{host}")

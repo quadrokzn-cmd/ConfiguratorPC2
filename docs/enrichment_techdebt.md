@@ -536,3 +536,43 @@ tower» / «корпус ПК» / «JBOD» / «rack-mount» / «PC case» / «AT
 
 Прод-метрики будут добавлены сюда после ШАГ 9 (применение через railway ssh).
 
+**Закрыто этапом 5.0c (2026-05-05).**
+
+- ~~#3: Misc-категория «cases/coolers внутри psus»~~ — детектор
+  `is_likely_non_psu_in_psus` в
+  [`shared/component_filters.py`](../shared/component_filters.py)
+  ловит позиции с leading-маркером «Корпус …» / «Кулер …» /
+  «Вентилятор …» / «Устройство охлажд …» (жёсткое True, никакая
+  защита не спасает) либо с маркерами `MasterBox` / `AIO` /
+  `PC Cooling Fan` / «к корпусам» в середине строки (тогда применяются
+  защитные слои: «Блок питания»/`Power Supply`, серия настоящего PSU
+  из whitelist, явная мощность ≥200W). Защита по форм-фактору
+  (ATX/SFX) намеренно НЕ применяется — у корпусов это атрибут
+  совместимости и она дала бы ложно-отрицательные. Подключён в
+  `scripts/reclassify_psu_misclassified.py` через OR с
+  `is_likely_psu_adapter`. **Локально помечено 26** (19 Thermaltake +
+  3 Cooler Master + 2 unknown + 1 CHIEFTEC + 1 Deepcool).
+- ~~#2: расширение PSU-whitelist~~ — частично. **+5 доменов** в
+  `OFFICIAL_DOMAINS`, верифицированы WebFetch'ем:
+  `exegate.ru`, `crown-micro.com`, `gamemaxpc.com`, `formulav-line.com`,
+  `super-flower.com.tw`. По остальным (HSPD/BLOODY/SAMA/Gooxi/Foxconn)
+  спеков либо нет, либо это OEM/B2B без отдельных datasheet —
+  оставлены до возникновения реальной потребности. Большинство
+  топ-PSU-вендоров (thermaltake/deepcool/aerocool/coolermaster/corsair/
+  bequiet/evga/xpg/silverstonetek/raijintek/lian-li/asus/msi/gigabyte/
+  powerman-pc.ru/hiper.ru/digma.ru/accord-pc.ru/formula-pc.ru/
+  fox-line.ru/acd-group.com) уже были в whitelist'е до 5.0c —
+  они доступны для PSU-обогащения без дополнительных изменений.
+- **Whitelist matching укреплён**: явный
+  `_OFFICIAL_DOMAINS_LOWER = frozenset(d.lower() for d in OFFICIAL_DOMAINS)`
+  в [`validators.py`](../app/services/enrichment/claude_code/validators.py)
+  — страховка от регрессий, если в будущем кто-то добавит домен с
+  заглавной буквы. Тест `test_url_host_case_insensitive` проверяет
+  4 варианта регистра для `deepcool.com`.
+- ~~Открытое #1 (нормализация регистра psus.manufacturer)~~ — НЕ
+  закрыто, отложено в 5.1. Обоснование: case-insensitive matching
+  whitelist'а в URL-валидаторе (см. выше) уже снимает практическую
+  проблему — AI ходит на правильные домены вне зависимости от регистра
+  manufacturer'а в БД. UPDATE на унификацию регистра — косметика, не
+  блокирует AI-обогащение.
+
