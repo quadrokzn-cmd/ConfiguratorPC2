@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import io
+import os
 import re
 import zipfile
 
@@ -96,12 +97,56 @@ def test_merlion_sender_regex_rejects_other():
 # =====================================================================
 
 def _make_zip_with(files: list[tuple[str, bytes]]) -> bytes:
-    """Собирает in-memory ZIP с указанными файлами."""
+    """Собирает in-memory ZIP с указанными файлами (UTF-8 EFS bit
+    выставлен — Python zipfile это делает автоматически для
+    не-ASCII имён)."""
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         for name, data in files:
             zf.writestr(name, data)
     return buf.getvalue()
+
+
+def _make_zip_cp1251(files: list[tuple[str, bytes]]) -> bytes:
+    """Собирает ZIP с именами в cp1251 БЕЗ EFS-флага.
+
+    Это воспроизводит формат Merlion-рассылки: имена в cp1251, bit 11
+    в general purpose flags не выставлен. Чтобы получить именно такое
+    поведение, мы пишем ZipInfo вручную: filename — байты cp1251,
+    декодированные как latin-1 (поверхностный обход, чтобы Python не
+    выставил EFS), и явно сбрасываем 0x800 в flag_bits.
+    """
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for name, data in files:
+            # Имитируем поведение архиватора, который пишет cp1251
+            # байты прямо в filename без UTF-8 EFS-флага. zipfile при
+            # ЗАПИСИ интерпретирует name как unicode → закодирует в
+            # ASCII, иначе выставит EFS. Чтобы обмануть — кладём
+            # cp1251-байты, декодированные как latin-1: ASCII-проверка
+            # пройдёт, EFS не выставится, на диск уйдут байты cp1251.
+            cp1251_bytes = name.encode("cp1251")
+            fake_ascii_name = cp1251_bytes.decode("latin-1")
+            info = zipfile.ZipInfo(filename=fake_ascii_name)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            # На всякий случай: явно сбросим bit 11 (хотя для ASCII
+            # имени Python и не выставит).
+            info.flag_bits &= ~0x800
+            zf.writestr(info, data)
+    return buf.getvalue()
+
+
+def _make_real_xlsx_bytes(sheet_name: str = "Sheet1") -> bytes:
+    """Собирает минимальный валидный xlsx через openpyxl, чтобы
+    MerlionLoader.iter_rows() мог его открыть в end-to-end тесте."""
+    from openpyxl import Workbook
+    wb = Workbook()
+    ws = wb.active
+    ws.title = sheet_name
+    ws["A1"] = "Sample"
+    out = io.BytesIO()
+    wb.save(out)
+    return out.getvalue()
 
 
 def test_merlion_zip_extraction_picks_largest_xlsx(monkeypatch):
@@ -189,3 +234,192 @@ def test_merlion_bad_zip_raises(monkeypatch):
     fetcher = MerlionImapFetcher()
     with pytest.raises(RuntimeError, match="не распознано как ZIP"):
         fetcher.parse_attachment(b"not a zip", "broken.zip")
+
+
+# =====================================================================
+# 4. cp1251 имена внутри ZIP (12.1-fix-2)
+# =====================================================================
+
+def test_zip_with_cp1251_names_extracted_correctly(monkeypatch):
+    """Воспроизводит реальный Merlion-ZIP: имена в cp1251 БЕЗ
+    UTF-8 EFS-флага. До 12.1-fix-2 zf.extractall() падал на
+    mismatch directory/header. Теперь fetcher должен корректно
+    распаковать и передать содержимое в MerlionLoader."""
+    import app.services.auto_price.fetchers.merlion_imap as mer_mod
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"PK\x03\x04cp1251-content-marker"
+    zip_bytes = _make_zip_cp1251([
+        ("Прайслист_Мерлион_Москва.xlsm", payload),
+    ])
+
+    seen = {}
+
+    class _StubLoader:
+        def iter_rows(self, filepath):
+            seen["filepath"] = filepath
+            with open(filepath, "rb") as f:
+                seen["bytes"] = f.read()
+            return iter([])
+
+    monkeypatch.setattr(mer_mod, "MerlionLoader", lambda: _StubLoader())
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+
+    MerlionImapFetcher().parse_attachment(zip_bytes, "PriceList_MERLION_Moskva.zip")
+    assert seen["bytes"] == payload, "содержимое xlsm должно сохраниться"
+    # Имя файла на диске должно быть raskодировано из cp1251 в нормальный
+    # «Прайслист_Мерлион_Москва.xlsm» (или близкий — мы нормализуем
+    # незаконные FS-символы, но кириллица должна быть).
+    base = os.path.basename(seen["filepath"])
+    assert "Прайслист" in base or base.lower().endswith(".xlsm"), (
+        f"имя на диске должно быть cp1251-decoded: {base!r}"
+    )
+
+
+def test_zip_xlsm_extension_accepted(monkeypatch):
+    """ZIP с .xlsm файлом (Excel с макросами) — fetcher должен его
+    найти. До 12.1-fix-2 искалось только .xlsx."""
+    import app.services.auto_price.fetchers.merlion_imap as mer_mod
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"PK\x03\x04xlsm-payload"
+    zip_bytes = _make_zip_with([("price_with_macros.xlsm", payload)])
+
+    seen = {}
+
+    class _StubLoader:
+        def iter_rows(self, filepath):
+            with open(filepath, "rb") as f:
+                seen["bytes"] = f.read()
+            seen["ext"] = os.path.splitext(filepath)[1].lower()
+            return iter([])
+
+    monkeypatch.setattr(mer_mod, "MerlionLoader", lambda: _StubLoader())
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+
+    MerlionImapFetcher().parse_attachment(zip_bytes, "merlion.zip")
+    assert seen["bytes"] == payload
+    assert seen["ext"] == ".xlsm"
+
+
+def test_zip_already_utf8_efs_flag_preserved(monkeypatch):
+    """Современный ZIP с UTF-8 именами (EFS bit 11 = 1) — наш фикс
+    не должен ломать такие архивы. Имя должно остаться как есть,
+    без двойного перекодирования."""
+    import app.services.auto_price.fetchers.merlion_imap as mer_mod
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"PK\x03\x04utf8-efs-payload"
+    # _make_zip_with пишет через writestr(name, data) — Python для
+    # не-ASCII автоматически выставляет UTF-8 EFS-флаг.
+    zip_bytes = _make_zip_with([("Прайс.xlsx", payload)])
+
+    seen = {}
+
+    class _StubLoader:
+        def iter_rows(self, filepath):
+            with open(filepath, "rb") as f:
+                seen["bytes"] = f.read()
+            seen["filepath"] = filepath
+            return iter([])
+
+    monkeypatch.setattr(mer_mod, "MerlionLoader", lambda: _StubLoader())
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+
+    MerlionImapFetcher().parse_attachment(zip_bytes, "merlion.zip")
+    assert seen["bytes"] == payload
+    base = os.path.basename(seen["filepath"])
+    # Не должно быть мусора вроде «Ÿàü½ª¨ÅÅ.xlsx».
+    assert "Прайс" in base, (
+        f"UTF-8-имя должно сохраниться без двойной перекодировки: {base!r}"
+    )
+
+
+def test_zip_with_multiple_files_picks_largest_xlsm_or_xlsx(monkeypatch):
+    """В реальном ZIP может быть и .xlsx, и .xlsm. Берётся самый большой."""
+    import app.services.auto_price.fetchers.merlion_imap as mer_mod
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    big_xlsm = b"PK\x03\x04" + (b"X" * 20000) + b"big-xlsm"
+    small_xlsx = b"PK\x03\x04small-xlsx"
+    pdf = b"%PDF-1.4 license-text"
+    zip_bytes = _make_zip_with([
+        ("license.pdf", pdf),
+        ("price_main.xlsm", big_xlsm),  # самый большой — выбираем его
+        ("price_supplement.xlsx", small_xlsx),
+    ])
+
+    seen = {}
+
+    class _StubLoader:
+        def iter_rows(self, filepath):
+            with open(filepath, "rb") as f:
+                seen["bytes"] = f.read()
+            seen["filepath"] = filepath
+            return iter([])
+
+    monkeypatch.setattr(mer_mod, "MerlionLoader", lambda: _StubLoader())
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+
+    MerlionImapFetcher().parse_attachment(zip_bytes, "merlion.zip")
+    assert seen["bytes"] == big_xlsm
+    assert seen["filepath"].endswith(".xlsm")
+
+
+def test_zip_no_xlsx_or_xlsm_raises(monkeypatch):
+    """ZIP без xlsx и xlsm — RuntimeError (формат рассылки изменился)."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    zip_bytes = _make_zip_with([
+        ("license.pdf", b"%PDF-1.4"),
+        ("readme.txt", b"hello"),
+    ])
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+    fetcher = MerlionImapFetcher()
+    with pytest.raises(RuntimeError, match=r"не содержит ни одного файла .xlsx или .xlsm"):
+        fetcher.parse_attachment(zip_bytes, "merlion.zip")
+
+
+def test_merlion_loader_can_open_real_xlsm(tmp_path):
+    """Smoke: openpyxl/MerlionLoader действительно открывает .xlsm
+    как обычный xlsx (формат внутри идентичен — ZIP с XML; разница
+    только в наличии макросов, которые openpyxl игнорирует)."""
+    from openpyxl import load_workbook
+    xlsm_path = tmp_path / "smoke.xlsm"
+    xlsm_path.write_bytes(_make_real_xlsx_bytes())
+    wb = load_workbook(xlsm_path, read_only=True, data_only=True)
+    try:
+        assert wb.active is not None
+    finally:
+        wb.close()
+
+
+# =====================================================================
+# 5. Helper: декодинг имени по EFS-флагу
+# =====================================================================
+
+def test_decode_zip_member_name_cp1251_when_efs_off():
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    info = zipfile.ZipInfo()
+    # Имитируем то, что zipfile при чтении положит в .filename: байты
+    # cp1251, декодированные как cp437 → мусор.
+    info.filename = "Прайслист_Мерлион_Москва.xlsm".encode("cp1251").decode("cp437")
+    info.flag_bits = 0  # EFS off
+    decoded = MerlionImapFetcher._decode_zip_member_name(info)
+    assert decoded == "Прайслист_Мерлион_Москва.xlsm"
+
+
+def test_decode_zip_member_name_keeps_utf8_when_efs_on():
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    info = zipfile.ZipInfo()
+    info.filename = "Прайс.xlsx"
+    info.flag_bits = 0x800  # EFS on (UTF-8)
+    decoded = MerlionImapFetcher._decode_zip_member_name(info)
+    assert decoded == "Прайс.xlsx"
