@@ -1,4 +1,4 @@
-# Авто-загрузка прайса Treolan через REST API + JWT (этап 12.3).
+# Авто-загрузка прайса Treolan через REST API + JWT (этап 12.3 / 12.3-fix).
 #
 # Поток:
 #   _get_token()     — POST /v1/auth/token (или fallback /v1/auth/login),
@@ -6,16 +6,27 @@
 #   _fetch_catalog() — POST /v1/Catalog/Get с пустыми фильтрами (весь
 #                       склад), Bearer token, retry 5/15/45 на сетевых
 #                       ошибках и 5xx, на 401 — сброс токена и 1 повтор.
-#   _save()          — преобразует positions[] в PriceRow и зовёт
-#                       общий orchestrator.save_price_rows() — тот же
-#                       pipeline что и /admin/price-uploads (upsert
-#                       supplier_prices, mapping, disappeared, etc.).
+#   _save()          — рекурсивно обходит дерево categories[].children/products,
+#                       преобразует товары в PriceRow и зовёт общий
+#                       orchestrator.save_price_rows() — тот же pipeline что и
+#                       /admin/price-uploads (upsert supplier_prices, mapping,
+#                       disappeared, etc.).
+#
+# 12.3-fix: production-API возвращает иерархию categories→children/products
+# (а не плоский positions[]). Старая версия адаптера ожидала positions[]
+# на верхнем уровне и тихо отдавала пустой список → run #17 пометил 1391 SKU
+# disappeared. Теперь обход дерева через _walk_products(); если categories=[]
+# или после walk собрано 0 товаров — RuntimeError, чтобы pipeline закрылся
+# failed и НЕ запустил disappeared.
 #
 # Конвертация валют:
 #   currency='USD' → price * cb_rate_usd_rub из exchange_rates на
 #                    последний день; результат записывается в RUB.
 #   currency='RUB' → как есть.
 #   иначе          → позиция пропускается, в лог warning «unmapped currency».
+#
+# atStock/atTransit в production приходят строками («<10», «10», «нет»…),
+# не int — см. _parse_stock_str().
 
 from __future__ import annotations
 
@@ -27,7 +38,7 @@ import re
 import time
 from datetime import date
 from decimal import Decimal, InvalidOperation
-from typing import Any, Iterable
+from typing import Any, Iterable, Iterator
 
 import httpx
 from sqlalchemy import text
@@ -43,19 +54,20 @@ logger = logging.getLogger(__name__)
 _DEFAULT_BASE_URL = "https://api.treolan.ru/api"
 
 
-# Категории Treolan (из rusName категории) → наша категория.
-# Неполный список: API возвращает иерархию, но самый практичный фильтр —
-# по наличию category в позиции (категории приходят отдельным массивом
-# и в самой позиции есть поле category-id; для упрощения опираемся на
-# rusName/название категории — иначе нужно тянуть отдельный запрос
-# /Catalog/GetCategories. Пока отдаём our_category=None и пусть
-# resolve() в orchestrator смотрит по brand/name через NLU. Для корректной
-# первичной загрузки этого хватает.
+# Категории Treolan (substring-match по category.name) → наша категория.
 #
-# Если потребуется явный mapping — расширяется здесь и в Excel-loader'е
-# (treolan.py); пока оставляем единый минимальный набор по партномеру.
+# 12.3-fix: имя category берётся напрямую из дерева (categories[].name и
+# вложенные children[].name), а не из rusName. Substring проверяется по
+# каждому имени в path от корня к листу — попадание на любом уровне даёт
+# our_category. Это покрывает случаи вроде:
+#     Комплектующие -> Процессоры -> Intel Core i5
+# где конкретная подкатегория ('Intel Core i5') слишком узка, а корневая
+# 'Комплектующие' слишком широка — но средний уровень 'Процессоры'
+# матчится на 'процессор'.
+#
+# Полное category_id-mapping остаётся в техдолге — substring достаточен
+# для реальных корневых ветвей в проде.
 _CATEGORY_NAME_MAP: dict[str, str] = {
-    # Слова в rusName категории (case-insensitive substring match)
     "процессор":             "cpu",
     "материнск":             "motherboard",
     "оперативн":             "ram",
@@ -69,17 +81,72 @@ _CATEGORY_NAME_MAP: dict[str, str] = {
 }
 
 
-def _detect_our_category(raw_category_name: str | None) -> str | None:
-    """Маппит название категории Treolan в нашу. None — категория
-    не относится к ПК-комплектующим (периферия и т.п.); orchestrator
-    такие позиции пропустит."""
-    if not raw_category_name:
+# Blocklist: если в любом из имён path встречается одно из этих
+# слов — путь точно НЕ про ПК-комплектующее. Нужен потому что
+# substring-match сам по себе наивный: «1-процессорные серверы»
+# содержит «процессор» и иначе попал бы в cpu, обрушив подбор.
+# Корневые ветви Treolan (сервер/ноутбук/монитор/принтер/ИБП/…)
+# заносим сюда.
+_CATEGORY_BLOCKLIST: tuple[str, ...] = (
+    "сервер", "ноутбук", "планшет", "монитор", "телевизор",
+    "принтер", "сканер", "мфу", "источник",  # «Источники бесперебойного питания»
+    "сетев", "телефон", "коммутац",
+    "автоматическая идентификация", "промышленн", "электрика",
+    "запчасти", "кресл", "расходн", "professional", "pro av",
+)
+
+
+def _detect_our_category(category_path: list[str] | str | None) -> str | None:
+    """Маппит путь категорий Treolan в нашу. Принимает либо list имён
+    (от корня к листу), либо одно имя — для обратной совместимости.
+    None — категория не относится к ПК-комплектующим (периферия,
+    серверы, ИБП и т.п.); orchestrator такие позиции пропустит.
+
+    Blocklist отрабатывает первым: если в любом узле path встречается
+    «сервер»/«ноутбук»/«монитор»/«ИБП»/… — return None, даже если ниже
+    по дереву есть имя с substring «процессор» (case: «Серверы → 1-
+    процессорные → DELL PowerEdge»)."""
+    if not category_path:
         return None
-    s = raw_category_name.lower()
-    for kw, cat in _CATEGORY_NAME_MAP.items():
-        if kw in s:
-            return cat
+    names = [category_path] if isinstance(category_path, str) else category_path
+    full_lower = " ".join(str(n) for n in names if n).lower()
+    for stopword in _CATEGORY_BLOCKLIST:
+        if stopword in full_lower:
+            return None
+    for name in names:
+        if not name:
+            continue
+        s = str(name).lower()
+        for kw, cat in _CATEGORY_NAME_MAP.items():
+            if kw in s:
+                return cat
     return None
+
+
+def _walk_products(
+    categories: list[Any] | None,
+    _path: tuple[str, ...] = (),
+) -> Iterator[tuple[list[str], dict[str, Any]]]:
+    """Рекурсивный DFS по дереву Treolan. Yield-ит (path, product) для
+    каждого товара в каждой непустой category.products[] на любой
+    глубине; path — список имён категорий от корня к текущей.
+
+    Treolan API возвращает {"categories": [{"name":..., "products":[...],
+    "children":[{...тот же формат...}]}]} — товары лежат в листьях, плюс
+    могут лежать на промежуточных уровнях. Подкатегории — в children[]."""
+    for node in categories or []:
+        if not isinstance(node, dict):
+            continue
+        name = node.get("name") or node.get("rusName") or ""
+        cur_path = (*_path, str(name)) if name else _path
+        prods = node.get("products") or []
+        if isinstance(prods, list):
+            for p in prods:
+                if isinstance(p, dict):
+                    yield list(cur_path), p
+        kids = node.get("children") or []
+        if isinstance(kids, list) and kids:
+            yield from _walk_products(kids, cur_path)
 
 
 # ---- Кеш JWT-токена (process-level) -------------------------------------
@@ -155,6 +222,31 @@ def _to_int(value: Any) -> int:
         return int(Decimal(s))
     except (InvalidOperation, ValueError):
         return 0
+
+
+# 12.3-fix: production-API возвращает atStock/atTransit СТРОКАМИ:
+#   "<10" — есть в наличии, но мало; "10" — точное число; "" / "нет" —
+#   нет. Старая _to_int возвращала 0 для "<10", из-за чего товар был бы
+#   stock=0 в supplier_prices (хотя в реальности он есть). Возвращаем 1,
+#   чтобы запись попадала в active SKUs и в подбор кандидатов.
+def _parse_stock_str(value: Any) -> int:
+    if value is None:
+        return 0
+    s = str(value).strip()
+    if not s:
+        return 0
+    s_low = s.lower()
+    if s_low in {"нет", "no", "0", "-"}:
+        return 0
+    if s.startswith("<"):
+        return 1  # "<10" / "<5" — товар есть, точное количество скрыто
+    if s.startswith(">"):
+        rest = s[1:].strip()
+        try:
+            return int(Decimal(rest)) + 1
+        except (InvalidOperation, ValueError):
+            return 1
+    return _to_int(s)
 
 
 def _normalize_gtin(value: Any) -> str | None:
@@ -378,22 +470,21 @@ class TreolanFetcher(BaseAutoFetcher):
     # ---- Save ----------------------------------------------------------
 
     def _save(self, data: dict[str, Any]) -> int:
-        """Перегоняет positions[] в PriceRow и зовёт общий save-pipeline.
+        """Перегоняет товары из дерева categories→children/products в PriceRow
+        и зовёт общий save-pipeline.
+
+        12.3-fix: ответ Treolan — иерархия, а не плоский positions[]. Здесь
+        DFS через _walk_products(); если categories=[] или после walk
+        получили 0 товаров — RuntimeError, чтобы run закрылся failed и
+        orchestrator НЕ запустил disappeared.
 
         Возвращает price_uploads.id."""
-        positions = data.get("positions") or []
         categories = data.get("categories") or []
-
-        # Категории приходят отдельным массивом, у позиций — category-id.
-        # Соберём id → rusName, чтобы _detect_our_category мог сработать.
-        cat_id_to_name: dict[Any, str] = {}
-        for c in categories:
-            if not isinstance(c, dict):
-                continue
-            cid = c.get("id") or c.get("Id") or c.get("ID")
-            cname = c.get("rusName") or c.get("name") or c.get("title")
-            if cid is not None and cname:
-                cat_id_to_name[cid] = str(cname)
+        if not categories:
+            raise RuntimeError(
+                "Treolan API: ответ не содержит categories[] "
+                f"(top-level keys: {sorted(data.keys()) if isinstance(data, dict) else type(data).__name__})."
+            )
 
         session = SessionLocal()
         try:
@@ -403,14 +494,20 @@ class TreolanFetcher(BaseAutoFetcher):
 
         rows: list[PriceRow] = []
         unmapped_currency_count = 0
-        for idx, pos in enumerate(positions, start=1):
-            if not isinstance(pos, dict):
-                continue
+        skipped_no_articul = 0
+        skipped_no_name = 0
+        skipped_no_price = 0
+        total_walked = 0
+        for idx, (cat_path, pos) in enumerate(_walk_products(categories), start=1):
+            total_walked += 1
+
             articul = (pos.get("articul") or "").strip() if pos.get("articul") else ""
             if not articul:
+                skipped_no_articul += 1
                 continue
             name = (pos.get("rusName") or pos.get("description") or "").strip()
             if not name:
+                skipped_no_name += 1
                 continue
 
             currency = (pos.get("currency") or "").strip().upper()
@@ -420,12 +517,11 @@ class TreolanFetcher(BaseAutoFetcher):
             if price_raw is None:
                 price_raw = _to_decimal(pos.get("price"))
             if price_raw is None:
+                skipped_no_price += 1
                 continue
 
             if currency == "USD":
                 if usd_rate is None:
-                    # exchange_rates пустой — при первом старте ещё не подтянули
-                    # курс. Пропускаем USD-позицию, RUB-позиции загрузятся.
                     unmapped_currency_count += 1
                     continue
                 price_rub = (price_raw * usd_rate).quantize(Decimal("0.01"))
@@ -439,26 +535,38 @@ class TreolanFetcher(BaseAutoFetcher):
                 )
                 continue
 
-            cat_id = pos.get("category-id") or pos.get("categoryId") or pos.get("category")
-            cat_name = cat_id_to_name.get(cat_id) if not isinstance(cat_id, str) else cat_id
-            if isinstance(cat_id, str) and cat_id:
-                cat_name = cat_id  # category иногда приходит уже как имя
-            our_category = _detect_our_category(cat_name)
+            our_category = _detect_our_category(cat_path)
 
             rows.append(PriceRow(
                 supplier_sku=articul,
                 mpn=articul,
                 gtin=_normalize_gtin(pos.get("gtin")),
                 brand=(pos.get("vendor") or "").strip() or None,
-                raw_category=str(cat_name or ""),
+                raw_category=" / ".join(cat_path),
                 our_category=our_category,
                 name=name,
                 price=price_rub,
                 currency="RUB",  # после конвертации храним всё в RUB
-                stock=_to_int(pos.get("atStock")),
-                transit=_to_int(pos.get("inTransit") or pos.get("transit")),
+                stock=_parse_stock_str(pos.get("atStock")),
+                transit=_parse_stock_str(pos.get("atTransit")),
                 row_number=idx,
             ))
+
+        if total_walked == 0:
+            raise RuntimeError(
+                "Treolan API: после обхода дерева не найдено ни одного товара "
+                f"(categories={len(categories)}, products=0). Возможно, формат "
+                "ответа изменился — проверьте /v1/Catalog/Get."
+            )
+
+        logger.info(
+            "Treolan API: получено %d товаров из %d корневых категорий — "
+            "uploaded=%d, skipped(no_articul=%d, no_name=%d, no_price=%d, "
+            "unmapped_currency=%d).",
+            total_walked, len(categories), len(rows),
+            skipped_no_articul, skipped_no_name, skipped_no_price,
+            unmapped_currency_count,
+        )
 
         if unmapped_currency_count:
             logger.info(

@@ -607,3 +607,81 @@ def test_disappeared_truncated_in_report(make_merlion_xlsx, db_session):
     assert result["disappeared"] == 60
     assert len(result["disappeared_skus"]) == 50
     assert result["disappeared_truncated"] is True
+
+
+# ---- 12.3-fix: пустой вход → failed + защита от disappeared ----------
+
+
+def test_orchestrator_marks_failed_on_zero_total_rows(db_session):
+    """Если loader/fetcher отдал 0 строк (rows=[]), upload фиксируется
+    как failed, disappeared НЕ применяется. До 12.3-fix run #17 в этой
+    ситуации фиксировался success и обнулял остатки поставщика."""
+    from app.services.price_loaders.orchestrator import save_price_rows
+
+    psu_a = _insert_psu(db_session, model="A", sku="MPN-A")
+    supplier_id = _ensure_supplier(db_session, "Treolan")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_a, supplier_sku="T-A",
+        price=Decimal("100.00"), stock_qty=4, transit_qty=2,
+    )
+
+    result = save_price_rows(
+        supplier_name="Treolan",
+        source="empty.json",
+        rows=[],
+    )
+
+    assert result["status"] == "failed"
+    assert result["total_rows"] == 0
+    assert result["disappeared"] == 0
+    assert result["disappeared_skus"] == []
+
+    # Засеянная строка осталась нетронутой.
+    row = db_session.execute(_t(
+        "SELECT stock_qty, transit_qty FROM supplier_prices "
+        "WHERE supplier_id = :sid AND supplier_sku = 'T-A'"
+    ), {"sid": supplier_id}).first()
+    assert int(row.stock_qty) == 4
+    assert int(row.transit_qty) == 2
+
+    # В price_uploads.notes — явная пометка про адаптер.
+    notes = db_session.execute(_t(
+        "SELECT notes FROM price_uploads WHERE id = :id"
+    ), {"id": result["upload_id"]}).scalar()
+    assert "0 строк" in (notes or "")
+    assert "disappeared не применялся" in (notes or "")
+
+
+def test_orchestrator_does_not_call_mark_disappeared_on_zero_rows(
+    monkeypatch, db_session,
+):
+    """Тот же сценарий, но с шпионом на _mark_disappeared — он не должен
+    быть вызван. Это «защита первой очереди»: даже если в counters что-то
+    разъедется, сама функция-обнулитель не должна стартовать."""
+    from app.services.price_loaders import orchestrator as orch_mod
+    from app.services.price_loaders.orchestrator import save_price_rows
+
+    psu_a = _insert_psu(db_session, model="B", sku="MPN-B")
+    supplier_id = _ensure_supplier(db_session, "Treolan")
+    _seed_supplier_price(
+        db_session,
+        supplier_id=supplier_id, category="psu",
+        component_id=psu_a, supplier_sku="T-B",
+        price=Decimal("100.00"), stock_qty=10, transit_qty=0,
+    )
+
+    calls: list[set[str]] = []
+
+    def spy(session, *, supplier_id, missing_skus, counters):
+        calls.append(set(missing_skus))
+
+    monkeypatch.setattr(orch_mod, "_mark_disappeared", spy)
+
+    result = save_price_rows(
+        supplier_name="Treolan", source="empty.json", rows=[],
+    )
+
+    assert calls == [], f"_mark_disappeared не должен был вызваться, но был: {calls}"
+    assert result["status"] == "failed"

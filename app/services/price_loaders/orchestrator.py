@@ -404,17 +404,28 @@ def _record_upload(
     errors       = counters.errors
     rows_matched = updated + added
 
-    if rows_matched == 0 and (counters.processed > 0 or counters.total_rows > 0):
+    # 12.3-fix: total_rows==0 — это «адаптер вернул 0 строк», явный fail.
+    # Раньше падало в success, потому что (rows_matched==0 AND ... AND
+    # total_rows>0) → False. Теперь руль явно — пустой вход = failed.
+    if counters.total_rows == 0:
+        status = "failed"
+    elif rows_matched == 0 and (counters.processed > 0 or counters.total_rows > 0):
         status = "failed"
     elif errors > 0 or skipped > 0:
         status = "partial"
     else:
         status = "success"
 
-    notes = (
-        f"updated={updated}, added={added}, skipped={skipped}, errors={errors}, "
-        f"unmapped(amb={counters.unmapped_ambiguous}, new={counters.unmapped_new})"
-    )
+    if counters.total_rows == 0:
+        notes = (
+            "адаптер вернул 0 строк — disappeared не применялся; "
+            f"updated={updated}, added={added}, skipped={skipped}, errors={errors}"
+        )
+    else:
+        notes = (
+            f"updated={updated}, added={added}, skipped={skipped}, errors={errors}, "
+            f"unmapped(amb={counters.unmapped_ambiguous}, new={counters.unmapped_new})"
+        )
 
     # 11.2: report_json — детальный отчёт для UI /admin/price-uploads.
     # default=str: на всякий случай — Decimal/datetime в дикте превратятся
@@ -742,9 +753,17 @@ def load_price(
         # тем же правилом и применяем disappeared под защитой savepoint,
         # чтобы отдельная ошибка SQL-апдейта не повалила всю загрузку.
         rows_matched = counters.updated + counters.added
+        # 12.3-fix: универсальная защита от пустого входа. Если loader/fetcher
+        # отдал 0 строк (адаптер сломался, источник вернул пустой ответ,
+        # формат API изменился) — будь это failed: НЕ запускаем disappeared.
+        # Старая формулировка не закрывала случай total_rows==0, и run #17
+        # обнулил 1391 SKU Treolan.
         will_be_failed = (
-            rows_matched == 0
-            and (counters.processed > 0 or counters.total_rows > 0)
+            counters.total_rows == 0
+            or (
+                rows_matched == 0
+                and (counters.processed > 0 or counters.total_rows > 0)
+            )
         )
         missing_skus = active_skus_before - seen_skus
         if missing_skus and not will_be_failed:
@@ -785,6 +804,12 @@ def load_price(
             "by_source":             dict(counters.by_source),
             "duration_seconds":      duration,
         }
+        # 12.3-fix: явный сигнал в отчёт, что адаптер не отдал ни одной
+        # строки — disappeared был пропущен под защитой will_be_failed.
+        if counters.total_rows == 0:
+            report["error_message"] = (
+                "адаптер вернул 0 строк — disappeared не применялся"
+            )
         upload_id, status = _record_upload(
             session,
             supplier_id=supplier_id,

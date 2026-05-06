@@ -178,36 +178,51 @@ def test_get_token_refreshes_after_401_in_catalog(treolan_env, monkeypatch):
 
 
 # ---- 5. _fetch_catalog → положительный кейс ---------------------------
+#
+# 12.3-fix: production-формат — иерархия categories→children/products,
+# а не плоский positions[]. Sample отражает реальный формат: товары
+# в category.products (включая вложенные children).
 
 _TREOLAN_API_SAMPLE = {
     "categories": [
-        {"id": 100, "rusName": "Комплектующие->Процессоры"},
-        {"id": 200, "rusName": "Комплектующие->Корпуса"},
-    ],
-    "positions": [
         {
-            "articul":      "BX8071512400F",
-            "rusName":      "Процессор Intel Core i5-12400F BOX",
-            "vendor":       "Intel",
-            "currentPrice": "180.50",
-            "price":        "200.00",
-            "currency":     "USD",
-            "atStock":      "12",
-            "inTransit":    "0",
-            "gtin":         "5032037240306",
-            "category-id":  100,
-        },
-        {
-            "articul":      "PCASE-001",
-            "rusName":      "Корпус DeepCool MATREXX 55",
-            "vendor":       "DeepCool",
-            "currentPrice": "5500",
-            "price":        "5500",
-            "currency":     "RUB",
-            "atStock":      "3",
-            "inTransit":    "5",
-            "gtin":         "",
-            "category-id":  200,
+            "id": 1, "name": "Комплектующие", "products": [],
+            "children": [
+                {
+                    "id": 100, "name": "Процессоры",
+                    "products": [
+                        {
+                            "articul":      "BX8071512400F",
+                            "rusName":      "Процессор Intel Core i5-12400F BOX",
+                            "vendor":       "Intel",
+                            "currentPrice": "180.50",
+                            "price":        "200.00",
+                            "currency":     "USD",
+                            "atStock":      "12",
+                            "atTransit":    "0",
+                            "gtin":         "5032037240306",
+                        },
+                    ],
+                    "children": [],
+                },
+                {
+                    "id": 200, "name": "Корпуса",
+                    "products": [
+                        {
+                            "articul":      "PCASE-001",
+                            "rusName":      "Корпус DeepCool MATREXX 55",
+                            "vendor":       "DeepCool",
+                            "currentPrice": "5500",
+                            "price":        "5500",
+                            "currency":     "RUB",
+                            "atStock":      "3",
+                            "atTransit":    "5",
+                            "gtin":         "",
+                        },
+                    ],
+                    "children": [],
+                },
+            ],
         },
     ],
 }
@@ -234,9 +249,14 @@ def test_fetch_catalog_returns_positions(treolan_env, monkeypatch):
     token = fetcher._get_token()
     data = fetcher._fetch_catalog(token)
 
-    assert "positions" in data
-    assert len(data["positions"]) == 2
-    assert data["positions"][0]["articul"] == "BX8071512400F"
+    assert "categories" in data
+    assert len(data["categories"]) == 1
+    # Товары лежат в category.children[].products — DFS-обходом найдём.
+    from app.services.auto_price.fetchers.treolan import _walk_products
+    walked = list(_walk_products(data["categories"]))
+    assert len(walked) == 2
+    sku_set = {p["articul"] for _path, p in walked}
+    assert sku_set == {"BX8071512400F", "PCASE-001"}
 
 
 # ---- 6. _save: реальный INSERT в price_uploads/supplier_prices --------
@@ -294,19 +314,20 @@ def test_save_skips_unknown_currency(treolan_env, monkeypatch, db_session):
     db_session.commit()
 
     sample = {
-        "categories": [{"id": 100, "rusName": "Комплектующие->Процессоры"}],
-        "positions": [
-            {
-                "articul": "EUR-CPU", "rusName": "Test CPU", "vendor": "X",
-                "currentPrice": "100", "currency": "EUR", "atStock": "1",
-                "category-id": 100,
-            },
-            {
-                "articul": "RUB-CPU", "rusName": "Test CPU2", "vendor": "X",
-                "currentPrice": "1000", "currency": "RUB", "atStock": "2",
-                "category-id": 100,
-            },
-        ],
+        "categories": [{
+            "id": 100, "name": "Процессоры",
+            "products": [
+                {
+                    "articul": "EUR-CPU", "rusName": "Test CPU", "vendor": "X",
+                    "currentPrice": "100", "currency": "EUR", "atStock": "1",
+                },
+                {
+                    "articul": "RUB-CPU", "rusName": "Test CPU2", "vendor": "X",
+                    "currentPrice": "1000", "currency": "RUB", "atStock": "2",
+                },
+            ],
+            "children": [],
+        }],
     }
 
     fetcher = TreolanFetcher()
@@ -333,18 +354,20 @@ def test_save_converts_usd_to_rub_via_cb_rate(treolan_env, monkeypatch, db_sessi
     db_session.commit()
 
     sample = {
-        "categories": [{"id": 100, "rusName": "Комплектующие->Процессоры"}],
-        "positions": [
-            {
-                "articul": "USD-CPU-1",
-                "rusName": "Intel CPU 200 USD",
-                "vendor": "Intel",
-                "currentPrice": "200.00",
-                "currency": "USD",
-                "atStock": "5",
-                "category-id": 100,
-            },
-        ],
+        "categories": [{
+            "id": 100, "name": "Процессоры",
+            "products": [
+                {
+                    "articul": "USD-CPU-1",
+                    "rusName": "Intel CPU 200 USD",
+                    "vendor": "Intel",
+                    "currentPrice": "200.00",
+                    "currency": "USD",
+                    "atStock": "5",
+                },
+            ],
+            "children": [],
+        }],
     }
 
     fetcher = TreolanFetcher()
@@ -372,3 +395,151 @@ def test_init_raises_without_credentials(monkeypatch):
     msg = str(ei.value)
     assert "TREOLAN_API_LOGIN" in msg
     assert "TREOLAN_API_PASSWORD" in msg
+
+
+# =====================================================================
+# 12.3-fix: тесты обхода дерева categories→children/products
+# =====================================================================
+
+def test_walk_products_recursive_collects_from_all_levels():
+    """DFS должен поднимать товары и из узла-корня, и из вложенных
+    children на любой глубине, и сохранять path-имён по дороге."""
+    from app.services.auto_price.fetchers.treolan import _walk_products
+
+    tree = [
+        {
+            "name": "L0-A",
+            "products": [{"articul": "A1"}],
+            "children": [
+                {
+                    "name": "L1-A",
+                    "products": [{"articul": "A2"}],
+                    "children": [
+                        {
+                            "name": "L2-A",
+                            "products": [{"articul": "A3"}, {"articul": "A4"}],
+                            "children": [],
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            "name": "L0-B",
+            "products": [],
+            "children": [
+                {"name": "L1-B", "products": [{"articul": "B1"}], "children": []},
+            ],
+        },
+    ]
+
+    walked = list(_walk_products(tree))
+    skus = [p["articul"] for _path, p in walked]
+    assert sorted(skus) == ["A1", "A2", "A3", "A4", "B1"]
+
+    # Пути сохраняют последовательность от корня к листу.
+    sku_to_path = {p["articul"]: path for path, p in walked}
+    assert sku_to_path["A1"] == ["L0-A"]
+    assert sku_to_path["A2"] == ["L0-A", "L1-A"]
+    assert sku_to_path["A3"] == ["L0-A", "L1-A", "L2-A"]
+    assert sku_to_path["B1"] == ["L0-B", "L1-B"]
+
+
+def test_walk_products_empty_tree_yields_nothing():
+    from app.services.auto_price.fetchers.treolan import _walk_products
+
+    assert list(_walk_products([])) == []
+    assert list(_walk_products(None)) == []
+    # Дерево из пустых нод — тоже ничего.
+    tree = [{"name": "X", "products": [], "children": []}]
+    assert list(_walk_products(tree)) == []
+
+
+def test_save_raises_runtimeerror_on_empty_categories(treolan_env):
+    """Defensive layer 1: если data['categories'] пустой — RuntimeError,
+    pipeline закроется failed и disappeared НЕ запустится."""
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    fetcher = TreolanFetcher()
+    with pytest.raises(RuntimeError, match="categories"):
+        fetcher._save({"categories": []})
+    with pytest.raises(RuntimeError, match="categories"):
+        fetcher._save({})
+
+
+def test_save_raises_runtimeerror_on_zero_products_after_walk(treolan_env):
+    """Defensive layer 2: categories есть, но после DFS ни одного товара
+    не нашлось → RuntimeError. Закрывает случай 'структура изменилась
+    второй раз и products куда-то переехали'."""
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    sample = {
+        "categories": [
+            {"name": "A", "products": [], "children": [
+                {"name": "A1", "products": [], "children": []},
+            ]},
+            {"name": "B", "products": [], "children": []},
+        ],
+    }
+    fetcher = TreolanFetcher()
+    with pytest.raises(RuntimeError, match="не найдено ни одного товара"):
+        fetcher._save(sample)
+
+
+def test_save_handles_atstock_string_with_less_than_marker(
+    treolan_env, monkeypatch, db_session,
+):
+    """В production atStock приходит строкой '<10' — не должно превращаться
+    в stock=0 (иначе товары мгновенно станут «нет в наличии»)."""
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    sample = {
+        "categories": [{
+            "id": 100, "name": "Процессоры",
+            "products": [{
+                "articul": "FUZZY-STOCK",
+                "rusName": "Test CPU fuzzy stock",
+                "vendor": "X",
+                "currentPrice": "100",
+                "currency": "RUB",
+                "atStock": "<10",
+                "atTransit": "<5",
+            }],
+            "children": [],
+        }],
+    }
+
+    TreolanFetcher()._save(sample)
+
+    row = db_session.execute(text(
+        "SELECT stock_qty, transit_qty FROM supplier_prices "
+        "WHERE supplier_sku = 'FUZZY-STOCK'"
+    )).first()
+    assert row is not None
+    assert int(row.stock_qty) >= 1
+    assert int(row.transit_qty) >= 1
+
+
+def test_detect_our_category_matches_any_level_in_path():
+    """_detect_our_category должен ловить наш ключ на любом уровне
+    переданного path, не только на последнем."""
+    from app.services.auto_price.fetchers.treolan import _detect_our_category
+
+    # Совпадение на среднем уровне (популярная схема Treolan).
+    assert _detect_our_category(
+        ["Комплектующие", "Процессоры", "Intel Core i5"]
+    ) == "cpu"
+    # Совпадение на корне.
+    assert _detect_our_category(["Видеокарты", "GeForce RTX 4060"]) == "gpu"
+    # Нет совпадений — None.
+    assert _detect_our_category(["Серверы", "1-процессорные", "DELL"]) is None
+    # Обратная совместимость: одна строка.
+    assert _detect_our_category("Корпус ATX") == "case"
+    assert _detect_our_category(None) is None
+    assert _detect_our_category([]) is None
