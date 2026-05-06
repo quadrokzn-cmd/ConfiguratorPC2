@@ -60,6 +60,7 @@ _CHANNEL_LABELS: dict[str, str] = {
     "treolan": "REST API",
     "ocs":     "IMAP",
     "merlion": "IMAP",
+    "netlab":  "HTTP (прямая ссылка)",
 }
 
 # Сколько последних запусков показывать в журнале на странице.

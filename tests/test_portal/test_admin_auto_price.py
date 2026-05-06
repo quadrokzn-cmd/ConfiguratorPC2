@@ -41,14 +41,15 @@ def test_list_renders_six_suppliers(admin_portal_client):
 # ---- 1b. У OCS/Merlion канал «IMAP» (12.1) -------------------------
 
 def test_list_shows_imap_channel_for_ocs_merlion(admin_portal_client):
-    """После 12.1 в строке OCS и Merlion должна быть подпись «IMAP»."""
+    """После 12.1 в строке OCS и Merlion должна быть подпись «IMAP».
+    После 12.2 у netlab — «HTTP (прямая ссылка)»."""
     r = admin_portal_client.get("/admin/auto-price-loads")
     assert r.status_code == 200
     text_html = r.text
 
     # Грубая проверка: рядом со строкой ocs/merlion есть «IMAP»; рядом
-    # со строкой treolan — «REST API»; netlab/resurs_media/green_place —
-    # «—» (канал ещё не подключён).
+    # со строкой treolan — «REST API»; netlab — «HTTP …»;
+    # resurs_media/green_place — «—» (канал ещё не подключён).
     for slug in ("ocs", "merlion"):
         marker = f'data-testid="auto-row-{slug}"'
         idx = text_html.find(marker)
@@ -56,6 +57,12 @@ def test_list_shows_imap_channel_for_ocs_merlion(admin_portal_client):
         end = text_html.find("</tr>", idx)
         chunk = text_html[idx:end]
         assert "IMAP" in chunk, f"в строке {slug} нет канала «IMAP»: {chunk[:200]}"
+
+    # netlab → HTTP-канал (12.2).
+    idx = text_html.find('data-testid="auto-row-netlab"')
+    assert idx != -1
+    chunk = text_html[idx:text_html.find("</tr>", idx)]
+    assert "HTTP" in chunk, f"в строке netlab нет канала «HTTP»: {chunk[:200]}"
 
 
 # ---- 2. anon → 302 на /login ----------------------------------------
@@ -88,11 +95,11 @@ def test_run_requires_csrf(admin_portal_client):
 def test_run_blocks_unregistered_fetcher(admin_portal_client):
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
-    # netlab пока без fetcher'а (12.4 будет), но slug валиден в seed —
-    # ожидаем 400 «канал не подключён». OCS/Merlion fetcher'ы появились
-    # в 12.1, поэтому используем оставшийся «голый» slug.
+    # resurs_media пока без fetcher'а (12.4 будет), но slug валиден в seed
+    # — ожидаем 400 «канал не подключён». На 12.2 netlab уже подключён
+    # (HTTP-канал), а у OCS/Merlion fetcher появился в 12.1.
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/netlab/run",
+        "/admin/auto-price-loads/resurs_media/run",
         data={"csrf_token": token},
     )
     assert r.status_code == 400
@@ -156,19 +163,21 @@ def test_run_returns_429_on_too_frequent(admin_portal_client, db_session, monkey
 # ---- 7. Toggle блокирует включение для slug без fetcher'а -----------
 
 def test_toggle_blocks_enabling_unregistered_fetcher(admin_portal_client, db_session):
-    """Пытаемся включить netlab — fetcher'а у него ещё нет (12.4)."""
+    """Пытаемся включить resurs_media — fetcher'а у него ещё нет (12.4).
+    На 12.2 netlab уже подключён, поэтому в качестве «голого» slug'а
+    берём оставшихся 12.4-кандидатов."""
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
 
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/netlab/toggle",
+        "/admin/auto-price-loads/resurs_media/toggle",
         data={"csrf_token": token},
     )
     assert r.status_code == 400
 
     # auto_price_loads.enabled остался FALSE.
     state = db_session.execute(text(
-        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'netlab'"
+        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'resurs_media'"
     )).first()
     assert state.enabled is False
 

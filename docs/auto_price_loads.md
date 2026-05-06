@@ -13,13 +13,15 @@
 └──────────────────────┘               └────────────┬──────────────┘
                                                     │
                                                     ▼
-┌──────────────────────────────┐   fetch_and_save() │
-│ Fetcher по каналу:            │ ◀──────────────────┘
-│   • TreolanFetcher (REST API) │
-│   • OcsFetcher (IMAP, 12.1)   │  ← TODO
-│   • NetlabFetcher (URL, 12.2) │  ← TODO
-│   • …                         │  ← TODO
-└──────────────┬───────────────┘
+┌──────────────────────────────────┐   fetch_and_save() │
+│ Fetcher по каналу:                │ ◀──────────────────┘
+│   • TreolanFetcher (REST API)     │  ✅ 12.3
+│   • OCSImapFetcher (IMAP)         │  ✅ 12.1
+│   • MerlionImapFetcher (IMAP+ZIP) │  ✅ 12.1
+│   • NetlabHttpFetcher (HTTP+ZIP)  │  ✅ 12.2
+│   • ResursMediaFetcher (?)        │  ⏳ 12.4
+│   • GreenPlaceFetcher (?)         │  ⏳ 12.4
+└──────────────┬───────────────────┘
                │ PriceRow[]
                ▼
 ┌─────────────────────────────────────────────────────┐
@@ -100,19 +102,37 @@
 
 ## Расписание APScheduler
 
-В `portal/scheduler.py` зарегистрировано **две** cron-задачи (12.1):
+После 12.2 в `portal/scheduler.py` каждый поставщик имеет свой
+персональный cron-job с 10-минутным шагом — все в утренние часы, чтобы
+к началу рабочего дня свежие прайсы уже лежали в БД.
 
-| ID | Время | Канал | Поставщики |
+| ID | Время МСК | Канал | Поставщик |
 |--|--|--|--|
-| `auto_price_loads_daily` | 04:00 МСК | REST API | Treolan (и любые non-email каналы) |
-| `auto_price_loads_email_channel` | 14:30 МСК | IMAP | OCS, Merlion |
+| `auto_price_loads_treolan`      | 07:00 | REST API              | Treolan |
+| `auto_price_loads_ocs`          | 07:10 | IMAP                  | OCS |
+| `auto_price_loads_merlion`      | 07:20 | IMAP                  | Merlion |
+| `auto_price_loads_netlab`       | 07:30 | HTTP (прямая ссылка)  | Netlab |
+| `auto_price_loads_resurs_media` | 07:40 | — (12.4)              | Ресурс Медиа |
+| `auto_price_loads_green_place`  | 07:50 | — (12.4)              | Green Place |
 
-- **04:00 МСК** — после `daily_backup` (03:00). Обходит `enabled=TRUE`,
-  кроме slug'ов из `_EMAIL_CHANNEL_SLUGS` (их письма ещё не пришли).
-- **14:30 МСК** — после OCS-рассылки в 13:45 и в рабочее время
-  Merlion. Обходит ТОЛЬКО `_EMAIL_CHANNEL_SLUGS` ∩ `enabled=TRUE`.
-- На каждую вызывается `run_auto_load(slug, triggered_by='scheduled')`.
-- Ошибка одного поставщика не прерывает остальных.
+Каждый job:
+
+1. Читает `auto_price_loads.enabled` для своего slug. Если **FALSE** —
+   тихо выходит (тумблер выключен пользователем, никаких записей в
+   журнал).
+2. Иначе вызывает `run_auto_load(slug, triggered_by='scheduled')`. Если
+   fetcher ещё не зарегистрирован (resurs_media / green_place до 12.4),
+   `run_auto_load` бросит `ValueError` — runner запишет его как `error`
+   в `auto_price_load_runs`. Это допустимое поведение: пока тумблер OFF
+   ничего не происходит; включил, но канала ещё нет — увидишь ошибку
+   в журнале.
+3. Любая ошибка ловится и пишется в WARN, чтобы не валить
+   scheduler-loop.
+
+10-минутный интервал между поставщиками — защита от параллельных
+orchestrator-вставок в `supplier_prices` и от одновременных подключений
+к IMAP/HTTP. Раньше (до 12.2) задач было всего две (REST в 04:00 и IMAP
+в 14:30) — это дробило прайсы по дню; теперь всё к открытию.
 
 Активация — под тем же флагом `RUN_BACKUP_SCHEDULER=1` или
 `APP_ENV=production`. На локалке/в pytest без флагов задачи не
@@ -125,14 +145,14 @@
 — бросается `TooFrequentRunError`. UI ловит и показывает 429 +
 flash-сообщение. Для `scheduled` throttle игнорируется.
 
-## Реализованные каналы (на 12.1)
+## Реализованные каналы (на 12.2)
 
 | Поставщик | Канал | Статус |
 |--|--|--|
 | Treolan | REST API + JWT (`/v1/auth/token`, `/v1/Catalog/Get`) | ✅ 12.3 |
 | OCS | IMAP (XLSX вложение, Subject «B2B OCS — Состояние склада и цены») | ✅ 12.1 |
 | Merlion | IMAP (ZIP с XLSX, Subject «Прайс-лист MERLION», forward через Gmail) | ✅ 12.1 |
-| Netlab | прямой URL | ⏳ 12.4 |
+| Netlab | прямой HTTP-URL (ZIP с DealerD.xlsx, без авторизации) | ✅ 12.2 |
 | Ресурс Медиа | — | ⏳ 12.4 |
 | Green Place | — | ⏳ 12.4 |
 
@@ -221,6 +241,49 @@ IMAP_PASSWORD=           # fallback на SMTP_APP_PASSWORD
 Без `IMAP_USER`/`SMTP_USER` (и пары паролей) `_read_imap_credentials()`
 бросает `RuntimeError` со списком ожидаемых переменных — runner поймает
 её как обычную ошибку, выставит `status='error'`.
+
+## HTTP-канал Netlab (12.2)
+
+Netlab публикует актуальный дилерский прайс по прямой публичной ссылке
+без авторизации. Канал реализован как `NetlabHttpFetcher` в
+`app/services/auto_price/fetchers/netlab_http.py`.
+
+### Поток
+
+1. `httpx.Client.get(NETLAB_PRICE_URL)` с `follow_redirects=True`,
+   timeout 120с на чтение, 30с на коннект.
+2. Retry 3 попытки с backoff 5/15/45 на `httpx.RequestError` и 5xx.
+   На 4xx — сразу `RuntimeError` (клиентская ошибка, не временная).
+3. Sanity-check размера: `Content-Length` (если есть) и фактическая
+   длина тела ≤ **50 МБ**. Превышение — `RuntimeError`.
+4. Имя файла: сначала из `Content-Disposition` (RFC 6266), при
+   отсутствии — basename URL'а.
+5. Bytes пишутся во временный `.zip`, путь отдаётся
+   `NetlabLoader.iter_rows(filepath)`. Loader сам распакует архив через
+   `_open_workbook` и почистит распакованный xlsx-каталог в `finally`.
+6. `List[PriceRow]` идёт в общий `save_price_rows()` — тот же путь,
+   что и у IMAP/REST-каналов и `/admin/price-uploads`.
+7. Временный `.zip` удаляется в `finally`, даже если loader бросил
+   исключение.
+
+### Идемпотентность
+
+В отличие от IMAP-канала здесь нет `Message-ID`. `source_ref` остаётся
+NULL — каждый скачанный архив рассматривается как «свежий». Это
+безопасно: при `total_rows == 0` orchestrator закрывается `failed`
+(disappeared не запускается); при ненулевом `rows` — обычный
+price-upload, идентичный ручной загрузке через UI.
+
+### Env-переменные (12.2)
+
+```
+NETLAB_PRICE_URL=http://www.netlab.ru/products/dealerd.zip   # default в коде
+```
+
+`NETLAB_PRICE_URL` опционален: если переменная не задана, fetcher
+использует встроенный дефолт (публичную дилерскую ссылку). Дополнительно
+переопределять в Railway не требуется. Если когда-нибудь Netlab сменит
+URL — выставите эту переменную, и fetcher переключится без релиза.
 
 ## Treolan API: ключевые поля ответа
 
