@@ -21,6 +21,8 @@ def test_merlion_subject_regex_matches():
         "Прайс-лист MERLION",
         "Прайс-лист MERLION Москва 06.05.2026",
         "  Прайс-лист MERLION 30.04.2026",
+        # Реальный Subject из IMAP-разведки 2026-05-06 (только этот):
+        "Прайс-лист MERLION",
     ]:
         assert pat.search(s), f"subject должен матчиться: {s!r}"
 
@@ -49,8 +51,36 @@ def test_merlion_sender_regex_matches():
         "matveeva.y@merlion.ru",
         "Матвеева <matveeva.y@merlion.ru>",
         "пересылка via gmail; original: news@merlion.ru",
+        # Реальные From из IMAP-разведки 2026-05-06:
+        "matveeva.y@merlion.ru <matveeva.y@merlion.ru>",  # двойной From после Gmail-forward
+        "Matveeva Yuliya <Matveeva.Y@merlion.ru>",        # display name + capitalized
+        "Antonov Sergey <Antonov.S@merlion.ru>",          # другой менеджер
     ]:
-        assert pat.search(s)
+        assert pat.search(s), f"sender должен матчиться: {s!r}"
+
+
+def test_merlion_from_via_gmail_forward_matches():
+    """После Gmail-forward Reply-To/X-Forwarded-For/Return-Path содержат
+    quadro.kzn@gmail.com и caf_-префиксы, но FROM сохраняет реальный
+    @merlion.ru. BaseImapFetcher склеивает все адресные заголовки в один
+    haystack, и должен матчить именно по From — gmail в Reply-To не
+    должен мешать (regex ищет @merlion.ru, gmail.com его не сматчит)."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from app.services.auto_price.fetchers.base_imap import _addresses_in_header
+
+    headers = {
+        "From":            "matveeva.y@merlion.ru <matveeva.y@merlion.ru>",
+        "Reply-To":        "",
+        "X-Forwarded-For": "quadro.kzn@gmail.com quadro@quadro.tatar",
+        "Return-Path":     "<quadro.kzn+caf_=quadro=quadro.tatar@gmail.com>",
+        "Sender":          "",
+    }
+    haystack = _addresses_in_header(headers)
+    pat = re.compile(MerlionImapFetcher.sender_pattern, re.IGNORECASE)
+    assert pat.search(haystack), (
+        f"Gmail-forwarded Merlion должен матчиться по From, "
+        f"haystack={haystack!r}"
+    )
 
 
 def test_merlion_sender_regex_rejects_other():

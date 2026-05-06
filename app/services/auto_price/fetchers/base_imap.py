@@ -1,32 +1,37 @@
-# Базовый IMAP-fetcher для автозагрузки прайсов (этап 12.1).
+# Базовый IMAP-fetcher для автозагрузки прайсов (этап 12.1, fix 12.1).
 #
 # Подклассы:
 #   OCSImapFetcher     (этап 12.1) — XLSX вложение, Subject «B2B OCS …».
 #   MerlionImapFetcher (этап 12.1) — ZIP с XLSX, Subject «Прайс-лист MERLION».
 #
 # Поведение:
-#   1. Открывает IMAP-соединение к INBOX (host/user/pass — из env с
-#      fallback на SMTP_USER/SMTP_APP_PASSWORD; VK Workspace выдаёт общий
+#   1. Открывает IMAP-соединение (host/user/pass — из env с fallback
+#      на SMTP_USER/SMTP_APP_PASSWORD; VK Workspace выдаёт общий
 #      app password).
-#   2. Ищет письма за последние search_window_days (=14) от sender_pattern
-#      и с темой, подходящей под subject_pattern.
-#   3. Среди найденных оставляет ТОЛЬКО те, чей Message-ID ещё не лежит в
-#      auto_price_load_runs.source_ref за последние 30 дней по этому
-#      supplier_slug. Это защита от повторной обработки одного и того же
-#      письма при ручном запуске сразу после планового.
-#   4. Берёт самое свежее необработанное письмо, извлекает первое
-#      attachment с подходящим расширением (xlsx/zip), валидирует размер
-#      и отдаёт bytes в parse_attachment(...) подкласса.
-#   5. Подкласс возвращает List[PriceRow]; общий save_price_rows() из
-#      orchestrator делает остальное (UPSERT supplier_prices, mapping,
-#      unmapped, disappeared, запись price_uploads).
+#   2. LIST всех mailbox-ов на сервере, отбрасывает системные
+#      (Trash/Drafts/Sent/Junk/Spam/Outbox + русские эквиваленты,
+#      а также любые с флагом \Noselect). Имена раскодируются из
+#      modified UTF-7 (RFC 3501) — у пользователя VK Workspace
+#      письма от OCS/Merlion ушли в кириллическую папку «Прайсы»,
+#      raw-имя &BB8EQAQwBDkEQQRL-.
+#   3. По каждой оставшейся папке: SELECT readonly + ASCII-only
+#      SEARCH SINCE <окно> (CHARSET=None — VK Workspace плохо
+#      переваривает CHARSET UTF-8). Адрес/тема фильтруются на
+#      клиенте (Merlion идёт через Gmail-forward — реальный адрес
+#      в From/Reply-To/X-Forwarded-For/Return-Path).
+#   4. Среди найденных оставляет ТОЛЬКО те, чей Message-ID ещё не
+#      лежит в auto_price_load_runs.source_ref за последние 30 дней
+#      по этому supplier_slug.
+#   5. Берёт самое свежее необработанное письмо, извлекает первое
+#      attachment с подходящим расширением (xlsx/zip), валидирует
+#      размер и отдаёт bytes в parse_attachment(...) подкласса.
 #   6. Если ни одного нового письма нет — бросает NoNewDataException;
 #      runner ловит её отдельно и помечает запуск 'no_new_data', НЕ
-#      вызывая orchestrator (это критично — иначе без нового прайса
-#      orchestrator получит пустой rows и обнулит остатки).
+#      вызывая orchestrator (иначе нулевой rows обнулит остатки).
 
 from __future__ import annotations
 
+import base64
 import email
 import email.header
 import email.utils
@@ -138,6 +143,109 @@ def _addresses_in_header(headers: dict[str, str]) -> str:
     ])
 
 
+def _imap_utf7_decode(s: str) -> str:
+    """Декодирует имя папки IMAP (modified UTF-7, RFC 3501) в обычную
+    строку. Кириллические папки на VK Workspace приходят в виде
+    `&BB8EQAQwBDkEQQRL-` (=«Прайсы») — без декодинга мы не сможем
+    отличить их от системных по имени."""
+    if not s:
+        return s
+    res: list[str] = []
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == "&":
+            j = s.find("-", i + 1)
+            if j == -1:
+                res.append(s[i:])
+                break
+            chunk = s[i + 1:j]
+            if chunk == "":
+                res.append("&")
+            else:
+                b64 = chunk.replace(",", "/")
+                b64 += "=" * ((-len(b64)) % 4)
+                try:
+                    res.append(base64.b64decode(b64).decode("utf-16-be"))
+                except Exception:
+                    res.append(s[i:j + 1])
+            i = j + 1
+        else:
+            res.append(c)
+            i += 1
+    return "".join(res)
+
+
+# RFC 6154 SPECIAL-USE флаги + классические \Trash и т.п.
+_SYSTEM_FOLDER_FLAGS = frozenset({
+    "\\noselect", "\\trash", "\\drafts", "\\junk",
+    "\\sent", "\\all", "\\flagged", "\\important",
+})
+
+# Имена системных папок (lowercase, с учётом локализаций mail.ru / VK
+# Workspace и стандартных IMAP-серверов). Сравнение с decoded UTF-7.
+# INBOX-вложенные подпапки обрабатываются отдельно (мы их НЕ исключаем).
+_SYSTEM_FOLDER_NAMES = frozenset({
+    "trash", "drafts", "sent", "junk", "spam", "outbox", "archive",
+    "корзина", "удаленные", "удалённые", "черновики",
+    "отправленные", "отправлено", "спам", "исходящие",
+    "нежелательная почта", "архив",
+    # Gmail-style контейнеры (если кто-то когда-нибудь подключит).
+    "[gmail]",
+})
+
+_LIST_LINE_RE = re.compile(r'\((?P<flags>[^)]*)\)\s+(?:"[^"]*"|NIL)\s+(?P<mailbox>.+)$')
+
+
+def _parse_list_line(raw: str) -> tuple[str, str, str] | None:
+    """Парсит одну строку ответа IMAP LIST.
+
+    Возвращает (flags_lower, raw_mailbox, decoded_mailbox) или None
+    если строка не распознана. raw_mailbox — оригинал в modified UTF-7
+    (для SELECT), decoded_mailbox — человекочитаемое имя (для матчинга
+    системных папок и логов).
+    """
+    m = _LIST_LINE_RE.match(raw)
+    if not m:
+        return None
+    flags = (m.group("flags") or "").lower()
+    token = m.group("mailbox").strip()
+    if token.startswith('"') and token.endswith('"'):
+        mailbox = token[1:-1]
+    else:
+        mailbox = token
+    decoded = _imap_utf7_decode(mailbox)
+    return (flags, mailbox, decoded)
+
+
+def _is_system_folder(flags_lower: str, decoded_name: str) -> bool:
+    """Возвращает True для папок, которые нужно ИСКЛЮЧИТЬ из обхода:
+    Trash/Drafts/Sent/Junk/Spam/Outbox/Archive и их русские
+    эквиваленты, плюс всё со флагом \\Noselect (контейнерные узлы)."""
+    flag_tokens = {tok.strip() for tok in flags_lower.split() if tok.strip()}
+    if flag_tokens & _SYSTEM_FOLDER_FLAGS:
+        return True
+    name = (decoded_name or "").strip().lower()
+    if not name:
+        # Пустое имя — не SELECT-абельно, безопаснее пропустить.
+        return True
+    # Базовое имя (последний сегмент) — на случай Gmail-style "[Gmail]/Trash"
+    # или mail.ru-вложений. INBOX/* — это пользовательские подпапки, их
+    # мы НЕ должны фильтровать, поэтому проверяем только если базовое
+    # имя совпало с системным И это не вложенность INBOX/.
+    if name in _SYSTEM_FOLDER_NAMES:
+        return True
+    # Иерархические разделители — '/' (mail.ru), '.' (cyrus), '\\' (редко).
+    last_segment = re.split(r"[/\.\\]", name)[-1].strip()
+    if last_segment and last_segment in _SYSTEM_FOLDER_NAMES:
+        # Подпапка под системной — тоже мусор (например "Корзина/Архив").
+        # Но НЕ INBOX/<что-то>: в INBOX подпапок может быть пользовательский
+        # фильтр.
+        if not name.startswith("inbox/"):
+            return True
+    return False
+
+
 # =====================================================================
 # BaseImapFetcher
 # =====================================================================
@@ -197,13 +305,15 @@ class BaseImapFetcher(BaseAutoFetcher):
         try:
             client.login(user, password)
             try:
-                msg, message_id = self._find_latest_unprocessed_message(client)
+                msg, message_id, found_in = (
+                    self._find_latest_unprocessed_message(client)
+                )
             finally:
                 try:
                     client.close()
                 except Exception:
-                    # close() ругается, если SELECT не было — на Empty INBOX
-                    # такое возможно. Подавляем, чтобы не маскировать
+                    # close() ругается, если SELECT не было — на пустом
+                    # ящике такое возможно. Подавляем, чтобы не маскировать
                     # реальную ошибку выше.
                     pass
         finally:
@@ -219,6 +329,10 @@ class BaseImapFetcher(BaseAutoFetcher):
                 f"{self.idempotency_window_days} дней)."
             )
 
+        logger.info(
+            "IMAP %s: нашли свежее письмо в папке %r (Message-ID=%s)",
+            self.supplier_slug, found_in, message_id,
+        )
         attachment_bytes, attachment_filename = self._extract_attachment(msg)
         rows = list(self.parse_attachment(attachment_bytes, attachment_filename))
         price_upload_id = self._save_via_orchestrator(rows, attachment_filename)
@@ -243,84 +357,193 @@ class BaseImapFetcher(BaseAutoFetcher):
     def _find_latest_unprocessed_message(
         self,
         client: imaplib.IMAP4,
-    ) -> tuple[email.message.Message | None, str | None]:
-        """Открывает INBOX, ищет письма за окно search_window_days от
-        sender_pattern, фильтрует по subject_pattern и идемпотентности.
-        Возвращает (msg, Message-ID) самого свежего необработанного письма
-        либо (None, None)."""
-        typ, _ = client.select("INBOX", readonly=True)
-        if typ != "OK":
-            raise RuntimeError(
-                f"IMAP {self.supplier_slug}: не удалось открыть INBOX (typ={typ})."
-            )
+    ) -> tuple[email.message.Message | None, str | None, str | None]:
+        """Обходит ВСЕ пользовательские папки IMAP-ящика (а не только
+        INBOX) и ищет письма за окно search_window_days от sender_pattern,
+        фильтрует по subject_pattern и идемпотентности.
+
+        Возвращает (msg, Message-ID, decoded_folder_name) самого свежего
+        необработанного письма либо (None, None, None). Folder name — для
+        логирования: руками подключив фильтр VK Workspace, пользователь
+        раскладывает прайсы по кириллическим папкам; знание «откуда»
+        помогает диагностике.
+        """
+        folders = self._list_searchable_folders(client)
+        logger.info(
+            "IMAP %s: обхожу %d папок: %s",
+            self.supplier_slug, len(folders),
+            ", ".join(repr(d) for _, _, d in folders) or "(нет)",
+        )
+        if not folders:
+            return (None, None, None)
 
         since_dt = datetime.now(timezone.utc) - timedelta(days=self.search_window_days)
         since_str = since_dt.strftime("%d-%b-%Y")
 
-        # ASCII-only серверный фильтр по дате — у VK Workspace IMAP плохо
-        # работают CHARSET и кириллица в SEARCH. От адреса/темы фильтруем
-        # уже на клиенте, т.к. From/Reply-To могут отличаться (Merlion
-        # пересылается через Gmail).
-        typ, data = client.search(None, "SINCE", since_str)
-        if typ != "OK" or not data or not data[0]:
-            return (None, None)
-        uids = data[0].split()
-        if not uids:
-            return (None, None)
-
-        # Список «уже обработанных» Message-ID за окно idempotency_window_days.
+        # Список «уже обработанных» Message-ID за окно
+        # idempotency_window_days — кэшируем один раз на весь обход.
         processed_ids = self._load_processed_message_ids()
 
-        # Идём от самых свежих к старым — UID растёт в порядке прихода в
-        # папку, поэтому reverse-обход даёт примерно свежее→старое. Этого
-        # достаточно: первое подходящее письмо и берём.
-        candidates: list[tuple[datetime, bytes, email.message.Message, str]] = []
-        for uid in reversed(uids):
-            raw = self._fetch_rfc822(client, uid)
-            if raw is None:
-                continue
-            msg = email.message_from_bytes(raw)
-            subject = _decode_header_value(msg.get("Subject"))
-            headers = {
-                "From":            _decode_header_value(msg.get("From")),
-                "Reply-To":        _decode_header_value(msg.get("Reply-To")),
-                "X-Forwarded-For": _decode_header_value(msg.get("X-Forwarded-For")),
-                "Return-Path":     _decode_header_value(msg.get("Return-Path")),
-                "Sender":          _decode_header_value(msg.get("Sender")),
-            }
-            haystack = _addresses_in_header(headers)
-            if not self._sender_re.search(haystack):
-                continue
-            if not self._subject_re.search(subject or ""):
-                continue
-            msg_id = (msg.get("Message-ID") or "").strip()
-            if not msg_id:
-                # Без Message-ID нельзя гарантировать идемпотентность —
-                # пропустим, чтобы не зацикливаться на одном письме.
+        # Кандидаты со ВСЕХ папок — потом отсортируем по Date и возьмём
+        # самое свежее.
+        candidates: list[
+            tuple[datetime, email.message.Message, str, str]
+        ] = []
+        seen_msg_ids: set[str] = set()
+
+        for _flags, raw_name, decoded_name in folders:
+            # SELECT с raw-именем (modified UTF-7 для кириллицы); imaplib
+            # требует кавычки вокруг имён с пробелами/спецсимволами.
+            try:
+                typ, _ = client.select(f'"{raw_name}"', readonly=True)
+            except Exception as exc:
                 logger.warning(
-                    "IMAP %s: письмо без Message-ID (Subject=%r), пропуск.",
-                    self.supplier_slug, subject,
+                    "IMAP %s: SELECT %r упал (%s: %s) — пропуск",
+                    self.supplier_slug, decoded_name,
+                    type(exc).__name__, exc,
                 )
                 continue
-            if msg_id in processed_ids:
+            if typ != "OK":
+                logger.warning(
+                    "IMAP %s: SELECT %r вернул %s — пропуск",
+                    self.supplier_slug, decoded_name, typ,
+                )
                 continue
+
+            # ASCII-only SEARCH (CHARSET=None): у VK Workspace IMAP
+            # CHARSET UTF-8 на SEARCH иногда отвечает пустотой. От
+            # адреса/темы фильтруем уже на клиенте, т.к. From/Reply-To
+            # могут отличаться (Merlion идёт через Gmail-forward).
             try:
-                date_dt = email.utils.parsedate_to_datetime(msg.get("Date") or "")
-            except Exception:
-                date_dt = datetime.now(tz=timezone.utc)
-            if date_dt is None:
-                date_dt = datetime.now(tz=timezone.utc)
-            if date_dt.tzinfo is None:
-                date_dt = date_dt.replace(tzinfo=timezone.utc)
-            candidates.append((date_dt, uid, msg, msg_id))
+                typ, data = client.search(None, "SINCE", since_str)
+            except Exception as exc:
+                logger.warning(
+                    "IMAP %s: SEARCH в %r упал (%s: %s) — пропуск",
+                    self.supplier_slug, decoded_name,
+                    type(exc).__name__, exc,
+                )
+                continue
+            if typ != "OK" or not data or not data[0]:
+                continue
+            uids = data[0].split()
+            if not uids:
+                continue
+
+            # Идём от свежих к старым — это минимизирует FETCH-ы, если
+            # повезёт и первое же подходящее окажется новым. Но всё равно
+            # собираем все, чтобы корректно сравнить даты с другими папками.
+            for uid in reversed(uids):
+                raw_msg = self._fetch_rfc822(client, uid)
+                if raw_msg is None:
+                    continue
+                msg = email.message_from_bytes(raw_msg)
+                subject = _decode_header_value(msg.get("Subject"))
+                headers = {
+                    "From":            _decode_header_value(msg.get("From")),
+                    "Reply-To":        _decode_header_value(msg.get("Reply-To")),
+                    "X-Forwarded-For": _decode_header_value(msg.get("X-Forwarded-For")),
+                    "Return-Path":     _decode_header_value(msg.get("Return-Path")),
+                    "Sender":          _decode_header_value(msg.get("Sender")),
+                }
+                haystack = _addresses_in_header(headers)
+                if not self._sender_re.search(haystack):
+                    continue
+                if not self._subject_re.search(subject or ""):
+                    continue
+                msg_id = (msg.get("Message-ID") or "").strip()
+                if not msg_id:
+                    logger.warning(
+                        "IMAP %s: письмо без Message-ID в %r (Subject=%r), пропуск.",
+                        self.supplier_slug, decoded_name, subject,
+                    )
+                    continue
+                if msg_id in processed_ids:
+                    continue
+                # Дедуп между папками: одно и то же письмо может быть
+                # в нескольких папках через метки/копии (label-style).
+                if msg_id in seen_msg_ids:
+                    continue
+                seen_msg_ids.add(msg_id)
+                try:
+                    date_dt = email.utils.parsedate_to_datetime(msg.get("Date") or "")
+                except Exception:
+                    date_dt = datetime.now(tz=timezone.utc)
+                if date_dt is None:
+                    date_dt = datetime.now(tz=timezone.utc)
+                if date_dt.tzinfo is None:
+                    date_dt = date_dt.replace(tzinfo=timezone.utc)
+                candidates.append((date_dt, msg, msg_id, decoded_name))
 
         if not candidates:
-            return (None, None)
+            return (None, None, None)
 
         # Самое свежее по Date.
         candidates.sort(key=lambda x: x[0], reverse=True)
-        _, _, best_msg, best_msg_id = candidates[0]
-        return (best_msg, best_msg_id)
+        _, best_msg, best_msg_id, best_folder = candidates[0]
+        return (best_msg, best_msg_id, best_folder)
+
+    # ----- LIST: пользовательские папки -----------------------------------
+
+    def _list_searchable_folders(
+        self,
+        client: imaplib.IMAP4,
+    ) -> list[tuple[str, str, str]]:
+        """LIST ящика и фильтрация системных папок.
+
+        Возвращает список (flags_lower, raw_name, decoded_name) папок,
+        которые нужно обойти. INBOX всегда в списке (если сервер его
+        возвращает). Системные (Trash/Drafts/Sent/Junk/Spam/Outbox/Archive
+        и их русские эквиваленты + флаги \\Noselect/\\Trash/\\Drafts/...)
+        исключаются.
+
+        Если LIST почему-то ничего не вернул — fallback на одну папку
+        INBOX (это поведение до 12.1-fix).
+        """
+        try:
+            typ, data = client.list()
+        except Exception as exc:
+            logger.warning(
+                "IMAP %s: LIST упал (%s: %s) — fallback на INBOX",
+                self.supplier_slug, type(exc).__name__, exc,
+            )
+            return [("", "INBOX", "INBOX")]
+        if typ != "OK" or not data:
+            logger.warning(
+                "IMAP %s: LIST вернул %s — fallback на INBOX",
+                self.supplier_slug, typ,
+            )
+            return [("", "INBOX", "INBOX")]
+
+        out: list[tuple[str, str, str]] = []
+        for raw in data:
+            if raw is None:
+                continue
+            if isinstance(raw, bytes):
+                line = raw.decode("ascii", errors="replace")
+            else:
+                line = str(raw)
+            parsed = _parse_list_line(line)
+            if parsed is None:
+                logger.debug(
+                    "IMAP %s: не распознал строку LIST: %r",
+                    self.supplier_slug, line,
+                )
+                continue
+            flags, raw_name, decoded_name = parsed
+            if _is_system_folder(flags, decoded_name):
+                logger.debug(
+                    "IMAP %s: пропускаю системную папку %r (flags=%s)",
+                    self.supplier_slug, decoded_name, flags,
+                )
+                continue
+            out.append(parsed)
+        if not out:
+            logger.warning(
+                "IMAP %s: после фильтрации не осталось папок — "
+                "fallback на INBOX", self.supplier_slug,
+            )
+            return [("", "INBOX", "INBOX")]
+        return out
 
     @staticmethod
     def _fetch_rfc822(client: imaplib.IMAP4, uid: bytes) -> bytes | None:

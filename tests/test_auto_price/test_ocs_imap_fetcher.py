@@ -17,6 +17,10 @@ REAL_OCS_SUBJECTS = [
     "B2B OCS - Состояние склада и цены 30.04.2026",
     "  B2B OCS - Состояние склада и цены 15.04.2026",  # с пробелами
     "B2B OCS  -  Состояние склада и цены",  # двойные пробелы
+    # Реальные строки из IMAP-разведки 2026-05-05/06 (папка «Прайсы»):
+    "B2B OCS - Состояние склада и цены на 17.04.2026 13:44, Ф05, партнер: К0077581",
+    "B2B OCS - Состояние склада и цены на 06.05.2026 13:44, Ф05, партнер: К0077581",
+    "B2B OCS - Состояние склада и цены на 28.04.2026 13:43, Ф05, партнер: К0077581",
 ]
 
 
@@ -55,6 +59,12 @@ def test_ocs_sender_regex_matches_ocs_ru_addresses():
         "Гарифуллина <egarifullina@ocs.ru>",
         "noreply@ocs.ru",
         "from manager@ocs.ru via gmail-forward",
+        # Реальный From из разведки (без угловых скобок):
+        "egarifullina@ocs.ru",
+        # Реальный Return-Path из разведки (с угловыми скобками):
+        "<egarifullina@ocs.ru>",
+        # Возможный смешанный From с display name:
+        "Egarifullina E. <egarifullina@ocs.ru>",
     ]:
         assert pat.search(s), f"sender должен матчиться: {s!r}"
 
