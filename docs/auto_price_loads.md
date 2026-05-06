@@ -100,16 +100,23 @@
 
 ## Расписание APScheduler
 
-В `portal/scheduler.py` зарегистрирован cron-job `auto_price_loads_daily`:
+В `portal/scheduler.py` зарегистрировано **две** cron-задачи (12.1):
 
-- **04:00 МСК** ежедневно (после daily_backup в 03:00 МСК).
-- Обходит все строки `auto_price_loads` с `enabled = TRUE`.
-- На каждую вызывает `run_auto_load(slug, triggered_by='scheduled')`.
+| ID | Время | Канал | Поставщики |
+|--|--|--|--|
+| `auto_price_loads_daily` | 04:00 МСК | REST API | Treolan (и любые non-email каналы) |
+| `auto_price_loads_email_channel` | 14:30 МСК | IMAP | OCS, Merlion |
+
+- **04:00 МСК** — после `daily_backup` (03:00). Обходит `enabled=TRUE`,
+  кроме slug'ов из `_EMAIL_CHANNEL_SLUGS` (их письма ещё не пришли).
+- **14:30 МСК** — после OCS-рассылки в 13:45 и в рабочее время
+  Merlion. Обходит ТОЛЬКО `_EMAIL_CHANNEL_SLUGS` ∩ `enabled=TRUE`.
+- На каждую вызывается `run_auto_load(slug, triggered_by='scheduled')`.
 - Ошибка одного поставщика не прерывает остальных.
 
 Активация — под тем же флагом `RUN_BACKUP_SCHEDULER=1` или
-`APP_ENV=production`. На локалке/в pytest без флагов задача не
-регистрируется.
+`APP_ENV=production`. На локалке/в pytest без флагов задачи не
+регистрируются.
 
 ## Throttle ручных запусков
 
@@ -118,16 +125,102 @@
 — бросается `TooFrequentRunError`. UI ловит и показывает 429 +
 flash-сообщение. Для `scheduled` throttle игнорируется.
 
-## Реализованные каналы (на 12.3)
+## Реализованные каналы (на 12.1)
 
 | Поставщик | Канал | Статус |
 |--|--|--|
 | Treolan | REST API + JWT (`/v1/auth/token`, `/v1/Catalog/Get`) | ✅ 12.3 |
-| OCS | IMAP (письма с прикреплённым XLS) | ⏳ 12.1 |
-| Merlion | IMAP / прямой URL | ⏳ 12.2 |
+| OCS | IMAP (XLSX вложение, Subject «B2B OCS — Состояние склада и цены») | ✅ 12.1 |
+| Merlion | IMAP (ZIP с XLSX, Subject «Прайс-лист MERLION», forward через Gmail) | ✅ 12.1 |
 | Netlab | прямой URL | ⏳ 12.4 |
 | Ресурс Медиа | — | ⏳ 12.4 |
 | Green Place | — | ⏳ 12.4 |
+
+## IMAP-канал (12.1)
+
+### Архитектура
+
+```
+BaseImapFetcher (общий каркас, fetchers/base_imap.py)
+├── OCSImapFetcher     — XLSX вложение
+└── MerlionImapFetcher — ZIP → распаковка → XLSX
+```
+
+`fetch_and_save()` любого IMAP-fetcher'а:
+
+1. Открывает IMAP/SSL-соединение (host/port/SSL — из ENV),
+   логин по `IMAP_USER`/`IMAP_PASSWORD` (fallback `SMTP_USER`/`SMTP_APP_PASSWORD`).
+2. `INBOX → SEARCH SINCE` за `search_window_days` (=14). Окно намеренно
+   широкое — покрывает выходные, праздники, двухнедельные простои.
+3. Клиентский фильтр по `sender_pattern` (regex по From / Reply-To /
+   X-Forwarded-For / Return-Path / Sender — Merlion ходит через
+   Gmail-forward, реальный домен может оказаться в любом из них) и
+   `subject_pattern`.
+4. Идемпотентность по `Message-ID`: перед обработкой смотрим
+   `auto_price_load_runs.source_ref` за последние 30 дней (по slug'у);
+   если письмо уже обработано — пропускаем.
+5. Берём самое свежее необработанное по `Date` → извлекаем первое
+   attachment с подходящим расширением → проверяем размер (≤50 МБ).
+6. Подкласс делает `parse_attachment(bytes, filename) → List[PriceRow]`:
+   - **OCS**: записывает bytes во временный `.xlsx` и зовёт `OcsLoader.iter_rows`.
+   - **Merlion**: распаковывает ZIP, ищет все `.xlsx` рекурсивно,
+     берёт самый большой и зовёт `MerlionLoader.iter_rows`.
+7. Зовёт `orchestrator.save_price_rows()` — общий save-pipeline
+   (тот же, что и `/admin/price-uploads`).
+
+### Идемпотентность и `source_ref`
+
+Миграция 029 добавила колонку `auto_price_load_runs.source_ref TEXT`
+плюс частичный индекс `(supplier_slug, source_ref) WHERE source_ref IS NOT NULL`.
+
+- Для IMAP-канала: после успешной обработки runner кладёт `Message-ID`
+  письма в `source_ref`. При следующем запуске тот же Message-ID
+  отфильтровывается за 30 дней.
+- Для REST-канала (Treolan): остаётся NULL — идемпотентность
+  обеспечена самим `Catalog/Get` без срезов времени.
+
+### `NoNewDataException` и статус `no_new_data`
+
+Если в окне нет нового письма (или все уже обработаны), fetcher бросает
+`NoNewDataException`. Runner ловит её **отдельно** от обычных ошибок:
+
+- `auto_price_load_runs.status = 'no_new_data'`, `error_message` = текст
+  исключения, `source_ref = NULL`, `finished_at = NOW()`.
+- `auto_price_loads.status = 'no_new_data'`, `last_run_at = NOW()`,
+  `last_success_at` / `last_error_at` **не трогаются**, `last_error_message`
+  очищается (это не ошибка).
+- **`orchestrator` НЕ вызывается** — пустой `rows` обнулил бы остатки
+  через disappeared-логику. Это ключевая защита параллельно с
+  `total_rows == 0 → failed` в `orchestrator._record_upload`.
+
+В UI `/admin/auto-price-loads` `no_new_data` рендерится как
+yellow-badge «нет новых писем» (не error / red, не success / green).
+
+### Subject / sender паттерны
+
+| Поставщик | sender (regex) | subject (regex) | Вложение |
+|--|--|--|--|
+| OCS | `@ocs\.ru\b` | `^\s*B2B\s+OCS\s*-\s*Состояние\s+склада\s+и\s+цены` | `.xlsx`/`.xls` |
+| Merlion | `@merlion\.ru\b` | `^\s*Прайс-лист\s+MERLION` | `.zip` (внутри `.xlsx`) |
+
+Регексы проверяются case-insensitive.
+
+### Env-переменные (12.1)
+
+```
+# По умолчанию IMAP-канал использует SMTP_USER / SMTP_APP_PASSWORD
+# (VK Workspace выдаёт общий app password для SMTP и IMAP). Дополнительные
+# переменные нужны ТОЛЬКО если IMAP-креды разойдутся со SMTP:
+IMAP_HOST=imap.mail.ru   # default
+IMAP_PORT=993            # default
+IMAP_USE_SSL=true        # default
+IMAP_USER=               # fallback на SMTP_USER
+IMAP_PASSWORD=           # fallback на SMTP_APP_PASSWORD
+```
+
+Без `IMAP_USER`/`SMTP_USER` (и пары паролей) `_read_imap_credentials()`
+бросает `RuntimeError` со списком ожидаемых переменных — runner поймает
+её как обычную ошибку, выставит `status='error'`.
 
 ## Treolan API: ключевые поля ответа
 

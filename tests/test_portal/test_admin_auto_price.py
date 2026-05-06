@@ -38,6 +38,26 @@ def test_list_renders_six_suppliers(admin_portal_client):
         assert f'data-testid="auto-row-{slug}"' in r.text
 
 
+# ---- 1b. У OCS/Merlion канал «IMAP» (12.1) -------------------------
+
+def test_list_shows_imap_channel_for_ocs_merlion(admin_portal_client):
+    """После 12.1 в строке OCS и Merlion должна быть подпись «IMAP»."""
+    r = admin_portal_client.get("/admin/auto-price-loads")
+    assert r.status_code == 200
+    text_html = r.text
+
+    # Грубая проверка: рядом со строкой ocs/merlion есть «IMAP»; рядом
+    # со строкой treolan — «REST API»; netlab/resurs_media/green_place —
+    # «—» (канал ещё не подключён).
+    for slug in ("ocs", "merlion"):
+        marker = f'data-testid="auto-row-{slug}"'
+        idx = text_html.find(marker)
+        assert idx != -1, f"строка {slug} не найдена"
+        end = text_html.find("</tr>", idx)
+        chunk = text_html[idx:end]
+        assert "IMAP" in chunk, f"в строке {slug} нет канала «IMAP»: {chunk[:200]}"
+
+
 # ---- 2. anon → 302 на /login ----------------------------------------
 
 def test_list_blocks_anonymous(portal_client):
@@ -68,12 +88,13 @@ def test_run_requires_csrf(admin_portal_client):
 def test_run_blocks_unregistered_fetcher(admin_portal_client):
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
+    # netlab пока без fetcher'а (12.4 будет), но slug валиден в seed —
+    # ожидаем 400 «канал не подключён». OCS/Merlion fetcher'ы появились
+    # в 12.1, поэтому используем оставшийся «голый» slug.
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/ocs/run",
+        "/admin/auto-price-loads/netlab/run",
         data={"csrf_token": token},
     )
-    # OCS пока без fetcher'а (12.1 будет), но slug валиден в seed —
-    # ожидаем 400 «канал не подключён».
     assert r.status_code == 400
 
 
@@ -135,19 +156,19 @@ def test_run_returns_429_on_too_frequent(admin_portal_client, db_session, monkey
 # ---- 7. Toggle блокирует включение для slug без fetcher'а -----------
 
 def test_toggle_blocks_enabling_unregistered_fetcher(admin_portal_client, db_session):
-    """Пытаемся включить ocs — там нет fetcher'а на 12.3."""
+    """Пытаемся включить netlab — fetcher'а у него ещё нет (12.4)."""
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
 
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/ocs/toggle",
+        "/admin/auto-price-loads/netlab/toggle",
         data={"csrf_token": token},
     )
     assert r.status_code == 400
 
     # auto_price_loads.enabled остался FALSE.
     state = db_session.execute(text(
-        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'ocs'"
+        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'netlab'"
     )).first()
     assert state.enabled is False
 
@@ -171,6 +192,31 @@ def test_toggle_enables_treolan(admin_portal_client, db_session):
 
 
 # ---- 9. Toggle переключает в обе стороны ----------------------------
+
+# ---- 8b. no_new_data рендерится как warning -------------------------
+
+def test_no_new_data_status_renders_as_warning(admin_portal_client, db_session):
+    """Прокидываем status='no_new_data' для ocs и проверяем, что UI
+    показал yellow badge с подписью «нет новых писем», а не ошибку."""
+    db_session.execute(text(
+        "UPDATE auto_price_loads SET status = 'no_new_data', "
+        "  last_error_message = NULL "
+        "WHERE supplier_slug = 'ocs'"
+    ))
+    db_session.commit()
+
+    r = admin_portal_client.get("/admin/auto-price-loads")
+    assert r.status_code == 200
+
+    idx = r.text.find('data-testid="auto-row-ocs"')
+    assert idx != -1
+    end = r.text.find("</tr>", idx)
+    chunk = r.text[idx:end]
+    assert "badge-warning" in chunk
+    assert "нет новых писем" in chunk
+    # И никакого error-badge не должно появиться:
+    assert "badge-danger" not in chunk
+
 
 def test_toggle_round_trip(admin_portal_client, db_session):
     r0 = admin_portal_client.get("/admin/auto-price-loads")

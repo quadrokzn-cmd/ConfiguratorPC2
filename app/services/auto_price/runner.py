@@ -31,6 +31,7 @@ from typing import Any
 from sqlalchemy import text
 
 from app.services.auto_price.base import get_fetcher_class
+from app.services.auto_price.fetchers.base_imap import NoNewDataException
 from shared.db import SessionLocal
 
 
@@ -177,6 +178,56 @@ def _finish_run_error(session, run_id: int, error_message: str) -> None:
     )
 
 
+def _finish_run_no_new_data(session, run_id: int, message: str) -> None:
+    """12.1: запуск отбит на этапе IMAP-fetcher'а — нет новых писем.
+    Это НЕ ошибка: status='no_new_data', error_message содержит
+    текст из NoNewDataException (для журнала). source_ref остаётся
+    NULL — Message-ID нечего записать."""
+    truncated = (message or "")[:2000]
+    session.execute(
+        text(
+            "UPDATE auto_price_load_runs "
+            "   SET finished_at = NOW(), status = 'no_new_data', "
+            "       error_message = :msg "
+            " WHERE id = :id"
+        ),
+        {"id": run_id, "msg": truncated},
+    )
+
+
+def _set_no_new_data(session, slug: str) -> None:
+    """12.1: фиксируем попытку, не трогая last_success_at / last_error_at.
+    last_run_at уже обновлён в _set_running. Статус — 'no_new_data',
+    чтобы UI отобразил yellow badge «Нет новых писем». last_error_message
+    очищаем — новая попытка ≠ ошибка."""
+    session.execute(
+        text(
+            "UPDATE auto_price_loads "
+            "   SET status = 'no_new_data', "
+            "       last_error_message = NULL, "
+            "       updated_at = NOW() "
+            " WHERE supplier_slug = :slug"
+        ),
+        {"slug": slug},
+    )
+
+
+def _record_source_ref(session, run_id: int, source_ref: str | None) -> None:
+    """12.1: на success-пути записываем Message-ID письма, обработанного
+    IMAP-fetcher'ом. Для REST-канала (Treolan) source_ref остаётся NULL —
+    идемпотентность там обеспечена самим API."""
+    if not source_ref:
+        return
+    session.execute(
+        text(
+            "UPDATE auto_price_load_runs "
+            "   SET source_ref = :ref "
+            " WHERE id = :id"
+        ),
+        {"id": run_id, "ref": source_ref[:1000]},
+    )
+
+
 # ---------------------------------------------------------------------
 # Главная функция
 # ---------------------------------------------------------------------
@@ -236,9 +287,23 @@ def run_auto_load(slug: str, triggered_by: str) -> dict[str, Any]:
     # чтобы её commit/rollback не затирался ошибками внутри fetcher'а.
     price_upload_id: int | None = None
     error: Exception | None = None
+    no_new_data: NoNewDataException | None = None
+    fetcher_instance = None
     try:
-        price_upload_id = fetcher_cls().fetch_and_save()
-    except Exception as exc:  # любая ошибка — пишем в БД и Sentry
+        fetcher_instance = fetcher_cls()
+        price_upload_id = fetcher_instance.fetch_and_save()
+    except NoNewDataException as exc:
+        # 12.1: IMAP-fetcher не нашёл нового письма за окно. Это НЕ
+        # ошибка и НЕ повод вызывать orchestrator/save_price_rows —
+        # пустой rows обнулил бы supplier_prices.stock_qty (см. 12.3-fix
+        # в orchestrator total_rows==0 → failed без disappeared, плюс
+        # ещё одна страховка на этом уровне). Поэтому помечаем run
+        # 'no_new_data' и выходим.
+        no_new_data = exc
+        logger.info(
+            "auto_price_load: %s — нет новых писем (%s)", slug, exc,
+        )
+    except Exception as exc:  # любая другая ошибка — пишем в БД и Sentry
         error = exc
         logger.exception(
             "auto_price_load: fetcher %s упал — %s: %s",
@@ -252,9 +317,19 @@ def run_auto_load(slug: str, triggered_by: str) -> dict[str, Any]:
 
     session = SessionLocal()
     try:
-        if error is None:
+        if no_new_data is not None:
+            _finish_run_no_new_data(session, run_id, str(no_new_data))
+            _set_no_new_data(session, slug)
+        elif error is None:
             _finish_run_success(session, run_id, price_upload_id)
             _set_success(session, slug, price_upload_id)
+            # 12.1: для IMAP-канала кладём Message-ID в source_ref —
+            # это и есть ключ идемпотентности при следующих запусках.
+            # У REST-канала (Treolan) этот атрибут отсутствует — пропустим.
+            source_ref = getattr(
+                fetcher_instance, "last_processed_message_id", None,
+            )
+            _record_source_ref(session, run_id, source_ref)
         else:
             err_msg = f"{type(error).__name__}: {error}"
             _finish_run_error(session, run_id, err_msg)
@@ -265,6 +340,16 @@ def run_auto_load(slug: str, triggered_by: str) -> dict[str, Any]:
 
     if error is not None:
         raise error
+
+    if no_new_data is not None:
+        return {
+            "supplier_slug":   slug,
+            "triggered_by":    triggered_by,
+            "run_id":          run_id,
+            "price_upload_id": None,
+            "status":          "no_new_data",
+            "message":         str(no_new_data),
+        }
 
     return {
         "supplier_slug":   slug,

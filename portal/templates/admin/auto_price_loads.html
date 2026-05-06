@@ -8,12 +8,14 @@
   <header class="mb-6">
     <h1 class="portal-greeting">Автозагрузка прайсов</h1>
     <p class="portal-greeting-sub">
-      Ежедневно в 04:00 МСК планировщик портала тянет прайсы у поставщиков
-      с включённой автозагрузкой и обновляет <code>supplier_prices</code>
-      без участия человека. Этот раздел показывает состояние подключений
-      и журнал последних запусков. Чтобы загрузить прайс прямо сейчас —
-      нажмите «Запустить» (кнопка блокируется на {{ throttle_minutes }} минут после
-      каждого запуска, чтобы не уйти в rate-limit).
+      Планировщик портала ежедневно тянет прайсы поставщиков и обновляет
+      <code>supplier_prices</code> без участия человека: REST-канал
+      (Treolan) — в 04:00 МСК, IMAP-канал (OCS, Merlion) — в 14:30 МСК
+      (после дневных рассылок). Этот раздел показывает состояние
+      подключений и журнал последних запусков. Чтобы загрузить прайс
+      прямо сейчас — нажмите «Запустить» (кнопка блокируется на
+      {{ throttle_minutes }} минут после каждого запуска, чтобы не уйти
+      в rate-limit / не обработать одно и то же письмо дважды).
     </p>
   </header>
 
@@ -62,6 +64,11 @@
               <span class="badge badge-success">success</span>
             {% elif s.status == 'running' %}
               <span class="badge badge-warning">running</span>
+            {% elif s.status == 'no_new_data' %}
+              <span class="badge badge-warning"
+                    title="Нет новых писем за окно поиска (это не ошибка)">
+                нет новых писем
+              </span>
             {% elif s.status == 'error' %}
               <span class="badge badge-danger">error</span>
             {% else %}
@@ -142,6 +149,11 @@
               <span class="badge badge-success">success</span>
             {% elif r.status == 'running' %}
               <span class="badge badge-warning">running</span>
+            {% elif r.status == 'no_new_data' %}
+              <span class="badge badge-warning"
+                    title="Нет новых писем за окно поиска">
+                no_new_data
+              </span>
             {% else %}
               <span class="badge badge-danger">{{ r.status }}</span>
             {% endif %}

@@ -21,5 +21,9 @@ from __future__ import annotations
 # в тестах monkeypatch'нул бы не зарегистрированный fetcher.
 from app.services.auto_price import base as _base  # noqa: F401
 from app.services.auto_price.fetchers import treolan as _treolan  # noqa: F401
+# 12.1: IMAP-канал. Импорты регистрируют OCSImapFetcher и MerlionImapFetcher
+# через @register_fetcher.
+from app.services.auto_price.fetchers import ocs_imap as _ocs_imap  # noqa: F401
+from app.services.auto_price.fetchers import merlion_imap as _merlion_imap  # noqa: F401
 
 __all__ = ["base"]

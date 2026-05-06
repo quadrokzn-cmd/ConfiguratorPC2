@@ -132,6 +132,7 @@ _MIGRATIONS = [
     "022_supplier_prices_raw_name.sql",
     "023_component_field_sources_source_detail.sql",
     "028_auto_price_loads.sql",
+    "029_auto_price_load_runs_source_ref.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE

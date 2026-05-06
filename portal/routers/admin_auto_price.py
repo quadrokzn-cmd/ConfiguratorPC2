@@ -58,6 +58,8 @@ SUPPLIERS_ORDERED: list[tuple[str, str]] = [
 # fetcher'ов в подэтапах 12.1/12.2/12.4.
 _CHANNEL_LABELS: dict[str, str] = {
     "treolan": "REST API",
+    "ocs":     "IMAP",
+    "merlion": "IMAP",
 }
 
 # Сколько последних запусков показывать в журнале на странице.

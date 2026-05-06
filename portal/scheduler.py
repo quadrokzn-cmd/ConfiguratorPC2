@@ -32,13 +32,22 @@ _BACKUP_TIMEZONE = "Europe/Moscow"
 _BACKUP_HOUR = 3
 _BACKUP_MINUTE = 0
 
-# Этап 12.3: ежедневная авто-загрузка прайсов поставщиков. 04:00 МСК
-# выбрано после daily_backup в 03:00 — если что-то сломает supplier_prices,
-# свежий бекап БД уже снят. По всем slug'ам с auto_price_loads.enabled=TRUE
-# вызываем run_auto_load(triggered_by='scheduled'). Ошибки одного
-# поставщика не должны останавливать остальных.
-_AUTO_PRICE_HOUR = 4
-_AUTO_PRICE_MINUTE = 0
+# Этап 12.3: ежедневная авто-загрузка прайсов поставщиков.
+# 04:00 МСК — REST-канал (Treolan): после daily_backup в 03:00. Если
+# что-то сломает supplier_prices, свежий бекап БД уже снят.
+# 14:30 МСК — email/IMAP-канал (OCS, Merlion): OCS-рассылка приходит
+# около 13:45, Merlion в рабочее время — оба к 14:30 уже в ящике.
+# Ошибки одного поставщика не должны останавливать остальных.
+_AUTO_PRICE_REST_HOUR = 4
+_AUTO_PRICE_REST_MINUTE = 0
+_AUTO_PRICE_EMAIL_HOUR = 14
+_AUTO_PRICE_EMAIL_MINUTE = 30
+
+# 12.1: поставщики, чей канал — IMAP (письма с прайсами). Их 14:30-job
+# тянет; 04:00-job их пропускает (письма ещё не пришли — будет no_new_data,
+# засоряет журнал). По мере подключения новых поставщиков fetcher'ом —
+# сюда же.
+_EMAIL_CHANNEL_SLUGS: frozenset[str] = frozenset({"ocs", "merlion"})
 
 # Этап 9В.4: ретенция аудит-лога. По умолчанию 180 дней — можно
 # переопределить через AUDIT_RETENTION_DAYS. Если в B2 лежат бекапы,
@@ -119,24 +128,49 @@ def _job_audit_retention() -> None:
         )
 
 
-def _job_auto_price_loads_daily() -> None:
-    """Этап 12.3: ежедневный обход всех поставщиков с enabled=TRUE
-    в auto_price_loads. Каждого запускаем через run_auto_load —
-    он сам пишет в auto_price_loads/auto_price_load_runs и в Sentry.
-    Ошибка одного не останавливает остальных.
-    """
+def _run_auto_price_loads_for_slugs(job_label: str, slugs: list[str]) -> None:
+    """Общая часть для job'ов авто-загрузки: запускает run_auto_load по
+    списку slug'ов. Ошибка одного не останавливает остальных."""
     try:
-        from sqlalchemy import text as _t
-        from shared.db import engine
         from app.services.auto_price.runner import run_auto_load
     except Exception as exc:
         logger.warning(
-            "scheduler/portal: auto_price_loads — не удалось импортировать "
-            "runner (%s: %s)", type(exc).__name__, exc,
+            "scheduler/portal: %s — не удалось импортировать runner (%s: %s)",
+            job_label, type(exc).__name__, exc,
         )
         return
+    if not slugs:
+        logger.info(
+            "scheduler/portal: %s — нет включённых поставщиков для канала, пропуск.",
+            job_label,
+        )
+        return
+    logger.info(
+        "scheduler/portal: %s — старт по %d поставщикам: %s",
+        job_label, len(slugs), ", ".join(slugs),
+    )
+    for slug in slugs:
+        try:
+            run_auto_load(slug, triggered_by="scheduled")
+            logger.info(
+                "scheduler/portal: %s — %s: ok", job_label, slug,
+            )
+        except Exception as exc:
+            # run_auto_load уже залогировал и отправил в Sentry; здесь
+            # просто двигаемся к следующему поставщику.
+            logger.warning(
+                "scheduler/portal: %s — %s: %s: %s",
+                job_label, slug, type(exc).__name__, exc,
+            )
 
+
+def _read_enabled_slugs() -> list[str]:
+    """Читает enabled=TRUE поставщиков из auto_price_loads. На ошибке —
+    пустой список и предупреждение в лог (jobs не должны падать
+    из-за чтения списка)."""
     try:
+        from sqlalchemy import text as _t
+        from shared.db import engine
         with engine.begin() as conn:
             rows = conn.execute(
                 _t(
@@ -144,37 +178,36 @@ def _job_auto_price_loads_daily() -> None:
                     "WHERE enabled = TRUE ORDER BY supplier_slug"
                 )
             ).all()
-        slugs = [r.supplier_slug for r in rows]
+        return [r.supplier_slug for r in rows]
     except Exception as exc:
         logger.warning(
-            "scheduler/portal: auto_price_loads — не удалось прочитать "
-            "список enabled (%s: %s)", type(exc).__name__, exc,
+            "scheduler/portal: не удалось прочитать enabled-поставщиков (%s: %s)",
+            type(exc).__name__, exc,
         )
-        return
+        return []
 
-    if not slugs:
-        logger.info(
-            "scheduler/portal: auto_price_loads — нет включённых поставщиков, пропуск.",
-        )
-        return
 
-    logger.info(
-        "scheduler/portal: auto_price_loads — старт по %d поставщикам: %s",
-        len(slugs), ", ".join(slugs),
+def _job_auto_price_loads_daily() -> None:
+    """Этап 12.3: REST-канал в 04:00 МСК. С 12.1 сужено до non-email
+    каналов: IMAP-поставщики (OCS, Merlion) обрабатываются отдельной
+    задачей в 14:30. Иначе они в 04:00 каждый раз отбивались бы
+    no_new_data и засоряли журнал.
+    """
+    enabled = _read_enabled_slugs()
+    rest_slugs = [s for s in enabled if s not in _EMAIL_CHANNEL_SLUGS]
+    _run_auto_price_loads_for_slugs("auto_price_loads_daily (REST)", rest_slugs)
+
+
+def _job_auto_price_loads_email_channel() -> None:
+    """Этап 12.1: email/IMAP-канал в 14:30 МСК. Запускает только
+    поставщиков из _EMAIL_CHANNEL_SLUGS (OCS, Merlion). К этому времени
+    OCS-рассылка (~13:45) и Merlion (рабочее время) уже в ящике.
+    """
+    enabled = _read_enabled_slugs()
+    email_slugs = [s for s in enabled if s in _EMAIL_CHANNEL_SLUGS]
+    _run_auto_price_loads_for_slugs(
+        "auto_price_loads_email_channel (IMAP)", email_slugs,
     )
-    for slug in slugs:
-        try:
-            run_auto_load(slug, triggered_by="scheduled")
-            logger.info(
-                "scheduler/portal: auto_price_loads — %s: ok", slug,
-            )
-        except Exception as exc:
-            # run_auto_load уже залогировал и отправил в Sentry; здесь
-            # просто двигаемся к следующему поставщику.
-            logger.warning(
-                "scheduler/portal: auto_price_loads — %s: %s: %s",
-                slug, type(exc).__name__, exc,
-            )
 
 
 def _is_enabled() -> bool:
@@ -245,19 +278,31 @@ def init_scheduler() -> BackgroundScheduler | None:
         replace_existing=True,
     )
 
-    # 12.3: ежедневная авто-загрузка прайсов в 04:00 МСК. Под тем же
-    # флагом RUN_BACKUP_SCHEDULER, что и бекапы — на pytest и dev-машине
-    # (без явного флага) задача не зарегистрируется, чтобы тесты не лезли
-    # к Treolan API.
+    # 12.3: REST-канал авто-загрузки прайсов в 04:00 МСК (Treolan и т.п.).
+    # 12.1: email/IMAP-канал отдельной job в 14:30 МСК (OCS, Merlion) —
+    # к этому времени дневные рассылки уже в ящике. Под тем же флагом
+    # RUN_BACKUP_SCHEDULER — на pytest и dev-машине (без явного флага)
+    # задача не зарегистрируется, чтобы тесты не лезли к API/IMAP.
     sched.add_job(
         _job_auto_price_loads_daily,
         trigger=CronTrigger(
-            hour=_AUTO_PRICE_HOUR,
-            minute=_AUTO_PRICE_MINUTE,
+            hour=_AUTO_PRICE_REST_HOUR,
+            minute=_AUTO_PRICE_REST_MINUTE,
             timezone=_BACKUP_TIMEZONE,
         ),
         id="auto_price_loads_daily",
-        name="auto price loads — все enabled (04:00 МСК)",
+        name="auto price loads REST (04:00 МСК)",
+        replace_existing=True,
+    )
+    sched.add_job(
+        _job_auto_price_loads_email_channel,
+        trigger=CronTrigger(
+            hour=_AUTO_PRICE_EMAIL_HOUR,
+            minute=_AUTO_PRICE_EMAIL_MINUTE,
+            timezone=_BACKUP_TIMEZONE,
+        ),
+        id="auto_price_loads_email_channel",
+        name="auto price loads IMAP (14:30 МСК)",
         replace_existing=True,
     )
 
@@ -266,9 +311,10 @@ def init_scheduler() -> BackgroundScheduler | None:
     logger.info(
         "scheduler/portal: запущен (daily_backup %02d:%02d МСК, "
         "audit_retention вс 04:00 МСК, retention=%d дней, "
-        "auto_price_loads %02d:%02d МСК).",
+        "auto_price_loads REST %02d:%02d МСК, IMAP %02d:%02d МСК).",
         _BACKUP_HOUR, _BACKUP_MINUTE, _audit_retention_days(),
-        _AUTO_PRICE_HOUR, _AUTO_PRICE_MINUTE,
+        _AUTO_PRICE_REST_HOUR, _AUTO_PRICE_REST_MINUTE,
+        _AUTO_PRICE_EMAIL_HOUR, _AUTO_PRICE_EMAIL_MINUTE,
     )
     return sched
 
