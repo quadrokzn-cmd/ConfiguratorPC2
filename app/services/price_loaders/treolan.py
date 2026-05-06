@@ -30,6 +30,7 @@ from typing import Iterator
 
 from openpyxl import load_workbook
 
+from app.services.price_loaders._qual_stock import TREOLAN_QUAL_STOCK
 from app.services.price_loaders.base import BasePriceLoader
 from app.services.price_loaders.models import PriceRow
 
@@ -96,16 +97,11 @@ def _parse_int(value) -> int:
         return 0
 
 
-# Буквенные маркеры остатка у Treolan: в колонках «Склад»/«Транзит»/«Б.Тр.»
-# вместо точного числа встречаются «<10», «много», «>10», «>100».
-# Без перевода в числа весь Treolan-прайс ложился в supplier_prices
-# со stock_qty=0 и конфигуратор его не видел.
-_TREOLAN_QUAL_STOCK: dict[str, int] = {
-    "<10":   5,
-    "много": 50,
-    ">10":   20,
-    ">100":  100,
-}
+# Буквенные маркеры остатка Treolan («<10», «много», «>10», «>100»)
+# теперь живут в shared-модуле _qual_stock — общем с REST-API парсером.
+# Локальный alias оставлен для обратной совместимости тестов, которые
+# импортировали _TREOLAN_QUAL_STOCK напрямую.
+_TREOLAN_QUAL_STOCK = TREOLAN_QUAL_STOCK
 
 
 def _parse_stock(value) -> int:
@@ -119,8 +115,8 @@ def _parse_stock(value) -> int:
     s = str(value).strip().lower().replace(" ", "")
     if not s:
         return 0
-    if s in _TREOLAN_QUAL_STOCK:
-        return _TREOLAN_QUAL_STOCK[s]
+    if s in TREOLAN_QUAL_STOCK:
+        return TREOLAN_QUAL_STOCK[s]
     return _parse_int(value)
 
 

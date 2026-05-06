@@ -543,3 +543,66 @@ def test_detect_our_category_matches_any_level_in_path():
     assert _detect_our_category("Корпус ATX") == "case"
     assert _detect_our_category(None) is None
     assert _detect_our_category([]) is None
+
+
+# =====================================================================
+# 12.3-fix-2: качественные значения склада + порядок ключей маппинга
+# =====================================================================
+
+def test_parse_stock_str_qualitative_values_via_shared_table():
+    """_parse_stock_str должен прогонять значение через общую таблицу
+    TREOLAN_QUAL_STOCK (ту же что у XLSX-loader). До этого «много»
+    падало в _to_int → InvalidOperation → 0, и ~700 позиций каждой
+    автозагрузки терялись со stock=0."""
+    from app.services.auto_price.fetchers.treolan import _parse_stock_str
+    from app.services.price_loaders._qual_stock import TREOLAN_QUAL_STOCK
+
+    # Качественные значения берутся ровно из shared таблицы.
+    assert _parse_stock_str("много") == TREOLAN_QUAL_STOCK["много"]
+    assert _parse_stock_str("МНОГО") == TREOLAN_QUAL_STOCK["много"]  # регистр
+    assert _parse_stock_str(" много ") == TREOLAN_QUAL_STOCK["много"]
+    assert _parse_stock_str("<10") == TREOLAN_QUAL_STOCK["<10"]
+    assert _parse_stock_str("< 10") == TREOLAN_QUAL_STOCK["<10"]  # пробелы внутри
+    assert _parse_stock_str(">10") == TREOLAN_QUAL_STOCK[">10"]
+    assert _parse_stock_str(">100") == TREOLAN_QUAL_STOCK[">100"]
+
+    # Старая логика — НЕ должна сломаться.
+    assert _parse_stock_str("нет") == 0
+    assert _parse_stock_str("0") == 0
+    assert _parse_stock_str("") == 0
+    assert _parse_stock_str(None) == 0
+    assert _parse_stock_str("12") == 12
+    # «<5» нет в shared таблице → fallback к startswith("<") → 1 (товар есть).
+    assert _parse_stock_str("<5") == 1
+    # «>50» нет в таблице → fallback к startswith(">") → 51.
+    assert _parse_stock_str(">50") == 51
+    # Случайная строка — graceful fallback к 0.
+    assert _parse_stock_str("fjadkfj") == 0
+
+
+def test_detect_our_category_psu_branch_takes_priority_over_corpus():
+    """Путь «… → БП для корпусов» содержит подстроку «корпус», поэтому
+    при неправильном порядке ключей _CATEGORY_NAME_MAP первый match
+    падает в 'case' и весь PSU-сегмент Treolan (~210 позиций) теряется
+    как 'не наша категория'. Тест — стопор для регрессии порядка."""
+    from app.services.auto_price.fetchers.treolan import _detect_our_category
+
+    # Главный кейс — БП для корпусов в проде.
+    assert _detect_our_category(
+        ["Комплектующие", "БП для корпусов"]
+    ) == "psu"
+    assert _detect_our_category(
+        ["Комплектующие", "БП для корпусов", "Corsair RM"]
+    ) == "psu"
+    # «Блок питания» как отдельная подстрока тоже должен быть psu.
+    assert _detect_our_category(
+        ["Комплектующие", "Блок питания ATX"]
+    ) == "psu"
+    # «Корпуса» сами по себе — по-прежнему 'case'.
+    assert _detect_our_category(
+        ["Комплектующие", "Корпуса"]
+    ) == "case"
+    # Также страховой кейс: keyword-приоритет ВНУТРИ одного name'а.
+    # «БП для корпусов» содержит И «бп для», И «корпус» — порядок
+    # ключей в _CATEGORY_NAME_MAP должен дать «psu».
+    assert _detect_our_category("БП для корпусов") == "psu"

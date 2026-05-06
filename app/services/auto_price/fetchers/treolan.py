@@ -44,6 +44,7 @@ import httpx
 from sqlalchemy import text
 
 from app.services.auto_price.base import BaseAutoFetcher, register_fetcher
+from app.services.price_loaders._qual_stock import TREOLAN_QUAL_STOCK
 from app.services.price_loaders.models import PriceRow
 from shared.db import SessionLocal
 
@@ -67,6 +68,12 @@ _DEFAULT_BASE_URL = "https://api.treolan.ru/api"
 #
 # Полное category_id-mapping остаётся в техдолге — substring достаточен
 # для реальных корневых ветвей в проде.
+# ВНИМАНИЕ: порядок ключей значим. _detect_our_category() итерируется
+# в порядке вставки и возвращает ПЕРВЫЙ match. Категории, чьё имя
+# содержит подстроку другой категории («БП для корпусов» ⊃ «корпус»),
+# должны идти РАНЬШЕ — иначе path «Комплектующие → БП для корпусов»
+# попадёт в 'case', а не в 'psu' (это и был баг 12.3-fix-2: ~210 PSU
+# терялись на верификации).
 _CATEGORY_NAME_MAP: dict[str, str] = {
     "процессор":             "cpu",
     "материнск":             "motherboard",
@@ -74,9 +81,9 @@ _CATEGORY_NAME_MAP: dict[str, str] = {
     "видеокарт":             "gpu",
     "ssd":                   "storage",
     "жестк":                 "storage",
-    "корпус":                "case",
     "блок питания":          "psu",
     "бп для":                "psu",
+    "корпус":                "case",
     "охлажд":                "cooler",
 }
 
@@ -229,17 +236,27 @@ def _to_int(value: Any) -> int:
 #   нет. Старая _to_int возвращала 0 для "<10", из-за чего товар был бы
 #   stock=0 в supplier_prices (хотя в реальности он есть). Возвращаем 1,
 #   чтобы запись попадала в active SKUs и в подбор кандидатов.
+#
+# 12.3-fix-2: помимо «<N»/«>N» Treolan присылает ещё и «много» — старый
+# _to_int возвращал на нём 0 (Decimal не парсит), и ~700 позиций на
+# каждом запуске оказывались stock=0. Теперь используем shared таблицу
+# TREOLAN_QUAL_STOCK (общую с XLSX-парсером): «<10»→5, «много»→50,
+# «>10»→20, «>100»→100. Lookup идёт первым; если ключа нет — fallback
+# на старую логику с «<»/«>»/числом.
 def _parse_stock_str(value: Any) -> int:
     if value is None:
         return 0
     s = str(value).strip()
     if not s:
         return 0
+    qual = TREOLAN_QUAL_STOCK.get(s.lower().replace(" ", ""))
+    if qual is not None:
+        return qual
     s_low = s.lower()
     if s_low in {"нет", "no", "0", "-"}:
         return 0
     if s.startswith("<"):
-        return 1  # "<10" / "<5" — товар есть, точное количество скрыто
+        return 1  # "<5" и др. варианты, не покрытые таблицей
     if s.startswith(">"):
         rest = s[1:].strip()
         try:

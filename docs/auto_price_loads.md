@@ -163,3 +163,30 @@ TREOLAN_API_PASSWORD=<выдаёт Treolan>
 бросает `RuntimeError` со списком ожидаемых переменных — это безопасно:
 APScheduler обходит каждого поставщика отдельно и при ошибке Treolan
 просто пропускает его, не ломая обход остальных.
+
+## Развёртывание / эксплуатация
+
+### Railway: всегда указывать `--service portal`
+
+Все Railway-команды для проверки/диагностики Treolan-канала
+**ОБЯЗАТЕЛЬНО** запускаются с флагом `--service portal`:
+
+```
+railway run --service portal python scripts/...
+railway ssh --service portal -- ...
+railway variables --service portal
+```
+
+Без `--service portal` CLI смотрит в дефолтный сервис проекта
+(`ConfiguratorPC2`), где `TREOLAN_API_LOGIN`/`TREOLAN_API_PASSWORD`/
+`TREOLAN_API_BASE_URL` не заданы, и любая диагностика покажет ложные
+«креды не настроены». Реальные креды живут в env'е именно сервиса
+`portal` — там же, где работает APScheduler и `runner.run_auto_load`.
+
+Типовой ручной прогон Treolan на проде:
+
+```
+railway ssh --service portal -- python -c "from app.services.auto_price.runner import run_auto_load; print(run_auto_load('treolan', triggered_by='manual'))"
+```
+
+или через UI: `POST /admin/auto-price-loads/treolan/run`.
