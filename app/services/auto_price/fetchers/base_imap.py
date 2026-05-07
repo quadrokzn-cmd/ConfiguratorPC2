@@ -176,6 +176,28 @@ def _imap_utf7_decode(s: str) -> str:
     return "".join(res)
 
 
+# Этап 12.5b. Приоритетные папки. Благодаря фильтрам VK Workspace
+# OCS- и Merlion-письма падают в кириллическую папку «Прайсы»; INBOX
+# держим как резерв на случай, если фильтр не сработает. Если в priority
+# нашлось хотя бы одно письмо младше _PRIORITY_RECENT_HOURS — это
+# «свежее в ожидаемом месте» и сканировать остальные папки не нужно
+# (экономия ~6 минут на каждом fetch против 12.1-fix полного обхода).
+_PRIORITY_FOLDER_NAMES = frozenset({"inbox", "прайсы"})
+_PRIORITY_RECENT_HOURS = 24
+
+
+def _is_priority_folder(decoded_name: str) -> bool:
+    """True для INBOX, любых INBOX/<sub> и «Прайсы» (decoded UTF-7)."""
+    if not decoded_name:
+        return False
+    name = decoded_name.strip().lower()
+    if name in _PRIORITY_FOLDER_NAMES:
+        return True
+    if name.startswith("inbox/"):
+        return True
+    return False
+
+
 # RFC 6154 SPECIAL-USE флаги + классические \Trash и т.п.
 _SYSTEM_FOLDER_FLAGS = frozenset({
     "\\noselect", "\\trash", "\\drafts", "\\junk",
@@ -358,24 +380,41 @@ class BaseImapFetcher(BaseAutoFetcher):
         self,
         client: imaplib.IMAP4,
     ) -> tuple[email.message.Message | None, str | None, str | None]:
-        """Обходит ВСЕ пользовательские папки IMAP-ящика (а не только
-        INBOX) и ищет письма за окно search_window_days от sender_pattern,
-        фильтрует по subject_pattern и идемпотентности.
+        """Двухфазный обход IMAP-ящика (этап 12.5b).
 
-        Возвращает (msg, Message-ID, decoded_folder_name) самого свежего
-        необработанного письма либо (None, None, None). Folder name — для
-        логирования: руками подключив фильтр VK Workspace, пользователь
-        раскладывает прайсы по кириллическим папкам; знание «откуда»
-        помогает диагностике.
+        Фаза 1 — приоритетные папки (INBOX, INBOX/*, «Прайсы»). Если в
+        них нашлось хотя бы одно подходящее письмо младше 24 ч — это
+        «свежее в ожидаемом месте», берём самое свежее из priority,
+        фазу 2 пропускаем. Так в типичном дневном прогоне мы выполняем
+        2 SELECT-а вместо ~10 (экономия ~6 минут на VK Workspace).
+
+        Фаза 2 — все остальные пользовательские папки (полный обход с
+        фильтрацией системных, как в 12.1-fix). Только если фаза 1 не
+        дала свежего кандидата. Кандидаты обеих фаз объединяются, выбор
+        — самое свежее по Date.
+
+        Возвращает (msg, Message-ID, decoded_folder_name) либо
+        (None, None, None). Folder name — для логирования (помогает
+        отличить «прилетело по фильтру в Прайсы» от «упало в INBOX»).
         """
         folders = self._list_searchable_folders(client)
-        logger.info(
-            "IMAP %s: обхожу %d папок: %s",
-            self.supplier_slug, len(folders),
-            ", ".join(repr(d) for _, _, d in folders) or "(нет)",
-        )
         if not folders:
+            logger.info(
+                "IMAP %s: после фильтрации не осталось папок для обхода",
+                self.supplier_slug,
+            )
             return (None, None, None)
+
+        priority_folders = [f for f in folders if _is_priority_folder(f[2])]
+        other_folders = [f for f in folders if not _is_priority_folder(f[2])]
+        logger.info(
+            "IMAP %s: всего %d папок; priority=%d (%s); прочие=%d (%s)",
+            self.supplier_slug, len(folders),
+            len(priority_folders),
+            ", ".join(repr(d) for _, _, d in priority_folders) or "(нет)",
+            len(other_folders),
+            ", ".join(repr(d) for _, _, d in other_folders) or "(нет)",
+        )
 
         since_dt = datetime.now(timezone.utc) - timedelta(days=self.search_window_days)
         since_str = since_dt.strftime("%d-%b-%Y")
@@ -384,13 +423,75 @@ class BaseImapFetcher(BaseAutoFetcher):
         # idempotency_window_days — кэшируем один раз на весь обход.
         processed_ids = self._load_processed_message_ids()
 
-        # Кандидаты со ВСЕХ папок — потом отсортируем по Date и возьмём
-        # самое свежее.
-        candidates: list[
-            tuple[datetime, email.message.Message, str, str]
-        ] = []
+        # Дедуп между папками (одно письмо может быть в нескольких через
+        # label-style копии) — общий set на обе фазы.
         seen_msg_ids: set[str] = set()
 
+        # ----- Фаза 1: priority -----------------------------------------
+        phase1_candidates = self._scan_folders_for_candidates(
+            client, priority_folders, since_str, processed_ids, seen_msg_ids,
+        )
+        recent_threshold = datetime.now(timezone.utc) - timedelta(hours=_PRIORITY_RECENT_HOURS)
+        has_recent_priority = any(c[0] >= recent_threshold for c in phase1_candidates)
+
+        if has_recent_priority:
+            phase1_candidates.sort(key=lambda x: x[0], reverse=True)
+            best_dt, best_msg, best_msg_id, best_folder = phase1_candidates[0]
+            logger.info(
+                "IMAP %s: фаза 1 (priority) дала результат — кандидатов %d, "
+                "выбран %r из %r (Date=%s, моложе %dч); фазу 2 пропускаем",
+                self.supplier_slug, len(phase1_candidates),
+                best_msg_id, best_folder, best_dt.isoformat(),
+                _PRIORITY_RECENT_HOURS,
+            )
+            return (best_msg, best_msg_id, best_folder)
+
+        logger.info(
+            "IMAP %s: фаза 1 — кандидатов %d, свежих (<%dч) нет; "
+            "запускаю фазу 2 по %d прочим папкам",
+            self.supplier_slug, len(phase1_candidates),
+            _PRIORITY_RECENT_HOURS, len(other_folders),
+        )
+
+        # ----- Фаза 2: остальные папки ----------------------------------
+        phase2_candidates = self._scan_folders_for_candidates(
+            client, other_folders, since_str, processed_ids, seen_msg_ids,
+        )
+
+        all_candidates = phase1_candidates + phase2_candidates
+        if not all_candidates:
+            logger.info(
+                "IMAP %s: ни в priority, ни в остальных папках кандидатов нет",
+                self.supplier_slug,
+            )
+            return (None, None, None)
+
+        all_candidates.sort(key=lambda x: x[0], reverse=True)
+        best_dt, best_msg, best_msg_id, best_folder = all_candidates[0]
+        winning_phase = "1 (priority)" if _is_priority_folder(best_folder) else "2 (fallback)"
+        logger.info(
+            "IMAP %s: фаза 2 завершена; всего кандидатов %d (priority=%d, fallback=%d); "
+            "выбран %r из %r (Date=%s, фаза %s)",
+            self.supplier_slug, len(all_candidates),
+            len(phase1_candidates), len(phase2_candidates),
+            best_msg_id, best_folder, best_dt.isoformat(), winning_phase,
+        )
+        return (best_msg, best_msg_id, best_folder)
+
+    def _scan_folders_for_candidates(
+        self,
+        client: imaplib.IMAP4,
+        folders: list[tuple[str, str, str]],
+        since_str: str,
+        processed_ids: set[str],
+        seen_msg_ids: set[str],
+    ) -> list[tuple[datetime, email.message.Message, str, str]]:
+        """Сканирует указанные папки, возвращает (date, msg, msg_id, decoded_folder).
+
+        seen_msg_ids — мутируемый общий set для дедупа между вызовами
+        (одно письмо может быть в нескольких папках через label-style копии).
+        """
+        candidates: list[tuple[datetime, email.message.Message, str, str]] = []
         for _flags, raw_name, decoded_name in folders:
             # SELECT с raw-именем (modified UTF-7 для кириллицы); imaplib
             # требует кавычки вокруг имён с пробелами/спецсимволами.
@@ -429,9 +530,8 @@ class BaseImapFetcher(BaseAutoFetcher):
             if not uids:
                 continue
 
-            # Идём от свежих к старым — это минимизирует FETCH-ы, если
-            # повезёт и первое же подходящее окажется новым. Но всё равно
-            # собираем все, чтобы корректно сравнить даты с другими папками.
+            # Идём от свежих к старым — минимизирует FETCH-ы при удаче.
+            # Но всё равно собираем всё, чтобы сравнить с другими папками.
             for uid in reversed(uids):
                 raw_msg = self._fetch_rfc822(client, uid)
                 if raw_msg is None:
@@ -459,8 +559,6 @@ class BaseImapFetcher(BaseAutoFetcher):
                     continue
                 if msg_id in processed_ids:
                     continue
-                # Дедуп между папками: одно и то же письмо может быть
-                # в нескольких папках через метки/копии (label-style).
                 if msg_id in seen_msg_ids:
                     continue
                 seen_msg_ids.add(msg_id)
@@ -473,14 +571,7 @@ class BaseImapFetcher(BaseAutoFetcher):
                 if date_dt.tzinfo is None:
                     date_dt = date_dt.replace(tzinfo=timezone.utc)
                 candidates.append((date_dt, msg, msg_id, decoded_name))
-
-        if not candidates:
-            return (None, None, None)
-
-        # Самое свежее по Date.
-        candidates.sort(key=lambda x: x[0], reverse=True)
-        _, best_msg, best_msg_id, best_folder = candidates[0]
-        return (best_msg, best_msg_id, best_folder)
+        return candidates
 
     # ----- LIST: пользовательские папки -----------------------------------
 

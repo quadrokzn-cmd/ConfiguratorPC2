@@ -7,8 +7,7 @@ from __future__ import annotations
 
 import email
 import email.utils
-from datetime import datetime, timezone
-from unittest.mock import MagicMock
+from datetime import datetime, timedelta, timezone
 
 import pytest
 from sqlalchemy import text
@@ -86,6 +85,9 @@ class FakeImap:
         self.logged_in = False
         self.last_search_charset: object = "<none>"
         self.search_charsets: list[object] = []
+        # Этап 12.5b: spy на SELECT для проверки, что фаза 2 не вызвана,
+        # если в priority уже найден свежий кандидат.
+        self.select_calls: list[str] = []
 
     # noinspection PyUnusedLocal
     def login(self, user, password):
@@ -102,6 +104,7 @@ class FakeImap:
     def select(self, mailbox, readonly=False):
         # mailbox приходит уже в кавычках от base_imap (для не-ASCII).
         name = mailbox.strip('"') if isinstance(mailbox, str) else mailbox
+        self.select_calls.append(name)
         if name not in self._folders:
             return ("NO", [b"no such mailbox"])
         self._current = name
@@ -149,6 +152,7 @@ class FakeImapMultiFolder(FakeImap):
         self.logged_in = False
         self.last_search_charset = "<none>"
         self.search_charsets = []
+        self.select_calls: list[str] = []
 
     def list(self, directory='""', pattern="*"):
         out = []
@@ -690,3 +694,225 @@ def test_is_system_folder_drops_trash_drafts_sent_etc():
     # Подпапки INBOX (под пользовательскими фильтрами).
     assert not _is_system_folder("\\hasnochildren", "INBOX/Newsletters")
     assert not _is_system_folder("\\hasnochildren", "INBOX/Receipts")
+
+
+# =====================================================================
+# 7. Этап 12.5b: двухфазный обход (priority → fallback)
+# =====================================================================
+
+def test_is_priority_folder_recognizes_inbox_and_прайсы():
+    """Хелпер _is_priority_folder корректно отличает priority-папки."""
+    from app.services.auto_price.fetchers.base_imap import _is_priority_folder
+
+    assert _is_priority_folder("INBOX")
+    assert _is_priority_folder("inbox")  # case-insensitive
+    assert _is_priority_folder("Прайсы")
+    assert _is_priority_folder("прайсы")
+    assert _is_priority_folder("INBOX/Newsletters")
+    assert _is_priority_folder("INBOX/Archive")
+    assert _is_priority_folder("inbox/anything")
+    # Не priority — обычные пользовательские папки.
+    assert not _is_priority_folder("Custom")
+    assert not _is_priority_folder("Tender-Win")
+    assert not _is_priority_folder("Прайсы2025")
+    assert not _is_priority_folder("")
+    assert not _is_priority_folder("Archive")  # без INBOX-префикса
+
+
+def test_priority_folders_inbox_and_прайсы_are_searched_first(
+    imap_env, monkeypatch, db_session,
+):
+    """Если в «Прайсы» есть свежее (<24 ч) письмо — кастомная папка не
+    должна обходиться. Проверяем по spy на SELECT: ровно два — INBOX и
+    Прайсы, без Custom."""
+    recent_dt = datetime.now(timezone.utc) - timedelta(hours=2)
+    msg_in_priceses = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - Состояние склада и цены свежий",
+        msg_id="<recent-priority@ocs.ru>",
+        date_dt=recent_dt,
+    )
+    msg_in_custom = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - Состояние склада и цены старее",
+        msg_id="<older-custom@ocs.ru>",
+        date_dt=recent_dt - timedelta(days=2),
+    )
+    fake = _patch_imap_multi(monkeypatch, [
+        ("INBOX",                "INBOX",   "\\HasNoChildren", []),
+        ("&BB8EQAQwBDkEQQRL-",   "Прайсы",  "\\HasNoChildren", [msg_in_priceses]),
+        ("Custom",               "Custom",  "\\HasNoChildren", [msg_in_custom]),
+    ])
+
+    Cls = _make_test_subclass(slug="test_imap_priority_first")
+    fetcher = Cls()
+    import imaplib as _imaplib
+    client = _imaplib.IMAP4_SSL("h", 993)
+    client.login("u", "p")
+    msg, msg_id, folder = fetcher._find_latest_unprocessed_message(client)
+    assert msg_id == "<recent-priority@ocs.ru>"
+    assert folder == "Прайсы"
+    # Custom не должна обходиться, INBOX и Прайсы — должны.
+    assert "Custom" not in fake.select_calls, (
+        f"Phase 2 не должна была сработать, но SELECT был на Custom: {fake.select_calls}"
+    )
+    assert "INBOX" in fake.select_calls
+    assert "&BB8EQAQwBDkEQQRL-" in fake.select_calls
+
+
+def test_falls_back_to_other_folders_when_priority_has_no_recent(
+    imap_env, monkeypatch, db_session,
+):
+    """В priority-папках только старые письма (>24 ч), в кастомной — свежее.
+    Должна сработать фаза 2, результат — из кастомной папки."""
+    old_dt = datetime.now(timezone.utc) - timedelta(hours=48)
+    new_dt = datetime.now(timezone.utc) - timedelta(hours=3)
+    msg_old_inbox = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - старое INBOX",
+        msg_id="<old-inbox@ocs.ru>",
+        date_dt=old_dt,
+    )
+    msg_old_priceses = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - старое Прайсы",
+        msg_id="<old-priceses@ocs.ru>",
+        date_dt=old_dt - timedelta(hours=1),
+    )
+    msg_recent_custom = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - свежее Custom",
+        msg_id="<recent-custom@ocs.ru>",
+        date_dt=new_dt,
+    )
+    fake = _patch_imap_multi(monkeypatch, [
+        ("INBOX",              "INBOX",   "\\HasNoChildren", [msg_old_inbox]),
+        ("&BB8EQAQwBDkEQQRL-", "Прайсы",  "\\HasNoChildren", [msg_old_priceses]),
+        ("Custom",             "Custom",  "\\HasNoChildren", [msg_recent_custom]),
+    ])
+
+    Cls = _make_test_subclass(slug="test_imap_fallback_old_priority")
+    fetcher = Cls()
+    import imaplib as _imaplib
+    client = _imaplib.IMAP4_SSL("h", 993)
+    client.login("u", "p")
+    msg, msg_id, folder = fetcher._find_latest_unprocessed_message(client)
+    assert msg_id == "<recent-custom@ocs.ru>"
+    assert folder == "Custom"
+    # Custom тоже была опрошена — фаза 2 запустилась.
+    assert "Custom" in fake.select_calls
+
+
+def test_falls_back_when_priority_folders_empty(
+    imap_env, monkeypatch, db_session,
+):
+    """INBOX и Прайсы пустые → фаза 2 запускается, письмо из кастомной."""
+    new_dt = datetime.now(timezone.utc) - timedelta(hours=2)
+    msg = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - в кастомной папке",
+        msg_id="<from-custom@ocs.ru>",
+        date_dt=new_dt,
+    )
+    fake = _patch_imap_multi(monkeypatch, [
+        ("INBOX",              "INBOX",   "\\HasNoChildren", []),
+        ("&BB8EQAQwBDkEQQRL-", "Прайсы",  "\\HasNoChildren", []),
+        ("Custom",             "Custom",  "\\HasNoChildren", [msg]),
+    ])
+
+    Cls = _make_test_subclass(slug="test_imap_empty_priority")
+    fetcher = Cls()
+    import imaplib as _imaplib
+    client = _imaplib.IMAP4_SSL("h", 993)
+    client.login("u", "p")
+    found_msg, msg_id, folder = fetcher._find_latest_unprocessed_message(client)
+    assert msg_id == "<from-custom@ocs.ru>"
+    assert folder == "Custom"
+    assert "Custom" in fake.select_calls
+
+
+def test_priority_recent_message_returned_even_when_other_folders_have_older(
+    imap_env, monkeypatch, db_session,
+):
+    """Свежее в INBOX, старее в кастомной → возвращается свежее, кастомная
+    не обходится (фаза 1 закрыла поиск)."""
+    new_dt = datetime.now(timezone.utc) - timedelta(hours=2)
+    older_dt = datetime.now(timezone.utc) - timedelta(days=3)
+    msg_recent_inbox = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - свежее INBOX",
+        msg_id="<recent-inbox@ocs.ru>",
+        date_dt=new_dt,
+    )
+    msg_older_custom = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - старее Custom",
+        msg_id="<older-custom@ocs.ru>",
+        date_dt=older_dt,
+    )
+    fake = _patch_imap_multi(monkeypatch, [
+        ("INBOX",  "INBOX",  "\\HasNoChildren", [msg_recent_inbox]),
+        ("Custom", "Custom", "\\HasNoChildren", [msg_older_custom]),
+    ])
+
+    Cls = _make_test_subclass(slug="test_imap_priority_wins")
+    fetcher = Cls()
+    import imaplib as _imaplib
+    client = _imaplib.IMAP4_SSL("h", 993)
+    client.login("u", "p")
+    msg, msg_id, folder = fetcher._find_latest_unprocessed_message(client)
+    assert msg_id == "<recent-inbox@ocs.ru>"
+    assert folder == "INBOX"
+    assert "Custom" not in fake.select_calls
+
+
+def test_inbox_subfolders_are_priority(
+    imap_env, monkeypatch, db_session,
+):
+    """INBOX/Newsletters считается priority — письмо <24 ч в ней
+    останавливает поиск без захода в кастомные папки."""
+    recent_dt = datetime.now(timezone.utc) - timedelta(hours=1)
+    msg_in_subfolder = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - в подпапке INBOX",
+        msg_id="<inbox-sub@ocs.ru>",
+        date_dt=recent_dt,
+    )
+    msg_in_custom = _make_message_bytes(
+        from_addr="egarifullina@ocs.ru",
+        subject="B2B OCS - в кастомной",
+        msg_id="<custom@ocs.ru>",
+        date_dt=recent_dt - timedelta(days=2),
+    )
+    fake = _patch_imap_multi(monkeypatch, [
+        ("INBOX",              "INBOX",              "\\HasNoChildren",  []),
+        ("INBOX/Newsletters",  "INBOX/Newsletters",  "\\HasNoChildren",  [msg_in_subfolder]),
+        ("Custom",             "Custom",             "\\HasNoChildren",  [msg_in_custom]),
+    ])
+
+    Cls = _make_test_subclass(slug="test_imap_inbox_sub")
+    fetcher = Cls()
+    import imaplib as _imaplib
+    client = _imaplib.IMAP4_SSL("h", 993)
+    client.login("u", "p")
+    msg, msg_id, folder = fetcher._find_latest_unprocessed_message(client)
+    assert msg_id == "<inbox-sub@ocs.ru>"
+    assert folder == "INBOX/Newsletters"
+    assert "Custom" not in fake.select_calls
+
+
+def test_no_messages_anywhere_raises_no_new_data(
+    imap_env, monkeypatch, db_session,
+):
+    """Все папки пустые → fetch_and_save() поднимает NoNewDataException."""
+    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+
+    _patch_imap_multi(monkeypatch, [
+        ("INBOX",              "INBOX",   "\\HasNoChildren", []),
+        ("&BB8EQAQwBDkEQQRL-", "Прайсы",  "\\HasNoChildren", []),
+        ("Custom",             "Custom",  "\\HasNoChildren", []),
+    ])
+    Cls = _make_test_subclass(slug="test_imap_all_empty_125b")
+    fetcher = Cls()
+    with pytest.raises(NoNewDataException):
+        fetcher.fetch_and_save()
