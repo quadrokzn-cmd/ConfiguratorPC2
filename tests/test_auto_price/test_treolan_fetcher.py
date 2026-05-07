@@ -255,7 +255,7 @@ def test_fetch_catalog_returns_positions(treolan_env, monkeypatch):
     from app.services.auto_price.fetchers.treolan import _walk_products
     walked = list(_walk_products(data["categories"]))
     assert len(walked) == 2
-    sku_set = {p["articul"] for _path, p in walked}
+    sku_set = {p["articul"] for _path, _cat_id, p in walked}
     assert sku_set == {"BX8071512400F", "PCASE-001"}
 
 
@@ -434,11 +434,11 @@ def test_walk_products_recursive_collects_from_all_levels():
     ]
 
     walked = list(_walk_products(tree))
-    skus = [p["articul"] for _path, p in walked]
+    skus = [p["articul"] for _path, _cat_id, p in walked]
     assert sorted(skus) == ["A1", "A2", "A3", "A4", "B1"]
 
     # Пути сохраняют последовательность от корня к листу.
-    sku_to_path = {p["articul"]: path for path, p in walked}
+    sku_to_path = {p["articul"]: path for path, _cat_id, p in walked}
     assert sku_to_path["A1"] == ["L0-A"]
     assert sku_to_path["A2"] == ["L0-A", "L1-A"]
     assert sku_to_path["A3"] == ["L0-A", "L1-A", "L2-A"]
@@ -606,3 +606,280 @@ def test_detect_our_category_psu_branch_takes_priority_over_corpus():
     # «БП для корпусов» содержит И «бп для», И «корпус» — порядок
     # ключей в _CATEGORY_NAME_MAP должен дать «psu».
     assert _detect_our_category("БП для корпусов") == "psu"
+
+
+# =====================================================================
+# 12.5c: ID-маппинг категорий (поглощает audit blocklist)
+# =====================================================================
+
+def _all_categories_tree():
+    """Синтетическое дерево с ветками всех 8 наших our_category + одной
+    серверной (под blocklist). Используется в тестах category_map."""
+    return [
+        {
+            "id": 1, "name": "Комплектующие", "products": [], "productsQty": 0,
+            "children": [
+                {"id": 100, "name": "Процессоры", "products": [], "productsQty": 0, "children": []},
+                {"id": 110, "name": "Материнские платы", "products": [], "productsQty": 0, "children": []},
+                {"id": 120, "name": "Оперативная память DDR5", "products": [], "productsQty": 0, "children": []},
+                {"id": 130, "name": "Видеокарты", "products": [], "productsQty": 0, "children": []},
+                {"id": 140, "name": "SSD-накопители", "products": [], "productsQty": 0, "children": []},
+                {"id": 141, "name": "Жесткие диски HDD", "products": [], "productsQty": 0, "children": []},
+                {"id": 150, "name": "Блок питания ATX", "products": [], "productsQty": 0, "children": []},
+                {"id": 151, "name": "БП для корпусов", "products": [], "productsQty": 0, "children": []},
+                {"id": 160, "name": "Корпуса MidiTower", "products": [], "productsQty": 0, "children": []},
+                {"id": 170, "name": "Охлаждение CPU", "products": [], "productsQty": 0, "children": []},
+            ],
+        },
+        {
+            "id": 2, "name": "Серверы", "products": [], "productsQty": 0,
+            "children": [
+                {
+                    "id": 210, "name": "1-процессорные серверы",
+                    "products": [],
+                    "productsQty": 50,  # есть товары — должно бы попасть в cpu по substring,
+                                        # но blocklist режет «сервер» в path → None
+                    "children": [],
+                },
+            ],
+        },
+    ]
+
+
+def test_build_category_map_from_tree(treolan_env):
+    """Map покрывает все 8 our_category по корневым веткам, серверная
+    ветка (через blocklist) → None."""
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    fetcher = TreolanFetcher()
+    cat_map = fetcher._build_category_map(_all_categories_tree())
+
+    assert cat_map[100] == "cpu"
+    assert cat_map[110] == "motherboard"
+    assert cat_map[120] == "ram"
+    assert cat_map[130] == "gpu"
+    assert cat_map[140] == "storage"
+    assert cat_map[141] == "storage"
+    assert cat_map[150] == "psu"
+    assert cat_map[151] == "psu"  # «БП для корпусов» — приоритет psu над case
+    assert cat_map[160] == "case"
+    assert cat_map[170] == "cooler"
+    # Корни без ключевых слов и серверная ветка → None
+    assert cat_map[1] is None        # «Комплектующие» — root
+    assert cat_map[2] is None        # «Серверы» — blocklist
+    assert cat_map[210] is None      # «1-процессорные серверы» — blocklist по path
+
+
+def test_position_classification_uses_category_id_lookup(treolan_env, db_session):
+    """Позиция в категории с известным id попадает в supplier_prices с
+    нашей our_category из map (через _save → orchestrator)."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    sample = {
+        "categories": [{
+            "id": 100, "name": "Процессоры", "productsQty": 1,
+            "products": [{
+                "articul": "MAP-CPU-1", "rusName": "Test CPU via map",
+                "vendor": "Intel", "currentPrice": "5000",
+                "currency": "RUB", "atStock": "10",
+            }],
+            "children": [],
+        }],
+    }
+
+    fetcher = TreolanFetcher()
+    fetcher._save(sample)
+
+    # Map должен быть построен и содержать id=100 → cpu.
+    assert fetcher._category_map.get(100) == "cpu"
+
+    # Проверяем, что позиция реально попала в supplier_prices с правильной
+    # маппинг-нашей-категорией: orchestrator пишет наш our_category в
+    # supplier_prices через mapping. Достаточно проверить присутствие SKU.
+    row = db_session.execute(text(
+        "SELECT supplier_sku FROM supplier_prices WHERE supplier_sku = 'MAP-CPU-1'"
+    )).first()
+    assert row is not None
+
+
+def test_position_with_unknown_category_id_falls_back_to_path(
+    treolan_env, db_session, monkeypatch,
+):
+    """Если позиция отнесена к категории, которой нет в category_map
+    (например, у узла нет int id), должен сработать fallback на
+    substring-классификацию по path — позиция всё равно попадёт в БД
+    с корректной our_category."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    import app.services.auto_price.fetchers.treolan as treolan_mod
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    # Узел с id=None — _walk_products даст cat_id=None, lookup промахнётся,
+    # должен сработать fallback.
+    sample = {
+        "categories": [{
+            "id": "no-int-id", "name": "Видеокарты", "productsQty": 1,
+            "products": [{
+                "articul": "FB-GPU-1", "rusName": "Test GPU fallback",
+                "vendor": "NVIDIA", "currentPrice": "30000",
+                "currency": "RUB", "atStock": "1",
+            }],
+            "children": [],
+        }],
+    }
+
+    # Считаем фактические вызовы _detect_our_category — должен быть
+    # вызван и из _build_category_map, и из fallback при обработке позиции.
+    detect_calls: list[Any] = []
+    real_detect = treolan_mod._detect_our_category
+
+    def _spy(path):
+        detect_calls.append(path)
+        return real_detect(path)
+
+    monkeypatch.setattr(treolan_mod, "_detect_our_category", _spy)
+
+    fetcher = TreolanFetcher()
+    fetcher._save(sample)
+
+    # Позиция всё-таки попала в БД (значит fallback отработал).
+    row = db_session.execute(text(
+        "SELECT supplier_sku FROM supplier_prices WHERE supplier_sku = 'FB-GPU-1'"
+    )).first()
+    assert row is not None
+
+    # _detect_our_category вызывался МИНИМУМ дважды: один раз в _build_category_map
+    # для узла «Видеокарты», и один раз в fallback при обработке позиции.
+    assert len(detect_calls) >= 2
+
+
+def test_build_category_map_handles_recursive_depth(treolan_env):
+    """Дерево 3+ уровня: каждая вложенная категория получает свой
+    our_category по полному path."""
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    tree = [{
+        "id": 1, "name": "Комплектующие", "productsQty": 0, "products": [],
+        "children": [{
+            "id": 10, "name": "Накопители", "productsQty": 0, "products": [],
+            "children": [{
+                "id": 100, "name": "SSD", "productsQty": 0, "products": [],
+                "children": [{
+                    "id": 1000, "name": "M.2 NVMe", "productsQty": 5, "products": [],
+                    "children": [{
+                        "id": 10000, "name": "Samsung 990 PRO", "productsQty": 3,
+                        "products": [], "children": [],
+                    }],
+                }],
+            }],
+        }],
+    }]
+
+    fetcher = TreolanFetcher()
+    cat_map = fetcher._build_category_map(tree)
+
+    # На каждом уровне, где встречается substring "ssd", запись попадает в storage.
+    assert cat_map[1] is None              # «Комплектующие» — без match
+    assert cat_map[10] is None             # «Накопители» — без match (нет в keyword-map)
+    assert cat_map[100] == "storage"       # «SSD»
+    assert cat_map[1000] == "storage"      # path содержит «SSD»
+    assert cat_map[10000] == "storage"     # path содержит «SSD»
+    # Все 5 узлов попали в map.
+    assert len(cat_map) == 5
+
+
+def test_build_category_map_collects_audit_warning_for_productful_none_branches(
+    treolan_env, caplog,
+):
+    """Ветка с productsQty=50 и path под blocklist'ом → WARNING с её
+    name/path/qty в логе. Это автоматический аудит blocklist'а."""
+    import logging
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    tree = [{
+        "id": 2, "name": "Серверы", "productsQty": 0, "products": [],
+        "children": [{
+            "id": 210, "name": "1-процессорные серверы",
+            "productsQty": 50, "products": [], "children": [],
+        }],
+    }]
+
+    fetcher = TreolanFetcher()
+    with caplog.at_level(logging.WARNING, logger="app.services.auto_price.fetchers.treolan"):
+        fetcher._build_category_map(tree)
+
+    warning_records = [r for r in caplog.records if r.levelno >= logging.WARNING]
+    assert any("classified" in r.message.lower() or "классифицированы" in r.message
+               for r in warning_records), (
+        f"ожидаем WARNING про productsQty>0 → None; got: {[r.message for r in warning_records]}"
+    )
+    # WARNING-сообщение должно упоминать имя/путь/qty.
+    full_text = " ".join(r.getMessage() for r in warning_records)
+    assert "1-процессорные серверы" in full_text
+    assert "50" in full_text
+
+
+def test_blocklist_for_server_branches_still_works_via_id_map(
+    treolan_env, db_session,
+):
+    """Серверная ветка (Серверы → 1-процессорные) с productsQty>0:
+    в category_map её id → None, и позиции в ней не должны получить
+    нашу our_category (orchestrator такие позиции игнорирует).
+    Это страховка против регрессии: blocklist должен по-прежнему
+    отрезать сервера."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    sample = {
+        "categories": [{
+            "id": 2, "name": "Серверы", "productsQty": 0, "products": [],
+            "children": [{
+                "id": 210, "name": "1-процессорные серверы",
+                "productsQty": 1,
+                "products": [{
+                    "articul": "DELL-R250-X",
+                    "rusName": "Сервер DELL PowerEdge R250",
+                    "vendor": "Dell",
+                    "currentPrice": "1660",
+                    "currency": "USD",
+                    "atStock": "<10",
+                }],
+                "children": [],
+            }],
+        }],
+    }
+
+    fetcher = TreolanFetcher()
+    fetcher._save(sample)
+
+    # category_map должен дать None для обоих серверных узлов.
+    assert fetcher._category_map[2] is None
+    assert fetcher._category_map[210] is None
+
+    # Orchestrator при our_category=None пропускает строку (counters.skipped),
+    # SKU НЕ должен оказаться в supplier_prices ни под какой категорией.
+    in_prices = db_session.execute(text(
+        "SELECT 1 FROM supplier_prices WHERE supplier_sku = 'DELL-R250-X' LIMIT 1"
+    )).first()
+    assert in_prices is None, (
+        "сервер DELL R250 не должен оказаться в supplier_prices — "
+        "blocklist обязан отрезать его на этапе category_map."
+    )

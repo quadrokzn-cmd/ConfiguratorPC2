@@ -133,12 +133,14 @@ def _detect_our_category(category_path: list[str] | str | None) -> str | None:
 def _walk_products(
     categories: list[Any] | None,
     _path: tuple[str, ...] = (),
-) -> Iterator[tuple[list[str], dict[str, Any]]]:
-    """Рекурсивный DFS по дереву Treolan. Yield-ит (path, product) для
-    каждого товара в каждой непустой category.products[] на любой
-    глубине; path — список имён категорий от корня к текущей.
+) -> Iterator[tuple[list[str], int | None, dict[str, Any]]]:
+    """Рекурсивный DFS по дереву Treolan. Yield-ит (path, leaf_cat_id,
+    product) для каждого товара в каждой непустой category.products[] на
+    любой глубине; path — список имён категорий от корня к текущей,
+    leaf_cat_id — id той категории, в чьих products[] лежит позиция (для
+    lookup в category_map; см. этап 12.5c). None — если у узла нет int id.
 
-    Treolan API возвращает {"categories": [{"name":..., "products":[...],
+    Treolan API возвращает {"categories": [{"id":..., "name":..., "products":[...],
     "children":[{...тот же формат...}]}]} — товары лежат в листьях, плюс
     могут лежать на промежуточных уровнях. Подкатегории — в children[]."""
     for node in categories or []:
@@ -146,11 +148,13 @@ def _walk_products(
             continue
         name = node.get("name") or node.get("rusName") or ""
         cur_path = (*_path, str(name)) if name else _path
+        cat_id_raw = node.get("id")
+        cat_id = cat_id_raw if isinstance(cat_id_raw, int) else None
         prods = node.get("products") or []
         if isinstance(prods, list):
             for p in prods:
                 if isinstance(p, dict):
-                    yield list(cur_path), p
+                    yield list(cur_path), cat_id, p
         kids = node.get("children") or []
         if isinstance(kids, list) and kids:
             yield from _walk_products(kids, cur_path)
@@ -327,6 +331,9 @@ class TreolanFetcher(BaseAutoFetcher):
                 "(опционально TREOLAN_API_BASE_URL, по умолчанию "
                 f"{_DEFAULT_BASE_URL})."
             )
+        # 12.5c: один fetch — один map; пересоздаётся в _save() на каждом
+        # вызове fetch_and_save(). Хранится на инстансе fetcher'а.
+        self._category_map: dict[int, str | None] = {}
 
     # ---- Основная точка входа -----------------------------------------
 
@@ -484,6 +491,88 @@ class TreolanFetcher(BaseAutoFetcher):
             f"Treolan catalog: все попытки исчерпаны. Последняя ошибка: {last_exc}"
         )
 
+    # ---- Category map (этап 12.5c) ------------------------------------
+
+    def _build_category_map(
+        self, categories: list[Any] | None,
+    ) -> dict[int, str | None]:
+        """Один проход по дереву категорий → mapping {category_id: our_category}.
+
+        Заменяет per-position substring-классификацию (этап 12.5c): вместо
+        N_positions × M_keys substring-проверок (~8500 × 10 = 85k regex)
+        делаем тот же _detect_our_category(path) только N_categories раз
+        (~350) — один раз для каждой ветки дерева. Дальше per-position —
+        просто dict.get(leaf_category_id).
+
+        Дополнительно собирает аудит-метрики:
+          - распределение категорий по нашим our_category (для INFO-лога);
+          - WARNING для веток с productsQty > 0, классифицированных как
+            None — это возможные ложные срабатывания blocklist'а (целевая
+            ветка ошибочно отрезана).
+
+        productsQty (а не totalProductsQty) — потому что нас интересуют
+        ИМЕННО узлы с собственными товарами; промежуточные ветки без
+        своих products покрываются через свои children, которые будут
+        обработаны рекурсивно на их собственном уровне."""
+        cat_map: dict[int, str | None] = {}
+        counts_by_cat: dict[str, int] = {}
+        none_count = 0
+        # Все ветки с productsQty > 0, но our_category=None — для аудита
+        # blocklist'а. Логируем общее число + первые 5 примеров.
+        audit_misses: list[tuple[str, str, int]] = []
+
+        def _walk(nodes: list[Any] | None, parent_path: tuple[str, ...]) -> None:
+            nonlocal none_count
+            for node in nodes or []:
+                if not isinstance(node, dict):
+                    continue
+                name = node.get("name") or node.get("rusName") or ""
+                cur_path = (*parent_path, str(name)) if name else parent_path
+                our = _detect_our_category(list(cur_path))
+                cat_id_raw = node.get("id")
+                if isinstance(cat_id_raw, int):
+                    cat_map[cat_id_raw] = our
+                if our is None:
+                    none_count += 1
+                    qty_raw = node.get("productsQty") or 0
+                    try:
+                        qty = int(qty_raw)
+                    except (TypeError, ValueError):
+                        qty = 0
+                    if qty > 0:
+                        audit_misses.append(
+                            (str(name), " → ".join(cur_path), qty)
+                        )
+                else:
+                    counts_by_cat[our] = counts_by_cat.get(our, 0) + 1
+                kids = node.get("children") or []
+                if isinstance(kids, list) and kids:
+                    _walk(kids, cur_path)
+
+        _walk(categories, ())
+
+        counts_summary = ", ".join(
+            f"{k}={v}" for k, v in sorted(counts_by_cat.items())
+        ) or "—"
+        logger.info(
+            "Treolan: построен category_map (%d категорий, %s, none=%d).",
+            len(cat_map), counts_summary, none_count,
+        )
+
+        if audit_misses:
+            sample = audit_misses[:5]
+            sample_str = "; ".join(
+                f"'{n}' (path={p!r}, productsQty={q})"
+                for n, p, q in sample
+            )
+            logger.warning(
+                "Treolan: %d ветка(и) с productsQty>0 классифицированы как None — "
+                "проверьте blocklist на ложные срабатывания. Первые 5: %s",
+                len(audit_misses), sample_str,
+            )
+
+        return cat_map
+
     # ---- Save ----------------------------------------------------------
 
     def _save(self, data: dict[str, Any]) -> int:
@@ -503,6 +592,9 @@ class TreolanFetcher(BaseAutoFetcher):
                 f"(top-level keys: {sorted(data.keys()) if isinstance(data, dict) else type(data).__name__})."
             )
 
+        # 12.5c: строим category_map один раз — дальше per-position O(1) lookup.
+        self._category_map = self._build_category_map(categories)
+
         session = SessionLocal()
         try:
             usd_rate = _latest_usd_rub_rate(session)
@@ -515,7 +607,10 @@ class TreolanFetcher(BaseAutoFetcher):
         skipped_no_name = 0
         skipped_no_price = 0
         total_walked = 0
-        for idx, (cat_path, pos) in enumerate(_walk_products(categories), start=1):
+        fallback_lookups = 0  # категории, не попавшие в map (страховка)
+        for idx, (cat_path, cat_id, pos) in enumerate(
+            _walk_products(categories), start=1,
+        ):
             total_walked += 1
 
             articul = (pos.get("articul") or "").strip() if pos.get("articul") else ""
@@ -552,7 +647,14 @@ class TreolanFetcher(BaseAutoFetcher):
                 )
                 continue
 
-            our_category = _detect_our_category(cat_path)
+            # 12.5c: lookup по leaf_category_id; substring-fallback на
+            # случай, если позиция почему-то отнесена к категории, не
+            # попавшей в map (например, узел без int id).
+            if cat_id is not None and cat_id in self._category_map:
+                our_category = self._category_map[cat_id]
+            else:
+                fallback_lookups += 1
+                our_category = _detect_our_category(cat_path)
 
             rows.append(PriceRow(
                 supplier_sku=articul,
@@ -579,10 +681,10 @@ class TreolanFetcher(BaseAutoFetcher):
         logger.info(
             "Treolan API: получено %d товаров из %d корневых категорий — "
             "uploaded=%d, skipped(no_articul=%d, no_name=%d, no_price=%d, "
-            "unmapped_currency=%d).",
+            "unmapped_currency=%d), category_map_fallback=%d.",
             total_walked, len(categories), len(rows),
             skipped_no_articul, skipped_no_name, skipped_no_price,
-            unmapped_currency_count,
+            unmapped_currency_count, fallback_lookups,
         )
 
         if unmapped_currency_count:
