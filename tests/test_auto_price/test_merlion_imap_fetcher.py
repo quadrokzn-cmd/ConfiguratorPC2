@@ -5,6 +5,7 @@ from __future__ import annotations
 import io
 import os
 import re
+import struct
 import zipfile
 
 import pytest
@@ -423,3 +424,193 @@ def test_decode_zip_member_name_keeps_utf8_when_efs_on():
     info.flag_bits = 0x800  # EFS on (UTF-8)
     decoded = MerlionImapFetcher._decode_zip_member_name(info)
     assert decoded == "Прайс.xlsx"
+
+
+# =====================================================================
+# 6. Ручная распаковка _extract_zip_member_raw (12.1-fix-3)
+# =====================================================================
+
+def _make_zip_with_mismatched_lfh_name(
+    central_name: str = "central_name.xlsm",
+    local_name_bytes: bytes | None = None,
+    payload: bytes = b"payload-content-bytes-here",
+    compress_type: int = zipfile.ZIP_DEFLATED,
+) -> bytes:
+    """Собирает ZIP, в котором имя файла в local file header
+    физически отличается от имени в central directory.
+
+    Воспроизводит реальный Merlion-формат — стандартный
+    zipfile.ZipFile.open() на таком архиве валится с
+    «File name in directory … and header … differ».
+
+    central_name должен быть ASCII (zipfile проверяет при писании,
+    Python автоматически выставит UTF-8 EFS-флаг при не-ASCII), а
+    local_name_bytes — байты той же длины что central_name.encode('ascii').
+    """
+    if local_name_bytes is None:
+        local_name_bytes = b"x" * len(central_name.encode("ascii"))
+    assert len(local_name_bytes) == len(central_name.encode("ascii")), (
+        "local-name байт должно быть столько же, сколько central-name "
+        "(чтобы LFH сохранил длину и offset до compressed body)"
+    )
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", compress_type) as zf:
+        zf.writestr(central_name, payload)
+    raw = bytearray(buf.getvalue())
+    sig = b"PK\x03\x04"
+    start = raw.find(sig)
+    assert start >= 0, "не нашли local file header"
+    # filename_length лежит в LFH по offset 26 (2 байта little-endian).
+    fname_len = struct.unpack("<H", bytes(raw[start + 26:start + 28]))[0]
+    fname_offset = start + 30
+    assert len(local_name_bytes) == fname_len
+    raw[fname_offset:fname_offset + fname_len] = local_name_bytes
+    return bytes(raw)
+
+
+def test_mismatched_zip_breaks_standard_zipfile_open():
+    """Sanity: фикстура реально воспроизводит баг — стандартный
+    zipfile.open(info) падает на BadZipFile."""
+    zip_bytes = _make_zip_with_mismatched_lfh_name()
+    buf = io.BytesIO(zip_bytes)
+    with zipfile.ZipFile(buf, "r") as zf:
+        info = zf.infolist()[0]
+        with pytest.raises(zipfile.BadZipFile, match="differ"):
+            with zf.open(info) as src:
+                src.read()
+
+
+def test_extract_zip_with_mismatched_central_and_local_headers(monkeypatch):
+    """Реальный Merlion-кейс: имена central/local разные, стандартный
+    zf.open() падает. parse_attachment должен использовать ручной
+    распаковщик и корректно достать содержимое."""
+    import app.services.auto_price.fetchers.merlion_imap as mer_mod
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"PK\x03\x04mismatched-payload-marker-12345"
+    # 18 байт у обеих сторон — central и local имеют одинаковую длину,
+    # но РАЗНЫЕ байты. Стандартный zf.open(info) на этом упадёт.
+    zip_bytes = _make_zip_with_mismatched_lfh_name(
+        central_name="merlion_price.xlsm",   # 18 байт ASCII
+        local_name_bytes=b"abracadabraXX.xlsm",  # 18 байт, другие
+        payload=payload,
+    )
+
+    seen = {}
+
+    class _StubLoader:
+        def iter_rows(self, filepath):
+            with open(filepath, "rb") as f:
+                seen["bytes"] = f.read()
+            seen["filepath"] = filepath
+            return iter([])
+
+    monkeypatch.setattr(mer_mod, "MerlionLoader", lambda: _StubLoader())
+    monkeypatch.setenv("IMAP_USER", "u@x.test")
+    monkeypatch.setenv("IMAP_PASSWORD", "p")
+
+    MerlionImapFetcher().parse_attachment(zip_bytes, "broken.zip")
+    assert seen["bytes"] == payload
+    assert seen["filepath"].endswith(".xlsm")
+
+
+def test_extract_zip_member_raw_handles_zip_stored(tmp_path):
+    """STORED (без сжатия): payload идёт как есть."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"STORED-uncompressed-bytes-of-some-length"
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
+        zf.writestr("a.xlsm", payload)
+    raw = buf.getvalue()
+    out = tmp_path / "out.xlsm"
+    with zipfile.ZipFile(io.BytesIO(raw), "r") as zf:
+        info = zf.infolist()[0]
+        MerlionImapFetcher._extract_zip_member_raw(zf, info, str(out))
+    assert out.read_bytes() == payload
+
+
+def test_extract_zip_member_raw_handles_zip_deflated(tmp_path):
+    """DEFLATED (zlib): payload корректно распаковывается."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    # Возьмём заметно сжимаемый payload, чтобы compressed != raw.
+    payload = (b"abc" * 5000) + b"END"
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("b.xlsm", payload)
+    raw = buf.getvalue()
+    out = tmp_path / "out.xlsm"
+    with zipfile.ZipFile(io.BytesIO(raw), "r") as zf:
+        info = zf.infolist()[0]
+        MerlionImapFetcher._extract_zip_member_raw(zf, info, str(out))
+    assert out.read_bytes() == payload
+
+
+def test_extract_zip_member_raw_rejects_unknown_compression(tmp_path):
+    """Метод сжатия, который мы не поддерживаем (например, BZIP2=12) —
+    RuntimeError с понятным сообщением."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
+        zf.writestr("c.xlsm", b"hello")
+    raw = buf.getvalue()
+    out = tmp_path / "out.xlsm"
+    with zipfile.ZipFile(io.BytesIO(raw), "r") as zf:
+        info = zf.infolist()[0]
+        # Подменим compress_type на «BZIP2» (12) — наш экстрактор
+        # должен отказаться.
+        info.compress_type = 12
+        with pytest.raises(RuntimeError, match="неподдерживаемый compress_type"):
+            MerlionImapFetcher._extract_zip_member_raw(zf, info, str(out))
+
+
+def test_extract_handles_uncompressed_size_mismatch_warning(tmp_path, caplog):
+    """Если info.file_size в central неверный — это warning, не error.
+    Реальные xlsx-валидаторы поймают битость, если она реально есть."""
+    import logging as _logging
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    payload = b"hello world payload"
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
+        zf.writestr("d.xlsm", payload)
+    raw = buf.getvalue()
+    out = tmp_path / "out.xlsm"
+    with zipfile.ZipFile(io.BytesIO(raw), "r") as zf:
+        info = zf.infolist()[0]
+        # Соврём про uncompressed size — экстрактор должен warn, не raise.
+        info.file_size = 999999
+        with caplog.at_level(_logging.WARNING, logger="app.services.auto_price.fetchers.merlion_imap"):
+            MerlionImapFetcher._extract_zip_member_raw(zf, info, str(out))
+    assert out.read_bytes() == payload
+    assert any("не совпал" in rec.message for rec in caplog.records), (
+        "ожидался warning о несовпадении file_size"
+    )
+
+
+def test_extract_zip_member_raw_rejects_bad_signature(tmp_path):
+    """Если local file header начинается не с 'PK\\x03\\x04' —
+    RuntimeError. Защита от мусора."""
+    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
+        zf.writestr("e.xlsm", b"hello")
+    raw = bytearray(buf.getvalue())
+    # Затрём signature первого LFH мусором.
+    sig_pos = raw.find(b"PK\x03\x04")
+    raw[sig_pos:sig_pos + 4] = b"XXXX"
+    out = tmp_path / "out.xlsm"
+    # Используем правильный raw для парсинга central directory (он
+    # лежит в конце). Чтобы корректно прочитать infolist(), сначала
+    # загрузим неиспорченный архив, потом сделаем raw-corrupt и
+    # передадим его как fp в zf.
+    with zipfile.ZipFile(io.BytesIO(buf.getvalue()), "r") as zf_good:
+        info = zf_good.infolist()[0]
+    # Обманём: подсунем испорченные байты как fp.
+    class _FakeZf:
+        fp = io.BytesIO(bytes(raw))
+    with pytest.raises(RuntimeError, match="неверная сигнатура"):
+        MerlionImapFetcher._extract_zip_member_raw(_FakeZf(), info, str(out))

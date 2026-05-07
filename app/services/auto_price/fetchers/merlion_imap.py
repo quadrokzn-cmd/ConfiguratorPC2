@@ -1,4 +1,4 @@
-# IMAP-канал автозагрузки прайса Merlion (этап 12.1, fix-2 12.1).
+# IMAP-канал автозагрузки прайса Merlion (этап 12.1, fix-3 12.1).
 #
 # Письма от matveeva.y@merlion.ru (приходят через Gmail-forward — реальный
 # отправитель сохраняется в From / Reply-To / X-Forwarded-For), Subject
@@ -8,10 +8,16 @@
 #   1. Записываем bytes во временный .zip;
 #   2. Идём по infolist() ZIP-а: для записей без UTF-8 EFS-флага
 #      (bit 11) перекодируем filename cp437→cp1251 — Merlion-архив
-#      пишется именно так. Иначе zf.extractall() падает с mismatch
-#      имени между central directory и local header;
-#   3. По объекту ZipInfo (а НЕ строке имени) распаковываем .xlsx/.xlsm
-#      файлы в /tmp/merlion_<uuid>/ через shutil.copyfileobj;
+#      пишется именно так. Это важно для имени файла на диске;
+#   3. Распаковываем .xlsx/.xlsm в /tmp/merlion_<uuid>/ через
+#      _extract_zip_member_raw — РУЧНУЮ распаковку по offset через
+#      struct + zlib. Это нужно потому что в реальных Merlion-архивах
+#      имя файла в central directory и в local file header физически
+#      различаются (отклонение от ZIP-спеки на стороне их
+#      архиватора), и стандартный zipfile.ZipFile.open() законно
+#      бросает «File name in directory ... and header ... differ».
+#      Наша ручная распаковка эту проверку не делает — она просто
+#      seek-ает по info.header_offset и достаёт сжатые байты;
 #   4. Берём самый большой .xlsx/.xlsm — это и есть основной прайс;
 #   5. Прогоняем через MerlionLoader — тот же, что и /admin/price-uploads;
 #   6. Чистим временные файлы (try/finally).
@@ -22,8 +28,10 @@ import logging
 import os
 import re
 import shutil
+import struct
 import tempfile
 import zipfile
+import zlib
 
 from app.services.auto_price.base import register_fetcher
 from app.services.auto_price.fetchers.base_imap import BaseImapFetcher
@@ -92,18 +100,11 @@ class MerlionImapFetcher(BaseImapFetcher):
                         # Пустое имя после нормализации — пропустим.
                         continue
                     out_path = os.path.join(extract_dir, safe_name)
-                    # Читаем по ZipInfo-объекту: zf.open(info) находит
-                    # запись по offset, не по filename — поэтому
-                    # внутренний mismatch имени cp437/cp1251 ему не
-                    # мешает.
                     try:
-                        with zf.open(info) as src, open(out_path, "wb") as dst:
-                            shutil.copyfileobj(src, dst)
-                    except (zipfile.BadZipFile, RuntimeError) as exc:
-                        # RuntimeError может возникнуть на запароленных
-                        # архивах. Merlion их не шлёт, но защитимся.
+                        self._extract_zip_member_raw(zf, info, out_path)
+                    except RuntimeError as exc:
                         raise RuntimeError(
-                            f"Merlion IMAP: ошибка чтения «{real_name}» "
+                            f"Merlion IMAP: ошибка распаковки «{real_name}» "
                             f"из ZIP «{filename}»: {exc}"
                         ) from exc
                     try:
@@ -151,3 +152,89 @@ class MerlionImapFetcher(BaseImapFetcher):
             return info.filename.encode("cp437").decode("cp1251")
         except UnicodeError:
             return info.filename
+
+    # Local file header — фиксированная часть, 30 байт.
+    # Формат от ZIP-спеки и точно совпадает с zipfile.structFileHeader:
+    #   <4s          PK\x03\x04
+    #    2B          version_needed (major, minor)
+    #    4H          flag_bits, compress_method, mod_time, mod_date
+    #    L           crc32
+    #    2L          compressed_size, uncompressed_size
+    #    2H          filename_length, extra_field_length
+    _LFH_STRUCT = struct.Struct("<4s2B4HL2L2H")
+    _LFH_SIGNATURE = b"PK\x03\x04"
+
+    @staticmethod
+    def _extract_zip_member_raw(
+        zf: zipfile.ZipFile, info: zipfile.ZipInfo, dst_path: str,
+    ) -> None:
+        """Распаковывает запись ZIP-а вручную, минуя zipfile.ZipFile.open().
+
+        Зачем: реальный Merlion-архиватор пишет байты имени файла в
+        central directory и в local file header в РАЗНЫХ кодировках
+        (cp437-decode даёт другую строку, чем cp1251-байты в LFH). По
+        ZIP-спеке эти записи должны совпадать; стандартный
+        ZipFile.open() это законно проверяет и валится с
+        BadZipFile «File name in directory ... and header ... differ».
+        Мы не валидируем имя — просто берём compressed-байты по
+        info.header_offset и распаковываем zlib.
+
+        Поддерживает только STORED (0) и DEFLATED (8) — больше Merlion
+        и не использует. compress_size берём из central (info), а не
+        из local: при streaming-флаге (bit 3 = 0x008) local LFH хранит
+        нули, и только central + data descriptor содержат настоящий
+        размер.
+        """
+        zf.fp.seek(info.header_offset)
+        raw = zf.fp.read(MerlionImapFetcher._LFH_STRUCT.size)
+        if len(raw) != MerlionImapFetcher._LFH_STRUCT.size:
+            raise RuntimeError(
+                "обрезанный local file header "
+                f"(прочитано {len(raw)}, ожидалось {MerlionImapFetcher._LFH_STRUCT.size} байт)"
+            )
+        unpacked = MerlionImapFetcher._LFH_STRUCT.unpack(raw)
+        signature = unpacked[0]
+        # Индексы соответствуют zipfile._FH_*; нам нужны только
+        # filename_length и extra_field_length (последние два H).
+        fname_len = unpacked[10]
+        extra_len = unpacked[11]
+        if signature != MerlionImapFetcher._LFH_SIGNATURE:
+            raise RuntimeError(
+                f"неверная сигнатура local file header: {signature!r}"
+            )
+        # Пропускаем filename + extra field, переходя к compressed body.
+        zf.fp.seek(fname_len + extra_len, 1)
+
+        compressed = zf.fp.read(info.compress_size)
+        if len(compressed) != info.compress_size:
+            raise RuntimeError(
+                f"обрезанные данные: прочитано {len(compressed)} из "
+                f"{info.compress_size} compressed-байт"
+            )
+
+        if info.compress_type == zipfile.ZIP_STORED:
+            payload = compressed
+        elif info.compress_type == zipfile.ZIP_DEFLATED:
+            try:
+                payload = zlib.decompress(compressed, -zlib.MAX_WBITS)
+            except zlib.error as exc:
+                raise RuntimeError(f"zlib decompress error: {exc}") from exc
+        else:
+            raise RuntimeError(
+                f"неподдерживаемый compress_type={info.compress_type} "
+                "(поддерживаются только STORED=0 и DEFLATED=8)"
+            )
+
+        # info.file_size — это «uncompressed size» из central. Если
+        # архиватор записал его неверно, это не повод падать (xlsx
+        # всё равно сам проверит свою целостность). Просто warn.
+        if info.file_size and len(payload) != info.file_size:
+            logger.warning(
+                "Merlion IMAP: распакованный размер %d не совпал с "
+                "info.file_size=%d для %r — продолжаем (xlsx-валидатор "
+                "поймает реальную битость, если есть).",
+                len(payload), info.file_size, info.filename,
+            )
+
+        with open(dst_path, "wb") as dst:
+            dst.write(payload)
