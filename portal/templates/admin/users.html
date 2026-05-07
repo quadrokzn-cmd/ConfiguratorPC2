@@ -182,43 +182,66 @@
 
 </div>
 
-{# 9Б.5: confirm перед самопонижением (admin → manager). Срабатывает
-   только если форма отмечена data-self="1" (текущий пользователь) и
-   в селекте выбрано "manager". Для всех остальных переходов сразу
-   submit. #}
+{# 9Б.5 + 12.5a: confirm перед самопонижением (admin → manager) и
+   двойное подтверждение перед физическим удалением — теперь через
+   HTML-модал (confirmDialog) вместо нативных confirm()/alert().
+   prompt() для ввода login оставлен нативным (вне области stage 12.5a;
+   computer-use агентам форма «удалить навсегда» всё равно недоступна
+   через UI). #}
 <script>
+  // Self-demotion: возвращаем false из onsubmit, асинхронно показываем
+  // модал, после OK — повторно сабмитим форму с флагом _ktConfirmed.
   function ktConfirmRoleChange(form) {
+    if (form._ktConfirmed) {
+      form._ktConfirmed = false;
+      return true;
+    }
     if (form.dataset.self !== '1') return true;
     const select = form.querySelector('select[name="role"]');
     if (!select || select.value !== 'manager') return true;
-    return confirm(
+    window.confirmDialog(
       'Вы понижаете себя до менеджера. После этого вы потеряете ' +
-      'доступ к админ-панели. Продолжить?'
-    );
+      'доступ к админ-панели. Продолжить?',
+      { okLabel: 'Понизить себя', danger: true }
+    ).then(function (ok) {
+      if (!ok) return;
+      form._ktConfirmed = true;
+      form.submit();
+    });
+    return false;
   }
 
-  // 9В.4.2: двойное подтверждение перед физическим удалением
-  // пользователя. confirm() — защита от случайного клика; prompt() —
-  // защита от клика по соседней строке (ввод login обязателен).
   function ktConfirmHardDelete(form) {
+    if (form._ktConfirmed) {
+      form._ktConfirmed = false;
+      return true;
+    }
     const btn = form.querySelector('button[data-login]');
     const login = btn ? btn.dataset.login : '';
     if (!login) return false;
-    if (!confirm(
+    window.confirmDialog(
       'Вы собираетесь УДАЛИТЬ ПОЛЬЗОВАТЕЛЯ «' + login +
-      '» НАВСЕГДА.\n\nДействие необратимо. Продолжить?'
-    )) return false;
-    const typed = prompt(
-      'Для подтверждения введите login пользователя:', ''
-    );
-    if (typed === null) return false;
-    if (typed.trim() !== login) {
-      alert('Login не совпал. Удаление отменено.');
-      return false;
-    }
-    const hidden = form.querySelector('input[name="confirm_login"]');
-    if (hidden) hidden.value = login;
-    return true;
+      '» НАВСЕГДА.\n\nДействие необратимо. Продолжить?',
+      { okLabel: 'Удалить навсегда', danger: true }
+    ).then(function (ok) {
+      if (!ok) return;
+      // Второй шаг — ввод login в нативный prompt(). Не заменяется в
+      // рамках 12.5a (только confirm/alert).
+      const typed = window.prompt(
+        'Для подтверждения введите login пользователя:', ''
+      );
+      if (typed === null) return;
+      if (typed.trim() !== login) {
+        window.toastDialog('Login не совпал. Удаление отменено.',
+                           { kind: 'warn' });
+        return;
+      }
+      const hidden = form.querySelector('input[name="confirm_login"]');
+      if (hidden) hidden.value = login;
+      form._ktConfirmed = true;
+      form.submit();
+    });
+    return false;
   }
 </script>
 {% endblock %}

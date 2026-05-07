@@ -66,12 +66,14 @@
       Максимум {{ max_size_mb }} МБ.
     </p>
 
+    {# 12.5a: подтверждение загрузки прайса — HTML-модал
+       (см. ktConfirmUpload в <script> ниже). #}
     <form method="post"
           action="/admin/price-uploads/run"
           enctype="multipart/form-data"
           id="kt-price-upload-form"
           class="grid grid-cols-1 md:grid-cols-3 gap-3"
-          onsubmit="return ktConfirmUpload(this);">
+          onsubmit="return ktConfirmUpload(event, this);">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
       <div>
@@ -226,23 +228,39 @@
     if (input) input.focus();
   }
 
-  // Подтверждение перед загрузкой — на случай выбора не того поставщика.
-  function ktConfirmUpload(form) {
+  // 12.5a: HTML-модал вместо нативных confirm()/alert(). Раньше:
+  //   onsubmit="return ktConfirmUpload(this);"
+  // С confirmDialog() возвращаемое значение асинхронно — поэтому
+  // всегда preventDefault и submit вручную после подтверждения.
+  // Флаг _ktSubmitConfirmed защищает от рекурсии (form.submit()
+  // снова вызовет наш onsubmit).
+  function ktConfirmUpload(ev, form) {
+    if (form._ktSubmitConfirmed) {
+      form._ktSubmitConfirmed = false;
+      return true;
+    }
+    if (ev && typeof ev.preventDefault === 'function') ev.preventDefault();
     var sel = form.querySelector('select[name="supplier_slug"]');
     var file = form.querySelector('input[name="uploaded_file"]');
     if (!sel || !sel.value) {
-      alert('Выберите поставщика.');
+      window.toastDialog('Выберите поставщика.', { kind: 'warn' });
       return false;
     }
     if (!file || !file.files || !file.files.length) {
-      alert('Выберите файл прайс-листа.');
+      window.toastDialog('Выберите файл прайс-листа.', { kind: 'warn' });
       return false;
     }
     var label = sel.options[sel.selectedIndex].text;
-    return confirm(
+    window.confirmDialog(
       'Запустить загрузку прайса для поставщика «' + label + '»?\n' +
-      'Файл: ' + file.files[0].name
-    );
+      'Файл: ' + file.files[0].name,
+      { okLabel: 'Загрузить' }
+    ).then(function (ok) {
+      if (!ok) return;
+      form._ktSubmitConfirmed = true;
+      form.submit();
+    });
+    return false;
   }
 
   // Подгружает report_json и показывает в модалке.

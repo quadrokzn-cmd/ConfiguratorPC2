@@ -635,6 +635,61 @@ body.portal-theme {
     to   { opacity: 0; transform: scale(0.97); }
   }
 
+  /* === Confirm-диалог (12.5a) =======================================
+     Маленький модал-подтверждение, замена нативному JS confirm().
+     Используется глобальной JS-функцией confirmDialog() из
+     static/js/portal-dialog.js. Структура:
+       .kt-confirm-overlay — fixed-подложка с blur, центрирует карточку
+       .kt-confirm-card    — карточка ~max-w-md с заголовком, текстом и
+                             двумя кнопками («Отменить»/«Подтвердить»).
+
+     Анимации — те же easings, что у обычной .modal-overlay. Внутри
+     prefers-reduced-motion общий блок их и так срезает.
+
+     Доступность: aria-modal/aria-labelledby/aria-describedby ставит
+     сам JS; здесь только визуал. */
+  .kt-confirm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(4, 6, 10, 0.72);
+    backdrop-filter: blur(4px);
+    animation: kt-modal-overlay-in 200ms ease-out;
+  }
+  .kt-confirm-card {
+    width: 100%;
+    max-width: 28rem;
+    background: theme('colors.surface.1');
+    border: 1px solid theme('colors.line.softer');
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1rem 1.25rem;
+    box-shadow: theme('boxShadow.elev-3');
+    animation: kt-modal-container-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .kt-confirm-title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: theme('colors.ink.primary');
+    margin: 0 0 0.5rem 0;
+  }
+  .kt-confirm-message {
+    font-size: 14px;
+    line-height: 22px;
+    color: theme('colors.ink.secondary');
+    margin: 0 0 1.25rem 0;
+    white-space: pre-line;
+  }
+  .kt-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
   /* === Toggle-переключатель (используется для «В спецификацию») ====
      В отличие от обычного `.check`, выглядит как iOS-стиля свитч —
      заметнее как «активность через свет». */

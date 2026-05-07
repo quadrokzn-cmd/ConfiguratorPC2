@@ -90,9 +90,12 @@
           </td>
           <td class="text-right">
             {% if s.has_fetcher %}
+              {# 12.5a: вместо нативного confirm() — HTML-модал.
+                 onsubmit подменяется на JS-обработчик, который дёргает
+                 confirmDialog() и сабмитит форму уже после подтверждения. #}
               <form method="post" action="/admin/auto-price-loads/{{ s.slug }}/run"
-                    class="inline-block"
-                    onsubmit="return confirm('Запустить автозагрузку прайса для «{{ s.name }}»? Это может занять несколько минут.');">
+                    class="inline-block kt-confirm-form"
+                    data-confirm-message="Запустить автозагрузку прайса для «{{ s.name }}»? Это может занять несколько минут.">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <button type="submit"
                         class="btn btn-sm btn-secondary"

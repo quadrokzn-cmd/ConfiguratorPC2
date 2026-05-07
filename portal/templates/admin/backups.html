@@ -26,10 +26,14 @@
       Используйте перед миграциями, рискованными изменениями или для
       первой боевой проверки после деплоя.
     </p>
+    {# 12.5a: HTML-модал вместо нативного confirm() — см.
+       static/js/portal-dialog.js (wireAllConfirmForms). #}
     <form method="post" action="/admin/backups/create"
-          onsubmit="return confirm('Создать резервную копию БД сейчас?');">
+          class="kt-confirm-form"
+          data-confirm-message="Создать резервную копию БД сейчас?">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit" class="btn btn-md btn-primary">
+      <button type="submit" class="btn btn-md btn-primary"
+              data-testid="backups-create">
         Создать бекап сейчас
       </button>
     </form>

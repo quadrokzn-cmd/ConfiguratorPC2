@@ -122,5 +122,11 @@
   {% block content_anon %}{% endblock %}
 </main>
 {% endif %}
+
+{# 12.5a: confirmDialog() / toastDialog() вместо нативных confirm()/alert().
+   Подключаем на всех страницах портала, чтобы admin-шаблоны могли
+   просто вызывать window.confirmDialog(...). #}
+<script src="{{ static_url('static/js/portal-dialog.js') }}" defer></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>
