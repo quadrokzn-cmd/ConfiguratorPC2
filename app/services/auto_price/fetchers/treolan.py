@@ -36,6 +36,7 @@ import logging
 import os
 import re
 import time
+from collections import namedtuple
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable, Iterator
@@ -158,6 +159,15 @@ def _walk_products(
         kids = node.get("children") or []
         if isinstance(kids, list) and kids:
             yield from _walk_products(kids, cur_path)
+
+
+# 12.5d: запись об одной ветке-промахе для report_json. Атрибутный доступ
+# нужен и для UI (json-сериализация в _save), и для тестов. Совместим с
+# tuple-распаковкой — старый WARNING-лог в _build_category_map работает
+# без изменений.
+_CategoryAuditMiss = namedtuple(
+    "_CategoryAuditMiss", ["name", "path", "products_qty"],
+)
 
 
 # ---- Кеш JWT-токена (process-level) -------------------------------------
@@ -334,6 +344,14 @@ class TreolanFetcher(BaseAutoFetcher):
         # 12.5c: один fetch — один map; пересоздаётся в _save() на каждом
         # вызове fetch_and_save(). Хранится на инстансе fetcher'а.
         self._category_map: dict[int, str | None] = {}
+        # 12.5d: метрики category_map для observability — собираются в
+        # _build_category_map, читаются в _save при формировании
+        # extra_report["category_map"].
+        self._category_map_metrics: dict[str, Any] = {
+            "counts_by_cat": {},
+            "none_count": 0,
+            "audit_misses": [],
+        }
 
     # ---- Основная точка входа -----------------------------------------
 
@@ -519,7 +537,8 @@ class TreolanFetcher(BaseAutoFetcher):
         none_count = 0
         # Все ветки с productsQty > 0, но our_category=None — для аудита
         # blocklist'а. Логируем общее число + первые 5 примеров.
-        audit_misses: list[tuple[str, str, int]] = []
+        # 12.5d: namedtuple вместо tuple — атрибутный доступ для report_json.
+        audit_misses: list[_CategoryAuditMiss] = []
 
         def _walk(nodes: list[Any] | None, parent_path: tuple[str, ...]) -> None:
             nonlocal none_count
@@ -540,9 +559,11 @@ class TreolanFetcher(BaseAutoFetcher):
                     except (TypeError, ValueError):
                         qty = 0
                     if qty > 0:
-                        audit_misses.append(
-                            (str(name), " → ".join(cur_path), qty)
-                        )
+                        audit_misses.append(_CategoryAuditMiss(
+                            name=str(name),
+                            path=" → ".join(cur_path),
+                            products_qty=qty,
+                        ))
                 else:
                     counts_by_cat[our] = counts_by_cat.get(our, 0) + 1
                 kids = node.get("children") or []
@@ -550,6 +571,13 @@ class TreolanFetcher(BaseAutoFetcher):
                     _walk(kids, cur_path)
 
         _walk(categories, ())
+
+        # 12.5d: складываем метрики на инстанс — _save заберёт их в extra_report.
+        self._category_map_metrics = {
+            "counts_by_cat": counts_by_cat,
+            "none_count": none_count,
+            "audit_misses": audit_misses,
+        }
 
         counts_summary = ", ".join(
             f"{k}={v}" for k, v in sorted(counts_by_cat.items())
@@ -702,10 +730,42 @@ class TreolanFetcher(BaseAutoFetcher):
         # orchestrator (включая ALLOWED_TABLES, openpyxl и т.п.).
         from app.services.price_loaders.orchestrator import save_price_rows
 
+        # 12.5d: метрики category_map → report_json для observability.
+        # На production root-logger в WARNING, INFO-строки 12.5c не доходят
+        # до Railway logs, поэтому те же числа дублируем в jsonb-отчёт —
+        # их видно через UI /admin/price-uploads/<id>/details.
+        metrics = self._category_map_metrics
+        counts_by_cat: dict[str, int] = metrics.get("counts_by_cat") or {}
+        none_count = int(metrics.get("none_count") or 0)
+        audit_misses: list[_CategoryAuditMiss] = list(
+            metrics.get("audit_misses") or []
+        )
+        category_map_section = {
+            "size": len(self._category_map),
+            "fallback_lookups": fallback_lookups,
+            "audit_misses_count": len(audit_misses),
+            "audit_misses_top5": [
+                {"name": m.name, "path": m.path, "products_qty": m.products_qty}
+                for m in audit_misses[:5]
+            ],
+            "by_our_category": {
+                "psu":         counts_by_cat.get("psu", 0),
+                "cooler":      counts_by_cat.get("cooler", 0),
+                "gpu":         counts_by_cat.get("gpu", 0),
+                "storage":     counts_by_cat.get("storage", 0),
+                "motherboard": counts_by_cat.get("motherboard", 0),
+                "ram":         counts_by_cat.get("ram", 0),
+                "case":        counts_by_cat.get("case", 0),
+                "cpu":         counts_by_cat.get("cpu", 0),
+                "none":        none_count,
+            },
+        }
+
         result = save_price_rows(
             supplier_name="Treolan",
             source=virtual_filename,
             rows=rows,
+            extra_report={"category_map": category_map_section},
         )
         return int(result["upload_id"])
 

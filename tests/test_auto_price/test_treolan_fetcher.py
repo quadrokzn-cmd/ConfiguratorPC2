@@ -883,3 +883,197 @@ def test_blocklist_for_server_branches_still_works_via_id_map(
         "сервер DELL R250 не должен оказаться в supplier_prices — "
         "blocklist обязан отрезать его на этапе category_map."
     )
+
+
+# =====================================================================
+# 12.5d: метрики category_map в report_json (observability)
+# =====================================================================
+
+def test_save_writes_category_map_metrics_to_report(treolan_env, db_session):
+    """После _save price_uploads.report_json должен содержать
+    category_map со всеми ключами: size, fallback_lookups,
+    audit_misses_count, audit_misses_top5, by_our_category."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    sample = {
+        "categories": [
+            {
+                "id": 1, "name": "Комплектующие", "productsQty": 0,
+                "products": [],
+                "children": [
+                    {
+                        "id": 100, "name": "Процессоры", "productsQty": 1,
+                        "products": [{
+                            "articul": "MAP-METRICS-CPU",
+                            "rusName": "CPU for metrics test",
+                            "vendor": "Intel", "currentPrice": "5000",
+                            "currency": "RUB", "atStock": "10",
+                        }],
+                        "children": [],
+                    },
+                    {
+                        "id": 150, "name": "Блок питания ATX",
+                        "productsQty": 0, "products": [], "children": [],
+                    },
+                ],
+            },
+            {
+                "id": 2, "name": "Серверы", "productsQty": 0,
+                "products": [],
+                "children": [
+                    {
+                        "id": 210, "name": "1-процессорные серверы",
+                        "productsQty": 50,  # productful-None ветка → audit miss
+                        "products": [], "children": [],
+                    },
+                ],
+            },
+        ],
+    }
+
+    fetcher = TreolanFetcher()
+    upload_id = fetcher._save(sample)
+
+    rec = db_session.execute(text(
+        "SELECT report_json FROM price_uploads WHERE id = :id"
+    ), {"id": upload_id}).first()
+    assert rec is not None
+    report = rec.report_json
+    assert "category_map" in report, (
+        f"report должен содержать category_map; ключи: {list(report.keys())}"
+    )
+    cm = report["category_map"]
+
+    # size = число узлов с int id (1, 100, 150, 2, 210) = 5.
+    assert cm["size"] == 5
+
+    # Без аномалий — все позиции попадают через id-lookup, fallback=0.
+    assert cm["fallback_lookups"] == 0
+
+    # Только узел 210 (productsQty=50, blocklist) — productful-None.
+    assert cm["audit_misses_count"] == 1
+    assert len(cm["audit_misses_top5"]) == 1
+    miss = cm["audit_misses_top5"][0]
+    assert miss["name"] == "1-процессорные серверы"
+    assert "Серверы" in miss["path"]
+    assert miss["products_qty"] == 50
+
+    # by_our_category: по числу КАТЕГОРИЙ дерева, не позиций.
+    by_cat = cm["by_our_category"]
+    assert by_cat["cpu"] == 1       # узел 100 «Процессоры»
+    assert by_cat["psu"] == 1       # узел 150 «Блок питания ATX»
+    assert by_cat["none"] == 3      # узлы 1, 2, 210 → None
+    # Остальные ключи присутствуют, но нулевые.
+    for k in ("cooler", "gpu", "storage", "motherboard", "ram", "case"):
+        assert by_cat[k] == 0, f"ожидаем by_our_category[{k!r}]=0, got {by_cat[k]}"
+
+
+def test_category_map_audit_misses_top5_capped(treolan_env, db_session):
+    """Если productful-None веток больше 5 — audit_misses_top5 длины 5,
+    audit_misses_count показывает полное число."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    # 7 серверных подкатегорий, каждая с productsQty>0 → blocklist режет в None.
+    server_kids = [
+        {
+            "id": 300 + i, "name": f"Серверная категория {i}",
+            "productsQty": 10 + i,
+            "products": [], "children": [],
+        }
+        for i in range(7)
+    ]
+    sample = {
+        "categories": [
+            # Хотя бы одна валидная позиция, чтобы _save не упал на total_walked==0.
+            {
+                "id": 100, "name": "Процессоры", "productsQty": 1,
+                "products": [{
+                    "articul": "TOP5-CPU", "rusName": "Test CPU",
+                    "vendor": "Intel", "currentPrice": "5000",
+                    "currency": "RUB", "atStock": "10",
+                }],
+                "children": [],
+            },
+            {
+                "id": 2, "name": "Серверы", "productsQty": 0,
+                "products": [],
+                "children": server_kids,
+            },
+        ],
+    }
+
+    fetcher = TreolanFetcher()
+    upload_id = fetcher._save(sample)
+
+    rec = db_session.execute(text(
+        "SELECT report_json FROM price_uploads WHERE id = :id"
+    ), {"id": upload_id}).first()
+    cm = rec.report_json["category_map"]
+
+    # 7 productful-None веток (узел «Серверы» сам — productsQty=0, не считается).
+    assert cm["audit_misses_count"] == 7
+    assert len(cm["audit_misses_top5"]) == 5
+    # Все элементы top5 — dict с ожидаемыми ключами.
+    for m in cm["audit_misses_top5"]:
+        assert set(m.keys()) == {"name", "path", "products_qty"}
+        assert m["products_qty"] >= 10
+
+
+def test_category_map_metrics_with_zero_fallback(treolan_env, db_session):
+    """Стандартный случай — все позиции мапятся через ID, fallback_lookups=0."""
+    from sqlalchemy import text
+    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+
+    db_session.execute(text(
+        "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
+        "VALUES (CURRENT_DATE, 100.00, 'cbr')"
+    ))
+    db_session.commit()
+
+    sample = {
+        "categories": [{
+            "id": 100, "name": "Процессоры", "productsQty": 2,
+            "products": [
+                {
+                    "articul": "ZF-CPU-1", "rusName": "Test CPU 1",
+                    "vendor": "Intel", "currentPrice": "5000",
+                    "currency": "RUB", "atStock": "10",
+                },
+                {
+                    "articul": "ZF-CPU-2", "rusName": "Test CPU 2",
+                    "vendor": "AMD", "currentPrice": "6000",
+                    "currency": "RUB", "atStock": "5",
+                },
+            ],
+            "children": [],
+        }],
+    }
+
+    fetcher = TreolanFetcher()
+    upload_id = fetcher._save(sample)
+
+    rec = db_session.execute(text(
+        "SELECT report_json FROM price_uploads WHERE id = :id"
+    ), {"id": upload_id}).first()
+    cm = rec.report_json["category_map"]
+
+    assert cm["fallback_lookups"] == 0
+    assert cm["size"] == 1
+    assert cm["audit_misses_count"] == 0
+    assert cm["audit_misses_top5"] == []
+    assert cm["by_our_category"]["cpu"] == 1
+    assert cm["by_our_category"]["none"] == 0

@@ -697,12 +697,18 @@ def load_price(
     *,
     supplier_key: str | None = None,
     loader: BasePriceLoader | None = None,
+    extra_report: dict | None = None,
 ) -> dict:
     """Главная точка входа.
 
     Если передан готовый loader — используем его (это удобно для тестов).
     Иначе supplier_key (строка 'ocs'/'merlion'/'treolan') разрешается
     через фабрику get_loader().
+
+    extra_report — опциональный dict с дополнительными ключами, которые
+    будут смержены в report_json до записи в БД. Используется fetcher'ами
+    для observability-метрик, недоступных orchestrator'у (например,
+    Treolan category_map: see app/services/auto_price/fetchers/treolan.py).
     """
     # Импорт локальный — иначе циклическая зависимость с __init__.py.
     from app.services.price_loaders import get_loader
@@ -810,6 +816,11 @@ def load_price(
             report["error_message"] = (
                 "адаптер вернул 0 строк — disappeared не применялся"
             )
+        # 12.5d: fetcher-specific observability-метрики (например,
+        # Treolan category_map). orchestrator о них ничего не знает,
+        # просто мержит в report_json.
+        if extra_report:
+            report.update(extra_report)
         upload_id, status = _record_upload(
             session,
             supplier_id=supplier_id,
@@ -871,6 +882,7 @@ def save_price_rows(
     supplier_name: str,
     source: str,
     rows,
+    extra_report: dict | None = None,
 ) -> dict:
     """Прогоняет уже распарсенные PriceRow через тот же pipeline, что и
     XLSX-loader: supplier_prices upsert, mapping, unmapped, disappeared,
@@ -885,6 +897,8 @@ def save_price_rows(
                       условное имя вида 'auto_treolan_api_2026-05-05.json',
                       чтобы UI журнала отличал автозагрузки от ручных.
       rows          — Iterable[PriceRow].
+      extra_report  — опциональный dict, мержится в report_json
+                      (12.5d, fetcher-specific observability-метрики).
 
     Возвращает тот же dict, что и load_price() (с upload_id, статусом,
     счётчиками и duration_seconds).
@@ -904,4 +918,4 @@ def save_price_rows(
         def iter_rows(self, _filepath):  # noqa: ARG002
             yield from rows_list
 
-    return load_price(source, loader=_RowsLoader())
+    return load_price(source, loader=_RowsLoader(), extra_report=extra_report)
