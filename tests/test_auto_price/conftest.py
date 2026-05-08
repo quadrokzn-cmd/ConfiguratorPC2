@@ -45,3 +45,15 @@ def _reset_treolan_token_cache():
     _reset_token_cache_for_tests()
     yield
     _reset_token_cache_for_tests()
+
+
+@pytest.fixture()
+def resurs_media_env(monkeypatch):
+    """ENV-переменные для ResursMediaApiFetcher.__init__. Реальный WSDL
+    тут не нужен — тесты подменяют _get_client/_invoke и не лезут в сеть."""
+    monkeypatch.setenv("RESURS_MEDIA_WSDL_URL", "https://test.example/ws/WSAPI?wsdl")
+    monkeypatch.setenv("RESURS_MEDIA_USERNAME", "test_user")
+    monkeypatch.setenv("RESURS_MEDIA_PASSWORD", "test_password")
+    # Старый _TEST-fallback убираем, чтобы не маскировал отсутствие канона
+    # в тесте test_init_raises_without_credentials.
+    monkeypatch.delenv("RESURS_MEDIA_WSDL_URL_TEST", raising=False)

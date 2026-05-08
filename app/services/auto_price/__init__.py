@@ -30,5 +30,7 @@ from app.services.auto_price.fetchers import ocs_imap as _ocs_imap  # noqa: F401
 from app.services.auto_price.fetchers import merlion_imap as _merlion_imap  # noqa: F401
 # 12.2: HTTP-канал Netlab (прямая ссылка → ZIP с DealerD.xlsx).
 from app.services.auto_price.fetchers import netlab_http as _netlab_http  # noqa: F401
+# 12.4-РМ-1: SOAP-канал Resurs Media через zeep (5-й канал автозагрузки).
+from app.services.auto_price.fetchers import resurs_media as _resurs_media  # noqa: F401
 
 __all__ = ["base"]

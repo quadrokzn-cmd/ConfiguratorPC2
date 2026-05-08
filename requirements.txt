@@ -25,3 +25,7 @@ boto3>=1.34,<2.0            # S3-совместимый клиент для Back
 
 # --- Этап 9В.3: мониторинг ошибок ---
 sentry-sdk[fastapi]>=2.0    # SDK Sentry с интеграциями FastAPI/Starlette/logging
+
+# --- Этап 12.4-РМ-1: SOAP-канал автозагрузки (Resurs Media) ---
+zeep>=4.2                   # SOAP-клиент с WSDL-парсингом и кешем
+requests>=2.31              # session с HTTPBasicAuth для zeep.Transport

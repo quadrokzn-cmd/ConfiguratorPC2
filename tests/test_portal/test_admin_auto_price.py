@@ -49,7 +49,8 @@ def test_list_shows_imap_channel_for_ocs_merlion(admin_portal_client):
 
     # Грубая проверка: рядом со строкой ocs/merlion есть «IMAP»; рядом
     # со строкой treolan — «REST API»; netlab — «HTTP …»;
-    # resurs_media/green_place — «—» (канал ещё не подключён).
+    # resurs_media — «SOAP API» (12.4-РМ-1); green_place — «—»
+    # (канал ещё не подключён).
     for slug in ("ocs", "merlion"):
         marker = f'data-testid="auto-row-{slug}"'
         idx = text_html.find(marker)
@@ -95,11 +96,12 @@ def test_run_requires_csrf(admin_portal_client):
 def test_run_blocks_unregistered_fetcher(admin_portal_client):
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
-    # resurs_media пока без fetcher'а (12.4 будет), но slug валиден в seed
-    # — ожидаем 400 «канал не подключён». На 12.2 netlab уже подключён
-    # (HTTP-канал), а у OCS/Merlion fetcher появился в 12.1.
+    # green_place пока без fetcher'а (последний 12.4-кандидат), но slug
+    # валиден в seed — ожидаем 400 «канал не подключён». netlab подключён
+    # на 12.2, OCS/Merlion на 12.1, treolan на 12.3, resurs_media на
+    # 12.4-РМ-1 — поэтому единственный «голый» slug на сейчас это green_place.
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/resurs_media/run",
+        "/admin/auto-price-loads/green_place/run",
         data={"csrf_token": token},
     )
     assert r.status_code == 400
@@ -163,21 +165,21 @@ def test_run_returns_429_on_too_frequent(admin_portal_client, db_session, monkey
 # ---- 7. Toggle блокирует включение для slug без fetcher'а -----------
 
 def test_toggle_blocks_enabling_unregistered_fetcher(admin_portal_client, db_session):
-    """Пытаемся включить resurs_media — fetcher'а у него ещё нет (12.4).
-    На 12.2 netlab уже подключён, поэтому в качестве «голого» slug'а
-    берём оставшихся 12.4-кандидатов."""
+    """Пытаемся включить green_place — fetcher'а у него ещё нет (последний
+    12.4-кандидат). resurs_media подключён в 12.4-РМ-1, поэтому в качестве
+    «голого» slug'а здесь оставляем green_place."""
     r0 = admin_portal_client.get("/admin/auto-price-loads")
     token = extract_csrf(r0.text)
 
     r = admin_portal_client.post(
-        "/admin/auto-price-loads/resurs_media/toggle",
+        "/admin/auto-price-loads/green_place/toggle",
         data={"csrf_token": token},
     )
     assert r.status_code == 400
 
     # auto_price_loads.enabled остался FALSE.
     state = db_session.execute(text(
-        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'resurs_media'"
+        "SELECT enabled FROM auto_price_loads WHERE supplier_slug = 'green_place'"
     )).first()
     assert state.enabled is False
 

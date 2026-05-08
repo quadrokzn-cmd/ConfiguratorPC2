@@ -57,10 +57,11 @@ SUPPLIERS_ORDERED: list[tuple[str, str]] = [
 # Канал на slug → label для UI. Заполняется по мере подключения новых
 # fetcher'ов в подэтапах 12.1/12.2/12.4.
 _CHANNEL_LABELS: dict[str, str] = {
-    "treolan": "REST API",
-    "ocs":     "IMAP",
-    "merlion": "IMAP",
-    "netlab":  "HTTP (прямая ссылка)",
+    "treolan":      "REST API",
+    "ocs":          "IMAP",
+    "merlion":      "IMAP",
+    "netlab":       "HTTP (прямая ссылка)",
+    "resurs_media": "SOAP API",
 }
 
 # Сколько последних запусков показывать в журнале на странице.
