@@ -1,0 +1,105 @@
+{
+  "brand": "Xerox",
+  "batch_id": "002",
+  "filled_at": "2026-04-26T12:00:00Z",
+  "results": [
+    {
+      "sku": "xerox:3025V_BI",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "xerox:3025V_NI",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "xerox:B230V_DNI",
+      "attrs": {
+        "print_speed_ppm": 34,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "xerox:B310V_DNI",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 2500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "xerox:B605V_S",
+      "attrs": {
+        "print_speed_ppm": 56,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "xerox:C7101V_S",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    },
+    {
+      "sku": "xerox:C7120V_DN",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}

@@ -36,6 +36,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from app.config import settings
 from portal.routers import (
     admin_audit,
+    admin_auctions,
     admin_auto_price,
     admin_backups,
     admin_diagnostics,
@@ -104,6 +105,7 @@ app.include_router(admin_backups.router)
 app.include_router(admin_audit.router)
 app.include_router(admin_price_uploads.router)
 app.include_router(admin_auto_price.router)
+app.include_router(admin_auctions.router)
 app.include_router(admin_diagnostics.router)
 app.include_router(home.router)
 

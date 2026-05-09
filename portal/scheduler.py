@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
+from apscheduler.triggers.interval import IntervalTrigger
 
 from portal.services import backup_service
 
@@ -60,6 +61,22 @@ _AUTO_PRICE_SCHEDULE: list[tuple[str, int, int]] = [
     ("resurs_media", 7, 40),
     ("green_place",  7, 50),
 ]
+
+# Этап 8/9 слияния (2026-05-08): ингест аукционных карточек с zakupki.gov.ru.
+# Запускается каждые 2 часа (24/7) — окно подачи заявок на zakupki короткое
+# (часто 7-14 дней), пропустить лот = упустить шанс. Реальная нагрузка
+# минимальная: 2 KTRU-зонтика, ~150 карточек активны одновременно. Throttle
+# и UA-rotation в ZakupkiClient защищают от бана.
+#
+# Тумблер: settings.auctions_ingest_enabled. Если != 'true' (нечувствительно
+# к регистру) — плановый прогон тихо пропускается. Добавлен миграцией 034.
+#
+# Single-flight: общий threading.Lock в app.services.auctions.ingest.single_flight,
+# который шарится с endpoint'ами /admin/run-ingest{,-blocking}. Если cron-тик
+# и ручной запуск пытаются стартовать одновременно — второй проигрывает и
+# пишет лог. max_instances=1 в APScheduler — вторая линия защиты (внутри
+# scheduler'а тики не накапливаются).
+_AUCTIONS_INGEST_INTERVAL_HOURS = 2
 
 # Этап 9В.4: ретенция аудит-лога. По умолчанию 180 дней — можно
 # переопределить через AUDIT_RETENTION_DAYS. Если в B2 лежат бекапы,
@@ -212,6 +229,81 @@ def _make_auto_price_job(slug: str):
     return _job
 
 
+def _is_auctions_ingest_enabled() -> bool:
+    """True, если settings.auctions_ingest_enabled установлен в 'true'
+    (нечувствительно к регистру). Любое другое значение, отсутствие
+    ключа или ошибка БД → False (безопаснее пропустить, чем уронить
+    APScheduler-loop)."""
+    try:
+        from sqlalchemy import text as _t
+        from shared.db import engine
+        with engine.begin() as conn:
+            row = conn.execute(
+                _t("SELECT value FROM settings WHERE key = 'auctions_ingest_enabled'"),
+            ).first()
+        if row is None:
+            return False
+        return (row.value or "").strip().lower() == "true"
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: не удалось прочитать auctions_ingest_enabled (%s: %s)",
+            type(exc).__name__, exc,
+        )
+        return False
+
+
+def _job_auctions_ingest() -> None:
+    """Тело cron-задачи `auctions_ingest`.
+
+    1. Тумблер `settings.auctions_ingest_enabled`. != 'true' → тихий
+       выход (как в auto_price-job'ах: тумблер OFF — никаких записей).
+    2. Single-flight через `app.services.auctions.ingest.single_flight.
+       ingest_lock`. Если занято (например, /admin/run-ingest-blocking
+       сейчас крутится) — пропускаем тик с warning-логом.
+    3. Импорт run_ingest_once отложенный — чтобы portal стартовал даже
+       при сломанных импортах модуля аукционов (на pytest без
+       BeautifulSoup/lxml — теоретически).
+    4. Любая ошибка ловится и пишется в WARN, не валит scheduler-loop.
+    """
+    if not _is_auctions_ingest_enabled():
+        logger.info(
+            "scheduler/portal: auctions_ingest — тумблер settings.auctions_ingest_enabled OFF, пропуск.",
+        )
+        return
+
+    try:
+        from app.services.auctions.ingest.single_flight import ingest_lock
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: auctions_ingest — не удалось импортировать single_flight (%s: %s)",
+            type(exc).__name__, exc,
+        )
+        return
+
+    if not ingest_lock.acquire(blocking=False):
+        logger.warning(
+            "scheduler/portal: auctions_ingest — предыдущий прогон ещё активен, пропуск.",
+        )
+        return
+
+    try:
+        from app.services.auctions.ingest.orchestrator import run_ingest_once
+        from shared.db import engine
+        try:
+            stats = run_ingest_once(engine)
+            logger.info(
+                "scheduler/portal: auctions_ingest ok — parsed=%d inserted=%d updated=%d failed=%d",
+                stats.cards_parsed, stats.inserted, stats.updated, stats.cards_failed,
+            )
+        except Exception as exc:
+            logger.warning(
+                "scheduler/portal: auctions_ingest упал (%s: %s)",
+                type(exc).__name__, exc,
+            )
+    finally:
+        ingest_lock.release()
+
+
 def _is_enabled() -> bool:
     """Решает, нужно ли стартовать scheduler портала.
 
@@ -297,16 +389,31 @@ def init_scheduler() -> BackgroundScheduler | None:
             replace_existing=True,
         )
 
+    # Этап 8/9 слияния: ingest аукционных карточек с zakupki, каждые 2 часа.
+    # Тумблер — settings.auctions_ingest_enabled (через миграцию 034).
+    sched.add_job(
+        _job_auctions_ingest,
+        trigger=IntervalTrigger(
+            hours=_AUCTIONS_INGEST_INTERVAL_HOURS,
+            timezone=_BACKUP_TIMEZONE,
+        ),
+        id="auctions_ingest",
+        name=f"ingest аукционов с zakupki (каждые {_AUCTIONS_INGEST_INTERVAL_HOURS}ч)",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
     sched.start()
     _scheduler = sched
     logger.info(
         "scheduler/portal: запущен (daily_backup %02d:%02d МСК, "
         "audit_retention вс 04:00 МСК, retention=%d дней, "
-        "auto_price_loads %s).",
+        "auto_price_loads %s, auctions_ingest каждые %dч).",
         _BACKUP_HOUR, _BACKUP_MINUTE, _audit_retention_days(),
         ", ".join(
             f"{slug}={h:02d}:{m:02d}" for slug, h, m in _AUTO_PRICE_SCHEDULE
         ),
+        _AUCTIONS_INGEST_INTERVAL_HOURS,
     )
     return sched
 

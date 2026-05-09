@@ -1,0 +1,77 @@
+{
+  "brand": "G&G",
+  "batch_id": "001",
+  "filled_at": "2026-04-26T12:00:00Z",
+  "results": [
+    {
+      "sku": "g&g:M2022",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "g&g:M2022NW",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "g&g:M2022NW-NC2",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "g&g:P2022W",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "g&g:P2022W-NC1",
+      "attrs": {
+        "print_technology": "лазерная",
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a"
+      }
+    }
+  ]
+}

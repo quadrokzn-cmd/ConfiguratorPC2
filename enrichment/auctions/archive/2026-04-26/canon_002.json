@@ -1,0 +1,175 @@
+{
+  "brand": "Canon",
+  "batch_id": "002",
+  "filled_at": "2026-04-26T12:00:00Z",
+  "results": [
+    {
+      "sku": "canon:5975C005",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:6248C003AA",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "n/a",
+        "duplex": "no",
+        "resolution_dpi": 2400,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:6670C007",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:7185C010",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7186C007",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7186C013",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7187C006",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7187C013",
+      "attrs": {
+        "print_speed_ppm": 36,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C007",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C008",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C019",
+      "attrs": {
+        "print_speed_ppm": 36,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:8747B007",
+      "attrs": {
+        "print_speed_ppm": 14,
+        "colorness": "цветной",
+        "max_format": "n/a",
+        "duplex": "no",
+        "resolution_dpi": 9600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    }
+  ]
+}

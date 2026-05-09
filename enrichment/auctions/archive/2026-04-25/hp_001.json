@@ -1,0 +1,427 @@
+{
+  "brand": "HP",
+  "batch_id": "001",
+  "filled_at": "2026-04-24T20:30:00Z",
+  "results": [
+    {
+      "sku": "hp:1F3W2A",
+      "attrs": {
+        "print_speed_ppm": 12,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1F3Y2A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 18000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR49B",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR64B",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR70B",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1MR70B",
+      "attrs": {
+        "print_speed_ppm": 24,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1PV64A",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV65A",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV87A",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV88A",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1TJ09A",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 18000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1VD87A",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "n/a",
+        "duplex": "no",
+        "resolution_dpi": 2400,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:25R76A",
+      "attrs": {
+        "print_speed_ppm": 7,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 2600,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:28B51A",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 18000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:28B96A",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:2R3E2A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3E3A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3E8A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3F0A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R7F5A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R7F6A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Y9H0A",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "n/a",
+        "duplex": "no",
+        "resolution_dpi": 2400,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:2Y9H2A",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "n/a",
+        "duplex": "no",
+        "resolution_dpi": 2400,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:2Z609A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z610A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z611A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z627A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z628A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z629A",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3G631A",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}

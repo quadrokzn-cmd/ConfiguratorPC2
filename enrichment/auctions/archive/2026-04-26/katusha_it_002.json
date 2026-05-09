@@ -1,0 +1,315 @@
+{
+  "brand": "Katusha IT",
+  "batch_id": "002",
+  "filled_at": "2026-04-26T12:00:00Z",
+  "results": [
+    {
+      "sku": "katusha it:M450p",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:M450pm",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:M450pm-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:MC645",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:MC655",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P130",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P130-128",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P130p",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133-256",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133-256-1-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133-256-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133p",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133pm",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P133pm-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P140",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P140-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P247",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P247e",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P247ep",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P247ep-pp",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "katusha it:P300dn",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}
