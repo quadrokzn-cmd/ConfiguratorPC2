@@ -21,6 +21,7 @@ def _clean_component_tables(db_engine):
             "TRUNCATE TABLE unmapped_supplier_items, price_uploads, "
             "supplier_prices, suppliers, "
             "cpus, motherboards, rams, gpus, storages, cases, psus, coolers, "
+            "printers_mfu, "  # 031 (Этап 6 слияния QT↔C-PC2)
             "component_field_sources "
             "RESTART IDENTITY CASCADE"
         ))

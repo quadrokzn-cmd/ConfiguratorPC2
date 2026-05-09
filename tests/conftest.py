@@ -133,6 +133,7 @@ _MIGRATIONS = [
     "023_component_field_sources_source_detail.sql",
     "028_auto_price_loads.sql",
     "029_auto_price_load_runs_source_ref.sql",
+    "031_printers_mfu.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
@@ -164,6 +165,7 @@ _ALL_TABLES = [
     "cases",                    # 001
     "psus",                     # 001
     "coolers",                  # 001
+    "printers_mfu",             # 031 (Этап 6 слияния QT↔C-PC2)
     # Журнал применённых миграций (миграционный раннер на проде, в тестах
     # не нужен) — дропаем для подстраховки от чистого CREATE TABLE.
     "schema_migrations",

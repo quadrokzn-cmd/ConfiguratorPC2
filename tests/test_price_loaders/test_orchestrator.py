@@ -685,3 +685,115 @@ def test_orchestrator_does_not_call_mark_disappeared_on_zero_rows(
 
     assert calls == [], f"_mark_disappeared не должен был вызваться, но был: {calls}"
     assert result["status"] == "failed"
+
+
+# =========================================================================
+# Этап 6 слияния (2026-05-08) — printer/mfu пишутся в printers_mfu
+# (раньше Этапа 4 они пропускались со счётчиком pending_printers_mfu;
+#  сейчас идут штатным путём через CATEGORY_TO_TABLE → printers_mfu).
+# =========================================================================
+
+
+def test_orchestrator_writes_printer_mfu_to_printers_mfu(
+    make_merlion_xlsx, db_session,
+):
+    """Печатные строки попадают в printers_mfu (NO_MATCH → создаётся
+    скелет с category из адаптера, sku вида brand:mpn, attrs_jsonb={}).
+    ПК-строка в той же загрузке обрабатывается обычным путём.
+    pending_printers_mfu остаётся 0 — stub-ветка Этапа 4 убрана."""
+    path = make_merlion_xlsx([
+        # ПК-строка — обычный сценарий (created_new + skeleton в psus).
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-PSU", "mpn": "RM750X",
+            "name": "Corsair RM750x 750W", "price_rub": 12000, "stock": 4,
+        },
+        # Печатные — тоже NO_MATCH, идут в printers_mfu со своими
+        # category='printer' / 'mfu'.
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "Лазерные",
+            "brand": "HP", "number": "M-PR1", "mpn": "M404n",
+            "name": "HP LaserJet Pro M404n", "price_rub": 35000, "stock": 2,
+        },
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "МФУ лазерные",
+            "brand": "Pantum", "number": "M-MF1", "mpn": "M6500W",
+            "name": "Pantum M6500W", "price_rub": 18000, "stock": 1,
+        },
+        # Явно «ignore»-подкатегория печати — наша категория None → skipped.
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "Термопринтеры",
+            "brand": "Sharp", "number": "M-IGN", "mpn": "TP-1",
+            "name": "Sharp Thermal", "price_rub": 5000, "stock": 0,
+        },
+    ])
+
+    result = load_price(path, supplier_key="merlion")
+
+    # 1 PSU + 2 printer/mfu — все три processed; ignore — skipped.
+    assert result["pending_printers_mfu"] == 0
+    assert result["processed"] == 3
+    assert result["added"] == 3              # PSU + HP printer + Pantum mfu
+    assert result["printers_mfu_added"] == 2
+    assert result["printers_mfu_updated"] == 0
+    assert result["updated"] == 0
+    assert result["skipped"] == 1            # Термопринтер
+    assert result["errors"] == 0
+    assert result["status"] in ("success", "partial")
+
+    # supplier_prices: 3 записи у Merlion (1 psu + 1 printer + 1 mfu).
+    assert _count_supplier_prices(db_session, "Merlion") == 3
+
+    # printers_mfu: 2 строки, у каждой category и sku корректно заполнены.
+    rows = db_session.execute(_t(
+        "SELECT sku, mpn, brand, name, category, attrs_jsonb::text AS attrs "
+        "  FROM printers_mfu ORDER BY id"
+    )).all()
+    assert len(rows) == 2
+    by_mpn = {r.mpn: r for r in rows}
+    assert by_mpn["M404n"].category == "printer"
+    assert by_mpn["M404n"].sku == "hp:M404n"
+    assert by_mpn["M404n"].brand == "HP"
+    assert by_mpn["M404n"].attrs == "{}"
+    assert by_mpn["M6500W"].category == "mfu"
+    assert by_mpn["M6500W"].sku == "pantum:M6500W"
+    assert by_mpn["M6500W"].brand == "Pantum"
+
+
+def test_orchestrator_only_printer_mfu_writes_skeletons(
+    make_merlion_xlsx, db_session,
+):
+    """Прайс только из printer/mfu-позиций: всё пишется в printers_mfu;
+    status — success (added>0). pending_printers_mfu=0."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "Лазерные",
+            "brand": "Brother", "number": "M-PR2", "mpn": "HL-L2375DW",
+            "name": "Brother HL-L2375DW", "price_rub": 22000, "stock": 1,
+        },
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "МФУ струйные",
+            "brand": "Epson", "number": "M-MF2", "mpn": "L3210",
+            "name": "Epson L3210", "price_rub": 14000, "stock": 1,
+        },
+    ])
+
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["pending_printers_mfu"] == 0
+    assert result["processed"] == 2
+    assert result["added"] == 2
+    assert result["printers_mfu_added"] == 2
+    assert result["status"] in ("success", "partial")
+    assert _count_supplier_prices(db_session, "Merlion") == 2
+
+    cnt = int(db_session.execute(_t(
+        "SELECT count(*) FROM printers_mfu"
+    )).scalar())
+    assert cnt == 2
