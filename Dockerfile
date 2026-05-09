@@ -13,6 +13,10 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+# pre-deploy gate (этап 9d.1): ловит рассинхрон requirements.txt ↔
+# реально установленных пакетов (как было словлено на 9c с beautifulsoup4
+# и loguru). Падение здесь = починить requirements.txt, а не на старте.
+RUN pip check
 
 COPY . .
 
