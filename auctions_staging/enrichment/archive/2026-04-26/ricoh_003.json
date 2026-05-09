@@ -1,0 +1,35 @@
+{
+  "brand": "Ricoh",
+  "batch_id": "003",
+  "filled_at": "2026-04-26T12:00:00Z",
+  "results": [
+    {
+      "sku": "ricoh:434088",
+      "attrs": {
+        "print_speed_ppm": 32,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "n/a",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:912356/417378",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}

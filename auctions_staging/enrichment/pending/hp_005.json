@@ -1,0 +1,187 @@
+{
+  "brand": "HP",
+  "batch_id": "005",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "hp:9YF94A",
+      "mpn": "9YF94A",
+      "name": "Лазерное МФУ/ HP LaserJet MFP M236d",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:9YF95A",
+      "mpn": "9YF95A",
+      "name": "Лазерное МФУ/ HP LaserJet MFP M236dw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:9YG08A",
+      "mpn": "9YG08A",
+      "name": "Лазерное МФУ/ HP LaserJet MFP M236sdn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:9YG09A",
+      "mpn": "9YG09A",
+      "name": "Лазерное МФУ/ HP LaserJet MFP M236sdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:A2W75A",
+      "mpn": "A2W75A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP M880z",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:A2W76A",
+      "mpn": "A2W76A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP M880z+",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:CE711A",
+      "mpn": "CE711A",
+      "name": "Лазерный принтер/ HP Color LaserJet CP5225n",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:CE712A",
+      "mpn": "CE712A",
+      "name": "Лазерный принтер/ HP Color LaserJet CP5225dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:CF066A",
+      "mpn": "CF066A",
+      "name": "Лазерное МФУ/ HP LaserJet Enterprise MFP M725dn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:CF067A",
+      "mpn": "CF067A",
+      "name": "Лазерное МФУ/ HP LaserJet Enterprise MFP M725f",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:CF068A",
+      "mpn": "CF068A",
+      "name": "Лазерное МФУ/ HP LaserJet Enterprise MFP M725z",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:CF236A",
+      "mpn": "CF236A",
+      "name": "Лазерный принтер/ HP LaserJet Enterprise 700 M712dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:CF367A",
+      "mpn": "CF367A",
+      "name": "Лазерное МФУ/ HP LaserJet Enterprise Flow MFP M830z",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:CZ245A",
+      "mpn": "CZ245A",
+      "name": "Лазерный принтер/ HP LaserJet Enterprise M806x+",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:CZ993A",
+      "mpn": "CZ993A",
+      "name": "Принтер струйный HP OfficeJet 200 (CZ993A) A4 WiFi черный",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:D9L20A",
+      "mpn": "D9L20A",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 8730 All-in-One Printer",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:F9A28D",
+      "mpn": "F9A28D",
+      "name": "МФУ HP DesignJet T830 (А1, 24\", 4-х цветная, 2400x1200dpi,1Gb, USB/ Ethernet/Wi-Fi) F9A28D",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:J7Z98A",
+      "mpn": "J7Z98A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise M652n",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:J7Z99A",
+      "mpn": "J7Z99A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise M652dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:J8H61A",
+      "mpn": "J8H61A",
+      "name": "Лазерный принтер/ HP LaserJet Pro M501dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:N4K99C",
+      "mpn": "N4K99C",
+      "name": "Струйный принтер/ HP OfficeJet 202 Mobile Printer",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:T3U44A",
+      "mpn": "T3U44A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise M751dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:T3U51A",
+      "mpn": "T3U51A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise M856dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:T3U55A",
+      "mpn": "T3U55A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise MFP M776dn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:T3U56A",
+      "mpn": "T3U56A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP M776zs",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:W1A29A",
+      "mpn": "W1A29A",
+      "name": "Лазерное МФУ/ HP LaserJet Pro MFP M428fdn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:W1A30A",
+      "mpn": "W1A30A",
+      "name": "Лазерное МФУ/ HP LaserJet Pro MFP M428fdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:W1A77A",
+      "mpn": "W1A77A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP M479dw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:W1A78A",
+      "mpn": "W1A78A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP M479fnw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:W1A79A",
+      "mpn": "W1A79A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP M479fdn",
+      "category": "mfu"
+    }
+  ]
+}

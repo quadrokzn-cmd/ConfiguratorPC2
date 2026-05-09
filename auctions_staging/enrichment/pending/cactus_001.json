@@ -1,0 +1,19 @@
+{
+  "brand": "CACTUS",
+  "batch_id": "001",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "cactus:CS-LP1120NWB",
+      "mpn": "CS-LP1120NWB",
+      "name": "Принтер лазерный Cactus CS-LP1120NWB A4 черный (в комплекте: картридж + кабель USB, Ethernet)",
+      "category": "printer"
+    },
+    {
+      "sku": "cactus:CS-LP1120NWW",
+      "mpn": "CS-LP1120NWW",
+      "name": "Принтер лазерный Cactus CS-LP1120NWW A4 белый (в комплекте: картридж + кабель USB, Ethernet)",
+      "category": "printer"
+    }
+  ]
+}

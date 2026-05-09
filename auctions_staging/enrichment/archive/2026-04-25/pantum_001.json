@@ -1,0 +1,427 @@
+{
+  "brand": "Pantum",
+  "batch_id": "001",
+  "filled_at": "2026-04-24T12:00:00Z",
+  "results": [
+    {
+      "sku": "pantum:BM1800",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM1800W",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM2300",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM2300A",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM2300AW",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM2300W",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM270ADN",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 30000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM330ADN",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 30000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM420ADN",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 30000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM4310ADN",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5100ADN",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5100ADW",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5100FDN",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5100FDW",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5201ADN",
+      "attrs": {
+        "print_speed_ppm": 42,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BM5201ADW",
+      "attrs": {
+        "print_speed_ppm": 42,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP1800",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP1800W",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP2300",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP2300W",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1600,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP5100DN",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP5100DW",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP5200DN",
+      "attrs": {
+        "print_speed_ppm": 42,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:BP5200DW",
+      "attrs": {
+        "print_speed_ppm": 42,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM1100ADN",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM1100ADW",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM1100DW",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM2100ADN",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM2100ADW",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": "n/a",
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "pantum:CM2100DN",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}

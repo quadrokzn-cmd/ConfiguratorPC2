@@ -1,0 +1,21 @@
+{
+  "brand": "BROTHER",
+  "batch_id": "001",
+  "filled_at": "2026-04-24T00:00:00Z",
+  "results": [
+    {
+      "sku": "brother:PJ722Z1",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    }
+  ]
+}

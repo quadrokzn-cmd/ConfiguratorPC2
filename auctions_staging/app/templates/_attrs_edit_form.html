@@ -1,0 +1,119 @@
+{# Модальная форма правки атрибутов. attrs_source при сохранении станет 'manual'. #}
+<form hx-post="/nomenclature/{{ row.id }}/attrs"
+      hx-target="#row-{{ row.id }}"
+      hx-swap="outerHTML"
+      @htmx:after-request="editAttrsFor = null"
+      class="p-6 space-y-4">
+
+    <div class="flex items-start justify-between mb-2">
+        <div>
+            <h2 class="text-lg font-semibold">Атрибуты: {{ row.name }}</h2>
+            <p class="text-xs text-slate-500">SKU {{ row.sku }} · MPN {{ row.mpn or '—' }} · бренд {{ row.brand or '—' }}</p>
+        </div>
+        <button type="button" @click="editAttrsFor = null"
+                class="text-slate-400 hover:text-slate-700">×</button>
+    </div>
+
+    <div class="text-xs text-slate-500 -mt-2">
+        Оставьте «n/a», если значение неизвестно. После сохранения источник станет
+        <code>manual</code>.
+    </div>
+
+    {% set net = attrs.get('network_interface') %}
+    {% set net_is_list = net is iterable and net is not string and net != na %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">print_speed_ppm (стр/мин, int или n/a)</label>
+            <input type="text" name="print_speed_ppm"
+                   value="{{ attrs.get('print_speed_ppm') if attrs.get('print_speed_ppm') is not none else na }}"
+                   class="w-full border-slate-300 rounded text-sm">
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">colorness</label>
+            <select name="colorness" class="w-full border-slate-300 rounded text-sm">
+                {% for opt in [na, "ч/б", "цветной"] %}
+                <option value="{{ opt }}" {% if attrs.get('colorness') == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">max_format</label>
+            <select name="max_format" class="w-full border-slate-300 rounded text-sm">
+                {% for opt in [na, "A4", "A3"] %}
+                <option value="{{ opt }}" {% if attrs.get('max_format') == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">duplex</label>
+            <select name="duplex" class="w-full border-slate-300 rounded text-sm">
+                {% for opt in [na, "yes", "no"] %}
+                <option value="{{ opt }}" {% if attrs.get('duplex') == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">resolution_dpi (int или n/a)</label>
+            <input type="text" name="resolution_dpi"
+                   value="{{ attrs.get('resolution_dpi') if attrs.get('resolution_dpi') is not none else na }}"
+                   class="w-full border-slate-300 rounded text-sm">
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">network_interface</label>
+            <div class="flex items-center gap-4 text-sm">
+                <label class="inline-flex items-center gap-1">
+                    <input type="checkbox" name="network_interface" value="LAN"
+                           {% if net_is_list and 'LAN' in net %}checked{% endif %}> LAN
+                </label>
+                <label class="inline-flex items-center gap-1">
+                    <input type="checkbox" name="network_interface" value="WiFi"
+                           {% if net_is_list and 'WiFi' in net %}checked{% endif %}> WiFi
+                </label>
+                <span class="text-xs text-slate-400">снять оба = n/a</span>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">usb</label>
+            <select name="usb" class="w-full border-slate-300 rounded text-sm">
+                {% for opt in [na, "yes", "no"] %}
+                <option value="{{ opt }}" {% if attrs.get('usb') == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">starter_cartridge_pages (int или n/a)</label>
+            <input type="text" name="starter_cartridge_pages"
+                   value="{{ attrs.get('starter_cartridge_pages') if attrs.get('starter_cartridge_pages') is not none else na }}"
+                   class="w-full border-slate-300 rounded text-sm">
+        </div>
+
+        <div>
+            <label class="block text-xs text-slate-500 mb-1">print_technology</label>
+            <select name="print_technology" class="w-full border-slate-300 rounded text-sm">
+                {% for opt in [na, "лазерная", "струйная", "светодиодная"] %}
+                <option value="{{ opt }}" {% if attrs.get('print_technology') == opt %}selected{% endif %}>{{ opt }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+    </div>
+
+    <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+        <button type="button" @click="editAttrsFor = null"
+                class="px-3 py-1.5 text-sm rounded border border-slate-300">Отмена</button>
+        <button type="submit"
+                class="px-3 py-1.5 text-sm rounded bg-blue-600 text-white hover:bg-blue-700">
+            Сохранить
+        </button>
+    </div>
+
+</form>

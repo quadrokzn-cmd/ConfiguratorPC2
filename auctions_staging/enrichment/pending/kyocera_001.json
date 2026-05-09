@@ -1,0 +1,187 @@
+{
+  "brand": "Kyocera",
+  "batch_id": "001",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "kyocera:1102P23AX0",
+      "mpn": "1102P23AX0",
+      "name": "МФУ лазерный Kyocera ECOSYS M4125idn, А3, черно-белая печать (Азия альт. 1102P23NL0, тонер TK-6110)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102P33NL0",
+      "mpn": "1102P33NL0",
+      "name": "МФУ лазерный Kyocera M8130cidn/ МФУ лазерный Kyocera ECOSYS M8130cidn, A3, цветной, 30стр/мин (A4 ч/б), 30стр/мин (A4 цв.), 15стр/мин (A3 ч/б), 15стр/мин (A3 цв.), 1200x1200dpi, дуплекс, сетевой, USB",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102P43AX0",
+      "mpn": "1102P43AX0",
+      "name": "МФУ лазерный Kyocera ECOSYS M8124cidn, A3, цветная печать  (Азия альт. 1102P43NL0, тонер TK-8110 C/M/Y/K)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102P43NL0",
+      "mpn": "1102P43NL0",
+      "name": "МФУ лазерный Kyocera M8124cidn/ МФУ лазерный Kyocera ECOSYS M8124cidn, A3, цветной, 24стр/мин (A4 ч/б), 24стр/мин (A4 цв.), 12стр/мин (A3 ч/б), 12стр/мин (A3 цв.), 1200x1200dpi, дуплекс, сетевой, USB",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102RV3NL0",
+      "mpn": "1102RV3NL0",
+      "name": "Принтер Kyocera ECOSYS P2235dn (А4, 35стр/мин, 256Mb, 1200х1200, дупл., Ethernet, USB)",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102S03NL0",
+      "mpn": "1102S03NL0",
+      "name": "МФУ Kyocera  ECOSYS  M2135DN,P/S/C, A4, 35 str/min, 1200 dpi, 512 Mb, USB, LAN, duplex, autopod, start toner 1000 str.)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102S13NL0-NC1",
+      "mpn": "1102S13NL0-NC1",
+      "name": "МФУ Kyocera ECOSYS M2635dn, P/C/S/F, ч/б лазерный, A4, 35 стр/мин, 1200x1200 dpi, 512 Мб, USB 2.0, Network, лоток 250 л., Duplex, автопод., старт.тонер 1000 стр. (незначительное повреждение коробки)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102SG3NL0-NC3-001",
+      "mpn": "1102SG3NL0-NC3-001",
+      "name": "МФУ Kyocera ECOSYS M2735DW, P/C/S/F, ч/б лазерный, A4, 35 стр/мин, 1200x1200 dpi, 512 Мб, USB 2.0, Network, лоток 250 л., Duplex, автопод., старт.тонер 1000 стр. (Следы грязи)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102YJ3NL0",
+      "mpn": "1102YJ3NL0",
+      "name": "Принтер лазерный Kyocera PA3500cx/ ECOSYS PA3500cx 220-240V/PAGE PRINTER",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102YK3NL0",
+      "mpn": "1102YK3NL0",
+      "name": "МФУ лазерный Kyocera MA3500cix/ ECOSYS MA3500cix",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102YN3NL0",
+      "mpn": "1102YN3NL0",
+      "name": "МФУ цветной А3 лазерный Kyocera TASKalfa 4054ci/ Kyocera TASKalfa 4054ci A3 Col MFP",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102Z03NL0",
+      "mpn": "1102Z03NL0",
+      "name": "Принтер лазерный Kyocera PA4000cx/ ECOSYS PA4000cx 220-240V/PAGE PRINTER",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102Z33NL0",
+      "mpn": "1102Z33NL0",
+      "name": "МФУ лазерный Kyocera MA3500cifx/ ECOSYS MA3500cifx 220-240V50/60HZ (replaces M6630cidn)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102Z43NL0",
+      "mpn": "1102Z43NL0",
+      "name": "МФУ лазерный Kyocera MA4000cix/ ECOSYS MA4000cix 220-240V50/60HZ (replaces M6235CIDN)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102Z53NL0",
+      "mpn": "1102Z53NL0",
+      "name": "МФУ лазерный Kyocera MA4000cifx/ ECOSYS MA4000cifx 220-240V50/60HZ (replaces M6635cidn)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102ZS3NL0",
+      "mpn": "1102ZS3NL0",
+      "name": "МФУ лазерный Kyocera TASKalfa MZ4000i черно-белая печать, A3/ Kyocera TASKalfa MZ4000i",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0D3NL0",
+      "mpn": "110C0D3NL0",
+      "name": "МФУ лазерный Kyocera MA2600cwfx/ Kyocera ECOSYS MA2600cwfx",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0D3NL0-NC1",
+      "mpn": "110C0D3NL0-NC1",
+      "name": "МФУ Kyocera ECOSYS MA2600cwfx P/C/S/F Цв.лазерный А4, 26 стр/мин, 1200 dpi, 512Mb, USB,WiFi, Network, дуплекс, автоподатчик, старт.тонер. (незначительное повреждение коробки)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0F3NL0",
+      "mpn": "110C0F3NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA2600cfx/ Kyocera Ecosys MA2600cfx",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0T3NL0",
+      "mpn": "110C0T3NL0",
+      "name": "Принтер лазерный Kyocera PA6000x/ Принтер лазерный Kyocera Ecosys PA6000x",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C0V3NL0",
+      "mpn": "110C0V3NL0",
+      "name": "МФУ лазерный Kyocera MA6000ifx/ МФУ лазерный Kyocera Ecosys MA6000ifx",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0W3NL0",
+      "mpn": "110C0W3NL0",
+      "name": "Принтер лазерный Kyocera PA5500x/ ECOSYS PA5500x 220-240V/PAGE PRINTER (replaces P3155DN)",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C0Z3NL0",
+      "mpn": "110C0Z3NL0",
+      "name": "МФУ лазерный Kyocera MA5500ifx/ МФУ лазерный Kyocera Ecosys MA5500ifx",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C123NL0",
+      "mpn": "110C123NL0",
+      "name": "МФУ Kyocera ECOSYS MA4500fx (P/C/S/F, ч/б лазерный, A4, 45 стр/мин, 1200x1200 dpi, 1 Гб, USB 2.0, Network, лоток 500 л., Duplex, DADF, старт.тонер 6000 стр.)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C133NL0",
+      "mpn": "110C133NL0",
+      "name": "МФУ лазерный Kyocera MA4500x/ ECOSYS MA4500x (многофункциональное устройство)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C143AX0",
+      "mpn": "110C143AX0",
+      "name": "Kyocera ECOSYS MA4000x (Asia, toner TK-1275)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C143NL0",
+      "mpn": "110C143NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4000x/ МФУ лазерный Kyocera Ecosys MA4000x, A4, ч/б, 40стр/мин (A4 ч/б), 1200x1200dpi, дуплекс, сетевой, USB",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C153NL0",
+      "mpn": "110C153NL0",
+      "name": "Принтер лазерный Kyocera PA4000x/ Принтер лазерный Kyocera Ecosys PA4000x",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C1B3NL0",
+      "mpn": "110C1B3NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4000fx",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C1B3NL0-NC2",
+      "mpn": "110C1B3NL0-NC2",
+      "name": "мфу Kyocera ECOSYS MA4000fx , P/C/S/F, ч/б лазерный, A4, 40 стр/мин, 1200x1200 dpi, 1024 Мб, USB 2.0, Network, лоток 250 л., Duplex, автопод., старт.тонер 3600 стр. (существенное повреждение коробки)",
+      "category": "mfu"
+    }
+  ]
+}

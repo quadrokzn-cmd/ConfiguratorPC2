@@ -1,0 +1,187 @@
+{
+  "brand": "HP",
+  "batch_id": "003",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "hp:4ZB95A",
+      "mpn": "4ZB95A",
+      "name": "Лазерный принтер/ HP Color Laser 150nw",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:4ZB96A",
+      "mpn": "4ZB96A",
+      "name": "Лазерное МФУ/ HP Color Laser MFP 178nw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB97A",
+      "mpn": "4ZB97A",
+      "name": "Лазерное МФУ/ HP Color Laser MFP 179fnw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB97A_bp",
+      "mpn": "4ZB97A_bp",
+      "name": "МФУ лазерное HP Color Laser 179 fnw УЦЕНКА! после ремонта",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:537P5C",
+      "mpn": "537P5C",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 9730",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:53N94C",
+      "mpn": "53N94C",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 9720",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:58M42A",
+      "mpn": "58M42A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise 6701dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:58R10A",
+      "mpn": "58R10A",
+      "name": "Лазерное МФУ/ HP CLJ Ent MFP 5800ZF Printer",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5AR83B",
+      "mpn": "5AR83B",
+      "name": "Струйное МФУ/ HP DeskJet 2710",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5HB07A",
+      "mpn": "5HB07A",
+      "name": "Плоттер HP DesignJet T230 (A1, 24\", 4-х цветная, 2400x1200 dpi, Ethernet (RJ-45), USB 2.0) замена 5HB07A",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HB08A",
+      "mpn": "5HB08A",
+      "name": "Плоттер HP DesignJet T650 (А1, 24\", 4-х цветная, 2400x1200dpi,1Gb, USB/Ethernet/Wi-Fi, подставка) замена 5HB08A",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HB09A",
+      "mpn": "5HB09A",
+      "name": "Плоттер HP DesignJet T630 (А1, 24\", 4-х цветная, 2400x1200dpi,1Gb, USB/ Ethernet/Wi-Fi, подставка) замена 5HB09A",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HB10A",
+      "mpn": "5HB10A",
+      "name": "Плоттер HP DesignJet T650 (А0, 36\", 4-х цветная, 2400x1200dpi,1Gb, USB/Ethernet/Wi-Fi, подставка) замена 5HB10A",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HB11A.",
+      "mpn": "5HB11A.",
+      "name": "Плоттер струйный HP DesignJet T630 (А0, 36\", 4-х цветная, 2400x1200dpi, 1Gb, WiFi, Lan, USB, подставка) замена 5HB11A",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HH48A",
+      "mpn": "5HH48A",
+      "name": "Лазерный принтер/ HP Color LaserJet Pro 4203dw",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:5HH65A",
+      "mpn": "5HH65A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 4303dw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5HH66A",
+      "mpn": "5HH66A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 4303fdn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5HH67A",
+      "mpn": "5HH67A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 4303fdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5SD78C",
+      "mpn": "5SD78C",
+      "name": "Струйное МФУ/ HP Deskjet Plus Ink Advantage 6475",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:5SE22C",
+      "mpn": "5SE22C",
+      "name": "Струйное МФУ/ HP Deskjet Plus Ink Advantage 6075",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:60K47C",
+      "mpn": "60K47C",
+      "name": "Струйное МФУ/ HP DeskJet Ink Advantage 2875",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6QN28A",
+      "mpn": "6QN28A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise 5700dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:6QN29A",
+      "mpn": "6QN29A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise MFP 5800dn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6QN33A",
+      "mpn": "6QN33A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise 6700dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:6QN35A",
+      "mpn": "6QN35A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise MFP 6800dn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6QN36A",
+      "mpn": "6QN36A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP 6800zf",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6QN37A",
+      "mpn": "6QN37A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP 6800zfsw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6UU46A",
+      "mpn": "6UU46A",
+      "name": "Струйное МФУ/ HP Smart Tank 720",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6UU47A",
+      "mpn": "6UU47A",
+      "name": "Струйное МФУ/ HP Smart Tank 750",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:6UU48A",
+      "mpn": "6UU48A",
+      "name": "Струйное МФУ/ HP Smart Tank 670",
+      "category": "mfu"
+    }
+  ]
+}

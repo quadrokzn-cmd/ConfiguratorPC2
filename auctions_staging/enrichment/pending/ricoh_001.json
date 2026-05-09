@@ -1,0 +1,187 @@
+{
+  "brand": "Ricoh",
+  "batch_id": "001",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "ricoh:408291",
+      "mpn": "408291",
+      "name": "Принтер Ricoh SP 230DNw/ SP 230DNw",
+      "category": "printer"
+    },
+    {
+      "sku": "ricoh:408293",
+      "mpn": "408293",
+      "name": "МФУ Ricoh SP 230SFNw/ SP 230SFNw",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:408527",
+      "mpn": "408527",
+      "name": "Монохромное А4 МФУ 4-в-1 Ricoh M 320FB",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:408536",
+      "mpn": "408536",
+      "name": "Монохромное А4 МФУ 3-в-1 Ricoh M 320",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:409474",
+      "mpn": "409474",
+      "name": "Цифровое полноцветное МФУ Pro C5300SL",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:417284",
+      "mpn": "417284",
+      "name": "Инженерная система Ricoh MP W7100SP 36\" (914 мм) 5 стр/мин (A0); 10 стр/мин (A1), докупить тонер 821021  (1шт), девелопер B1259640 (2шт),  (Официальная гарантия Ricoh 1 год) Требуется запуск в СЦ",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:417378",
+      "mpn": "417378",
+      "name": "Цифровое МФУ MP 2014AD",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:417435",
+      "mpn": "417435",
+      "name": "Цифровое МФУ MP 305+ SPF/ Ricoh MP 305+ SPF",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418117",
+      "mpn": "418117",
+      "name": "Цифровое МФУ M 2700",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418118",
+      "mpn": "418118",
+      "name": "Цифровое МФУ M 2701",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418146",
+      "mpn": "418146",
+      "name": "Цифровое МФУ IM 2702",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418224",
+      "mpn": "418224",
+      "name": "Цветное МФУ Ricoh IM C530FB",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418281",
+      "mpn": "418281",
+      "name": "Цветное МФУ Ricoh IM C2000",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418289",
+      "mpn": "418289",
+      "name": "Цветное МФУ Ricoh IM C2500",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418297",
+      "mpn": "418297",
+      "name": "Цветное МФУ Ricoh IM C3000",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418305",
+      "mpn": "418305",
+      "name": "Цветное МФУ Ricoh IM C3500",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418314",
+      "mpn": "418314",
+      "name": "Цветное МФУ Ricoh IM C4500",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418470",
+      "mpn": "418470",
+      "name": "Монохромный принтер А4 Ricoh P 800",
+      "category": "printer"
+    },
+    {
+      "sku": "ricoh:418487",
+      "mpn": "418487",
+      "name": "Монохромное МФУ А4 IM 350/ Ricoh IM 350",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418832",
+      "mpn": "418832",
+      "name": "Цифровое МФУ IM 2500/ Ricoh IM 2500",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418834",
+      "mpn": "418834",
+      "name": "Монохромное МФУ Ricoh IM 3000/ Ricoh IM 3000",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418836",
+      "mpn": "418836",
+      "name": "Цифровое МФУ IM 3500",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418839",
+      "mpn": "418839",
+      "name": "Цифровое МФУ IM 4000A",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:418968",
+      "mpn": "418968",
+      "name": "Цветное А3 МФУ M C2000",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419295",
+      "mpn": "419295",
+      "name": "Цветное МФУ Ricoh IM C4500LT/ Ricoh IM C4500LT",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419308",
+      "mpn": "419308",
+      "name": "Цветное МФУ А3 IM C3010",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419317",
+      "mpn": "419317",
+      "name": "Цветное МФУ А3 IM C3510",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419326",
+      "mpn": "419326",
+      "name": "Цветное МФУ А3 IM C4510",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419328",
+      "mpn": "419328",
+      "name": "Цветное МФУ А3 IM C4510A",
+      "category": "mfu"
+    },
+    {
+      "sku": "ricoh:419330",
+      "mpn": "419330",
+      "name": "Цветное МФУ Ricoh IM C5510A SRА3, 55ppm., SPDF 220sheet, 2x550-sheet cassettes, 100-sheet manual bypass, 8GB memory, 250GB SSD, Ethernet, USB 2.0, добавить комплект тонеров. (Обязательный запуск инженером АСЦ)",
+      "category": "mfu"
+    }
+  ]
+}

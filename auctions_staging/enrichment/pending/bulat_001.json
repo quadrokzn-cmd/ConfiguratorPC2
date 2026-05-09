@@ -1,0 +1,43 @@
+{
+  "brand": "Bulat",
+  "batch_id": "001",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "bulat:XXBT0M1121020",
+      "mpn": "XXBT0M1121020",
+      "name": "МФУ лазерное монохромное/ BULAT M1121nw",
+      "category": "mfu"
+    },
+    {
+      "sku": "bulat:XXBT0M2033020",
+      "mpn": "XXBT0M2033020",
+      "name": "МФУ лазерное монохромное/ BULAT M2033dnwa",
+      "category": "mfu"
+    },
+    {
+      "sku": "bulat:XXBT0M3040010",
+      "mpn": "XXBT0M3040010",
+      "name": "МФУ лазерное монохромное/ BULAT M3040dna",
+      "category": "mfu"
+    },
+    {
+      "sku": "bulat:XXBT0M3040020",
+      "mpn": "XXBT0M3040020",
+      "name": "МФУ лазерное монохромное/ BULAT M3040dnwa",
+      "category": "mfu"
+    },
+    {
+      "sku": "bulat:XXBT0P1024020",
+      "mpn": "XXBT0P1024020",
+      "name": "Принтер лазерный монохромный/ BULAT P1024W",
+      "category": "printer"
+    },
+    {
+      "sku": "bulat:XXBT0P1121020",
+      "mpn": "XXBT0P1121020",
+      "name": "Принтер лазерный монохромный/ BULAT P1121nw",
+      "category": "printer"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "brand": "HP",
+  "batch_id": "002",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "hp:3G632A",
+      "mpn": "3G632A",
+      "name": "Лазерное МФУ/ HP LaserJet Pro 3103fdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3G653A",
+      "mpn": "3G653A",
+      "name": "Лазерный принтер/ HP LaserJet Pro 3003dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:3G654A",
+      "mpn": "3G654A",
+      "name": "Лазерный принтер/ HP LaserJet Pro 3003dw",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:3PZ15A",
+      "mpn": "3PZ15A",
+      "name": "Лазерный принтер/ HP LaserJet Enterprise M406dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:3PZ55A",
+      "mpn": "3PZ55A",
+      "name": "Лазерное МФУ/ HP LaserJet Enterprise MFP M430f",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3PZ95A",
+      "mpn": "3PZ95A",
+      "name": "Лазерный принтер/ HP Color LaserJet Enterprise M455dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:3QA55A",
+      "mpn": "3QA55A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Ent MFP M480f Printer",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3UK83B",
+      "mpn": "3UK83B",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 9010",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3WT91A",
+      "mpn": "3WT91A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Enterprise Flow MFP M776z",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3XV14B",
+      "mpn": "3XV14B",
+      "name": "Струйное МФУ/ HP DeskJet Plus 4120",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3XV18B",
+      "mpn": "3XV18B",
+      "name": "Струйное МФУ/ HP DeskJet 2720",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:3YW73A",
+      "mpn": "3YW73A",
+      "name": "МФУ струйный HP Smart Tank 519 AiO (3YW73A) A4 WiFi черный",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:404K9C",
+      "mpn": "404K9C",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 9130",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:405W0C",
+      "mpn": "405W0C",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 8123 All-in-One Printer",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:499M6A",
+      "mpn": "499M6A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 3303sdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:499M7A",
+      "mpn": "499M7A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 3303fdn",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:499M8A",
+      "mpn": "499M8A",
+      "name": "Лазерное МФУ/ HP Color LaserJet Pro MFP 3303fdw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:499N4A",
+      "mpn": "499N4A",
+      "name": "Лазерный принтер/ HP Color LaserJet Pro 3203dw",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:4A8D4A",
+      "mpn": "4A8D4A",
+      "name": "Струйное МФУ/ HP Smart Tank 581",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4RA89A",
+      "mpn": "4RA89A",
+      "name": "Лазерный принтер/ HP Color LaserJet Pro 4203dn",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:4SB24A",
+      "mpn": "4SB24A",
+      "name": "Струйное МФУ/ HP Smart Tank 530",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4SR29A",
+      "mpn": "4SR29A",
+      "name": "Струйное МФУ/ HP Smart Tank 500",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4V2M9C",
+      "mpn": "4V2M9C",
+      "name": "Струйное МФУ/ HP OfficeJet Pro 9120",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4WF66A",
+      "mpn": "4WF66A",
+      "name": "Струйное МФУ/ HP Smart Tank 790",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB77A",
+      "mpn": "4ZB77A",
+      "name": "Лазерный принтер/ HP Laser 107a",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:4ZB78A",
+      "mpn": "4ZB78A",
+      "name": "Лазерный принтер/ HP Laser 107w",
+      "category": "printer"
+    },
+    {
+      "sku": "hp:4ZB82A",
+      "mpn": "4ZB82A",
+      "name": "Лазерное МФУ/ HP Laser 135a",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB83A",
+      "mpn": "4ZB83A",
+      "name": "Лазерное МФУ/ HP Laser 135w",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB84A",
+      "mpn": "4ZB84A",
+      "name": "Лазерное МФУ/ HP Laser 137fnw",
+      "category": "mfu"
+    },
+    {
+      "sku": "hp:4ZB94A",
+      "mpn": "4ZB94A",
+      "name": "Лазерный принтер/ HP Color Laser 150a",
+      "category": "printer"
+    }
+  ]
+}

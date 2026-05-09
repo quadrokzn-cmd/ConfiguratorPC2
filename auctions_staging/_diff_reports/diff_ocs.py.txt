@@ -1,0 +1,223 @@
+--- d:/ProjectsClaudeCode/ConfiguratorPC2/auctions_staging/app/modules/auctions/price_loaders/ocs.py	2026-04-26 16:13:03.914615600 +0300
++++ d:/ProjectsClaudeCode/ConfiguratorPC2/app/services/price_loaders/ocs.py	2026-04-23 20:03:50.011095000 +0300
+@@ -1,3 +1,12 @@
++# Адаптер OCS: чтение прайса с листа «Наличие и цены».
++#
++# Отличия от монолитного price_loader.py (до этапа 7):
++#   - здесь ТОЛЬКО парсинг, без записи в БД (этим занимается orchestrator);
++#   - дополнительно читается колонка EAN128 → PriceRow.gtin
++#     (раньше GTIN не использовался вообще);
++#   - категории определяются по тем же парам (колонка B, колонка C),
++#     что и раньше — маппинг не менялся, чтобы не ломать существующую БД.
++
+ from __future__ import annotations
+ 
+ import logging
+@@ -7,49 +16,45 @@
+ 
+ from openpyxl import load_workbook
+ 
+-from app.modules.auctions.catalog.brand_normalizer import canonical_brand
+-from app.modules.auctions.price_loaders.base import BasePriceLoader
+-from app.modules.auctions.price_loaders.models import OurCategory, PriceRow
++from app.services.price_loaders.base import BasePriceLoader
++from app.services.price_loaders.models import PriceRow
+ 
+ logger = logging.getLogger(__name__)
+ 
+ 
+-_PRINTER_CATEGORIES_B: set[str] = {
+-    "Принтеры",
+-    "МФУ",
+-}
+-
+-
+-_BC_CATEGORY_MAP: dict[tuple[str, str], OurCategory] = {
+-    ("Принтеры", "Принтеры лазерные"): "printer",
+-    ("Принтеры", "Принтеры струйные"): "printer",
+-    ("Принтеры", "Принтеры матричные"): "ignore",
+-    ("МФУ", "МФУ лазерные"): "mfu",
+-    ("МФУ", "МФУ струйные"): "mfu",
+-    ("МФУ", "МФУ матричные"): "ignore",
++# (колонка B, колонка C) → (our_category, исторически имя таблицы).
++# Формат совпадает с прежним _CATEGORY_MAP, чтобы ничего не сломать.
++_CATEGORY_MAP: dict[tuple[str, str | None], str] = {
++    ("Процессоры",                       None): "cpu",
++    ("Материнские платы",                None): "motherboard",
++    ("Оперативная память",               None): "ram",
++    ("Видеокарты",                       None): "gpu",
++    ("Накопители информации", "Жёсткие диски"):           "storage",
++    ("Накопители информации", "Твердотельные накопители"): "storage",
++    ("Корпуса",                          None): "case",
++    ("Блоки питания",                    None): "psu",
++    ("Системы охлаждения для ПК", "Воздушное охлаждение для процессоров"): "cooler",
++    ("Системы охлаждения для ПК",
++     "Системы жидкостного охлаждения «всё-в-одном» для процессоров"):     "cooler",
+ }
+ 
+ 
+-def _classify_ocs(cat_b: str, kind_c: str) -> OurCategory:
+-    key = (cat_b, kind_c)
+-    if key in _BC_CATEGORY_MAP:
+-        return _BC_CATEGORY_MAP[key]
+-    logger.info(
+-        "OCS (B=%r, C=%r): classified as ignore (unknown combination)", cat_b, kind_c
+-    )
+-    return "ignore"
+-
+-
+-_COL_CAT_B = 1
+-_COL_KIND_C = 2
+-_COL_MAKER = 3
+-_COL_SUPPLIER_SKU = 4
+-_COL_SKU = 6
+-_COL_NAME = 7
+-_COL_PRICE = 8
+-_COL_CURRENCY = 9
+-_COL_STOCK = 11
+-_COL_TRANSIT = 17
++# Индексы колонок (0-based) в листе «Наличие и цены».
++# A=cat_a, B=cat_b, C=kind_c, D=maker, E=supplier_sku, G=mpn, H=name,
++# I=price, J=currency, L=stock, R=transit (итого минимум 18 колонок).
++# EAN128 в листе OCS идёт после основной группы и определяется по
++# заголовку (см. _find_ean_column ниже) — индекс у разных версий прайса
++# может отличаться, поэтому хардкодить небезопасно.
++_COL_CAT_B        = 1
++_COL_KIND_C       = 2
++_COL_MAKER        = 3
++_COL_SUPPLIER_SKU = 4    # E
++_COL_SKU          = 6    # G — MPN
++_COL_NAME         = 7
++_COL_PRICE        = 8
++_COL_CURRENCY     = 9
++_COL_STOCK        = 11
++_COL_TRANSIT      = 17
+ 
+ 
+ def _cell(row: tuple, idx: int):
+@@ -76,12 +81,26 @@
+         return 0
+ 
+ 
++def _resolve_category(cat_b: str, kind_c: str) -> str | None:
++    b = (cat_b or "").strip()
++    c = (kind_c or "").strip()
++    hit = _CATEGORY_MAP.get((b, c if c else None))
++    if hit:
++        return hit
++    return _CATEGORY_MAP.get((b, None))
++
++
+ def _normalize_gtin(value) -> str | None:
++    """EAN128 из OCS может прийти как число (12 цифр без ведущих нулей),
++    как строка, или как пустое значение. Приводим к строке и оставляем
++    только цифры — чтобы одинаково легло в VARCHAR(20)."""
+     if value is None:
+         return None
+     s = str(value).strip()
+     if not s:
+         return None
++    # Float-представление 1.23456789012e12 — защита, если Excel решил
++    # отдать число в экспоненциальной записи.
+     if "e" in s.lower():
+         try:
+             s = str(int(Decimal(s)))
+@@ -92,6 +111,12 @@
+ 
+ 
+ def _find_ean_column(header_row: tuple) -> int | None:
++    """Возвращает индекс колонки EAN128 по заголовку или None.
++
++    EAN128 — глобальный штрихкод товара, у OCS он лежит в одной из
++    крайних колонок (R/S/T в разных версиях прайса). Вместо хардкода
++    индекса ищем по имени — это стабильнее.
++    """
+     for idx, cell in enumerate(header_row):
+         if cell is None:
+             continue
+@@ -101,8 +126,8 @@
+     return None
+ 
+ 
+-class OcsPriceLoader(BasePriceLoader):
+-    supplier_code = "ocs"
++class OcsLoader(BasePriceLoader):
++    supplier_name = "OCS"
+ 
+     @classmethod
+     def detect(cls, filename: str) -> bool:
+@@ -118,51 +143,58 @@
+             )
+         ws = wb[sheet_name]
+ 
++        # Первая строка — заголовки. Ищем индекс EAN128 по имени.
+         header = next(ws.iter_rows(min_row=1, max_row=1, values_only=True), ())
+         ean_idx = _find_ean_column(header)
+         if ean_idx is None:
+-            logger.info("OCS: колонка EAN128 не найдена — GTIN не будет заполняться.")
++            # Нормально: старые версии прайса могут не иметь EAN128,
++            # gtin останется None — это не ошибка, просто меньше инфы.
++            logger.info("В прайсе OCS колонка EAN128 не найдена — GTIN не будет заполняться.")
+ 
+         for row_idx, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
+             if not row or all(v is None or str(v).strip() == "" for v in row):
+                 continue
+ 
+-            cat_b = str(_cell(row, _COL_CAT_B) or "").strip()
+-            kind_c = str(_cell(row, _COL_KIND_C) or "").strip()
+-
+-            if cat_b not in _PRINTER_CATEGORIES_B:
+-                continue
+-
+-            manufacturer = canonical_brand(str(_cell(row, _COL_MAKER) or "").strip()) or None
++            cat_b        = str(_cell(row, _COL_CAT_B)  or "").strip()
++            kind_c       = str(_cell(row, _COL_KIND_C) or "").strip()
++            manufacturer = str(_cell(row, _COL_MAKER)  or "").strip() or None
+             supplier_sku = str(_cell(row, _COL_SUPPLIER_SKU) or "").strip()
+-            mpn = str(_cell(row, _COL_SKU) or "").strip()
+-            name = str(_cell(row, _COL_NAME) or "").strip()
+-            price_raw = _cell(row, _COL_PRICE)
+-            currency_raw = _cell(row, _COL_CURRENCY)
+-            stock_raw = _cell(row, _COL_STOCK)
+-            transit_raw = _cell(row, _COL_TRANSIT)
+-            ean_raw = _cell(row, ean_idx) if ean_idx is not None else None
++            mpn          = str(_cell(row, _COL_SKU)   or "").strip()
++            name         = str(_cell(row, _COL_NAME)  or "").strip()
++            price_raw    =     _cell(row, _COL_PRICE)
++            currency_raw =     _cell(row, _COL_CURRENCY)
++            stock_raw    =     _cell(row, _COL_STOCK)
++            transit_raw  =     _cell(row, _COL_TRANSIT)
++            ean_raw      =     _cell(row, ean_idx) if ean_idx is not None else None
++
++            our_category = _resolve_category(cat_b, kind_c)
+ 
+             price = _parse_price(price_raw)
+             if price is None:
++                # Без цены строка бесполезна — orchestrator её пропустит,
++                # но для OCS мы и раньше так же делали через counters['errors'].
+                 continue
+ 
+             currency = (str(currency_raw).strip().upper() if currency_raw else "RUB")[:3] or "RUB"
+ 
++            # В прайсе OCS каталожный номер (MPN) был обязательным.
++            # Сохраняем это правило: если MPN пуст — пропускаем строку.
+             if not mpn:
+                 continue
+ 
++            # У OCS supplier_sku (колонка E) может быть пустым — тогда
++            # в supplier_prices.supplier_sku запишется NULL.
+             yield PriceRow(
+                 supplier_sku=supplier_sku or "",
+                 mpn=mpn,
+                 gtin=_normalize_gtin(ean_raw),
+                 brand=manufacturer,
+                 raw_category=" | ".join(x for x in (cat_b, kind_c) if x),
++                our_category=our_category,
+                 name=name,
+                 price=price,
+                 currency=currency,
+                 stock=_parse_int(stock_raw),
+                 transit=_parse_int(transit_raw),
+-                our_category=_classify_ocs(cat_b, kind_c),
+                 row_number=row_idx,
+             )

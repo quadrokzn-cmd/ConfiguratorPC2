@@ -1,0 +1,49 @@
+{
+  "brand": "Konica Minolta",
+  "batch_id": "002",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "konica minolta:A7AH027",
+      "mpn": "A7AH027",
+      "name": "Лазерное многофункциональное устройство Konica Minolta bizhub 287 (МФУ, A3, 28 стр./мин, без крышки и ADF, без тумбы, без картриджей, без кабеля питания, запуск только инженером платно)",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:AA7R021",
+      "mpn": "AA7R021",
+      "name": "Konica Minolta Bizhub C450i",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:AAJP027",
+      "mpn": "AAJP027",
+      "name": "МФУ Konica Minolta bizhub C3321i (МФУ,A4, Color, 33 стр./мин, Duplex, 1200x1200, RAM 4GB, 16GB SD, 1,6 GHz, panel 7\" sensor, USB/GBE/WiFi(opt.), DADF 80, tray 500+100, full toners,запуск инженером платно)",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:ACVD021",
+      "mpn": "ACVD021",
+      "name": "МФУ Konica Minolta Bizhub C257i/ Konica Minolta bizhub C257i A3 (without cover, without toner, without 220V power cable, without cartridges)",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:ADXK021",
+      "mpn": "ADXK021",
+      "name": "МФУ Konica Minolta bizhub C301i (МФУ, A3, 30 стр./мин, без крышки и ADF, без тумбы, без картриджей, без кабеля питания, запуск только инженером платно)",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:ADXM021",
+      "mpn": "ADXM021",
+      "name": "Konica Minolta Bizhub C251i",
+      "category": "mfu"
+    },
+    {
+      "sku": "konica minolta:ADXW021",
+      "mpn": "ADXW021",
+      "name": "МФУ Konica Minolta bizhub 301i (МФУ, A3, 30 стр./мин, без крышки и ADF, без тумбы, без картриджей, без кабеля питания, запуск только инженером платно, замена AC78021)",
+      "category": "mfu"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "brand": "KYOCERA",
+  "batch_id": "003",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "kyocera:1102M63RU0/RUV/RU2/NX2/DZ2",
+      "mpn": "1102M63RU0/RUV/RU2/NX2/DZ2",
+      "name": "МФУ лазерный Kyocera FS-1025MFP (1102M63RU0/RUV/RU2/NX2/DZ2) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102M73NX2/DZ2/RU0/RUV/RU2",
+      "mpn": "1102M73NX2/DZ2/RU0/RUV/RU2",
+      "name": "МФУ лазерный Kyocera FS-1125MFP (1102M73NX2/DZ2/RU0/RUV/RU2) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102P13NL0",
+      "mpn": "1102P13NL0",
+      "name": "МФУ лазерный Kyocera Ecosys M4132idn (1102P13NL0) A3 Duplex Net белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102P23NL0/NL1",
+      "mpn": "1102P23NL0/NL1",
+      "name": "МФУ лазерный Kyocera Ecosys M4125idn (1102P23NL0/NL1) A3 Duplex Net белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102RW3NL0",
+      "mpn": "1102RW3NL0",
+      "name": "Принтер лазерный Kyocera Ecosys P2235dw (1102RW3NL0) A4 Duplex Net WiFi черный",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102S03NL0/L1",
+      "mpn": "1102S03NL0/L1",
+      "name": "МФУ лазерный Kyocera Ecosys M2135DN (1102S03NL0/L1) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102S13NL0",
+      "mpn": "1102S13NL0",
+      "name": "МФУ лазерный Kyocera Ecosys M2635DN (1102S13NL0) A4 Duplex Net белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102S33AX0",
+      "mpn": "1102S33AX0",
+      "name": "МФУ лазерный Kyocera Ecosys M2040DN (Азия) (1102S33AX0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102SG3NL0",
+      "mpn": "1102SG3NL0",
+      "name": "МФУ лазерный Kyocera Ecosys M2735dw (1102SG3NL0) A4 Duplex WiFi белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:1102Y43NL0/1102Y43NL0",
+      "mpn": "1102Y43NL0/1102Y43NL0",
+      "name": "Принтер лазерный Kyocera P4140dn (1102Y43NL0/1102Y43NL0) A3 Duplex Net белый",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102Z13NL0",
+      "mpn": "1102Z13NL0",
+      "name": "Принтер лазерный Kyocera Ecosys PA4500cx (1102Z13NL0) A4 Duplex белый",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:1102ZT3NL0",
+      "mpn": "1102ZT3NL0",
+      "name": "МФУ Kyocera MZ3200i Ч/Б  A3, 32/17 ppm A4/A3, 1200 dpi , 4GB + 32GB SSD, USB3.0, Ethernet, без крышки и старта 1102ZT3NL0  запуск через АСЦ",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0B3NL0",
+      "mpn": "110C0B3NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA2100cfx (110C0B3NL0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0D3NL0/110C0D3NL1",
+      "mpn": "110C0D3NL0/110C0D3NL1",
+      "name": "МФУ лазерный Kyocera Ecosys MA2600cwfx (110C0D3NL0/110C0D3NL1) A4 Duplex WiFi белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C0H3NL0",
+      "mpn": "110C0H3NL0",
+      "name": "Принтер лазерный Kyocera Ecosys PA2600cx (110C0H3NL0) A4 Duplex Net белый",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C0X3NL0",
+      "mpn": "110C0X3NL0",
+      "name": "Принтер лазерный Kyocera Ecosys PA5000x (110C0X3NL0) A4 Duplex белый",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C0Y3NL0",
+      "mpn": "110C0Y3NL0",
+      "name": "Принтер лазерный Kyocera Ecosys PA4500x (110C0Y3NL0) A4 Duplex белый",
+      "category": "printer"
+    },
+    {
+      "sku": "kyocera:110C103NL0",
+      "mpn": "110C103NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4500ifx (110C103NL0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C113NL0",
+      "mpn": "110C113NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4500ix (110C113NL0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C133AX0",
+      "mpn": "110C133AX0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4500x (Азия) (110C133AX0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C133NL0/110C133DZ0",
+      "mpn": "110C133NL0/110C133DZ0",
+      "name": "МФУ лазерный Kyocera Ecosys MA4500x (110C133NL0/110C133DZ0) A4 Duplex белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C1D3NL0/110C1D3NL1",
+      "mpn": "110C1D3NL0/110C1D3NL1",
+      "name": "МФУ лазерный Kyocera Ecosys MA4000wifx (110C1D3NL0/110C1D3NL1) A4 Duplex WiFi белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C223NL1/110C223NL0",
+      "mpn": "110C223NL1/110C223NL0",
+      "name": "МФУ лазерный Kyocera Ecosys MA2101cwfx (110C223NL1/110C223NL0) A4 Duplex WiFi белый",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:110C2K3NL0",
+      "mpn": "110C2K3NL0",
+      "name": "Цветное МФУ Kyocera TASKalfa MZ4001ci  A3, Ч/Б 40 стр, цвет 20 стр. A3, баннер с размерами 305 x 1 220 мм,автопод.на выбор, тонеры не входят в комплект(110C2K3NL0)",
+      "category": "mfu"
+    },
+    {
+      "sku": "kyocera:P3145DN",
+      "mpn": "P3145DN",
+      "name": "Принтер лазерный Kyocera P3145dn A4 Duplex Net белый (в комплекте: + картридж)",
+      "category": "printer"
+    }
+  ]
+}

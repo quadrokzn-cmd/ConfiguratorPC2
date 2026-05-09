@@ -1,0 +1,43 @@
+{
+  "brand": "EPSON",
+  "batch_id": "002",
+  "generated_at": "2026-04-25T19:36:05+00:00",
+  "models": [
+    {
+      "sku": "epson:C11CK39505/C11CK39503/C11CK39403",
+      "mpn": "C11CK39505/C11CK39503/C11CK39403",
+      "name": "Принтер фабрика печати Epson L11050 A3+, 4цв., 30 стр/мин, USB 2.0 (C11CK39505/C11CK39503)",
+      "category": "printer"
+    },
+    {
+      "sku": "epson:C11CK59405/C11CK59506",
+      "mpn": "C11CK59405/C11CK59506",
+      "name": "МФУ струйный Epson EcoTank L3550 (C11CK59405/C11CK59506) A4 WiFi черный",
+      "category": "mfu"
+    },
+    {
+      "sku": "epson:C11CK94402/94503",
+      "mpn": "C11CK94402/94503",
+      "name": "Фабрика Печати Epson L8100, А4, 6 цв., копир/принтер/сканер, USB (C11CK94402/94503)",
+      "category": "printer"
+    },
+    {
+      "sku": "epson:C11CK94402/C11CK94503",
+      "mpn": "C11CK94402/C11CK94503",
+      "name": "МФУ струйный Epson EcoTank L8100 (C11CK94402/C11CK94503) A4 WiFi черный",
+      "category": "mfu"
+    },
+    {
+      "sku": "epson:C11CL41412",
+      "mpn": "C11CL41412",
+      "name": "МФУ струйный Epson EcoTank L4360 (C11CL41412) A4 Duplex WiFi черный",
+      "category": "mfu"
+    },
+    {
+      "sku": "epson:C11CL43403",
+      "mpn": "C11CL43403",
+      "name": "МФУ струйный Epson EcoTank L6370 (C11CL43403) A4 Duplex WiFi черный",
+      "category": "mfu"
+    }
+  ]
+}
