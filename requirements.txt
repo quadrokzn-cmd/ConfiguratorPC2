@@ -29,3 +29,7 @@ sentry-sdk[fastapi]>=2.0    # SDK Sentry с интеграциями FastAPI/Sta
 # --- Этап 12.4-РМ-1: SOAP-канал автозагрузки (Resurs Media) ---
 zeep>=4.2                   # SOAP-клиент с WSDL-парсингом и кешем
 requests>=2.31              # session с HTTPBasicAuth для zeep.Transport
+
+# --- Этап 8/9 слияния QT↔C-PC2: модуль аукционов ---
+beautifulsoup4>=4.12        # парсинг HTML карточек zakupki (app/services/auctions/ingest/card_parser.py)
+loguru>=0.7                 # логирование в app/services/auctions/ingest/orchestrator.py
