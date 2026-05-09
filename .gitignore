@@ -65,3 +65,14 @@ scripts/reports/
 # Диагностические артефакты разведки Resurs Media SOAP API (этап 12.4-РМ-0).
 # Содержат raw цены, ассортимент, креды. В репо не нужны.
 scripts/_diag_resurs_media_*
+
+# Все диагностические скрипты-разведки (этапы 12.4 и слияния QT↔C-PC2).
+scripts/_diag_*
+scripts_diag_*
+
+# Тестовые reference-прайсы для smoke (содержат raw цены поставщиков).
+reference_prices/
+
+# Pending/done batches AI-обогащения для аукционного модуля.
+enrichment/auctions/pending/
+enrichment/auctions/done/
