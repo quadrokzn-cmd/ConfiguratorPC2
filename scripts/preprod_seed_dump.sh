@@ -29,8 +29,10 @@
 # Флаги pg_dump:
 #   --data-only       — структуру БД создаёт apply_migrations.py
 #                       при старте контейнера (миграции 001-034).
-#   --column-inserts  — устойчивость к мелким schema-различиям
-#                       (порядок колонок в INSERT-ах явный).
+#   (формат COPY ... FROM stdin по умолчанию) — массовая заливка
+#                       без 24K round-trip'ов до Railway-PG прокси.
+#                       Опция --column-inserts даёт по INSERT'у на
+#                       строку и рвёт сессию public-URL за 20+ мин.
 #   --no-owner --no-privileges — Railway-Postgres работает под
 #                       другим юзером, чем локальный postgres.
 #
@@ -117,7 +119,6 @@ PGPASSWORD="${PGPASSWORD:-}" pg_dump \
     --username="${PG_USER}" \
     --dbname="${PG_DB}" \
     --data-only \
-    --column-inserts \
     --no-owner \
     --no-privileges \
     "${TABLE_FLAGS[@]}" \

@@ -34,8 +34,8 @@ seed только справочника + конфига; tenders/items/matches
    bash scripts/preprod_seed_dump.sh
    ```
 
-   На выходе появится `scripts/preprod_seed.sql` (~10 МБ, ~24 тыс. строк
-   INSERT-ов). В git **не коммитится** (см. `.gitignore`). Содержит:
+   На выходе появится `scripts/preprod_seed.sql` (~5 МБ, 14 COPY-блоков,
+   ~24 тыс. data-строк). В git **не коммитится** (см. `.gitignore`). Содержит:
    справочник печати (628 SKU) + 8 ПК-таблиц (cpus/gpus/motherboards/
    rams/storages/cases/psus/coolers, ~9.5 тыс. SKU суммарно) + suppliers
    (6) + supplier_prices (~14 тыс. строк) + конфиг аукционов (settings,
@@ -220,16 +220,37 @@ seed только справочника + конфига; tenders/items/matches
    Railway-сервисов. С твоей машины подключиться можно только к
    `DATABASE_PUBLIC_URL`.
 
-3. Залей дамп:
+3. **Перед заливкой обязательно очисти 15 таблиц.** Миграции 001-034
+   при первом старте контейнера засевают как минимум 6 таблиц
+   (`cases`, `coolers`, `ktru_watchlist`, `excluded_regions`, `settings`,
+   `auto_price_loads`) собственными data-INSERT-ами. Если залить seed
+   поверх — упадёт по `duplicate key`. Чистим всё, что льёт seed-дамп
+   + `auto_price_loads`:
+
+   ```bash
+   psql "<DATABASE_PUBLIC_URL>" -c "TRUNCATE
+       auto_price_loads, cases, coolers, cpus, excluded_regions, gpus,
+       ktru_watchlist, motherboards, printers_mfu, psus, rams, settings,
+       storages, suppliers, supplier_prices
+       RESTART IDENTITY CASCADE;"
+   ```
+
+4. Залей дамп:
 
    ```bash
    psql "<DATABASE_PUBLIC_URL>" -f scripts/preprod_seed.sql
    ```
 
-   На выходе ожидание: ~10-30 секунд, длинная серия `INSERT 0 1`-строк.
-   Без ошибок. Всего ~24 тыс. INSERT-ов.
+   На выходе ожидание: 30-60 секунд, серия `COPY N` + `setval`-строк.
+   Без ошибок. ВАЖНО: `scripts/preprod_seed_dump.sh` использует
+   COPY-формат (не `--column-inserts`) — иначе 24 тыс. отдельных
+   INSERT-ов через Railway-PG прокси рвут публичную сессию за 20+ минут
+   (latency ~50-100 ms на каждый). Если используешь свой psql клиент
+   ≤16 на seed-дампе из pg_dump 17+ — псевдо-команды `\restrict` /
+   `\unrestrict` повесят psql; убери их `sed '/^\\\\\\(un\\\\\\)\\\\?restrict/d'`
+   или поставь psql 17.
 
-4. Проверка счётчиков (должны совпасть):
+5. Проверка счётчиков (должны совпасть):
 
    ```bash
    psql "<DATABASE_PUBLIC_URL>" -c "SELECT COUNT(*) FROM printers_mfu;"
@@ -253,9 +274,13 @@ seed только справочника + конфига; tenders/items/matches
 
 ### Шаг И. Контрольные SQL-апдейты после seed
 
-Гарантированно выключаем auto-price-loads (двойная защита: дефолт
-миграции 028 — `enabled=FALSE`, но если seed-дамп унесёт `enabled=TRUE`
-с dev-БД — нам нужен явный UPDATE):
+Гарантированно выключаем auto-price-loads. После TRUNCATE на шаге З
+таблица `auto_price_loads` обычно пустая (миграция 028 не перезаливает
+данные, если запись `schema_migrations` уже есть). UPDATE на пустой
+таблице вернёт `UPDATE 0` — это нормально: пустая таблица = scheduler
+не найдёт slug'ов = ни одна автозагрузка не запустится. Если же
+seed-дамп унесёт `enabled=TRUE` с dev-БД (например при пересборке БД
+с нуля) — UPDATE отработает и вернёт `UPDATE 6`:
 
 ```bash
 psql "<DATABASE_PUBLIC_URL>" <<'SQL'
@@ -315,7 +340,10 @@ psql "<DATABASE_PUBLIC_URL>" -c \
 | После логина в `app-preprod` редирект на `config-preprod`, а тот сразу обратно — **петля редиректов** | DevTools → Application → Cookies | `APP_COOKIE_DOMAIN` отличается между сервисами. Должен быть `.quadro.tatar` в обоих. |
 | `pip check` падает на сборке | Build Logs | Рассинхрон `requirements.txt` ↔ установленных пакетов (gate этапа 9d.1). Чини `requirements.txt` и пушь снова. |
 | Ингест не наполняет БД через 2-4 часа | Logs `portal-preprod`, поиск по `auctions_ingest` | (а) тумблер `settings.auctions_ingest_enabled` ≠ 'true' — UPDATE-ом из шага И исправь; (б) zakupki вернул 5xx — повторит через 2 часа сам; (в) кончились retry — посмотри `cards_failed` в логе. |
-| `psql -f scripts/preprod_seed.sql` упал на полпути | Сам psql-стдаут | Скорее всего, на `INSERT … ON CONFLICT` — попробуй сначала очистить таблицу: `TRUNCATE printers_mfu CASCADE;` и т.д. ВНИМАНИЕ: это уничтожит все накопленные данные, включая ингест. Делать только если pre-prod пустой. |
+| `psql -f scripts/preprod_seed.sql` упал на `duplicate key` | Сам psql-стдаут | Не сделал TRUNCATE из шага З.3. Сделай его и перезалей. ВНИМАНИЕ: TRUNCATE уничтожит все накопленные данные (включая ингест) — допустимо только на свежей или ещё-не-используемой pre-prod. |
+| `psql -f` тихо виснет, файл лога едва растёт | `tasklist | grep psql.exe` (Windows) | seed сгенерирован pg_dump 17+ с `\restrict`/`\unrestrict`-командами, локальный psql ≤16 на них зависает. Стрипни их перед заливкой (`scripts/_strip_restrict.py`) или поставь psql 17. |
+| `psql -f` рвётся посреди заливки через 10-20 мин | Лог psql, счётчики таблиц — половина пустая | seed сгенерирован с `--column-inserts` (24 тыс. round-trip'ов через прокси Railway). Убери флаг из `scripts/preprod_seed_dump.sh`, перегенерируй (получится COPY-формат, льётся 30-60 сек). |
+| Bash на Windows не убивает зависший psql.exe | `taskkill //F //IM psql.exe` | Bash bridge для Windows не отслеживает Windows-процессы; зомби-psql могут параллельно конкурировать за PK при следующих попытках. Чисти tasklist'ом перед каждым ретраем. |
 
 ---
 
