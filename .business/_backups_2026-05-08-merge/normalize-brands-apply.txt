@@ -1,0 +1,239 @@
+normalize_brands (C-PC2): режим = APPLY
+
+=== ДО cpus.manufacturer: распределение ===
+distinct manufacturer: 5, всего строк: 228
+  'Intel Corporation'                       80
+  'AMD'                                     70
+  'INTEL'                                   53
+  'Intel'                                   23
+  'SuperMicro'                              2
+
+=== ДО motherboards.manufacturer: распределение ===
+distinct manufacturer: 11, всего строк: 957
+  'ASUS'                                    318
+  'unknown'                                 299
+  'Gigabyte'                                124
+  'MSI'                                     112
+  'ASROCK'                                  42
+  'GIGABYTE'                                32
+  'MAXSUN'                                  16
+  'BIOSTAR'                                 5
+  'Biostar Microtech Netherlands B.V.'      5
+  'AFOX CORPORATION'                        2
+  'IRU'                                     2
+
+=== ДО rams.manufacturer: распределение ===
+distinct manufacturer: 23, всего строк: 1030
+  'Kingston'                                363
+  'unknown'                                 281
+  'Foxline'                                 71
+  'Patriot'                                 49
+  'A-DATA'                                  48
+  'Samsung Electronics'                     39
+  'PATRIOT'                                 36
+  'DIGMA'                                   30
+  'Netac'                                   23
+  'Apacer'                                  20
+  'AMD'                                     14
+  'KINGSPEC'                                14
+  'ADATA'                                   10
+  'Crucial'                                 7
+  'KINGSTON'                                6
+  'ТМИ'                                     6
+  'NETAC'                                   4
+  'Hynix'                                   2
+  'MICRON'                                  2
+  'Samsung'                                 2
+  'Corsair'                                 1
+  'KingSpec'                                1
+  'SAMSUNG'                                 1
+
+=== ДО gpus.manufacturer: распределение ===
+distinct manufacturer: 19, всего строк: 790
+  'unknown'                                 295
+  'MSI'                                     99
+  'ASUS'                                    82
+  'Gigabyte'                                70
+  'AFOX CORPORATION'                        43
+  'NVIDIA'                                  43
+  'PNY'                                     37
+  'PALIT'                                   17
+  'Palit'                                   16
+  'ZOTAC'                                   15
+  'MAXSUN'                                  13
+  'ASROCK'                                  11
+  'BIOSTAR'                                 9
+  'SAPPHIRE'                                9
+  'GIGABYTE'                                8
+  'INNO3D'                                  8
+  'AFOX'                                    6
+  'Biostar Microtech Netherlands B.V.'      6
+  'Matrox'                                  3
+
+=== ДО storages.manufacturer: распределение ===
+distinct manufacturer: 39, всего строк: 1175
+  'Western Digital'                         210
+  'Seagate'                                 119
+  'unknown'                                 116
+  'Toshiba'                                 99
+  'A-DATA'                                  70
+  'Netac'                                   70
+  'Patriot'                                 50
+  'Samsung'                                 48
+  'Apacer'                                  43
+  'Kingston'                                40
+  'Silicon Power'                           35
+  'KingSpec'                                26
+  'ExeGate'                                 25
+  'MSI'                                     23
+  'Transcend'                               23
+  'AGI'                                     22
+  'DIGMA'                                   22
+  'Crucial'                                 21
+  'Foxline'                                 18
+  'PC PET'                                  17
+  'Lenovo'                                  12
+  'KingPrice'                               9
+  'Solidigm'                                8
+  'HP'                                      6
+  'Digma'                                   5
+  'KIOXIA'                                  5
+  'SanDisk'                                 5
+  'Synology'                                5
+  'ТМИ'                                     5
+  'Hikvision'                               4
+  … (ещё 9 брендов)
+
+=== ДО cases.manufacturer: распределение ===
+distinct manufacturer: 56, всего строк: 1876
+  'unknown'                                 980
+  'Zalman'                                  73
+  'Ocypus'                                  63
+  'Foxline'                                 62
+  'ACD Systems'                             45
+  'Deepcool'                                42
+  'JONSBO'                                  42
+  'Formula V'                               41
+  'HSPD'                                    28
+  'Thermaltake'                             28
+  'Corsair'                                 25
+  'ACCORD'                                  23
+  'POWERMAN'                                23
+  'FORMULA'                                 22
+  'IN WIN'                                  21
+  'ZALMAN'                                  21
+  'BLOODY'                                  20
+  'PcCooler'                                20
+  'Accord'                                  18
+  'DEEPCOOL'                                15
+  'GameMax'                                 15
+  'MSI'                                     15
+  'Formula'                                 14
+  'Fractal Design'                          14
+  'Montech'                                 14
+  'Thermalright'                            14
+  'AZZA'                                    13
+  'LIAN-LI'                                 13
+  'RAIJINTEK CO LTD'                        13
+  'Lian-Li'                                 12
+  … (ещё 26 брендов)
+
+=== ДО psus.manufacturer: распределение ===
+distinct manufacturer: 62, всего строк: 1494
+  'ExeGate'                                 292
+  'unknown'                                 197
+  'Deepcool'                                111
+  'Thermaltake'                             77
+  'CHIEFTEC'                                74
+  'Zalman'                                  46
+  'Aerocool'                                45
+  '1STPLAYER'                               43
+  'Ocypus'                                  33
+  'FSP GROUP'                               30
+  'Formula V'                               28
+  'HSPD'                                    28
+  'Thermalright'                            25
+  'PCCOOLER'                                23
+  'Ginzzu'                                  22
+  'POWERMAN'                                22
+  'XPG'                                     22
+  'CBR'                                     21
+  'Formula'                                 21
+  'Cooler Master'                           18
+  'ACCORD'                                  15
+  'ACD Systems'                             15
+  'PcCooler'                                15
+  'PCCooler'                                15
+  'DIGMA'                                   14
+  'FSP'                                     14
+  'MSI'                                     14
+  'SEASONIC'                                14
+  'BLOODY'                                  13
+  'Cisco'                                   12
+  … (ещё 32 брендов)
+
+=== ДО coolers.manufacturer: распределение ===
+distinct manufacturer: 42, всего строк: 1934
+  'unknown'                                 1214
+  'Ocypus'                                  113
+  'ID-COOLING'                              65
+  'Thermalright'                            62
+  'DEEPCOOL'                                57
+  'PcCooler'                                53
+  'THERMALRIGHT'                            48
+  'Deepcool'                                47
+  'PCCOOLER'                                41
+  'ID-Cooling'                              28
+  'Zalman'                                  24
+  'LIAN-LI'                                 20
+  'SAMA'                                    15
+  'THERMALTAKE'                             15
+  'ARCTIC'                                  13
+  'ZALMAN'                                  12
+  'Formula V'                               10
+  'JONSBO'                                  10
+  'ACD Systems'                             9
+  'ALSEYE CORPORATION LIMITED'              7
+  'HP'                                      7
+  'BLOODY'                                  6
+  'FORMULA'                                 6
+  'Noctua'                                  6
+  'COOLER MASTER'                           5
+  'Corsair'                                 5
+  'NZXT'                                    5
+  'DIGMA'                                   4
+  'MSI'                                     4
+  'GameMax'                                 3
+  … (ещё 12 брендов)
+
+=== ДО printers_mfu.brand: распределение ===
+distinct brand: 15, всего строк: 628
+  'HP'                                      184
+  'Pantum'                                  118
+  'Katusha IT'                              75
+  'Canon'                                   73
+  'Kyocera'                                 60
+  'Ricoh'                                   37
+  'Epson'                                   36
+  'Xerox'                                   14
+  'Konica Minolta'                          9
+  'Sindoh'                                  7
+  'Bulat'                                   6
+  'G&G'                                     5
+  'Cactus'                                  2
+  'Brother'                                 1
+  'iRU'                                     1
+
+=== Итог (APPLY) ===
+  cpus               (manufacturer )  rows=   228  changed=135
+  motherboards       (manufacturer )  rows=   957  changed=88
+  rams               (manufacturer )  rows=  1030  changed=150
+  gpus               (manufacturer )  rows=   790  changed=103
+  storages           (manufacturer )  rows=  1175  changed=78
+  cases              (manufacturer )  rows=  1876  changed=268
+  psus               (manufacturer )  rows=  1494  changed=394
+  coolers            (manufacturer )  rows=  1934  changed=395
+  printers_mfu       (brand        )  rows=   628  changed=0
+  ИТОГО                                rows= 10112  changed=1611
+
+Unknown brands: нет.

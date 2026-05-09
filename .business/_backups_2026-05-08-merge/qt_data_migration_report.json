@@ -1,0 +1,75 @@
+{
+  "mode": "apply",
+  "supplier_map": {
+    "matched": [
+      {
+        "qt_id": 1,
+        "qt_code": "merlion",
+        "qt_name": "Merlion",
+        "cpc2_id": 5,
+        "cpc2_name": "Merlion"
+      },
+      {
+        "qt_id": 2,
+        "qt_code": "ocs",
+        "qt_name": "OCS",
+        "cpc2_id": 4,
+        "cpc2_name": "OCS"
+      },
+      {
+        "qt_id": 3,
+        "qt_code": "treolan",
+        "qt_name": "Treolan",
+        "cpc2_id": 6,
+        "cpc2_name": "Treolan"
+      },
+      {
+        "qt_id": 4,
+        "qt_code": "resursmedia",
+        "qt_name": "Ресурс-Медиа",
+        "cpc2_id": 8,
+        "cpc2_name": "Ресурс Медиа"
+      }
+    ],
+    "unmatched": [
+      {
+        "qt_id": 5,
+        "qt_code": "asbis",
+        "qt_name": "ASBIS"
+      },
+      {
+        "qt_id": 6,
+        "qt_code": "sandisk",
+        "qt_name": "SanDisk"
+      },
+      {
+        "qt_id": 7,
+        "qt_code": "marvel",
+        "qt_name": "Марвел"
+      },
+      {
+        "qt_id": 8,
+        "qt_code": "a1tis",
+        "qt_name": "А1Тис"
+      }
+    ]
+  },
+  "supplier_map_size": 4,
+  "nomenclature": {
+    "qt_rows": 628,
+    "inserted": 0,
+    "skipped_conflict": 628
+  },
+  "supplier_prices": {
+    "qt_rows": 943,
+    "inserted": 0,
+    "skipped_no_supplier": 0,
+    "skipped_no_component": 0,
+    "skipped_conflict": 943
+  },
+  "matches": {
+    "matches_total": 13575,
+    "orphans": 0
+  },
+  "fk_constraint_exists": true
+}

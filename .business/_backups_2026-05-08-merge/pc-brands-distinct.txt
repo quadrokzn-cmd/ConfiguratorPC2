@@ -1,0 +1,771 @@
+
+=== ('cases', 'unknown', 980) ===
+   980  'unknown'
+
+=== ('cases', 'Zalman', 73) ===
+    73  'Zalman'
+
+=== ('cases', 'Ocypus', 63) ===
+    63  'Ocypus'
+
+=== ('cases', 'Foxline', 62) ===
+    62  'Foxline'
+
+=== ('cases', 'ACD Systems', 45) ===
+    45  'ACD Systems'
+
+=== ('cases', 'Deepcool', 42) ===
+    42  'Deepcool'
+
+=== ('cases', 'JONSBO', 42) ===
+    42  'JONSBO'
+
+=== ('cases', 'Formula V', 41) ===
+    41  'Formula V'
+
+=== ('cases', 'HSPD', 28) ===
+    28  'HSPD'
+
+=== ('cases', 'Thermaltake', 28) ===
+    28  'Thermaltake'
+
+=== ('cases', 'Corsair', 25) ===
+    25  'Corsair'
+
+=== ('cases', 'POWERMAN', 23) ===
+    23  'POWERMAN'
+
+=== ('cases', 'ACCORD', 23) ===
+    23  'ACCORD'
+
+=== ('cases', 'FORMULA', 22) ===
+    22  'FORMULA'
+
+=== ('cases', 'ZALMAN', 21) ===
+    21  'ZALMAN'
+
+=== ('cases', 'IN WIN', 21) ===
+    21  'IN WIN'
+
+=== ('cases', 'PcCooler', 20) ===
+    20  'PcCooler'
+
+=== ('cases', 'BLOODY', 20) ===
+    20  'BLOODY'
+
+=== ('cases', 'Accord', 18) ===
+    18  'Accord'
+
+=== ('cases', 'GameMax', 15) ===
+    15  'GameMax'
+
+=== ('cases', 'DEEPCOOL', 15) ===
+    15  'DEEPCOOL'
+
+=== ('cases', 'MSI', 15) ===
+    15  'MSI'
+
+=== ('cases', 'Fractal Design', 14) ===
+    14  'Fractal Design'
+
+=== ('cases', 'Montech', 14) ===
+    14  'Montech'
+
+=== ('cases', 'Thermalright', 14) ===
+    14  'Thermalright'
+
+=== ('cases', 'Formula', 14) ===
+    14  'Formula'
+
+=== ('cases', 'AZZA', 13) ===
+    13  'AZZA'
+
+=== ('cases', 'LIAN-LI', 13) ===
+    13  'LIAN-LI'
+
+=== ('cases', 'RAIJINTEK CO LTD', 13) ===
+    13  'RAIJINTEK CO LTD'
+
+=== ('cases', 'PCCOOLER', 12) ===
+    12  'PCCOOLER'
+
+=== ('cases', 'THERMALTAKE', 12) ===
+    12  'THERMALTAKE'
+
+=== ('cases', 'Lian-Li', 12) ===
+    12  'Lian-Li'
+
+=== ('cases', 'SAMA', 11) ===
+    11  'SAMA'
+
+=== ('cases', 'CHIEFTEC', 8) ===
+     8  'CHIEFTEC'
+
+=== ('cases', 'NZXT', 8) ===
+     8  'NZXT'
+
+=== ('cases', 'AIC', 7) ===
+     7  'AIC'
+
+=== ('cases', 'ARCTIC', 6) ===
+     6  'ARCTIC'
+
+=== ('cases', 'RockPi', 6) ===
+     6  'RockPi'
+
+=== ('cases', 'DIGMA', 5) ===
+     5  'DIGMA'
+
+=== ('cases', 'Aerocool', 5) ===
+     5  'Aerocool'
+
+=== ('cases', 'COOLER MASTER', 5) ===
+     5  'COOLER MASTER'
+
+=== ('cases', 'MONTECH', 4) ===
+     4  'MONTECH'
+
+=== ('cases', 'GIGABYTE', 4) ===
+     4  'GIGABYTE'
+
+=== ('cases', 'Chenbro', 4) ===
+     4  'Chenbro'
+
+=== ('cases', 'KingPrice', 4) ===
+     4  'KingPrice'
+
+=== ('cases', 'Raspberry Pi Foundation', 4) ===
+     4  'Raspberry Pi Foundation'
+
+=== ('cases', 'PCCooler', 3) ===
+     3  'PCCooler'
+
+=== ('cases', 'HIPER', 3) ===
+     3  'HIPER'
+
+=== ('cases', 'ASUS', 3) ===
+     3  'ASUS'
+
+=== ('cases', 'AEROCOOL', 3) ===
+     3  'AEROCOOL'
+
+=== ('cases', 'In-Win', 2) ===
+     2  'In-Win'
+
+=== ('cases', 'Chieftec', 2) ===
+     2  'Chieftec'
+
+=== ('cases', 'Geometric Future', 2) ===
+     2  'Geometric Future'
+
+=== ('cases', 'LINKWORLD', 2) ===
+     2  'LINKWORLD'
+
+=== ('cases', 'KINGPRICE', 1) ===
+     1  'KINGPRICE'
+
+=== ('cases', 'Lian Li', 1) ===
+     1  'Lian Li'
+
+=== ('coolers', 'unknown', 1214) ===
+  1214  'unknown'
+
+=== ('coolers', 'Ocypus', 113) ===
+   113  'Ocypus'
+
+=== ('coolers', 'ID-COOLING', 65) ===
+    65  'ID-COOLING'
+
+=== ('coolers', 'Thermalright', 62) ===
+    62  'Thermalright'
+
+=== ('coolers', 'DEEPCOOL', 57) ===
+    57  'DEEPCOOL'
+
+=== ('coolers', 'PcCooler', 53) ===
+    53  'PcCooler'
+
+=== ('coolers', 'THERMALRIGHT', 48) ===
+    48  'THERMALRIGHT'
+
+=== ('coolers', 'Deepcool', 47) ===
+    47  'Deepcool'
+
+=== ('coolers', 'PCCOOLER', 41) ===
+    41  'PCCOOLER'
+
+=== ('coolers', 'ID-Cooling', 28) ===
+    28  'ID-Cooling'
+
+=== ('coolers', 'Zalman', 24) ===
+    24  'Zalman'
+
+=== ('coolers', 'LIAN-LI', 20) ===
+    20  'LIAN-LI'
+
+=== ('coolers', 'THERMALTAKE', 15) ===
+    15  'THERMALTAKE'
+
+=== ('coolers', 'SAMA', 15) ===
+    15  'SAMA'
+
+=== ('coolers', 'ARCTIC', 13) ===
+    13  'ARCTIC'
+
+=== ('coolers', 'ZALMAN', 12) ===
+    12  'ZALMAN'
+
+=== ('coolers', 'Formula V', 10) ===
+    10  'Formula V'
+
+=== ('coolers', 'JONSBO', 10) ===
+    10  'JONSBO'
+
+=== ('coolers', 'ACD Systems', 9) ===
+     9  'ACD Systems'
+
+=== ('coolers', 'HP', 7) ===
+     7  'HP'
+
+=== ('coolers', 'ALSEYE CORPORATION LIMITED', 7) ===
+     7  'ALSEYE CORPORATION LIMITED'
+
+=== ('coolers', 'BLOODY', 6) ===
+     6  'BLOODY'
+
+=== ('coolers', 'FORMULA', 6) ===
+     6  'FORMULA'
+
+=== ('coolers', 'Noctua', 6) ===
+     6  'Noctua'
+
+=== ('coolers', 'COOLER MASTER', 5) ===
+     5  'COOLER MASTER'
+
+=== ('coolers', 'Corsair', 5) ===
+     5  'Corsair'
+
+=== ('coolers', 'NZXT', 5) ===
+     5  'NZXT'
+
+=== ('coolers', 'DIGMA', 4) ===
+     4  'DIGMA'
+
+=== ('coolers', 'MSI', 4) ===
+     4  'MSI'
+
+=== ('coolers', 'INTEL', 3) ===
+     3  'INTEL'
+
+=== ('coolers', 'PCCooler', 3) ===
+     3  'PCCooler'
+
+=== ('coolers', 'GameMax', 3) ===
+     3  'GameMax'
+
+=== ('coolers', 'Lenovo', 2) ===
+     2  'Lenovo'
+
+=== ('coolers', 'Raspberry Pi Foundation', 2) ===
+     2  'Raspberry Pi Foundation'
+
+=== ('coolers', 'Fractal Design', 2) ===
+     2  'Fractal Design'
+
+=== ('coolers', 'Aerocool', 2) ===
+     2  'Aerocool'
+
+=== ('coolers', 'Cooler Master', 1) ===
+     1  'Cooler Master'
+
+=== ('coolers', 'KINGPRICE', 1) ===
+     1  'KINGPRICE'
+
+=== ('coolers', 'Foxline', 1) ===
+     1  'Foxline'
+
+=== ('coolers', 'Geometric Future', 1) ===
+     1  'Geometric Future'
+
+=== ('coolers', 'Chenbro', 1) ===
+     1  'Chenbro'
+
+=== ('coolers', 'Lian Li', 1) ===
+     1  'Lian Li'
+
+=== ('cpus', 'Intel Corporation', 80) ===
+    80  'Intel Corporation'
+
+=== ('cpus', 'AMD', 70) ===
+    70  'AMD'
+
+=== ('cpus', 'INTEL', 53) ===
+    53  'INTEL'
+
+=== ('cpus', 'Intel', 23) ===
+    23  'Intel'
+
+=== ('cpus', 'SuperMicro', 2) ===
+     2  'SuperMicro'
+
+=== ('gpus', 'unknown', 295) ===
+   295  'unknown'
+
+=== ('gpus', 'MSI', 99) ===
+    99  'MSI'
+
+=== ('gpus', 'ASUS', 82) ===
+    82  'ASUS'
+
+=== ('gpus', 'Gigabyte', 70) ===
+    70  'Gigabyte'
+
+=== ('gpus', 'NVIDIA', 43) ===
+    43  'NVIDIA'
+
+=== ('gpus', 'AFOX CORPORATION', 43) ===
+    43  'AFOX CORPORATION'
+
+=== ('gpus', 'PNY', 37) ===
+    37  'PNY'
+
+=== ('gpus', 'PALIT', 17) ===
+    17  'PALIT'
+
+=== ('gpus', 'Palit', 16) ===
+    16  'Palit'
+
+=== ('gpus', 'ZOTAC', 15) ===
+    15  'ZOTAC'
+
+=== ('gpus', 'MAXSUN', 13) ===
+    13  'MAXSUN'
+
+=== ('gpus', 'ASROCK', 11) ===
+    11  'ASROCK'
+
+=== ('gpus', 'BIOSTAR', 9) ===
+     9  'BIOSTAR'
+
+=== ('gpus', 'SAPPHIRE', 9) ===
+     9  'SAPPHIRE'
+
+=== ('gpus', 'GIGABYTE', 8) ===
+     8  'GIGABYTE'
+
+=== ('gpus', 'INNO3D', 8) ===
+     8  'INNO3D'
+
+=== ('gpus', 'AFOX', 6) ===
+     6  'AFOX'
+
+=== ('gpus', 'Biostar Microtech Netherlands B.V.', 6) ===
+     6  'Biostar Microtech Netherlands B.V.'
+
+=== ('gpus', 'Matrox', 3) ===
+     3  'Matrox'
+
+=== ('motherboards', 'ASUS', 318) ===
+   318  'ASUS'
+
+=== ('motherboards', 'unknown', 299) ===
+   299  'unknown'
+
+=== ('motherboards', 'Gigabyte', 124) ===
+   124  'Gigabyte'
+
+=== ('motherboards', 'MSI', 112) ===
+   112  'MSI'
+
+=== ('motherboards', 'ASROCK', 42) ===
+    42  'ASROCK'
+
+=== ('motherboards', 'GIGABYTE', 32) ===
+    32  'GIGABYTE'
+
+=== ('motherboards', 'MAXSUN', 16) ===
+    16  'MAXSUN'
+
+=== ('motherboards', 'Biostar Microtech Netherlands B.V.', 5) ===
+     5  'Biostar Microtech Netherlands B.V.'
+
+=== ('motherboards', 'BIOSTAR', 5) ===
+     5  'BIOSTAR'
+
+=== ('motherboards', 'AFOX CORPORATION', 2) ===
+     2  'AFOX CORPORATION'
+
+=== ('motherboards', 'IRU', 2) ===
+     2  'IRU'
+
+=== ('psus', 'ExeGate', 292) ===
+   292  'ExeGate'
+
+=== ('psus', 'unknown', 197) ===
+   197  'unknown'
+
+=== ('psus', 'Deepcool', 111) ===
+   111  'Deepcool'
+
+=== ('psus', 'Thermaltake', 77) ===
+    77  'Thermaltake'
+
+=== ('psus', 'CHIEFTEC', 74) ===
+    74  'CHIEFTEC'
+
+=== ('psus', 'Zalman', 46) ===
+    46  'Zalman'
+
+=== ('psus', 'Aerocool', 45) ===
+    45  'Aerocool'
+
+=== ('psus', '1STPLAYER', 43) ===
+    43  '1STPLAYER'
+
+=== ('psus', 'Ocypus', 33) ===
+    33  'Ocypus'
+
+=== ('psus', 'FSP GROUP', 30) ===
+    30  'FSP GROUP'
+
+=== ('psus', 'Formula V', 28) ===
+    28  'Formula V'
+
+=== ('psus', 'HSPD', 28) ===
+    28  'HSPD'
+
+=== ('psus', 'Thermalright', 25) ===
+    25  'Thermalright'
+
+=== ('psus', 'PCCOOLER', 23) ===
+    23  'PCCOOLER'
+
+=== ('psus', 'POWERMAN', 22) ===
+    22  'POWERMAN'
+
+=== ('psus', 'Ginzzu', 22) ===
+    22  'Ginzzu'
+
+=== ('psus', 'XPG', 22) ===
+    22  'XPG'
+
+=== ('psus', 'CBR', 21) ===
+    21  'CBR'
+
+=== ('psus', 'Formula', 21) ===
+    21  'Formula'
+
+=== ('psus', 'Cooler Master', 18) ===
+    18  'Cooler Master'
+
+=== ('psus', 'ACD Systems', 15) ===
+    15  'ACD Systems'
+
+=== ('psus', 'ACCORD', 15) ===
+    15  'ACCORD'
+
+=== ('psus', 'PcCooler', 15) ===
+    15  'PcCooler'
+
+=== ('psus', 'PCCooler', 15) ===
+    15  'PCCooler'
+
+=== ('psus', 'MSI', 14) ===
+    14  'MSI'
+
+=== ('psus', 'FSP', 14) ===
+    14  'FSP'
+
+=== ('psus', 'SEASONIC', 14) ===
+    14  'SEASONIC'
+
+=== ('psus', 'DIGMA', 14) ===
+    14  'DIGMA'
+
+=== ('psus', 'BLOODY', 13) ===
+    13  'BLOODY'
+
+=== ('psus', 'Super Flower', 12) ===
+    12  'Super Flower'
+
+=== ('psus', 'Cisco', 12) ===
+    12  'Cisco'
+
+=== ('psus', 'DEEPCOOL', 12) ===
+    12  'DEEPCOOL'
+
+=== ('psus', 'RAIJINTEK CO LTD', 11) ===
+    11  'RAIJINTEK CO LTD'
+
+=== ('psus', 'Corsair', 10) ===
+    10  'Corsair'
+
+=== ('psus', 'ZALMAN', 10) ===
+    10  'ZALMAN'
+
+=== ('psus', 'FORMULA', 10) ===
+    10  'FORMULA'
+
+=== ('psus', 'Accord', 9) ===
+     9  'Accord'
+
+=== ('psus', 'Powercase', 9) ===
+     9  'Powercase'
+
+=== ('psus', 'Foxline', 9) ===
+     9  'Foxline'
+
+=== ('psus', 'KingPrice', 8) ===
+     8  'KingPrice'
+
+=== ('psus', 'SAMA', 8) ===
+     8  'SAMA'
+
+=== ('psus', 'LIAN-LI', 7) ===
+     7  'LIAN-LI'
+
+=== ('psus', 'AZZA', 7) ===
+     7  'AZZA'
+
+=== ('psus', 'Montech', 6) ===
+     6  'Montech'
+
+=== ('psus', 'Gigabyte', 5) ===
+     5  'Gigabyte'
+
+=== ('psus', 'Ubiquiti', 5) ===
+     5  'Ubiquiti'
+
+=== ('psus', 'Foxconn', 4) ===
+     4  'Foxconn'
+
+=== ('psus', 'HP', 4) ===
+     4  'HP'
+
+=== ('psus', 'Shenzhen GuoxinHengyu Technology (Gooxi)', 4) ===
+     4  'Shenzhen GuoxinHengyu Technology (Gooxi)'
+
+=== ('psus', 'Lenovo', 3) ===
+     3  'Lenovo'
+
+=== ('psus', 'THERMALTAKE', 3) ===
+     3  'THERMALTAKE'
+
+=== ('psus', 'KINGPRICE', 3) ===
+     3  'KINGPRICE'
+
+=== ('psus', 'Crown', 3) ===
+     3  'Crown'
+
+=== ('psus', 'COOLER MASTER', 2) ===
+     2  'COOLER MASTER'
+
+=== ('psus', 'EXEGATE', 2) ===
+     2  'EXEGATE'
+
+=== ('psus', 'GIGABYTE', 2) ===
+     2  'GIGABYTE'
+
+=== ('psus', 'Chieftec', 2) ===
+     2  'Chieftec'
+
+=== ('psus', 'Lian-Li', 1) ===
+     1  'Lian-Li'
+
+=== ('psus', 'SILVERSTONE', 1) ===
+     1  'SILVERSTONE'
+
+=== ('psus', 'Raspberry Pi Foundation', 1) ===
+     1  'Raspberry Pi Foundation'
+
+=== ('psus', 'Chenbro', 1) ===
+     1  'Chenbro'
+
+=== ('psus', 'GameMax', 1) ===
+     1  'GameMax'
+
+=== ('rams', 'Kingston', 363) ===
+   363  'Kingston'
+
+=== ('rams', 'unknown', 281) ===
+   281  'unknown'
+
+=== ('rams', 'Foxline', 71) ===
+    71  'Foxline'
+
+=== ('rams', 'Patriot', 49) ===
+    49  'Patriot'
+
+=== ('rams', 'A-DATA', 48) ===
+    48  'A-DATA'
+
+=== ('rams', 'Samsung Electronics', 39) ===
+    39  'Samsung Electronics'
+
+=== ('rams', 'PATRIOT', 36) ===
+    36  'PATRIOT'
+
+=== ('rams', 'DIGMA', 30) ===
+    30  'DIGMA'
+
+=== ('rams', 'Netac', 23) ===
+    23  'Netac'
+
+=== ('rams', 'Apacer', 20) ===
+    20  'Apacer'
+
+=== ('rams', 'KINGSPEC', 14) ===
+    14  'KINGSPEC'
+
+=== ('rams', 'AMD', 14) ===
+    14  'AMD'
+
+=== ('rams', 'ADATA', 10) ===
+    10  'ADATA'
+
+=== ('rams', 'Crucial', 7) ===
+     7  'Crucial'
+
+=== ('rams', 'KINGSTON', 6) ===
+     6  'KINGSTON'
+
+=== ('rams', 'ТМИ', 6) ===
+     6  'ТМИ'
+
+=== ('rams', 'NETAC', 4) ===
+     4  'NETAC'
+
+=== ('rams', 'MICRON', 2) ===
+     2  'MICRON'
+
+=== ('rams', 'Samsung', 2) ===
+     2  'Samsung'
+
+=== ('rams', 'Hynix', 2) ===
+     2  'Hynix'
+
+=== ('rams', 'KingSpec', 1) ===
+     1  'KingSpec'
+
+=== ('rams', 'SAMSUNG', 1) ===
+     1  'SAMSUNG'
+
+=== ('rams', 'Corsair', 1) ===
+     1  'Corsair'
+
+=== ('storages', 'Western Digital', 210) ===
+   210  'Western Digital'
+
+=== ('storages', 'Seagate', 119) ===
+   119  'Seagate'
+
+=== ('storages', 'unknown', 116) ===
+   116  'unknown'
+
+=== ('storages', 'Toshiba', 99) ===
+    99  'Toshiba'
+
+=== ('storages', 'Netac', 70) ===
+    70  'Netac'
+
+=== ('storages', 'A-DATA', 70) ===
+    70  'A-DATA'
+
+=== ('storages', 'Patriot', 50) ===
+    50  'Patriot'
+
+=== ('storages', 'Samsung', 48) ===
+    48  'Samsung'
+
+=== ('storages', 'Apacer', 43) ===
+    43  'Apacer'
+
+=== ('storages', 'Kingston', 40) ===
+    40  'Kingston'
+
+=== ('storages', 'Silicon Power', 35) ===
+    35  'Silicon Power'
+
+=== ('storages', 'KingSpec', 26) ===
+    26  'KingSpec'
+
+=== ('storages', 'ExeGate', 25) ===
+    25  'ExeGate'
+
+=== ('storages', 'MSI', 23) ===
+    23  'MSI'
+
+=== ('storages', 'Transcend', 23) ===
+    23  'Transcend'
+
+=== ('storages', 'DIGMA', 22) ===
+    22  'DIGMA'
+
+=== ('storages', 'AGI', 22) ===
+    22  'AGI'
+
+=== ('storages', 'Crucial', 21) ===
+    21  'Crucial'
+
+=== ('storages', 'Foxline', 18) ===
+    18  'Foxline'
+
+=== ('storages', 'PC PET', 17) ===
+    17  'PC PET'
+
+=== ('storages', 'Lenovo', 12) ===
+    12  'Lenovo'
+
+=== ('storages', 'KingPrice', 9) ===
+     9  'KingPrice'
+
+=== ('storages', 'Solidigm', 8) ===
+     8  'Solidigm'
+
+=== ('storages', 'HP', 6) ===
+     6  'HP'
+
+=== ('storages', 'ТМИ', 5) ===
+     5  'ТМИ'
+
+=== ('storages', 'KIOXIA', 5) ===
+     5  'KIOXIA'
+
+=== ('storages', 'SanDisk', 5) ===
+     5  'SanDisk'
+
+=== ('storages', 'Digma', 5) ===
+     5  'Digma'
+
+=== ('storages', 'Synology', 5) ===
+     5  'Synology'
+
+=== ('storages', 'Hikvision', 4) ===
+     4  'Hikvision'
+
+=== ('storages', 'AMD', 3) ===
+     3  'AMD'
+
+=== ('storages', 'GS Nanotech', 2) ===
+     2  'GS Nanotech'
+
+=== ('storages', 'Производитель росреестровых твердотельных дисков', 2) ===
+     2  'Производитель росреестровых твердотельных дисков'
+
+=== ('storages', 'Intel', 2) ===
+     2  'Intel'
+
+=== ('storages', 'KIOXIA Europe GmbH.', 1) ===
+     1  'KIOXIA Europe GmbH.'
+
+=== ('storages', 'Cisco', 1) ===
+     1  'Cisco'
+
+=== ('storages', 'ООО «Телеком и Микроэлектроник Индастриз»', 1) ===
+     1  'ООО «Телеком и Микроэлектроник Индастриз»'
+
+=== ('storages', 'Micron', 1) ===
+     1  'Micron'
+
+=== ('storages', 'HIKVISION', 1) ===
+     1  'HIKVISION'
