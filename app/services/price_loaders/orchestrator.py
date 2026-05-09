@@ -42,6 +42,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
+from app.services.catalog.brand_normalizer import canonical_brand
 from app.services.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 from app.services.price_loaders.base import BasePriceLoader
 from app.services.price_loaders.matching import (
@@ -80,6 +81,17 @@ class Counters:
     # 11.4: первые 50 SKU, помеченные как disappeared — для отладки/UI.
     disappeared_skus:   list[str] = field(default_factory=list)
     disappeared_truncated: bool = False
+    # Этап 6 слияния (2026-05-08): печатные категории подключены к
+    # таблице printers_mfu. Счётчики printers_mfu_added / _updated
+    # дают разбивку «added/updated» по печатным позициям отдельно
+    # от ПК-категорий — это нужно UI /admin/price-uploads, чтобы
+    # отличать пополнение каталога принтеров от штатного UPSERT'а
+    # ПК-компонентов в одном и том же прайсе. Историческое поле
+    # pending_printers_mfu сохранено в report_json для совместимости
+    # с уже сохранёнными отчётами Этапа 4 (значение всегда 0).
+    pending_printers_mfu: int = 0
+    printers_mfu_added: int = 0
+    printers_mfu_updated: int = 0
     # Карта source → counter (для отладки/отчёта).
     by_source: dict[str, int] = field(default_factory=dict)
 
@@ -112,6 +124,70 @@ def _get_or_create_supplier(session: Session, supplier_name: str) -> int:
         {"n": supplier_name},
     ).first()
     return int(result.id)
+
+
+# ---------------------------------------------------------------------------
+# SKU-генерация для printers_mfu (Этап 6 слияния).
+#
+# В printers_mfu колонка `sku` — это canonical-ключ с UNIQUE-constraint;
+# она синтезируется по приоритету brand:mpn → mpn → gtin:N → raw:N.
+# Паттерн перенесён из QT (auctions_staging/.../price_loaders/orchestrator.py).
+# ---------------------------------------------------------------------------
+
+def _build_sku(row: PriceRow) -> str:
+    if row.brand and row.mpn:
+        return f"{row.brand.strip().lower()}:{row.mpn.strip()}"
+    if row.mpn:
+        return row.mpn.strip()
+    if row.gtin:
+        return f"gtin:{row.gtin.strip()}"
+    return f"raw:{(row.supplier_sku or '').strip()}"
+
+
+def _ensure_unique_sku(session: Session, base_sku: str) -> str:
+    """Гарантирует уникальность sku в printers_mfu (UNIQUE-constraint).
+    При коллизии (редкий случай — у двух поставщиков один и тот же
+    brand:mpn для разных физических SKU) добавляет суффикс #1, #2..."""
+    sku = base_sku
+    n = 0
+    while True:
+        row = session.execute(
+            text("SELECT 1 FROM printers_mfu WHERE sku = :s LIMIT 1"),
+            {"s": sku},
+        ).first()
+        if row is None:
+            return sku
+        n += 1
+        sku = f"{base_sku}#{n}"
+
+
+def _create_printers_mfu_skeleton(session: Session, row: PriceRow) -> int:
+    """Создаёт минимальную запись в printers_mfu и возвращает id.
+
+    NOT NULL-инварианты таблицы: sku, brand, name, category. Поля attrs_jsonb
+    и ktru_codes_array идут из DEFAULT (пустые), их заполнит обогащение.
+    """
+    sku = _ensure_unique_sku(session, _build_sku(row))
+    brand = canonical_brand(row.brand) or "unknown"
+    name = row.name or row.mpn or sku
+    res = session.execute(
+        text(
+            "INSERT INTO printers_mfu "
+            "    (sku, mpn, gtin, brand, name, category) "
+            "VALUES "
+            "    (:sku, :mpn, :gtin, :brand, :name, :category) "
+            "RETURNING id"
+        ),
+        {
+            "sku":      sku,
+            "mpn":      row.mpn,
+            "gtin":     row.gtin,
+            "brand":    brand,
+            "name":     name,
+            "category": row.our_category,
+        },
+    ).first()
+    return int(res.id)
 
 
 # ---------------------------------------------------------------------------
@@ -184,12 +260,26 @@ def _create_skeleton(
     есть ещё какие-то NOT NULL без дефолта, про которые мы забыли, —
     пытаемся закрыть их «безопасными» значениями по типу (0 / FALSE /
     'unknown'), иначе бросаем понятную ошибку.
+
+    Этап 6 слияния (2026-05-08): для table='printers_mfu' используется
+    отдельная функция `_create_printers_mfu_skeleton` — у этой таблицы
+    другая схема (sku UNIQUE NOT NULL вместо ПК-овского sku VARCHAR(100)
+    nullable, name+brand вместо model+manufacturer, category CHECK
+    constraint, ktru_codes_array + attrs_jsonb + cost_base_rub + ...).
     """
     assert table in ALLOWED_TABLES, f"Недопустимая таблица: {table}"
 
+    if table == "printers_mfu":
+        return _create_printers_mfu_skeleton(session, row)
+
+    # Этап 4 слияния (2026-05-08): manufacturer проходит через единый
+    # `canonical_brand` (объединённый словарь печатных и ПК-брендов
+    # в `app.services.catalog.brand_normalizer`). Это сводит к одному
+    # написанию HP/HP Inc./hp inc, ASUS/asus и пр.; неизвестные бренды
+    # фолбэчатся через `.title()` и логируются как кандидаты.
     values: dict[str, object] = {
         "model":        row.name or (row.mpn or "unknown"),
-        "manufacturer": row.brand or "unknown",
+        "manufacturer": canonical_brand(row.brand) or "unknown",
         "sku":          row.mpn,
         "gtin":         row.gtin,
     }
@@ -488,6 +578,9 @@ def _save_failed_upload(
             "disappeared":           0,
             "disappeared_skus":      [],
             "disappeared_truncated": False,
+            "pending_printers_mfu":  counters.pending_printers_mfu,
+            "printers_mfu_added":    counters.printers_mfu_added,
+            "printers_mfu_updated":  counters.printers_mfu_updated,
             "status":                "failed",
             "error_message":         error_message or "Критическая ошибка при загрузке",
         }
@@ -611,6 +704,12 @@ def _process_row(
         counters.skipped += 1
         return
 
+    # Этап 6 слияния (2026-05-08): printer / mfu теперь идут штатным путём
+    # через CATEGORY_TO_TABLE['printer'/'mfu']='printers_mfu'. Stub-ветка
+    # `pending_printers_mfu` Этапа 4 удалена — счётчик остался в Counters
+    # ради обратной совместимости с историческими report_json и фиксируется
+    # в нуле, чтобы UI /admin/price-uploads не сломался на старых записях.
+
     counters.processed += 1
 
     res: MatchResult = resolve(session, row, supplier_id=supplier_id)
@@ -633,6 +732,8 @@ def _process_row(
             raw_name=row.name,
         )
         counters.updated += 1
+        if table == "printers_mfu":
+            counters.printers_mfu_updated += 1
         return
 
     if res.source in (AMBIG_MPN, AMBIG_GTIN):
@@ -648,6 +749,8 @@ def _process_row(
             raw_name=row.name,
         )
         counters.updated += 1
+        if table == "printers_mfu":
+            counters.printers_mfu_updated += 1
         all_ids = ",".join(str(i) for i in res.ambiguous_ids)
         note = (
             f"AMBIGUOUS {'MPN' if res.source == AMBIG_MPN else 'GTIN'}: "
@@ -668,6 +771,8 @@ def _process_row(
     # res.source == NO_MATCH: создаём скелет + supplier_prices + unmapped.
     new_id = _create_skeleton(session, table, row)
     counters.added += 1
+    if table == "printers_mfu":
+        counters.printers_mfu_added += 1
     _upsert_price(
         session,
         supplier_id=supplier_id, category=category,
@@ -807,6 +912,9 @@ def load_price(
             "disappeared":           counters.disappeared,
             "disappeared_skus":      list(counters.disappeared_skus),
             "disappeared_truncated": counters.disappeared_truncated,
+            "pending_printers_mfu":  counters.pending_printers_mfu,
+            "printers_mfu_added":    counters.printers_mfu_added,
+            "printers_mfu_updated":  counters.printers_mfu_updated,
             "by_source":             dict(counters.by_source),
             "duration_seconds":      duration,
         }
@@ -856,6 +964,9 @@ def load_price(
         "disappeared":           counters.disappeared,
         "disappeared_skus":      list(counters.disappeared_skus),
         "disappeared_truncated": counters.disappeared_truncated,
+        "pending_printers_mfu":  counters.pending_printers_mfu,
+        "printers_mfu_added":    counters.printers_mfu_added,
+        "printers_mfu_updated":  counters.printers_mfu_updated,
         "by_source":  dict(counters.by_source),
         "status":     status,
         "upload_id":  upload_id,

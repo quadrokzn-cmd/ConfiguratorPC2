@@ -89,13 +89,27 @@ def _search_by_column(
     """Возвращает список id компонентов, у которых <column> = <value>.
     Сортировка по id — даёт детерминированный выбор при ambiguous."""
     # Имена table и column берутся только из whitelist ниже — инъекция
-    # невозможна. column ограничен двумя значениями.
-    assert column in {"sku", "gtin"}, f"Недопустимая колонка: {column}"
+    # невозможна.
+    assert column in {"sku", "mpn", "gtin"}, f"Недопустимая колонка: {column}"
     rows = session.execute(
         text(f"SELECT id FROM {table} WHERE {column} = :val ORDER BY id"),
         {"val": value},
     ).all()
     return [int(r.id) for r in rows]
+
+
+# Этап 6 слияния: в ПК-таблицах (cpus/...) MPN хранится в колонке `sku`
+# (там это просто текстовый идентификатор без UNIQUE-constraint). В
+# printers_mfu MPN живёт в отдельной колонке `mpn`, а `sku` — это
+# canonical-ключ вида `brand:mpn`. Поэтому для матчинга по MPN нужна
+# таблично-зависимая колонка.
+_MPN_COLUMN_BY_TABLE = {
+    "printers_mfu": "mpn",
+}
+
+
+def _mpn_column_for(table: str) -> str:
+    return _MPN_COLUMN_BY_TABLE.get(table, "sku")
 
 
 def resolve(
@@ -117,9 +131,10 @@ def resolve(
 
     table = _table_for(row.our_category)
 
-    # Шаг 2: по MPN.
+    # Шаг 2: по MPN. Колонка-носитель MPN зависит от таблицы:
+    # ПК-таблицы (cpus/...) — `sku`, printers_mfu — выделенный `mpn`.
     if row.mpn:
-        ids = _search_by_column(session, table, "sku", row.mpn)
+        ids = _search_by_column(session, table, _mpn_column_for(table), row.mpn)
         if len(ids) == 1:
             return MatchResult(source=MATCH_MPN, component_id=ids[0])
         if len(ids) > 1:

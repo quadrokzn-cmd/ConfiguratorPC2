@@ -57,6 +57,60 @@ _CATEGORY_MAP: dict[str, str] = {
 }
 
 
+# Печатная техника Treolan (Этап 4 слияния, 2026-05-08).
+# Структура путей под печать у Treolan: корень «Принтеры, сканеры, МФУ»;
+# вторым уровнем идут «Принтеры», «МФУ», «Сканеры», «Аксессуары»,
+# «Широкоформатные Принтеры/Плоттеры», «Широкоформатные МФУ» и т.д.
+# Аксессуары/сканеры — out-of-scope (ignore). Запись printer/mfu в БД
+# пока не подключена — orchestrator скипнет с pending_printers_mfu
+# (Этап 6 даст таблицу `printers_mfu`).
+_TREOLAN_PRINTER_ROOT = "Принтеры, сканеры, МФУ"
+_TREOLAN_WIDE_PRINTER_PREFIXES: tuple[str, ...] = (
+    f"{_TREOLAN_PRINTER_ROOT}->Широкоформатные Принтеры",
+    f"{_TREOLAN_PRINTER_ROOT}->Широкоформатные Принтеры/Плоттеры",
+)
+_TREOLAN_WIDE_MFU_PREFIX = f"{_TREOLAN_PRINTER_ROOT}->Широкоформатные МФУ"
+
+
+def _classify_treolan(path: str) -> str:
+    """Категоризация по полному пути Treolan для печатных позиций.
+
+    Возвращает 'printer'/'mfu'/'ignore'. 'ignore' — для сканеров,
+    аксессуаров и неизвестных подкатегорий (для отладки прайса).
+    Применяется только когда путь начинается с `_TREOLAN_PRINTER_ROOT`;
+    иначе вызывающий код возвращает None (это «не наша» категория).
+    """
+    if any(path.startswith(p) for p in _TREOLAN_WIDE_PRINTER_PREFIXES):
+        return "printer"
+    if path.startswith(_TREOLAN_WIDE_MFU_PREFIX):
+        return "mfu"
+    parts = path.split("->")
+    if len(parts) >= 2 and parts[0] == _TREOLAN_PRINTER_ROOT:
+        middle = parts[1]
+        if middle == "Принтеры":
+            return "printer"
+        if middle == "МФУ":
+            return "mfu"
+    logger.info("Treolan path=%r: классифицирован как ignore", path)
+    return "ignore"
+
+
+def _resolve_category(path: str) -> str | None:
+    """Единый вход в категоризацию Treolan: ПК-карта → печатная карта → None.
+
+    Возвращает 'cpu'/.../'cooler' (ПК), 'printer'/'mfu' (печать; orchestrator
+    обрабатывает как pending_printers_mfu до Этапа 6) или None.
+    """
+    pc = _CATEGORY_MAP.get(path)
+    if pc is not None:
+        return pc
+    if path.startswith(_TREOLAN_PRINTER_ROOT):
+        cat = _classify_treolan(path)
+        if cat in ("printer", "mfu"):
+            return cat
+    return None
+
+
 _COL_ARTICLE    = 0  # A
 _COL_NAME       = 1  # B
 _COL_BRAND      = 2  # C
@@ -190,7 +244,7 @@ class TreolanLoader(BasePriceLoader):
             sep = _is_category_separator(row)
             if sep is not None:
                 current_raw_category = sep
-                current_our_category = _CATEGORY_MAP.get(sep)
+                current_our_category = _resolve_category(sep)
                 continue
 
             article = _normalize(_cell(row, _COL_ARTICLE))

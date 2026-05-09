@@ -60,6 +60,43 @@ _CATEGORY_MAP: dict[tuple[str, str, str], str] = {
 }
 
 
+# Печатная техника Merlion (Этап 4 слияния, 2026-05-08).
+# Если (g1, g2) попадает в _PRINTER_GROUPS — категоризуем по g3:
+# {МФУ ...→ mfu, ...→ printer, прочее → ignore (явно)}.
+# Запись printer/mfu в БД пока не подключена — orchestrator скипнет их
+# с инкрементом счётчика pending_printers_mfu (Этап 6 даст таблицу
+# `printers_mfu` и подключение в CATEGORY_TO_TABLE).
+_PRINTER_GROUPS: set[tuple[str, str]] = {
+    ("Периферия и аксессуары", "Принтеры"),
+}
+
+_G3_PRINTER_MFU_MAP: dict[str, str] = {
+    "МФУ лазерные":      "mfu",
+    "Лазерные":          "printer",
+    "МФУ струйные":      "mfu",
+    "Струйные":          "printer",
+    # Явно отбрасываем подкатегории, которые нам неинтересны:
+    # термо/матричные/мини-фото — не наш ассортимент.
+    "Термопринтеры":     "ignore",
+    "Мини-Фото-принтеры": "ignore",
+    "Матричные":         "ignore",
+    "":                  "ignore",
+}
+
+
+def _classify_merlion(g3: str) -> str:
+    """Определяет печатную категорию Merlion по третьему уровню группы.
+
+    Вызывается ТОЛЬКО когда (g1, g2) уже попало в _PRINTER_GROUPS;
+    возвращает 'printer' / 'mfu' / 'ignore'. Неизвестный g3 → 'ignore'
+    с INFO-логом для отладки прайса.
+    """
+    if g3 in _G3_PRINTER_MFU_MAP:
+        return _G3_PRINTER_MFU_MAP[g3]
+    logger.info("Merlion G3=%r: классифицирован как ignore (неизвестная подкатегория)", g3)
+    return "ignore"
+
+
 # Индексы колонок (0-based). Соответствуют буквам: A=0, B=1, ..., N=13.
 _COL_GROUP_1   = 0   # A
 _COL_GROUP_2   = 1   # B
@@ -143,7 +180,24 @@ def _normalize(s) -> str:
 
 
 def _resolve_category(g1: str, g2: str, g3: str) -> str | None:
-    return _CATEGORY_MAP.get((g1, g2, g3))
+    """Сначала ищем точное соответствие в ПК-карте; если не нашли —
+    проверяем, не печатная ли это группа (Этап 4 слияния).
+
+    Возвращает: 'cpu'/'motherboard'/.../'storage' (ПК), либо
+    'printer'/'mfu' (печать, обрабатывается orchestrator'ом как
+    pending_printers_mfu до Этапа 6), либо None («не наша строка»).
+    Подкатегории печати, явно отброшенные _classify_merlion как
+    'ignore' (термо/матричные), для orchestrator'а отдаются как
+    None — семантика «нам не интересно» в C-PC2 одна.
+    """
+    pc = _CATEGORY_MAP.get((g1, g2, g3))
+    if pc is not None:
+        return pc
+    if (g1, g2) in _PRINTER_GROUPS:
+        cat = _classify_merlion(g3)
+        if cat in ("printer", "mfu"):
+            return cat
+    return None
 
 
 def _build_raw_path(g1: str, g2: str, g3: str) -> str:

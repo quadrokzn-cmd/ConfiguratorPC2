@@ -22,6 +22,12 @@ class ExtractedField:
 
 # Соответствие внешней категории (значение колонки category в supplier_prices
 # и в component_field_sources) и имени таблицы компонентов в БД.
+#
+# Этап 6 слияния (2026-05-08): добавлены 'printer' и 'mfu' → 'printers_mfu'.
+# Это единая 9-я таблица каталога, унаследованная из QT-овской nomenclature
+# (см. migrations/031_printers_mfu.sql). category в supplier_prices при
+# записи остаётся 'printer' / 'mfu' (как в адаптерах), но реальная запись
+# идёт в одну таблицу printers_mfu.
 CATEGORY_TO_TABLE = {
     "cpu":         "cpus",
     "motherboard": "motherboards",
@@ -31,7 +37,10 @@ CATEGORY_TO_TABLE = {
     "case":        "cases",
     "psu":         "psus",
     "cooler":      "coolers",
+    "printer":     "printers_mfu",
+    "mfu":         "printers_mfu",
 }
 
-# Белый список таблиц для безопасной подстановки в SQL
+# Белый список таблиц для безопасной подстановки в SQL.
+# printers_mfu добавлена через CATEGORY_TO_TABLE.values() — см. комментарий выше.
 ALLOWED_TABLES = frozenset(CATEGORY_TO_TABLE.values())

@@ -39,6 +39,35 @@ _CATEGORY_MAP: dict[tuple[str, str | None], str] = {
 }
 
 
+# Печатная техника OCS (Этап 4 слияния, 2026-05-08).
+# Решение по (B, C) — точные значения из реальных прайсов OCS:
+# колонка B = тип группы («Принтеры»/«МФУ»), C = подтип
+# («Принтеры лазерные»/«МФУ струйные» и т.п.). Запись в БД пока
+# не подключена — orchestrator скипнет такие позиции с инкрементом
+# pending_printers_mfu (Этап 6 даст таблицу `printers_mfu`).
+_BC_PRINTER_MFU_MAP: dict[tuple[str, str], str] = {
+    ("Принтеры", "Принтеры лазерные"):  "printer",
+    ("Принтеры", "Принтеры струйные"):  "printer",
+    ("Принтеры", "Принтеры матричные"): "ignore",
+    ("МФУ",      "МФУ лазерные"):       "mfu",
+    ("МФУ",      "МФУ струйные"):       "mfu",
+    ("МФУ",      "МФУ матричные"):      "ignore",
+}
+
+
+def _classify_ocs(cat_b: str, kind_c: str) -> str:
+    """Определяет печатную категорию OCS по (B, C). 'printer' / 'mfu'
+    идут в pending_printers_mfu в orchestrator; 'ignore' для
+    matрричных и неизвестных пар (для отладки прайса)."""
+    if (cat_b, kind_c) in _BC_PRINTER_MFU_MAP:
+        return _BC_PRINTER_MFU_MAP[(cat_b, kind_c)]
+    logger.info(
+        "OCS (B=%r, C=%r): классифицирован как ignore (неизвестная пара)",
+        cat_b, kind_c,
+    )
+    return "ignore"
+
+
 # Индексы колонок (0-based) в листе «Наличие и цены».
 # A=cat_a, B=cat_b, C=kind_c, D=maker, E=supplier_sku, G=mpn, H=name,
 # I=price, J=currency, L=stock, R=transit (итого минимум 18 колонок).
@@ -82,12 +111,27 @@ def _parse_int(value) -> int:
 
 
 def _resolve_category(cat_b: str, kind_c: str) -> str | None:
+    """Сначала ПК-карта (точная (B, C), затем (B, None)); если ПК-карта
+    промахнулась — пробуем печатные пары (Этап 4 слияния).
+
+    Возвращает 'cpu'/.../'cooler' (ПК) или 'printer'/'mfu' (печать;
+    orchestrator пока пропустит с pending_printers_mfu) или None.
+    'ignore'-результат _classify_ocs (матричные / неизвестные пары)
+    приводим к None — семантика «не пишем в БД» в C-PC2 одна.
+    """
     b = (cat_b or "").strip()
     c = (kind_c or "").strip()
     hit = _CATEGORY_MAP.get((b, c if c else None))
     if hit:
         return hit
-    return _CATEGORY_MAP.get((b, None))
+    hit = _CATEGORY_MAP.get((b, None))
+    if hit:
+        return hit
+    if c:
+        cat = _classify_ocs(b, c)
+        if cat in ("printer", "mfu"):
+            return cat
+    return None
 
 
 def _normalize_gtin(value) -> str | None:

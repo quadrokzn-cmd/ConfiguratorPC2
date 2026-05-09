@@ -65,6 +65,79 @@ _CATEGORY_MAP: dict[tuple[str, str], str] = {
 }
 
 
+# Печатная техника «Ресурс Медиа» (Этап 4 слияния, 2026-05-08).
+# Категоризация — ЭВРИСТИКА по 1-3 словам имени модели:
+#   «МФУ ...»                   → mfu
+#   «Принтер ...» / «Плоттер»   → printer
+#   «Фабрика печати ...»        → printer (отдельный класс Epson)
+#   «Цветное/Лазерный ... МФУ»  → mfu (прилагательное + существительное)
+#   «Тумба/Лоток/Сканер/...»    → ignore (аксессуары)
+# Запись printer/mfu в БД пока не подключена — orchestrator скипнет
+# с pending_printers_mfu (Этап 6 даст таблицу `printers_mfu`).
+_RM_IGNORE_FIRST: set[str] = {
+    "тумба", "комплект", "лоток", "модуль", "автоподатчик",
+    "дополнительный", "сканер", "стенд", "крышка", "податчик",
+}
+
+_RM_ADJECTIVE_FIRST: set[str] = {
+    "цветное", "цветной", "лазерное", "лазерный",
+    "монохромное", "монохромный", "струйное", "струйный",
+}
+
+
+def _classify_resursmedia(name: str) -> str:
+    """Классификация позиции «Ресурс Медиа» по имени.
+
+    Возвращает 'printer'/'mfu'/'ignore'. Применяется только когда основной
+    _CATEGORY_MAP не нашёл совпадения — то есть для позиций, не относящихся
+    к ПК-разделам. Алгоритм — каскадный: смотрим первое слово, потом второе,
+    потом третье; неизвестные паттерны → 'ignore' с INFO-логом.
+    """
+    parts = name.split()
+    first = parts[0].lower() if parts else ""
+    second = parts[1].lower() if len(parts) > 1 else ""
+
+    if first == "мфу":
+        return "mfu"
+    if first == "принтер":
+        return "printer"
+    if first == "плоттер":
+        return "printer"
+    if first == "фабрика":
+        return "printer"
+
+    if first in _RM_IGNORE_FIRST:
+        return "ignore"
+
+    if first in _RM_ADJECTIVE_FIRST:
+        if second == "мфу":
+            return "mfu"
+        if second in ("принтер", "плоттер"):
+            return "printer"
+        logger.info(
+            "ResursMedia %r: классифицирован как ignore (first=%r, second=%r)",
+            name, first, second,
+        )
+        return "ignore"
+
+    if second == "мфу":
+        return "mfu"
+    if second in ("принтер", "плоттер"):
+        return "printer"
+    if second in _RM_ADJECTIVE_FIRST:
+        third = parts[2].lower() if len(parts) > 2 else ""
+        if third == "мфу":
+            return "mfu"
+        if third in ("принтер", "плоттер"):
+            return "printer"
+
+    logger.info(
+        "ResursMedia %r: классифицирован как ignore (first=%r, second=%r)",
+        name, first, second,
+    )
+    return "ignore"
+
+
 _COL_SECTION       = 0   # A — верхний раздел (только в строках-разделителях)
 _COL_BRAND_OR_SUB  = 1   # B — подкатегория ИЛИ бренд (зависит от наличия Артикула)
 _COL_SKU           = 2   # C — Артикул (supplier_sku)
@@ -224,6 +297,16 @@ class ResursMediaLoader(BasePriceLoader):
                 our_category = _CATEGORY_MAP.get(
                     (current_section, current_subsection)
                 )
+                # Этап 4 слияния (2026-05-08): если ПК-карта не нашла,
+                # пробуем эвристику по имени для печатных позиций.
+                # Классификатор возвращает printer/mfu только для явно
+                # печатных шаблонов («МФУ ...»/«Принтер ...»/...);
+                # для аксессуаров и неподходящих позиций — ignore,
+                # которое orchestrator отличает от None по семантике.
+                if our_category is None and name:
+                    rm_cat = _classify_resursmedia(name)
+                    if rm_cat in ("printer", "mfu"):
+                        our_category = rm_cat
                 raw_category = " | ".join(
                     x for x in (current_section, current_subsection) if x
                 )
