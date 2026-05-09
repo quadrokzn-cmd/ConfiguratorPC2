@@ -42,8 +42,10 @@ from portal.routers import (
     admin_diagnostics,
     admin_price_uploads,
     admin_users,
+    auctions,
     auth,
     home,
+    nomenclature,
 )
 from portal.scheduler import init_scheduler, shutdown_scheduler
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
@@ -107,6 +109,8 @@ app.include_router(admin_price_uploads.router)
 app.include_router(admin_auto_price.router)
 app.include_router(admin_auctions.router)
 app.include_router(admin_diagnostics.router)
+app.include_router(auctions.router)
+app.include_router(nomenclature.router)
 app.include_router(home.router)
 
 

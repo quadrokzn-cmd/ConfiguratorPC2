@@ -221,8 +221,101 @@ def _get_components_breakdown(db: Session) -> dict[str, Any]:
     }
 
 
+def _read_setting_int(db: Session, key: str, default: int) -> int:
+    """Достаёт целочисленный порог из таблицы settings; возвращает default,
+    если ключа нет или таблицы нет (для test-БД без миграции 030)."""
+    try:
+        row = db.execute(
+            text("SELECT value FROM settings WHERE key = :k"),
+            {"k": key},
+        ).first()
+    except Exception:
+        return default
+    if row is None:
+        return default
+    try:
+        return int(str(row.value).strip())
+    except (ValueError, TypeError):
+        return default
+
+
+def _get_auctions_overview(db: Session) -> dict[str, Any]:
+    """Виджет 6 — аукционы (этап 9a слияния).
+
+    Возвращает три счётчика для главной портала:
+      - total_active: тендеры со статусом ∈ {new, in_review, will_bid, submitted}
+      - urgent: те же ∩ статус ∈ {new, in_review, will_bid} И
+                submit_deadline < NOW() + interval '<deadline_alert_hours> hours'
+      - with_primary_above_threshold: тендеры, у которых хотя бы один
+                primary-match имеет margin_pct >= margin_threshold_pct
+
+    Все данные берутся из аукционных таблиц (миграция 030). На тестовой
+    БД без 030 функция возвращает все нули и not_available=True — шаблон
+    в этом случае не рисует виджет.
+    """
+    deadline_hours = _read_setting_int(db, "deadline_alert_hours", 24)
+    margin_threshold = _read_setting_int(db, "margin_threshold_pct", 15)
+
+    out: dict[str, Any] = {
+        "total_active":                 0,
+        "urgent":                       0,
+        "with_primary_above_threshold": 0,
+        "margin_threshold_pct":         margin_threshold,
+        "deadline_alert_hours":         deadline_hours,
+        "label":                        "Аукционы",
+        "available":                    False,
+    }
+
+    try:
+        row = db.execute(
+            text(
+                """
+                SELECT
+                    COUNT(*) FILTER (
+                        WHERE ts.status IN ('new', 'in_review', 'will_bid', 'submitted')
+                    )                                              AS total_active,
+                    COUNT(*) FILTER (
+                        WHERE ts.status IN ('new', 'in_review', 'will_bid')
+                          AND t.submit_deadline IS NOT NULL
+                          AND t.submit_deadline < NOW() + (:hours || ' hours')::interval
+                    )                                              AS urgent
+                  FROM tender_status ts
+                  JOIN tenders t ON t.reg_number = ts.tender_id
+                """
+            ),
+            {"hours": str(deadline_hours)},
+        ).first()
+        if row is not None:
+            out["total_active"] = int(row.total_active or 0)
+            out["urgent"] = int(row.urgent or 0)
+
+        # Тендеры с хотя бы одним primary-матчем выше порога маржи.
+        row2 = db.execute(
+            text(
+                """
+                SELECT COUNT(DISTINCT ti.tender_id) AS n
+                  FROM matches m
+                  JOIN tender_items ti ON ti.id = m.tender_item_id
+                 WHERE m.match_type = 'primary'
+                   AND m.margin_pct IS NOT NULL
+                   AND m.margin_pct >= :threshold
+                """
+            ),
+            {"threshold": margin_threshold},
+        ).first()
+        if row2 is not None:
+            out["with_primary_above_threshold"] = int(row2.n or 0)
+
+        out["available"] = True
+    except Exception:
+        # Аукционных таблиц нет — оставляем нули и available=False.
+        pass
+
+    return out
+
+
 def get_dashboard_data(db: Session) -> dict[str, Any]:
-    """Главная функция сервиса. Возвращает dict со всеми пятью виджетами.
+    """Главная функция сервиса. Возвращает dict со всеми виджетами.
 
     Контракт ключей (используется и в шаблоне, и в тестах):
       - active_projects:       {"total", "label"}
@@ -230,6 +323,8 @@ def get_dashboard_data(db: Session) -> dict[str, Any]:
       - exchange_rate:         {"rate", "rate_date", "fetched_at", "source", "label"}
       - suppliers_freshness:   list of {"name", "last_loaded_at", "days_ago", "is_stale"}
       - components_breakdown:  {"total", "categories", "max_count", "label"}
+      - auctions_overview:     {"total_active", "urgent",
+                                "with_primary_above_threshold", "available", ...}
 
     Каждое значение должно быть «безопасным» для шаблона — никаких
     исключений наружу. На пустой БД получаем нули и Nones, шаблон
@@ -241,6 +336,7 @@ def get_dashboard_data(db: Session) -> dict[str, Any]:
         "exchange_rate":        _get_exchange_rate(db),
         "suppliers_freshness":  _get_suppliers_freshness(db),
         "components_breakdown": _get_components_breakdown(db),
+        "auctions_overview":    _get_auctions_overview(db),
     }
 
 

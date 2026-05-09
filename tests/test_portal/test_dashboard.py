@@ -124,7 +124,8 @@ def _insert_exchange_rate(db, *, days_ago: int = 0, rate: str = "75.5300") -> No
 # ---------------------------------------------------------------------
 
 def test_dashboard_data_returns_expected_keys_on_empty_db(db_session):
-    """На пустой БД сервис не падает и возвращает все 5 ключей."""
+    """На пустой БД сервис не падает и возвращает все 6 ключей
+    (5 базовых + auctions_overview из этапа 9a слияния)."""
     from portal.services.dashboard import get_dashboard_data
 
     data = get_dashboard_data(db_session)
@@ -134,6 +135,7 @@ def test_dashboard_data_returns_expected_keys_on_empty_db(db_session):
         "exchange_rate",
         "suppliers_freshness",
         "components_breakdown",
+        "auctions_overview",
     }
     # И каждое значение — словарь либо список с минимум одним полем.
     assert isinstance(data["active_projects"], dict) and "total" in data["active_projects"]
@@ -141,6 +143,8 @@ def test_dashboard_data_returns_expected_keys_on_empty_db(db_session):
     assert isinstance(data["exchange_rate"], dict) and "rate" in data["exchange_rate"]
     assert isinstance(data["suppliers_freshness"], list)
     assert isinstance(data["components_breakdown"], dict) and "total" in data["components_breakdown"]
+    assert isinstance(data["auctions_overview"], dict)
+    assert "total_active" in data["auctions_overview"]
 
 
 def test_dashboard_data_empty_db_zero_values(db_session):

@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Справочник печати — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6">
+    <h1 class="portal-greeting">Справочник печати</h1>
+    <p class="portal-greeting-sub">
+      Каталог принтеров и МФУ (таблица <code>printers_mfu</code>),
+      используется матчингом аукционов. Жёлтый бейдж рядом с атрибутом
+      означает «n/a» — характеристика не найдена на сайте производителя,
+      менеджер уточняет вручную при подаче заявки.
+    </p>
+  </header>
+
+  <form method="get" action="/nomenclature"
+        class="card card-pad mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+    <div>
+      <label class="block text-caption text-ink-muted mb-1">Категория</label>
+      <select name="category"
+              class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+        <option value="">все</option>
+        {% for c in categories %}
+        <option value="{{ c }}" {% if filter_category == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="block text-caption text-ink-muted mb-1">Бренд</label>
+      <select name="brand"
+              class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+        <option value="">все</option>
+        {% for b in brands %}
+        <option value="{{ b }}" {% if filter_brand == b %}selected{% endif %}>{{ b }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="md:col-span-2">
+      <label class="block text-caption text-ink-muted mb-1">Поиск (имя, MPN, SKU)</label>
+      <input type="text" name="q" value="{{ filter_q }}"
+             class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+             placeholder="например, P3010">
+    </div>
+    <div class="md:col-span-4 flex justify-end gap-2">
+      <a href="/nomenclature" class="btn btn-secondary btn-sm">Сбросить</a>
+      <button type="submit" class="btn btn-primary btn-sm">Применить</button>
+    </div>
+  </form>
+
+  <div class="text-small text-ink-muted mb-2" data-testid="rows-count">
+    Найдено: <strong>{{ rows|length }}</strong> SKU.
+    {% if rows|length >= 200 %}
+      <span class="text-warning-500">(показывается первые 200 — уточните фильтр)</span>
+    {% endif %}
+  </div>
+
+  <section class="card overflow-hidden">
+    {% if not rows %}
+    <div class="card-pad text-center text-ink-muted text-small" data-testid="empty-state">
+      SKU не найдены под текущие фильтры.
+    </div>
+    {% else %}
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">SKU / Название</th>
+          <th class="text-left w-32">Бренд</th>
+          <th class="text-left w-24">Категория</th>
+          <th class="text-right w-32">cost_base, ₽</th>
+          <th class="text-left">Атрибуты</th>
+          <th class="text-left w-44">KTRU</th>
+          <th class="text-right w-44">Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        {% set _attrs = row.attrs_jsonb or {} %}
+        <tr data-testid="nom-row-{{ row.id }}"
+            data-row-id="{{ row.id }}"
+            data-attrs='{{ _attrs | tojson }}'
+            data-ktru="{{ row.ktru_codes_array | join(',') if row.ktru_codes_array else '' }}"
+            data-sku="{{ row.sku }}"
+            data-name="{{ row.name }}"
+            data-brand="{{ row.brand or '' }}"
+            data-mpn="{{ row.mpn or '' }}">
+          <td class="text-small">
+            <div class="text-ink-primary font-medium">{{ row.name }}</div>
+            <div class="text-caption text-ink-muted font-mono">
+              SKU {{ row.sku }} · MPN {{ row.mpn or '—' }}
+              {% if row.attrs_source %}· источник: {{ row.attrs_source }}{% endif %}
+            </div>
+          </td>
+          <td class="text-ink-secondary text-small">{{ row.brand or '—' }}</td>
+          <td class="text-ink-secondary text-small">{{ row.category or '—' }}</td>
+          <td class="text-right">
+            {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
+            <input type="number" min="0" step="0.01"
+                   class="w-28 rounded border-line-subtle bg-surface-2 text-small font-mono text-right px-1.5 py-1 cost-base-input"
+                   value="{{ '%.2f'|format(row.cost_base_rub) if row.cost_base_rub is not none else '' }}"
+                   data-testid="cost-base-{{ row.id }}">
+            {% else %}
+            <span class="text-ink-secondary font-mono text-small">
+              {% if row.cost_base_rub is not none %}{{ '%.2f'|format(row.cost_base_rub) }}{% else %}—{% endif %}
+            </span>
+            {% endif %}
+          </td>
+          <td class="text-small">
+            {% if not _attrs %}
+              <span class="text-caption text-ink-muted">—</span>
+            {% else %}
+            <div class="flex flex-wrap gap-1">
+              {% for k in attr_keys %}
+                {% set v = _attrs.get(k) %}
+                {% if v == na or v is none %}
+                  <span class="badge badge-warning" title="не найдено — уточнить вручную">
+                    {{ k }}: n/a
+                  </span>
+                {% elif v is iterable and v is not string %}
+                  <span class="badge badge-neutral">{{ k }}: {{ v|join(', ') }}</span>
+                {% else %}
+                  <span class="badge badge-neutral">{{ k }}: {{ v }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </td>
+          <td class="text-caption text-ink-secondary">
+            {% if row.ktru_codes_array %}
+              {{ row.ktru_codes_array | join(', ') }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+          <td class="text-right whitespace-nowrap">
+            {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
+            <button type="button"
+                    class="btn btn-secondary btn-sm attrs-edit-btn"
+                    data-testid="attrs-edit-{{ row.id }}">
+              {{ icon('edit', 'w-3.5 h-3.5') }}
+              <span>атрибуты</span>
+            </button>
+            <button type="button"
+                    class="btn btn-secondary btn-sm enrich-btn"
+                    data-testid="enrich-{{ row.id }}"
+                    title="Поставить SKU в очередь Claude Code для обогащения">
+              ↻
+            </button>
+            {% endif %}
+            <span class="text-caption text-ink-muted ml-1 row-flash" aria-live="polite"></span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </section>
+
+  {# === Модалка правки атрибутов ====================================== #}
+  <dialog id="attrs-dialog" class="kt-dialog rounded-lg max-w-2xl w-full p-0">
+    <form id="attrs-form" method="dialog" class="p-6 space-y-4">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" id="attrs-row-id" name="_id" value="">
+
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <h2 class="text-h3 text-ink-primary">Атрибуты SKU</h2>
+          <p id="attrs-subtitle" class="text-caption text-ink-muted"></p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="attrs-cancel">×</button>
+      </div>
+      <p class="text-caption text-ink-muted">
+        Оставьте «n/a», если значение неизвестно. После сохранения источник станет
+        <code>manual</code>.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-small">
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">print_speed_ppm (стр/мин, int или n/a)</label>
+          <input type="text" name="print_speed_ppm"
+                 class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">colorness</label>
+          <select name="colorness" class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+            {% for opt in [na, "ч/б", "цветной"] %}
+            <option value="{{ opt }}">{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">max_format</label>
+          <select name="max_format" class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+            {% for opt in [na, "A4", "A3"] %}
+            <option value="{{ opt }}">{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">duplex</label>
+          <select name="duplex" class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+            {% for opt in [na, "yes", "no"] %}
+            <option value="{{ opt }}">{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">resolution_dpi (int или n/a)</label>
+          <input type="text" name="resolution_dpi"
+                 class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">network_interface</label>
+          <div class="flex items-center gap-4 text-small">
+            <label class="inline-flex items-center gap-1">
+              <input type="checkbox" name="network_interface" value="LAN"> LAN
+            </label>
+            <label class="inline-flex items-center gap-1">
+              <input type="checkbox" name="network_interface" value="WiFi"> WiFi
+            </label>
+            <span class="text-caption text-ink-muted">снять оба = n/a</span>
+          </div>
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">usb</label>
+          <select name="usb" class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+            {% for opt in [na, "yes", "no"] %}
+            <option value="{{ opt }}">{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">starter_cartridge_pages (int или n/a)</label>
+          <input type="text" name="starter_cartridge_pages"
+                 class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">print_technology</label>
+          <select name="print_technology" class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+            {% for opt in [na, "лазерная", "струйная", "светодиодная"] %}
+            <option value="{{ opt }}">{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="border-t border-line-subtle pt-4 mt-4">
+        <label class="block text-caption text-ink-muted mb-1">KTRU-коды (через запятую)</label>
+        <textarea name="ktru_codes_text" rows="2"
+                  class="w-full rounded border-line-subtle bg-surface-2 text-small font-mono px-2 py-1.5"></textarea>
+        <p class="text-caption text-ink-muted mt-1">
+          Сохраняется отдельным запросом к /ktru вместе с атрибутами.
+        </p>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-line-subtle">
+        <button type="button" class="btn btn-secondary btn-sm" id="attrs-cancel-2">Отмена</button>
+        <button type="submit" class="btn btn-primary btn-sm" id="attrs-save">Сохранить</button>
+      </div>
+      <div id="attrs-error" class="text-caption text-danger-500 mt-1" role="alert"></div>
+    </form>
+  </dialog>
+
+</div>
+
+<script src="{{ static_url('static/js/nomenclature.js') }}" defer></script>
+{% endblock %}

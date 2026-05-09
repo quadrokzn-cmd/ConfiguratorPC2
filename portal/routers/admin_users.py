@@ -43,10 +43,15 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/admin")
 
 
-# В 9Б.1 в UI чекбоксов отрисовываем только "configurator" — остальные
-# модули ещё не имеют ни одного маршрута. Список MODULE_KEYS остаётся
-# источником истины для permissions JSONB; UI расширим в 9Б.2.
-_VISIBLE_MODULE_KEYS: list[str] = ["configurator"]
+# Видимые в UI чекбоксы: configurator (с этапа 9Б.1) + 3 ключа аукционов
+# (этап 9a слияния QT↔C-PC2). Остальные ключи (`kp_form`, `mail_agent`,
+# `dashboard`) пока без маршрутов — добавятся вместе с UI этих модулей.
+_VISIBLE_MODULE_KEYS: list[str] = [
+    "configurator",
+    "auctions",
+    "auctions_edit_status",
+    "auctions_edit_settings",
+]
 
 _VALID_ROLES: frozenset[str] = frozenset({"admin", "manager"})
 

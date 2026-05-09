@@ -48,6 +48,15 @@
       <div class="space-y-0.5">
         {{ _portal_nav_link('/',            'Главная',      'layout-grid',
                             _path == '/') }}
+        {# 9a: Аукционы и справочник печати — модуль для собственника
+           и менеджера-тендерщика. Видимость по permission 'auctions'
+           (admin — всегда). #}
+        {% if has_permission(user.role, user.permissions, 'auctions') %}
+        {{ _portal_nav_link('/auctions', 'Аукционы', 'gavel',
+                            _path.startswith('/auctions')) }}
+        {{ _portal_nav_link('/nomenclature', 'Справочник печати', 'printer',
+                            _path.startswith('/nomenclature')) }}
+        {% endif %}
         {% if user.is_admin %}
         {{ _portal_nav_link('/admin/users', 'Пользователи', 'users',
                             _path.startswith('/admin/users')) }}

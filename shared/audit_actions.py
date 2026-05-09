@@ -83,3 +83,16 @@ ACTION_PRICE_UPLOAD_FAILED   = "price_upload.failed"
 ACTION_AUTO_PRICE_VIEW   = "auto_price.view"
 ACTION_AUTO_PRICE_RUN    = "auto_price.run"
 ACTION_AUTO_PRICE_TOGGLE = "auto_price.toggle"
+
+
+# --- Auctions (этап 9a слияния QT↔C-PC2) -------------------------------
+
+ACTION_AUCTION_STATUS_CHANGE     = "auction.status_change"
+ACTION_AUCTION_CONTRACT_UPDATE   = "auction.contract_update"
+ACTION_AUCTION_NOTE_UPDATE       = "auction.note_update"
+ACTION_AUCTION_SETTINGS_UPDATE   = "auction.settings_update"
+ACTION_AUCTION_REGION_TOGGLE     = "auction.region_toggle"
+ACTION_AUCTION_KTRU_ADD          = "auction.ktru_add"
+ACTION_AUCTION_KTRU_TOGGLE       = "auction.ktru_toggle"
+ACTION_AUCTION_NOMENCLATURE_EDIT = "auction.nomenclature_edit"
+ACTION_AUCTION_ENRICH_REQUEST    = "auction.enrich_request"

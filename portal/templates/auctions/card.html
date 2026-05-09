@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Лот {{ t.reg_number }} — Аукционы{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  {# Хлебные крошки + назад #}
+  <nav class="text-small text-ink-muted mb-4">
+    <a href="/auctions" class="hover:text-ink-primary">Аукционы</a>
+    <span class="mx-1">/</span>
+    <span class="text-ink-secondary font-mono">{{ t.reg_number }}</span>
+  </nav>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+
+  {# === Шапка карточки ================================================== #}
+  <header class="card card-pad mb-6">
+    <div class="flex items-start justify-between gap-4 mb-3">
+      <div>
+        <h1 class="text-h2 text-ink-primary font-mono">{{ t.reg_number }}</h1>
+        <p class="text-ink-secondary mt-1">{{ t.customer or '—' }}</p>
+        <p class="text-ink-muted text-small mt-0.5">{{ t.customer_region or '—' }}</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="badge {% if t.status == 'won' %}badge-success
+                            {%- elif t.status == 'skipped' %}badge-neutral
+                            {%- elif t.status == 'submitted' %}badge-success
+                            {%- else %}badge-warning{% endif %}"
+              data-testid="card-status">
+          {{ t.status_label }}
+        </span>
+        {% if t.url %}
+        <a href="{{ t.url }}" target="_blank" rel="noopener"
+           class="btn btn-secondary btn-sm" data-testid="card-eis-link">
+          {{ icon('external-link', 'w-4 h-4') }}
+          <span>На ЕИС</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-small">
+      <div>
+        <div class="text-caption text-ink-muted">НМЦК, ₽</div>
+        <div class="text-ink-primary font-mono">
+          {% if t.nmck_total is not none %}
+            {{ '%.2f'|format(t.nmck_total) }}
+          {% else %}—{% endif %}
+        </div>
+      </div>
+      <div>
+        <div class="text-caption text-ink-muted">Опубликован</div>
+        <div class="text-ink-secondary font-mono">{{ fmt_msk(t.publish_date) }}</div>
+      </div>
+      <div>
+        <div class="text-caption text-ink-muted">Подача до</div>
+        <div class="text-ink-secondary font-mono">{{ fmt_msk(t.submit_deadline) }}</div>
+      </div>
+      <div>
+        <div class="text-caption text-ink-muted">Поставка до</div>
+        <div class="text-ink-secondary font-mono">{{ fmt_msk(t.delivery_deadline) }}</div>
+      </div>
+    </div>
+
+    {# Флаги ингеста #}
+    {% if t.flags_jsonb %}
+    <div class="mt-4 flex flex-wrap gap-2 text-caption">
+      {% for flag, val in t.flags_jsonb.items() %}
+        {% if val %}
+        <span class="badge badge-warning" title="Флаг ингеста">⚠ {{ flag }}</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Контакты — раскрывающийся блок #}
+    {% if t.customer_contacts_jsonb %}
+    <details class="mt-4">
+      <summary class="cursor-pointer text-small text-ink-secondary hover:text-ink-primary">
+        Контакты заказчика
+      </summary>
+      <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 text-small text-ink-secondary">
+        {% for k, v in t.customer_contacts_jsonb.items() %}
+        <div><span class="text-ink-muted">{{ k }}:</span> {{ v }}</div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+  </header>
+
+  {# === Позиции лота ==================================================== #}
+  <section class="card overflow-hidden mb-6" data-testid="card-items">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Позиции ({{ items|length }})</h2>
+    </div>
+
+    {% if not items %}
+    <div class="card-pad pt-2 text-ink-muted text-small">Позиций не найдено.</div>
+    {% else %}
+    <div class="divide-y divide-line-subtle">
+      {% for it in items %}
+      <article class="card-pad" data-testid="item-{{ it.position_num }}">
+        <div class="flex items-baseline justify-between gap-4 mb-2">
+          <div>
+            <span class="text-caption text-ink-muted">Поз. {{ it.position_num }}</span>
+            <span class="ml-2 font-mono text-small text-ink-secondary">{{ it.ktru_code or 'без KTRU' }}</span>
+          </div>
+          <div class="text-small text-ink-secondary whitespace-nowrap">
+            {{ '%g'|format(it.qty) }} {{ it.unit or 'шт' }}
+            {% if it.nmck_per_unit is not none %}
+              · <span class="font-mono">{{ '%.2f'|format(it.nmck_per_unit) }} ₽/ед</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="text-ink-primary mb-3">{{ it.name or '—' }}</div>
+
+        {# Атрибуты позиции #}
+        {% if it.required_attrs_jsonb %}
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          {% for k, v in it.required_attrs_jsonb.items() %}
+          <span class="badge badge-neutral">
+            <span class="text-ink-muted">{{ k }}:</span>
+            <span class="text-ink-secondary">{{ v }}</span>
+          </span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {# Primary match #}
+        {% if it.primary %}
+        {% set p = it.primary %}
+        <div class="rounded-md bg-surface-2 p-3 mb-2" data-testid="primary-{{ it.position_num }}">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <div class="text-small text-ink-secondary">
+              <span class="text-caption text-ink-muted">primary:</span>
+              <span class="font-mono text-ink-primary">{{ p.sku or ('id ' ~ p.nomenclature_id) }}</span>
+              · {{ p.brand or '—' }} · {{ p.name | truncate(60, true, '…') }}
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              {% if p.cost_base_rub is not none %}
+                <span class="text-caption text-ink-muted font-mono">{{ '%.2f'|format(p.cost_base_rub) }} ₽</span>
+              {% endif %}
+              {% if p.margin_pct is not none %}
+                {% set m = p.margin_pct %}
+                {% if m < 0 %}
+                  <span class="badge badge-danger">{{ '%.1f'|format(m) }}%</span>
+                {% elif m >= margin_threshold_pct %}
+                  <span class="badge badge-success">{{ '%.1f'|format(m) }}%</span>
+                {% else %}
+                  <span class="badge badge-warning">{{ '%.1f'|format(m) }}%</span>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+          {% if p.needs_manual_verification %}
+          <div class="text-caption text-warning-500 mt-1">
+            ⚠ требует ручного уточнения атрибутов
+          </div>
+          {% endif %}
+        </div>
+
+        {% if it.alternatives %}
+        <details class="text-small">
+          <summary class="cursor-pointer text-ink-secondary hover:text-ink-primary">
+            Альтернативы ({{ it.alternatives|length }})
+          </summary>
+          <ul class="mt-2 space-y-1">
+            {% for a in it.alternatives %}
+            <li class="flex items-center justify-between gap-2 px-2 py-1 rounded hover:bg-surface-2">
+              <span class="text-ink-secondary">
+                <span class="font-mono">{{ a.sku or ('id ' ~ a.nomenclature_id) }}</span>
+                · {{ a.brand or '—' }} · {{ a.name | truncate(50, true, '…') }}
+              </span>
+              <span class="text-caption text-ink-muted whitespace-nowrap">
+                {% if a.cost_base_rub is not none %}{{ '%.2f'|format(a.cost_base_rub) }} ₽{% endif %}
+                {% if a.margin_pct is not none %}
+                  · <span class="font-mono">{{ '%.1f'|format(a.margin_pct) }}%</span>
+                {% endif %}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+        </details>
+        {% endif %}
+
+        {% else %}
+        <div class="text-caption text-ink-muted">Primary-матч не найден.</div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  {# === Статус и переходы =============================================== #}
+  {% if has_permission(user.role, user.permissions, 'auctions_edit_status') %}
+  <section class="card card-pad mb-6">
+    <h2 class="text-h3 text-ink-primary mb-3">Статус: {{ t.status_label }}</h2>
+    {% if transitions %}
+    <div class="flex flex-wrap gap-2">
+      {% for ns in transitions %}
+        {% if ns == 'will_bid' %}
+        {# will_bid: чек-лист в модалке — submit формы только после OK. #}
+        <form method="post" action="/auctions/{{ t.reg_number }}/status"
+              class="kt-confirm-form inline-block"
+              data-confirm-message="Перед переходом «будем подавать»: проверь ТЗ на пусконаладку, обучение, монтаж — если требуется, учти в маржинальности.">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <input type="hidden" name="new_status" value="{{ ns }}">
+          <button type="submit" class="btn btn-primary btn-sm"
+                  data-testid="status-btn-{{ ns }}">
+            → {{ status_labels[ns] }}
+          </button>
+        </form>
+        {% else %}
+        <form method="post" action="/auctions/{{ t.reg_number }}/status"
+              class="inline-block">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <input type="hidden" name="new_status" value="{{ ns }}">
+          <button type="submit"
+                  class="btn btn-{% if ns == 'won' %}primary{% elif ns == 'skipped' %}secondary{% else %}secondary{% endif %} btn-sm"
+                  data-testid="status-btn-{{ ns }}">
+            → {{ status_labels[ns] }}
+          </button>
+        </form>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-ink-muted text-small">Терминальный статус — переходов нет.</p>
+    {% endif %}
+  </section>
+
+  {# === Контрактные дедлайны (только при won) =========================== #}
+  {% if t.status == 'won' %}
+  <section class="card card-pad mb-6" data-testid="contract-form">
+    <h2 class="text-h3 text-ink-primary mb-3">Контрактные дедлайны</h2>
+    <form method="post" action="/auctions/{{ t.reg_number }}/contract"
+          class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <div class="md:col-span-2">
+        <label class="block text-caption text-ink-muted mb-1">Реестровый номер контракта</label>
+        <input type="text" name="contract_registry_number"
+               value="{{ t.contract_registry_number }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               placeholder="например, 1234567890123456789">
+      </div>
+      {% set _kd = t.contract_key_dates_jsonb or {} %}
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">Подписан</label>
+        <input type="date" name="signed_at" value="{{ _kd.get('signed_at', '') }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">Поставка</label>
+        <input type="date" name="delivery_at" value="{{ _kd.get('delivery_at', '') }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">Приёмка</label>
+        <input type="date" name="acceptance_at" value="{{ _kd.get('acceptance_at', '') }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">Оплата</label>
+        <input type="date" name="payment_at" value="{{ _kd.get('payment_at', '') }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5">
+      </div>
+      <div class="md:col-span-2 flex justify-end">
+        <button type="submit" class="btn btn-primary btn-sm">Сохранить контракт</button>
+      </div>
+    </form>
+  </section>
+  {% endif %}
+
+  {# === Заметка ========================================================= #}
+  <section class="card card-pad" data-testid="note-form">
+    <h2 class="text-h3 text-ink-primary mb-3">Заметка</h2>
+    <form method="post" action="/auctions/{{ t.reg_number }}/note">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <textarea name="note" rows="4"
+                class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+                placeholder="Комментарий по лоту: договорённости, нюансы…">{{ t.note }}</textarea>
+      <div class="flex justify-end mt-2">
+        <button type="submit" class="btn btn-primary btn-sm">Сохранить заметку</button>
+      </div>
+    </form>
+  </section>
+
+  {% else %}
+  {# Менеджер без auctions_edit_status видит только note read-only. #}
+  {% if t.note %}
+  <section class="card card-pad mb-6">
+    <h2 class="text-h3 text-ink-primary mb-3">Заметка</h2>
+    <p class="text-ink-secondary whitespace-pre-line">{{ t.note }}</p>
+  </section>
+  {% endif %}
+  {% endif %}
+
+</div>
+{% endblock %}

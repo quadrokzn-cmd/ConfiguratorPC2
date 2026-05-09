@@ -1,0 +1,118 @@
+=== STDOUT ===
+normalize_brands: режим = APPLY
+
+=== ДО: распределение brand (всего различных) ===
+distinct brand count: 15
+  'HP'                                      184
+  'Pantum'                                  118
+  'Katusha IT'                              75
+  'Canon'                                   73
+  'Kyocera'                                 60
+  'Ricoh'                                   37
+  'Epson'                                   36
+  'Xerox'                                   14
+  'Konica Minolta'                          9
+  'Sindoh'                                  7
+  'Bulat'                                   6
+  'G&G'                                     5
+  'Cactus'                                  2
+  'Brother'                                 1
+  'iRU'                                     1
+
+=== ДО: задвоения по (mpn, brand) ===
+pairs (mpn, brand) с count > 1: 25
+  mpn='499M6A'                        brand='HP'                       n=2  skus=['hp inc.:499M6A', 'hp:499M6A']
+  mpn='499M7A'                        brand='HP'                       n=2  skus=['hp inc.:499M7A', 'hp:499M7A']
+  mpn='537P5C'                        brand='HP'                       n=2  skus=['hp inc.:537P5C', 'hp:537P5C']
+  mpn='53N94C'                        brand='HP'                       n=2  skus=['hp inc.:53N94C', 'hp:53N94C']
+  mpn='7MD67A'                        brand='HP'                       n=2  skus=['hp inc.:7MD67A', 'hp:7MD67A']
+  mpn='9YF82A'                        brand='HP'                       n=2  skus=['hp inc.:9YF82A', 'hp:9YF82A']
+  mpn='ACVD021'                       brand='Konica Minolta'           n=2  skus=['konica-minolta:ACVD021', 'konica minolta:ACVD021']
+  mpn='ADXM021'                       brand='Konica Minolta'           n=2  skus=['konica-minolta:ADXM021', 'konica minolta:ADXM021']
+  mpn='M130'                          brand='Katusha IT'               n=2  skus=['katusha it:M130', 'катюша:M130']
+  mpn='M133'                          brand='Katusha IT'               n=2  skus=['katusha it:M133', 'катюша:M133']
+  mpn='M133p-512-pp'                  brand='Katusha IT'               n=2  skus=['katusha it:M133p-512-pp', 'катюша:M133p-512-pp']
+  mpn='M133pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M133pm-pp', 'катюша:M133pm-pp']
+  mpn='M140-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:M140-pp', 'катюша:M140-pp']
+  mpn='M140T'                         brand='Katusha IT'               n=2  skus=['katusha it:M140T', 'катюша:M140T']
+  mpn='M240pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M240pm-pp', 'катюша:M240pm-pp']
+  mpn='M247ep-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M247ep-pp', 'катюша:M247ep-pp']
+  mpn='M335-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:M335-pp', 'катюша:M335-pp']
+  mpn='M348'                          brand='Katusha IT'               n=2  skus=['katusha it:M348', 'катюша:M348']
+  mpn='M450pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M450pm-pp', 'катюша:M450pm-pp']
+  mpn='MC645'                         brand='Katusha IT'               n=2  skus=['katusha it:MC645', 'катюша:MC645']
+  mpn='P133'                          brand='Katusha IT'               n=2  skus=['katusha it:P133', 'катюша:P133']
+  mpn='P133-256-pp'                   brand='Katusha IT'               n=2  skus=['katusha it:P133-256-pp', 'катюша:P133-256-pp']
+  mpn='P133pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:P133pm-pp', 'катюша:P133pm-pp']
+  mpn='P140-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:P140-pp', 'катюша:P140-pp']
+  mpn='P247ep-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:P247ep-pp', 'катюша:P247ep-pp']
+
+=== ДО: один MPN под РАЗНЫМИ brand (кандидаты на дубли SKU) ===
+MPN с >1 вариантом brand: 6
+  mpn='A500'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:A500', 'катюша:A500']
+  mpn='C300'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:C300', 'катюша:C300']
+  mpn='D330e'                         variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:D330e', 'катюша:D330e']
+  mpn='D332e'                         variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:D332e', 'катюша:D332e']
+  mpn='M500'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:M500', 'катюша:M500']
+  mpn='N511'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:N511', 'катюша:N511']
+
+Итог: rows_total=628, rows_changed=0, mode=APPLY
+
+=== ПОСЛЕ: распределение brand (всего различных) ===
+distinct brand count: 15
+  'HP'                                      184
+  'Pantum'                                  118
+  'Katusha IT'                              75
+  'Canon'                                   73
+  'Kyocera'                                 60
+  'Ricoh'                                   37
+  'Epson'                                   36
+  'Xerox'                                   14
+  'Konica Minolta'                          9
+  'Sindoh'                                  7
+  'Bulat'                                   6
+  'G&G'                                     5
+  'Cactus'                                  2
+  'Brother'                                 1
+  'iRU'                                     1
+
+=== ПОСЛЕ: задвоения по (mpn, brand) ===
+pairs (mpn, brand) с count > 1: 25
+  mpn='499M6A'                        brand='HP'                       n=2  skus=['hp inc.:499M6A', 'hp:499M6A']
+  mpn='499M7A'                        brand='HP'                       n=2  skus=['hp inc.:499M7A', 'hp:499M7A']
+  mpn='537P5C'                        brand='HP'                       n=2  skus=['hp inc.:537P5C', 'hp:537P5C']
+  mpn='53N94C'                        brand='HP'                       n=2  skus=['hp inc.:53N94C', 'hp:53N94C']
+  mpn='7MD67A'                        brand='HP'                       n=2  skus=['hp inc.:7MD67A', 'hp:7MD67A']
+  mpn='9YF82A'                        brand='HP'                       n=2  skus=['hp inc.:9YF82A', 'hp:9YF82A']
+  mpn='ACVD021'                       brand='Konica Minolta'           n=2  skus=['konica-minolta:ACVD021', 'konica minolta:ACVD021']
+  mpn='ADXM021'                       brand='Konica Minolta'           n=2  skus=['konica-minolta:ADXM021', 'konica minolta:ADXM021']
+  mpn='M130'                          brand='Katusha IT'               n=2  skus=['katusha it:M130', 'катюша:M130']
+  mpn='M133'                          brand='Katusha IT'               n=2  skus=['katusha it:M133', 'катюша:M133']
+  mpn='M133p-512-pp'                  brand='Katusha IT'               n=2  skus=['katusha it:M133p-512-pp', 'катюша:M133p-512-pp']
+  mpn='M133pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M133pm-pp', 'катюша:M133pm-pp']
+  mpn='M140-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:M140-pp', 'катюша:M140-pp']
+  mpn='M140T'                         brand='Katusha IT'               n=2  skus=['katusha it:M140T', 'катюша:M140T']
+  mpn='M240pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M240pm-pp', 'катюша:M240pm-pp']
+  mpn='M247ep-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M247ep-pp', 'катюша:M247ep-pp']
+  mpn='M335-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:M335-pp', 'катюша:M335-pp']
+  mpn='M348'                          brand='Katusha IT'               n=2  skus=['katusha it:M348', 'катюша:M348']
+  mpn='M450pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:M450pm-pp', 'катюша:M450pm-pp']
+  mpn='MC645'                         brand='Katusha IT'               n=2  skus=['katusha it:MC645', 'катюша:MC645']
+  mpn='P133'                          brand='Katusha IT'               n=2  skus=['katusha it:P133', 'катюша:P133']
+  mpn='P133-256-pp'                   brand='Katusha IT'               n=2  skus=['katusha it:P133-256-pp', 'катюша:P133-256-pp']
+  mpn='P133pm-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:P133pm-pp', 'катюша:P133pm-pp']
+  mpn='P140-pp'                       brand='Katusha IT'               n=2  skus=['katusha it:P140-pp', 'катюша:P140-pp']
+  mpn='P247ep-pp'                     brand='Katusha IT'               n=2  skus=['katusha it:P247ep-pp', 'катюша:P247ep-pp']
+
+=== ПОСЛЕ: один MPN под РАЗНЫМИ brand (кандидаты на дубли SKU) ===
+MPN с >1 вариантом brand: 6
+  mpn='A500'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:A500', 'катюша:A500']
+  mpn='C300'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:C300', 'катюша:C300']
+  mpn='D330e'                         variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:D330e', 'катюша:D330e']
+  mpn='D332e'                         variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:D332e', 'катюша:D332e']
+  mpn='M500'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:M500', 'катюша:M500']
+  mpn='N511'                          variants=2  brands=['Katusha IT', 'Sindoh']  skus=['sindoh:N511', 'катюша:N511']
+
+=== STDERR (logging) ===
+
+=== EXIT CODE: 0 ===

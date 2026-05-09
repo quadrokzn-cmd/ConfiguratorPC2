@@ -129,7 +129,42 @@
       </div>
     </{{ _freshness_tag }}>
 
-    {# --- 5) Компоненты в БД --- #}
+    {# --- 5) Аукционы (этап 9a слияния) ---
+       Виден только пользователям с правом 'auctions' (admin — всегда).
+       Если в БД нет аукционных таблиц (test-окружение без миграции 030)
+       — карточка тоже скрыта: dashboard.auctions_overview.available=False. #}
+    {% if show_auctions and dashboard.auctions_overview.available %}
+    {% set _ao = dashboard.auctions_overview %}
+    <a class="portal-widget portal-col-6 portal-widget-link"
+       href="/auctions"
+       data-testid="widget-auctions">
+      <div class="portal-widget-head">
+        <span class="portal-widget-title">{{ _ao.label }}</span>
+        <span class="portal-widget-icon">{{ icon('gavel', 'w-5 h-5') }}</span>
+      </div>
+      <div class="flex items-baseline gap-3">
+        <div class="portal-widget-bignum">{{ _ao.total_active }}</div>
+        <div class="portal-widget-sub mt-0">
+          {% if _ao.total_active == 0 %}
+            нет лотов в работе
+          {% else %}
+            активных лотов
+          {% endif %}
+        </div>
+      </div>
+      <div class="portal-widget-meta mt-2">
+        {% if _ao.urgent > 0 %}
+          <span class="badge badge-warning">срочных: {{ _ao.urgent }}</span>
+        {% else %}
+          срочных нет
+        {% endif %}
+        ·
+        выше порога {{ _ao.margin_threshold_pct }}%: <strong>{{ _ao.with_primary_above_threshold }}</strong>
+      </div>
+    </a>
+    {% endif %}
+
+    {# --- 6) Компоненты в БД --- #}
     <article class="portal-widget portal-col-6"
              data-testid="widget-components">
       <div class="portal-widget-head">

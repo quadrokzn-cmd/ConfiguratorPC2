@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Настройки аукционов — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6 flex items-start justify-between gap-4">
+    <div>
+      <h1 class="portal-greeting">Настройки модуля «Аукционы»</h1>
+      <p class="portal-greeting-sub">
+        Пороги маржи и НМЦК, окно срочного дедлайна, стоп-лист регионов
+        и список KTRU-зонтиков. Все изменения сохраняются в таблицу
+        <code>settings</code>/<code>excluded_regions</code>/<code>ktru_watchlist</code>
+        и применяются на следующем прогоне ингеста.
+      </p>
+    </div>
+    <a href="/auctions" class="btn btn-secondary btn-sm shrink-0">← К инбоксу</a>
+  </header>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+
+  {# === Пороги ========================================================== #}
+  <section class="card card-pad mb-6">
+    <h2 class="text-h3 text-ink-primary mb-4">Пороги</h2>
+    <form method="post" action="/auctions/settings/save"
+          class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">
+          Порог маржи, % (margin_threshold_pct)
+        </label>
+        <input type="number" min="0" step="1" name="margin_threshold_pct"
+               value="{{ settings.margin_threshold_pct }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               data-testid="set-margin-threshold-pct">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">
+          Минимум НМЦК, ₽ (nmck_min_rub)
+        </label>
+        <input type="number" min="0" step="1000" name="nmck_min_rub"
+               value="{{ settings.nmck_min_rub }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               data-testid="set-nmck-min-rub">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">
+          Макс. цена за единицу, ₽ (max_price_per_unit_rub)
+        </label>
+        <input type="number" min="0" step="1000" name="max_price_per_unit_rub"
+               value="{{ settings.max_price_per_unit_rub }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               data-testid="set-max-price-per-unit-rub">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">
+          Дедлайн «срочно», часов (deadline_alert_hours)
+        </label>
+        <input type="number" min="0" step="1" name="deadline_alert_hours"
+               value="{{ settings.deadline_alert_hours }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               data-testid="set-deadline-alert-hours">
+      </div>
+      <div>
+        <label class="block text-caption text-ink-muted mb-1">
+          Напоминалка о контракте, дней (contract_reminder_days)
+        </label>
+        <input type="number" min="0" step="1" name="contract_reminder_days"
+               value="{{ settings.contract_reminder_days }}"
+               class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+               data-testid="set-contract-reminder-days">
+      </div>
+      <div class="flex items-end">
+        <label class="inline-flex items-center gap-2 text-small">
+          <input type="checkbox" name="auctions_ingest_enabled" value="on"
+                 {% if settings.auctions_ingest_enabled in ('true', 'on', '1') %}checked{% endif %}
+                 class="rounded border-line-subtle"
+                 data-testid="set-ingest-enabled">
+          <span>Авто-ингест включён</span>
+        </label>
+      </div>
+
+      <div class="md:col-span-3 flex justify-end">
+        <button type="submit" class="btn btn-primary btn-sm" data-testid="save-settings">
+          Сохранить пороги
+        </button>
+      </div>
+    </form>
+  </section>
+
+  {# === Стоп-лист регионов ============================================== #}
+  <section class="card overflow-hidden mb-6" data-testid="regions-section">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">Стоп-лист регионов</h2>
+      <p class="text-caption text-ink-muted">
+        Регионы со включённым флагом «excluded» исключаются ингестом
+        (логистика — слишком далеко/дорого/особый режим).
+      </p>
+    </div>
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left">Регион</th>
+          <th class="text-left">Причина</th>
+          <th class="text-left w-32">Статус</th>
+          <th class="text-right w-44">Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in regions %}
+        <tr data-testid="region-row-{{ r.region_code }}">
+          <td class="text-ink-primary">{{ r.region_name }}</td>
+          <td class="text-ink-secondary text-small">{{ r.reason }}</td>
+          <td>
+            {% if r.excluded %}
+              <span class="badge badge-danger">в стоп-листе</span>
+            {% else %}
+              <span class="badge badge-success">разрешён</span>
+            {% endif %}
+          </td>
+          <td class="text-right">
+            <form method="post" action="/auctions/settings/region/{{ r.region_code }}/toggle"
+                  class="inline-block">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit"
+                      class="btn btn-sm {% if r.excluded %}btn-secondary{% else %}btn-secondary{% endif %}"
+                      data-testid="region-toggle-{{ r.region_code }}">
+                {% if r.excluded %}разрешить{% else %}в стоп-лист{% endif %}
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  {# === KTRU-зонтики ==================================================== #}
+  <section class="card overflow-hidden mb-6" data-testid="ktru-section">
+    <div class="card-pad pb-2">
+      <h2 class="text-h3 text-ink-primary">KTRU-зонтики (для ингеста)</h2>
+      <p class="text-caption text-ink-muted">
+        Активные коды используются как фильтр запроса к zakupki.gov.ru.
+        Сейчас выкатано 2 зонтика — МФУ и Принтер.
+      </p>
+    </div>
+    <table class="kt-table">
+      <thead>
+        <tr>
+          <th class="text-left w-44">Код KTRU</th>
+          <th class="text-left">Название (display_name)</th>
+          <th class="text-left w-28">Статус</th>
+          <th class="text-right w-44">Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for k in watchlist %}
+        <tr data-testid="ktru-row-{{ k.code }}">
+          <td class="text-ink-primary font-mono text-small">{{ k.code }}</td>
+          <td class="text-ink-secondary text-small">
+            {{ k.display_name or k.note or '—' }}
+          </td>
+          <td>
+            {% if k.is_active %}
+              <span class="badge badge-success">активен</span>
+            {% else %}
+              <span class="badge badge-neutral">выключен</span>
+            {% endif %}
+          </td>
+          <td class="text-right">
+            <form method="post" action="/auctions/settings/ktru/{{ k.code }}/toggle"
+                  class="inline-block">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="btn btn-secondary btn-sm"
+                      data-testid="ktru-toggle-{{ k.code }}">
+                {% if k.is_active %}выключить{% else %}включить{% endif %}
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="card-pad border-t border-line-subtle">
+      <h3 class="text-small text-ink-primary mb-2">Добавить KTRU</h3>
+      <form method="post" action="/auctions/settings/ktru/add"
+            class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">Код</label>
+          <input type="text" name="code" required
+                 class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5 font-mono"
+                 placeholder="26.20.18.000-00000001"
+                 data-testid="ktru-add-code">
+        </div>
+        <div>
+          <label class="block text-caption text-ink-muted mb-1">Название</label>
+          <input type="text" name="display_name"
+                 class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+                 placeholder="Принтер"
+                 data-testid="ktru-add-name">
+        </div>
+        <div class="flex">
+          <button type="submit" class="btn btn-primary btn-sm"
+                  data-testid="ktru-add-submit">
+            {{ icon('plus', 'w-4 h-4') }}
+            <span>Добавить</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  {# === Запуск ингеста ================================================== #}
+  <section class="card card-pad" data-testid="ingest-section">
+    <h2 class="text-h3 text-ink-primary mb-2">Ручной ингест</h2>
+    <p class="text-caption text-ink-muted mb-3">
+      Запускает <code>run_ingest_once</code> в фоне (single-flight).
+      Ходит в zakupki.gov.ru — может занять 5–10 минут на 2 зонтика.
+    </p>
+    <form method="post" action="/admin/run-ingest"
+          class="kt-confirm-form inline-block"
+          data-confirm-message="Запустить ингест аукционов сейчас? Будет совершён реальный поход на zakupki.gov.ru.">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn btn-primary btn-sm" data-testid="run-ingest">
+        {{ icon('refresh-cw', 'w-4 h-4') }}
+        <span>Запустить ингест сейчас</span>
+      </button>
+    </form>
+  </section>
+
+</div>
+{% endblock %}

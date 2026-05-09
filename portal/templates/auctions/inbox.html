@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Аукционы — Портал КВАДРО-ТЕХ{% endblock %}
+
+{% macro section_card(section_key, title, rows, empty_text, icon_name) %}
+{# Универсальный блок секции inbox. Каждая секция — отдельная card-таблица. #}
+<section class="card overflow-hidden mb-6" data-testid="section-{{ section_key }}">
+  <div class="card-pad pb-2">
+    <h2 class="text-h3 text-ink-primary flex items-center gap-2">
+      {{ icon(icon_name, 'w-5 h-5') }}
+      <span>{{ title }}</span>
+      <span class="badge badge-neutral">{{ rows|length }}</span>
+    </h2>
+  </div>
+  {% if rows %}
+  <table class="kt-table">
+    <thead>
+      <tr>
+        <th class="text-left">№ извещения</th>
+        <th class="text-left">Заказчик</th>
+        <th class="text-left w-32">Регион</th>
+        <th class="text-right w-32">НМЦК, ₽</th>
+        <th class="text-left w-44">Дедлайн (МСК)</th>
+        <th class="text-right w-28">Маржа</th>
+        <th class="text-left w-32">Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr data-testid="lot-row-{{ r.reg_number }}">
+        <td>
+          <a href="/auctions/{{ r.reg_number }}"
+             class="text-brand-300 hover:underline font-mono text-small whitespace-nowrap">
+            {{ r.reg_number }}
+          </a>
+        </td>
+        <td class="text-ink-primary text-small">
+          <span title="{{ r.customer }}">{{ r.customer | truncate(60, true, '…') }}</span>
+        </td>
+        <td class="text-ink-secondary text-small">{{ r.customer_region or '—' }}</td>
+        <td class="text-right text-ink-primary font-mono text-small whitespace-nowrap">
+          {% if r.nmck_total is not none %}
+            {{ '%.2f'|format(r.nmck_total) }}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
+          {{ fmt_msk(r.submit_deadline) }}
+          {% if r.is_overdue %}
+            <span class="badge badge-neutral" title="Дедлайн в прошлом">просрочен</span>
+          {% endif %}
+        </td>
+        <td class="text-right text-small whitespace-nowrap">
+          {% if r.max_margin_pct is not none %}
+            {% set m = r.max_margin_pct %}
+            {% if m < 0 %}
+              <span class="badge badge-danger">{{ '%.1f'|format(m) }}%</span>
+            {% elif m >= data.margin_threshold_pct %}
+              <span class="badge badge-success">{{ '%.1f'|format(m) }}%</span>
+            {% else %}
+              <span class="badge badge-warning">{{ '%.1f'|format(m) }}%</span>
+            {% endif %}
+          {% else %}
+            <span class="text-ink-muted">—</span>
+          {% endif %}
+        </td>
+        <td class="text-small">
+          <span class="badge {% if r.status == 'won' %}badge-success
+                              {%- elif r.status == 'skipped' %}badge-neutral
+                              {%- elif r.status == 'submitted' %}badge-success
+                              {%- else %}badge-warning{% endif %}">
+            {{ r.status_label }}
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="card-pad pt-2 text-ink-muted text-small">{{ empty_text }}</div>
+  {% endif %}
+</section>
+{% endmacro %}
+
+{% block content %}
+<div class="portal-page">
+
+  <header class="mb-6 flex items-start justify-between gap-4">
+    <div>
+      <h1 class="portal-greeting">Аукционы</h1>
+      <p class="portal-greeting-sub">
+        Inbox менеджера-тендерщика. Лоты группируются по статусу и срочности
+        дедлайна. Цветной бейдж маржи: зелёный — выше порога
+        ({{ data.margin_threshold_pct }}%), жёлтый — ниже, красный — отрицательная.
+      </p>
+    </div>
+    {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
+    <a href="/auctions/settings" class="btn btn-secondary btn-sm shrink-0">
+      {{ icon('refresh-cw', 'w-4 h-4') }}
+      <span>Настройки</span>
+    </a>
+    {% endif %}
+  </header>
+
+  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+
+  {# === Фильтры (form GET) ============================================== #}
+  <form method="get" action="/auctions"
+        class="card card-pad mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+    <div class="md:col-span-2">
+      <label class="block text-caption text-ink-muted mb-1">Статусы</label>
+      <div class="flex flex-wrap gap-2">
+        {% for s in all_statuses %}
+        <label class="inline-flex items-center gap-1.5 text-small">
+          <input type="checkbox" name="status" value="{{ s }}"
+                 {% if s in filters.statuses %}checked{% endif %}
+                 class="rounded border-line-subtle">
+          <span>{{ status_labels[s] }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <label class="block text-caption text-ink-muted mb-1">НМЦК, ₽ (от)</label>
+      <input type="number" min="0" step="1" name="nmck_min"
+             value="{{ filters.nmck_min if filters.nmck_min is not none else '' }}"
+             class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+             placeholder="например, 30000">
+    </div>
+    <div>
+      <label class="block text-caption text-ink-muted mb-1">НМЦК, ₽ (до)</label>
+      <input type="number" min="0" step="1" name="nmck_max"
+             value="{{ filters.nmck_max if filters.nmck_max is not none else '' }}"
+             class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+             placeholder="например, 5000000">
+    </div>
+    <div class="md:col-span-3">
+      <label class="block text-caption text-ink-muted mb-1">Поиск (№, заказчик, регион)</label>
+      <input type="text" name="q" value="{{ filters.search }}"
+             class="w-full rounded border-line-subtle bg-surface-2 text-small px-2 py-1.5"
+             placeholder="например, 0816500000626007072 или Якутия">
+    </div>
+    <div class="flex items-end gap-3">
+      <label class="inline-flex items-center gap-2 text-small">
+        <input type="checkbox" name="urgent_only" value="1"
+               {% if filters.urgent_only %}checked{% endif %}
+               class="rounded border-line-subtle">
+        <span>только срочные</span>
+      </label>
+    </div>
+    <div class="md:col-span-4 flex justify-end gap-2">
+      <a href="/auctions" class="btn btn-secondary btn-sm">Сбросить</a>
+      <button type="submit" class="btn btn-primary btn-sm">Применить</button>
+    </div>
+  </form>
+
+  {# === Empty state на полную пустоту (нет ни одной строки) ============= #}
+  {% if data.totals.total == 0 %}
+  <section class="card card-pad text-center" data-testid="empty-state">
+    <p class="text-ink-secondary mb-3">Лотов под текущие фильтры не найдено.</p>
+    {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
+    <form method="post" action="/admin/run-ingest" class="inline-block">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn btn-primary btn-sm" data-testid="run-ingest">
+        {{ icon('refresh-cw', 'w-4 h-4') }}
+        <span>Запустить ингест</span>
+      </button>
+    </form>
+    {% else %}
+    <p class="text-ink-muted text-small">Запросите у админа запуск ингеста.</p>
+    {% endif %}
+  </section>
+  {% else %}
+
+  {{ section_card('urgent',          'Срочно',           data.sections.urgent,
+                  'Срочных лотов нет.',        'alert-triangle') }}
+  {{ section_card('ready_to_review', 'Готовы к ревью',   data.sections.ready_to_review,
+                  'Нет новых лотов выше порога маржи.', 'check-circle') }}
+  {{ section_card('new_low_margin',  'Новые без сильной маржи', data.sections.new_low_margin,
+                  'Нет «новых» лотов с низкой маржой.', 'list') }}
+  {{ section_card('in_work',         'В работе',         data.sections.in_work,
+                  'Лотов в работе нет.',       'clock') }}
+  {{ section_card('archive',         'Архив (закрыто/просрочено)', data.sections.archive,
+                  'Архив пуст.',               'database') }}
+
+  {% endif %}
+
+</div>
+{% endblock %}

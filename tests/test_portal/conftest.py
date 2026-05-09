@@ -18,12 +18,43 @@ from sqlalchemy import text
 @pytest.fixture(autouse=True)
 def _clean_tables(db_engine):
     """Перед каждым тестом — пустые таблицы, чтобы предыдущий тест
-    не мешал."""
+    не мешал.
+
+    Этап 9a: добавлены аукционные «таблицы данных» (matches, tender_items,
+    tender_status, tenders, printers_mfu). Lookup-таблицы (settings,
+    excluded_regions, ktru_watchlist) НЕ TRUNCATE-аются — у них seed
+    из миграции 030/034, и тесты на чтение полагаются на эти значения.
+    После тестов, которые мутируют lookup'ы, фикстура восстанавливает
+    дефолты UPSERT'ом.
+    """
     with db_engine.begin() as conn:
         conn.execute(text(
             "TRUNCATE TABLE audit_log, sent_emails, specification_items, queries, "
-            "projects, daily_budget_log, users, api_usage_log, exchange_rates "
+            "projects, daily_budget_log, users, api_usage_log, exchange_rates, "
+            "matches, tender_status, tender_items, tenders, printers_mfu "
             "RESTART IDENTITY CASCADE"
+        ))
+        # Возвращаем seed-значения settings (тесты могут менять их).
+        conn.execute(text(
+            "INSERT INTO settings (key, value) VALUES "
+            "  ('margin_threshold_pct', '15'), "
+            "  ('nmck_min_rub', '30000'), "
+            "  ('max_price_per_unit_rub', '300000'), "
+            "  ('contract_reminder_days', '3'), "
+            "  ('deadline_alert_hours', '24'), "
+            "  ('auctions_ingest_enabled', 'true') "
+            "ON CONFLICT (key) DO UPDATE "
+            "  SET value = EXCLUDED.value, updated_at = NOW()"
+        ))
+        # excluded_regions: возвращаем все 7 в excluded=TRUE (дефолт).
+        conn.execute(text(
+            "UPDATE excluded_regions SET excluded = TRUE"
+        ))
+        # ktru_watchlist: только 2 зонтика активны (как в миграции 030).
+        conn.execute(text(
+            "UPDATE ktru_watchlist "
+            "  SET is_active = (code IN "
+            "    ('26.20.18.000-00000001', '26.20.16.120-00000001'))"
         ))
     yield
 

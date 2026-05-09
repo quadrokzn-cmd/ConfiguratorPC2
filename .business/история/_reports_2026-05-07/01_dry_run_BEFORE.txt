@@ -1,0 +1,263 @@
+=== STDOUT ===
+normalize_brands: режим = DRY-RUN
+
+=== ДО: распределение brand (всего различных) ===
+distinct brand count: 23
+  'HP'                                      158
+  'Pantum'                                  84
+  'Katusha IT'                              52
+  'Canon'                                   42
+  'EPSON'                                   36
+  'Kyocera'                                 35
+  'Ricoh'                                   35
+  'PANTUM'                                  34
+  'CANON'                                   31
+  'HP Inc.'                                 26
+  'KYOCERA'                                 25
+  'КАТЮША'                                  23
+  'Konica Minolta'                          7
+  'Sindoh'                                  7
+  'Xerox'                                   7
+  'XEROX'                                   7
+  'Bulat'                                   6
+  'G&G'                                     5
+  'CACTUS'                                  2
+  'Konica-Minolta'                          2
+  'RICOH'                                   2
+  'BROTHER'                                 1
+  'IRU'                                     1
+
+=== ДО: задвоения по (mpn, brand) ===
+pairs (mpn, brand) с count > 1: 0
+
+=== ДО: один MPN под РАЗНЫМИ brand (кандидаты на дубли SKU) ===
+MPN с >1 вариантом brand: 31
+  mpn='499M6A'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:499M6A', 'hp:499M6A']
+  mpn='499M7A'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:499M7A', 'hp:499M7A']
+  mpn='537P5C'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:537P5C', 'hp:537P5C']
+  mpn='53N94C'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:53N94C', 'hp:53N94C']
+  mpn='7MD67A'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:7MD67A', 'hp:7MD67A']
+  mpn='9YF82A'                        variants=2  brands=['HP', 'HP Inc.']  skus=['hp inc.:9YF82A', 'hp:9YF82A']
+  mpn='A500'                          variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:A500', 'катюша:A500']
+  mpn='ACVD021'                       variants=2  brands=['Konica-Minolta', 'Konica Minolta']  skus=['konica-minolta:ACVD021', 'konica minolta:ACVD021']
+  mpn='ADXM021'                       variants=2  brands=['Konica-Minolta', 'Konica Minolta']  skus=['konica-minolta:ADXM021', 'konica minolta:ADXM021']
+  mpn='C300'                          variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:C300', 'катюша:C300']
+  mpn='D330e'                         variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:D330e', 'катюша:D330e']
+  mpn='D332e'                         variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:D332e', 'катюша:D332e']
+  mpn='M130'                          variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M130', 'катюша:M130']
+  mpn='M133'                          variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M133', 'катюша:M133']
+  mpn='M133p-512-pp'                  variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M133p-512-pp', 'катюша:M133p-512-pp']
+  mpn='M133pm-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M133pm-pp', 'катюша:M133pm-pp']
+  mpn='M140-pp'                       variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M140-pp', 'катюша:M140-pp']
+  mpn='M140T'                         variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M140T', 'катюша:M140T']
+  mpn='M240pm-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M240pm-pp', 'катюша:M240pm-pp']
+  mpn='M247ep-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M247ep-pp', 'катюша:M247ep-pp']
+  mpn='M335-pp'                       variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M335-pp', 'катюша:M335-pp']
+  mpn='M348'                          variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M348', 'катюша:M348']
+  mpn='M450pm-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:M450pm-pp', 'катюша:M450pm-pp']
+  mpn='M500'                          variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:M500', 'катюша:M500']
+  mpn='MC645'                         variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:MC645', 'катюша:MC645']
+  mpn='N511'                          variants=2  brands=['Sindoh', 'КАТЮША']  skus=['sindoh:N511', 'катюша:N511']
+  mpn='P133'                          variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:P133', 'катюша:P133']
+  mpn='P133-256-pp'                   variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:P133-256-pp', 'катюша:P133-256-pp']
+  mpn='P133pm-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:P133pm-pp', 'катюша:P133pm-pp']
+  mpn='P140-pp'                       variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:P140-pp', 'катюша:P140-pp']
+  mpn='P247ep-pp'                     variants=2  brands=['Katusha IT', 'КАТЮША']  skus=['katusha it:P247ep-pp', 'катюша:P247ep-pp']
+
+Итог: rows_total=628, rows_changed=190, mode=DRY-RUN
+
+(dry-run: «после»-отчёт не печатается — UPDATE-ы не применялись. Запустите с --apply для реальной миграции.)
+
+=== STDERR (logging) ===
+2026-05-07 21:27:11,802  INFO     normalize_brands  WOULD-UPDATE id=382 sku=cactus:CS-LP1120NWB brand: 'CACTUS' → 'Cactus'
+2026-05-07 21:27:11,805  INFO     normalize_brands  WOULD-UPDATE id=383 sku=cactus:CS-LP1120NWW brand: 'CACTUS' → 'Cactus'
+2026-05-07 21:27:11,806  INFO     normalize_brands  WOULD-UPDATE id=384 sku=canon:5620C001AA brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,808  INFO     normalize_brands  WOULD-UPDATE id=385 sku=canon:8468B006 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,809  INFO     normalize_brands  WOULD-UPDATE id=386 sku=canon:8468B006+3484B002 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,810  INFO     normalize_brands  WOULD-UPDATE id=387 sku=raw:1514408 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,810  INFO     normalize_brands  WOULD-UPDATE id=388 sku=canon:8468B008 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=389 sku=kyocera:1102RW3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=390 sku=kyocera:110C0H3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=391 sku=kyocera:1102Z13NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=392 sku=kyocera:110C0Y3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=393 sku=kyocera:110C0X3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=394 sku=kyocera:P3145DN brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=395 sku=kyocera:1102Y43NL0/1102Y43NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,811  INFO     normalize_brands  WOULD-UPDATE id=396 sku=xerox:B230V_DNI brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=397 sku=xerox:B310V_DNI brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=398 sku=canon:1418C169/113/1418С105/1418C030 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=399 sku=canon:5938C008 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=400 sku=canon:5252B004/5252B004-AB brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=401 sku=canon:5252B004+3484B002 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=402 sku=raw:1578784 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=403 sku=raw:1514394 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,812  INFO     normalize_brands  WOULD-UPDATE id=404 sku=canon:5161C007 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=405 sku=canon:5161C006/16 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=406 sku=canon:5951C007/5951C023 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=407 sku=canon:5158C004 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=408 sku=canon:5158C001 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=409 sku=canon:6928C008 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=410 sku=canon:6928C001 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=411 sku=canon:5252B007/5252B008/5252B011 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=412 sku=iru:HM2401DNW brand: 'IRU' → 'iRU'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=413 sku=kyocera:1102S33AX0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,813  INFO     normalize_brands  WOULD-UPDATE id=414 sku=kyocera:1102S03NL0/L1 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=415 sku=kyocera:1102S13NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=416 sku=kyocera:1102SG3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=417 sku=kyocera:1102P23NL0/NL1 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=418 sku=kyocera:1102P13NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=419 sku=kyocera:110C0B3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=420 sku=kyocera:110C223NL1/110C223NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=421 sku=kyocera:110C0D3NL0/110C0D3NL1 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=422 sku=kyocera:110C1D3NL0/110C1D3NL1 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=423 sku=kyocera:110C103NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=424 sku=kyocera:110C113NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,814  INFO     normalize_brands  WOULD-UPDATE id=425 sku=kyocera:110C133NL0/110C133DZ0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=426 sku=kyocera:110C133AX0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=427 sku=kyocera:1102M63RU0/RUV/RU2/NX2/DZ2 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=428 sku=kyocera:1102M73NX2/DZ2/RU0/RUV/RU2 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=429 sku=pantum:M6550W brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=430 sku=ricoh:912356/417378 brand: 'RICOH' → 'Ricoh'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=431 sku=ricoh:434088 brand: 'RICOH' → 'Ricoh'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=432 sku=xerox:3025V_BI brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=433 sku=xerox:3025V_NI brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=434 sku=canon:2313C012 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=435 sku=canon:5991C009 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=436 sku=canon:5804C009 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,815  INFO     normalize_brands  WOULD-UPDATE id=437 sku=canon:2315C052 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=438 sku=canon:5805C029 / 5805C009 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=439 sku=canon:0727C071/0727C067 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=440 sku=epson:C11CJ68405/C11CJ68403 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=441 sku=epson:C11CJ66416 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=442 sku=epson:C11CK59405/C11CK59506 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=443 sku=epson:C11CL41412 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=444 sku=epson:C11CJ65411 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=445 sku=epson:C11CL43403 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=446 sku=epson:C11CK94402/C11CK94503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=447 sku=epson:C11CH96403/502/503/505/506/507 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,816  INFO     normalize_brands  WOULD-UPDATE id=448 sku=epson:C11CH72404/505/506/403/503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=449 sku=epson:C11C68518/CJ68518/CJ68502 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=450 sku=epson:C11CJ67508/503/418/405/408/412 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=451 sku=epson:C11CJ67409/C11CJ67406/419 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=452 sku=epson:C11CJ67411/421/504/524/516/519 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=453 sku=epson:C11CJ66409/507/511/414/K58507 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=454 sku=epson:C11CJ63513 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=455 sku=epson:C11CJ65512/C11CJ65409 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=456 sku=epson:C11CJ61507/61407/64407 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=457 sku=epson:C11CJ60405/505/408/507 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=458 sku=epson:C11CJ88405/404/502/507 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=459 sku=epson:C11CJ41404/ C11CJ41402 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,817  INFO     normalize_brands  WOULD-UPDATE id=462 sku=canon:2314C012/2314C015 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=463 sku=canon:2314C009 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=464 sku=epson:C11CK39501/505/503/507/403/402 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=465 sku=epson:C11CD76414/413/505/504 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=466 sku=epson:C11CK38403/402/505/38503/38507 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=467 sku=epson:C11CK37405/506/507/504/402 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=469 sku=pantum:P2518-NNC-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=470 sku=pantum:P2516-NC3-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=471 sku=pantum:P2516-NC3-002 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=472 sku=pantum:P2500W-NC3-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=473 sku=pantum:BP1800-NC1 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=476 sku=hp inc.:7MD67A brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,818  INFO     normalize_brands  WOULD-UPDATE id=477 sku=hp inc.:9YF82A brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=478 sku=hp inc.:9YF83A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=479 sku=pantum:P3300DW brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=481 sku=hp inc.:J8H61A#B19-NC2 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=482 sku=hp inc.:2Z611A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=483 sku=hp inc.:J8H61A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=484 sku=pantum:BP5100DN-NC2 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=486 sku=катюша:P133-256-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=487 sku=pantum:BP8000DN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=488 sku=hp inc.:4RA89A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=489 sku=hp inc.:5HH48A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=490 sku=hp inc.:T3U44A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=491 sku=pantum:M6500-NNC-020 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,819  INFO     normalize_brands  WOULD-UPDATE id=492 sku=pantum:M6500W-NNC-009 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=494 sku=pantum:M6507W-NNC-004 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=495 sku=pantum:M6507W-NNC-008 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=496 sku=pantum:BM2300W-NC2 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=497 sku=pantum:BM2300AW-NC3-002 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=499 sku=pantum:BM2300AW-NC1 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=500 sku=pantum:M6700D-NNC-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=501 sku=pantum:M6700DW-NNC-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=502 sku=pantum:M6557NW brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=503 sku=pantum:M7102DN-NC2 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=504 sku=катюша:M500 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=506 sku=pantum:M7100DN-NC2 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,820  INFO     normalize_brands  WOULD-UPDATE id=507 sku=pantum:BM5100ADN-NC1 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=508 sku=pantum:BM5100ADN-NNC-001 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=509 sku=pantum:BM5100ADN-NC2 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=510 sku=hp inc.:3PZ55A#B19-NC2 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=511 sku=hp inc.:3PZ55A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=512 sku=pantum:BM5106FDN/RU brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=519 sku=pantum:BM230ADW brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=524 sku=hp inc.:CF066A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=525 sku=pantum:BM7800FDN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=526 sku=катюша:M335-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=527 sku=pantum:M9108DN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=528 sku=pantum:M9708DN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=529 sku=hp inc.:499M7A brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,821  INFO     normalize_brands  WOULD-UPDATE id=531 sku=hp inc.:499M6A brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=532 sku=hp inc.:7KW72A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=533 sku=pantum:CM1100DN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=535 sku=hp inc.:5HH66A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=536 sku=pantum:CM1100ADW-NC1 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=537 sku=hp inc.:5HH67A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=538 sku=pantum:CM2200FDN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=539 sku=pantum:CM2200FDW-NNC-002 brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,822  INFO     normalize_brands  WOULD-UPDATE id=540 sku=катюша:C300 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,823  INFO     normalize_brands  WOULD-UPDATE id=544 sku=катюша:D330e brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,823  INFO     normalize_brands  WOULD-UPDATE id=545 sku=hp inc.:3WT91A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,823  INFO     normalize_brands  WOULD-UPDATE id=546 sku=катюша:MC645 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,823  INFO     normalize_brands  WOULD-UPDATE id=548 sku=pantum:CM9708DN brand: 'PANTUM' → 'Pantum'
+2026-05-07 21:27:11,823  INFO     normalize_brands  WOULD-UPDATE id=549 sku=hp inc.:53N94C brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=550 sku=hp inc.:537P5C brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=551 sku=hp inc.:5HB07D brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=552 sku=hp inc.:5HB07A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=554 sku=hp inc.:5HB11D#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=555 sku=hp inc.:2Y9H0A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=556 sku=hp inc.:3EK10A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=558 sku=hp inc.:2Y9H3A#B19 brand: 'HP Inc.' → 'HP'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=562 sku=kyocera:1102ZT3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=566 sku=катюша:D332e brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=567 sku=катюша:N511 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,824  INFO     normalize_brands  WOULD-UPDATE id=568 sku=xerox:B605V_S brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=569 sku=xerox:C7101V_S brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=570 sku=катюша:M130 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=571 sku=катюша:M133 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=572 sku=катюша:M140T brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=573 sku=катюша:M140-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=574 sku=катюша:M240pm-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,825  INFO     normalize_brands  WOULD-UPDATE id=575 sku=катюша:M247ep-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=576 sku=катюша:M348 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=577 sku=катюша:M450pm-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=578 sku=катюша:M133p-512-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=579 sku=катюша:M133pm-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=581 sku=konica-minolta:ADXM021 brand: 'Konica-Minolta' → 'Konica Minolta'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=582 sku=konica-minolta:ACVD021 brand: 'Konica-Minolta' → 'Konica Minolta'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=583 sku=canon:5804C009AC brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=584 sku=epson:C11CH96404/C11CH96403 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=585 sku=epson:C11CH72505/72502/72403/72506 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=586 sku=epson:C11CJ67412/C11CJ67418/C11CJ67503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,826  INFO     normalize_brands  WOULD-UPDATE id=587 sku=epson:C11CJ60406/C11CJ60507/C11CJ60405 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=588 sku=epson:C11CK94402/94503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=589 sku=epson:C11CJ20503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=590 sku=kyocera:110C2K3NL0 brand: 'KYOCERA' → 'Kyocera'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=597 sku=xerox:C7120V_DN brand: 'XEROX' → 'Xerox'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=598 sku=brother:PJ722Z1 brand: 'BROTHER' → 'Brother'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=599 sku=epson:C11CK38402/C11CK38403/C11CK38503 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=600 sku=катюша:P133 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=601 sku=катюша:P133pm-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=602 sku=катюша:P140-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=603 sku=катюша:P247ep-pp brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=608 sku=epson:C11CF37401/C11CF37402 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,827  INFO     normalize_brands  WOULD-UPDATE id=609 sku=epson:C11CC24031 / C11CC24032 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=610 sku=epson:C11CK39505/C11CK39503/C11CK39403 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=611 sku=epson:C11CD76414 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=613 sku=катюша:A500 brand: 'КАТЮША' → 'Katusha IT'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=616 sku=canon:6413C003AA brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=617 sku=epson:C11CF11302A1 brand: 'EPSON' → 'Epson'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=623 sku=canon:6242C003 brand: 'CANON' → 'Canon'
+2026-05-07 21:27:11,828  INFO     normalize_brands  WOULD-UPDATE id=624 sku=canon:6246C003AA brand: 'CANON' → 'Canon'
+
+=== EXIT CODE: 0 ===

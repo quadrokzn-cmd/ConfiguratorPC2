@@ -46,6 +46,9 @@ def home(
     show_configurator = has_permission(
         user.role, user.permissions or {}, "configurator"
     )
+    show_auctions = has_permission(
+        user.role, user.permissions or {}, "auctions"
+    )
 
     # Имя для приветствия: первое слово из user.name либо login.
     full_name = (user.name or "").strip()
@@ -62,6 +65,7 @@ def home(
             "first_name":        first_name,
             "dashboard":         dashboard,
             "show_configurator": show_configurator,
+            "show_auctions":     show_auctions,
             "configurator_url":  settings.configurator_url,
             "denied_label":      denied_label,
         },

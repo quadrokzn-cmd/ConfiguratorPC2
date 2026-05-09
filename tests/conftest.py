@@ -133,7 +133,18 @@ _MIGRATIONS = [
     "023_component_field_sources_source_detail.sql",
     "028_auto_price_loads.sql",
     "029_auto_price_load_runs_source_ref.sql",
+    # 030_auctions_tables.sql — нужна тестам портала /auctions* (этап 9a).
+    "030_auctions_tables.sql",
     "031_printers_mfu.sql",
+    # 032_matches_fk.sql — FK matches.nomenclature_id → printers_mfu(id);
+    # требует обе таблицы (030+031), теперь применяем.
+    "032_matches_fk.sql",
+    # 033_users_auctions_permissions.sql — дефолты прав auctions для
+    # admin/manager (этап 7 слияния).
+    "033_users_auctions_permissions.sql",
+    # 034_auctions_ingest_settings.sql — добавляет ключ
+    # auctions_ingest_enabled в settings (этап 8 слияния).
+    "034_auctions_ingest_settings.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
@@ -166,6 +177,15 @@ _ALL_TABLES = [
     "psus",                     # 001
     "coolers",                  # 001
     "printers_mfu",             # 031 (Этап 6 слияния QT↔C-PC2)
+    # Аукционные таблицы (миграция 030, Этап 5 слияния).
+    "matches",                  # 030
+    "tender_status",            # 030
+    "tender_items",             # 030
+    "tenders",                  # 030
+    "settings",                 # 030
+    "excluded_regions",         # 030
+    "ktru_watchlist",           # 030
+    "ktru_catalog",             # 030
     # Журнал применённых миграций (миграционный раннер на проде, в тестах
     # не нужен) — дропаем для подстраховки от чистого CREATE TABLE.
     "schema_migrations",
