@@ -11,6 +11,29 @@
 # зарезервированы под следующие подэтапы (9Б.2 — дашборд/виджеты,
 # 9Б.3 — деплой). Они уже в MODULE_KEYS, чтобы будущие миграции
 # на UI не требовали менять список.
+#
+# Список permission-ключей (этап 7 слияния, 2026-05-08):
+#   configurator           — доступ к модулю «Конфигуратор ПК»
+#   kp_form                — доступ к модулю «Формы КП»
+#   auctions               — базовый доступ к модулю «Аукционы»
+#                            (видеть страницу /auctions, читать список лотов)
+#   auctions_edit_status   — менять статус лота
+#                            (in_review / will_bid / submitted / won / skipped)
+#   auctions_edit_settings — править настройки модуля аукционов
+#                            (margin_threshold, ktru_watchlist, excluded_regions)
+#   mail_agent             — доступ к модулю «Почтовый агент»
+#   dashboard              — доступ к дашборду
+#
+# Структура — плоский JSONB словарь {key: bool}, без вложенности. Тонкие
+# права аукционов решено реализовать как отдельные ключи верхнего
+# уровня, а не как `auctions: {view, edit_status, edit_settings}` —
+# чтобы не плодить два паттерна и переиспользовать существующий
+# механизм has_permission/update_permissions/UI-чекбоксов.
+#
+# Ключи аукционов независимы: edit_status / edit_settings не подразумевают
+# наличие auctions. Проверки в роутах должны явно проверять оба ключа,
+# когда это нужно (например, "право на /auctions/{id}/status" =
+# auctions AND auctions_edit_status).
 
 from __future__ import annotations
 
@@ -28,17 +51,21 @@ MODULE_KEYS: list[str] = [
     "configurator",
     "kp_form",
     "auctions",
+    "auctions_edit_status",
+    "auctions_edit_settings",
     "mail_agent",
     "dashboard",
 ]
 
 # Человекочитаемые подписи плиток. Используются в шаблонах портала.
 MODULE_LABELS: dict[str, str] = {
-    "configurator": "Конфигуратор ПК",
-    "kp_form":      "Формы КП",
-    "auctions":     "Аукционы",
-    "mail_agent":   "Почтовый агент",
-    "dashboard":    "Дашборд",
+    "configurator":           "Конфигуратор ПК",
+    "kp_form":                "Формы КП",
+    "auctions":               "Аукционы",
+    "auctions_edit_status":   "Аукционы — менять статус лота",
+    "auctions_edit_settings": "Аукционы — править настройки",
+    "mail_agent":             "Почтовый агент",
+    "dashboard":              "Дашборд",
 }
 
 
