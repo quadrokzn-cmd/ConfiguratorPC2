@@ -54,6 +54,7 @@ from app.services.price_loaders.matching import (
     MatchResult, resolve,
 )
 from app.services.price_loaders.models import PriceRow
+from app.services.price_loaders.uncenka_filter import is_uncenka
 from shared.component_filters import (
     is_likely_case_fan,
     is_likely_case_panel_or_filter,
@@ -80,6 +81,11 @@ class Counters:
     unmapped_created:    int = 0  # сколько строк завели в unmapped_supplier_items
     unmapped_ambiguous:  int = 0  # из них — ambiguous_mpn/gtin
     unmapped_new:        int = 0  # из них — created_new
+    # 9a-uncenka (2026-05-10): сколько строк пропущено как уценка/повреждение/
+    # refurb/б-у/восстановленный/витринный — фильтр `is_uncenka(row.name)`.
+    # Строки не попадают ни в supplier_prices, ни в unmapped — они для
+    # каталога нерелевантны (нельзя заявить «новый товар» в 44-ФЗ-аукционе).
+    skipped_uncenka:    int = 0
     # 11.4: счётчик disappeared (см. _mark_disappeared).
     disappeared:        int = 0
     # 11.4: первые 50 SKU, помеченные как disappeared — для отладки/UI.
@@ -606,6 +612,7 @@ def _save_failed_upload(
             "updated":               counters.updated,
             "added":                 counters.added,
             "skipped":               counters.skipped,
+            "skipped_uncenka":       counters.skipped_uncenka,
             "errors":                counters.errors,
             "disappeared":           0,
             "disappeared_skus":      [],
@@ -725,6 +732,20 @@ def _process_row(
     supplier_id: int, row: PriceRow, counters: Counters,
     seen_skus: set[str] | None = None,
 ) -> None:
+    # 9a-uncenka (2026-05-10): уценка/повреждение/refurb/б-у/восстановленный
+    # фильтруются ДО seen_skus и до записи в supplier_prices — иначе при
+    # повторной загрузке прайса уценочный SKU уже сохранился и стал бы
+    # «активным» в active_skus_before, что ломает disappeared-логику.
+    # При is_uncenka:
+    #   - в каталог не пишем (skeleton не создаём);
+    #   - supplier_prices не трогаем;
+    #   - в seen_skus не добавляем — пусть disappeared-механизм
+    #     самостоятельно обнулит остатки, если уценка раньше попала
+    #     в каталог по старой ветке.
+    if is_uncenka(row.name):
+        counters.skipped_uncenka += 1
+        return
+
     # 11.4: фиксируем все непустые supplier_sku из текущего прайса —
     # независимо от нашей категории. Если поставщик прислал позицию даже
     # не из нашей категории, но с тем же SKU — это всё ещё «не исчезла».
@@ -938,6 +959,7 @@ def load_price(
             "updated":               counters.updated,
             "added":                 counters.added,
             "skipped":               counters.skipped,
+            "skipped_uncenka":       counters.skipped_uncenka,
             "errors":                counters.errors,
             "unmapped_ambiguous":    counters.unmapped_ambiguous,
             "unmapped_new":          counters.unmapped_new,
@@ -990,6 +1012,7 @@ def load_price(
         "updated":    counters.updated,
         "added":      counters.added,
         "skipped":    counters.skipped,
+        "skipped_uncenka": counters.skipped_uncenka,
         "errors":     counters.errors,
         "unmapped_ambiguous": counters.unmapped_ambiguous,
         "unmapped_new":       counters.unmapped_new,

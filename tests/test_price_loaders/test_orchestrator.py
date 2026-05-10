@@ -811,3 +811,74 @@ def test_orchestrator_only_printer_mfu_writes_skeletons(
         "SELECT count(*) FROM printers_mfu"
     )).scalar())
     assert cnt == 2
+
+
+# ---- 9a-uncenka (2026-05-10): фильтр уценок ---------------------------
+
+
+def test_orchestrator_skips_uncenka_printer_row(make_merlion_xlsx, db_session):
+    """Позиция с маркером уценки/повреждения коробки в имени НЕ создаёт
+    skeleton в printers_mfu, не пишется в supplier_prices и не уходит
+    в unmapped — она просто инкрементит counters.skipped_uncenka."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "Лазерные",
+            "brand": "G&G", "number": "M-UNC1", "mpn": "P2022W-DAMAGED",
+            "name": "G&G P2022W (повреждение коробки)",
+            "price_rub": 6500, "stock": 2,
+        },
+        {
+            "g1": "Периферия и аксессуары", "g2": "Принтеры",
+            "g3": "Лазерные",
+            "brand": "Pantum", "number": "M-NORM1", "mpn": "P2500W",
+            "name": "Pantum P2500W лазерный 22 ppm",
+            "price_rub": 7800, "stock": 3,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+
+    assert result["skipped_uncenka"] == 1
+    assert result["added"] == 1
+    assert result["printers_mfu_added"] == 1
+    assert _count_supplier_prices(db_session, "Merlion") == 1
+
+    # Уценочный SKU не создан.
+    cnt_unc = int(db_session.execute(_t(
+        "SELECT count(*) FROM printers_mfu WHERE mpn = 'P2022W-DAMAGED'"
+    )).scalar())
+    assert cnt_unc == 0
+    # Нормальный SKU создан.
+    cnt_norm = int(db_session.execute(_t(
+        "SELECT count(*) FROM printers_mfu WHERE mpn = 'P2500W'"
+    )).scalar())
+    assert cnt_norm == 1
+    # В unmapped уценка не уходит.
+    cnt_unmapped = int(db_session.execute(_t(
+        "SELECT count(*) FROM unmapped_supplier_items "
+        "WHERE supplier_sku = 'M-UNC1'"
+    )).scalar())
+    assert cnt_unmapped == 0
+
+
+def test_orchestrator_skips_uncenka_pc_component(make_merlion_xlsx, db_session):
+    """Та же логика для ПК-категорий: уценочный БП не создаёт skeleton
+    в `psus`, не пишется в supplier_prices."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров", "g2": "Блоки питания",
+            "g3": "Блоки питания",
+            "brand": "Corsair", "number": "M-PSU-UNC", "mpn": "RM850X-USED",
+            "name": "Corsair RM850X 850W (б/у)",
+            "price_rub": 4500, "stock": 1,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+    assert result["skipped_uncenka"] == 1
+    assert result["added"] == 0
+    assert _count_supplier_prices(db_session, "Merlion") == 0
+
+    cnt = int(db_session.execute(_t(
+        "SELECT count(*) FROM psus WHERE sku = 'RM850X-USED'"
+    )).scalar())
+    assert cnt == 0

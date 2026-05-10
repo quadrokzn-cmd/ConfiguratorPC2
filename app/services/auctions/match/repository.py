@@ -157,11 +157,21 @@ def load_tender_items(engine: Engine, tender_id: str | None = None) -> list[Tend
 
 
 def load_candidates_for_ktru(engine: Engine, ktru_code: str) -> list[NomenclatureView]:
-    """Все SKU, у которых ktru_code попадает в `ktru_codes_array`."""
+    """Все SKU, у которых ktru_code попадает в `ktru_codes_array`.
+
+    Этап 9a-uncenka (2026-05-10): добавлен фильтр `is_hidden = FALSE` —
+    SKU с уценкой/повреждением/refurb/б-у помечаются is_hidden=TRUE
+    скриптом `scripts/cleanup_uncenka_skus.py` и оркестратором при
+    последующих загрузках прайса. Такие SKU не должны попадать в
+    кандидатов матчинга — нельзя предлагать менеджеру уценочную
+    позицию как primary для тендера 44-ФЗ (по закону заявить
+    «новый товар» с уценкой нельзя).
+    """
     sql = text("""
         SELECT id, sku, brand, name, category, ktru_codes_array, attrs_jsonb, cost_base_rub
         FROM printers_mfu
         WHERE :ktru = ANY(ktru_codes_array)
+          AND is_hidden = FALSE
     """)
     out: list[NomenclatureView] = []
     with engine.connect() as conn:
