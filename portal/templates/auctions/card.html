@@ -74,15 +74,15 @@
     </div>
     {% endif %}
 
-    {# Контакты — раскрывающийся блок #}
+    {# Контакты — раскрывающийся блок (#6 9a-fixes-2: русские лейблы). #}
     {% if t.customer_contacts_jsonb %}
-    <details class="mt-4">
+    <details class="mt-4" data-testid="customer-contacts">
       <summary class="cursor-pointer text-small text-ink-secondary hover:text-ink-primary">
         Контакты заказчика
       </summary>
       <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 text-small text-ink-secondary">
         {% for k, v in t.customer_contacts_jsonb.items() %}
-        <div><span class="text-ink-muted">{{ k }}:</span> {{ v }}</div>
+        <div><span class="text-ink-muted">{{ contact_label(k) }}:</span> {{ v }}</div>
         {% endfor %}
       </div>
     </details>
@@ -118,14 +118,15 @@
            + полный текст под <details>. #}
         {% set _full_name = it.name or '' %}
         {% set _short_name = _full_name.split(' ', 1)[0] if _full_name else '—' %}
+        {% set _is_long_name = _full_name|length > 80 %}
         {# Если в имени есть слово до первого пробела короче, а описание длинное —
            показываем короткое (обычно «Принтер» / «МФУ»), а длинный текст
            прячем под <details>. Если имя короткое (≤80 симв.) — показываем целиком. #}
-        {% if _full_name|length <= 80 %}
+        {% if not _is_long_name %}
         <div class="text-ink-primary mb-3">{{ _full_name or '—' }}</div>
         {% else %}
         <div class="text-ink-primary mb-1">{{ _short_name }}</div>
-        <details class="text-small mb-3">
+        <details class="text-small mb-3" data-testid="full-text-details">
           <summary class="cursor-pointer text-ink-muted hover:text-ink-secondary">
             Полный текст требования
           </summary>
@@ -133,9 +134,12 @@
         </details>
         {% endif %}
 
-        {# Атрибуты позиции — структурированные плашки. #}
-        {% if it.required_attrs_jsonb %}
-        <div class="flex flex-wrap gap-1.5 mb-3">
+        {# Атрибуты позиции — структурированные плашки.
+           9a-fixes-2 #4: показываем только когда нет details-блока с
+           полным текстом, чтобы не дублировать ту же информацию (внутри
+           длинного требования характеристики уже встречаются текстом). #}
+        {% if it.required_attrs_jsonb and not _is_long_name %}
+        <div class="flex flex-wrap gap-1.5 mb-3" data-testid="item-attrs-{{ it.position_num }}">
           {% for k, v in it.required_attrs_jsonb.items() %}
           <span class="badge badge-neutral">
             <span class="text-ink-muted">{{ k }}:</span>
@@ -149,10 +153,10 @@
         {% if it.primary %}
         {% set p = it.primary %}
         {% set pd = clean_sku_display(p.brand, p.sku, p.name, p.mpn) %}
-        <div class="rounded-md bg-surface-2 p-3 mb-2" data-testid="primary-{{ it.position_num }}">
+        <div class="rounded-md bg-surface-2 p-3 mb-2 border-l-2 border-brand-500"
+             data-testid="primary-{{ it.position_num }}">
           <div class="flex items-center justify-between gap-2 mb-1">
             <div class="text-small text-ink-secondary min-w-0">
-              <span class="text-caption text-ink-muted">primary:</span>
               <span class="font-medium text-ink-primary">{{ pd.brand }} {{ pd.model }}</span>
               {% if pd.desc %}<span class="text-ink-secondary"> — {{ pd.desc | truncate(80, true, '…') }}</span>{% endif %}
             </div>

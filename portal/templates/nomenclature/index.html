@@ -51,10 +51,8 @@
   </form>
 
   <div class="text-small text-ink-muted mb-2" data-testid="rows-count">
-    Найдено: <strong>{{ rows|length }}</strong> SKU.
-    {% if rows|length >= 200 %}
-      <span class="text-warning-500">(показывается первые 200 — уточните фильтр)</span>
-    {% endif %}
+    Найдено: <strong>{{ total }}</strong> SKU,
+    страница <strong>{{ page }}</strong> из <strong>{{ total_pages }}</strong>.
   </div>
 
   <section class="card overflow-hidden">
@@ -70,7 +68,6 @@
           <th class="text-left w-32">Бренд</th>
           <th class="text-left w-24">Категория</th>
           <th class="text-right w-32">cost_base, ₽</th>
-          <th class="text-left">Атрибуты</th>
           <th class="text-left w-44">KTRU</th>
           <th class="text-right w-44">Действия</th>
         </tr>
@@ -78,6 +75,7 @@
       <tbody>
         {% for row in rows %}
         {% set _attrs = row.attrs_jsonb or {} %}
+        {% set _attrs_inline = format_attrs_inline(_attrs, na) %}
         <tr data-testid="nom-row-{{ row.id }}"
             data-row-id="{{ row.id }}"
             data-attrs='{{ _attrs | tojson }}'
@@ -92,6 +90,12 @@
               SKU {{ row.sku }} · MPN {{ row.mpn or '—' }}
               {% if row.attrs_source %}· источник: {{ row.attrs_source }}{% endif %}
             </div>
+            {% if _attrs_inline %}
+            <div class="text-caption text-ink-muted mt-0.5"
+                 data-testid="attrs-inline-{{ row.id }}">
+              {{ _attrs_inline }}
+            </div>
+            {% endif %}
           </td>
           <td class="text-ink-secondary text-small">{{ row.brand or '—' }}</td>
           <td class="text-ink-secondary text-small">{{ row.category or '—' }}</td>
@@ -105,26 +109,6 @@
             <span class="text-ink-secondary font-mono text-small">
               {% if row.cost_base_rub is not none %}{{ '%.2f'|format(row.cost_base_rub) }}{% else %}—{% endif %}
             </span>
-            {% endif %}
-          </td>
-          <td class="text-small">
-            {% if not _attrs %}
-              <span class="text-caption text-ink-muted">—</span>
-            {% else %}
-            <div class="flex flex-wrap gap-1">
-              {% for k in attr_keys %}
-                {% set v = _attrs.get(k) %}
-                {% if v == na or v is none %}
-                  <span class="badge badge-warning" title="не найдено — уточнить вручную">
-                    {{ k }}: n/a
-                  </span>
-                {% elif v is iterable and v is not string %}
-                  <span class="badge badge-neutral">{{ k }}: {{ v|join(', ') }}</span>
-                {% else %}
-                  <span class="badge badge-neutral">{{ k }}: {{ v }}</span>
-                {% endif %}
-              {% endfor %}
-            </div>
             {% endif %}
           </td>
           <td class="text-caption text-ink-secondary">
@@ -157,6 +141,50 @@
     </table>
     {% endif %}
   </section>
+
+  {# === Пагинация ====================================================== #}
+  {% if total_pages > 1 %}
+  <nav class="flex items-center justify-center gap-1 mt-4 text-small"
+       data-testid="pagination" aria-label="Пагинация">
+    {% set _link_qs = '?page=' if not base_qs else '?' ~ base_qs ~ '&page=' %}
+    {% if page > 1 %}
+    <a href="{{ _link_qs ~ (page - 1) }}"
+       class="btn btn-secondary btn-sm"
+       data-testid="page-prev">← Предыдущая</a>
+    {% else %}
+    <span class="btn btn-secondary btn-sm opacity-40 pointer-events-none"
+          aria-disabled="true">← Предыдущая</span>
+    {% endif %}
+
+    {# Страничные ссылки: первая, текущая±2, последняя — с «…» между ними. #}
+    {% set _shown = [] %}
+    {% for p in range(1, total_pages + 1) %}
+      {% if p == 1 or p == total_pages or (p >= page - 2 and p <= page + 2) %}
+        {% if _shown and p - _shown[-1] > 1 %}
+        <span class="text-ink-muted px-1">…</span>
+        {% endif %}
+        {% if p == page %}
+        <span class="btn btn-primary btn-sm" aria-current="page"
+              data-testid="page-current">{{ p }}</span>
+        {% else %}
+        <a href="{{ _link_qs ~ p }}"
+           class="btn btn-secondary btn-sm"
+           data-testid="page-link-{{ p }}">{{ p }}</a>
+        {% endif %}
+        {% set _ = _shown.append(p) %}
+      {% endif %}
+    {% endfor %}
+
+    {% if page < total_pages %}
+    <a href="{{ _link_qs ~ (page + 1) }}"
+       class="btn btn-secondary btn-sm"
+       data-testid="page-next">Следующая →</a>
+    {% else %}
+    <span class="btn btn-secondary btn-sm opacity-40 pointer-events-none"
+          aria-disabled="true">Следующая →</span>
+    {% endif %}
+  </nav>
+  {% endif %}
 
   {# === Модалка правки атрибутов ====================================== #}
   <dialog id="attrs-dialog" class="kt-dialog rounded-lg max-w-2xl w-full p-0">

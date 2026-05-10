@@ -55,16 +55,31 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/nomenclature")
 
 
-def _safe_list(*, category: str | None, brand: str | None, search: str | None):
-    """Безопасный список SKU. Если аукционных таблиц нет (test-БД без 030
-    /031), возвращаем пустой список — страница рендерится с empty state."""
+def _safe_list_paginated(
+    *,
+    category: str | None,
+    brand: str | None,
+    search: str | None,
+    page: int,
+    per_page: int,
+) -> dict:
+    """Безопасный пагинированный список SKU. Если аукционных таблиц нет
+    (test-БД без 030/031), возвращаем пустой результат — страница
+    рендерится с empty state."""
     try:
-        return catalog_service.list_nomenclature(
+        return catalog_service.list_nomenclature_paginated(
             category=category, brand=brand, search=search,
+            page=page, per_page=per_page,
         )
     except Exception as exc:
         logger.warning("nomenclature.list failed: %s: %s", type(exc).__name__, exc)
-        return []
+        return {
+            "rows":        [],
+            "total":       0,
+            "page":        page,
+            "per_page":    per_page,
+            "total_pages": 1,
+        }
 
 
 def _safe_brands() -> list[str]:
@@ -85,17 +100,36 @@ def _safe_categories() -> list[str]:
 # GET /nomenclature
 # ============================================================
 
+PAGE_SIZE = 50
+
+
 @router.get("")
 def nomenclature_index(
     request: Request,
     category: str | None = None,
     brand: str | None = None,
     q: str | None = None,
+    page: int = 1,
     user: AuthUser = Depends(require_permission("auctions")),
 ):
-    rows = _safe_list(category=category, brand=brand, search=q)
+    page = max(1, int(page) if page else 1)
+    paged = _safe_list_paginated(
+        category=category, brand=brand, search=q,
+        page=page, per_page=PAGE_SIZE,
+    )
     brands = _safe_brands()
     categories = _safe_categories()
+
+    # Базовый querystring без page — для построения ссылок пагинатора.
+    qs_parts: list[str] = []
+    if category:
+        qs_parts.append(f"category={category}")
+    if brand:
+        qs_parts.append(f"brand={brand}")
+    if q:
+        from urllib.parse import quote
+        qs_parts.append(f"q={quote(q)}")
+    base_qs = "&".join(qs_parts)
 
     return templates.TemplateResponse(
         request,
@@ -103,7 +137,12 @@ def nomenclature_index(
         {
             "user":            user,
             "csrf_token":      get_csrf_token(request),
-            "rows":            rows,
+            "rows":            paged["rows"],
+            "total":           paged["total"],
+            "page":            paged["page"],
+            "per_page":        paged["per_page"],
+            "total_pages":     paged["total_pages"],
+            "base_qs":         base_qs,
             "brands":          brands,
             "categories":      categories,
             "filter_category": category or "",

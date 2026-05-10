@@ -18,6 +18,7 @@ from app.database import engine
 from app.services.auctions.catalog.enrichment.schema import PRINTER_MFU_ATTRS
 
 LIST_LIMIT_DEFAULT = 200
+PAGE_SIZE_DEFAULT = 50
 
 
 _SQL_LIST = """
@@ -63,7 +64,21 @@ _SQL_LIST = """
             OR n.sku  ILIKE :search_like
            )
      ORDER BY n.brand NULLS LAST, n.name
-     LIMIT :limit
+     LIMIT :limit OFFSET :offset
+"""
+
+
+_SQL_COUNT = """
+    SELECT COUNT(*)
+      FROM printers_mfu n
+     WHERE (:category IS NULL OR n.category = :category)
+       AND (:brand    IS NULL OR n.brand    = :brand)
+       AND (
+            :search IS NULL
+            OR n.name ILIKE :search_like
+            OR n.mpn  ILIKE :search_like
+            OR n.sku  ILIKE :search_like
+           )
 """
 
 
@@ -73,6 +88,7 @@ def list_nomenclature(
     brand: str | None = None,
     search: str | None = None,
     limit: int = LIST_LIMIT_DEFAULT,
+    offset: int = 0,
 ) -> list[dict]:
     params = {
         "category":    category,
@@ -80,10 +96,50 @@ def list_nomenclature(
         "search":      search,
         "search_like": f"%{search}%" if search else None,
         "limit":       limit,
+        "offset":      offset,
     }
     with engine.connect() as conn:
         rows = conn.execute(text(_SQL_LIST), params).mappings().all()
     return [dict(r) for r in rows]
+
+
+def list_nomenclature_paginated(
+    *,
+    category: str | None = None,
+    brand: str | None = None,
+    search: str | None = None,
+    page: int = 1,
+    per_page: int = PAGE_SIZE_DEFAULT,
+) -> dict:
+    """Постраничный список SKU + общий count под текущие фильтры.
+
+    Возвращает {'rows': [...], 'total': N, 'page': P, 'per_page': PP,
+                'total_pages': TP}. Page нумеруется с 1; если запрошена
+    страница больше total_pages — rows придёт пустым (UI покажет «нет
+    данных»), но page/total_pages останутся валидными для пагинатора."""
+    page = max(1, int(page))
+    per_page = max(1, int(per_page))
+    count_params = {
+        "category":    category,
+        "brand":       brand,
+        "search":      search,
+        "search_like": f"%{search}%" if search else None,
+    }
+    with engine.connect() as conn:
+        total = int(conn.execute(text(_SQL_COUNT), count_params).scalar() or 0)
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    offset = (page - 1) * per_page
+    rows = list_nomenclature(
+        category=category, brand=brand, search=search,
+        limit=per_page, offset=offset,
+    )
+    return {
+        "rows":        rows,
+        "total":       total,
+        "page":        page,
+        "per_page":    per_page,
+        "total_pages": total_pages,
+    }
 
 
 def list_brands() -> list[str]:

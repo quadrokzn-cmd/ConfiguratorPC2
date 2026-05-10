@@ -770,6 +770,24 @@ body.portal-theme {
            px-6 py-4 border-t border-line-subtle;
   }
 
+  /* === Нативный <dialog> в портальной тёмной теме (9a-fixes-2 #3) ====
+     По умолчанию <dialog> рендерится белым (как алерт-modal) и текст
+     портала на нём не читается. Подгоняем под тёмный сурфейс портала
+     (surface-1) с тонкой границей line-soft и тенью. Backdrop —
+     полупрозрачный тёмный с лёгким blur, как у .modal-overlay. */
+  dialog.kt-dialog {
+    color: theme('colors.ink.primary');
+    background: theme('colors.surface.1');
+    border: 1px solid theme('colors.line.soft');
+    box-shadow: theme('boxShadow.elev-3');
+    padding: 0;
+    /* Tailwind не переопределяет нативный margin:auto, оставляем как есть. */
+  }
+  dialog.kt-dialog::backdrop {
+    background: rgba(4, 6, 10, 0.72);
+    backdrop-filter: blur(4px);
+  }
+
   /* === Спиннер ======================================================= */
   .kt-spinner {
     width: 1rem; height: 1rem;

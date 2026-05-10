@@ -178,3 +178,63 @@ def _clean_sku_display(brand: str, sku: str, name: str, mpn: str | None = None) 
 
 
 templates.env.globals["clean_sku_display"] = _clean_sku_display
+
+
+# 9a-fixes-2 (#2): inline-описание атрибутов SKU для /nomenclature.
+# Превращает attrs_jsonb в строку «8 стр/мин · ч/б · A4 · 200 dpi · USB»,
+# пропускает n/a/None, для известных ключей добавляет единицы измерения.
+# Используется в шаблоне `nomenclature/index.html` под именем SKU.
+def _format_attrs_inline(attrs: dict | None, na_value: str = "n/a") -> str:
+    if not attrs:
+        return ""
+    parts: list[str] = []
+    for key, value in attrs.items():
+        if value is None or value == na_value:
+            continue
+        if isinstance(value, list):
+            cleaned = [str(v) for v in value if v and v != na_value]
+            if not cleaned:
+                continue
+            parts.append("+".join(cleaned))
+            continue
+        sval = str(value).strip()
+        if not sval or sval == na_value:
+            continue
+        if key == "print_speed_ppm":
+            parts.append(f"{sval} стр/мин")
+        elif key == "resolution_dpi":
+            parts.append(f"{sval} dpi")
+        elif key == "starter_cartridge_pages":
+            parts.append(f"стартовый {sval} стр.")
+        elif key == "usb":
+            if sval.lower() in ("yes", "true", "да"):
+                parts.append("USB")
+        elif key == "duplex":
+            if sval.lower() in ("yes", "true", "да"):
+                parts.append("дуплекс")
+        else:
+            parts.append(sval)
+    return " · ".join(parts)
+
+
+templates.env.globals["format_attrs_inline"] = _format_attrs_inline
+
+
+# 9a-fixes-2 (#6): русские лейблы для ключей customer_contacts_jsonb.
+# email — оставляем как есть (привычно на латинице). Для неизвестного ключа
+# возвращаем сам ключ — мягкий fallback.
+_CONTACT_LABELS = {
+    "fio":      "ФИО",
+    "phone":    "Телефон",
+    "position": "Должность",
+    "email":    "email",
+}
+
+
+def _contact_label(key: str) -> str:
+    if not key:
+        return ""
+    return _CONTACT_LABELS.get(str(key).strip().lower(), str(key))
+
+
+templates.env.globals["contact_label"] = _contact_label
