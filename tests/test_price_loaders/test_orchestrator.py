@@ -698,7 +698,14 @@ def test_orchestrator_writes_printer_mfu_to_printers_mfu(
     make_merlion_xlsx, db_session,
 ):
     """Печатные строки попадают в printers_mfu (NO_MATCH → создаётся
-    скелет с category из адаптера, sku вида brand:mpn, attrs_jsonb={}).
+    скелет с category из адаптера, sku вида brand:mpn).
+
+    Этап 9a-enrich (2026-05-10): для новых SKU при создании сразу
+    применяется regex-парсер `parse_printer_attrs(name)`. Если парсер
+    нашёл хоть один атрибут — attrs_jsonb наполняется значениями + n/a
+    для остальных, attrs_source='regex_name'. Если ничего не нашёл —
+    attrs_jsonb остаётся пустым ({}) и attrs_source=NULL.
+
     ПК-строка в той же загрузке обрабатывается обычным путём.
     pending_printers_mfu остаётся 0 — stub-ветка Этапа 4 убрана."""
     path = make_merlion_xlsx([
@@ -749,8 +756,10 @@ def test_orchestrator_writes_printer_mfu_to_printers_mfu(
     assert _count_supplier_prices(db_session, "Merlion") == 3
 
     # printers_mfu: 2 строки, у каждой category и sku корректно заполнены.
+    # Этап 9a-enrich: для HP LaserJet — парсер найдёт `print_technology=лазерная`
+    # (по слову LaserJet); для Pantum M6500W — ни одного атрибута → attrs={}.
     rows = db_session.execute(_t(
-        "SELECT sku, mpn, brand, name, category, attrs_jsonb::text AS attrs "
+        "SELECT sku, mpn, brand, name, category, attrs_jsonb, attrs_source "
         "  FROM printers_mfu ORDER BY id"
     )).all()
     assert len(rows) == 2
@@ -758,10 +767,15 @@ def test_orchestrator_writes_printer_mfu_to_printers_mfu(
     assert by_mpn["M404n"].category == "printer"
     assert by_mpn["M404n"].sku == "hp:M404n"
     assert by_mpn["M404n"].brand == "HP"
-    assert by_mpn["M404n"].attrs == "{}"
+    # parsed нашёл «laser» в LaserJet → attrs_jsonb наполняется
+    assert by_mpn["M404n"].attrs_jsonb["print_technology"] == "лазерная"
+    assert by_mpn["M404n"].attrs_source == "regex_name"
     assert by_mpn["M6500W"].category == "mfu"
     assert by_mpn["M6500W"].sku == "pantum:M6500W"
     assert by_mpn["M6500W"].brand == "Pantum"
+    # parsed ничего не нашёл (только модель и бренд) → attrs={}, source=None
+    assert by_mpn["M6500W"].attrs_jsonb == {}
+    assert by_mpn["M6500W"].attrs_source is None
 
 
 def test_orchestrator_only_printer_mfu_writes_skeletons(

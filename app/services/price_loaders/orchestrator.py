@@ -42,6 +42,10 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
+from app.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
+from app.services.auctions.catalog.enrichment.schema import (
+    NA, PRINTER_MFU_ATTRS,
+)
 from app.services.catalog.brand_normalizer import canonical_brand
 from app.services.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 from app.services.price_loaders.base import BasePriceLoader
@@ -166,16 +170,42 @@ def _create_printers_mfu_skeleton(session: Session, row: PriceRow) -> int:
 
     NOT NULL-инварианты таблицы: sku, brand, name, category. Поля attrs_jsonb
     и ktru_codes_array идут из DEFAULT (пустые), их заполнит обогащение.
+
+    Этап 9a-enrich (2026-05-10): для НОВЫХ SKU сразу применяем regex-парсер
+    `parse_printer_attrs(name)` как fallback-источник. Заполняем все 9 ключей
+    из PRINTER_MFU_ATTRS — найденные парсером значения + 'n/a' для остальных.
+    Источник пишем как 'regex_name'. Существующие SKU этим путём не идут —
+    их догоняет отдельный скрипт `scripts/enrich_printers_mfu_from_names.py`.
+    Когда Claude Code пройдёт по этому SKU через `auctions_enrich_import`,
+    он перезапишет attrs_jsonb своими значениями (Claude Code — primary).
     """
     sku = _ensure_unique_sku(session, _build_sku(row))
     brand = canonical_brand(row.brand) or "unknown"
     name = row.name or row.mpn or sku
+
+    parsed = parse_printer_attrs(name)
+    if parsed:
+        initial_attrs: dict[str, object] = {
+            key: parsed.get(key, NA) for key in PRINTER_MFU_ATTRS
+        }
+        initial_source: str | None = "regex_name"
+    else:
+        # parsed пустой — оставляем attrs_jsonb={} (как раньше до 9a-enrich),
+        # source=NULL. Это даёт «чистый» SKU для последующего Claude Code-
+        # обогащения и сохраняет обратную совместимость с существующими
+        # тестами и поведением «новый SKU = пустой attrs_jsonb».
+        initial_attrs = {}
+        initial_source = None
+
     res = session.execute(
         text(
             "INSERT INTO printers_mfu "
-            "    (sku, mpn, gtin, brand, name, category) "
+            "    (sku, mpn, gtin, brand, name, category, "
+            "     attrs_jsonb, attrs_source, attrs_updated_at) "
             "VALUES "
-            "    (:sku, :mpn, :gtin, :brand, :name, :category) "
+            "    (:sku, :mpn, :gtin, :brand, :name, :category, "
+            "     CAST(:attrs AS JSONB), :src, "
+            "     CASE WHEN :src IS NULL THEN NULL ELSE NOW() END) "
             "RETURNING id"
         ),
         {
@@ -185,6 +215,8 @@ def _create_printers_mfu_skeleton(session: Session, row: PriceRow) -> int:
             "brand":    brand,
             "name":     name,
             "category": row.our_category,
+            "attrs":    json.dumps(initial_attrs, ensure_ascii=False),
+            "src":      initial_source,
         },
     ).first()
     return int(res.id)
