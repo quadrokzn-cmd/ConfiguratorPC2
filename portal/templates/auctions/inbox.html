@@ -34,17 +34,22 @@
              class="text-brand-300 hover:underline font-mono text-small whitespace-nowrap">
             {{ r.reg_number }}
           </a>
+          {% if r.eis_url %}
+          <a href="{{ r.eis_url }}"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center text-ink-muted hover:text-brand-300 ml-1 align-middle"
+             title="Открыть на zakupki.gov.ru"
+             data-testid="eis-link-{{ r.reg_number }}">
+            {{ icon('external-link', 'w-3.5 h-3.5') }}
+          </a>
+          {% endif %}
         </td>
         <td class="text-ink-primary text-small">
           <span title="{{ r.customer }}">{{ r.customer | truncate(60, true, '…') }}</span>
         </td>
         <td class="text-ink-secondary text-small">{{ r.customer_region or '—' }}</td>
         <td class="text-right text-ink-primary font-mono text-small whitespace-nowrap">
-          {% if r.nmck_total is not none %}
-            {{ '%.2f'|format(r.nmck_total) }}
-          {% else %}
-            —
-          {% endif %}
+          {{ r.nmck_total | ru_money }}
         </td>
         <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
           {{ fmt_msk(r.submit_deadline) }}

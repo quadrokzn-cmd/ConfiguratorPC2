@@ -332,6 +332,36 @@ def auctions_ktru_toggle(
 
 
 # ============================================================
+# GET /auctions/sku/{nomenclature_id}/details — HTML-фрагмент с
+# attrs_jsonb для модалки на карточке лота (#7 9a-fixes).
+# Объявлено ДО /{reg_number}, чтобы wildcard не перехватил «sku»
+# как reg_number.
+# ============================================================
+
+@router.get("/sku/{nomenclature_id}/details")
+def auction_sku_details(
+    nomenclature_id: int,
+    request: Request,
+    user: AuthUser = Depends(require_permission("auctions")),
+):
+    from app.services.auctions.catalog import service as _cat
+    row = _cat.get_by_id(nomenclature_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="SKU не найден.")
+
+    return templates.TemplateResponse(
+        request,
+        "auctions/_sku_details.html",
+        {
+            "user":      user,
+            "sku":       row,
+            "attrs":     row.get("attrs_jsonb") or {},
+            "ktru":      list(row.get("ktru_codes_array") or []),
+        },
+    )
+
+
+# ============================================================
 # GET /auctions/{reg_number} — карточка лота
 # (объявлено ПОСЛЕ /settings, чтобы wildcard не перехватывал)
 # ============================================================

@@ -18,14 +18,14 @@
 
   {# === Шапка карточки ================================================== #}
   <header class="card card-pad mb-6">
-    <div class="flex items-start justify-between gap-4 mb-3">
-      <div>
+    <div class="flex items-start justify-between gap-4 mb-3 flex-wrap">
+      <div class="min-w-0">
         <h1 class="text-h2 text-ink-primary font-mono">{{ t.reg_number }}</h1>
         <p class="text-ink-secondary mt-1">{{ t.customer or '—' }}</p>
         <p class="text-ink-muted text-small mt-0.5">{{ t.customer_region or '—' }}</p>
       </div>
-      <div class="flex items-center gap-2">
-        <span class="badge {% if t.status == 'won' %}badge-success
+      <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+        <span class="badge whitespace-nowrap {% if t.status == 'won' %}badge-success
                             {%- elif t.status == 'skipped' %}badge-neutral
                             {%- elif t.status == 'submitted' %}badge-success
                             {%- else %}badge-warning{% endif %}"
@@ -34,7 +34,7 @@
         </span>
         {% if t.url %}
         <a href="{{ t.url }}" target="_blank" rel="noopener"
-           class="btn btn-secondary btn-sm" data-testid="card-eis-link">
+           class="btn btn-secondary btn-sm whitespace-nowrap" data-testid="card-eis-link">
           {{ icon('external-link', 'w-4 h-4') }}
           <span>На ЕИС</span>
         </a>
@@ -45,10 +45,8 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-small">
       <div>
         <div class="text-caption text-ink-muted">НМЦК, ₽</div>
-        <div class="text-ink-primary font-mono">
-          {% if t.nmck_total is not none %}
-            {{ '%.2f'|format(t.nmck_total) }}
-          {% else %}—{% endif %}
+        <div class="text-ink-primary font-mono whitespace-nowrap">
+          {{ t.nmck_total | ru_money }}
         </div>
       </div>
       <div>
@@ -108,16 +106,34 @@
             <span class="text-caption text-ink-muted">Поз. {{ it.position_num }}</span>
             <span class="ml-2 font-mono text-small text-ink-secondary">{{ it.ktru_code or 'без KTRU' }}</span>
           </div>
-          <div class="text-small text-ink-secondary whitespace-nowrap">
+          <div class="font-mono text-small text-ink-secondary whitespace-nowrap">
             {{ '%g'|format(it.qty) }} {{ it.unit or 'шт' }}
             {% if it.nmck_per_unit is not none %}
-              · <span class="font-mono">{{ '%.2f'|format(it.nmck_per_unit) }} ₽/ед</span>
+              · {{ it.nmck_per_unit | ru_money }} ₽/ед
             {% endif %}
           </div>
         </div>
-        <div class="text-ink-primary mb-3">{{ it.name or '—' }}</div>
 
-        {# Атрибуты позиции #}
+        {# Тех. требования: короткое имя (до первой характеристики)
+           + полный текст под <details>. #}
+        {% set _full_name = it.name or '' %}
+        {% set _short_name = _full_name.split(' ', 1)[0] if _full_name else '—' %}
+        {# Если в имени есть слово до первого пробела короче, а описание длинное —
+           показываем короткое (обычно «Принтер» / «МФУ»), а длинный текст
+           прячем под <details>. Если имя короткое (≤80 симв.) — показываем целиком. #}
+        {% if _full_name|length <= 80 %}
+        <div class="text-ink-primary mb-3">{{ _full_name or '—' }}</div>
+        {% else %}
+        <div class="text-ink-primary mb-1">{{ _short_name }}</div>
+        <details class="text-small mb-3">
+          <summary class="cursor-pointer text-ink-muted hover:text-ink-secondary">
+            Полный текст требования
+          </summary>
+          <p class="mt-1 text-ink-secondary whitespace-pre-line">{{ _full_name }}</p>
+        </details>
+        {% endif %}
+
+        {# Атрибуты позиции — структурированные плашки. #}
         {% if it.required_attrs_jsonb %}
         <div class="flex flex-wrap gap-1.5 mb-3">
           {% for k, v in it.required_attrs_jsonb.items() %}
@@ -132,16 +148,20 @@
         {# Primary match #}
         {% if it.primary %}
         {% set p = it.primary %}
+        {% set pd = clean_sku_display(p.brand, p.sku, p.name, p.mpn) %}
         <div class="rounded-md bg-surface-2 p-3 mb-2" data-testid="primary-{{ it.position_num }}">
           <div class="flex items-center justify-between gap-2 mb-1">
-            <div class="text-small text-ink-secondary">
+            <div class="text-small text-ink-secondary min-w-0">
               <span class="text-caption text-ink-muted">primary:</span>
-              <span class="font-mono text-ink-primary">{{ p.sku or ('id ' ~ p.nomenclature_id) }}</span>
-              · {{ p.brand or '—' }} · {{ p.name | truncate(60, true, '…') }}
+              <span class="font-medium text-ink-primary">{{ pd.brand }} {{ pd.model }}</span>
+              {% if pd.desc %}<span class="text-ink-secondary"> — {{ pd.desc | truncate(80, true, '…') }}</span>{% endif %}
             </div>
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
               {% if p.cost_base_rub is not none %}
-                <span class="text-caption text-ink-muted font-mono">{{ '%.2f'|format(p.cost_base_rub) }} ₽</span>
+                <span class="text-caption text-ink-muted font-mono">{{ p.cost_base_rub | ru_money }} ₽</span>
+              {% endif %}
+              {% if p.cheapest_supplier %}
+                <span class="text-caption text-ink-muted">· {{ p.cheapest_supplier }}</span>
               {% endif %}
               {% if p.margin_pct is not none %}
                 {% set m = p.margin_pct %}
@@ -153,6 +173,13 @@
                   <span class="badge badge-warning">{{ '%.1f'|format(m) }}%</span>
                 {% endif %}
               {% endif %}
+              <button type="button"
+                      class="btn btn-secondary btn-sm sku-details-btn"
+                      data-sku-id="{{ p.nomenclature_id }}"
+                      data-testid="sku-details-{{ p.nomenclature_id }}"
+                      title="Характеристики SKU">
+                {{ icon('list', 'w-3.5 h-3.5') }}
+              </button>
             </div>
           </div>
           {% if p.needs_manual_verification %}
@@ -169,16 +196,25 @@
           </summary>
           <ul class="mt-2 space-y-1">
             {% for a in it.alternatives %}
+            {% set ad = clean_sku_display(a.brand, a.sku, a.name, a.mpn) %}
             <li class="flex items-center justify-between gap-2 px-2 py-1 rounded hover:bg-surface-2">
-              <span class="text-ink-secondary">
-                <span class="font-mono">{{ a.sku or ('id ' ~ a.nomenclature_id) }}</span>
-                · {{ a.brand or '—' }} · {{ a.name | truncate(50, true, '…') }}
+              <span class="text-ink-secondary min-w-0">
+                <span class="font-medium text-ink-primary">{{ ad.brand }} {{ ad.model }}</span>
+                {% if ad.desc %}<span> — {{ ad.desc | truncate(60, true, '…') }}</span>{% endif %}
               </span>
-              <span class="text-caption text-ink-muted whitespace-nowrap">
-                {% if a.cost_base_rub is not none %}{{ '%.2f'|format(a.cost_base_rub) }} ₽{% endif %}
+              <span class="text-caption text-ink-muted whitespace-nowrap font-mono">
+                {% if a.cost_base_rub is not none %}{{ a.cost_base_rub | ru_money }} ₽{% endif %}
+                {% if a.cheapest_supplier %} · <span class="font-sans">{{ a.cheapest_supplier }}</span>{% endif %}
                 {% if a.margin_pct is not none %}
-                  · <span class="font-mono">{{ '%.1f'|format(a.margin_pct) }}%</span>
+                  · {{ '%.1f'|format(a.margin_pct) }}%
                 {% endif %}
+                <button type="button"
+                        class="btn btn-secondary btn-sm sku-details-btn ml-1"
+                        data-sku-id="{{ a.nomenclature_id }}"
+                        data-testid="sku-details-{{ a.nomenclature_id }}"
+                        title="Характеристики SKU">
+                  {{ icon('list', 'w-3 h-3') }}
+                </button>
               </span>
             </li>
             {% endfor %}
@@ -299,5 +335,21 @@
   {% endif %}
   {% endif %}
 
+  {# === Модалка характеристик SKU (#7 9a-fixes) ======================= #}
+  <dialog id="sku-details-dialog" class="kt-dialog rounded-lg max-w-2xl w-full p-0">
+    <div class="p-6">
+      <div class="flex items-start justify-end mb-2">
+        <button type="button" class="btn btn-secondary btn-sm" id="sku-details-close">×</button>
+      </div>
+      <div id="sku-details-body" data-testid="sku-details-body">
+        <p class="text-ink-muted text-small">Загрузка…</p>
+      </div>
+    </div>
+  </dialog>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('static/js/auctions-card.js') }}" defer></script>
 {% endblock %}

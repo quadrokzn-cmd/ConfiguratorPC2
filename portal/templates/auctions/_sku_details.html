@@ -1,0 +1,56 @@
+{# Партиал: фрагмент с характеристиками SKU.
+   Возвращается endpoint'ом /auctions/sku/{nomenclature_id}/details
+   и инжектится в <dialog> на карточке лота (этап 9a-fixes #7).
+   Не extends base.html — чистый фрагмент. #}
+<div class="kt-sku-details" data-testid="sku-details-fragment"
+     data-sku-id="{{ sku.id }}">
+  <header class="mb-3">
+    <h3 class="text-h3 text-ink-primary">{{ sku.brand or '—' }} {{ sku.mpn or sku.sku }}</h3>
+    <p class="text-caption text-ink-muted">
+      SKU <span class="font-mono">{{ sku.sku }}</span>
+      {% if sku.mpn %} · MPN <span class="font-mono">{{ sku.mpn }}</span>{% endif %}
+      {% if sku.category %} · {{ sku.category }}{% endif %}
+      {% if sku.attrs_source %} · источник: {{ sku.attrs_source }}{% endif %}
+    </p>
+  </header>
+
+  <p class="text-ink-secondary mb-3">{{ sku.name }}</p>
+
+  {% if attrs %}
+  <table class="kt-table text-small">
+    <thead>
+      <tr><th class="text-left">Атрибут</th><th class="text-left">Значение</th></tr>
+    </thead>
+    <tbody>
+      {% for k, v in attrs.items() %}
+      <tr>
+        <td class="text-ink-muted">{{ k }}</td>
+        <td>
+          {% if v is none or v == 'n/a' %}
+            <span class="badge badge-warning">n/a</span>
+          {% elif v is iterable and v is not string %}
+            {{ v | join(', ') }}
+          {% else %}
+            {{ v }}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-ink-muted text-small">Атрибуты не заполнены.</p>
+  {% endif %}
+
+  {% if ktru %}
+  <div class="mt-3 text-caption text-ink-muted">
+    KTRU: <span class="font-mono">{{ ktru | join(', ') }}</span>
+  </div>
+  {% endif %}
+
+  {% if sku.cost_base_rub is not none %}
+  <div class="mt-3 text-small text-ink-secondary">
+    cost_base: <span class="font-mono">{{ sku.cost_base_rub | ru_money }} ₽</span>
+  </div>
+  {% endif %}
+</div>

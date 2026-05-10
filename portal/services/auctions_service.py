@@ -248,6 +248,7 @@ SELECT t.reg_number,
        t.customer_region,
        t.nmck_total,
        t.submit_deadline,
+       t.url                                                     AS eis_url,
        ts.status,
        mm.max_pct                                                AS max_margin_pct,
        COALESCE(pc.n, 0)                                         AS primary_count,
@@ -360,6 +361,7 @@ def get_inbox_data(
             "customer_region": r.customer_region or "",
             "nmck_total":      r.nmck_total,
             "submit_deadline": r.submit_deadline,
+            "eis_url":         r.eis_url or "",
             "status":          r.status or "new",
             "status_label":    STATUS_LABELS.get(r.status or "new", r.status or "new"),
             "max_margin_pct":  r.max_margin_pct,
@@ -442,13 +444,27 @@ def get_tender_items_with_matches(
     item_ids = [int(i.id) for i in items]
 
     # primary + top-N alternative для всех позиций сразу.
+    # cheapest_supplier — имя поставщика с самой низкой ценой при stock_qty>0
+    # для category IN ('printer','mfu'). Берём через коррелированный
+    # подзапрос, чтобы не зависеть от того, какой именно поставщик попадёт
+    # в JOIN с supplier_prices.
     matches = db.execute(
         text(
             """
             SELECT m.id, m.tender_item_id, m.nomenclature_id, m.match_type,
                    m.rule_hits_jsonb, m.price_total_rub, m.margin_rub, m.margin_pct,
-                   pmu.sku, pmu.brand, pmu.name AS pmu_name, pmu.cost_base_rub,
-                   pmu.attrs_jsonb,
+                   pmu.sku, pmu.brand, pmu.mpn, pmu.name AS pmu_name,
+                   pmu.cost_base_rub, pmu.attrs_jsonb,
+                   (
+                     SELECT s.name
+                       FROM supplier_prices sp
+                       JOIN suppliers s ON s.id = sp.supplier_id
+                      WHERE sp.component_id = m.nomenclature_id
+                        AND sp.category IN ('printer', 'mfu')
+                        AND sp.stock_qty > 0
+                      ORDER BY sp.price ASC
+                      LIMIT 1
+                   ) AS cheapest_supplier,
                    ROW_NUMBER() OVER (
                        PARTITION BY m.tender_item_id, m.match_type
                        ORDER BY m.margin_pct DESC NULLS LAST, m.id
@@ -469,6 +485,7 @@ def get_tender_items_with_matches(
             "nomenclature_id":  int(m.nomenclature_id),
             "sku":              m.sku or "",
             "brand":            m.brand or "",
+            "mpn":              getattr(m, "mpn", None) or "",
             "name":             m.pmu_name or "",
             "cost_base_rub":    m.cost_base_rub,
             "attrs_jsonb":      m.attrs_jsonb or {},
@@ -476,6 +493,7 @@ def get_tender_items_with_matches(
             "price_total_rub":  m.price_total_rub,
             "margin_rub":       m.margin_rub,
             "margin_pct":       m.margin_pct,
+            "cheapest_supplier": getattr(m, "cheapest_supplier", None) or "",
             "needs_manual_verification":
                 bool((m.rule_hits_jsonb or {}).get("needs_manual_verification")),
         }

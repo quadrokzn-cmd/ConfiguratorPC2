@@ -19,8 +19,8 @@
     <a href="/auctions" class="btn btn-secondary btn-sm shrink-0">← К инбоксу</a>
   </header>
 
-  {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}
-  {% if info %}<div class="alert alert-success mb-4">{{ info }}</div>{% endif %}
+  {% if error %}<div class="alert alert-danger mb-4" data-flash="error">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success mb-4" data-flash="info">{{ info }}</div>{% endif %}
 
   {# === Пороги ========================================================== #}
   <section class="card card-pad mb-6">
@@ -85,7 +85,8 @@
       </div>
 
       <div class="md:col-span-3 flex justify-end">
-        <button type="submit" class="btn btn-primary btn-sm" data-testid="save-settings">
+        <button type="submit" class="btn btn-primary btn-sm" data-testid="save-settings"
+                data-save-label="Сохранить пороги">
           Сохранить пороги
         </button>
       </div>
@@ -235,4 +236,50 @@
   </section>
 
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 9a-fixes #6: показать toast «Сохранено» после редиректа со /save
+// (flash_info → alert + toast). При успешном сабмите формы порогов
+// кнопка кратко превращается в «Сохранено ✓» на 2 секунды.
+(function () {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function () {
+    var infoEl = document.querySelector('[data-flash="info"]');
+    if (infoEl && typeof window.toastDialog === 'function') {
+      window.toastDialog(infoEl.textContent.trim() || 'Сохранено', {
+        kind: 'success', ms: 3000,
+      });
+    }
+    var errEl = document.querySelector('[data-flash="error"]');
+    if (errEl && typeof window.toastDialog === 'function') {
+      window.toastDialog(errEl.textContent.trim() || 'Ошибка', {
+        kind: 'error', ms: 4000,
+      });
+    }
+
+    // Кнопка «Сохранить пороги»: при сабмите формы кратковременно
+    // меняем текст на «Сохранено ✓» (после редиректа страница уже
+    // перезагрузится, но до этого момента пользователь видит feedback).
+    var saveBtn = document.querySelector('[data-testid="save-settings"]');
+    if (saveBtn) {
+      var form = saveBtn.closest('form');
+      if (form) {
+        form.addEventListener('submit', function () {
+          var original = saveBtn.dataset.saveLabel || saveBtn.textContent;
+          saveBtn.dataset.saveLabel = original;
+          saveBtn.textContent = 'Сохранено ✓';
+          saveBtn.disabled = true;
+          // Если редирект почему-то не сработает за 4 сек — вернём кнопку.
+          setTimeout(function () {
+            saveBtn.textContent = original;
+            saveBtn.disabled = false;
+          }, 4000);
+        });
+      }
+    }
+  });
+})();
+</script>
 {% endblock %}
