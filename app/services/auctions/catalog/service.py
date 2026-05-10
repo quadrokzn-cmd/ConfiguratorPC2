@@ -170,9 +170,28 @@ def list_ktru_active() -> list[dict]:
 
 
 def get_by_id(nomenclature_id: int) -> dict | None:
+    """Возвращает строку printers_mfu + cheapest_supplier (поставщик с
+    самой низкой ценой при stock_qty>0 для category IN ('printer','mfu')).
+    Используется модалкой SKU details на карточке лота (9a-fixes-3 #2)."""
     with engine.connect() as conn:
         row = conn.execute(
-            text("SELECT * FROM printers_mfu WHERE id = :id"),
+            text(
+                """
+                SELECT n.*,
+                       (
+                         SELECT s.name
+                           FROM supplier_prices sp
+                           JOIN suppliers s ON s.id = sp.supplier_id
+                          WHERE sp.component_id = n.id
+                            AND sp.category IN ('printer', 'mfu')
+                            AND sp.stock_qty > 0
+                          ORDER BY sp.price ASC
+                          LIMIT 1
+                       ) AS cheapest_supplier
+                  FROM printers_mfu n
+                 WHERE n.id = :id
+                """
+            ),
             {"id": nomenclature_id},
         ).mappings().first()
     return dict(row) if row else None

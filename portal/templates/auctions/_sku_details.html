@@ -49,8 +49,14 @@
   {% endif %}
 
   {% if sku.cost_base_rub is not none %}
-  <div class="mt-3 text-small text-ink-secondary">
-    cost_base: <span class="font-mono">{{ sku.cost_base_rub | ru_money }} ₽</span>
+  <div class="mt-3 text-small text-ink-secondary" data-testid="sku-price">
+    Цена: <span class="font-mono">{{ sku.cost_base_rub | ru_money }} ₽</span>
+  </div>
+  {% endif %}
+
+  {% if sku.cheapest_supplier %}
+  <div class="mt-1 text-small text-ink-secondary" data-testid="sku-supplier">
+    Поставщик: <span class="font-medium">{{ sku.cheapest_supplier }}</span>
   </div>
   {% endif %}
 </div>

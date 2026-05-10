@@ -238,6 +238,162 @@ def test_inline_synthetic_table_still_works_via_fallback():
     assert attrs.get("print_speed_ppm") == 22
 
 
+def test_multiple_expander_siblings_merged_into_one_position():
+    """9a-fixes-3 #3: у одной позиции бывает 1-4 sibling-<tr> с одним
+    truInfo_NNN id (BS4 + lxml склеивают часть характеристик в одну
+    sibling-строку, часть в другую). Все они должны слиться в один
+    required_attrs_jsonb."""
+    html = """
+    <html><body>
+    <div class="cardMainInfo__title">Полное наименование заказчика</div>
+    <div class="section__info">ФГБУ ТЕСТ</div>
+    <table>
+      <tr><th>Код позиции КТРУ</th><th>Наименование товара</th><th>Количество</th><th>Цена за ед., ₽</th></tr>
+      <tr>
+        <td>26.20.18.000-00000069</td>
+        <td><span class="chevronRight" onclick="toggle('truInfo_111111')">▶</span> МФУ ч/б A4 multi-expander</td>
+        <td>1</td>
+        <td>10000,00</td>
+      </tr>
+      <tr class="truInfo_111111">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Цветность</td><td>Черно-Белая</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="truInfo_111111 tableBlock__row">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Максимальный формат печати</td><td>А4</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="truInfo_111111">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Скорость черно-белой печати, стр/мин</td><td>≥ 24</td></tr>
+            <tr><td>Разрешение печати, dpi</td><td>≥ 600</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </body></html>
+    """
+    card = parse_card("0000000000000000777", "https://x", html)
+    assert len(card.items) == 1
+    item = card.items[0]
+    attrs = item.required_attrs_jsonb
+    # Все три expander'а должны быть слиты:
+    assert attrs.get("colorness") == "ч/б", attrs
+    assert attrs.get("max_format") == "A4", attrs
+    assert attrs.get("print_speed_ppm") == 24, attrs
+    assert attrs.get("resolution_dpi") == 600, attrs
+    # name расширен характеристиками из expander'ов (9a-fixes-3 #3).
+    # Чтобы в карточке лота `<details>` показывал не только короткое имя
+    # из колонки, но и атрибуты, попавшие в expander'ы.
+    assert item.name is not None
+    assert "Цветность" in item.name or "Скорость" in item.name or "Разрешение" in item.name
+
+
+def test_expander_collection_skips_intermediate_blank_tr():
+    """Промежуточный служебный <tr> между expander'ами одной позиции
+    не должен оборвать сбор — собираем все expander'ы до chevron'а
+    следующей позиции или до другого truInfo_-id."""
+    html = """
+    <html><body>
+    <div class="cardMainInfo__title">Полное наименование заказчика</div>
+    <div class="section__info">ФГБУ ТЕСТ</div>
+    <table>
+      <tr><th>Код позиции КТРУ</th><th>Наименование товара</th><th>Количество</th><th>Цена за ед., ₽</th></tr>
+      <tr>
+        <td>26.20.18.000-00000069</td>
+        <td><span class="chevronRight" onclick="toggle('truInfo_222222')">▶</span> МФУ A4 c пропуском</td>
+        <td>2</td>
+        <td>15000,00</td>
+      </tr>
+      <tr class="truInfo_222222">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Цветность</td><td>Черно-Белая</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr><td colspan="4"></td></tr>
+      <tr class="truInfo_222222">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Максимальный формат печати</td><td>А4</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </body></html>
+    """
+    card = parse_card("0000000000000000888", "https://x", html)
+    assert len(card.items) == 1
+    attrs = card.items[0].required_attrs_jsonb
+    assert attrs.get("colorness") == "ч/б", attrs
+    assert attrs.get("max_format") == "A4", attrs
+
+
+def test_expander_collection_stops_on_next_position_chevron():
+    """Сбор expander'ов одной позиции должен остановиться, когда
+    встречается визуальная строка следующей позиции (chevronRight)."""
+    html = """
+    <html><body>
+    <div class="cardMainInfo__title">Полное наименование заказчика</div>
+    <div class="section__info">ФГБУ ТЕСТ</div>
+    <table>
+      <tr><th>Код позиции КТРУ</th><th>Наименование товара</th><th>Количество</th><th>Цена за ед., ₽</th></tr>
+      <tr>
+        <td>26.20.18.000-00000069</td>
+        <td><span class="chevronRight" onclick="toggle('truInfo_333111')">▶</span> МФУ позиция 1 длинное название</td>
+        <td>1</td>
+        <td>10000,00</td>
+      </tr>
+      <tr class="truInfo_333111">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Цветность</td><td>Черно-Белая</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>26.20.16.120-00000139</td>
+        <td><span class="chevronRight" onclick="toggle('truInfo_333222')">▶</span> Принтер позиция 2 длинное название</td>
+        <td>3</td>
+        <td>8000,00</td>
+      </tr>
+      <tr class="truInfo_333222">
+        <td colspan="4">
+          <table>
+            <tr><th>Наименование характеристики</th><th>Значение характеристики</th></tr>
+            <tr><td>Максимальный формат печати</td><td>А3</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </body></html>
+    """
+    card = parse_card("0000000000000000999", "https://x", html)
+    assert len(card.items) == 2
+    # Позиция 1: только colorness (max_format=A3 принадлежит позиции 2).
+    pos1 = next(it for it in card.items if it.ktru_code == "26.20.18.000-00000069")
+    assert pos1.required_attrs_jsonb.get("colorness") == "ч/б"
+    assert "max_format" not in pos1.required_attrs_jsonb
+    # Позиция 2: max_format=A3, без colorness.
+    pos2 = next(it for it in card.items if it.ktru_code == "26.20.16.120-00000139")
+    assert pos2.required_attrs_jsonb.get("max_format") == "A3"
+    assert "colorness" not in pos2.required_attrs_jsonb
+
+
 def test_parse_card_no_price_structure_returns_none_per_unit():
     """Карточка без колонки цены (только КТРУ + qty) — nmck_per_unit=None, без падения."""
     html = """

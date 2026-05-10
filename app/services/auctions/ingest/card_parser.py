@@ -237,6 +237,14 @@ def _parse_items(soup: BeautifulSoup) -> list[TenderItem]:
             return None
 
         for row in table.find_all("tr")[1:]:
+            # 9a-fixes-3 #3: пропускаем expander-сёстры (`<tr class="truInfo_…">`).
+            # Они принадлежат позиции выше и обрабатываются в
+            # `_collect_raw_position_attrs(row)`. Без явного skip парсер
+            # может ошибочно засчитать содержимое expander'а как новую
+            # позицию (если внутри есть длинный текст).
+            row_classes = " ".join(row.get("class", []) or [])
+            if "truInfo_" in row_classes:
+                continue
             cells = row.find_all(["td"])
             if not cells or len(cells) < 3:
                 continue
@@ -272,11 +280,16 @@ def _parse_items(soup: BeautifulSoup) -> list[TenderItem]:
             raw_attrs = _collect_raw_position_attrs(row)
             normalized, unknown = normalize_attrs(raw_attrs) if raw_attrs else ({}, [])
             unknown_attr_keys.update(unknown)
+            # 9a-fixes-3 #3: дополняем name атрибутами из expander'ов,
+            # чтобы «Полный текст требования» в карточке лота отражал
+            # полный набор характеристик, а не только короткую колонку
+            # «Наименование товара».
+            extended_name = _extend_name_with_raw_attrs(name, raw_attrs)
             items.append(
                 TenderItem(
                     position_num=position_idx,
                     ktru_code=ktru,
-                    name=name,
+                    name=extended_name,
                     qty=qty,
                     unit=unit,
                     nmck_per_unit=nmck_per_unit,
@@ -373,14 +386,20 @@ def _collect_raw_position_attrs(row: Tag) -> dict[str, Any]:
 
     На zakupki характеристики позиции лежат в `<tr class="truInfo_NNN"
     style="display:none">`-сёстрах, идущих сразу за визуальной строкой
-    позиции. У одной позиции может быть несколько таких сестёр (BS4 +
-    lxml склеивают часть их в одну, часть в другую — зависит от того,
-    насколько кривой исходный HTML). Логика:
+    позиции. У одной позиции может быть 1-4 expander-tr (BS4 + lxml
+    раскладывают характеристики между ними по-разному в зависимости от
+    того, насколько кривой исходный HTML). Логика:
 
     1. Из `<span class="chevronRight">` достаём `truInfo_NNN`-id.
-    2. Идём по next_siblings и берём все <tr>, у которых класс содержит
-       `truInfo_NNN` с тем же id — это всё, что относится к этой позиции.
-    3. Если chevron не нашёлся (старый layout / мини-фикстура) —
+    2. Идём по next_siblings и собираем ВСЕ <tr>, у которых класс
+       содержит `truInfo_NNN` с тем же id.
+    3. Останавливаемся, когда встречаем:
+       - `<tr>` с другим `truInfo_NNN` (expander соседней позиции), или
+       - `<tr>` с `<span class="chevronRight">` (визуальная строка
+         следующей позиции).
+       Промежуточные «обычные» <tr> без класса (служебные/спейсер) —
+       пропускаем, чтобы не оборвать сбор раньше времени (9a-fixes-3 #3).
+    4. Если chevron не нашёлся (старый layout / мини-фикстура) —
        фолбэк на сам `row`.
 
     Возвращает dict с ключом-zakupki и значением либо строкой (один
@@ -402,12 +421,15 @@ def _collect_raw_position_attrs(row: Tag) -> dict[str, Any]:
             cls_str = " ".join(sib.get("class", []) or [])
             if target.search(cls_str):
                 expanders.append(sib)
-            elif "truInfo_" in cls_str:
-                # Чужой expander (другой позиции) — стоп.
+                continue
+            if "truInfo_" in cls_str:
+                # Чужой expander (соседняя позиция) — стоп.
                 break
-            else:
-                # Следующая обычная позиция — стоп.
+            if sib.find("span", class_=re.compile(r"chevronRight")):
+                # Визуальная строка следующей позиции — стоп.
                 break
+            # Иначе: служебный/спейсер <tr> между expander'ами одной
+            # позиции — пропускаем дальше.
     if not expanders:
         # Фолбэк: ищем характеристики прямо внутри row (старый layout
         # из синтетических примеров и тех тендеров, где expander не
@@ -428,6 +450,36 @@ def _collect_raw_position_attrs(row: Tag) -> dict[str, Any]:
             else:
                 merged[k] = v
     return merged
+
+
+def _extend_name_with_raw_attrs(name: str | None, raw_attrs: dict[str, Any] | None) -> str | None:
+    """Дописывает к `name` пары «характеристика: значение» из `raw_attrs`,
+    если они ещё не содержатся в name. Используется, чтобы `<details>`
+    «Полный текст требования» в карточке лота показывал полный набор
+    характеристик из expander'а zakupki, а не только короткое название
+    из колонки «Наименование товара» (9a-fixes-3 #3)."""
+    if not name or not raw_attrs:
+        return name
+    name_lower = name.lower()
+    parts: list[str] = []
+    for k, v in raw_attrs.items():
+        if not k:
+            continue
+        if isinstance(v, list):
+            v_str = "+".join(str(x).strip() for x in v if x is not None and str(x).strip())
+        else:
+            v_str = str(v).strip() if v is not None else ""
+        if not v_str:
+            continue
+        # Не дублируем: если значение уже встречается в name — пропускаем.
+        # Ключ-«заголовок» проверяем менее строго (он часто короткий
+        # и может случайно встретиться как подстрока).
+        if v_str.lower() in name_lower:
+            continue
+        parts.append(f"{k}: {v_str}")
+    if not parts:
+        return name
+    return name + "\n" + "\n".join(parts)
 
 
 def _extract_position_attrs(scope: Tag) -> dict[str, Any]:

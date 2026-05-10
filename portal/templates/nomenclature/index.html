@@ -67,7 +67,7 @@
           <th class="text-left">SKU / Название</th>
           <th class="text-left w-32">Бренд</th>
           <th class="text-left w-24">Категория</th>
-          <th class="text-right w-32">cost_base, ₽</th>
+          <th class="text-right w-32">Цена, ₽</th>
           <th class="text-left w-44">KTRU</th>
           <th class="text-right w-44">Действия</th>
         </tr>
@@ -98,7 +98,7 @@
             {% endif %}
           </td>
           <td class="text-ink-secondary text-small">{{ row.brand or '—' }}</td>
-          <td class="text-ink-secondary text-small">{{ row.category or '—' }}</td>
+          <td class="text-ink-secondary text-small">{{ category_label(row.category) }}</td>
           <td class="text-right">
             {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
             <input type="number" min="0" step="0.01"

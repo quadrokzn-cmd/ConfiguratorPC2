@@ -238,3 +238,22 @@ def _contact_label(key: str) -> str:
 
 
 templates.env.globals["contact_label"] = _contact_label
+
+
+# 9a-fixes-3 (#1): русские лейблы для category в /nomenclature.
+# printer → Принтер, mfu → МФУ. Неизвестное значение возвращаем как есть
+# (не теряем категории, появившиеся позже).
+_CATEGORY_LABELS = {
+    "printer": "Принтер",
+    "mfu":     "МФУ",
+}
+
+
+def _category_label(category: str | None) -> str:
+    if not category:
+        return "—"
+    return _CATEGORY_LABELS.get(str(category).strip().lower(), str(category))
+
+
+templates.env.globals["category_label"] = _category_label
+templates.env.filters["category_label"] = _category_label
