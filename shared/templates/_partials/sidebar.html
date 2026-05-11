@@ -1,0 +1,206 @@
+{#
+  Единый sidebar портала и конфигуратора (этап UI-1, Путь B слияния).
+
+  Меню верхнего уровня (фиксированный порядок, всегда видны все 5):
+    1. Главная       (home)
+    2. Аукционы      (auctions)         — выше Конфигуратора по решению собственника 2026-05-11
+    3. Конфигуратор ПК (configurator)
+    4. Базы данных    (databases)
+    5. Настройки      (settings)
+
+  Параметры (передаются через контекст рендера; обычно из base.html-родителя):
+    - active_section: 'home' | 'auctions' | 'configurator' | 'databases' | 'settings'
+    - active_subsection: str | None — ключ выделенного подпункта (для подсветки)
+    - current_service: 'portal' | 'configurator' — в каком сервисе мы сейчас.
+      Нужно, чтобы (а) отметить «внешние» ссылки иконкой ↗ (стабы, переезжают
+      в UI-2..UI-4) и (б) использовать относительные URL для ссылок внутри
+      того же сервиса (чтобы тесты на href="/..." остались валидны).
+    - user, csrf_token — карточка пользователя и форма logout снизу.
+
+  Globals (зарегистрированы в обоих templating.py):
+    - configurator_url, portal_url — абсолютные адреса сервисов.
+    - icon, brand_mark — из _macros/icons.html (есть и у portal, и у app).
+    - current_exchange_rate — для виджета курса в подвале.
+
+  CSS: используются существующие классы из static/src/main.css
+  (nav-item, nav-item-active, kt-sidebar*, kt-fx-widget, brand-caption…).
+  Подпункты — на чистых Tailwind-утилитах (text-caption, pl-10, …),
+  никаких новых CSS-классов, npm run build:css не обязателен.
+#}
+{% from "_macros/icons.html" import icon, brand_mark %}
+
+{% set _cur_service = current_service|default('portal') %}
+
+{# Хелпер: ссылка на путь target_service:path. Если сервис совпадает с
+   текущим — отдаём относительный URL, чтобы старые тесты вида
+   `href="/admin/users"` остались валидны. Если сервис другой —
+   собираем абсолютный URL через portal_url / configurator_url. #}
+{% macro _link(target_service, path) -%}
+  {%- if target_service == _cur_service -%}{{ path }}
+  {%- elif target_service == 'portal' -%}{{ portal_url }}{{ path }}
+  {%- else -%}{{ configurator_url }}{{ path }}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro _ext_marker(target_service) -%}
+  {%- if target_service != _cur_service -%}
+    <span class="ml-auto text-ink-muted text-caption opacity-70" aria-hidden="true"
+          title="Откроется в другом сервисе">↗</span>
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro _section_link(target_service, path, label, icon_name, section_key) -%}
+  {% set _is_active = (active_section == section_key) %}
+  <a href="{{ _link(target_service, path) }}"
+     class="nav-item{% if _is_active %} nav-item-active{% endif %}"
+     data-section="{{ section_key }}"
+     data-testid="sidebar-section-{{ section_key }}"
+     {% if _is_active %}aria-current="page"{% endif %}>
+    {{ icon(icon_name, class='nav-item-icon') }}
+    <span>{{ label }}</span>
+    {{ _ext_marker(target_service) }}
+  </a>
+{%- endmacro %}
+
+{% macro _sub_link(target_service, path, label, sub_key) -%}
+  {% set _is_active = (active_subsection == sub_key) %}
+  <a href="{{ _link(target_service, path) }}"
+     class="flex items-center gap-2 pl-10 pr-3 py-1.5 rounded-md
+            text-caption font-medium
+            transition-colors duration-120
+            {% if _is_active %}text-brand-300 bg-surface-2{% else %}text-ink-secondary hover:text-ink-primary hover:bg-surface-2{% endif %}"
+     data-subsection="{{ sub_key }}"
+     data-testid="sidebar-sub-{{ sub_key }}"
+     {% if _is_active %}aria-current="page"{% endif %}>
+    <span class="text-ink-muted shrink-0" aria-hidden="true">·</span>
+    <span class="truncate">{{ label }}</span>
+    {{ _ext_marker(target_service) }}
+  </a>
+{%- endmacro %}
+
+<aside class="kt-sidebar bg-surface-1 border-r border-line-subtle"
+       data-testid="kt-sidebar"
+       data-active-section="{{ active_section|default('home') }}">
+
+  {# === Шапка с логотипом ==============================================
+     UI-1: caption под логотипом сохраняем — это покрыто тестами 9А.2.1
+     (logo+caption в одном .kt-brand-wrap). Текст зависит от текущего
+     сервиса: на портале — «ПОРТАЛ», в конфигураторе — «КОНФИГУРАТОР»,
+     чтобы менеджер визуально понимал, где находится. Логотип ведёт на
+     главную текущего сервиса. #}
+  <div class="kt-sidebar-header px-5 pt-5 pb-4">
+    <a href="/" class="block group kt-brand-wrap"
+       aria-label="QUADRO — главная">
+      {{ brand_mark(class='kt-brand-logo') }}
+      {% if _cur_service == 'configurator' %}
+      <div class="brand-caption mt-2" aria-label="Конфигуратор">{#
+        #}<span>К</span><span>О</span><span>Н</span><span>Ф</span><span>И</span><span>Г</span><span>У</span><span>Р</span><span>А</span><span>Т</span><span>О</span><span>Р</span>
+      </div>
+      {% else %}
+      <div class="brand-caption mt-2" aria-label="Портал">{#
+        #}<span>П</span><span>О</span><span>Р</span><span>Т</span><span>А</span><span>Л</span>
+      </div>
+      {% endif %}
+    </a>
+  </div>
+
+  {# === Главное меню =================================================== #}
+  <nav class="kt-sidebar-nav px-3" aria-label="Главная навигация">
+    <div class="space-y-0.5">
+
+      {# --- 1) Главная --- #}
+      {{ _section_link('portal', '/',
+                       'Главная', 'layout-grid', 'home') }}
+
+      {# --- 2) Аукционы (на UI-1 — без подпунктов) --- #}
+      {{ _section_link('portal', '/auctions',
+                       'Аукционы', 'gavel', 'auctions') }}
+
+      {# --- 3) Конфигуратор ПК --- #}
+      {{ _section_link('configurator', '/',
+                       'Конфигуратор ПК', 'cpu', 'configurator') }}
+      {% if active_section == 'configurator' %}
+      <div class="py-0.5" data-testid="sidebar-subitems-configurator">
+        {{ _sub_link('configurator', '/',
+                     'Новый запрос', 'new_query') }}
+        {{ _sub_link('configurator', '/projects',
+                     'Проекты', 'projects') }}
+        {{ _sub_link('configurator', '/history',
+                     'История запросов', 'history') }}
+      </div>
+      {% endif %}
+
+      {# --- 4) Базы данных --- #}
+      {# Топ-ссылка ведёт на первый подпункт «Справочник оргтехники»
+         (он же /nomenclature). #}
+      {{ _section_link('portal', '/nomenclature',
+                       'Базы данных', 'database', 'databases') }}
+      {% if active_section == 'databases' %}
+      <div class="py-0.5" data-testid="sidebar-subitems-databases">
+        {# Этап UI-1: «Справочник печати» → «Справочник оргтехники»
+           (только UI-лейбл, URL и таблица БД не меняются). #}
+        {{ _sub_link('portal', '/nomenclature',
+                     'Справочник оргтехники', 'nomenclature') }}
+        {{ _sub_link('portal', '/admin/price-uploads',
+                     'Прайс-листы', 'prices') }}
+        {{ _sub_link('portal', '/admin/auto-price-loads',
+                     'Автозагрузка', 'autoload') }}
+        {# Стабы — переедут в portal/databases/* на этапе UI-2.
+           Сейчас живут в конфигураторе (/admin/{suppliers,components,mapping}). #}
+        {{ _sub_link('configurator', '/admin/suppliers',
+                     'Поставщики', 'suppliers') }}
+        {{ _sub_link('configurator', '/admin/components',
+                     'Комплектующие для ПК', 'components') }}
+        {{ _sub_link('configurator', '/admin/mapping',
+                     'Очередь маппинга', 'mapping') }}
+      </div>
+      {% endif %}
+
+      {# --- 5) Настройки --- #}
+      {{ _section_link('portal', '/admin/users',
+                       'Настройки', 'settings', 'settings') }}
+      {% if active_section == 'settings' %}
+      <div class="py-0.5" data-testid="sidebar-subitems-settings">
+        {{ _sub_link('portal', '/admin/users',
+                     'Пользователи', 'users') }}
+        {{ _sub_link('portal', '/admin/backups',
+                     'Бэкапы', 'backups') }}
+        {{ _sub_link('portal', '/admin/audit',
+                     'Журнал действий', 'audit') }}
+      </div>
+      {% endif %}
+
+    </div>
+  </nav>
+
+  {# === Подвал sidebar ================================================= #}
+  <div class="kt-sidebar-footer">
+    {# Виджет курса ЦБ — общий партиал. #}
+    {% include "_partials/fx_widget.html" %}
+
+    {# Карточка пользователя + logout. Logout — на портал (там сессия). #}
+    <div class="p-3 border-t border-line-subtle">
+      <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
+        <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
+                    flex items-center justify-center text-small font-semibold shrink-0">
+          {{ (user.name or user.login)[:1]|upper }}
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
+          <div class="text-caption text-ink-muted truncate">
+            {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
+          </div>
+        </div>
+        <form method="post" action="{{ _link('portal', '/logout') }}" class="shrink-0">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button type="submit"
+                  class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
+                         hover:bg-surface-3 transition-colors duration-120"
+                  title="Выйти" aria-label="Выйти">
+            {{ icon('log-out', class='w-4 h-4') }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</aside>

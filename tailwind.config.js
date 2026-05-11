@@ -17,6 +17,8 @@ module.exports = {
   content: [
     "./app/templates/**/*.html",
     "./portal/templates/**/*.html",
+    // UI-1: общие партиалы (sidebar, fx_widget) живут в shared/.
+    "./shared/templates/**/*.html",
     "./static/js/**/*.js",
   ],
   theme: {

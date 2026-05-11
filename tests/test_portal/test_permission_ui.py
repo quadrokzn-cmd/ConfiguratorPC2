@@ -17,43 +17,46 @@ def _login(client: TestClient, user: dict) -> None:
     _login_via_portal(client, user["login"], user["password"])
 
 
-def test_sidebar_shows_configurator_link_for_manager_with_perm(
+def test_sidebar_shows_configurator_section_for_manager_with_perm(
     portal_client, manager_user
 ):
-    """У менеджера с permissions["configurator"]=true в подвале
-    сайдбара видна ссылка «← Конфигуратор»."""
+    """UI-1 (Путь B): нижняя ссылка «← Конфигуратор» убрана; пункт
+    «Конфигуратор ПК» переехал в основное меню sidebar."""
     _login(portal_client, manager_user)
     r = portal_client.get("/")
     assert r.status_code == 200
-    # Подвал сайдбара содержит .kt-portal-back ссылку с текстом «Конфигуратор».
-    assert 'class="kt-portal-back"' in r.text
-    assert "Конфигуратор</span>" in r.text
+    assert 'data-testid="sidebar-section-configurator"' in r.text
+    assert "Конфигуратор ПК" in r.text
 
 
-def test_sidebar_hides_configurator_link_for_manager_without_perm(
+def test_sidebar_shows_configurator_section_for_manager_without_perm(
     portal_client, manager_user_no_perms
 ):
-    """У менеджера БЕЗ permissions["configurator"] ссылки в сайдбаре нет."""
+    """UI-1 (Путь B, 2026-05-11): RBAC-фильтрация меню отложена на этап
+    после UI-5 — меню одинаково для admin/manager и для менеджеров с/без
+    permission. Пункт «Конфигуратор ПК» виден даже без права; при клике
+    middleware конфигуратора редиректит на /?denied=configurator
+    (см. test_denied_banner_renders_when_query_param_present)."""
     _login(portal_client, manager_user_no_perms)
     r = portal_client.get("/")
     assert r.status_code == 200
-    # Класс ссылки нигде не должен встречаться: её просто не отрендерили.
+    # Старая ссылка удалена.
     assert 'class="kt-portal-back"' not in r.text
-    # И самого слова «Конфигуратор» в подвале сайдбара тоже не должно
-    # быть. На главной плитка «Конфигуратор ПК» тоже скрыта (см. home.py),
-    # поэтому простой substring-чек надёжен.
-    assert "Конфигуратор" not in r.text
+    # Пункт меню видим всем (одинаковое меню).
+    assert 'data-testid="sidebar-section-configurator"' in r.text
+    # Плашка модуля «Конфигуратор ПК» на главной по-прежнему скрыта
+    # для менеджера без права — это всё ещё работает (см. home.py).
+    assert 'data-testid="tile-configurator"' not in r.text
 
 
-def test_sidebar_shows_configurator_link_for_admin_without_perms(
+def test_sidebar_shows_configurator_section_for_admin(
     portal_client, admin_user
 ):
-    """Admin всегда видит ссылку, даже с пустыми permissions
-    (has_permission(admin, ...) → True)."""
+    """Admin всегда видит пункт «Конфигуратор ПК» в основном меню."""
     _login(portal_client, admin_user)
     r = portal_client.get("/")
     assert r.status_code == 200
-    assert 'class="kt-portal-back"' in r.text
+    assert 'data-testid="sidebar-section-configurator"' in r.text
 
 
 def test_denied_banner_renders_when_query_param_present(

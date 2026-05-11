@@ -14,107 +14,41 @@
 {% from "_macros/icons.html" import icon, brand_mark %}
 
 {% if user %}
-{# 9Б.2.1: единый shell для конфигуратора и портала.
-   Структура — та же, что в app/templates/base.html:
-     - .kt-app-shell — flex со 100vh высотой, без скролла на body;
-     - .kt-sidebar  — фиксированной ширины 248px (на ≤1024px — 72px);
-     - .kt-main     — flex:1 + overflow-y:auto, единственная скролл-зона.
-   Отличие портала: нет .kt-topbar (навигация переехала в сайдбар),
-   и нет хлебных крошек. #}
+{# UI-1 (Путь B, 2026-05-11): sidebar портала и конфигуратора
+   объединены в один общий партиал shared/_partials/sidebar.html.
+   Здесь — только классификация текущего URL в один из 5 разделов
+   меню; partial сам решает, какие подпункты раскрывать. #}
 {% set _path = request.url.path if request is defined else '' %}
-{% macro _portal_nav_link(href, label, icon_name, is_active) -%}
-  <a href="{{ href }}"
-     class="nav-item{% if is_active %} nav-item-active{% endif %}"
-     {% if is_active %}aria-current="page"{% endif %}>
-    {{ icon(icon_name, class='nav-item-icon') }}
-    <span>{{ label }}</span>
-  </a>
-{%- endmacro %}
+{% if _path.startswith('/auctions') %}
+  {% set active_section = 'auctions' %}
+  {% set active_subsection = none %}
+{% elif _path.startswith('/nomenclature') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'nomenclature' %}
+{% elif _path.startswith('/admin/price-uploads') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'prices' %}
+{% elif _path.startswith('/admin/auto-price-loads') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'autoload' %}
+{% elif _path.startswith('/admin/users') %}
+  {% set active_section = 'settings' %}
+  {% set active_subsection = 'users' %}
+{% elif _path.startswith('/admin/backups') %}
+  {% set active_section = 'settings' %}
+  {% set active_subsection = 'backups' %}
+{% elif _path.startswith('/admin/audit') %}
+  {% set active_section = 'settings' %}
+  {% set active_subsection = 'audit' %}
+{% else %}
+  {# Главная портала + любые неклассифицированные admin-страницы. #}
+  {% set active_section = 'home' %}
+  {% set active_subsection = none %}
+{% endif %}
+{% set current_service = 'portal' %}
 
 <div class="kt-app-shell">
-  {# === Сайдбар ============================================================ #}
-  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle">
-    <div class="kt-sidebar-header px-5 pt-5 pb-4">
-      <a href="/" class="block group kt-brand-wrap" aria-label="QUADRO — портал">
-        {{ brand_mark(class='kt-brand-logo') }}
-        <div class="brand-caption mt-2"
-             aria-label="Портал">{#
-          #}<span>П</span><span>О</span><span>Р</span><span>Т</span><span>А</span><span>Л</span>
-        </div>
-      </a>
-    </div>
-
-    <nav class="kt-sidebar-nav px-3" aria-label="Главная навигация портала">
-      <div class="space-y-0.5">
-        {{ _portal_nav_link('/',            'Главная',      'layout-grid',
-                            _path == '/') }}
-        {# 9a: Аукционы и справочник печати — модуль для собственника
-           и менеджера-тендерщика. Видимость по permission 'auctions'
-           (admin — всегда). #}
-        {% if has_permission(user.role, user.permissions, 'auctions') %}
-        {{ _portal_nav_link('/auctions', 'Аукционы', 'gavel',
-                            _path.startswith('/auctions')) }}
-        {{ _portal_nav_link('/nomenclature', 'Справочник печати', 'printer',
-                            _path.startswith('/nomenclature')) }}
-        {% endif %}
-        {% if user.is_admin %}
-        {{ _portal_nav_link('/admin/users', 'Пользователи', 'users',
-                            _path.startswith('/admin/users')) }}
-        {{ _portal_nav_link('/admin/price-uploads', 'Прайс-листы', 'truck',
-                            _path.startswith('/admin/price-uploads')) }}
-        {{ _portal_nav_link('/admin/auto-price-loads', 'Автозагрузка', 'refresh-cw',
-                            _path.startswith('/admin/auto-price-loads')) }}
-        {{ _portal_nav_link('/admin/backups', 'Бекапы', 'database',
-                            _path.startswith('/admin/backups')) }}
-        {{ _portal_nav_link('/admin/audit', 'Журнал действий', 'list',
-                            _path.startswith('/admin/audit')) }}
-        {% endif %}
-      </div>
-    </nav>
-
-    <div class="kt-sidebar-footer">
-      {# 9Б.2.1: «← Конфигуратор» — симметрична кнопке «← Портал» в сайдбаре
-         конфигуратора. Тот же стиль .kt-portal-back.
-         9Б.4: показываем только пользователям с permissions["configurator"];
-         admin всегда True. Без права ссылка вообще не рендерится — иначе
-         по клику пользователь упрётся в редирект-обратно от middleware
-         конфигуратора и получил бы баннер «нет доступа». #}
-      {% if has_permission(user.role, user.permissions, 'configurator') %}
-      <a href="{{ configurator_url }}/" class="kt-portal-back" target="_self">
-        <span class="kt-portal-back-icon">{{ icon('arrow-left', class='w-4 h-4') }}</span>
-        <span>Конфигуратор</span>
-      </a>
-      {% endif %}
-
-      {# Курс ЦБ — общий партиал shared/templates/_partials/fx_widget.html. #}
-      {% include "_partials/fx_widget.html" %}
-
-      {# Карточка пользователя (тот же стиль, что в конфигураторе). #}
-      <div class="p-3 border-t border-line-subtle">
-        <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
-          <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
-                      flex items-center justify-center text-small font-semibold shrink-0">
-            {{ (user.name or user.login)[:1]|upper }}
-          </div>
-          <div class="min-w-0 flex-1">
-            <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
-            <div class="text-caption text-ink-muted truncate">
-              {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
-            </div>
-          </div>
-          <form method="post" action="/logout" class="shrink-0">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-            <button type="submit"
-                    class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
-                           hover:bg-surface-3 transition-colors duration-120"
-                    title="Выйти" aria-label="Выйти">
-              {{ icon('log-out', class='w-4 h-4') }}
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </aside>
+  {% include "_partials/sidebar.html" %}
 
   {# === Контент ============================================================ #}
   <main class="kt-main">

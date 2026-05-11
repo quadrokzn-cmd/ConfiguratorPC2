@@ -19,131 +19,27 @@
 {% from "_macros/icons.html" import icon, brand_mark %}
 
 {% if user %}
-{# ----------- Авторизованная раскладка: сайдбар + контент ----------- #}
+{# UI-1 (Путь B, 2026-05-11): общий sidebar портала и конфигуратора.
+   В конфигураторе всегда подсвечен раздел «Конфигуратор ПК»; подпункт —
+   по текущему URL. Админские страницы конфигуратора (/admin/*) пока
+   остаются в этом сервисе — они будут перенесены в портал на UI-2/UI-3,
+   а до тех пор их пункты живут в разделе «Базы данных» / «Настройки»
+   как ссылки на configurator_url. #}
 {% set _path = request.url.path if request is defined else '' %}
-{% macro _nav_link(href, label, icon_name, is_active) -%}
-  <a href="{{ href }}"
-     class="nav-item{% if is_active %} nav-item-active{% endif %}"
-     {% if is_active %}aria-current="page"{% endif %}>
-    {{ icon(icon_name, class='nav-item-icon') }}
-    <span>{{ label }}</span>
-  </a>
-{%- endmacro %}
+{% set active_section = 'configurator' %}
+{% if _path == '/' or _path.startswith('/query') %}
+  {% set active_subsection = 'new_query' %}
+{% elif _path.startswith('/projects') or _path.startswith('/project') %}
+  {% set active_subsection = 'projects' %}
+{% elif _path.startswith('/history') %}
+  {% set active_subsection = 'history' %}
+{% else %}
+  {% set active_subsection = none %}
+{% endif %}
+{% set current_service = 'configurator' %}
 
-{# 9А.2.3: фиксированная раскладка.
-   - .kt-app-shell — flex с height:100vh, скролл «съест» только основной контент;
-   - .kt-sidebar  — column-flex, шапка/футер не двигаются, средний nav скроллится сам;
-   - .kt-main     — flex:1 + overflow-y:auto, сюда уходит весь скролл страницы;
-   - .kt-topbar   — sticky внутри .kt-main: остаётся видимым при прокрутке. #}
 <div class="kt-app-shell">
-  {# === Сайдбар =========================================================== #}
-  <aside class="kt-sidebar bg-surface-1 border-r border-line-subtle">
-    <div class="kt-sidebar-header px-5 pt-5 pb-4">
-      <a href="/" class="block group kt-brand-wrap" aria-label="QUADRO — главная">
-        {{ brand_mark(class='kt-brand-logo') }}
-        <div class="brand-caption mt-2"
-             aria-label="Конфигуратор">{#
-          #}<span>К</span><span>О</span><span>Н</span><span>Ф</span><span>И</span><span>Г</span><span>У</span><span>Р</span><span>А</span><span>Т</span><span>О</span><span>Р</span>
-        </div>
-      </a>
-    </div>
-
-    <nav class="kt-sidebar-nav px-3" aria-label="Главная навигация">
-      <div class="space-y-0.5">
-        {{ _nav_link('/',         'Новый запрос',     'sparkle',
-                      _path == '/' or _path.startswith('/query')) }}
-        {{ _nav_link('/projects', 'Проекты',          'folder',
-                      _path.startswith('/projects') or _path.startswith('/project')) }}
-        {{ _nav_link('/history',  'История запросов', 'clock',
-                      _path.startswith('/history')) }}
-      </div>
-
-      {% if user.is_admin %}
-      <div class="mt-2 border-t border-line-subtle pt-2">
-        <div class="nav-section-label">Админ</div>
-        <div class="space-y-0.5">
-          {{ _nav_link('/admin',                'Дашборд',          'file-text',
-                        _path == '/admin') }}
-          {{ _nav_link('/admin/suppliers',      'Поставщики',       'truck',
-                        _path.startswith('/admin/suppliers')) }}
-          {{ _nav_link('/admin/components',     'Компоненты',       'cpu',
-                        _path.startswith('/admin/components')) }}
-          {{ _nav_link('/admin/mapping',        'Очередь маппинга', 'merge',
-                        _path.startswith('/admin/mapping')) }}
-          {{ _nav_link('/admin/budget',         'Бюджет OpenAI',    'coins',
-                        _path.startswith('/admin/budget')) }}
-          {# Этап 9Б.1: страница пользователей переехала в портал.
-             Прямая абсолютная ссылка — конфигуратор сам редиректит
-             /admin/users → portal_url, но прямой линк короче. #}
-          <a href="{{ portal_url }}/admin/users"
-             class="nav-item">
-            {{ icon('users', class='nav-item-icon') }}
-            <span>Пользователи</span>
-          </a>
-          {{ _nav_link('/admin/queries',        'Все запросы',      'inbox',
-                        _path.startswith('/admin/queries')) }}
-        </div>
-      </div>
-      {% endif %}
-    </nav>
-
-    <div class="kt-sidebar-footer">
-      {# 9Б.2: ссылка «← Портал» — чтобы менеджер мог в один клик
-         вернуться на главную портала с плитками модулей. Лежит над
-         плашкой курса и карточкой пользователя; разделитель сверху —
-         тонкая граница в .kt-portal-back. #}
-      <a href="{{ portal_url }}/" class="kt-portal-back" target="_self">
-        <span class="kt-portal-back-icon">{{ icon('arrow-left', class='w-4 h-4') }}</span>
-        <span>Портал</span>
-      </a>
-
-      {# 9А.2.3: плашка курса ЦБ — над карточкой пользователя.
-         Курс приходит из context-функции current_exchange_rate(),
-         зарегистрированной как Jinja-globals в app/templating.py.
-         Если в БД пусто и ЦБ недоступен — плашка просто не отрисуется. #}
-      {% set _fx = current_exchange_rate() %}
-      {% if _fx %}
-      <div class="kt-fx-widget"
-           title="Источник: {{ 'ЦБ РФ' if _fx.source == 'cbr' else _fx.source }}&#10;Дата курса: {{ _fx.rate_date.strftime('%d.%m.%Y') }}&#10;Загружено: {{ _fx.fetched_label }} МСК">
-        <span class="kt-fx-icon">{{ icon('trending-up', class='w-3.5 h-3.5') }}</span>
-        <div class="kt-fx-text">
-          <div class="kt-fx-rate">$ = {{ '%.2f'|format(_fx.rate) }} ₽</div>
-          {% if _fx.fetched_label %}
-          <div class="kt-fx-stamp">обновлено {{ _fx.fetched_label }}</div>
-          {% endif %}
-        </div>
-      </div>
-      {% endif %}
-
-      {# Карточка пользователя #}
-      <div class="p-3 border-t border-line-subtle">
-        <div class="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2.5">
-          <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-300
-                      flex items-center justify-center text-small font-semibold shrink-0">
-            {{ (user.name or user.login)[:1]|upper }}
-          </div>
-          <div class="min-w-0 flex-1">
-            <div class="text-small font-medium text-ink-primary truncate">{{ user.name }}</div>
-            <div class="text-caption text-ink-muted truncate">
-              {{ 'админ' if user.is_admin else 'менеджер' }} · {{ user.login }}
-            </div>
-          </div>
-          {# Этап 9Б.1: logout живёт в портале (общая сессия). Делаем
-             форму с явным action на абсолютный URL — на production
-             это https://app.quadro.tatar/logout. #}
-          <form method="post" action="{{ portal_url }}/logout" class="shrink-0">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-            <button type="submit"
-                    class="p-1.5 rounded-md text-ink-muted hover:text-danger-500
-                           hover:bg-surface-3 transition-colors duration-120"
-                    title="Выйти" aria-label="Выйти">
-              {{ icon('log-out', class='w-4 h-4') }}
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </aside>
+  {% include "_partials/sidebar.html" %}
 
   {# === Контент =========================================================== #}
   <main class="kt-main">

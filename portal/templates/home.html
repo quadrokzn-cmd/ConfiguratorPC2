@@ -201,24 +201,53 @@
 
   </section>
 
-  {# === Плитка модуля «Конфигуратор ПК» ================================== #}
+  {# === Плитки модулей ===================================================
+     UI-1 (Путь B, 2026-05-11): Аукционы слева, Конфигуратор ПК справа.
+     Порядок зафиксирован собственником: «Аукционы важнее Конфигуратора».
+     Плитки делят ширину пополам на ≥1024px; на узких экранах падают в
+     одну колонку (грид → single column). Если у пользователя нет прав
+     ни на один модуль — показываем плейсхолдер «Доступных модулей нет». #}
   <section>
-    {% if show_configurator %}
-    <a href="{{ configurator_url }}/"
-       class="portal-module-tile"
-       data-testid="tile-configurator">
-      <span class="portal-module-icon">{{ icon('cpu', 'w-7 h-7') }}</span>
-      <div class="portal-module-text">
-        <div class="portal-module-title">Конфигуратор ПК</div>
-        <div class="portal-module-sub">
-          Подбор комплектующих по запросу клиента и формирование КП.
+    {% if show_auctions or show_configurator %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+      {% if show_auctions %}
+      <a href="/auctions"
+         class="portal-module-tile"
+         data-testid="tile-auctions">
+        <span class="portal-module-icon">{{ icon('gavel', 'w-7 h-7') }}</span>
+        <div class="portal-module-text">
+          <div class="portal-module-title">Аукционы</div>
+          <div class="portal-module-sub">
+            Поиск и обработка тендерных лотов.
+          </div>
         </div>
-      </div>
-      <span class="portal-module-cta">
-        <span>Открыть</span>
-        <span class="portal-module-cta-arrow">{{ icon('arrow-right', 'w-4 h-4') }}</span>
-      </span>
-    </a>
+        <span class="portal-module-cta">
+          <span>Открыть</span>
+          <span class="portal-module-cta-arrow">{{ icon('arrow-right', 'w-4 h-4') }}</span>
+        </span>
+      </a>
+      {% endif %}
+
+      {% if show_configurator %}
+      <a href="{{ configurator_url }}/"
+         class="portal-module-tile"
+         data-testid="tile-configurator">
+        <span class="portal-module-icon">{{ icon('cpu', 'w-7 h-7') }}</span>
+        <div class="portal-module-text">
+          <div class="portal-module-title">Конфигуратор ПК</div>
+          <div class="portal-module-sub">
+            Подбор комплектующих по запросу клиента и формирование КП.
+          </div>
+        </div>
+        <span class="portal-module-cta">
+          <span>Открыть</span>
+          <span class="portal-module-cta-arrow">{{ icon('arrow-right', 'w-4 h-4') }}</span>
+        </span>
+      </a>
+      {% endif %}
+
+    </div>
     {% else %}
     <div class="portal-module-soon" data-testid="tile-no-modules">
       Доступных модулей нет — обратитесь к администратору, чтобы он

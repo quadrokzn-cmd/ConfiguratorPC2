@@ -171,7 +171,12 @@ def test_home_shows_tile_when_permission(manager_portal_client):
 
 
 def test_home_empty_state_when_no_permissions(portal_client, manager_user_no_perms):
-    """Менеджер без прав — пустое состояние с подсказкой про админа."""
+    """Менеджер без прав — на главной плашки модулей нет, видна подсказка
+    про администратора.
+
+    UI-1 (Путь B): пункт «Конфигуратор ПК» в самом sidebar виден всем
+    (RBAC-фильтрация меню отложена на этап после UI-5) — но плашка
+    модуля на главной по-прежнему скрыта без права."""
     from tests.test_portal.conftest import _login_via_portal
     _login_via_portal(
         portal_client,
@@ -180,4 +185,6 @@ def test_home_empty_state_when_no_permissions(portal_client, manager_user_no_per
     r = portal_client.get("/")
     assert r.status_code == 200
     assert "обратитесь к администратору" in r.text
-    assert "Конфигуратор ПК" not in r.text
+    # Плашки модулей в основной части страницы нет.
+    assert 'data-testid="tile-configurator"' not in r.text
+    assert 'data-testid="tile-auctions"' not in r.text

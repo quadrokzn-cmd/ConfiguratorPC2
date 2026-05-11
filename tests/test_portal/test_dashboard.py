@@ -408,31 +408,35 @@ def test_admin_users_page_marks_users_active(admin_portal_client):
     assert "nav-item-active" in body
 
 
-def test_manager_sidebar_has_no_users_link(manager_portal_client):
-    """У менеджера НЕТ ссылки на /admin/users в сайдбаре."""
+def test_manager_sidebar_shows_users_link(manager_portal_client):
+    """UI-1 (Путь B, 2026-05-11): меню одинаковое для admin/manager —
+    RBAC-фильтрация подразделов отложена на этап после UI-5. Менеджер
+    видит «Настройки → Пользователи»; страница сама вернёт 403/302
+    при попытке открыть её без прав."""
     r = manager_portal_client.get("/")
     assert r.status_code == 200
-    assert 'href="/admin/users"' not in r.text
+    assert 'href="/admin/users"' in r.text
 
 
 def test_admin_sidebar_has_link_to_configurator(admin_portal_client):
-    """В подвале сайдбара портала — ссылка «← Конфигуратор» на
-    CONFIGURATOR_URL (CONFIGURATOR_URL в тестах = http://localhost:8080)."""
+    """UI-1 (Путь B): ссылка «Конфигуратор ПК» переехала из подвала
+    в основное меню. Абсолютный URL → CONFIGURATOR_URL/ (в тестах
+    http://localhost:8080/)."""
     r = admin_portal_client.get("/")
     assert r.status_code == 200
     body = r.text
+    assert 'data-testid="sidebar-section-configurator"' in body
     assert "http://localhost:8080/" in body
-    assert "kt-portal-back" in body
 
 
 def test_manager_sidebar_has_link_to_configurator(manager_portal_client):
-    """То же для менеджера — ссылка на конфигуратор видна всем
-    залогиненным."""
+    """То же для менеджера — пункт «Конфигуратор ПК» виден всем
+    залогиненным (RBAC отложено)."""
     r = manager_portal_client.get("/")
     assert r.status_code == 200
     body = r.text
+    assert 'data-testid="sidebar-section-configurator"' in body
     assert "http://localhost:8080/" in body
-    assert "kt-portal-back" in body
 
 
 def test_portal_sidebar_renders_fx_widget_partial(admin_portal_client, db_session):

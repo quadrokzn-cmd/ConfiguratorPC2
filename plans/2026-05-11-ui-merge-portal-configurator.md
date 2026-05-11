@@ -21,9 +21,9 @@
 
 ## Фазы
 
-### UI-1 — общий sidebar + новое меню + плашки [ ]
+### UI-1 — общий sidebar + новое меню + плашки [x]
 
-Файл `shared/templates/_partials/sidebar.html` (новый), подключается обоими приложениями (`portal/templates/_base.html` и `app/templates/_base.html`). Поведение:
+Файл `shared/templates/_partials/sidebar.html` (новый), подключается обоими приложениями (`portal/templates/base.html` и `app/templates/base.html`). Поведение:
 
 - 5 пунктов всегда видны: Главная / Аукционы / Конфигуратор ПК / Базы данных / Настройки.
 - Авто-раскрытие подпунктов только активного раздела.
@@ -34,6 +34,18 @@
 - Нижняя ссылка «← Конфигуратор» убирается из sidebar портала.
 
 DoD: тесты на рендер sidebar для каждого active_section; тест на наличие плашки «Аукционы» на главной; pytest регрессия `-m "not live"` — без новых failures.
+
+**Артефакты UI-1 (2026-05-11):**
+
+- `shared/templates/_partials/sidebar.html` — общий партиал на 187 строк, параметризован `active_section`/`active_subsection`/`current_service`.
+- `portal/templates/base.html`, `app/templates/base.html` — переписаны под включение партиала; в каждом — свой маппинг URL → `active_section`.
+- `portal/templates/home.html` — добавлен grid из двух плашек (Аукционы слева, Конфигуратор справа), плейсхолдер «нет модулей» сохранён.
+- `portal/templates/_macros/icons.html`, `app/templates/_macros/icons.html` — выровнены: оба содержат `gavel`, `database`, `printer`, `list`, `external-link`, `settings`, `layout-grid`, `sparkle`, `merge`.
+- `tailwind.config.js` — `./shared/templates/**/*.html` добавлено в `content`.
+- `static/dist/main.css` — пересобран (npm run build:css).
+- Тесты: `tests/test_portal/test_ui1_sidebar.py` (13 кейсов), `tests/test_web/test_ui1_sidebar_app.py` (6 кейсов). Обновлены под новую структуру: `test_portal/test_permission_ui.py` (3 кейса), `test_portal/test_dashboard.py` (3 кейса), `test_portal/test_admin_users.py` (1 кейс), `test_web/test_stage9_layout.py` (1 кейс).
+- `docs/ui-architecture.md` — описание sidebar-архитектуры и правил расширения.
+- pytest регрессия: 1857 passed, 1 skipped, 0 failed.
 
 ### UI-2 — перенос Баз данных в portal/ [ ]
 
@@ -86,4 +98,4 @@ DoD: prod/pre-prod работают только через portal-сервис;
 
 ## Итоговый блок
 
-Статус на 2026-05-11: план составлен, решения собственника зафиксированы. UI-1 готов к запуску — промт для исполнителя сформирован отдельно.
+Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1 выполнен** (общий sidebar + новое меню + плашка «Аукционы», pytest зелёный). Следующий этап — UI-2 (перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`).

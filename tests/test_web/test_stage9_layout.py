@@ -147,15 +147,23 @@ def test_project_detail_renders_with_new_layout(
 # --------------------- 5. Видимость админ-секции в сайдбаре ------------
 
 def test_admin_sidebar_visibility_for_admin(admin_client):
+    """UI-1 (Путь B, 2026-05-11): админский блок «Админ» в сайдбаре
+    конфигуратора удалён — все админские функции переехали в верхнее
+    меню (Базы данных / Настройки), на UI-1 как стабы-ссылки. На главной
+    конфигуратора (active_section='configurator') Базы данных и Настройки
+    свёрнуты, поэтому их подпунктов в HTML нет; проверяем, что сами
+    пункты верхнего уровня видны и доступ к ним возможен."""
     r = admin_client.get("/")
     assert r.status_code == 200
     html = r.text
-    # Заголовок секции
-    assert "Админ" in html
-    # Ключевые пункты админки
-    assert "Очередь маппинга" in html
-    assert "Бюджет OpenAI" in html
-    assert "Пользователи" in html
+    # 5 главных разделов нового меню — для admin доступны все.
+    for sec in ("home", "auctions", "configurator", "databases", "settings"):
+        assert f'data-testid="sidebar-section-{sec}"' in html, \
+            f"Пункт меню {sec!r} отсутствует у admin"
+    # На активном разделе «Конфигуратор ПК» раскрыты его подпункты.
+    assert 'data-testid="sidebar-subitems-configurator"' in html
+    # Старого заголовка секции «Админ» больше нет.
+    assert 'class="nav-section-label"' not in html
 
 
 def test_admin_sidebar_hidden_for_manager(manager_client):
