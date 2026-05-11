@@ -64,11 +64,10 @@
     <table class="kt-table">
       <thead>
         <tr>
-          <th class="text-left">SKU / Название</th>
+          <th class="text-left min-w-[40%]">SKU / Название</th>
           <th class="text-left w-32">Бренд</th>
           <th class="text-left w-24">Категория</th>
-          <th class="text-right w-32">Цена, ₽</th>
-          <th class="text-left w-44">KTRU</th>
+          <th class="text-right w-44">Цена, ₽</th>
           <th class="text-right w-44">Действия</th>
         </tr>
       </thead>
@@ -110,12 +109,11 @@
               {% if row.cost_base_rub is not none %}{{ '%.2f'|format(row.cost_base_rub) }}{% else %}—{% endif %}
             </span>
             {% endif %}
-          </td>
-          <td class="text-caption text-ink-secondary">
-            {% if row.ktru_codes_array %}
-              {{ row.ktru_codes_array | join(', ') }}
-            {% else %}
-              —
+            {% if row.cheapest_supplier %}
+            <div class="text-caption text-ink-muted mt-0.5"
+                 data-testid="cheapest-supplier-{{ row.id }}">
+              {{ row.cheapest_supplier }}
+            </div>
             {% endif %}
           </td>
           <td class="text-right whitespace-nowrap">
