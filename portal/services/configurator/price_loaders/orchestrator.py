@@ -41,7 +41,7 @@ from typing import Iterator
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
 from portal.services.auctions.catalog.enrichment.schema import (
     NA, PRINTER_MFU_ATTRS,

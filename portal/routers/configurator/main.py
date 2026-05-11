@@ -10,8 +10,8 @@ from fastapi.responses import RedirectResponse
 from openai import RateLimitError
 from sqlalchemy.orm import Session
 
-from app.auth import AuthUser, get_csrf_token, require_login, verify_csrf
-from app.database import get_db
+from shared.auth import AuthUser, get_csrf_token, require_login, verify_csrf
+from shared.db import get_db
 from portal.dependencies.configurator_access import require_configurator_access
 from portal.services.configurator import budget_guard, web_service
 from portal.services.configurator.nlu import process_query

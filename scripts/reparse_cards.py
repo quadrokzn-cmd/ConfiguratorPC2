@@ -29,7 +29,7 @@ load_dotenv()
 
 from sqlalchemy import text  # noqa: E402
 
-from app.database import engine  # noqa: E402
+from shared.db import engine  # noqa: E402
 from portal.services.auctions.ingest.card_parser import parse_card  # noqa: E402
 from portal.services.auctions.ingest.filters import compute_flags  # noqa: E402
 from portal.services.auctions.ingest.repository import (  # noqa: E402

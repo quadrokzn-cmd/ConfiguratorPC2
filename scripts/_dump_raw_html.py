@@ -1,6 +1,6 @@
 """One-off helper: dump raw_html for selected reg_numbers into tests/fixtures/raw_html/.
 
-Этап 8 слияния (2026-05-08): импорты переехали в C-PC2 (engine из app.database).
+Этап 8 слияния (2026-05-08): импорты переехали в C-PC2 (engine из shared.db).
 
 Использование:
     python scripts/_dump_raw_html.py 0848300064126000162 0107300018926000042
@@ -18,7 +18,7 @@ load_dotenv()
 
 from sqlalchemy import text  # noqa: E402
 
-from app.database import engine  # noqa: E402
+from shared.db import engine  # noqa: E402
 
 
 def main(args: list[str]) -> int:

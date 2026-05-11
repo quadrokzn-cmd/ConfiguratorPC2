@@ -8,21 +8,21 @@
 
 Этап 8 слияния (2026-05-08): импорты переехали из QT-овских модулей в
 `portal.services.auctions.match.*`. БД — общая kvadro_tech через C-PC2 engine
-(берёт DATABASE_URL из app.config.settings, как и весь остальной C-PC2-стек).
+(берёт DATABASE_URL из shared.config.settings, как и весь остальной C-PC2-стек).
 """
 from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-# чтобы запуск из корня репозитория видел пакет `app`
+# чтобы запуск из корня репозитория видел пакет `portal`
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
-from app.database import engine  # noqa: E402
+from shared.db import engine  # noqa: E402
 from portal.services.auctions.match.service import run_matching  # noqa: E402
 
 

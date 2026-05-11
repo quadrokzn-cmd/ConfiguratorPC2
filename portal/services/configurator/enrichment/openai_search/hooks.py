@@ -18,7 +18,7 @@ from __future__ import annotations
 import logging
 import os
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 
 logger = logging.getLogger(__name__)
 

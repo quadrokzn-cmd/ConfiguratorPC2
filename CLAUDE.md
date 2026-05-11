@@ -34,17 +34,17 @@
 ### Backend
 
 - **Python** 3.10+ (локально 3.12.13).
-- **FastAPI** + Uvicorn. До UI-3 — два независимых FastAPI-приложения. После **UI-4** (2026-05-11): портал (`portal/main.py`, :8081, `app.quadro.tatar`) обслуживает все URL: главная, аукционы, конфигуратор (`/configurator/*`), базы данных (`/databases/*`), настройки (`/settings/*`). `app/main.py` (:8080, `config.quadro.tatar`) остался как legacy: catch-all 301-редиректы на portal/configurator + admin-страницы (`/admin`, `/admin/budget`, `/admin/queries`). После **UI-4.5** (2026-05-11) `app/services/auctions/` и `app/services/catalog/` переехали в `portal/services/`, `app/scheduler.py` (cron USD/RUB) — в `portal/scheduler.py`; на config.quadro.tatar больше нет фоновых задач, только редиректы. Всё это уйдёт в UI-5. Общий код — в `shared/`.
-- **SQLAlchemy 2.0** только через `text()` и параметры `:name`, без ORM-моделей (папка `app/models/` пустая).
+- **FastAPI** + Uvicorn. После **UI-5** (2026-05-11) — одно FastAPI-приложение `portal/main.py` (:8081, `app.quadro.tatar` / `app-preprod.quadro.tatar`) обслуживает все URL: главная, аукционы (`/auctions/*`), конфигуратор (`/configurator/*`), базы данных (`/databases/*`), настройки (`/settings/*`), admin-обзор конфигуратора (`/admin`, `/admin/budget`, `/admin/queries`). Папка `app/` и поддомен `config.quadro.tatar` упразднены: историю переездов см. в `plans/2026-05-11-ui-merge-portal-configurator.md` (UI-1..UI-5). Общий код двух бывших приложений — в `shared/` (`auth.py`, `db.py`, `config.py`, `permissions.py`).
+- **SQLAlchemy 2.0** только через `text()` и параметры `:name`, без ORM-моделей.
 - **psycopg2-binary**, **Pydantic** 2.6+, **python-multipart**.
-- **APScheduler** (`BackgroundScheduler`) — фоновые задачи внутри процессов FastAPI (см. «Расписание» ниже).
-- **OpenAI** (`gpt-4o-mini` для NLU, `gpt-4o-mini-search-preview` для enrichment); контроль расходов — `portal/services/configurator/budget_guard.py` (после UI-4). Anthropic Claude SDK не используется (папка `portal/services/configurator/enrichment/claude_code/` — это CSV-workflow для ручного обогащения через локальный Claude Code, не SDK-вызовы).
+- **APScheduler** (`BackgroundScheduler`) — фоновые задачи внутри процесса FastAPI (см. «Расписание» ниже).
+- **OpenAI** (`gpt-4o-mini` для NLU, `gpt-4o-mini-search-preview` для enrichment); контроль расходов — `portal/services/configurator/budget_guard.py`. Anthropic Claude SDK не используется (папка `portal/services/configurator/enrichment/claude_code/` — это CSV-workflow для ручного обогащения через локальный Claude Code, не SDK-вызовы).
 - **boto3** — Backblaze B2 для бэкапов.
 - **zeep** + requests — SOAP (Resurs Media).
 - **httpx**, imaplib — IMAP-загрузка прайсов.
 - **openpyxl**, python-docx — Excel/Word экспорт КП.
-- **bcrypt** + Starlette `SessionMiddleware` + itsdangerous — авторизация. Общий cookie `kt_session` шарится между конфигуратором и порталом.
-- **Sentry** — `sentry-sdk[fastapi]`, инициализация в `app/main.py` и `portal/main.py`.
+- **bcrypt** + Starlette `SessionMiddleware` + itsdangerous — авторизация. Cookie `kt_session` (после UI-5 один сервис — шарить нечего).
+- **Sentry** — `sentry-sdk[fastapi]`, инициализация в `portal/main.py`.
 
 ### БД
 
@@ -54,7 +54,7 @@
 
 ### Frontend
 
-- **Jinja2 SSR** (папки `app/templates/`, `portal/templates/`, `shared/templates/_partials/`).
+- **Jinja2 SSR** (папки `portal/templates/` + `shared/templates/_partials/`).
 - **Tailwind CSS через Node.js-билд** (`tailwindcss` CLI, `package.json`, `tailwind.config.js`, `postcss.config.js`). Исходник — `static/src/main.css`, компилируется в `static/dist/main.css`. Не CDN.
 - **Vanilla JS** (`static/js/{common,portal-dialog,project}.js`). **HTMX и Alpine.js не используются**. AJAX — `fetch` с заголовком `X-CSRF-Token`.
 - Иконки — inline-SVG через макрос `icon()` в `portal/templates/_macros/icons.html` (Lucide-подобный набор).
@@ -66,7 +66,7 @@
 
 ### Инфраструктура
 
-- **Docker + Railway**: два отдельных сервиса (`Dockerfile` + `Dockerfile.portal`, `railway.json` + `railway.portal.json`).
+- **Docker + Railway**: один сервис per environment (`Dockerfile.portal` + `railway.portal.json`). После UI-5 (2026-05-11) Railway-сервисы `configurator` (prod) и `configurator-preprod` остановлены и удаляются собственником вручную; DNS-записи `config.quadro.tatar` и `config-preprod.quadro.tatar` снимаются в Reg.ru.
 - **Бэкапы**: ежедневный `pg_dump` в Backblaze B2, расписание — `portal/scheduler.py`.
 
 ### Тесты
@@ -92,46 +92,41 @@ ConfiguratorPC2/
 │   ├── 2026-04-23-platforma-i-aukciony.md   ← канонический план модуля аукционов (бывший QT)
 │   ├── 2026-05-08-configurator-discovery.md ← discovery C-PC2 для оркестратора
 │   └── README.md
-├── app/                       ← FastAPI «Конфигуратор» (:8080, legacy после UI-4.5)
-│   ├── main.py, auth.py, config.py, database.py
-│   ├── routers/admin_router.py ← /admin (dashboard), /admin/budget, /admin/queries, /admin/users (302)
-│   ├── services/__init__.py    ← пустой (auctions/catalog переехали в portal/ на UI-4.5)
-│   ├── templates/admin/, templates/_macros/icons.html, templates/base.html
-│   └── ...
-├── portal/                    ← FastAPI «Портал» (:8081, основной сервис после UI-4)
-│   ├── main.py, scheduler.py
+├── portal/                    ← FastAPI «Портал» (:8081, единственный сервис после UI-5)
+│   ├── main.py, scheduler.py, templating.py
 │   ├── dependencies/          ← UI-4: require_configurator_access
-│   ├── routers/               ← auth, home, admin_*, auctions, nomenclature,
+│   ├── routers/               ← admin (UI-5), auth, home, admin_auctions, admin_auto_price,
+│   │   │                       admin_diagnostics, admin_price_uploads, auctions, nomenclature
 │   │   ├── databases/         ←   UI-2: suppliers, components, mapping
 │   │   ├── settings/          ←   UI-3: users, backups, audit_log
 │   │   └── configurator/      ←   UI-4: main, projects, export
 │   ├── services/              ← backup_service, dashboard, auctions_service
-│   │   ├── auctions/          ←   UI-4.5: ingest/, match/, catalog/ (бывший app/services/auctions/)
-│   │   ├── catalog/           ←   UI-4.5: brand_normalizer (бывший app/services/catalog/)
+│   │   ├── auctions/          ←   UI-4.5: ingest/, match/, catalog/
+│   │   ├── catalog/           ←   UI-4.5: brand_normalizer
 │   │   ├── databases/         ←   UI-2: supplier_service, component_service, mapping_service
 │   │   └── configurator/      ←   UI-4: engine, nlu, compatibility, manual_edit,
 │   │                              enrichment, auto_price, export, price_loaders,
 │   │                              openai_service, web_service, spec_*, budget_guard
 │   ├── templates/             ← Jinja2
+│   │   ├── admin/             ←   UI-5: dashboard, budget, all_queries (бывший app/templates/admin/)
+│   │   ├── export/            ←   UI-5: kp_template.docx, project_template.xlsx
 │   │   ├── databases/, settings/, configurator/  ← UI-2/UI-3/UI-4
 │   │   └── ...
 │   └── ...
-├── shared/                    ← общий код двух приложений
-│   ├── auth.py, audit.py, audit_actions.py, db.py, permissions.py
+├── shared/                    ← общий код (после UI-5 — для portal и scripts)
+│   ├── auth.py, audit.py, audit_actions.py, config.py (UI-5), db.py, permissions.py
 │   ├── component_filters.py, sentry_init.py, user_repo.py
 │   └── templates/_partials/fx_widget.html
-├── auctions/                  ← (планируемое место под QT-модули, появится на Этапе 3+)
-├── migrations/                ← 29 SQL-файлов, голый PostgreSQL
+├── migrations/                ← SQL-файлы, голый PostgreSQL
 ├── scripts/                   ← CLI: load_price, create_admin, apply_migrations, бэкфиллы, диагностики
-├── tests/                     ← 98 файлов, ~1300 тестов (pytest-xdist)
+├── tests/                     ← pytest-xdist, тесты под test_portal/, test_export/, test_shared/, test_price_loaders/, test_auctions/, test_catalog/
 ├── static/                    ← JS, CSS-исходник, dist, шрифты
 ├── data/, db_dumps/, enrichment/, reference_prices/, logs/
 ├── design_references/, visual_samples/
 ├── docs/                      ← деплой-доки
 ├── package.json, package-lock.json, tailwind.config.js, postcss.config.js, node_modules/
-├── Dockerfile, Dockerfile.portal, Procfile, railway.json, railway.portal.json
+├── Dockerfile.portal, railway.portal.json
 ├── requirements.txt, pytest.ini, .env.example
-└── tailwind.config.js
 ```
 
 ### Где что искать
@@ -150,9 +145,9 @@ ConfiguratorPC2/
 | Технические планы реализации | `plans/` |
 | План аукционов (бывший QT) | `plans/2026-04-23-platforma-i-aukciony.md` |
 | Discovery конфигуратора | `plans/2026-05-08-configurator-discovery.md` |
-| Конфигуратор ПК | `app/` |
+| Конфигуратор ПК (роуты + сервисы) | `portal/routers/configurator/` + `portal/services/configurator/` |
 | Портал сотрудника | `portal/` |
-| Общий код двух приложений | `shared/` |
+| Общий код (используется в portal/ и scripts/) | `shared/` |
 | Аукционный модуль (после слияния) | `auctions/` (появится на Этапе 3+) |
 | Сервисы конфигуратора | `portal/services/configurator/` (см. блок ниже) |
 | Сервисы аукционов | `portal/services/auctions/` (после UI-4.5) |
@@ -172,7 +167,6 @@ portal/services/configurator/
 ├── budget_guard.py         ← дневной лимит OpenAI, читает курс ЦБ
 ├── compatibility/          ← rules.py — совместимость компонентов сборки
 ├── engine/                 ← builder, candidates, pretty, prices, schema, selector, warnings
-│                              (бывший app/services/configurator/)
 ├── enrichment/
 │   ├── runner.py, persistence.py, report.py
 │   ├── claude_code/        ← CSV-workflow для ручного enrichment (не SDK)
@@ -184,8 +178,6 @@ portal/services/configurator/
 ├── openai_service.py
 ├── price_loader.py         ← тонкая обёртка load_ocs_price для совместимости
 ├── price_loaders/          ← orchestrator + 6 поставщиков (ocs, merlion, treolan, netlab, resurs_media, green_place)
-│                              После UI-4.5: импортирует из `portal.services.auctions/catalog`,
-│                              кросс-импорт `app.services.*` устранён.
 ├── spec_naming.py, spec_recalc.py, spec_service.py
 ├── web_result_view.py
 └── web_service.py
@@ -199,7 +191,9 @@ portal/services/configurator/
 ## Расписание APScheduler
 
 После **UI-4.5** (2026-05-11) все cron-задачи живут в `portal/scheduler.py`.
-`app/scheduler.py` удалён, переменная `RUN_SCHEDULER` не используется.
+После **UI-5** (2026-05-11) `app/scheduler.py` исчез вместе с папкой
+`app/`, переменная `RUN_SCHEDULER` удалена из `Settings` (поле
+`settings.run_scheduler` отсутствует).
 
 **Портал** (`portal/scheduler.py`, активация через `APP_ENV=production` или `RUN_BACKUP_SCHEDULER=1`):
 

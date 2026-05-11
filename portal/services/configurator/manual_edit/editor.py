@@ -10,7 +10,7 @@ from typing import Any
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 from portal.services.configurator.manual_edit.csv_io import parse_cell
 from portal.services.configurator.manual_edit.persistence import (

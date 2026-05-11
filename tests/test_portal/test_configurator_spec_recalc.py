@@ -15,7 +15,7 @@ from portal.services.configurator import spec_recalc, spec_service
 # ---------------------------------------------------------------------
 
 def _seed_user(db, *, login="recalc-user") -> int:
-    from app.auth import hash_password
+    from shared.auth import hash_password
     row = db.execute(
         _t(
             "INSERT INTO users (login, password_hash, role, name) "

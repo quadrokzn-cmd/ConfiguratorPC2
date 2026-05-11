@@ -71,6 +71,15 @@
 {% elif _path == '/configurator/' or _path.startswith('/configurator/query') or _path == '/configurator' %}
   {% set active_section = 'configurator' %}
   {% set active_subsection = 'new_query' %}
+{# UI-5 (Путь B, 2026-05-11): admin-страницы конфигуратора (/admin
+   dashboard, /admin/budget, /admin/queries) переехали из app/ в портал.
+   Помечаем секцией 'configurator' — это admin-обзор тех же сущностей
+   (запросы, бюджет OpenAI, проекты, очередь маппинга). Конкретного
+   подпункта в sidebar для admin-дашборда нет — оставляем
+   active_subsection=None. #}
+{% elif _path == '/admin' or _path.startswith('/admin/budget') or _path.startswith('/admin/queries') %}
+  {% set active_section = 'configurator' %}
+  {% set active_subsection = none %}
 {% else %}
   {# Главная портала + любые неклассифицированные admin-страницы. #}
   {% set active_section = 'home' %}

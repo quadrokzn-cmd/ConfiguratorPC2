@@ -32,13 +32,12 @@ from portal.services.configurator.web_result_view import enrich_variants_with_sp
 
 # Путь к шаблону — относительно корня проекта. Задаётся абсолютно,
 # чтобы импорт работал из любой директории запуска (pytest, uvicorn).
-# UI-4 (Путь B, 2026-05-11): после переноса в portal/services/configurator/export
-# глубина файла стала на 1 уровень больше (portal/services/configurator/export
-# vs app/services/export), поэтому parents[3] → parents[4]. Сам файл шаблона
-# пока остаётся в app/templates/export/ — перенос будет на UI-5.
+# UI-5 (Путь B, 2026-05-11): шаблон переехал из app/templates/export/ в
+# portal/templates/export/. parents[3] от .../portal/services/configurator/export/
+# → portal/, оттуда добираемся до templates/export/.
 _TEMPLATE_PATH = (
-    Path(__file__).resolve().parents[4]
-    / "app" / "templates" / "export" / "project_template.xlsx"
+    Path(__file__).resolve().parents[3]
+    / "templates" / "export" / "project_template.xlsx"
 )
 
 

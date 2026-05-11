@@ -1,54 +1,23 @@
-# КВАДРО-ТЕХ: сервис-конфигуратор ПК
+# QuadroTech-Suite
 
-Внутренний сервис для 4 менеджеров компании: свободным текстом описали
-задачу — получили готовую сборку с проверкой совместимости и минимальной
-ценой у поставщиков. Админ видит все запросы и расходы на OpenAI.
+Внутренний продукт казанской компании QuadroTech: сервис-портал
+сотрудника с двумя ключевыми модулями — конфигуратор ПК + аукционы.
+Подробное описание проекта, стека и структуры — в [CLAUDE.md](CLAUDE.md).
 
-## Стек
-- Python 3.10+ · FastAPI · Jinja2 · Tailwind CSS (CDN)
-- PostgreSQL + SQLAlchemy (text() с параметрами)
-- OpenAI API (gpt-4o-mini)
+## Стек (кратко)
 
-## Структура проекта
-```
-app/
-  main.py                FastAPI, SessionMiddleware, роутеры
-  auth.py                bcrypt, сессии, current_user/require_login/require_admin
-  config.py              настройки из .env
-  database.py            engine, SessionLocal, get_db
-  routers/
-    auth_router.py       /login, /logout
-    main_router.py       /, /query, /query/{id}, /history
-    project_router.py    /projects, /project/{id}, AJAX спецификации (этап 6.2)
-    admin_router.py      /admin, /admin/users, /admin/budget, /admin/queries
-  services/
-    budget_guard.py      контроль дневного лимита OpenAI
-    web_service.py       бизнес-логика веб-роутов
-    spec_service.py      CRUD проектов и спецификации (этап 6.2)
-    spec_naming.py       generate_auto_name (этап 6.2)
-    web_result_view.py   обогащение компонентов specs_short/raw_specs
-    mapping_service.py   ручное сопоставление unmapped_supplier_items (этап 7)
-    configurator/        подбор сборки (этап 3)
-    nlu/                 парсер запросов (этап 4)
-    enrichment/          обогащение характеристик (этап 2.5)
-    price_loaders/       пакет загрузчиков прайсов (этап 7):
-                          models, base, ocs, merlion, treolan,
-                          matching, orchestrator, candidates
-    price_loader.py      тонкая обёртка load_ocs_price для совместимости
-  templates/             Jinja2 с наследованием от base.html
-static/js/project.js     AJAX-клиент спецификации (этап 6.2)
-migrations/              SQL-миграции 001-009
-scripts/
-  create_admin.py        создать пользователя admin
-  load_price.py          CLI загрузки прайса (ocs/merlion/treolan)
-  backfill_gtin.py       одноразовый: заполнить gtin из OCS EAN128
-  query.py               CLI для NLU
-  ...
-tests/
-  conftest.py            глобальные env (в т.ч. TEST_DATABASE_URL)
-  test_web/              интеграционные тесты этапа 5 (31 тест)
-  test_nlu/ test_configurator/ ...  существующие тесты
-```
+- Python 3.10+ · FastAPI · Jinja2 · Tailwind CSS (Node-сборка)
+- PostgreSQL + SQLAlchemy 2.0 (только `text()` + параметры, без ORM-моделей)
+- OpenAI API (gpt-4o-mini / gpt-4o-mini-search-preview)
+- APScheduler — фоновые задачи (бэкапы, автозагрузка прайсов, курс USD/RUB,
+  ingest аукционов)
+
+После **UI-5** (2026-05-11, Путь B) проект работает на одном
+FastAPI-приложении `portal/main.py` (`app.quadro.tatar`). Папка `app/`
+удалена, конфигуратор переехал в `portal/routers/configurator/*` под
+префикс `/configurator/`, admin-страницы — в `portal/routers/admin.py`.
+
+Структура папок и сервисов — см. CLAUDE.md, раздел «Структура репозитория».
 
 ## Запуск локально
 
@@ -103,9 +72,9 @@ python scripts/create_admin.py
 
 ### 5. Старт сервера
 ```
-uvicorn app.main:app --reload
+uvicorn portal.main:app --reload --port 8081
 ```
-Откройте http://127.0.0.1:8000/login
+Откройте http://127.0.0.1:8081/login
 
 ## Тесты
 
@@ -118,20 +87,21 @@ psql -U postgres -c "CREATE DATABASE configurator_pc_test ENCODING 'UTF8' LC_COL
 ```
 pytest
 ```
-или только веб-часть:
+или только тесты портала:
 ```
-pytest tests/test_web/
+pytest tests/test_portal/
 ```
 
-`conftest.py` автоматически применяет все 9 миграций к тестовой БД и
+`conftest.py` автоматически применяет все миграции к тестовой БД и
 чистит состояние перед каждым тестом.
 
 ## Прайс-листы поставщиков (этап 7)
 
-Система принимает прайсы трёх поставщиков: OCS, Merlion, Treolan.
-Каждый со своим Excel-форматом — парсеры разнесены по модулям
-пакета `app/services/price_loaders/`, общий раннер (`orchestrator.py`)
-делает сопоставление и запись в БД одинаково для всех.
+Система принимает прайсы шести поставщиков: OCS, Merlion, Treolan,
+Netlab, Resurs Media, Green Place. Каждый со своим Excel/REST/SOAP-форматом —
+парсеры разнесены по модулям пакета
+`portal/services/configurator/price_loaders/`, общий раннер
+(`orchestrator.py`) делает сопоставление и запись в БД одинаково для всех.
 
 ### Загрузка прайса
 
@@ -160,12 +130,12 @@ python scripts/backfill_gtin.py --file path/to/OCS_price.xlsx
 Скрипт не трогает цены/остатки, только перечитывает колонку EAN128 и
 проставляет `gtin` там, где он ещё пуст.
 
-### Ручное сопоставление (`/admin/mapping`)
+### Ручное сопоставление (`/databases/mapping`)
 
 Если автосопоставление неоднозначно (несколько компонентов по тому же
 MPN/GTIN) или ничего не нашло — строка попадает в
 `unmapped_supplier_items`. Админ разбирает очередь на странице
-`/admin/mapping`:
+`/databases/mapping` (UI-2: переехало из `/admin/mapping`):
 
 | Действие | Что делает |
 |---|---|
@@ -173,19 +143,21 @@ MPN/GTIN) или ничего не нашло — строка попадает 
 | Это точно новый товар | Статус → `confirmed_new`, компонент остаётся отдельным |
 | Разобраться потом | Без изменений |
 
-Страница закрыта `require_admin`. Менеджеру `/admin/mapping` возвращает 403.
+Страница закрыта `require_admin`. Менеджеру `/databases/mapping` возвращает 403.
 
-## Страницы веб-сервиса
+## Страницы веб-сервиса (после UI-5)
 
 | URL | Назначение |
 |---|---|
-| `/` | Форма нового запроса. После отправки создаётся новый проект + первая конфигурация, редирект на `/project/{pid}?highlight={qid}` |
-| `/projects` | Список проектов пользователя (админ видит все) с суммой спецификации по каждому |
-| `/project/{id}` | Детальная страница: конфигурации с чекбоксами «в спецификацию» и полем количества; внизу — панель спецификации и кнопки-заглушки экспорта |
-| `/project/{id}/new_query` | Форма добавления ещё одной конфигурации в проект |
-| `/query/{id}` | Детальный просмотр одной конфигурации (кнопка «Открыть проект» ведёт в `/project/{pid}`) |
-| `/history` | Плоская история всех запросов пользователя |
-| `/admin/*` | Админка (бюджет, пользователи, все запросы) |
+| `/configurator/` | Форма нового запроса. После отправки создаётся новый проект + первая конфигурация, редирект на `/configurator/project/{pid}?highlight={qid}` |
+| `/configurator/projects` | Список проектов пользователя (админ видит все) |
+| `/configurator/project/{id}` | Детальная страница: конфигурации с чекбоксами + спецификация + экспорт |
+| `/configurator/query/{id}` | Детальный просмотр одной конфигурации |
+| `/configurator/history` | Плоская история всех запросов пользователя |
+| `/databases/*` | Поставщики, Комплектующие для ПК, Очередь маппинга, Прайс-листы, Автозагрузка, Справочник оргтехники |
+| `/settings/*` | Пользователи, Бэкапы, Журнал действий |
+| `/auctions/*` | Аукционный модуль |
+| `/admin`, `/admin/budget`, `/admin/queries` | Админ-обзор конфигуратора |
 
 Галочка «В спецификацию» и поле количества работают через AJAX
 (`/project/{id}/select`, `/deselect`, `/update_quantity`); CSRF

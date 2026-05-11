@@ -39,9 +39,9 @@ load_dotenv()
 
 from sqlalchemy import text  # noqa: E402
 
-from app.auth import hash_password, verify_password  # noqa: E402
-from app.config import settings  # noqa: E402
-from app.database import SessionLocal  # noqa: E402
+from shared.auth import hash_password, verify_password  # noqa: E402
+from shared.config import settings  # noqa: E402
+from shared.db import SessionLocal  # noqa: E402
 
 
 _DEFAULT_NAME = "Администратор"

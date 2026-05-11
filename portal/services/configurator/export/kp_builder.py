@@ -43,12 +43,12 @@ from portal.services.configurator import spec_service
 from portal.services.configurator.export import exchange_rate
 
 
-# UI-4 (Путь B, 2026-05-11): после переноса parents[3] → parents[4].
-# Сам шаблон kp_template.docx остаётся в app/templates/export/ — перенос
-# на UI-5 вместе с финальной зачисткой app/.
+# UI-5 (Путь B, 2026-05-11): шаблон переехал из app/templates/export/ в
+# portal/templates/export/. parents[3] от .../portal/services/configurator/export/
+# → portal/, оттуда добираемся до templates/export/.
 _TEMPLATE_PATH = (
-    Path(__file__).resolve().parents[4]
-    / "app" / "templates" / "export" / "kp_template.docx"
+    Path(__file__).resolve().parents[3]
+    / "templates" / "export" / "kp_template.docx"
 )
 
 

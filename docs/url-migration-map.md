@@ -191,17 +191,69 @@ test_auctions/, test_catalog/, test_portal/).
 > `ModuleNotFoundError: No module named 'app.services.auctions'`.
 > Подробнее — `docs/office-ingest-deploy.md`.
 
-## UI-5 (план) — финальная зачистка
+## UI-5 (2026-05-11) — финальная зачистка app/
 
-- Удаляются 301-обработчики из `app/main.py`.
-- Удаляется сам `app/main.py`, `Dockerfile`, `railway.json`,
-  `app/templates/`.
-- Railway-сервисы `configurator` (prod) и `configurator-preprod`
-  останавливаются и удаляются.
+**Решение собственника 2026-05-11:** Вариант A (полное удаление). URL
+admin-страниц `/admin`, `/admin/budget`, `/admin/queries` сохранены —
+менеджеров с закладками нет, редиректов с `config.quadro.tatar` не
+нужно. Если кто-то откроет старый URL — получит DNS-ошибку (это OK).
+
+| Старый URL (config.quadro.tatar) | Новый URL (app.quadro.tatar) | Редирект |
+|---|---|---|
+| `/admin` | `/admin` (portal) | ✗ (URL сохранён без редиректа) |
+| `/admin/budget` | `/admin/budget` (portal) | ✗ |
+| `/admin/queries` | `/admin/queries` (portal) | ✗ |
+| любые `/admin/{suppliers,components,mapping}*` | были UI-2 301-handlers в `app/main.py` | удалены вместе с app/main.py |
+| `/`, `/{rest}` (UI-4 catch-all) | были 301 на `portal/configurator/*` | удалены вместе с app/main.py |
+
+Что удалено из репо в одном коммите UI-5:
+
+- Папка `app/` целиком: `main.py`, `auth.py`, `config.py`, `database.py`,
+  `templating.py`, `routers/admin_router.py`, `templates/admin/*`,
+  `templates/_macros/`, `templates/base.html`, `models/`, `schemas/`,
+  `services/__init__.py`.
+- `Dockerfile`, `railway.json` (использовались только для конфигуратора;
+  portal использует `Dockerfile.portal` + `railway.portal.json`).
+- `Procfile` (single-app Heroku-стиль, ссылался только на `app.main:app`).
+- `scripts/smoke_stage_6_2.py` — dead-код, опирался на `app.main`/
+  `app.routers.main_router`/`app.routers.project_router`.
+- Тесты `tests/test_web/`: 8 файлов под `TestClient(app/main.py)` —
+  `__init__.py`, `conftest.py`, `test_access.py`, `test_admin_budget.py`,
+  `test_configurator_redirects.py`, `test_databases_redirects.py`,
+  `test_healthz.py`, `test_ui1_sidebar_app.py`. Два файла, у которых
+  не было связи с app/ (`test_migration.py`, `test_bootstrap_admin.py`),
+  переехали в корень `tests/` через `git mv`.
+
+Что переехало внутри репо:
+
+| Откуда | Куда | Метод |
+|---|---|---|
+| `app/templates/admin/dashboard.html` | `portal/templates/admin/dashboard.html` | git mv (внутренние URL `/admin/mapping`→`/databases/mapping`, `/query/`→`/configurator/query/`) |
+| `app/templates/admin/budget.html` | `portal/templates/admin/budget.html` | git mv |
+| `app/templates/admin/all_queries.html` | `portal/templates/admin/all_queries.html` | git mv (внутренние URL `/query/`→`/configurator/query/`) |
+| `app/templates/export/kp_template.docx` | `portal/templates/export/kp_template.docx` | git mv |
+| `app/templates/export/project_template.xlsx` | `portal/templates/export/project_template.xlsx` | git mv |
+| `app/config.Settings` (живой код) | `shared/config.Settings` | новый файл, скопирован минус dead-field `run_scheduler`/`RUN_SCHEDULER` |
+| `app/templating.to_rub`/`fmt_rub`/`current_exchange_rate`/`static_url` | `portal/templating.*` (живой код, без re-export'ов из app/) | копия + ленивые импорты `shared.db` и `portal.services.configurator.export.exchange_rate` |
+| `app/routers/admin_router.py` (dashboard, budget, queries) | `portal/routers/admin.py` (3 admin-страницы) | новый файл, dashboard_legacy_alias `/admin/dashboard`→301 не сохранён (мёртвая трасса) |
+
+Что заменено в импортах (54 файла, regex-замена):
+
+- `from app.config import settings` → `from shared.config import settings`
+- `from app.database import …` → `from shared.db import …`
+- `from app.auth import …` → `from shared.auth import …`
+- `from app.templating import …` → `from portal.templating import …`
+
+Operational:
+
+- Railway-сервисы `configurator` (prod) и `configurator-preprod` остановлены
+  и удаляются собственником вручную через Railway UI.
 - DNS-записи `config.quadro.tatar` и `config-preprod.quadro.tatar`
-  либо удаляются, либо переключаются на постоянный 301 на портал
-  через Railway custom domain.
+  удаляются собственником в Reg.ru (CNAME → Railway target → no-op
+  после удаления сервисов).
 
 После UI-5 проект работает на одном FastAPI (`portal/main.py`), на
 одном Railway-сервисе per environment, на одном поддомене
-(`app.quadro.tatar` / `app-preprod.quadro.tatar`).
+(`app.quadro.tatar` / `app-preprod.quadro.tatar`). План
+`plans/2026-05-11-ui-merge-portal-configurator.md` закрыт полностью
+(UI-1, UI-2, UI-3, UI-4, UI-4.5, UI-5 — все ✓).

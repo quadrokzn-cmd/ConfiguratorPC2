@@ -1,14 +1,16 @@
 # Тонкая обёртка для обратной совместимости CLI и существующих импортов.
 #
 # До этапа 7 здесь был монолит, работающий только с OCS. После этапа 7
-# вся логика перенесена в app/services/price_loaders/ (пакет с отдельным
-# адаптером на каждого поставщика + общий orchestrator). Этот файл
+# вся логика перенесена в price_loaders/ (пакет с отдельным адаптером на
+# каждого поставщика + общий orchestrator). UI-4 (Путь B, 2026-05-11):
+# пакет переехал в portal/services/configurator/price_loaders/. Этот файл
 # оставлен ТОЛЬКО чтобы не ломать:
 #   - старые импорты load_ocs_price из сторонних скриптов/тестов;
 #   - ранний CLI-контракт scripts/load_price.py --supplier ocs.
 #
-# Новый код должен импортировать load_price из app.services.price_loaders
-# или использовать orchestrator напрямую.
+# Новый код должен импортировать load_price из
+# portal.services.configurator.price_loaders или использовать orchestrator
+# напрямую.
 
 from __future__ import annotations
 

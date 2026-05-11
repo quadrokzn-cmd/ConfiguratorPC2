@@ -4,19 +4,20 @@
 # Раньше engine жил в app/database.py — у конфигуратора был один
 # инстанс. С появлением портала (portal/) логично иметь один общий
 # движок: и конфигуратор, и портал работают с одной и той же БД и
-# одной таблицей users. Поэтому весь low-level slazm-код перенесён
-# сюда, а app/database.py теперь только реэкспортирует символы для
-# обратной совместимости с уже написанными импортами в app/* и в
-# scripts/*.
+# одной таблицей users.
+#
+# UI-5 (Путь B, 2026-05-11): папка app/ удалена, Settings переехал в
+# shared/config.py. Импорт settings теперь из shared.config (раньше был
+# `from app.config import settings`).
 #
 # Защита от UnicodeDecodeError на русской Windows — см. подробный
 # комментарий ниже. Тот же фикс используется и в test-фикстурах
-# (tests/test_web/conftest.py).
+# (tests/conftest.py).
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from app.config import settings
+from shared.config import settings
 
 
 # ---------------------------------------------------------------------------

@@ -29,7 +29,7 @@ from portal.services.configurator.export import exchange_rate
 # ---------------------------------------------------------------------
 
 def _seed_user(db, *, login="r3-user") -> int:
-    from app.auth import hash_password
+    from shared.auth import hash_password
     row = db.execute(
         _t(
             "INSERT INTO users (login, password_hash, role, name) "

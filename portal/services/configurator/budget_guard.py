@@ -18,7 +18,7 @@ from decimal import Decimal
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.config import settings
+from shared.config import settings
 
 
 # Порог, после которого показываем предупреждение админу.

@@ -42,7 +42,7 @@ load_dotenv()
 
 from sqlalchemy import text  # noqa: E402
 
-from app.database import engine  # noqa: E402
+from shared.db import engine  # noqa: E402
 
 
 _MIGRATIONS_DIR = Path(__file__).resolve().parent.parent / "migrations"

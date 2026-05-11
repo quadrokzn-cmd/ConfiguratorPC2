@@ -5,16 +5,27 @@
 # Этап 9Б.2: фильтры для дашборда (ru_date, ru_datetime_short, days_ago).
 # Этап 9Б.2.1: курс ЦБ — общий партиал shared/templates/_partials/fx_widget.html
 # импортирует Jinja-global current_exchange_rate(), регистрируем здесь же.
-# Реализацию переиспользуем из app/templating.py — функция уже умеет
-# открывать SessionLocal и парсить fetched_at в МСК.
+# UI-4 (Путь B, 2026-05-11): фильтры to_rub/fmt_rub нужны и в portal/ —
+# шаблоны конфигуратора (project_detail.html, result.html и т.д.)
+# переехали в portal/templates/configurator/ и обращаются к ним.
+# UI-5 (Путь B, 2026-05-11): живой код to_rub/fmt_rub/current_exchange_rate
+# перенесён сюда из app/templating.py (этот модуль удалён вместе с app/).
+# portal/templating.py теперь единственное место реализации валютных
+# фильтров и static_url.
 
 from __future__ import annotations
 
+import logging
+from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from fastapi.templating import Jinja2Templates
 
-from app.config import settings
+from shared.config import settings
+
+
+logger = logging.getLogger(__name__)
 
 
 # 9Б.2.1: добавляем shared/templates как fallback. Партиалы
@@ -27,8 +38,12 @@ _STATIC_ROOT = Path(__file__).resolve().parent.parent / "static"
 
 
 def static_url(rel_path: str) -> str:
-    """Cache-busting URL для статики. Аналог app/templating.py:static_url —
-    ?v=<mtime файла>, чтобы пересборка CSS не упиралась в кеш браузера."""
+    """Cache-busting URL для статики. После любой пересборки CSS/JS
+    значение mtime меняется → URL меняется → браузер обязательно дотянет
+    свежую версию вместо старого закэшированного main.css.
+
+    Если файл отсутствует (теоретически — до первой сборки CSS) — возвращаем
+    URL без cache-busting, чтобы шаблон всё равно отрендерился."""
     rel = rel_path.lstrip("/")
     if rel.startswith("static/"):
         rel_inside_static = rel[len("static/"):]
@@ -43,9 +58,103 @@ def static_url(rel_path: str) -> str:
     return f"{base_url}?v={mtime}"
 
 
+# UI-5: live импорт курса ЦБ. Раньше было через app.templating —
+# теперь напрямую через shared/db и portal/services/configurator/export.
+# Ленивые импорты внутри функции, чтобы не утяжелять стартовый импорт
+# модуля шаблонов (в тестах portal/templating.py подгружается рано).
+def _safe_get_current_rate():
+    """Достаёт самый свежий курс из БД. Не падает наружу — если в БД
+    пусто и ЦБ недоступен (редкий edge-case), вернёт None, и плашка
+    в sidebar просто скроется."""
+    from shared.db import SessionLocal
+    from portal.services.configurator.export import exchange_rate
+
+    db = SessionLocal()
+    try:
+        return exchange_rate.get_current_rate(db)
+    except Exception as exc:
+        logger.warning("templating: не удалось прочитать текущий курс: %s", exc)
+        return None
+    finally:
+        db.close()
+
+
+def current_exchange_rate() -> dict[str, Any] | None:
+    """Глобал для шаблонов: словарь с курсом или None.
+
+    Структура:
+      {
+        'rate':         95.27,
+        'rate_date':    date(2026, 4, 26),
+        'fetched_at':   datetime,
+        'source':       'cbr',
+        'fetched_label': '16:00',  # короткая «hh:mm» в МСК для плашки
+      }
+    """
+    info = _safe_get_current_rate()
+    if info is None:
+        return None
+    fetched_at = info.fetched_at
+    fetched_label = ""
+    if fetched_at is not None:
+        # Приводим к МСК — у пользователей в России таймзоны разные,
+        # но плашка по ТЗ показывает время МСК.
+        try:
+            from zoneinfo import ZoneInfo  # py3.9+
+            msk = ZoneInfo("Europe/Moscow")
+            local = (
+                fetched_at.astimezone(msk)
+                if fetched_at.tzinfo
+                else fetched_at.replace(tzinfo=timezone.utc).astimezone(msk)
+            )
+            fetched_label = local.strftime("%H:%M")
+        except Exception:
+            fetched_label = fetched_at.strftime("%H:%M") if hasattr(fetched_at, "strftime") else ""
+    return {
+        "rate":          float(info.rate),
+        "rate_date":     info.rate_date,
+        "fetched_at":    fetched_at,
+        "source":        info.source,
+        "fetched_label": fetched_label,
+    }
+
+
+def to_rub(usd: Any) -> float:
+    """Фильтр для шаблонов: USD-сумма → RUB по актуальному курсу.
+
+    Использование:  {{ it.unit_usd | to_rub }}  →  округлённая сумма в ₽.
+    Если курса нет — возвращаем 0 (плашка в UI всё равно покажет «—»,
+    цены сами по себе на странице тоже редкий edge-case).
+    """
+    if usd is None:
+        return 0.0
+    try:
+        usd_f = float(usd)
+    except (TypeError, ValueError):
+        return 0.0
+    info = _safe_get_current_rate()
+    if info is None:
+        return 0.0
+    return round(usd_f * float(info.rate), 2)
+
+
+def fmt_rub(usd: Any) -> str:
+    """Фильтр: USD → отформатированная строка в ₽ с разделителем тысяч.
+
+    Используется в местах, где раньше было `'%.0f'|format(... | to_rub)`
+    плюс ручной replace на пробелы. Один шаг короче и даёт ровно тот
+    формат, к которому привыкли в шаблонах: «1 234 567»."""
+    rub = to_rub(usd)
+    return "{:,.0f}".format(rub).replace(",", " ")
+
+
+# Регистрируем globals и фильтры на единственном шаблонном движке.
 templates.env.globals["static_url"] = static_url
 templates.env.globals["portal_url"] = settings.portal_url
 templates.env.globals["configurator_url"] = settings.configurator_url
+templates.env.globals["current_exchange_rate"] = current_exchange_rate
+templates.env.filters["to_rub"] = to_rub
+templates.env.filters["fmt_rub"] = fmt_rub
 
 # 9Б.4: has_permission(user.role, user.permissions, module_key) — для условного
 # рендера ссылок на модули в сайдбаре (например, «← Конфигуратор» прячется,
@@ -60,24 +169,6 @@ from portal.services import dashboard as _dashboard
 templates.env.filters["ru_date"] = _dashboard.format_ru_date
 templates.env.filters["ru_datetime_short"] = _dashboard.format_ru_datetime_short
 templates.env.filters["days_ago"] = _dashboard.format_days_ago
-
-# 9Б.2.1: курс ЦБ — переиспользуем готовую функцию app/templating.py.
-# Она открывает свою сессию SessionLocal и форматирует fetched_at в МСК.
-# Импорт лежит здесь, а не на уровне модуля, чтобы не падать в тестах,
-# где app.templating может тянуть тяжёлые зависимости (scheduler и пр.).
-from app.templating import current_exchange_rate as _current_exchange_rate
-# UI-4 (Путь B, 2026-05-11): фильтры to_rub/fmt_rub теперь нужны и
-# в portal/ — шаблоны конфигуратора (project_detail.html, result.html
-# и т.д.) переехали в portal/templates/configurator/ и обращаются к
-# этим фильтрам. Переиспользуем реализацию из app/templating.py
-# (app/templating.py остаётся, пока существует /admin (dashboard) в
-# конфигураторе — окончательное место для to_rub/fmt_rub станет
-# portal/templating.py после UI-5).
-from app.templating import to_rub as _to_rub, fmt_rub as _fmt_rub
-
-templates.env.globals["current_exchange_rate"] = _current_exchange_rate
-templates.env.filters["to_rub"] = _to_rub
-templates.env.filters["fmt_rub"] = _fmt_rub
 
 
 # 9a-fixes: форматирование сумм по-русски — «5 348 890,31».
@@ -97,7 +188,7 @@ def _ru_money(value, *, decimals: int = 2) -> str:
         int_part, frac_part = abs_str.split(".", 1)
     else:
         int_part, frac_part = abs_str, ""
-    # группируем тройки разрядов справа, разделитель —   (NBSP)
+    # группируем тройки разрядов справа, разделитель —   (NBSP)
     rev = int_part[::-1]
     chunks = [rev[i:i + 3] for i in range(0, len(rev), 3)]
     int_grouped = " ".join(chunks)[::-1]

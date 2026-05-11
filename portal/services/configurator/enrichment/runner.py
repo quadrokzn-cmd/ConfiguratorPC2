@@ -10,7 +10,7 @@ import logging
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import CATEGORY_TO_TABLE
 from portal.services.configurator.enrichment.persistence import apply_enrichment
 from portal.services.configurator.enrichment.regex_sources import case as case_src

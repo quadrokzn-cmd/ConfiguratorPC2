@@ -37,7 +37,7 @@ from typing import Callable
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 
 logger = logging.getLogger(__name__)
 

@@ -28,9 +28,9 @@ load_dotenv()
 
 from sqlalchemy import text
 
-from app.auth import hash_password
-from app.config import settings
-from app.database import SessionLocal
+from shared.auth import hash_password
+from shared.config import settings
+from shared.db import SessionLocal
 
 
 _DEFAULT_NAME = "Администратор"

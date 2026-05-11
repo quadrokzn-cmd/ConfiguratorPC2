@@ -66,7 +66,7 @@ def _make_query_with_variant(
 
 
 def _seed_user(session) -> int:
-    from app.auth import hash_password
+    from shared.auth import hash_password
     row = session.execute(
         _t(
             "INSERT INTO users (login, password_hash, role, name) "

@@ -25,7 +25,7 @@ from portal.services.configurator.export import kp_builder
 # ---------- helpers -------------------------------------------------------
 
 def _seed_user(db_session, *, login: str = "kp-manager") -> int:
-    from app.auth import hash_password
+    from shared.auth import hash_password
     row = db_session.execute(
         _t(
             "INSERT INTO users (login, password_hash, role, name) "

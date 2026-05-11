@@ -16,7 +16,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-from app.config import settings
+from shared.config import settings
 from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (

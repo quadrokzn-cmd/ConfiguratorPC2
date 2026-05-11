@@ -74,7 +74,7 @@
       </div>
       <div class="text-display text-ink-primary tabular-nums">{{ mapping_count or 0 }}</div>
       {% if mapping_count and mapping_count > 0 %}
-      <a href="/admin/mapping" class="mt-1 inline-block text-caption text-brand-400 hover:text-brand-300">
+      <a href="/databases/mapping" class="mt-1 inline-block text-caption text-brand-400 hover:text-brand-300">
         Разобрать →
       </a>
       {% else %}
@@ -166,7 +166,7 @@
         </thead>
         <tbody>
           {% for it in recent %}
-          <tr class="kt-row-link" data-href="/query/{{ it.id }}">
+          <tr class="kt-row-link" data-href="/configurator/query/{{ it.id }}">
             <td class="text-ink-secondary whitespace-nowrap">
               {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
             </td>
@@ -175,7 +175,7 @@
               <span class="text-caption text-ink-muted">({{ it.author_login }})</span>
             </td>
             <td>
-              <a href="/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400 truncate inline-block max-w-full">
+              <a href="/configurator/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400 truncate inline-block max-w-full">
                 {{ it.project_name }}
               </a>
             </td>

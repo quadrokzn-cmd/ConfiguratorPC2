@@ -5,9 +5,11 @@
 # молча используем опасный дефолт (например, `user:password` в БД-строке,
 # из-за чего первый же запрос к БД падает с authentication failed).
 #
-# Этап 10.1: добавлены APP_ENV, APP_SECRET_KEY, APP_COOKIE_DOMAIN,
-# ADMIN_USERNAME/ADMIN_PASSWORD, RUN_SCHEDULER. На production отсутствие
-# APP_SECRET_KEY/SESSION_SECRET_KEY роняет старт.
+# UI-5 (Путь B, 2026-05-11): модуль переехал из app/config.py в
+# shared/config.py — единственный источник Settings для портала, скриптов,
+# shared/db.py. Папка app/ удалена. Поле run_scheduler (RUN_SCHEDULER)
+# выкинуто как dead-field — после UI-4.5 cron-задачи активирует только
+# APP_ENV=production / RUN_BACKUP_SCHEDULER=1 в portal/scheduler.py.
 
 import logging
 import os
@@ -130,6 +132,10 @@ class Settings:
     # Локально по умолчанию: portal=8081, configurator=8080. В production
     # выставляются вручную в Railway через env-переменные сервисов
     # (см. docs/deployment.md, секция «Этап 9Б.1»).
+    #
+    # UI-5 (Путь B, 2026-05-11): configurator_url остался для совместимости
+    # с шаблонами/sidebar, но реально config.quadro.tatar больше не
+    # обслуживается — DNS-запись удаляется собственником после деплоя UI-5.
     portal_url: str = field(
         default_factory=lambda: os.getenv("PORTAL_URL", "http://localhost:8081").rstrip("/")
     )
@@ -149,13 +155,10 @@ class Settings:
     )
 
     # --- Этап 10.1: фоновые задачи ---
-    # APScheduler стартует только при RUN_SCHEDULER=1. На локалке и
-    # на единственном инстансе Railway держим включённым; когда появятся
-    # реплики — оставляем 1 только на одном инстансе, чтобы cron-задачи
-    # не дублировались.
-    run_scheduler: bool = field(
-        default_factory=lambda: _bool_env("RUN_SCHEDULER", default=False)
-    )
+    # UI-4.5 (Путь B): фоновые задачи теперь живут только в portal/scheduler.py.
+    # Активация — APP_ENV=production / RUN_BACKUP_SCHEDULER=1 (читается прямо
+    # внутри scheduler'а через os.getenv, не через Settings). Поле
+    # run_scheduler/RUN_SCHEDULER удалено как dead-field (UI-5).
 
     # Дневной лимит расходов OpenAI на всю систему (в рублях).
     daily_openai_budget_rub: float = field(

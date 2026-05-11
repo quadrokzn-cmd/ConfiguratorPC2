@@ -18,7 +18,7 @@ from typing import Any
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.engine import build_config
 from portal.services.configurator.engine.schema import BuildRequest, BuildResult
 from portal.services.configurator.enrichment.openai_search.fx import get_usd_rub_rate

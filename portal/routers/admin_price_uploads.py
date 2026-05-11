@@ -13,7 +13,7 @@
 #
 # Все эндпоинты — require_admin.
 #
-# Архитектурное решение: импортируем app.services.price_loaders.orchestrator
+# Архитектурное решение: импортируем portal.services.configurator.price_loaders.orchestrator
 # напрямую — это чистый Python в одном репозитории и одной БД, выносить в
 # shared/ ради этого одной точки нет смысла. Подробности — в брифе 11.2 и
 # в docs/architecture.md.

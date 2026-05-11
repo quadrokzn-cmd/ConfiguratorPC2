@@ -47,7 +47,7 @@ def db_session():
 
     Не зависит от веб-conftest — работает в test_export/, где web-conftest
     не подгружается."""
-    from app.config import settings
+    from shared.config import settings
     engine = create_engine(
         settings.test_database_url,
         future=True,

@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from sqlalchemy import text
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.claude_code.exporter import ENRICHMENT_ROOT
 from portal.services.configurator.enrichment.claude_code.schema import TARGET_FIELDS
 

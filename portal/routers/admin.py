@@ -1,47 +1,30 @@
-# Админский роутер: /admin, /admin/users, /admin/budget, /admin/queries.
-# Доступ закрыт require_admin.
+# Админский роутер конфигуратора: /admin (dashboard), /admin/budget,
+# /admin/queries. Доступ — require_admin.
 #
-# UI-2 (Путь B, 2026-05-11): /admin/suppliers/* и /admin/components/*
-# переехали в портал (portal/routers/databases/{suppliers,components}).
-# 301-редиректы со старых URL стоят в app/main.py — здесь обработчиков
-# для этих путей больше нет.
+# UI-5 (Путь B, 2026-05-11): три admin-страницы конфигуратора переехали
+# из app/routers/admin_router.py в portal/routers/admin.py при удалении
+# папки app/. URL'ы /admin, /admin/budget, /admin/queries сохранены —
+# собственник 2026-05-11 подтвердил, что менеджеров с закладками нет,
+# редиректы не нужны. /admin/users, /admin/backups, /admin/audit живут
+# отдельно (settings/*), /admin/price-uploads, /admin/auto-price-loads,
+# /admin/auctions, /admin/diagnostics — отдельные роутеры.
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Request, status
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.auth import (
-    AuthUser,
-    get_csrf_token,
-    require_admin,
-)
-from app.config import settings
-from app.database import get_db
-# UI-4 (Путь B, 2026-05-11): сервисы конфигуратора переехали в
-# portal/services/configurator/. admin_router.py остаётся в app/ для
-# страниц /admin (dashboard), /admin/budget, /admin/queries и
-# legacy-редиректа /admin/users → portal/settings/users.
 from portal.services.configurator import (
     budget_guard,
     web_service,
 )
-from app.templating import templates
+from portal.templating import templates
+from shared.auth import AuthUser, get_csrf_token, require_admin
+from shared.db import get_db
 
 
 router = APIRouter(prefix="/admin")
-
-
-@router.get("/dashboard")
-def dashboard_legacy_alias():
-    """Алиас /admin/dashboard → /admin.
-
-    Исторически ссылка была такой. 301 — чтобы браузер/боты
-    закешировали правильный URL.
-    """
-    return RedirectResponse(url="/admin", status_code=301)
 
 
 @router.get("")
@@ -54,17 +37,14 @@ def dashboard(
     budget = budget_guard.check_budget(db)
     month_total = web_service.get_month_total_rub(db)
     recent = web_service.list_all_queries(db, limit=20)
-    # UI-2: mapping_service переехал в portal, но dashboard конфигуратора
-    # пока остаётся в app/ (его перенос — этап UI-3..UI-4). Inline-COUNT,
-    # чтобы не тянуть кросс-сервисный импорт portal.services из app/.
+    # Очередь маппинга — inline COUNT, чтобы не тянуть лишний service-импорт.
     mapping_count = int(db.execute(
         text(
             "SELECT COUNT(*) FROM unmapped_supplier_items "
             "WHERE status IN ('pending', 'created_new')"
         )
     ).scalar() or 0)
-    # Сводные счётчики для метрик дашборда (этап 9А.2). Считаем тонко
-    # отдельными SELECT COUNT(*), без новых сервисных функций.
+    # Сводные счётчики для метрик дашборда.
     total_queries  = int(db.execute(text("SELECT COUNT(*) FROM queries")).scalar() or 0)
     total_projects = int(db.execute(text("SELECT COUNT(*) FROM projects")).scalar() or 0)
     active_users   = int(
@@ -84,18 +64,6 @@ def dashboard(
             "total_projects": total_projects,
             "active_users":   active_users,
         },
-    )
-
-
-@router.get("/users")
-def users_redirect_to_portal():
-    """Этап 9Б.1: страница пользователей переехала в портал.
-    UI-3 (Путь B, 2026-05-11): URL в портале сменился с /admin/users на
-    /settings/users — этот редирект ведёт сразу на новый URL, чтобы не
-    делать двойной hop (config → portal/admin/users → portal/settings/users)."""
-    return RedirectResponse(
-        url=f"{settings.portal_url}/settings/users",
-        status_code=status.HTTP_302_FOUND,
     )
 
 

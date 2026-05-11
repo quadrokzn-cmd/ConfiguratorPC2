@@ -15,7 +15,7 @@ from sqlalchemy import text
 
 @pytest.fixture
 def reloaded_settings(monkeypatch):
-    """Перезагружает app.config с новыми ADMIN_USERNAME/ADMIN_PASSWORD
+    """Перезагружает shared.config с новыми ADMIN_USERNAME/ADMIN_PASSWORD
     и в финале возвращает исходные настройки, чтобы не повлиять на
     другие тесты, которые могут читать settings."""
     def _set(*, username: str | None, password: str | None):
@@ -27,14 +27,14 @@ def reloaded_settings(monkeypatch):
             monkeypatch.delenv("ADMIN_PASSWORD", raising=False)
         else:
             monkeypatch.setenv("ADMIN_PASSWORD", password)
-        import app.config as cfg
+        import shared.config as cfg
         importlib.reload(cfg)
         return cfg
 
     yield _set
     # Возвращаем settings к состоянию из conftest.py (env уже откачен
     # monkeypatch-ем — reload пересоздаст исходный singleton).
-    import app.config as cfg
+    import shared.config as cfg
     importlib.reload(cfg)
 
 
@@ -75,7 +75,7 @@ def test_bootstrap_admin_creates_user_when_absent(reloaded_settings, db_session)
 
 def test_bootstrap_admin_keeps_existing_user(reloaded_settings, db_session):
     # Создаём пользователя руками с известным хешом.
-    from app.auth import hash_password
+    from shared.auth import hash_password
     original_hash = hash_password("original-pass")
     db_session.execute(
         text(

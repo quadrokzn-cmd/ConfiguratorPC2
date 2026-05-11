@@ -16,7 +16,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.engine import candidates as C
 from portal.services.configurator.engine.builder import assemble_build
 from portal.services.configurator.engine.prices import choose_supplier, fetch_offers

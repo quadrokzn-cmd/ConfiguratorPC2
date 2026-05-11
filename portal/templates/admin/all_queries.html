@@ -68,7 +68,7 @@
       <tbody>
         {% for it in items %}
         <tr class="kt-row-link"
-            data-href="/query/{{ it.id }}"
+            data-href="/configurator/query/{{ it.id }}"
             data-status="{{ it.status }}"
             data-search="{{ ((it.short_text or '') ~ ' ' ~ (it.project_name or '') ~ ' ' ~ (it.author_name or '') ~ ' ' ~ (it.author_login or ''))|lower }}">
           <td class="text-ink-secondary whitespace-nowrap">
@@ -79,7 +79,7 @@
             <span class="text-caption text-ink-muted">({{ it.author_login }})</span>
           </td>
           <td class="truncate max-w-[16rem]">
-            <a href="/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400">
+            <a href="/configurator/query/{{ it.id }}" class="text-ink-primary hover:text-brand-400">
               {{ it.project_name }}
             </a>
           </td>

@@ -12,7 +12,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
-from app.config import settings
+from shared.config import settings
 from portal.services.dashboard import get_dashboard_data
 from portal.templating import templates
 from shared.auth import AuthUser, get_csrf_token, require_login

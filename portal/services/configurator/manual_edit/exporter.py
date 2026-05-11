@@ -12,7 +12,7 @@ from pathlib import Path
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import CATEGORY_TO_TABLE
 from portal.services.configurator.manual_edit.csv_io import serialize_cell
 from portal.services.configurator.manual_edit.schema import (

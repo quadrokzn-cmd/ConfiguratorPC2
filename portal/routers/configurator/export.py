@@ -24,9 +24,9 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.auth import AuthUser, require_login, verify_csrf
-from app.config import settings
-from app.database import get_db
+from shared.auth import AuthUser, require_login, verify_csrf
+from shared.config import settings
+from shared.db import get_db
 from portal.dependencies.configurator_access import require_configurator_access
 from portal.routers.configurator.projects import _load_project_or_raise
 from portal.services.configurator.export import (

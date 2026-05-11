@@ -25,8 +25,8 @@ from pathlib import Path
 # Гарантируем, что корень проекта есть в sys.path при запуске из любой директории
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-# Загружаем переменные окружения из .env ДО импорта app.*,
-# чтобы app.config.settings получил реальный DATABASE_URL, а не дефолт.
+# Загружаем переменные окружения из .env ДО импорта shared.*,
+# чтобы shared.config.settings получил реальный DATABASE_URL, а не дефолт.
 from dotenv import load_dotenv
 load_dotenv()
 

@@ -28,7 +28,7 @@ from typing import Any
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import CATEGORY_TO_TABLE, ExtractedField
 from portal.services.configurator.enrichment.claude_code.schema import TARGET_FIELDS
 from portal.services.configurator.enrichment.claude_code.validators import (

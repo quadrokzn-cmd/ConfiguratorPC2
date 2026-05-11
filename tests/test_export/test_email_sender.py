@@ -19,7 +19,7 @@ from portal.services.configurator.export import email_sender
 
 def _patch_settings(monkeypatch, *, password: str = "app-pass-xyz"):
     """Ставим реалистичные настройки, чтобы send_email не падал ранним чеком."""
-    from app.config import settings
+    from shared.config import settings
     monkeypatch.setattr(settings, "smtp_host", "smtp.mail.ru")
     monkeypatch.setattr(settings, "smtp_port", 465)
     monkeypatch.setattr(settings, "smtp_use_ssl", True)

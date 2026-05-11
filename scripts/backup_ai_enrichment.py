@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from sqlalchemy import text
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import CATEGORY_TO_TABLE
 from portal.services.configurator.enrichment.claude_code.schema import CASE_PSU_WATTS_FIELD, TARGET_FIELDS
 

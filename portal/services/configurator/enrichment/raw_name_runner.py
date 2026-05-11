@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import (
     ALLOWED_TABLES,
     CATEGORY_TO_TABLE,

@@ -17,7 +17,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.manual_edit.csv_io import parse_cell, serialize_cell
 from portal.services.configurator.manual_edit.persistence import apply_manual_override, fetch_row
 from portal.services.configurator.manual_edit.schema import (

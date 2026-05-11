@@ -30,7 +30,7 @@ load_dotenv()
 
 from sqlalchemy import text  # noqa: E402
 
-from app.database import engine  # noqa: E402
+from shared.db import engine  # noqa: E402
 from portal.services.catalog.brand_normalizer import canonical_brand  # noqa: E402
 
 logger = logging.getLogger("normalize_brands")

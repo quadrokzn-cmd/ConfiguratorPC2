@@ -246,7 +246,7 @@ def get_usd_rate() -> tuple[Decimal, date, Literal["live", "cache"]]:
                     (фактически свежий курс с ЦБ);
     source='cache' — если запись постарше (но свежее в БД нет).
     """
-    from app.database import SessionLocal
+    from shared.db import SessionLocal
 
     db = SessionLocal()
     try:

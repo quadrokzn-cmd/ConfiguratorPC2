@@ -39,7 +39,7 @@ load_dotenv()
 from openpyxl import load_workbook
 from sqlalchemy import text
 
-from app.database import SessionLocal
+from shared.db import SessionLocal
 from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 from portal.services.configurator.price_loaders.ocs import (
     _COL_CAT_B, _COL_KIND_C, _COL_SKU,

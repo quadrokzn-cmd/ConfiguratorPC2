@@ -2,7 +2,7 @@
 #
 # Делает две вещи:
 #
-# 1. До любого импорта app.database переключает DATABASE_URL на
+# 1. До любого импорта shared.db переключает DATABASE_URL на
 #    TEST_DATABASE_URL — чтобы код не открыл движок на боевую БД.
 #
 # 2. Поднимает единую тестовую БД-инфраструктуру:
@@ -70,7 +70,7 @@ def _worker_database_url(base_url: str) -> str:
 
 _TEST_DB = _worker_database_url(_BASE_TEST_DB)
 # Сохраняем worker-aware значение, чтобы любой код, который позже прочитает
-# TEST_DATABASE_URL (например, app.config.settings), увидел уже правильное.
+# TEST_DATABASE_URL (например, shared.config.settings), увидел уже правильное.
 os.environ["TEST_DATABASE_URL"] = _TEST_DB
 os.environ["DATABASE_URL"] = _TEST_DB
 
@@ -259,7 +259,7 @@ def db_engine():
     DROP всех таблиц + накат всех миграций. Все подкаталоги тестов используют
     именно эту фикстуру.
     """
-    from app.config import settings
+    from shared.config import settings
 
     # При параллельном прогоне у каждого worker'а своя БД — её нужно создать
     # на лету при первом запуске; повторные прогоны находят БД и пропускают
@@ -267,7 +267,7 @@ def db_engine():
     _ensure_worker_database_exists(settings.test_database_url)
 
     # client_encoding=utf8 — защита от UnicodeDecodeError на русской Windows
-    # (аналогичный фикс в app/database.py).
+    # (аналогичный фикс в shared/db.py).
     engine = create_engine(
         settings.test_database_url,
         future=True,

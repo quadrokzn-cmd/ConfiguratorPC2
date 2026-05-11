@@ -22,12 +22,12 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# load_dotenv ДО импорта app.config, иначе DATABASE_URL не увидится.
+# load_dotenv ДО импорта shared.config, иначе DATABASE_URL не увидится.
 load_dotenv()
 
 from sqlalchemy import create_engine, text
 
-from app.config import settings  # noqa: E402
+from shared.config import settings  # noqa: E402
 
 
 _SUSPICIOUS_MODEL_RE = re.compile(

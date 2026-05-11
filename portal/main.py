@@ -33,9 +33,9 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.config import settings
 from portal.dependencies.configurator_access import ConfiguratorAccessDenied
 from portal.routers import (
+    admin,
     admin_auctions,
     admin_auto_price,
     admin_diagnostics,
@@ -67,6 +67,7 @@ from portal.scheduler import (
 )
 from portal.scheduler import _is_enabled as _scheduler_enabled
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
+from shared.config import settings
 from shared.db import SessionLocal
 
 
@@ -156,6 +157,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Роутеры. Порядок: сначала auth (/login, /logout) — на нём нет require_login.
 # Потом /admin — нужен только админам. Потом / — last resort.
 app.include_router(auth.router)
+# UI-5 (Путь B, 2026-05-11): admin-страницы конфигуратора (/admin,
+# /admin/budget, /admin/queries) переехали из app/routers/admin_router.py
+# сюда. Подключается раньше точечных catch-all 301-handler'ов
+# /admin/{users,backups,audit} — это разные пути, конфликта нет.
+app.include_router(admin.router)
 # UI-3 (Путь B, 2026-05-11): «Настройки» — пользователи, бэкапы, журнал
 # действий. Префикс /settings/* (старые /admin/{users,backups,audit}
 # отдают 301 на новые URL — см. блок ниже).
