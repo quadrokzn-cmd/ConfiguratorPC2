@@ -329,6 +329,168 @@ psql "<DATABASE_PUBLIC_URL>" -c \
    которые admin имеет по дефолту).
 9. За 24-48 часов inbox `/auctions` наполнится живыми лотами.
 
+### Шаг Л. Создание роли `ingest_writer` для офисного worker'а (этап 9e.1)
+
+**Зачем:** этап 9e (production-ingest архитектура, путь A) — офисный
+сервер в РФ со статическим IP запускает ingest и пишет напрямую в
+Railway-PG через `DATABASE_PUBLIC_URL`. Чтобы worker не ходил под
+суперюзером `postgres`, заводим отдельную ограниченную PG-роль
+`ingest_writer` с минимально необходимыми правами (см. миграцию
+`migrations/0035_ingest_writer_role.sql` и инвентаризацию доступов
+в её шапке).
+
+**Что роль умеет:**
+
+- `SELECT` на `settings`, `excluded_regions`, `ktru_watchlist` — читает
+  фильтры платформы при старте ingest-цикла (`load_settings()`).
+- `SELECT/INSERT/UPDATE/DELETE` на `tenders`, `tender_items`, `tender_status`
+  — full upsert карточек лотов (`upsert_tender()` в
+  `app/services/auctions/ingest/repository.py`).
+- `USAGE, SELECT` на `tender_items_id_seq` — `BIGSERIAL` nextval при
+  INSERT в `tender_items`.
+- `CONNECT` на БД `railway` + `USAGE` на schema `public`.
+
+**Чего роль не умеет** (smoke-проверки подтверждают `permission denied`):
+`users`, `audit_log`, `printers_mfu`, ПК-таблицы (`cpus`, `gpus`,
+`motherboards`, `rams`, `storages`, `cases`, `psus`, `coolers`),
+`supplier_prices`, `suppliers`, `unmapped_supplier_items`,
+`auto_price_loads`, `auto_price_load_runs`, `exchange_rates`, `matches`,
+`ktru_catalog`, `schema_migrations`.
+
+**Шаг Л.1. Применить миграцию 0035 на pre-prod-БД.** Раннер
+`scripts/apply_migrations.py` смотрит на `DATABASE_URL` из `.env` (dev),
+для pre-prod применяем напрямую psql'ом и руками фиксируем в журнале:
+
+```bash
+URL=$(python -c "
+with open('.env.local.preprod.v2', encoding='utf-8-sig') as f:
+    for line in f.read().splitlines():
+        s=line.strip()
+        if s.startswith('DATABASE_PUBLIC_URL='):
+            print(s.split('=',1)[1].strip().strip(chr(34)).strip(chr(39)))
+            break")
+
+PGSSLMODE=require psql "$URL" <<'SQL'
+\i migrations/0035_ingest_writer_role.sql
+INSERT INTO schema_migrations (filename)
+VALUES ('0035_ingest_writer_role.sql')
+ON CONFLICT DO NOTHING;
+SELECT filename, applied_at
+FROM schema_migrations
+WHERE filename='0035_ingest_writer_role.sql';
+SQL
+```
+
+Ожидаемый вывод: `DO`, серия `GRANT`, `INSERT 0 1`, одна строка с
+`applied_at`. Миграция идемпотентна — повтор не ломает ничего.
+
+**Шаг Л.2. Сгенерировать пароль и выставить его роли.** Роль создаётся
+`NOLOGIN` — пароль ВНЕ git, ВНЕ репо, ВНЕ LLM-чата:
+
+```bash
+# Пишем SQL во временный файл — пароль не попадает в bash-args,
+# не светится в `ps`. На Windows-psql 16 используем stdin redirection
+# (`-f <path>` иногда теряет аргумент).
+TMP=$(python -c "
+import secrets, tempfile, os
+pwd = secrets.token_urlsafe(32)
+sql = f\"ALTER ROLE ingest_writer WITH LOGIN PASSWORD '{pwd}';\\n\"
+fd, p = tempfile.mkstemp(suffix='.sql', prefix='ingest_pwd_')
+with os.fdopen(fd, 'w', encoding='utf-8') as f: f.write(sql)
+print(p)
+fd2, p2 = tempfile.mkstemp(suffix='.txt', prefix='ingest_pwd_val_')
+with os.fdopen(fd2, 'w', encoding='utf-8') as f: f.write(pwd)
+print(p2)")
+SQL_FILE=$(echo "$TMP" | head -1)
+PWD_FILE=$(echo "$TMP" | tail -1)
+
+PGSSLMODE=require psql "$URL" < "$SQL_FILE"   # ALTER ROLE
+rm -f "$SQL_FILE"                              # удаляем SQL с паролем
+
+# Формируем INGEST_WRITER_DATABASE_URL_PREPROD и кладём в .env.local.preprod.v2
+BASE_URL="$URL" PWD_FILE="$PWD_FILE" python - <<'PY'
+import os, re, urllib.parse
+url=os.environ['BASE_URL']
+with open(os.environ['PWD_FILE'], 'r', encoding='utf-8') as f:
+    pwd=f.read().strip()
+m=re.match(r'^postgres(?:ql)?://([^:]+):([^@]+)@([^:/]+):(\d+)/(.+?)(?:\?.*)?$', url)
+_u,_p,host,port,db=m.groups(); db=db.split('?')[0]
+ingest_url=f'postgresql+psycopg2://ingest_writer:{urllib.parse.quote(pwd, safe="")}@{host}:{port}/{db}?sslmode=require'
+path='.env.local.preprod.v2'
+with open(path, 'r', encoding='utf-8-sig', newline='') as f: txt=f.read()
+lines=[l for l in txt.splitlines() if not l.strip().startswith('INGEST_WRITER_DATABASE_URL_PREPROD=')]
+new='\n'.join(lines).rstrip('\n')+'\n'+f'INGEST_WRITER_DATABASE_URL_PREPROD={ingest_url}\n'
+with open(path, 'w', encoding='utf-8') as f: f.write(new)
+PY
+
+rm -f "$PWD_FILE"                              # удаляем txt с паролем
+```
+
+Файл `.env.local.preprod.v2` gitignored (паттерн `.env.local.preprod*`),
+пароль остаётся только в нём + в БД Railway. Если ALTER ROLE упал —
+роль остаётся `NOLOGIN`, повтор безопасен.
+
+**Шаг Л.3. Smoke-проверки под `ingest_writer`.** Используем URL из
+`.env.local.preprod.v2` (предварительно конвертируем SQLAlchemy-схему
+`postgresql+psycopg2://` в psql-схему `postgresql://`):
+
+```bash
+INGEST_URL=$(python -c "
+with open('.env.local.preprod.v2', encoding='utf-8-sig') as f:
+    for line in f.read().splitlines():
+        s=line.strip()
+        if s.startswith('INGEST_WRITER_DATABASE_URL_PREPROD='):
+            v=s.split('=',1)[1].strip().strip(chr(34)).strip(chr(39))
+            print(v.replace('postgresql+psycopg2://', 'postgresql://'))
+            break")
+
+# Positive: подключение + SELECT на свои таблицы
+PGSSLMODE=require psql "$INGEST_URL" <<'SQL'
+SELECT current_user, current_database();
+SELECT COUNT(*) FROM settings;
+SELECT COUNT(*) FROM ktru_watchlist;
+SELECT COUNT(*) FROM excluded_regions;
+SELECT COUNT(*) FROM (SELECT 1 FROM tenders LIMIT 1) t;
+SQL
+
+# Positive: INSERT тестовой строки + DELETE (CASCADE подчистит items/status)
+PGSSLMODE=require psql "$INGEST_URL" <<'SQL'
+BEGIN;
+INSERT INTO tenders (reg_number, customer, customer_region, nmck_total, url)
+VALUES ('TEST-9E1-SMOKE-001','Smoke Test','Регион',100.00,'http://example.invalid');
+INSERT INTO tender_items (tender_id, position_num, ktru_code, name, qty, unit, nmck_per_unit)
+VALUES ('TEST-9E1-SMOKE-001',1,'26.20.16.120-00000013','Тест',1,'шт',100.00);
+INSERT INTO tender_status (tender_id, status, changed_by)
+VALUES ('TEST-9E1-SMOKE-001','new','smoke-test');
+DELETE FROM tenders WHERE reg_number='TEST-9E1-SMOKE-001';
+COMMIT;
+SQL
+
+# Negative: ВСЕ должны вернуть `permission denied for table <name>`
+for tbl in users audit_log printers_mfu supplier_prices matches suppliers cpus auto_price_loads; do
+  echo "--- $tbl ---"
+  PGSSLMODE=require psql "$INGEST_URL" -tA <<SQL
+SELECT 1 FROM $tbl LIMIT 1;
+SQL
+done
+```
+
+Ожидаемый итог smoke-проверки на 2026-05-11 (pre-prod): все positive —
+успех; все 8 negative — `ERROR: permission denied for table <name>`.
+
+**Шаг Л.4. Использование URL в офисном worker'е.** На сервере в РФ
+переменная окружения `DATABASE_URL` worker-сервиса = значение
+`INGEST_WRITER_DATABASE_URL_PREPROD` из `.env.local.preprod.v2`. Pre-prod
+APScheduler-job `auctions_ingest` в `portal-preprod` (Railway) при этом
+остаётся включённым — он использует внутренний `DATABASE_URL` под
+postgres-суперюзером, для прод-режима с офисного worker'а он будет
+выключен на этапе 9e.3 (правка `portal/scheduler.py`).
+
+> Для prod-БД (этап 9e.4) повторяем ту же процедуру: применяем 0035 на
+> prod-postgres (там CREATE ROLE будет первой выдачей роли), генерируем
+> отдельный пароль, формируем `INGEST_WRITER_DATABASE_URL_PROD` в
+> `.env.local.prod*` (gitignored). Пароли pre-prod и prod — РАЗНЫЕ.
+
 ---
 
 ## Если что-то пошло не так
