@@ -225,6 +225,7 @@ class InboxFilters:
     nmck_max: Decimal | None = None
     search: str | None = None
     urgent_only: bool = False
+    print_only: bool = False
 
 
 _INBOX_SQL = """
@@ -242,6 +243,18 @@ primary_count AS (
       JOIN tender_items ti ON ti.id = m.tender_item_id
      WHERE m.match_type = 'primary'
      GROUP BY ti.tender_id
+),
+items_breakdown AS (
+    -- Префиксы 26.20.18.000- (МФУ) и 26.20.16.120- (Принтер) — печатная техника.
+    -- Остальные коды (или NULL) — non-print позиции (ПК, мониторы и т.п.).
+    SELECT ti.tender_id,
+           COUNT(*) AS total_cnt,
+           COUNT(*) FILTER (
+               WHERE ti.ktru_code LIKE '26.20.18.000-%'
+                  OR ti.ktru_code LIKE '26.20.16.120-%'
+           ) AS printer_cnt
+      FROM tender_items ti
+     GROUP BY ti.tender_id
 )
 SELECT t.reg_number,
        t.customer,
@@ -252,11 +265,15 @@ SELECT t.reg_number,
        ts.status,
        mm.max_pct                                                AS max_margin_pct,
        COALESCE(pc.n, 0)                                         AS primary_count,
+       COALESCE(ib.total_cnt, 0)                                 AS total_items_count,
+       COALESCE(ib.printer_cnt, 0)                               AS printer_items_count,
+       COALESCE(ib.total_cnt, 0) - COALESCE(ib.printer_cnt, 0)   AS non_printer_items_count,
        (t.submit_deadline IS NOT NULL AND t.submit_deadline < NOW()) AS is_overdue
   FROM tenders t
   LEFT JOIN tender_status ts ON ts.tender_id = t.reg_number
   LEFT JOIN max_margin    mm ON mm.tender_id = t.reg_number
   LEFT JOIN primary_count pc ON pc.tender_id = t.reg_number
+  LEFT JOIN items_breakdown ib ON ib.tender_id = t.reg_number
  WHERE (:has_status_filter = 0 OR ts.status = ANY(CAST(:statuses AS text[])))
    AND (:nmck_min IS NULL OR t.nmck_total >= :nmck_min)
    AND (:nmck_max IS NULL OR t.nmck_total <= :nmck_max)
@@ -265,6 +282,11 @@ SELECT t.reg_number,
         OR t.reg_number      ILIKE :search_like
         OR t.customer        ILIKE :search_like
         OR t.customer_region ILIKE :search_like
+       )
+   AND (
+        :print_only = 0
+        OR (COALESCE(ib.total_cnt, 0) > 0
+            AND COALESCE(ib.total_cnt, 0) = COALESCE(ib.printer_cnt, 0))
        )
  ORDER BY t.submit_deadline DESC NULLS LAST, t.reg_number
 """
@@ -332,6 +354,7 @@ def get_inbox_data(
         "nmck_max":          filters.nmck_max,
         "search":            filters.search,
         "search_like":       f"%{filters.search}%" if filters.search else None,
+        "print_only":        1 if filters.print_only else 0,
     }
 
     rows = db.execute(text(_INBOX_SQL), params).all()
@@ -367,6 +390,9 @@ def get_inbox_data(
             "max_margin_pct":  r.max_margin_pct,
             "primary_count":   int(r.primary_count or 0),
             "is_overdue":      bool(r.is_overdue),
+            "total_items_count":       int(r.total_items_count or 0),
+            "printer_items_count":     int(r.printer_items_count or 0),
+            "non_printer_items_count": int(r.non_printer_items_count or 0),
         })
 
     totals = {k: len(v) for k, v in sections.items()}

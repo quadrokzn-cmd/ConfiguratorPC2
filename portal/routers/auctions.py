@@ -98,6 +98,7 @@ def auctions_inbox(
     nmck_max = _parse_decimal(qp.get("nmck_max"))
     search = (qp.get("q") or "").strip() or None
     urgent_only = qp.get("urgent_only", "") in ("1", "on", "true")
+    print_only = qp.get("print_only", "") in ("1", "on", "true")
 
     filters = svc.InboxFilters(
         statuses=statuses,
@@ -105,6 +106,7 @@ def auctions_inbox(
         nmck_max=nmck_max,
         search=search,
         urgent_only=urgent_only,
+        print_only=print_only,
     )
 
     margin_threshold = svc.read_setting_int(db, "margin_threshold_pct", 15)
@@ -135,6 +137,7 @@ def auctions_inbox(
                 "nmck_max":    nmck_max,
                 "search":      search or "",
                 "urgent_only": urgent_only,
+                "print_only":  print_only,
             },
             "fmt_msk":              svc.format_msk_dt,
             "info":                 flash_info,
