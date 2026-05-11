@@ -1,12 +1,9 @@
-# /admin/users портала: список менеджеров, создание, активация/
-# деактивация, редактирование permissions (этап 9Б.1).
+# /settings/users портала: список менеджеров, создание, активация/
+# деактивация, редактирование permissions.
 #
-# Перенос полностью из конфигуратора (app/routers/admin_router.py)
-# с добавлениями:
-#   - чекбоксы по MODULE_KEYS (в UI 9Б.1 показываем только
-#     "configurator" — остальные ключи скрыты, но логика готова);
-#   - permissions при создании по умолчанию {"configurator": True};
-#   - отдельный POST /admin/users/{id}/permissions для перезаписи прав.
+# Этап UI-3 (Путь B, 2026-05-11): переехал из portal/routers/admin_users.py
+# (старый префикс /admin/users) — логика без изменений, только URL.
+# Перенос выполнен в рамках оформления раздела «Настройки».
 
 from __future__ import annotations
 
@@ -40,7 +37,7 @@ from shared import user_repo
 logger = logging.getLogger(__name__)
 
 
-router = APIRouter(prefix="/admin")
+router = APIRouter(prefix="/settings")
 
 
 # Видимые в UI чекбоксы: configurator (с этапа 9Б.1) + 3 ключа аукционов
@@ -66,7 +63,7 @@ def users_list(
     users = user_repo.list_users(db)
     return templates.TemplateResponse(
         request,
-        "admin/users.html",
+        "settings/users.html",
         {
             "user":       user,
             "csrf_token": get_csrf_token(request),
@@ -104,16 +101,16 @@ def users_create(
     name_clean = (name or "").strip()
     if not login_clean or not name_clean or not password:
         request.session["flash_error"] = "Заполните логин, имя и пароль."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
     if len(password) < 6:
         request.session["flash_error"] = "Пароль должен быть не короче 6 символов."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
     role_clean = (role or "manager").strip().lower()
     if role_clean not in _VALID_ROLES:
         request.session["flash_error"] = "Недопустимая роль."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
     try:
         new_user_id = user_repo.create_manager(
@@ -128,7 +125,7 @@ def users_create(
             request.session["flash_error"] = f"Логин «{login_clean}» уже занят."
         else:
             request.session["flash_error"] = f"Ошибка создания: {exc}"
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
     ip, ua = extract_request_meta(request)
     write_audit(
@@ -147,7 +144,7 @@ def users_create(
     request.session["flash_info"] = (
         f"Пользователь «{login_clean}» создан ({role_label})."
     )
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
 
 @router.post("/users/{user_id}/toggle")
@@ -163,7 +160,7 @@ def users_toggle(
         raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
     if int(user_id) == int(user.id):
         request.session["flash_error"] = "Нельзя деактивировать собственную учётку."
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
     new_state = user_repo.toggle_user_active(db, user_id)
     ip, ua = extract_request_meta(request)
     write_audit(
@@ -180,7 +177,7 @@ def users_toggle(
     request.session["flash_info"] = (
         f"Пользователь переведён в состояние: {'активен' if new_state else 'отключён'}."
     )
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
 
 @router.post("/users/{user_id}/role")
@@ -196,7 +193,7 @@ def users_set_role(
     """Меняет роль пользователя (admin/manager). Защиты:
        - role должен быть из {admin, manager}, иначе 422;
        - target должен существовать, иначе 404;
-       - role==current → no-op (302 на /admin/users без записи в БД);
+       - role==current → no-op (302 на /settings/users без записи в БД);
        - нельзя понизить последнего админа (400);
        - самопонижение admin→manager требует confirm_self_demotion='true' (400 без флага).
     Все 400/404/422 идут в session.flash_error и редиректят на список —
@@ -218,7 +215,7 @@ def users_set_role(
 
     # No-op: ничего не меняем, просто отвечаем успехом.
     if current_role == role_clean:
-        return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+        return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
     is_demotion = current_role == "admin" and role_clean == "manager"
 
@@ -265,7 +262,7 @@ def users_set_role(
 
     role_label = "администратор" if role_clean == "admin" else "менеджер"
     request.session["flash_info"] = f"Роль обновлена: {role_label}."
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
 
 @router.post("/users/{user_id}/delete-permanent")
@@ -366,7 +363,7 @@ def users_delete_permanent(
     request.session["flash_info"] = (
         f"Пользователь «{deleted_login}» удалён навсегда."
     )
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)
 
 
 @router.post("/users/{user_id}/permissions")
@@ -411,4 +408,4 @@ async def users_update_permissions(
             user_agent=ua,
         )
         request.session["flash_info"] = "Права обновлены."
-    return RedirectResponse(url="/admin/users", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/users", status_code=status.HTTP_302_FOUND)

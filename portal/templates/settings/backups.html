@@ -28,7 +28,7 @@
     </p>
     {# 12.5a: HTML-модал вместо нативного confirm() — см.
        static/js/portal-dialog.js (wireAllConfirmForms). #}
-    <form method="post" action="/admin/backups/create"
+    <form method="post" action="/settings/backups/create"
           class="kt-confirm-form"
           data-confirm-message="Создать резервную копию БД сейчас?">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
@@ -67,7 +67,7 @@
           <td class="text-ink-secondary">{{ r.created_msk }}</td>
           <td class="text-right">
             <a class="btn btn-sm btn-secondary"
-               href="/admin/backups/download/{{ r.tier }}/{{ r.filename }}">
+               href="/settings/backups/download/{{ r.tier }}/{{ r.filename }}">
               Скачать
             </a>
           </td>

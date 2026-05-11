@@ -35,13 +35,10 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from app.config import settings
 from portal.routers import (
-    admin_audit,
     admin_auctions,
     admin_auto_price,
-    admin_backups,
     admin_diagnostics,
     admin_price_uploads,
-    admin_users,
     auctions,
     auth,
     home,
@@ -51,6 +48,11 @@ from portal.routers.databases import (
     components as databases_components,
     mapping as databases_mapping,
     suppliers as databases_suppliers,
+)
+from portal.routers.settings import (
+    audit_log as settings_audit_log,
+    backups as settings_backups,
+    users as settings_users,
 )
 from portal.scheduler import init_scheduler, shutdown_scheduler
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
@@ -107,9 +109,12 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Роутеры. Порядок: сначала auth (/login, /logout) — на нём нет require_login.
 # Потом /admin — нужен только админам. Потом / — last resort.
 app.include_router(auth.router)
-app.include_router(admin_users.router)
-app.include_router(admin_backups.router)
-app.include_router(admin_audit.router)
+# UI-3 (Путь B, 2026-05-11): «Настройки» — пользователи, бэкапы, журнал
+# действий. Префикс /settings/* (старые /admin/{users,backups,audit}
+# отдают 301 на новые URL — см. блок ниже).
+app.include_router(settings_users.router)
+app.include_router(settings_backups.router)
+app.include_router(settings_audit_log.router)
 app.include_router(admin_price_uploads.router)
 app.include_router(admin_auto_price.router)
 app.include_router(admin_auctions.router)
@@ -121,6 +126,55 @@ app.include_router(nomenclature.router)
 app.include_router(databases_suppliers.router)
 app.include_router(databases_components.router)
 app.include_router(databases_mapping.router)
+
+
+# UI-3 (Путь B, 2026-05-11): 301-редиректы со старых URL раздела
+# «Настройки» на новые /settings/*. Старые URL жили в portal под
+# префиксом /admin (admin_users / admin_backups / admin_audit), теперь
+# переехали. Используем три точечных catch-all'а (по разделу) + по
+# корневому handler'у на каждый, чтобы НЕ задеть соседей:
+# /admin/price-uploads, /admin/auto-price-loads, /admin/auctions,
+# /admin/diagnostics остаются на месте до отдельных этапов.
+
+def _settings_redirect(new_path: str) -> RedirectResponse:
+    return RedirectResponse(
+        url=new_path, status_code=status.HTTP_301_MOVED_PERMANENTLY,
+    )
+
+
+@app.get("/admin/users")
+def _redirect_admin_users_root():
+    return _settings_redirect("/settings/users")
+
+
+@app.get("/admin/users/{rest:path}")
+def _redirect_admin_users_sub(rest: str):
+    suffix = f"/{rest}" if rest else ""
+    return _settings_redirect(f"/settings/users{suffix}")
+
+
+@app.get("/admin/backups")
+def _redirect_admin_backups_root():
+    return _settings_redirect("/settings/backups")
+
+
+@app.get("/admin/backups/{rest:path}")
+def _redirect_admin_backups_sub(rest: str):
+    suffix = f"/{rest}" if rest else ""
+    return _settings_redirect(f"/settings/backups{suffix}")
+
+
+@app.get("/admin/audit")
+def _redirect_admin_audit_root():
+    return _settings_redirect("/settings/audit-log")
+
+
+@app.get("/admin/audit/{rest:path}")
+def _redirect_admin_audit_sub(rest: str):
+    suffix = f"/{rest}" if rest else ""
+    return _settings_redirect(f"/settings/audit-log{suffix}")
+
+
 app.include_router(home.router)
 
 

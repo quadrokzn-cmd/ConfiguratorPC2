@@ -54,17 +54,47 @@ UI-лейблы (только UI, без смены URL и таблиц БД):
 |---|---|---|
 | `/databases/components` | «Компоненты» | «Комплектующие для ПК» |
 
-## UI-3 (план) — «Настройки» в `/settings/*`
+## UI-3 (2026-05-11) — перенос «Настроек» в `/settings/*`
 
-Планируется переезд:
+Перенос внутри портала: файлы и так жили в `portal/`, переехала только
+структура папок (`admin_*` → `routers/settings/*`, `templates/admin/*`
+→ `templates/settings/*`) и URL-префиксы.
 
-| Сейчас (портал)           | После UI-3                  |
-|---|---|
-| `/admin/users`            | `/settings/users`           |
-| `/admin/backups`          | `/settings/backups`         |
-| `/admin/audit`            | `/settings/audit-log`       |
+| Старый URL (портал)                  | Новый URL (портал)                      | 301-редирект |
+|---|---|---|
+| `/admin/users`                       | `/settings/users`                       | ✓ (`portal/main.py`) |
+| `/admin/users/{id}/toggle`           | `/settings/users/{id}/toggle`           | GET — ✓, POST → 404 |
+| `/admin/users/{id}/role`             | `/settings/users/{id}/role`             | GET — ✓, POST → 404 |
+| `/admin/users/{id}/permissions`      | `/settings/users/{id}/permissions`      | GET — ✓, POST → 404 |
+| `/admin/users/{id}/delete-permanent` | `/settings/users/{id}/delete-permanent` | GET — ✓, POST → 404 |
+| `/admin/backups`                     | `/settings/backups`                     | ✓ |
+| `/admin/backups/create`              | `/settings/backups/create`              | GET — ✓, POST → 404 |
+| `/admin/backups/download/{tier}/{filename}` | `/settings/backups/download/{tier}/{filename}` | ✓ |
+| `/admin/audit`                       | `/settings/audit-log`                   | ✓ |
+| `/admin/audit/export`                | `/settings/audit-log/export`            | ✓ |
 
-Старые `/admin/users*` и т.д. получат внутренние 301 на новые URL.
+> **Про POST.** Catch-all'ы в `portal/main.py` ловят только GET.
+> POST-формы у старых URL приведут к 404, т.к. сами обработчики удалены.
+> Это OK: страницы `/admin/{users,backups,audit}` больше не отдаются,
+> поэтому формы с этими `action=...` физически не рендерятся ни в одном
+> шаблоне. Если у кого-то старая страница ещё открыта в браузере,
+> при сабмите получит 404 — перезагрузит страницу и попадёт на новый URL.
+
+Также обновлён конфигуратор: `config.quadro.tatar/admin/users` теперь
+сразу 302 на `${portal_url}/settings/users` (раньше отдавал
+`${portal_url}/admin/users`, что давало двойной hop).
+
+Соседние `/admin/{price-uploads,auto-price-loads,diagnostics,auctions}*`
+НЕ задеты — переедут отдельно (после UI-5, вместе с финальной
+сортировкой по разделам).
+
+UI-лейблы (sidebar / breadcrumbs) и subsection-ключи:
+
+| URL | Старый лейбл | Новый лейбл / sub-key |
+|---|---|---|
+| `/settings/users` | «Пользователи» | без изменений (sub-key `users`) |
+| `/settings/backups` | «Бэкапы» | без изменений (sub-key `backups`) |
+| `/settings/audit-log` | «Журнал действий» | без изменений; sub-key `audit` → `audit-log` |
 
 ## UI-4 (план) — перенос Конфигуратора в `/configurator/*`
 

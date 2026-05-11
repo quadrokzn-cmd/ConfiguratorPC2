@@ -177,20 +177,22 @@ def test_databases_mapping_page_renders_with_correct_subsection(admin_portal_cli
 
 
 def test_audit_active_section_is_settings(admin_portal_client):
-    r = admin_portal_client.get("/admin/audit")
+    # UI-3 (Путь B, 2026-05-11): /admin/audit → 301 → /settings/audit-log.
+    r = admin_portal_client.get("/settings/audit-log")
     assert r.status_code == 200, r.status_code
     html = r.text
     assert _active_section(html) == "settings"
     assert _has_section_subitems_container(html, "settings")
-    for sub in ("users", "backups", "audit"):
+    for sub in ("users", "backups", "audit-log"):
         assert _has_subitem(html, sub), f"Подпункт «Настройки» {sub!r} отсутствует"
     # И на этой странице помечен активный подпункт — «Журнал действий».
-    assert 'data-subsection="audit"' in html
+    assert 'data-subsection="audit-log"' in html
     assert 'aria-current="page"' in html
 
 
 def test_users_page_active_subsection_is_users(admin_portal_client):
-    r = admin_portal_client.get("/admin/users")
+    # UI-3 (Путь B, 2026-05-11): /admin/users → 301 → /settings/users.
+    r = admin_portal_client.get("/settings/users")
     assert r.status_code == 200, r.status_code
     html = r.text
     assert _active_section(html) == "settings"

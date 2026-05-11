@@ -70,11 +70,13 @@ def test_admin_pages_available_for_admin(admin_client):
 
 def test_admin_users_redirects_to_portal(admin_client):
     """Этап 9Б.1: /admin/users переехал в портал. Конфигуратор отдаёт
-    302 на ${PORTAL_URL}/admin/users — независимо от роли (проверка
-    прав делается уже на портале)."""
+    302 на ${PORTAL_URL}/settings/users — независимо от роли (проверка
+    прав делается уже на портале).
+    UI-3 (Путь B, 2026-05-11): URL в портале сменился с /admin/users на
+    /settings/users, конфигуратор обновлён, чтобы не делать двойной hop."""
     r = admin_client.get("/admin/users", follow_redirects=False)
     assert r.status_code == 302
-    assert r.headers["location"].endswith("/admin/users")
+    assert r.headers["location"].endswith("/settings/users")
     assert "://" in r.headers["location"]  # абсолютный URL на портал
 
 

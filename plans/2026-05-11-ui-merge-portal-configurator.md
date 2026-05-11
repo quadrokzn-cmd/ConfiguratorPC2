@@ -125,7 +125,7 @@ DoD: все три страницы работают на новых URL; pytest
 - pytest регрессия: **1875 passed, 1 skipped, 0 failed** (UI-1 baseline
   был 1857; +18 новых нетто-кейсов).
 
-### UI-3 — перенос Настроек в portal/ [ ]
+### UI-3 — перенос Настроек в portal/ [x]
 
 Создать раздел «Настройки» в portal/. Внутри:
 - Пользователи (`/settings/users`)
@@ -135,6 +135,70 @@ DoD: все три страницы работают на новых URL; pytest
 Если «Пользователи» уже в portal — просто перевесить URL в `/settings/users`. Бэкапы и Журнал — переехать или сгруппировать.
 
 DoD: все три страницы работают под `/settings/*`; pytest зелёный.
+
+**Артефакты UI-3 (2026-05-11):**
+
+- `portal/routers/settings/` — новая папка с тремя модулями:
+  `users.py` (префикс `/settings`, маршруты `/users`,
+  `/users/{id}/...`), `backups.py` (префикс `/settings/backups`),
+  `audit_log.py` (префикс `/settings/audit-log`).
+- `portal/templates/settings/` — новая папка: `users.html`,
+  `backups.html`, `audit_log.html` (внутренние URL обновлены на
+  `/settings/...`).
+- Удалены старые `portal/routers/admin_{users,backups,audit}.py` и
+  `portal/templates/admin/{users,backups,audit}.html`.
+- `portal/main.py` — подключение трёх новых роутеров
+  (`settings_users`, `settings_backups`, `settings_audit_log`) и
+  шесть тонких 301-handler'ов (root + `{rest:path}` для каждого из
+  трёх разделов). Импорты `admin_users`, `admin_backups`,
+  `admin_audit` удалены.
+- `app/routers/admin_router.py` — старый редирект `/admin/users` →
+  `${portal_url}/admin/users` обновлён на
+  `${portal_url}/settings/users`, чтобы исключить двойной hop
+  (`config → portal/admin/users → portal/settings/users`).
+- `shared/templates/_partials/sidebar.html` — три подпункта
+  «Настройки» переписаны:
+  - Топ-ссылка раздела ведёт на `/settings/users` (раньше
+    `/admin/users`);
+  - `/admin/users` → `/settings/users` (sub-key `users`);
+  - `/admin/backups` → `/settings/backups` (sub-key `backups`);
+  - `/admin/audit` → `/settings/audit-log` (sub-key переименован
+    `audit` → `audit-log` для соответствия URL).
+- `portal/templates/base.html` — маппинг URL → `active_section/
+  subsection` добавлен для `/settings/{users,backups,audit-log}` (со
+  страховочными `/admin/*` fallback'ами на случай, если 301-ответ
+  где-то рендерит base.html).
+- Переименованы тесты:
+  - `tests/test_portal/test_admin_users.py` →
+    `test_settings_users.py`;
+  - `tests/test_portal/test_admin_audit.py` →
+    `test_settings_audit_log.py`;
+  - `tests/test_portal/test_admin_role_change.py` →
+    `test_settings_role_change.py`;
+  - `tests/test_portal/test_admin_user_delete.py` →
+    `test_settings_user_delete.py`.
+  В каждом файле URL `/admin/{users,audit,backups}` обновлены на
+  `/settings/{users,audit-log,backups}`, заголовочные комментарии
+  переписаны.
+- Обновлены без переименования: `tests/test_portal/test_backups.py`
+  (был без `admin_`-префикса), `tests/test_portal/test_dashboard.py`,
+  `tests/test_portal/test_ui1_sidebar.py` (sub-key `audit-log` и
+  обновлённые URL), `tests/test_portal/test_stage12_5a_html_confirm_modal.py`,
+  `tests/test_web/test_access.py` (assert location =
+  `/settings/users`).
+- Новый файл `tests/test_portal/test_settings_redirects.py` —
+  9 кейсов на 301 (`/admin/{users,backups,audit}` + sub-routes) и
+  3 негативных кейса (`/admin/price-uploads`, `/admin/auto-price-loads`,
+  `/admin/diagnostics` НЕ редиректятся).
+- `docs/ui-architecture.md` — раздел «Настройки» помечен переехавшим,
+  обновлены маппинг URL → active_section, sub-key `audit` →
+  `audit-log`, добавлена таблица внутрипортальных 301-редиректов,
+  обновлена история.
+- `docs/url-migration-map.md` — заполнена секция UI-3 с полной
+  таблицей переездов (root + sub-routes для каждого из трёх
+  разделов).
+- pytest регрессия: **1886 passed, 1 skipped, 0 failed**
+  (UI-2 baseline был 1875; +11 новых нетто-кейсов).
 
 ### UI-4 — перенос самого Конфигуратора [ ]
 
@@ -163,8 +227,9 @@ DoD: prod/pre-prod работают только через portal-сервис;
 
 ## Итоговый блок
 
-Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1 и UI-2 выполнены**:
+Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1, UI-2 и UI-3 выполнены**:
 - UI-1 — общий sidebar + новое меню + плашка «Аукционы» (pytest 1857 passed);
-- UI-2 — перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`, 301 со старых `/admin/{suppliers,components,mapping}` (pytest 1875 passed).
+- UI-2 — перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`, 301 со старых `/admin/{suppliers,components,mapping}` (pytest 1875 passed);
+- UI-3 — оформление раздела «Настройки» в `portal/routers/settings/`, перевешивание трёх роутеров с `/admin/*` на `/settings/*` внутри портала + 301-обработчики со старых URL (pytest 1886 passed).
 
-Следующий этап — UI-3 (перенос «Настроек» в `portal/routers/settings/`).
+Следующий этап — UI-4 (перенос самого Конфигуратора из `app/` в `portal/routers/configurator/`).

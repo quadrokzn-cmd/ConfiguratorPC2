@@ -1,10 +1,13 @@
-# /admin/backups портала: управление бекапами БД (этап 9В.2).
+# /settings/backups портала: управление бекапами БД (Backblaze B2).
+#
+# Этап UI-3 (Путь B, 2026-05-11): переехал из portal/routers/admin_backups.py
+# (старый префикс /admin/backups) — логика без изменений, только URL.
 #
 # Эндпоинты:
-#   GET  /admin/backups               — список объектов в B2 по трём
-#                                       уровням (daily/weekly/monthly).
-#   POST /admin/backups/create        — ручной запуск perform_backup в фоне.
-#   GET  /admin/backups/download/...  — скачивание конкретного дампа.
+#   GET  /settings/backups               — список объектов в B2 по трём
+#                                          уровням (daily/weekly/monthly).
+#   POST /settings/backups/create        — ручной запуск perform_backup в фоне.
+#   GET  /settings/backups/download/...  — скачивание конкретного дампа.
 #
 # Все эндпоинты — require_admin.
 
@@ -38,7 +41,7 @@ from shared.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
 logger = logging.getLogger(__name__)
 
 
-router = APIRouter(prefix="/admin/backups")
+router = APIRouter(prefix="/settings/backups")
 
 
 _MSK_OFFSET_HOURS = 3  # упрощённая проекция в МСК для отображения списка
@@ -121,7 +124,7 @@ def backups_list(
 
     return templates.TemplateResponse(
         request,
-        "admin/backups.html",
+        "settings/backups.html",
         {
             "user":         user,
             "csrf_token":   get_csrf_token(request),
@@ -155,7 +158,7 @@ def backups_create(
 ):
     """Ручной запуск бекапа. Чтобы не держать запрос на 30+ секундах
     pg_dump'а, запускаем perform_backup в BackgroundTasks и сразу
-    возвращаем 302 на /admin/backups с флешем."""
+    возвращаем 302 на /settings/backups с флешем."""
     if not verify_csrf(request, csrf_token):
         raise HTTPException(status_code=400, detail="Неверный CSRF-токен.")
 
@@ -173,7 +176,7 @@ def backups_create(
         ip=ip,
         user_agent=ua,
     )
-    return RedirectResponse(url="/admin/backups", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/settings/backups", status_code=status.HTTP_302_FOUND)
 
 
 @router.get("/download/{tier}/{filename}")

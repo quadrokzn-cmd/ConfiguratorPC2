@@ -5,7 +5,7 @@
 # (boto3 не вызывается, сетевых обращений нет). Тесты проверяют:
 #   - политику ротации 7/4/6 для daily/weekly/monthly;
 #   - поведение perform_backup в зависимости от текущего МСК-дня;
-#   - права доступа на /admin/backups (admin / manager / anonymous);
+#   - права доступа на /settings/backups (admin / manager / anonymous);
 #   - регулярки безопасности имён файлов и tier'ов;
 #   - вызов pg_dump с правильными аргументами;
 #   - mask_db_url.
@@ -279,32 +279,32 @@ def test_perform_backup_uploads_all_three_when_first_of_month_is_sunday(
     assert len([k for k in fake_b2.objects if k.startswith(backup_service.MONTHLY_PREFIX)]) == 1
 
 
-# --- 10-12. UI/доступы на GET /admin/backups ---------------------------
+# --- 10-12. UI/доступы на GET /settings/backups ---------------------------
 
 def test_admin_can_get_backups_page(admin_portal_client, fake_b2):
-    r = admin_portal_client.get("/admin/backups")
+    r = admin_portal_client.get("/settings/backups")
     assert r.status_code == 200
     assert "Резервные копии БД" in r.text
 
 
 def test_manager_cannot_get_backups_page(manager_portal_client):
-    r = manager_portal_client.get("/admin/backups")
+    r = manager_portal_client.get("/settings/backups")
     # require_admin → HTTPException 403.
     assert r.status_code == 403
 
 
 def test_anonymous_cannot_get_backups_page(portal_client):
-    r = portal_client.get("/admin/backups")
+    r = portal_client.get("/settings/backups")
     # LoginRequiredRedirect → 302 на /login.
     assert r.status_code == 302
     assert "/login" in r.headers.get("location", "")
 
 
-# --- 13. POST /admin/backups/create требует admin ----------------------
+# --- 13. POST /settings/backups/create требует admin ----------------------
 
 def test_create_backup_endpoint_blocks_anonymous(portal_client):
     """Анонимный POST → require_admin поднимает LoginRequiredRedirect → 302."""
-    r = portal_client.post("/admin/backups/create", data={"csrf_token": "x"})
+    r = portal_client.post("/settings/backups/create", data={"csrf_token": "x"})
     assert r.status_code == 302
     assert "/login" in r.headers.get("location", "")
 
@@ -317,12 +317,12 @@ def test_create_backup_endpoint_blocks_manager(manager_portal_client):
     assert r.status_code == 200
     token = extract_csrf(r.text)
     r2 = manager_portal_client.post(
-        "/admin/backups/create", data={"csrf_token": token},
+        "/settings/backups/create", data={"csrf_token": token},
     )
     assert r2.status_code == 403
 
 
-# --- 14. Path traversal в /admin/backups/download/.../... -------------
+# --- 14. Path traversal в /settings/backups/download/.../... -------------
 
 @pytest.mark.parametrize("tier,filename", [
     ("daily", "../etc/passwd"),
@@ -335,7 +335,7 @@ def test_create_backup_endpoint_blocks_manager(manager_portal_client):
 def test_download_endpoint_path_traversal_blocked(
     admin_portal_client, fake_b2, tier, filename
 ):
-    r = admin_portal_client.get(f"/admin/backups/download/{tier}/{filename}")
+    r = admin_portal_client.get(f"/settings/backups/download/{tier}/{filename}")
     # Любой такой запрос должен быть отбит 400/404 — не 200.
     assert r.status_code in (400, 404)
 

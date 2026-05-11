@@ -1,6 +1,7 @@
-# Тесты физического удаления пользователя в /admin/users (этап 9В.4.2).
+# Тесты физического удаления пользователя в /settings/users
+# (бывший /admin/users; перенос на этапе UI-3 Пути B, 2026-05-11).
 #
-# Бриф: новая кнопка «Удалить навсегда» — POST /admin/users/{id}/delete-permanent.
+# Бриф: новая кнопка «Удалить навсегда» — POST /settings/users/{id}/delete-permanent.
 # Эндпоинт за require_admin, требует CSRF, confirm_login, чтобы target был
 # disabled, не сам current_user, не последний admin и без отправленных
 # писем поставщикам. После DELETE: запись в audit_log с action
@@ -20,7 +21,7 @@ from tests.test_portal.conftest import _create_user, extract_csrf
 # --- helpers ------------------------------------------------------------
 
 def _csrf(client) -> str:
-    r = client.get("/admin/users")
+    r = client.get("/settings/users")
     assert r.status_code == 200, r.status_code
     return extract_csrf(r.text)
 
@@ -48,7 +49,7 @@ def test_delete_permanent_requires_admin(
     """Менеджер пытается удалить себя — require_admin отдаёт 403.
     CSRF не нужен: до проверки CSRF дело не должно дойти."""
     r = manager_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={"confirm_login": manager_user["login"]},
     )
     assert r.status_code == 403
@@ -59,7 +60,7 @@ def test_delete_permanent_anonymous_redirects_to_login(
     portal_client, manager_user, db_session,
 ):
     r = portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={"confirm_login": manager_user["login"]},
     )
     assert r.status_code == 302
@@ -74,7 +75,7 @@ def test_delete_permanent_requires_csrf(
 ):
     _disable(db_session, manager_user["id"])
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={"confirm_login": manager_user["login"]},  # csrf_token отсутствует
     )
     assert r.status_code == 400
@@ -87,7 +88,7 @@ def test_delete_permanent_requires_csrf(
 def test_delete_permanent_404_for_unknown_user(admin_portal_client):
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        "/admin/users/999999/delete-permanent",
+        "/settings/users/999999/delete-permanent",
         data={"csrf_token": token, "confirm_login": "anything"},
     )
     assert r.status_code == 404
@@ -101,7 +102,7 @@ def test_delete_permanent_400_for_active_user(
     """manager_user is_active=True по дефолту фикстуры."""
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": manager_user["login"],
@@ -127,7 +128,7 @@ def test_delete_permanent_400_for_self(
     )
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/delete-permanent",
+        f"/settings/users/{admin_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": admin_user["login"],
@@ -146,7 +147,7 @@ def test_delete_permanent_400_when_confirm_login_mismatched(
     _disable(db_session, manager_user["id"])
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": "wrong_login",
@@ -172,7 +173,7 @@ def test_delete_permanent_400_when_last_admin(
 
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/delete-permanent",
+        f"/settings/users/{admin_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": admin_user["login"],
@@ -200,7 +201,7 @@ def test_delete_permanent_succeeds_for_disabled_admin_when_other_admin_exists(
 
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{target_id}/delete-permanent",
+        f"/settings/users/{target_id}/delete-permanent",
         data={"csrf_token": token, "confirm_login": "ex_admin"},
     )
     assert r.status_code == 302
@@ -215,14 +216,14 @@ def test_delete_permanent_succeeds_for_disabled_manager(
     _disable(db_session, manager_user["id"])
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": manager_user["login"],
         },
     )
     assert r.status_code == 302
-    assert r.headers["location"] == "/admin/users"
+    assert r.headers["location"] == "/settings/users"
     assert not _user_exists(db_session, manager_user["id"])
 
     # audit_log: одна запись user.delete_permanent с правильными полями
@@ -247,7 +248,7 @@ def test_delete_permanent_writes_audit_with_correct_payload(
     _disable(db_session, manager_user["id"])
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": manager_user["login"],
@@ -296,7 +297,7 @@ def test_audit_log_user_id_becomes_null_after_user_delete(
     _disable(db_session, manager_user["id"])
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": manager_user["login"],
@@ -355,7 +356,7 @@ def test_delete_permanent_400_when_user_has_sent_emails(
     _disable(db_session, manager_user["id"])
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/delete-permanent",
+        f"/settings/users/{manager_user['id']}/delete-permanent",
         data={
             "csrf_token":    token,
             "confirm_login": manager_user["login"],

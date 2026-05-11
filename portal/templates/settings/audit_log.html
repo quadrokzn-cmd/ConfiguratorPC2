@@ -16,7 +16,7 @@
 
   {# === Фильтры =========================================================== #}
   <section class="card card-pad mb-6">
-    <form id="audit-filters" method="get" action="/admin/audit"
+    <form id="audit-filters" method="get" action="/settings/audit-log"
           class="grid grid-cols-1 md:grid-cols-6 gap-3">
 
       <div>
@@ -75,8 +75,8 @@
 
       <div class="md:col-span-6 flex flex-wrap items-center gap-3 pt-1">
         <button type="submit" class="btn btn-md btn-primary">Применить</button>
-        <a href="/admin/audit" class="btn btn-md btn-secondary">Сбросить</a>
-        <a href="/admin/audit/export?{{
+        <a href="/settings/audit-log" class="btn btn-md btn-secondary">Сбросить</a>
+        <a href="/settings/audit-log/export?{{
               ('user_id=' ~ filter.user_id if filter.user_id else '') ~
               '&action=' ~ filter.action ~
               '&target_type=' ~ filter.target_type ~
@@ -155,7 +155,7 @@
   <nav class="mt-4 flex items-center justify-center gap-2 text-small">
     {% if page > 1 %}
       <a class="btn btn-sm btn-secondary"
-         href="/admin/audit?page={{ page - 1 }}&{{ qs }}">← Назад</a>
+         href="/settings/audit-log?page={{ page - 1 }}&{{ qs }}">← Назад</a>
     {% else %}
       <span class="btn btn-sm btn-ghost opacity-50">← Назад</span>
     {% endif %}
@@ -164,7 +164,7 @@
 
     {% if page < pages_total %}
       <a class="btn btn-sm btn-secondary"
-         href="/admin/audit?page={{ page + 1 }}&{{ qs }}">Вперёд →</a>
+         href="/settings/audit-log?page={{ page + 1 }}&{{ qs }}">Вперёд →</a>
     {% else %}
       <span class="btn btn-sm btn-ghost opacity-50">Вперёд →</span>
     {% endif %}

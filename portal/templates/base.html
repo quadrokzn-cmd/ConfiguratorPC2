@@ -42,15 +42,21 @@
 {% elif _path.startswith('/databases/mapping') %}
   {% set active_section = 'databases' %}
   {% set active_subsection = 'mapping' %}
-{% elif _path.startswith('/admin/users') %}
+{# UI-3 (Путь B, 2026-05-11): «Настройки» переехали из /admin/{users,
+   backups,audit} на /settings/{users,backups,audit-log}. Старые URL
+   отдают 301 (см. portal/main.py), сами страницы здесь больше не
+   обрабатываются — но проверки на /admin/users etc. остаются для
+   подсветки sidebar на самом 301-ответе (он не рендерит base.html,
+   но это безвредная страховка). #}
+{% elif _path.startswith('/settings/users') or _path.startswith('/admin/users') %}
   {% set active_section = 'settings' %}
   {% set active_subsection = 'users' %}
-{% elif _path.startswith('/admin/backups') %}
+{% elif _path.startswith('/settings/backups') or _path.startswith('/admin/backups') %}
   {% set active_section = 'settings' %}
   {% set active_subsection = 'backups' %}
-{% elif _path.startswith('/admin/audit') %}
+{% elif _path.startswith('/settings/audit-log') or _path.startswith('/admin/audit') %}
   {% set active_section = 'settings' %}
-  {% set active_subsection = 'audit' %}
+  {% set active_subsection = 'audit-log' %}
 {% else %}
   {# Главная портала + любые неклассифицированные admin-страницы. #}
   {% set active_section = 'home' %}

@@ -4,12 +4,12 @@
 # - Скрипт static/js/portal-dialog.js подключён через portal/base.html.
 # - Файл portal-dialog.js содержит ключевые публичные API
 #   (confirmDialog, toastDialog) и aria-атрибуты, нужные для access.
-# - На /admin/auto-price-loads и /admin/backups больше нет inline
+# - На /admin/auto-price-loads и /settings/backups больше нет inline
 #   onsubmit="return confirm(...)".
 # - На этих страницах есть форма с классом kt-confirm-form
 #   и data-confirm-message — это та идиома, на которую хук JS навешивает
 #   HTML-модал.
-# - На /admin/price-uploads и /admin/users в <script>-блоках больше нет
+# - На /admin/price-uploads и /settings/users в <script>-блоках больше нет
 #   нативных вызовов alert() и confirm() — заменены на window.toastDialog
 #   и window.confirmDialog.
 
@@ -132,10 +132,10 @@ def test_auto_price_loads_run_form_has_confirm_message_text(
     )
 
 
-# --- 4. /admin/backups — то же самое -----------------------------------
+# --- 4. /settings/backups — то же самое -----------------------------------
 
 def test_backups_create_uses_html_modal(admin_portal_client):
-    r = admin_portal_client.get("/admin/backups")
+    r = admin_portal_client.get("/settings/backups")
     assert r.status_code == 200
     html = r.text
     assert 'onsubmit="return confirm(' not in html
@@ -167,10 +167,10 @@ def test_price_uploads_js_no_native_confirm_or_alert(admin_portal_client):
     assert "toastDialog" in code
 
 
-# --- 6. /admin/users --- self-demotion и hard-delete тоже HTML-модал ---
+# --- 6. /settings/users --- self-demotion и hard-delete тоже HTML-модал ---
 
 def test_users_js_no_native_confirm_or_alert(admin_portal_client):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     assert r.status_code == 200
     html = r.text
     scripts = re.findall(r"<script[^>]*>(.*?)</script>",

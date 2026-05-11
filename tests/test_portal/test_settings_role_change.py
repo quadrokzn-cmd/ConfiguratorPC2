@@ -1,4 +1,5 @@
-# Тесты смены роли пользователя в /admin/users портала (этап 9Б.5).
+# Тесты смены роли пользователя в /settings/users портала
+# (бывший /admin/users; перенос на этапе UI-3 Пути B, 2026-05-11).
 #
 # Брифа: только admin может менять роли; нельзя оставить систему без
 # админов (последний admin защищён); самопонижение требует подтверждения;
@@ -20,8 +21,8 @@ from tests.test_portal.conftest import (
 # --- helpers ------------------------------------------------------------
 
 def _csrf(client) -> str:
-    """Открывает /admin/users и достаёт CSRF из формы."""
-    r = client.get("/admin/users")
+    """Открывает /settings/users и достаёт CSRF из формы."""
+    r = client.get("/settings/users")
     assert r.status_code == 200, r.status_code
     return extract_csrf(r.text)
 
@@ -40,11 +41,11 @@ def test_admin_can_promote_manager_to_admin(
 ):
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/role",
+        f"/settings/users/{manager_user['id']}/role",
         data={"csrf_token": token, "role": "admin"},
     )
     assert r.status_code == 302
-    assert r.headers["location"] == "/admin/users"
+    assert r.headers["location"] == "/settings/users"
     assert _role_in_db(db_session, manager_user["id"]) == "admin"
 
 
@@ -61,7 +62,7 @@ def test_admin_can_demote_admin_to_manager(
     )
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{other_admin_id}/role",
+        f"/settings/users/{other_admin_id}/role",
         data={"csrf_token": token, "role": "manager"},
     )
     assert r.status_code == 302
@@ -76,7 +77,7 @@ def test_manager_cannot_change_role(
     """Менеджер залогинен, шлёт POST смены роли админу. Это require_admin
     → 403. CSRF не нужен (роль не должна меняться вообще)."""
     r = manager_portal_client.post(
-        f"/admin/users/{admin_user['id']}/role",
+        f"/settings/users/{admin_user['id']}/role",
         data={"role": "manager"},
     )
     assert r.status_code == 403
@@ -89,7 +90,7 @@ def test_manager_cannot_change_role(
 def test_anonymous_cannot_change_role(portal_client, db_session, admin_user):
     """Незалогиненный пользователь получает редирект на /login."""
     r = portal_client.post(
-        f"/admin/users/{admin_user['id']}/role",
+        f"/settings/users/{admin_user['id']}/role",
         data={"role": "manager"},
     )
     assert r.status_code == 302
@@ -107,7 +108,7 @@ def test_cannot_demote_last_admin(
     его — 400 с человеческим сообщением. В БД роль не меняется."""
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/role",
+        f"/settings/users/{admin_user['id']}/role",
         data={
             "csrf_token": token,
             "role": "manager",
@@ -136,7 +137,7 @@ def test_self_demotion_requires_confirm_flag(
 
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/role",
+        f"/settings/users/{admin_user['id']}/role",
         data={"csrf_token": token, "role": "manager"},
     )
     assert r.status_code == 400
@@ -146,7 +147,7 @@ def test_self_demotion_requires_confirm_flag(
     # С флагом — успех. Берём свежий CSRF на всякий случай.
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/role",
+        f"/settings/users/{admin_user['id']}/role",
         data={
             "csrf_token": token,
             "role": "manager",
@@ -164,7 +165,7 @@ def test_invalid_role_value_returns_422(
 ):
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/role",
+        f"/settings/users/{manager_user['id']}/role",
         data={"csrf_token": token, "role": "superadmin"},
     )
     assert r.status_code == 422
@@ -176,7 +177,7 @@ def test_invalid_role_value_returns_422(
 def test_target_user_not_found_returns_404(admin_portal_client):
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        "/admin/users/999999/role",
+        "/settings/users/999999/role",
         data={"csrf_token": token, "role": "admin"},
     )
     assert r.status_code == 404
@@ -188,15 +189,15 @@ def test_no_op_role_change_returns_success(
     admin_portal_client, manager_user, db_session,
 ):
     """Та же роль, что уже у пользователя — сервер возвращает 302
-    (редирект на /admin/users), флага «обновлено» не ставит, но и не
+    (редирект на /settings/users), флага «обновлено» не ставит, но и не
     падает. Состояние БД не меняется."""
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/role",
+        f"/settings/users/{manager_user['id']}/role",
         data={"csrf_token": token, "role": "manager"},
     )
     assert r.status_code == 302
-    assert r.headers["location"] == "/admin/users"
+    assert r.headers["location"] == "/settings/users"
     assert _role_in_db(db_session, manager_user["id"]) == "manager"
 
 
@@ -209,7 +210,7 @@ def test_admin_can_create_admin_via_form(
     что POST с role=admin создаёт админа с пустыми permissions."""
     token = _csrf(admin_portal_client)
     r = admin_portal_client.post(
-        "/admin/users",
+        "/settings/users",
         data={
             "login":      "newadmin",
             "name":       "Новый админ",
@@ -232,16 +233,16 @@ def test_admin_can_create_admin_via_form(
     assert perms == {}
 
 
-# --- 11. UI: на /admin/users отрисовывается селект роли ----------------
+# --- 11. UI: на /settings/users отрисовывается селект роли ----------------
 
 def test_role_select_renders_in_users_page(
     admin_portal_client, manager_user,
 ):
-    """В строке менеджера на /admin/users должна быть форма смены роли
-    с селектом и POST на /admin/users/{id}/role."""
-    r = admin_portal_client.get("/admin/users")
+    """В строке менеджера на /settings/users должна быть форма смены роли
+    с селектом и POST на /settings/users/{id}/role."""
+    r = admin_portal_client.get("/settings/users")
     assert r.status_code == 200
-    assert f'/admin/users/{manager_user["id"]}/role' in r.text
+    assert f'/settings/users/{manager_user["id"]}/role' in r.text
     assert 'name="role"' in r.text
     # И селект создания нового пользователя — оба варианта.
     assert "Менеджер" in r.text

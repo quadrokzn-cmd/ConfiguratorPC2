@@ -1,4 +1,5 @@
-# Тесты /admin/users портала: создание, активация, permissions (этап 9Б.1).
+# Тесты /settings/users портала: создание, активация, permissions
+# (бывший /admin/users; перенос на этапе UI-3 Пути B, 2026-05-11).
 
 from __future__ import annotations
 
@@ -10,7 +11,7 @@ from tests.test_portal.conftest import extract_csrf
 
 
 def test_admin_can_open_admin_users(admin_portal_client):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     assert r.status_code == 200
     # 9Б.5: заголовок формы — «Создать пользователя» (вместо «Создать менеджера»),
     # т.к. в форме появился селект роли (admin/manager).
@@ -18,17 +19,17 @@ def test_admin_can_open_admin_users(admin_portal_client):
 
 
 def test_manager_cannot_open_admin_users(manager_portal_client):
-    r = manager_portal_client.get("/admin/users")
+    r = manager_portal_client.get("/settings/users")
     assert r.status_code == 403
 
 
 def test_admin_creates_manager_with_default_permissions(
     admin_portal_client, db_session
 ):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        "/admin/users",
+        "/settings/users",
         data={
             "login":      "newmanager",
             "name":       "Новый менеджер",
@@ -37,7 +38,7 @@ def test_admin_creates_manager_with_default_permissions(
         },
     )
     assert r.status_code == 302
-    assert r.headers["location"] == "/admin/users"
+    assert r.headers["location"] == "/settings/users"
 
     row = db_session.execute(
         _t(
@@ -59,10 +60,10 @@ def test_admin_updates_permissions(
     """Снимаем единственный чекбокс — у конфигуратора false, остальные
     модули тоже сохраняются как false (на стороне репо записываются
     все известные ключи)."""
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/permissions",
+        f"/settings/users/{manager_user['id']}/permissions",
         # Не передаём permissions[configurator] — значит снят.
         data={"csrf_token": token},
     )
@@ -80,10 +81,10 @@ def test_admin_grants_permission(
     admin_portal_client, manager_user_no_perms, db_session
 ):
     """Менеджер без прав → отмечаем чекбокс → permissions[configurator]=True."""
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user_no_perms['id']}/permissions",
+        f"/settings/users/{manager_user_no_perms['id']}/permissions",
         data={
             "csrf_token":              token,
             "permissions[configurator]": "1",
@@ -100,10 +101,10 @@ def test_admin_grants_permission(
 
 
 def test_duplicate_login_rejected(admin_portal_client, manager_user):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        "/admin/users",
+        "/settings/users",
         data={
             "login":      "manager1",
             "name":       "Дубликат",
@@ -112,15 +113,15 @@ def test_duplicate_login_rejected(admin_portal_client, manager_user):
         },
     )
     assert r.status_code == 302
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     assert "уже занят" in r.text
 
 
 def test_short_password_rejected(admin_portal_client):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        "/admin/users",
+        "/settings/users",
         data={
             "login":      "shortpw",
             "name":       "Тест",
@@ -129,15 +130,15 @@ def test_short_password_rejected(admin_portal_client):
         },
     )
     assert r.status_code == 302
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     assert "не короче 6" in r.text
 
 
 def test_toggle_user_active(admin_portal_client, manager_user, db_session):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        f"/admin/users/{manager_user['id']}/toggle",
+        f"/settings/users/{manager_user['id']}/toggle",
         data={"csrf_token": token},
     )
     assert r.status_code == 302
@@ -149,10 +150,10 @@ def test_toggle_user_active(admin_portal_client, manager_user, db_session):
 
 
 def test_cannot_deactivate_self(admin_portal_client, admin_user, db_session):
-    r = admin_portal_client.get("/admin/users")
+    r = admin_portal_client.get("/settings/users")
     token = extract_csrf(r.text)
     r = admin_portal_client.post(
-        f"/admin/users/{admin_user['id']}/toggle",
+        f"/settings/users/{admin_user['id']}/toggle",
         data={"csrf_token": token},
     )
     assert r.status_code == 302

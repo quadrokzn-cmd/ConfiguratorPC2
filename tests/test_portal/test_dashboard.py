@@ -396,12 +396,12 @@ def test_admin_sidebar_contains_users_link(admin_portal_client):
     """У админа в сайдбаре есть ссылка «Пользователи»."""
     r = admin_portal_client.get("/")
     assert r.status_code == 200
-    assert 'href="/admin/users"' in r.text
+    assert 'href="/settings/users"' in r.text
 
 
 def test_admin_users_page_marks_users_active(admin_portal_client):
-    """На /admin/users пункт «Пользователи» помечен nav-item-active."""
-    r = admin_portal_client.get("/admin/users")
+    """На /settings/users пункт «Пользователи» помечен nav-item-active."""
+    r = admin_portal_client.get("/settings/users")
     assert r.status_code == 200
     body = r.text
     # nav-item-active — класс активного пункта сайдбара (как в конфигураторе).
@@ -415,7 +415,7 @@ def test_manager_sidebar_shows_users_link(manager_portal_client):
     при попытке открыть её без прав."""
     r = manager_portal_client.get("/")
     assert r.status_code == 200
-    assert 'href="/admin/users"' in r.text
+    assert 'href="/settings/users"' in r.text
 
 
 def test_admin_sidebar_has_link_to_configurator(admin_portal_client):

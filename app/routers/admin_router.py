@@ -85,11 +85,12 @@ def dashboard(
 
 @router.get("/users")
 def users_redirect_to_portal():
-    """Этап 9Б.1: страница пользователей переехала в портал
-    (portal/admin/users). Здесь оставлен только редирект — старые
-    закладки и ссылки в шаблонах конфигуратора продолжают работать."""
+    """Этап 9Б.1: страница пользователей переехала в портал.
+    UI-3 (Путь B, 2026-05-11): URL в портале сменился с /admin/users на
+    /settings/users — этот редирект ведёт сразу на новый URL, чтобы не
+    делать двойной hop (config → portal/admin/users → portal/settings/users)."""
     return RedirectResponse(
-        url=f"{settings.portal_url}/admin/users",
+        url=f"{settings.portal_url}/settings/users",
         status_code=status.HTTP_302_FOUND,
     )
 

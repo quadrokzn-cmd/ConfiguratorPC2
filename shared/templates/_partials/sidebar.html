@@ -160,16 +160,21 @@
       {% endif %}
 
       {# --- 5) Настройки --- #}
-      {{ _section_link('portal', '/admin/users',
+      {# UI-3 (Путь B, 2026-05-11): «Пользователи», «Бэкапы», «Журнал
+         действий» переехали из /admin/{users,backups,audit} на
+         /settings/{users,backups,audit-log}. Это всё ещё portal — ссылки
+         остаются внутренними (без ↗). Топ-ссылка ведёт на первый
+         подпункт «Пользователи». #}
+      {{ _section_link('portal', '/settings/users',
                        'Настройки', 'settings', 'settings') }}
       {% if active_section == 'settings' %}
       <div class="py-0.5" data-testid="sidebar-subitems-settings">
-        {{ _sub_link('portal', '/admin/users',
+        {{ _sub_link('portal', '/settings/users',
                      'Пользователи', 'users') }}
-        {{ _sub_link('portal', '/admin/backups',
+        {{ _sub_link('portal', '/settings/backups',
                      'Бэкапы', 'backups') }}
-        {{ _sub_link('portal', '/admin/audit',
-                     'Журнал действий', 'audit') }}
+        {{ _sub_link('portal', '/settings/audit-log',
+                     'Журнал действий', 'audit-log') }}
       </div>
       {% endif %}
 

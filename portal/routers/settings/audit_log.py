@@ -1,7 +1,10 @@
-# /admin/audit портала: журнал действий пользователей (Этап 9В.4).
+# /settings/audit-log портала: журнал действий пользователей.
 #
-# GET  /admin/audit         — таблица с фильтрами и пагинацией.
-# GET  /admin/audit/export  — CSV-экспорт текущей выборки.
+# Этап UI-3 (Путь B, 2026-05-11): переехал из portal/routers/admin_audit.py
+# (старый префикс /admin/audit) — логика без изменений, только URL.
+#
+# GET  /settings/audit-log         — таблица с фильтрами и пагинацией.
+# GET  /settings/audit-log/export  — CSV-экспорт текущей выборки.
 #
 # Доступ: require_admin. Партнёр по бизнесу — тоже admin, поэтому ему
 # журнал виден полностью.
@@ -33,7 +36,7 @@ from shared.db import get_db
 logger = logging.getLogger(__name__)
 
 
-router = APIRouter(prefix="/admin/audit")
+router = APIRouter(prefix="/settings/audit-log")
 
 
 _PAGE_SIZE = 50
@@ -229,7 +232,7 @@ def _list_actions(db: Session) -> list[str]:
     return [r.action for r in rows]
 
 
-# --- GET /admin/audit ---------------------------------------------------
+# --- GET /settings/audit-log -------------------------------------------
 
 @router.get("")
 def audit_index(
@@ -310,7 +313,7 @@ def audit_index(
 
     return templates.TemplateResponse(
         request,
-        "admin/audit.html",
+        "settings/audit_log.html",
         {
             "user":          user,
             "csrf_token":    get_csrf_token(request),
@@ -333,7 +336,7 @@ def audit_index(
     )
 
 
-# --- GET /admin/audit/export -------------------------------------------
+# --- GET /settings/audit-log/export ------------------------------------
 
 @router.get("/export")
 def audit_export_csv(
