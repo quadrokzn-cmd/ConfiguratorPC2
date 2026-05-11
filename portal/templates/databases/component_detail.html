@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% from "_macros/icons.html" import icon %}
 
-{% block title %}{{ item.model }} — Компоненты{% endblock %}
-
-{% block breadcrumbs %}
-<a href="/admin/components">Компоненты</a>
-<span class="crumb-sep">/</span>
-<a href="/admin/components?category={{ item.category }}">{{ item.category_label }}</a>
-<span class="crumb-sep">/</span>
-<span class="crumb-current">{{ item.model }}</span>
-{% endblock %}
+{% block title %}{{ item.model }} — Комплектующие для ПК{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto space-y-6">
 
   <header>
+    <div class="text-caption text-ink-muted mb-1">
+      <a href="/databases/components" class="hover:text-brand-400">Комплектующие для ПК</a>
+      <span class="mx-1">/</span>
+      <a href="/databases/components?category={{ item.category }}" class="hover:text-brand-400">{{ item.category_label }}</a>
+      <span class="mx-1">/</span>
+      <span>{{ item.model }}</span>
+    </div>
     <div class="flex items-center gap-2 flex-wrap mb-2">
       <span class="badge badge-neutral">{{ item.category_label }}</span>
       {% if item.is_hidden %}<span class="badge badge-danger">скрыт из подбора</span>{% endif %}
@@ -59,7 +58,7 @@
   </section>
 
   {# === Редактирование характеристик === #}
-  <form method="post" action="/admin/components/{{ item.category }}/{{ item.id }}/edit"
+  <form method="post" action="/databases/components/{{ item.category }}/{{ item.id }}/edit"
         class="card card-pad space-y-5">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <h2 class="text-h3 text-ink-primary">Характеристики</h2>
@@ -101,7 +100,7 @@
         {{ icon('save', class='w-4 h-4') }}
         Сохранить
       </button>
-      <a href="/admin/components" class="btn btn-md btn-ghost">отмена</a>
+      <a href="/databases/components" class="btn btn-md btn-ghost">отмена</a>
     </div>
   </form>
 
@@ -138,7 +137,7 @@
               ${{ '%.2f'|format(sp.price_usd) }}
             </td>
             <td class="text-right tabular-nums text-ink-secondary">
-              {{ sp.price_usd | fmt_rub }} ₽
+              {{ sp.price_rub | ru_money }} ₽
             </td>
             <td class="text-caption text-ink-secondary">{{ sp.supplier_sku or '—' }}</td>
             <td class="text-right tabular-nums text-ink-secondary">
@@ -175,7 +174,7 @@
         </p>
       </div>
       <form method="post"
-            action="/admin/components/{{ item.category }}/{{ item.id }}/toggle-hidden"
+            action="/databases/components/{{ item.category }}/{{ item.id }}/toggle-hidden"
             class="m-0">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <button type="submit"

@@ -1,5 +1,5 @@
-{# Partial-фрагмент таблицы компонентов (этап 9А.2.2 + 9А.2.3).
-   Используется и при первоначальном рендере /admin/components, и
+{# Partial-фрагмент таблицы комплектующих.
+   Используется и при первоначальном рендере /databases/components, и
    при ?partial=1 — JS подменяет содержимое #kt-components-result
    при изменении фильтров без перезагрузки страницы. #}
 {% from "_macros/icons.html" import icon %}
@@ -113,13 +113,13 @@
     <tbody>
       {% for it in result.rows %}
       <tr class="kt-row-link"
-          data-href="/admin/components/{{ it.category }}/{{ it.id }}">
+          data-href="/databases/components/{{ it.category }}/{{ it.id }}">
         <td>
           <span class="badge badge-neutral">{{ it.category_label }}</span>
         </td>
         <td class="text-ink-secondary">{{ it.manufacturer or '—' }}</td>
         <td class="text-ink-primary">
-          <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+          <a href="/databases/components/{{ it.category }}/{{ it.id }}"
              class="hover:text-brand-400">{{ it.model }}</a>
         </td>
         <td class="text-caption text-ink-secondary">{{ it.sku or '—' }}</td>
@@ -145,7 +145,7 @@
           {% endif %}
         </td>
         <td class="text-right">
-          <a href="/admin/components/{{ it.category }}/{{ it.id }}"
+          <a href="/databases/components/{{ it.category }}/{{ it.id }}"
              class="btn btn-sm btn-secondary">Открыть</a>
         </td>
       </tr>
@@ -154,7 +154,7 @@
   </table>
 </section>
 
-{# === Пагинация (9А.2.3: по номерам страниц) === #}
+{# === Пагинация === #}
 {% if result.total_pages > 1 %}
 {% set base_qs = 'category=' ~ (category or '') ~ '&q=' ~ (search or '') ~ ('&status=' ~ status if status else '') ~ ('&sort=' ~ sort if sort else '') %}
 <nav class="flex items-center justify-between gap-3 text-small text-ink-secondary">

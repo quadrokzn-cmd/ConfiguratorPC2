@@ -1,12 +1,18 @@
-"""Тесты этапа 9А.2.
+"""Тесты этапа 9А.2 (остатки после UI-2).
 
-Покрывают:
-  - /admin/suppliers — список, создание, редактирование, фильтр is_active
-    в выборе цен;
-  - /admin/components — список с фильтрами, редактирование характеристик,
-    is_hidden=True исключает компонент из подбора и NLU-поиска;
-  - адаптация хлебных крошек: корневые без «Главная /», вложенные с полным путём;
-  - визуальные ассерты (kt-table на /admin/suppliers, card-wrapper на /history).
+Изначально файл покрывал:
+  - /admin/suppliers — список, создание, редактирование, фильтр is_active;
+  - /admin/components — список с фильтрами, редактирование, is_hidden;
+  - адаптация хлебных крошек (корневые без «Главная /», вложенные с путём);
+  - визуальные ассерты.
+
+UI-2 (Путь B, 2026-05-11): /admin/{suppliers,components} переехали
+в портал; их веб-тесты живут теперь в tests/test_portal/test_databases_*.
+Здесь остались только:
+  - сервис-уровневые проверки (is_active=False прячет поставщика,
+    is_hidden=True прячет компонент из NLU/подбора) — они не зависят от UI;
+  - тесты хлебных крошек и визуальные ассерты для страниц /history,
+    /projects — они остаются в конфигураторе.
 """
 
 from __future__ import annotations
@@ -14,10 +20,6 @@ from __future__ import annotations
 import pytest
 from sqlalchemy import text
 
-
-# ----------------------------------------------------------------------
-#  Поставщики (этап 9А.2 — закрытие техдолга 8.3)
-# ----------------------------------------------------------------------
 
 def _seed_supplier(db, *, name, email="x@example.com",
                    is_active=True, contact_person=None):
@@ -36,82 +38,6 @@ def _seed_supplier(db, *, name, email="x@example.com",
     ).first()
     db.commit()
     return int(row.id)
-
-
-def test_suppliers_list_admin_renders(admin_client):
-    r = admin_client.get("/admin/suppliers")
-    assert r.status_code == 200
-    assert "Поставщики" in r.text
-
-
-def test_suppliers_list_manager_forbidden(manager_client):
-    r = manager_client.get("/admin/suppliers")
-    assert r.status_code == 403
-
-
-def test_admin_suppliers_uses_kt_table(admin_client, db_session):
-    _seed_supplier(db_session, name="StubSupp9A2")
-    r = admin_client.get("/admin/suppliers")
-    assert r.status_code == 200
-    # На странице используется компонент дизайн-системы .kt-table —
-    # критерий «приведено к новой системе таблиц».
-    assert 'class="kt-table"' in r.text
-
-
-def test_supplier_create_works(admin_client, db_session):
-    # Берём CSRF из формы создания.
-    r = admin_client.get("/admin/suppliers/new")
-    assert r.status_code == 200
-    import re
-    m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
-    assert m
-    token = m.group(1)
-
-    r = admin_client.post(
-        "/admin/suppliers/new",
-        data={
-            "csrf_token":     token,
-            "name":           "NewSupplier9A2",
-            "email":          "n@example.com",
-            "contact_person": "Иван",
-            "contact_phone":  "+7 999",
-            "is_active":      "on",
-        },
-    )
-    assert r.status_code in (302, 303)
-    # Запись действительно появилась в БД.
-    row = db_session.execute(
-        text("SELECT id, email, contact_person FROM suppliers WHERE name='NewSupplier9A2'")
-    ).first()
-    assert row is not None
-    assert row.email == "n@example.com"
-    assert row.contact_person == "Иван"
-
-
-def test_supplier_edit_email(admin_client, db_session):
-    sid = _seed_supplier(db_session, name="EditSupp9A2", email="old@x.ru")
-
-    r = admin_client.get(f"/admin/suppliers/{sid}/edit")
-    assert r.status_code == 200
-    import re
-    m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
-    token = m.group(1)
-
-    r = admin_client.post(
-        f"/admin/suppliers/{sid}/edit",
-        data={
-            "csrf_token": token,
-            "name":       "EditSupp9A2",
-            "email":      "new@x.ru",
-            "is_active":  "on",
-        },
-    )
-    assert r.status_code in (302, 303)
-
-    row = db_session.execute(
-        text("SELECT email FROM suppliers WHERE id=:id"), {"id": sid}
-    ).first()
-    assert row.email == "new@x.ru"
 
 
 def _seed_cpu_with_supplier(db, *, supplier_id: int, price: float = 100.0):
@@ -168,7 +94,12 @@ def test_supplier_inactive_excluded_from_prices(db_session):
 
 
 # ----------------------------------------------------------------------
-#  Компоненты (этап 9А.2 — закрытие техдолга обогащения)
+#  Комплектующие — сервис-уровневые тесты (этап 9А.2)
+#
+#  UI-2 (Путь B): веб-тесты /admin/components переехали в портал —
+#  см. tests/test_portal/test_databases_components_*.py. Здесь остались
+#  только проверки бизнес-логики (is_hidden=True убирает компонент из
+#  NLU/configurator), не зависящие от веб-слоя.
 # ----------------------------------------------------------------------
 
 def _seed_cooler(db, *, model="Cool 1", max_tdp=None, hidden=False):
@@ -182,51 +113,6 @@ def _seed_cooler(db, *, model="Cool 1", max_tdp=None, hidden=False):
     ).first()
     db.commit()
     return int(row.id)
-
-
-def test_components_list_filters(admin_client, db_session):
-    _seed_cooler(db_session, model="Noctua NH-U12S")
-    _seed_cooler(db_session, model="DeepCool AK620")
-
-    # Фильтр по категории.
-    r = admin_client.get("/admin/components?category=cooler")
-    assert r.status_code == 200
-    assert "Noctua NH-U12S" in r.text
-    assert "DeepCool AK620" in r.text
-
-    # Поиск по подстроке model.
-    r = admin_client.get("/admin/components?category=cooler&q=Noctua")
-    assert r.status_code == 200
-    assert "Noctua NH-U12S" in r.text
-    assert "DeepCool AK620" not in r.text
-
-
-def test_component_edit_max_tdp(admin_client, db_session):
-    cid = _seed_cooler(db_session, model="Cool X", max_tdp=None)
-
-    r = admin_client.get(f"/admin/components/cooler/{cid}")
-    assert r.status_code == 200
-    import re
-    m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
-    token = m.group(1)
-
-    r = admin_client.post(
-        f"/admin/components/cooler/{cid}/edit",
-        data={
-            "csrf_token":         token,
-            "max_tdp_watts":      "180",
-            "supported_sockets":  "LGA1700, AM5",
-        },
-    )
-    assert r.status_code in (302, 303)
-
-    row = db_session.execute(
-        text("SELECT max_tdp_watts, supported_sockets FROM coolers WHERE id=:id"),
-        {"id": cid},
-    ).first()
-    assert row.max_tdp_watts == 180
-    assert "LGA1700" in row.supported_sockets
-    assert "AM5" in row.supported_sockets
 
 
 def test_hidden_component_not_in_search(db_session):

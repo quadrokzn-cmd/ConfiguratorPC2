@@ -2,21 +2,20 @@
 {% from "_macros/icons.html" import icon %}
 
 {% set is_new = supplier is none %}
-{% set form_action = '/admin/suppliers/new' if is_new else '/admin/suppliers/' ~ supplier.id ~ '/edit' %}
+{% set form_action = '/databases/suppliers/new' if is_new else '/databases/suppliers/' ~ supplier.id ~ '/edit' %}
 {% set form_title = 'Новый поставщик' if is_new else 'Редактирование поставщика' %}
 
 {% block title %}{{ form_title }} — КВАДРО-ТЕХ{% endblock %}
-
-{% block breadcrumbs %}
-<a href="/admin/suppliers">Поставщики</a>
-<span class="crumb-sep">/</span>
-<span class="crumb-current">{{ form_title }}</span>
-{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto space-y-6">
 
   <header>
+    <div class="text-caption text-ink-muted mb-1">
+      <a href="/databases/suppliers" class="hover:text-brand-400">Поставщики</a>
+      <span class="mx-1">/</span>
+      <span>{{ form_title }}</span>
+    </div>
     <h1 class="text-display text-ink-primary">{{ form_title }}</h1>
     <p class="mt-1.5 text-body text-ink-secondary">
       Имя — обязательное. Email используется для рассылки запроса цен,
@@ -82,11 +81,11 @@
         {{ icon('save', class='w-4 h-4') }}
         {{ 'Создать' if is_new else 'Сохранить' }}
       </button>
-      <a href="/admin/suppliers" class="btn btn-md btn-ghost">отмена</a>
+      <a href="/databases/suppliers" class="btn btn-md btn-ghost">отмена</a>
 
       {% if not is_new %}
       <div class="ml-auto">
-        <form method="post" action="/admin/suppliers/{{ supplier.id }}/delete"
+        <form method="post" action="/databases/suppliers/{{ supplier.id }}/delete"
               onsubmit="return confirm('Удалить поставщика «{{ supplier.name }}»? Действие необратимо.');"
               class="inline m-0">
           <input type="hidden" name="csrf_token" value="{{ csrf_token }}">

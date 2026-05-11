@@ -1,5 +1,9 @@
-# Админский роутер /admin/mapping: ручное сопоставление неопределённых
-# строк прайсов с компонентами БД (этап 7).
+# /databases/mapping — очередь ручного сопоставления unmapped_supplier_items
+# с компонентами БД (этап UI-2 Пути B, 2026-05-11). Перенесён без
+# изменения логики из конфигуратора (app/routers/mapping_router.py).
+#
+# UI-лейбл «Очередь маппинга» сохраняется. URL: /databases/mapping
+# (старый /admin/mapping даёт 301). Доступ: require_admin.
 
 from __future__ import annotations
 
@@ -10,16 +14,16 @@ from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, sta
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-from app.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
-from app.database import get_db
-from app.services import mapping_service
-from app.templating import templates
+from portal.services.databases import mapping_service
+from portal.templating import templates
+from shared.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
+from shared.db import get_db
 
 
 _log = logging.getLogger(__name__)
 
 
-router = APIRouter(prefix="/admin/mapping")
+router = APIRouter(prefix="/databases/mapping")
 
 
 CATEGORY_OPTIONS = [
@@ -47,12 +51,7 @@ def mapping_list(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Список активных записей (pending + created_new) с фильтрами.
-
-    По умолчанию показываем только «подозрительные» (score >= 50) —
-    это сокращает ручной поток работы с 2000+ до ~300-500 записей.
-    Фильтр score: suspicious | new | all.
-    """
+    """Список активных записей (pending + created_new) с фильтрами."""
     # Нормализуем значение фильтра, чтобы опечатка в URL не уронила запрос.
     if score not in (
         mapping_service.SCORE_FILTER_SUSPICIOUS,
@@ -62,11 +61,6 @@ def mapping_list(
         score = mapping_service.SCORE_FILTER_SUSPICIOUS
 
     # Сначала досчитаем score у активных записей, где он не считался.
-    # Иначе при фильтре «подозрительные» (score >= 50) они даже не попадут
-    # в выборку, т. к. NULL не проходит условие по значению.
-    # Для тяжёлой миграции 2000+ записей пользователь запускает
-    # scripts/recalculate_unmapped_scores.py; здесь — лёгкий добор на
-    # PAGE_SIZE за раз.
     missing = mapping_service.list_ids_missing_score(
         db,
         supplier_id=supplier,
@@ -93,7 +87,7 @@ def mapping_list(
 
     return templates.TemplateResponse(
         request,
-        "admin/mapping_list.html",
+        "databases/mapping_list.html",
         {
             "user":            user,
             "csrf_token":      get_csrf_token(request),
@@ -120,11 +114,7 @@ def mapping_detail(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Детальная страница: вся информация + топ-10 похожих кандидатов.
-
-    Используем тот же скоринг, что на списочной странице
-    (calculate_candidates_ranked) — иначе список и деталь расходятся.
-    """
+    """Детальная страница: вся информация + топ-10 похожих кандидатов."""
     row = mapping_service.get_by_id(db, row_id)
     if row is None:
         raise HTTPException(status_code=404, detail="Запись не найдена.")
@@ -136,14 +126,12 @@ def mapping_detail(
     except Exception:
         candidates = []
 
-    # best_id — id топового кандидата по score. Список уже отсортирован
-    # по (score DESC, min_price ASC, id), поэтому candidates[0] и есть
-    # лучший. Шаблон по нему pre-select'ит radio-кнопку.
+    # best_id — id топового кандидата по score (candidates уже отсортированы).
     best_id = int(candidates[0]["id"]) if candidates else None
 
     return templates.TemplateResponse(
         request,
-        "admin/mapping_detail.html",
+        "databases/mapping_detail.html",
         {
             "user":       user,
             "csrf_token": get_csrf_token(request),
@@ -169,14 +157,7 @@ def mapping_merge(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Объединяет запись с выбранным компонентом. См. mapping_service.merge_with_component.
-
-    Любую ошибку превращаем в flash-сообщение и редирект — 500 от этого
-    роута ломает рабочий процесс админа (после редиректа он потерял бы
-    свой выбор и пришлось бы искать запись заново). Валидационные
-    ошибки показываем как есть; неожиданные — логируем полный traceback
-    и отдаём админу общее сообщение.
-    """
+    """Объединяет запись с выбранным компонентом."""
     _require_csrf(request, csrf_token)
     try:
         mapping_service.merge_with_component(
@@ -205,7 +186,10 @@ def mapping_merge(
             f"Внутренняя ошибка при объединении: {type(exc).__name__}. "
             "См. логи сервера."
         )
-    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(
+        url="/databases/mapping",
+        status_code=status.HTTP_302_FOUND,
+    )
 
 
 @router.post("/{row_id}/confirm_as_new")
@@ -216,13 +200,16 @@ def mapping_confirm_new(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """«Это точно новый товар» — меняем статус на confirmed_new, компонент оставляем."""
+    """«Это точно новый товар» — статус confirmed_new, компонент оставляем."""
     _require_csrf(request, csrf_token)
     mapping_service.confirm_as_new(db, unmapped_id=row_id, admin_user_id=user.id)
     request.session["mapping_flash_info"] = (
         f"Запись #{row_id} отмечена как новый товар."
     )
-    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(
+        url="/databases/mapping",
+        status_code=status.HTTP_302_FOUND,
+    )
 
 
 @router.post("/{row_id}/defer")
@@ -233,10 +220,13 @@ def mapping_defer(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """«Разобраться потом» — просто возвращаемся к списку."""
+    """«Разобраться потом» — возвращаемся к списку."""
     _require_csrf(request, csrf_token)
     mapping_service.defer(db, unmapped_id=row_id)
-    return RedirectResponse(url="/admin/mapping", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(
+        url="/databases/mapping",
+        status_code=status.HTTP_302_FOUND,
+    )
 
 
 @router.post("/bulk_confirm_new")
@@ -248,9 +238,7 @@ def mapping_bulk_confirm_new(
     user: AuthUser = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    """Массовое действие: все created_new со score ниже порога →
-    confirmed_new. Используется для очистки очереди от «точно новых»
-    позиций после первичной загрузки прайсов."""
+    """Массовое действие: все created_new со score ниже порога → confirmed_new."""
     _require_csrf(request, csrf_token)
     updated = mapping_service.bulk_confirm_new(
         db,
@@ -274,5 +262,6 @@ def mapping_bulk_confirm_new(
     if category:
         qs += f"&category={category}"
     return RedirectResponse(
-        url=f"/admin/mapping{qs}", status_code=status.HTTP_302_FOUND,
+        url=f"/databases/mapping{qs}",
+        status_code=status.HTTP_302_FOUND,
     )

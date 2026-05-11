@@ -47,6 +47,11 @@ from portal.routers import (
     home,
     nomenclature,
 )
+from portal.routers.databases import (
+    components as databases_components,
+    mapping as databases_mapping,
+    suppliers as databases_suppliers,
+)
 from portal.scheduler import init_scheduler, shutdown_scheduler
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from shared.db import SessionLocal
@@ -111,6 +116,11 @@ app.include_router(admin_auctions.router)
 app.include_router(admin_diagnostics.router)
 app.include_router(auctions.router)
 app.include_router(nomenclature.router)
+# UI-2 (Путь B, 2026-05-11): «Базы данных» — поставщики, комплектующие
+# для ПК и очередь маппинга, переехавшие из конфигуратора.
+app.include_router(databases_suppliers.router)
+app.include_router(databases_components.router)
+app.include_router(databases_mapping.router)
 app.include_router(home.router)
 
 

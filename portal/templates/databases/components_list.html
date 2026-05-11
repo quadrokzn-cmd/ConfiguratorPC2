@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 {% from "_macros/icons.html" import icon %}
 
-{% block title %}Компоненты — КВАДРО-ТЕХ{% endblock %}
-
-{% block breadcrumbs %}
-<span class="crumb-current">Компоненты</span>
-{% endblock %}
+{% block title %}Комплектующие для ПК — КВАДРО-ТЕХ{% endblock %}
 
 {% block content %}
 <div class="max-w-screen-2xl mx-auto space-y-6">
 
   <header>
-    <h1 class="text-display text-ink-primary">Компоненты</h1>
+    <h1 class="text-display text-ink-primary">Комплектующие для ПК</h1>
     <p class="mt-1.5 text-body text-ink-secondary">
-      Все компоненты во всех категориях. Найдите карточку, чтобы вручную
+      Все комплектующие во всех категориях. Найдите карточку, чтобы вручную
       проставить характеристики или скрыть из подбора.
     </p>
   </header>
@@ -21,7 +17,7 @@
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
   {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
 
-  {# === Фильтры (этап 9А.2.2) ===========================================
+  {# === Фильтры =========================================================
        Без кнопок «Применить»/«Сбросить»: фильтры применяются мгновенно,
        сортировка — клик по заголовку столбца. Активные фильтры видны
        chip'ами под панелью с крестиком на каждом. #}
@@ -63,7 +59,7 @@
 
   {# === Активные фильтры + таблица — обновляется JS-ом без перезагрузки. #}
   <div id="kt-components-result" class="space-y-4">
-    {% include "admin/_components_table.html" %}
+    {% include "databases/_components_table.html" %}
   </div>
 
 </div>
@@ -71,9 +67,9 @@
 
 {% block scripts %}
 <script>
-  // 9А.2.2: живые фильтры + сортировка по столбцам.
+  // Живые фильтры + сортировка по столбцам.
   // - Любое изменение фильтра / клик по столбцу → перерисовка таблицы
-  //   через GET /admin/components?...&partial=1.
+  //   через GET /databases/components?...&partial=1.
   // - Поиск с debounce 300мс, остальное — мгновенно.
   // - URL обновляется через history.pushState — фильтры в адресной
   //   строке, можно поделиться ссылкой.
@@ -106,8 +102,8 @@
     function applyState(state, opts) {
       opts = opts || {};
       var qs = buildQs(state);
-      var url = '/admin/components' + (qs ? ('?' + qs) : '');
-      var fetchUrl = '/admin/components?' + (qs ? qs + '&' : '') + 'partial=1';
+      var url = '/databases/components' + (qs ? ('?' + qs) : '');
+      var fetchUrl = '/databases/components?' + (qs ? qs + '&' : '') + 'partial=1';
       // Обновляем URL.
       if (opts.push !== false) {
         history.pushState(state, '', url);
@@ -175,9 +171,6 @@
       }
     });
 
-    // Кнопки пагинации остаются обычными ссылками — клик уйдёт на полный
-    // GET /admin/components, что нас устраивает (каноничный URL с фильтрами).
-
     // popstate — назад/вперёд в истории.
     window.addEventListener('popstate', function (e) {
       if (e.state && typeof e.state === 'object') {
@@ -189,8 +182,7 @@
       }
     });
 
-    // 9А.2.3: «перейти к странице» — input в пагинации.
-    // Делегированно ловим Enter и переход на ?...&page=N.
+    // «Перейти к странице» — input в пагинации.
     resultBox.addEventListener('keydown', function (e) {
       var input = e.target.closest('.kt-pagination-jump-input');
       if (!input) return;
@@ -202,7 +194,7 @@
       if (n > max) n = max;
       var wrap = input.closest('.kt-pagination-jump');
       var sep = wrap ? (wrap.dataset.baseSep || '?') : '?';
-      var url = '/admin/components' + sep + 'page=' + n;
+      var url = '/databases/components' + sep + 'page=' + n;
       window.location = url;
     });
 

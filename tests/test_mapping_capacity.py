@@ -13,7 +13,7 @@
 
 from __future__ import annotations
 
-from app.services.mapping_service import (
+from portal.services.databases.mapping_service import (
     _capacity_mismatch,
     _extract_capacities,
     _score_breakdown,

@@ -1,4 +1,4 @@
-"""Колонка «Цены» в /admin/components и детальная карточка (этап 9А.2.1).
+"""Колонка «Цены» в /databases/components и детальная карточка (этап 9А.2.1).
 
 Покрывают:
   - в списке у компонента с одной ценой видно «$X у Имя»;
@@ -57,13 +57,13 @@ def _add_price(db, *, supplier_id, component_id, category="cooler",
     db.commit()
 
 
-def test_component_list_shows_min_price_single_supplier(admin_client, db_session):
+def test_component_list_shows_min_price_single_supplier(admin_portal_client, db_session):
     """Один поставщик — отображается «$X у Имя»."""
     sid = _seed_supplier(db_session, name="MerlionTest1")
     cid = _seed_cooler(db_session, model="OneSupCool")
     _add_price(db_session, supplier_id=sid, component_id=cid, price=88.0)
 
-    r = admin_client.get("/admin/components?category=cooler&q=OneSupCool")
+    r = admin_portal_client.get("/databases/components?category=cooler&q=OneSupCool")
     assert r.status_code == 200
     assert "OneSupCool" in r.text
     # «$88 у MerlionTest1»
@@ -71,7 +71,7 @@ def test_component_list_shows_min_price_single_supplier(admin_client, db_session
     assert "MerlionTest1" in r.text
 
 
-def test_component_list_shows_min_price_multi_supplier(admin_client, db_session):
+def test_component_list_shows_min_price_multi_supplier(admin_portal_client, db_session):
     """Два поставщика — отображается «от $X (2 поставщ.)»."""
     s1 = _seed_supplier(db_session, name="MerlionTest2")
     s2 = _seed_supplier(db_session, name="TreolanTest2")
@@ -81,23 +81,23 @@ def test_component_list_shows_min_price_multi_supplier(admin_client, db_session)
     _add_price(db_session, supplier_id=s2, component_id=cid, price=110.0,
                sku="SK-2")
 
-    r = admin_client.get("/admin/components?category=cooler&q=MultiSupCool")
+    r = admin_portal_client.get("/databases/components?category=cooler&q=MultiSupCool")
     assert r.status_code == 200
     assert "MultiSupCool" in r.text
     assert "от $110" in r.text
     assert "2 поставщ" in r.text
 
 
-def test_component_list_shows_no_prices_badge(admin_client, db_session):
+def test_component_list_shows_no_prices_badge(admin_portal_client, db_session):
     """Без поставщиков — бейдж «нет цен»."""
     _seed_cooler(db_session, model="NoPriceCool")
-    r = admin_client.get("/admin/components?category=cooler&q=NoPriceCool")
+    r = admin_portal_client.get("/databases/components?category=cooler&q=NoPriceCool")
     assert r.status_code == 200
     assert "NoPriceCool" in r.text
     assert "нет цен" in r.text
 
 
-def test_component_detail_shows_all_supplier_prices(admin_client, db_session):
+def test_component_detail_shows_all_supplier_prices(admin_portal_client, db_session):
     """Детальная страница содержит таблицу со всеми поставщиками."""
     s1 = _seed_supplier(db_session, name="DetailSupActive", is_active=True)
     s2 = _seed_supplier(db_session, name="DetailSupOff", is_active=False)
@@ -107,7 +107,7 @@ def test_component_detail_shows_all_supplier_prices(admin_client, db_session):
     _add_price(db_session, supplier_id=s2, component_id=cid, price=85.0,
                sku="B-SKU")
 
-    r = admin_client.get(f"/admin/components/cooler/{cid}")
+    r = admin_portal_client.get(f"/databases/components/cooler/{cid}")
     assert r.status_code == 200
     # Заголовок секции
     assert "Цены поставщиков" in r.text

@@ -34,7 +34,8 @@ load_dotenv()
 from sqlalchemy import text
 
 from app.database import SessionLocal
-from app.services import mapping_service
+# UI-2 (Путь B, 2026-05-11): mapping_service переехал в portal/services/databases.
+from portal.services.databases import mapping_service
 
 
 def main() -> int:

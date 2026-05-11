@@ -3,16 +3,15 @@
 
 {% block title %}Разбор записи #{{ row.id }} — Очередь маппинга{% endblock %}
 
-{% block breadcrumbs %}
-<a href="/admin/mapping">Очередь маппинга</a>
-<span class="crumb-sep">/</span>
-<span class="crumb-current">Запись #{{ row.id }}</span>
-{% endblock %}
-
 {% block content %}
 <div class="max-w-screen-2xl mx-auto space-y-6">
 
   <header>
+    <div class="text-caption text-ink-muted mb-1">
+      <a href="/databases/mapping" class="hover:text-brand-400">Очередь маппинга</a>
+      <span class="mx-1">/</span>
+      <span>Запись #{{ row.id }}</span>
+    </div>
     <h1 class="text-display text-ink-primary">Разбор записи #{{ row.id }}</h1>
     <p class="mt-1.5 text-body text-ink-secondary">
       Сравните позицию поставщика с похожими компонентами в БД и решите,
@@ -89,14 +88,14 @@
 
   {# === Действия === #}
   <div class="flex gap-3 flex-wrap">
-    <form method="post" action="/admin/mapping/{{ row.id }}/confirm_as_new" class="inline">
+    <form method="post" action="/databases/mapping/{{ row.id }}/confirm_as_new" class="inline">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <button type="submit" class="btn btn-md btn-success">
         {{ icon('check', class='w-4 h-4') }}
         Это точно новый товар
       </button>
     </form>
-    <form method="post" action="/admin/mapping/{{ row.id }}/defer" class="inline">
+    <form method="post" action="/databases/mapping/{{ row.id }}/defer" class="inline">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <button type="submit" class="btn btn-md btn-secondary">
         Разобраться потом
@@ -129,7 +128,7 @@
       </p>
     </div>
     {% else %}
-    <form method="post" action="/admin/mapping/{{ row.id }}/merge" id="merge-form">
+    <form method="post" action="/databases/mapping/{{ row.id }}/merge" id="merge-form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <div class="card overflow-hidden">
         <table class="kt-table kt-table-compact" id="candidates-table">

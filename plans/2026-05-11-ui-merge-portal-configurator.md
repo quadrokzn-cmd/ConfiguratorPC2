@@ -47,18 +47,83 @@ DoD: тесты на рендер sidebar для каждого active_section; 
 - `docs/ui-architecture.md` — описание sidebar-архитектуры и правил расширения.
 - pytest регрессия: 1857 passed, 1 skipped, 0 failed.
 
-### UI-2 — перенос Баз данных в portal/ [ ]
+### UI-2 — перенос Баз данных в portal/ [x]
 
 Перенести из `app/routers/`, `app/services/`, `app/templates/` в `portal/`:
 - Поставщики (`/suppliers`)
 - Компоненты (`/components`) — переименовать UI-лейбл в «Комплектующие для ПК»
 - Очередь маппинга (`/mapping`)
 
-Переименовать UI-лейбл «Справочник печати» → «Справочник оргтехники» (без изменения URL `/nomenclature` или таблицы БД).
+Переименовать UI-лейбл «Справочник печати» → «Справочник оргтехники» (без изменения URL `/nomenclature` или таблицы БД) — закрыто на UI-1.
 
-URL после миграции: всё под `app.quadro.tatar/databases/{suppliers,components,mapping,nomenclature,prices,autoload}`. Старые URL на `config.quadro.tatar/{suppliers,components,mapping}` получают 301-редирект (механизм будет в UI-5; на UI-2 — заглушки через `app/main.py`).
+URL после миграции: всё под `app.quadro.tatar/databases/{suppliers,components,mapping,nomenclature,prices,autoload}`. Старые URL на `config.quadro.tatar/admin/{suppliers,components,mapping}` получают 301-редирект (механизм будет в UI-5; на UI-2 — заглушки через `app/main.py`).
 
 DoD: все три страницы работают на новых URL; pytest test_web/ обновлены под новые пути; редиректы со старого хоста.
+
+**Артефакты UI-2 (2026-05-11):**
+
+- `portal/services/databases/` — новая папка: `supplier_service.py`,
+  `component_service.py`, `mapping_service.py` (перенесены без изменений
+  логики из `app/services/`).
+- `portal/routers/databases/` — новая папка: `suppliers.py`, `components.py`,
+  `mapping.py`. Префикс `/databases/{section}`, авторизация
+  `require_admin` (как и раньше).
+- `portal/templates/databases/` — новая папка: `suppliers_list.html`,
+  `supplier_form.html`, `components_list.html`, `component_detail.html`,
+  `_components_table.html`, `mapping_list.html`, `mapping_detail.html`.
+  Все внутренние URL обновлены на `/databases/...`. Заголовок и хлебные
+  крошки страницы «Компоненты» переименованы в «Комплектующие для ПК».
+- `portal/templates/_macros/icons.html` — расширен иконками `plus`,
+  `mail`, `phone`, `power`, `save`, `trash`, `edit`, `search`, `eye`,
+  `eye-off`, `check`, `filter` (нужны страницам «Базы данных»).
+  `portal/templates/_macros/pagination.html` — добавлен из app/.
+- `portal/main.py` — подключены `databases_suppliers`, `databases_components`,
+  `databases_mapping`.
+- `app/main.py` — добавлены три пары catch-all 301-редиректов
+  (root + `{rest:path}`) для `/admin/{suppliers,components,mapping}`
+  на `${PORTAL_URL}/databases/{section}`. Хост из `settings.portal_url`,
+  никакого хардкода.
+- `app/routers/admin_router.py` — вырезаны обработчики `/admin/suppliers/*`
+  и `/admin/components/*`, упрощён до `/admin`, `/admin/users` (редирект),
+  `/admin/budget`, `/admin/queries`. `mapping_count` для дашборда —
+  inline-COUNT, чтобы не тянуть кросс-сервисный импорт `portal.services`.
+- `app/routers/mapping_router.py` — удалён.
+- `app/services/{supplier,component,mapping}_service.py` — удалены.
+- `app/templates/admin/{suppliers_list,supplier_form,components_list,
+  component_detail,_components_table,mapping_list,mapping_detail}.html` —
+  удалены.
+- `tests/test_mapping_{mpn,capacity}.py`,
+  `scripts/recalculate_unmapped_scores.py` — импорты перенесены на
+  `portal.services.databases.mapping_service`.
+- `shared/templates/_partials/sidebar.html` — три ссылки на «Поставщики»,
+  «Комплектующие для ПК», «Очередь маппинга» с `target_service='configurator'`
+  → `'portal'`, путь `/admin/{section}` → `/databases/{section}`. Маркер ↗
+  на этих ссылках исчез автоматически (теперь они внутренние в портале).
+- `portal/templates/base.html` — добавлены три ветки URL → `active_section`
+  для `/databases/{suppliers,components,mapping}`.
+- Новые тесты:
+  - `tests/test_portal/test_databases_suppliers.py` (9 кейсов);
+  - `tests/test_portal/test_databases_components_prices.py` (4 кейса);
+  - `tests/test_portal/test_databases_components_filters.py` (10 кейсов);
+  - `tests/test_portal/test_databases_components_pagination.py` (4 кейса);
+  - `tests/test_portal/test_databases_mapping.py` (перенос test_mapping_admin,
+    ~30 кейсов);
+  - `tests/test_web/test_databases_redirects.py` (10 кейсов).
+- Обновлены тесты: `tests/test_portal/test_ui1_sidebar.py` (+5 новых
+  кейсов на subsection-подсветку /databases/* и отсутствие ↗ внутри
+  раздела «Базы данных» портала); `tests/test_web/test_ui1_sidebar_app.py`
+  (+2 кейса на отсутствие старых `/admin/{suppliers,components,mapping}`
+  в HTML конфигуратора); `tests/test_web/test_stage9a_2.py`,
+  `test_stage9a_2_2.py`, `test_stage9a_2_3.py` — урезаны от блоков,
+  переехавших в `test_portal/`.
+- Удалены `tests/test_web/test_admin_component_prices.py`,
+  `tests/test_web/test_mapping_admin.py` (перенесены).
+- `docs/ui-architecture.md` — обновлены маппинг URL→active_section,
+  список ↗-меток, добавлена таблица 301-редиректов.
+- `docs/url-migration-map.md` — новый файл, единая таблица переездов
+  URL по этапам UI-1..UI-5.
+- pytest регрессия: **1875 passed, 1 skipped, 0 failed** (UI-1 baseline
+  был 1857; +18 новых нетто-кейсов).
 
 ### UI-3 — перенос Настроек в portal/ [ ]
 
@@ -98,4 +163,8 @@ DoD: prod/pre-prod работают только через portal-сервис;
 
 ## Итоговый блок
 
-Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1 выполнен** (общий sidebar + новое меню + плашка «Аукционы», pytest зелёный). Следующий этап — UI-2 (перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`).
+Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1 и UI-2 выполнены**:
+- UI-1 — общий sidebar + новое меню + плашка «Аукционы» (pytest 1857 passed);
+- UI-2 — перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`, 301 со старых `/admin/{suppliers,components,mapping}` (pytest 1875 passed).
+
+Следующий этап — UI-3 (перенос «Настроек» в `portal/routers/settings/`).

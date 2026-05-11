@@ -355,57 +355,18 @@ def test_main_has_overflow_auto(main_css):
 
 
 # =====================================================================
-# D. Пагинация по номерам
+# D. Пагинация /databases/components + E. Toggle text формы поставщика —
+# переехали в tests/test_portal/test_databases_components_pagination.py
+# вместе со страницами /databases/* (этап UI-2 Пути B, 2026-05-11).
+# Здесь остался только смежный тест на подключение common.js из base.html
+# конфигуратора (toggle-text/confirmDialog нужны и в портале, но common.js
+# подключается в его собственном base.html — это покрыто другими тестами).
 # =====================================================================
-
-def _seed_many_components(db, n=200):
-    """Создаём поставщика и N CPU с прайсами, чтобы получить ≥ страниц."""
-    sid = _seed_supplier(db, name="SupPag")
-    for i in range(n):
-        _seed_cpu(db, model=f"CPU-Pag-{i:03}", price_usd=100.0 + i, supplier_id=sid)
-
-
-def test_pagination_renders_page_numbers(admin_client, db_session):
-    """На странице компонентов (большой выдаче) видны кнопки страниц."""
-    _seed_many_components(db_session, n=200)  # 200 / 30 (default) = 7 страниц
-    r = admin_client.get("/admin/components")
-    assert r.status_code == 200
-    # Должна быть хотя бы одна кнопка с номером страницы — класс kt-pagination-page.
-    assert "kt-pagination-page" in r.text
-
-
-def test_pagination_active_page_marked(admin_client, db_session):
-    """Текущая страница имеет класс kt-pagination-page-active."""
-    _seed_many_components(db_session, n=200)
-    r = admin_client.get("/admin/components?page=2")
-    assert r.status_code == 200
-    assert "kt-pagination-page-active" in r.text
-
-
-def test_pagination_dots_for_long_ranges(admin_client, db_session):
-    """На большой выдаче в пагинации появляется «…» между страницами."""
-    _seed_many_components(db_session, n=600)  # 600/30 = 20 страниц
-    r = admin_client.get("/admin/components?page=10")
-    assert r.status_code == 200
-    assert "kt-pagination-ellipsis" in r.text or "…" in r.text
-
-
-# =====================================================================
-# E. Toggle text update — наличие data-атрибутов и class kt-toggle-text
-# =====================================================================
-
-def test_toggle_text_attributes_in_supplier_form(admin_client):
-    """Форма поставщика содержит data-toggle-text и class kt-toggle-text."""
-    r = admin_client.get("/admin/suppliers/new")
-    assert r.status_code == 200
-    assert 'class="toggle kt-toggle"' in r.text
-    assert 'data-toggle-text="s-is-active"' in r.text
-    assert 'data-toggle-on=' in r.text
-    assert 'data-toggle-off=' in r.text
 
 
 def test_common_js_referenced_from_base(admin_client):
-    """common.js подключён в base.html — без него toggle-text не работает."""
+    """common.js подключён в base.html конфигуратора — без него
+    toggle-text/confirmDialog не работают."""
     r = admin_client.get("/admin")
     assert r.status_code == 200
     assert "/static/js/common.js" in r.text

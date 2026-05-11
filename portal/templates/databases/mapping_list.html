@@ -3,10 +3,6 @@
 
 {% block title %}Очередь маппинга — КВАДРО-ТЕХ{% endblock %}
 
-{% block breadcrumbs %}
-<span class="crumb-current">Очередь маппинга</span>
-{% endblock %}
-
 {% block content %}
 <div class="max-w-screen-2xl mx-auto space-y-6">
 
@@ -64,7 +60,7 @@
   </div>
 
   {# === Фильтры === #}
-  <form method="get" action="/admin/mapping" class="card card-pad-sm">
+  <form method="get" action="/databases/mapping" class="card card-pad-sm">
     <input type="hidden" name="score" value="{{ filter_score }}">
     <div class="flex items-end gap-3 flex-wrap">
       <div class="min-w-[12rem]">
@@ -89,13 +85,13 @@
         {{ icon('filter', class='w-4 h-4') }}
         Применить
       </button>
-      <a href="/admin/mapping?score={{ filter_score }}" class="btn btn-md btn-ghost">сбросить</a>
+      <a href="/databases/mapping?score={{ filter_score }}" class="btn btn-md btn-ghost">сбросить</a>
     </div>
   </form>
 
   {# === Массовое подтверждение === #}
   {% if filter_score == score_filter_new and score_counts.new > 0 %}
-  <form method="post" action="/admin/mapping/bulk_confirm_new"
+  <form method="post" action="/databases/mapping/bulk_confirm_new"
         onsubmit="return confirm('Будет подтверждено {{ score_counts.new }} товаров как новые. Вы уверены?');"
         class="card card-pad flex items-center justify-between gap-4 flex-wrap">
     <div class="text-small text-ink-secondary min-w-0">
@@ -181,7 +177,7 @@
           </td>
           <td>
             {% if r.best_candidate_model %}
-              <a href="/admin/mapping/{{ r.id }}"
+              <a href="/databases/mapping/{{ r.id }}"
                  class="text-brand-300 hover:text-brand-200 text-caption">
                 {{ r.best_candidate_model }}
               </a>
@@ -193,7 +189,7 @@
             {% endif %}
           </td>
           <td class="whitespace-nowrap">
-            <a href="/admin/mapping/{{ r.id }}" class="btn btn-sm btn-secondary">
+            <a href="/databases/mapping/{{ r.id }}" class="btn btn-sm btn-secondary">
               Разобрать
             </a>
           </td>

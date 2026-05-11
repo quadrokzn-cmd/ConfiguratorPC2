@@ -1,4 +1,9 @@
-# Админский веб-интерфейс /admin/mapping.
+# Веб-интерфейс /databases/mapping портала.
+#
+# Изначально жил в конфигураторе как /admin/mapping (этап 7). На этапе
+# UI-2 Пути B (2026-05-11) переехал в портал; этот файл — перенос
+# tests/test_web/test_mapping_admin.py с заменой admin_client →
+# admin_portal_client и URL'ов /admin/mapping → /databases/mapping.
 #
 # Проверяем:
 #   - admin видит список, manager получает 403;
@@ -12,7 +17,7 @@ from __future__ import annotations
 
 from sqlalchemy import text as _t
 
-from tests.test_web.conftest import extract_csrf
+from tests.test_portal.conftest import extract_csrf
 
 
 # ---- хелперы -----------------------------------------------------------
@@ -94,7 +99,7 @@ def _cleanup_fixtures_for_test(db_session):
 # ---- access -----------------------------------------------------------
 
 
-def test_admin_sees_mapping_list(admin_client, db_session):
+def test_admin_sees_mapping_list(admin_portal_client, db_session):
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
     _insert_unmapped(
@@ -102,9 +107,9 @@ def test_admin_sees_mapping_list(admin_client, db_session):
         raw_name="Ryzen 5 7600 6-core", status="created_new",
     )
 
-    # По умолчанию /admin/mapping фильтрует «подозрительных» (score >= 50);
+    # По умолчанию /databases/mapping фильтрует «подозрительных» (score >= 50);
     # наша запись без кандидатов получит score=0 → проверяем вид «все».
-    r = admin_client.get("/admin/mapping?score=all")
+    r = admin_portal_client.get("/databases/mapping?score=all")
     assert r.status_code == 200
     assert "Ryzen 5 7600 6-core" in r.text
     # 9А.2: счётчики по score теперь в карточках. Проверяем и подпись,
@@ -113,16 +118,16 @@ def test_admin_sees_mapping_list(admin_client, db_session):
     assert "Вероятно новых" in r.text
 
 
-def test_manager_cannot_access_mapping(manager_client, db_session):
+def test_manager_cannot_access_mapping(manager_portal_client, db_session):
     _cleanup_fixtures_for_test(db_session)
-    r = manager_client.get("/admin/mapping")
+    r = manager_portal_client.get("/databases/mapping")
     assert r.status_code == 403
 
 
 # ---- merge ------------------------------------------------------------
 
 
-def test_merge_moves_supplier_prices_and_deletes_skeleton(admin_client, db_session):
+def test_merge_moves_supplier_prices_and_deletes_skeleton(admin_portal_client, db_session):
     """Сценарий created_new: admin объединяет запись с другим компонентом;
     скелет, созданный автоматически, удаляется; supplier_prices переезжает."""
     _cleanup_fixtures_for_test(db_session)
@@ -145,11 +150,11 @@ def test_merge_moves_supplier_prices_and_deletes_skeleton(admin_client, db_sessi
         status="created_new", resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
 
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": real_cpu, "csrf_token": token},
     )
     assert r.status_code == 302
@@ -178,7 +183,7 @@ def test_merge_moves_supplier_prices_and_deletes_skeleton(admin_client, db_sessi
     assert row.resolved_by is not None
 
 
-def test_merge_with_same_target_keeps_component(admin_client, db_session):
+def test_merge_with_same_target_keeps_component(admin_portal_client, db_session):
     """Если админ выбирает тот же компонент, что уже привязан — скелет
     не удаляется, статус становится merged."""
     _cleanup_fixtures_for_test(db_session)
@@ -192,10 +197,10 @@ def test_merge_with_same_target_keeps_component(admin_client, db_session):
         resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": skeleton, "csrf_token": token},
     )
     assert r.status_code == 302
@@ -210,7 +215,7 @@ def test_merge_with_same_target_keeps_component(admin_client, db_session):
     assert row.status == "merged"
 
 
-def test_merge_for_pending_ambiguous_moves_to_other_candidate(admin_client, db_session):
+def test_merge_for_pending_ambiguous_moves_to_other_candidate(admin_portal_client, db_session):
     """Сценарий pending (ambiguous): supplier_prices был привязан к
     первому кандидату, админ выбирает второго — supplier_prices
     переезжает. Оба компонента остаются (они реальные, не скелеты)."""
@@ -227,10 +232,10 @@ def test_merge_for_pending_ambiguous_moves_to_other_candidate(admin_client, db_s
         resolved_component_id=cpu_a,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": cpu_b, "csrf_token": token},
     )
     assert r.status_code == 302
@@ -251,7 +256,7 @@ def test_merge_for_pending_ambiguous_moves_to_other_candidate(admin_client, db_s
 # ---- confirm_as_new ---------------------------------------------------
 
 
-def test_confirm_as_new_changes_status_only(admin_client, db_session):
+def test_confirm_as_new_changes_status_only(admin_portal_client, db_session):
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Merlion")
     skeleton = _insert_cpu(db_session, model="Уникальный", sku="UNIQ-1")
@@ -261,10 +266,10 @@ def test_confirm_as_new_changes_status_only(admin_client, db_session):
         resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/confirm_as_new",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/confirm_as_new",
         data={"csrf_token": token},
     )
     assert r.status_code == 302
@@ -283,17 +288,17 @@ def test_confirm_as_new_changes_status_only(admin_client, db_session):
 # ---- defer ------------------------------------------------------------
 
 
-def test_defer_does_not_change_anything(admin_client, db_session):
+def test_defer_does_not_change_anything(admin_portal_client, db_session):
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Merlion")
     unmapped_id = _insert_unmapped(
         db_session, supplier_id=sid, supplier_sku="S-D",
         raw_name="Отложенный", status="pending",
     )
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/defer",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/defer",
         data={"csrf_token": token},
     )
     assert r.status_code == 302
@@ -307,14 +312,14 @@ def test_defer_does_not_change_anything(admin_client, db_session):
 # ---- candidates ordering ---------------------------------------------
 
 
-def test_mapping_score_calculation(admin_client, db_session):
+def test_mapping_score_calculation(admin_portal_client, db_session):
     """Типовые кейсы расчёта score (этап 7.5: MPN — главный сигнал):
       - brand-only без MPN → 30 (fallback, только бренд);
       - common-model-token без MPN → 50 (fallback, только токен);
       - near-duplicate без MPN → 70 (fallback, капнутый _SCORE_FALLBACK_CAP);
       - точное совпадение MPN → 100.
     """
-    from app.services import mapping_service as ms
+    from portal.services.databases import mapping_service as ms
 
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
@@ -365,7 +370,7 @@ def test_mapping_score_calculation(admin_client, db_session):
     assert s_mpn   == 100  # MPN идентичен
 
 
-def test_mapping_list_default_filter_is_suspicious(admin_client, db_session):
+def test_mapping_list_default_filter_is_suspicious(admin_portal_client, db_session):
     """По умолчанию показываем только подозрительных (score >= 50).
     «Вероятно новые» остаются скрытыми до переключения фильтра."""
     _cleanup_fixtures_for_test(db_session)
@@ -384,7 +389,7 @@ def test_mapping_list_default_filter_is_suspicious(admin_client, db_session):
         brand="NoName", status="created_new",
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     assert r.status_code == 200
     # Подозрительная запись (near-duplicate) — видна.
     assert "Intel Core i5-12400" in r.text
@@ -392,7 +397,7 @@ def test_mapping_list_default_filter_is_suspicious(admin_client, db_session):
     assert "Совершенно уникальное устройство" not in r.text
 
 
-def test_bulk_confirm_new(admin_client, db_session):
+def test_bulk_confirm_new(admin_portal_client, db_session):
     """Массовое подтверждение «новых»: все created_new со score < 50
     переходят в confirmed_new; «подозрительные» не трогаются."""
     _cleanup_fixtures_for_test(db_session)
@@ -419,14 +424,14 @@ def test_bulk_confirm_new(admin_client, db_session):
         for i in range(2)
     ]
 
-    # Открываем /admin/mapping — это посчитает score для всех пяти.
-    r = admin_client.get("/admin/mapping?score=new")
+    # Открываем /databases/mapping — это посчитает score для всех пяти.
+    r = admin_portal_client.get("/databases/mapping?score=new")
     assert r.status_code == 200
     token = extract_csrf(r.text)
 
     # Массовое действие.
-    r = admin_client.post(
-        "/admin/mapping/bulk_confirm_new",
+    r = admin_portal_client.post(
+        "/databases/mapping/bulk_confirm_new",
         data={"csrf_token": token},
     )
     assert r.status_code == 302
@@ -445,7 +450,7 @@ def test_bulk_confirm_new(admin_client, db_session):
         assert status == "created_new"
 
 
-def test_mapping_list_shows_best_candidate_model(admin_client, db_session):
+def test_mapping_list_shows_best_candidate_model(admin_portal_client, db_session):
     """В колонке «Похожие в БД» рендерится модель best_candidate, а не «—»."""
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
@@ -458,13 +463,13 @@ def test_mapping_list_shows_best_candidate_model(admin_client, db_session):
     )
 
     # По умолчанию — suspicious, наша запись score=100 туда попадает.
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     assert r.status_code == 200
     # Модель лучшего кандидата виднa в колонке.
     assert "Intel Core i5-12400" in r.text
 
 
-def test_detail_page_shows_matching_candidates(admin_client, db_session):
+def test_detail_page_shows_matching_candidates(admin_portal_client, db_session):
     """Детальная страница выдаёт кандидатов, отсортированных по
     релевантности (точное совпадение номера модели — сверху)."""
     _cleanup_fixtures_for_test(db_session)
@@ -485,7 +490,7 @@ def test_detail_page_shows_matching_candidates(admin_client, db_session):
         raw_name="Intel Core i5-13400F",
         status="created_new", brand="Intel",
     )
-    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    r = admin_portal_client.get(f"/databases/mapping/{unmapped_id}")
     assert r.status_code == 200
     # exact должен быть в HTML.
     assert f'value="{exact}"' in r.text
@@ -502,7 +507,7 @@ def test_detail_page_shows_matching_candidates(admin_client, db_session):
 # ---- этап 7.2: фильтрация скелетов, калибровка, синхрон списка и детали ---
 
 
-def test_score_excludes_unmapped_candidates(admin_client, db_session):
+def test_score_excludes_unmapped_candidates(admin_portal_client, db_session):
     """При расчёте score не должны учитываться другие скелеты unmapped.
 
     Типичный кейс этапа 7.1: Merlion и Treolan создали скелеты для
@@ -510,7 +515,7 @@ def test_score_excludes_unmapped_candidates(admin_client, db_session):
     SSD 1TB (тоже скелет), тот же бренд → score=100 → 2000+ ложных
     «подозрительных». После фильтра скелеты друг друга не видят.
     """
-    from app.services import mapping_service as ms
+    from portal.services.databases import mapping_service as ms
 
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Merlion")
@@ -559,7 +564,7 @@ def test_score_excludes_unmapped_candidates(admin_client, db_session):
     assert score_a2 >= 70
 
 
-def test_score_calibration(admin_client, db_session):
+def test_score_calibration(admin_portal_client, db_session):
     """Конкретные кейсы калибровки (этап 7.2):
       - разные бренды в одной категории → 0
       - одинаковый бренд, разные модели → ≤ 30 (cap при отсутствии
@@ -567,7 +572,7 @@ def test_score_calibration(admin_client, db_session):
       - одинаковый бренд + совпадающий конкретный токен → 50-80
       - почти идентичное имя → ≥ 80.
     """
-    from app.services import mapping_service as ms
+    from portal.services.databases import mapping_service as ms
 
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
@@ -616,7 +621,7 @@ def test_score_calibration(admin_client, db_session):
     assert s4 >= 70, f"почти идентичное имя ожидали ≥ 70, получили {s4}"
 
 
-def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
+def test_detail_page_shows_same_candidate_as_list(admin_portal_client, db_session):
     """Детальная страница использует тот же скоринг, что и список.
 
     Раньше список показывал best_candidate из calculate_score (OR),
@@ -624,7 +629,7 @@ def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
     Теперь оба пути через calculate_candidates_ranked: лучший кандидат
     в списке совпадает с первой радио-кнопкой на детальной.
     """
-    from app.services import mapping_service as ms
+    from portal.services.databases import mapping_service as ms
 
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
@@ -651,7 +656,7 @@ def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
     assert int(row.best_candidate_component_id) == real_cpu
 
     # На детали — тот же real_cpu среди кандидатов.
-    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    r = admin_portal_client.get(f"/databases/mapping/{unmapped_id}")
     assert r.status_code == 200
     assert f'value="{real_cpu}"' in r.text
     # Колонка Score видна и содержит 100 для этого кандидата.
@@ -664,8 +669,8 @@ def test_detail_page_shows_same_candidate_as_list(admin_client, db_session):
 # ---- этап 7.6: UX и надёжность merge ----------------------------------
 
 
-def test_detail_page_preselects_best_candidate(admin_client, db_session):
-    """На /admin/mapping/{id} по умолчанию выбран (checked) кандидат с
+def test_detail_page_preselects_best_candidate(admin_portal_client, db_session):
+    """На /databases/mapping/{id} по умолчанию выбран (checked) кандидат с
     лучшим score — тот же, что виден как best_candidate в списке."""
     _cleanup_fixtures_for_test(db_session)
     sid = _insert_supplier(db_session, "Treolan")
@@ -686,7 +691,7 @@ def test_detail_page_preselects_best_candidate(admin_client, db_session):
         status="created_new", mpn="CM8071512400F",
     )
 
-    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    r = admin_portal_client.get(f"/databases/mapping/{unmapped_id}")
     assert r.status_code == 200
     # checked стоит именно на best.
     import re as _re
@@ -695,7 +700,7 @@ def test_detail_page_preselects_best_candidate(admin_client, db_session):
     assert int(m.group(1)) == best
 
 
-def test_detail_page_has_merge_button_at_top(admin_client, db_session):
+def test_detail_page_has_merge_button_at_top(admin_portal_client, db_session):
     """Кнопка «Объединить с выбранным» находится в той же группе, что
     «Новый товар» и «Разобраться потом», и ДО таблицы кандидатов."""
     _cleanup_fixtures_for_test(db_session)
@@ -710,7 +715,7 @@ def test_detail_page_has_merge_button_at_top(admin_client, db_session):
         status="created_new", mpn="CM8071512400F",
     )
 
-    r = admin_client.get(f"/admin/mapping/{unmapped_id}")
+    r = admin_portal_client.get(f"/databases/mapping/{unmapped_id}")
     assert r.status_code == 200
 
     # Кнопка merge находится РАНЬШЕ заголовка таблицы кандидатов.
@@ -726,7 +731,7 @@ def test_detail_page_has_merge_button_at_top(admin_client, db_session):
     assert 'form="merge-form"' in r.text
 
 
-def test_merge_success(admin_client, db_session):
+def test_merge_success(admin_portal_client, db_session):
     """Нормальное объединение: supplier_prices переносится, скелет
     удаляется, unmapped.status = 'merged'. Повторяет позитивный сценарий
     из 7.1 как санити-проверку после правок 7.6."""
@@ -742,10 +747,10 @@ def test_merge_success(admin_client, db_session):
         resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": real_cpu, "csrf_token": token},
     )
     assert r.status_code == 302
@@ -765,7 +770,7 @@ def test_merge_success(admin_client, db_session):
     ), {"id": unmapped_id}).scalar() == "merged"
 
 
-def test_merge_with_existing_supplier_price(admin_client, db_session):
+def test_merge_with_existing_supplier_price(admin_portal_client, db_session):
     """Если на target уже есть supplier_prices от того же поставщика и
     категории (UNIQUE sup+cat+component), merge не падает с 500:
     конфликтующая строка удаляется, новая переносится."""
@@ -788,13 +793,13 @@ def test_merge_with_existing_supplier_price(admin_client, db_session):
         resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": real_cpu, "csrf_token": token},
     )
-    # 302 на /admin/mapping — редирект, НЕ 500.
+    # 302 на /databases/mapping — редирект, НЕ 500.
     assert r.status_code == 302
 
     # На real_cpu осталась ОДНА строка — свежая (TR-NEW), конфликтующая
@@ -812,7 +817,7 @@ def test_merge_with_existing_supplier_price(admin_client, db_session):
     ), {"id": skeleton}).first() is None
 
 
-def test_merge_self_reference_rejected(admin_client, db_session):
+def test_merge_self_reference_rejected(admin_portal_client, db_session):
     """Попытка объединить со скелетом, который принадлежит ДРУГОЙ
     unmapped-записи, даёт понятную flash-ошибку, а не 500."""
     _cleanup_fixtures_for_test(db_session)
@@ -836,11 +841,11 @@ def test_merge_self_reference_rejected(admin_client, db_session):
         resolved_component_id=my_skel,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
     # Пытаемся объединить my_unmapped с other_skel — это «чужой» скелет.
-    r = admin_client.post(
-        f"/admin/mapping/{my_unmapped}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{my_unmapped}/merge",
         data={"target_component_id": other_skel, "csrf_token": token},
     )
     # 302 (редирект с flash), НЕ 500.
@@ -852,11 +857,11 @@ def test_merge_self_reference_rejected(admin_client, db_session):
     ), {"id": my_unmapped}).scalar()
     assert status == "created_new"
     # Flash-ошибка видна на следующем GET.
-    r2 = admin_client.get("/admin/mapping")
+    r2 = admin_portal_client.get("/databases/mapping")
     assert "Не удалось объединить" in r2.text or "скелет" in r2.text.lower()
 
 
-def test_merge_idempotent(admin_client, db_session):
+def test_merge_idempotent(admin_portal_client, db_session):
     """Повторный merge на уже merged-записи не падает, не создаёт
     дубликатов supplier_prices, не меняет resolved_component_id."""
     _cleanup_fixtures_for_test(db_session)
@@ -871,20 +876,20 @@ def test_merge_idempotent(admin_client, db_session):
         resolved_component_id=skeleton,
     )
 
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
     # Первый merge — нормальный.
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": real_cpu, "csrf_token": token},
     )
     assert r.status_code == 302
 
     # Второй merge на той же записи — должен быть noop, не 500.
-    r = admin_client.get("/admin/mapping")
+    r = admin_portal_client.get("/databases/mapping")
     token = extract_csrf(r.text)
-    r = admin_client.post(
-        f"/admin/mapping/{unmapped_id}/merge",
+    r = admin_portal_client.post(
+        f"/databases/mapping/{unmapped_id}/merge",
         data={"target_component_id": real_cpu, "csrf_token": token},
     )
     assert r.status_code == 302

@@ -145,13 +145,16 @@
                      'Прайс-листы', 'prices') }}
         {{ _sub_link('portal', '/admin/auto-price-loads',
                      'Автозагрузка', 'autoload') }}
-        {# Стабы — переедут в portal/databases/* на этапе UI-2.
-           Сейчас живут в конфигураторе (/admin/{suppliers,components,mapping}). #}
-        {{ _sub_link('configurator', '/admin/suppliers',
+        {# UI-2 (Путь B, 2026-05-11): «Поставщики», «Комплектующие для
+           ПК» и «Очередь маппинга» переехали из конфигуратора в портал
+           (portal/routers/databases). Сейчас это внутренние ссылки для
+           портала; в конфигураторе они кросс-сервисные и приходят на
+           301-редирект с /admin/{suppliers,components,mapping}. #}
+        {{ _sub_link('portal', '/databases/suppliers',
                      'Поставщики', 'suppliers') }}
-        {{ _sub_link('configurator', '/admin/components',
+        {{ _sub_link('portal', '/databases/components',
                      'Комплектующие для ПК', 'components') }}
-        {{ _sub_link('configurator', '/admin/mapping',
+        {{ _sub_link('portal', '/databases/mapping',
                      'Очередь маппинга', 'mapping') }}
       </div>
       {% endif %}

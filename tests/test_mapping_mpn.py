@@ -7,7 +7,7 @@
 
 from __future__ import annotations
 
-from app.services.mapping_service import (
+from portal.services.databases.mapping_service import (
     _score_breakdown,
     _strip_mpn_suffix,
 )

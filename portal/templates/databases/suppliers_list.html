@@ -3,26 +3,21 @@
 
 {% block title %}Поставщики — КВАДРО-ТЕХ{% endblock %}
 
-{% block breadcrumbs %}
-<span class="crumb-current">Поставщики</span>
-{% endblock %}
-
-{% block topbar_extra %}
-<a href="/admin/suppliers/new" class="btn btn-md btn-primary">
-  {{ icon('plus', class='w-4 h-4') }}
-  Добавить поставщика
-</a>
-{% endblock %}
-
 {% block content %}
 <div class="max-w-screen-2xl mx-auto space-y-6">
 
-  <header>
-    <h1 class="text-display text-ink-primary">Поставщики</h1>
-    <p class="mt-1.5 text-body text-ink-secondary">
-      Справочник дистрибьюторов: имя, email для запросов цен, контактное лицо.
-      Деактивированные поставщики не участвуют в подборе цен и в рассылке КП.
-    </p>
+  <header class="flex items-start justify-between gap-4 flex-wrap">
+    <div>
+      <h1 class="text-display text-ink-primary">Поставщики</h1>
+      <p class="mt-1.5 text-body text-ink-secondary">
+        Справочник дистрибьюторов: имя, email для запросов цен, контактное лицо.
+        Деактивированные поставщики не участвуют в подборе цен и в рассылке КП.
+      </p>
+    </div>
+    <a href="/databases/suppliers/new" class="btn btn-md btn-primary">
+      {{ icon('plus', class='w-4 h-4') }}
+      Добавить поставщика
+    </a>
   </header>
 
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
@@ -35,7 +30,7 @@
       {{ icon('truck', class='w-5 h-5') }}
     </div>
     <p class="text-body text-ink-secondary">Поставщиков ещё нет.</p>
-    <a href="/admin/suppliers/new" class="btn btn-md btn-primary mt-4">
+    <a href="/databases/suppliers/new" class="btn btn-md btn-primary mt-4">
       {{ icon('plus', class='w-4 h-4') }}
       Добавить первого
     </a>
@@ -85,11 +80,11 @@
           </td>
           <td class="text-right">
             <div class="inline-flex items-center gap-2">
-              <a href="/admin/suppliers/{{ s.id }}/edit" class="btn btn-sm btn-secondary">
+              <a href="/databases/suppliers/{{ s.id }}/edit" class="btn btn-sm btn-secondary">
                 {{ icon('edit', class='w-3.5 h-3.5') }}
                 Изменить
               </a>
-              <form method="post" action="/admin/suppliers/{{ s.id }}/toggle" class="inline m-0">
+              <form method="post" action="/databases/suppliers/{{ s.id }}/toggle" class="inline m-0">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <button type="submit"
                         class="btn btn-sm {% if s.is_active %}btn-ghost text-ink-secondary hover:text-danger-500{% else %}btn-secondary{% endif %}"

@@ -106,9 +106,74 @@ def test_nomenclature_active_section_is_databases(admin_portal_client):
         assert _has_subitem(html, sub), f"Подпункт «Базы данных» {sub!r} отсутствует"
     # «Справочник оргтехники» — переименованный лейбл (URL /nomenclature не трогаем).
     assert "Справочник оргтехники" in html
+    # UI-2: «Комплектующие для ПК» — переименованный лейбл «Компонентов».
+    assert "Комплектующие для ПК" in html
     # Других секций subitems быть не должно.
     assert not _has_section_subitems_container(html, "settings")
     assert not _has_section_subitems_container(html, "configurator")
+
+
+def test_databases_subitems_are_internal_in_portal(admin_portal_client):
+    """UI-2: «Поставщики», «Комплектующие для ПК», «Очередь маппинга»
+    переехали в портал — это теперь внутренние ссылки на портале,
+    без маркера ↗ и с относительным URL /databases/*."""
+    html = admin_portal_client.get("/nomenclature").text
+    # У подпунктов после переезда — относительный URL и нет ↗.
+    for sub_key, path in (
+        ("suppliers",  "/databases/suppliers"),
+        ("components", "/databases/components"),
+        ("mapping",    "/databases/mapping"),
+    ):
+        # Ищем якорь с конкретным data-subsection.
+        anchor_re = re.search(
+            r'<a\s+href="([^"]+)"[^>]*data-subsection="' + sub_key + r'"[^>]*>([^<]*?)</a>',
+            html, re.DOTALL,
+        )
+        # У _sub_link href идёт первым, но дальше внутри ссылки много
+        # markup'а — простая re не зацепит. Проверяем независимо:
+        # 1) есть href ровно на /databases/<sub_key>
+        assert path in html, f"Не найдена внутренняя ссылка {path}"
+    # 2) для трёх подпунктов нет маркера ↗-подсказки про другой сервис
+    #    (она называется «Откроется в другом сервисе»).
+    # Считаем количество таких подсказок — оно должно быть 0 в рамках
+    # раздела «Базы данных» (все 6 подпунктов теперь живут в портале).
+    databases_container = re.search(
+        r'data-testid="sidebar-subitems-databases".*?</div>',
+        html, re.DOTALL,
+    )
+    assert databases_container, "Контейнер подпунктов «Базы данных» не найден"
+    assert "Откроется в другом сервисе" not in databases_container.group(0), \
+        "После UI-2 в «Базах данных» не должно быть ↗-маркеров"
+
+
+def test_databases_suppliers_page_renders_with_correct_subsection(admin_portal_client):
+    """Прямой переход на /databases/suppliers подсвечивает active_subsection=suppliers."""
+    r = admin_portal_client.get("/databases/suppliers")
+    assert r.status_code == 200
+    html = r.text
+    assert _active_section(html) == "databases"
+    assert 'data-subsection="suppliers"' in html
+    assert 'aria-current="page"' in html
+
+
+def test_databases_components_page_renders_with_correct_subsection(admin_portal_client):
+    """Прямой переход на /databases/components подсвечивает active_subsection=components."""
+    r = admin_portal_client.get("/databases/components")
+    assert r.status_code == 200
+    html = r.text
+    assert _active_section(html) == "databases"
+    assert 'data-subsection="components"' in html
+    # И заголовок страницы — новый лейбл «Комплектующие для ПК».
+    assert "Комплектующие для ПК" in html
+
+
+def test_databases_mapping_page_renders_with_correct_subsection(admin_portal_client):
+    """Прямой переход на /databases/mapping подсвечивает active_subsection=mapping."""
+    r = admin_portal_client.get("/databases/mapping")
+    assert r.status_code == 200
+    html = r.text
+    assert _active_section(html) == "databases"
+    assert 'data-subsection="mapping"' in html
 
 
 def test_audit_active_section_is_settings(admin_portal_client):

@@ -31,6 +31,17 @@
 {% elif _path.startswith('/admin/auto-price-loads') %}
   {% set active_section = 'databases' %}
   {% set active_subsection = 'autoload' %}
+{# UI-2 (Путь B): «Поставщики», «Комплектующие для ПК», «Очередь
+   маппинга» переехали в portal/databases/* — теперь определяются здесь. #}
+{% elif _path.startswith('/databases/suppliers') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'suppliers' %}
+{% elif _path.startswith('/databases/components') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'components' %}
+{% elif _path.startswith('/databases/mapping') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'mapping' %}
 {% elif _path.startswith('/admin/users') %}
   {% set active_section = 'settings' %}
   {% set active_subsection = 'users' %}

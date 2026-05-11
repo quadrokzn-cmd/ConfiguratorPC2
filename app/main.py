@@ -36,7 +36,6 @@ from app.routers import (
     admin_router,
     export_router,
     main_router,
-    mapping_router,
     project_router,
 )
 from app.scheduler import (
@@ -164,11 +163,65 @@ def _redirect_to_login(request: Request, exc: LoginRequiredRedirect):
 # Статические файлы (JS конфигуратора спецификации, картинки и т. п.).
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# UI-2 (Путь B, 2026-05-11): /admin/{suppliers,components,mapping}
+# переехали в портал (portal/routers/databases). Здесь оставлены три
+# точечных catch-all GET-редиректа на новые URL, чтобы старые закладки
+# у менеджеров продолжали работать. Сами роуты в admin_router.py и
+# mapping_router.py удалены (mapping_router.py больше нет, обработчики
+# suppliers/components вырезаны из admin_router.py).
+#
+# Использован {rest:path} с дефолтом "" — это и корень /admin/suppliers,
+# и любой sub-route (/admin/suppliers/15/edit) одним обработчиком.
+# Только GET — POST-формы редактирования в конфигураторе больше не
+# отдаются (страница списка/детали — это GET; они и редиректнутся,
+# дальше менеджер уже на портале сабмитит).
+
+def _redirect_to_portal_databases(section: str, rest: str = "") -> RedirectResponse:
+    """Собирает 301-редирект на portal_url/databases/<section>[/<rest>].
+
+    Хост (settings.portal_url) подменяется в зависимости от окружения
+    (prod / pre-prod / локально), хардкода нет."""
+    suffix = f"/{rest}" if rest else ""
+    return RedirectResponse(
+        url=f"{settings.portal_url}/databases/{section}{suffix}",
+        status_code=status.HTTP_301_MOVED_PERMANENTLY,
+    )
+
+
+@app.get("/admin/suppliers")
+def _redirect_admin_suppliers_root():
+    return _redirect_to_portal_databases("suppliers")
+
+
+@app.get("/admin/suppliers/{rest:path}")
+def _redirect_admin_suppliers_sub(rest: str):
+    return _redirect_to_portal_databases("suppliers", rest)
+
+
+@app.get("/admin/components")
+def _redirect_admin_components_root():
+    return _redirect_to_portal_databases("components")
+
+
+@app.get("/admin/components/{rest:path}")
+def _redirect_admin_components_sub(rest: str):
+    return _redirect_to_portal_databases("components", rest)
+
+
+@app.get("/admin/mapping")
+def _redirect_admin_mapping_root():
+    return _redirect_to_portal_databases("mapping")
+
+
+@app.get("/admin/mapping/{rest:path}")
+def _redirect_admin_mapping_sub(rest: str):
+    return _redirect_to_portal_databases("mapping", rest)
+
+
 # Роутеры. /login и /logout удалены — переехали в портал.
-# /admin/users тоже переехал; в admin_router.py остался только редирект
-# на portal_url для совместимости со старыми ссылками.
-# /admin/mapping раньше /admin, иначе более общий роутер съест префикс.
-app.include_router(mapping_router.router)
+# /admin/users тоже переехал; в admin_router.py остался редирект на portal_url
+# для совместимости со старыми ссылками. /admin/suppliers, /admin/components,
+# /admin/mapping переехали в портал на UI-2 — выше стоят 301-редиректы.
 app.include_router(admin_router.router)     # /admin/* — подключаем раньше /
 app.include_router(project_router.router)   # /projects, /project/*
 app.include_router(export_router.router)    # /project/*/export/*
