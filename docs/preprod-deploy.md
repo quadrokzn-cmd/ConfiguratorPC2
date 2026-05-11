@@ -486,10 +486,52 @@ APScheduler-job `auctions_ingest` в `portal-preprod` (Railway) при этом
 postgres-суперюзером, для прод-режима с офисного worker'а он будет
 выключен на этапе 9e.3 (правка `portal/scheduler.py`).
 
-> Для prod-БД (этап 9e.4) повторяем ту же процедуру: применяем 0035 на
-> prod-postgres (там CREATE ROLE будет первой выдачей роли), генерируем
-> отдельный пароль, формируем `INGEST_WRITER_DATABASE_URL_PROD` в
-> `.env.local.prod*` (gitignored). Пароли pre-prod и prod — РАЗНЫЕ.
+**Шаг Л.5. Повтор процедуры на prod-БД (этап 9e.4.1).** Та же
+последовательность с одним отличием — окружение prod, отдельный пароль,
+отдельный файл секретов:
+
+1. `.gitignore` уже содержит паттерн `.env.local.prod*` (добавлен на
+   9e.4.1). Создаём пустой `.env.local.prod.v1` и через notepad
+   подставляем `DATABASE_PUBLIC_URL=postgresql://postgres:<pwd>@<host>:<port>/railway`
+   — берётся в Railway: prod-environment → postgres service → вкладка
+   Connect (или Settings → Public Networking) → «Public URL» с уже
+   резолвленными `RAILWAY_TCP_PROXY_DOMAIN` и `RAILWAY_TCP_PROXY_PORT`.
+   Сырое значение из Variables не подходит — оно содержит template-
+   плейсхолдеры, Railway их раскрывает только при инжекте в контейнер.
+
+2. На prod миграция `0035_ingest_writer_role.sql` обычно уже применена
+   автоматически при последнем prod-deploy через `apply_migrations.py`
+   (роль появилась `NOLOGIN`, GRANT-ы выданы, запись в
+   `schema_migrations` есть). Повторный прогон миграции идемпотентен —
+   `DO`-блок с `IF NOT EXISTS` пропустится, GRANT-ы перевыдадутся без
+   эффекта, `INSERT INTO schema_migrations ... ON CONFLICT DO NOTHING`
+   ничего не вставит. На 9e.4.1 (2026-05-11) запись в
+   `schema_migrations` была от `2026-05-11 12:00:56 UTC`
+   (автоматический Railway-deploy), `pg_roles.ingest_writer.canlogin`
+   `= False` (пароля ещё не было).
+
+3. Генерация пароля и `ALTER ROLE` — тот же скрипт что в шаге Л.2, но
+   обращается к `.env.local.prod.v1` и пишет результат под ключом
+   `INGEST_WRITER_DATABASE_URL_PROD` (не `_PREPROD`). Пароли pre-prod и
+   prod — РАЗНЫЕ. На 9e.4.1 операция выполнена единым python-блоком
+   через `psycopg2` (никаких `subprocess`, никаких temp .sql-файлов,
+   пароль остаётся только в памяти процесса и в файле .env.local.prod.v1).
+
+4. Smoke — те же 4 SELECT + транзакционный INSERT/UPDATE/DELETE цикл +
+   8 negative-проверок. Используем `psycopg2.connect(DSN_без_префикса
+   postgresql+psycopg2://)`, в catch ловим `psycopg2.errors.InsufficientPrivilege`.
+   На 9e.4.1 (2026-05-11): positive — `current_user='ingest_writer'`,
+   `settings=6 / ktru_watchlist=10 / excluded_regions=7 / tenders count=0`
+   (prod пустой, prod-ingest не работал из-за Railway-блока), INSERT в
+   tenders/tender_items/tender_status + UPDATE + DELETE прошли в одной
+   транзакции, leftover везде 0; negative — 8/8 `permission denied for
+   table <name>`.
+
+5. Использование DSN на офисном worker'е — отдельный мини-этап 9e.4.2
+   (заменяем `INGEST_WRITER_DATABASE_URL` в `D:\AuctionsIngest\ConfiguratorPC2\.env`
+   на prod-значение, выключаем APScheduler-job `auctions_ingest` в
+   `portal/scheduler.py` для prod-режима). До 9e.4.2 — prod-ingest не
+   запускается (роль готова, никто её ещё не использует).
 
 ### Шаг М. Запуск ingest вручную с локальной машины под `ingest_writer` (этап 9e.2)
 

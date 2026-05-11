@@ -10,6 +10,7 @@ env/
 .env.local
 .env.*.local
 .env.local.preprod*
+.env.local.prod*
 
 .idea/
 .vscode/
