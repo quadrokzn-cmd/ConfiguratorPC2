@@ -43,20 +43,16 @@
             {{ icon('external-link', 'w-3.5 h-3.5') }}
           </a>
           {% endif %}
-          {# Бейдж типа лота: только печать / mixed +N ПК / без печати. #}
+          {# Бейдж типа лота: только оргтехника / смешанный лот. #}
           {% if r.total_items_count and r.total_items_count > 0 %}
             {% if r.printer_items_count == r.total_items_count %}
               <span class="badge badge-success ml-1 align-middle"
                     title="Все {{ r.total_items_count }} позиций — печатная техника"
-                    data-testid="lot-type-print-{{ r.reg_number }}">только печать</span>
-            {% elif r.printer_items_count == 0 %}
-              <span class="badge badge-neutral ml-1 align-middle"
-                    title="Печатных позиций нет (KTRU watchlist сработал по другим основаниям)"
-                    data-testid="lot-type-nonprint-{{ r.reg_number }}">без печати</span>
+                    data-testid="lot-type-print-{{ r.reg_number }}">только оргтехника</span>
             {% else %}
               <span class="badge badge-warning ml-1 align-middle"
                     title="{{ r.printer_items_count }} печатных + {{ r.non_printer_items_count }} непечатных позиций"
-                    data-testid="lot-type-mixed-{{ r.reg_number }}">+{{ r.non_printer_items_count }} ПК</span>
+                    data-testid="lot-type-mixed-{{ r.reg_number }}">смешанный лот</span>
             {% endif %}
           {% endif %}
         </td>

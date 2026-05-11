@@ -1,9 +1,9 @@
 """Тесты бейджа типа лота и фильтра print-only на /auctions (мини-этап 9a-mixed-lot-flag).
 
 Проверяем:
-- лот со всеми позициями печатными → badge "только печать";
-- лот с 1 печатной + 3 непечатных → badge "+3 ПК" (mixed);
-- лот без печатных позиций → badge "без печати";
+- лот со всеми позициями печатными → badge «только оргтехника»;
+- лот с 1 печатной + 3 непечатных → badge «смешанный лот»;
+- лот без печатных позиций → badge «смешанный лот» (тот же mixed-кейс);
 - фильтр print_only сужает выдачу до чисто print-лотов.
 
 Префиксы KTRU для печатной техники:
@@ -23,7 +23,7 @@ from tests.test_portal.auctions_fixtures import (
 def test_badge_print_only_when_all_items_are_printers(
     portal_client, auctions_viewer, db_session,
 ):
-    """Все позиции — МФУ/Принтер → бейдж «только печать»."""
+    """Все позиции — МФУ/Принтер → бейдж «только оргтехника»."""
     rn = "print-only-lot-001"
     insert_tender(db_session, reg_number=rn, submit_deadline_offset_hours=-72)
     insert_tender_item(
@@ -40,14 +40,14 @@ def test_badge_print_only_when_all_items_are_printers(
     assert r.status_code == 200
     assert f'data-testid="lot-row-{rn}"' in r.text
     assert f'data-testid="lot-type-print-{rn}"' in r.text
+    assert "только оргтехника" in r.text
     assert f'data-testid="lot-type-mixed-{rn}"' not in r.text
-    assert f'data-testid="lot-type-nonprint-{rn}"' not in r.text
 
 
 def test_badge_mixed_when_some_items_are_non_printer(
     portal_client, auctions_viewer, db_session,
 ):
-    """1 печатная + 3 непечатных → бейдж «+3 ПК»."""
+    """1 печатная + 3 непечатных → бейдж «смешанный лот»."""
     rn = "mixed-lot-001"
     insert_tender(db_session, reg_number=rn, submit_deadline_offset_hours=-72)
     insert_tender_item(
@@ -72,14 +72,19 @@ def test_badge_mixed_when_some_items_are_non_printer(
     r = portal_client.get("/auctions")
     assert r.status_code == 200
     assert f'data-testid="lot-type-mixed-{rn}"' in r.text
-    assert "+3 ПК" in r.text
+    assert "смешанный лот" in r.text
     assert f'data-testid="lot-type-print-{rn}"' not in r.text
 
 
-def test_badge_no_print_when_zero_printer_items(
+def test_badge_mixed_when_zero_printer_items(
     portal_client, auctions_viewer, db_session,
 ):
-    """Лот без печатных позиций → бейдж «без печати»."""
+    """Лот без печатных позиций → бейдж «смешанный лот» (тот же mixed-кейс).
+
+    На практике такие лоты в инбоксе не должны появляться (KTRU-watchlist
+    ingest'a фильтрует только печатные префиксы), но если попадут через
+    ручной триггер или search — бейдж сигнализирует «не чисто печать».
+    """
     rn = "no-print-lot-001"
     insert_tender(db_session, reg_number=rn, submit_deadline_offset_hours=-72)
     insert_tender_item(
@@ -94,8 +99,8 @@ def test_badge_no_print_when_zero_printer_items(
     login_as(portal_client, auctions_viewer)
     r = portal_client.get("/auctions")
     assert r.status_code == 200
-    assert f'data-testid="lot-type-nonprint-{rn}"' in r.text
-    assert f'data-testid="lot-type-mixed-{rn}"' not in r.text
+    assert f'data-testid="lot-type-mixed-{rn}"' in r.text
+    assert "смешанный лот" in r.text
     assert f'data-testid="lot-type-print-{rn}"' not in r.text
 
 
@@ -159,4 +164,3 @@ def test_no_badge_when_tender_has_no_items(
     assert f'data-testid="lot-row-{rn}"' in r.text
     assert f'data-testid="lot-type-print-{rn}"' not in r.text
     assert f'data-testid="lot-type-mixed-{rn}"' not in r.text
-    assert f'data-testid="lot-type-nonprint-{rn}"' not in r.text
