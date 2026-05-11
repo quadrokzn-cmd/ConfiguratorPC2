@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.price_loaders.merlion import MerlionLoader
+from portal.services.configurator.price_loaders.merlion import MerlionLoader
 
 
 def test_merlion_reads_headers_from_row_11(make_merlion_xlsx):
@@ -183,7 +183,7 @@ def test_merlion_sums_transit_columns(make_merlion_xlsx):
 def test_merlion_parses_qualitative_stock_markers(make_merlion_xlsx):
     """Буквенные маркеры остатка Merlion должны становиться числами,
     иначе конфигуратор (фильтр stock_qty > 0) никогда не увидит позиции."""
-    from app.services.price_loaders.merlion import _parse_stock
+    from portal.services.configurator.price_loaders.merlion import _parse_stock
 
     assert _parse_stock("+") == 5
     assert _parse_stock("++") == 15

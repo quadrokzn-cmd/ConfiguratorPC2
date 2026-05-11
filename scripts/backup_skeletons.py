@@ -16,8 +16,8 @@ load_dotenv()
 
 from sqlalchemy import text
 from app.database import SessionLocal
-from app.services.enrichment.base import CATEGORY_TO_TABLE
-from app.services.enrichment.runner import REQUIRED_FIELDS
+from portal.services.configurator.enrichment.base import CATEGORY_TO_TABLE
+from portal.services.configurator.enrichment.runner import REQUIRED_FIELDS
 
 
 def _fmt_value(v) -> str:

@@ -10,7 +10,7 @@ load_dotenv()
 
 from sqlalchemy import text
 from app.database import SessionLocal
-from app.services.enrichment.regex_sources import (
+from portal.services.configurator.enrichment.regex_sources import (
     case as case_src, cooler as cooler_src, gpu as gpu_src, storage as storage_src,
 )
 

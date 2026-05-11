@@ -15,14 +15,14 @@ from pathlib import Path
 
 import pytest
 
-from app.services.manual_edit.csv_io import parse_cell, serialize_cell
-from app.services.manual_edit.schema import (
+from portal.services.configurator.manual_edit.csv_io import parse_cell, serialize_cell
+from portal.services.configurator.manual_edit.schema import (
     CSV_DELIMITER,
     all_fields,
     csv_header,
     is_array_field,
 )
-from app.services.manual_edit.validators_extra import (
+from portal.services.configurator.manual_edit.validators_extra import (
     ValidationError,
     validate_field,
 )

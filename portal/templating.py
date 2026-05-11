@@ -66,8 +66,18 @@ templates.env.filters["days_ago"] = _dashboard.format_days_ago
 # Импорт лежит здесь, а не на уровне модуля, чтобы не падать в тестах,
 # где app.templating может тянуть тяжёлые зависимости (scheduler и пр.).
 from app.templating import current_exchange_rate as _current_exchange_rate
+# UI-4 (Путь B, 2026-05-11): фильтры to_rub/fmt_rub теперь нужны и
+# в portal/ — шаблоны конфигуратора (project_detail.html, result.html
+# и т.д.) переехали в portal/templates/configurator/ и обращаются к
+# этим фильтрам. Переиспользуем реализацию из app/templating.py
+# (app/templating.py остаётся, пока существует /admin (dashboard) в
+# конфигураторе — окончательное место для to_rub/fmt_rub станет
+# portal/templating.py после UI-5).
+from app.templating import to_rub as _to_rub, fmt_rub as _fmt_rub
 
 templates.env.globals["current_exchange_rate"] = _current_exchange_rate
+templates.env.filters["to_rub"] = _to_rub
+templates.env.filters["fmt_rub"] = _fmt_rub
 
 
 # 9a-fixes: форматирование сумм по-русски — «5 348 890,31».

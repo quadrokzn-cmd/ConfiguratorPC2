@@ -25,8 +25,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.enrichment.openai_search.runner import format_report, run
-from app.services.enrichment.openai_search.schema import ALL_CATEGORIES
+from portal.services.configurator.enrichment.openai_search.runner import format_report, run
+from portal.services.configurator.enrichment.openai_search.schema import ALL_CATEGORIES
 
 
 def main() -> int:

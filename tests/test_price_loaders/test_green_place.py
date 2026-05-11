@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.price_loaders.green_place import GreenPlaceLoader
+from portal.services.configurator.price_loaders.green_place import GreenPlaceLoader
 
 
 def test_green_place_basic_data_row(make_green_place_xlsx):
@@ -224,7 +224,7 @@ def test_green_place_normalizes_numeric_supplier_sku(make_green_place_xlsx):
     """В реальных прайсах supplier_sku приходит как float из Excel
     (1003014.0). Чтобы повторная загрузка не плодила дубликаты,
     целочисленные float сворачиваются к int-строке."""
-    from app.services.price_loaders.green_place import _normalize
+    from portal.services.configurator.price_loaders.green_place import _normalize
     assert _normalize(1003014.0) == "1003014"
     assert _normalize(42) == "42"
     assert _normalize("ABC-1") == "ABC-1"

@@ -34,7 +34,7 @@ def test_parser_raw_summary_is_not_verbatim_copy():
     from dotenv import load_dotenv
     load_dotenv()
 
-    from app.services.nlu.parser import parse
+    from portal.services.configurator.nlu.parser import parse
 
     query = (
         "Системный блок УРМ в составе: iRU Office 310H6S Intel Core i5 12400, "

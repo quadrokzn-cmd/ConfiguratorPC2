@@ -34,6 +34,7 @@ from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.config import settings
+from portal.dependencies.configurator_access import ConfiguratorAccessDenied
 from portal.routers import (
     admin_auctions,
     admin_auto_price,
@@ -43,6 +44,11 @@ from portal.routers import (
     auth,
     home,
     nomenclature,
+)
+from portal.routers.configurator import (
+    export as configurator_export,
+    main as configurator_main,
+    projects as configurator_projects,
 )
 from portal.routers.databases import (
     components as databases_components,
@@ -100,6 +106,22 @@ def _redirect_to_login(request: Request, exc: LoginRequiredRedirect):
     )
 
 
+# UI-4 (Путь B, 2026-05-11): scoped-проверка доступа к модулю
+# «Конфигуратор ПК». Раньше это была глобальная middleware
+# _enforce_configurator_permission в app/main.py — теперь Depends
+# require_configurator_access на трёх роутерах /configurator/*.
+# Если у залогиненного пользователя нет permissions['configurator'],
+# Depends поднимает ConfiguratorAccessDenied; здесь превращаем его в
+# 302 на главную портала с query ?denied=configurator — на главной
+# рендерится баннер «нет доступа к модулю».
+@app.exception_handler(ConfiguratorAccessDenied)
+def _redirect_configurator_denied(request: Request, exc: ConfiguratorAccessDenied):
+    return RedirectResponse(
+        url="/?denied=configurator",
+        status_code=status.HTTP_302_FOUND,
+    )
+
+
 # Статика общая с конфигуратором — шаблоны портала ссылаются на
 # /static/dist/main.css. Файлы physically лежат в /app/static
 # (Dockerfile.portal копирует static/ внутрь образа).
@@ -126,6 +148,13 @@ app.include_router(nomenclature.router)
 app.include_router(databases_suppliers.router)
 app.include_router(databases_components.router)
 app.include_router(databases_mapping.router)
+# UI-4 (Путь B, 2026-05-11): «Конфигуратор ПК» — NLU-форма, проекты и
+# экспорт КП. Префикс /configurator/. Раньше жили в app/routers/*
+# на config.quadro.tatar. Со старого хоста стоит catch-all 301 в
+# app/main.py.
+app.include_router(configurator_main.router)
+app.include_router(configurator_projects.router)
+app.include_router(configurator_export.router)
 
 
 # UI-3 (Путь B, 2026-05-11): 301-редиректы со старых URL раздела

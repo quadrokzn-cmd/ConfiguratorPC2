@@ -17,12 +17,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.configurator import (
+from portal.services.configurator.engine import (
     build_config,
     request_from_dict,
     result_to_dict,
 )
-from app.services.configurator.pretty import format_result
+from portal.services.configurator.engine.pretty import format_result
 
 
 _EXAMPLE_REQUEST: dict = {

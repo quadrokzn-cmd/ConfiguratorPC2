@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.price_loaders.resurs_media import ResursMediaLoader
+from portal.services.configurator.price_loaders.resurs_media import ResursMediaLoader
 
 
 def test_resurs_media_basic_data_row(make_resurs_media_xlsx):
@@ -45,7 +45,7 @@ def test_resurs_media_basic_data_row(make_resurs_media_xlsx):
 def test_resurs_media_qualitative_stock_markers():
     """Маркеры Мало/Средне/Много/Нет переводятся в числа,
     иначе фильтр stock_qty>0 не пропустит ни одной позиции."""
-    from app.services.price_loaders.resurs_media import _parse_stock
+    from portal.services.configurator.price_loaders.resurs_media import _parse_stock
 
     assert _parse_stock("Мало") == 5
     assert _parse_stock("МАЛО") == 5            # регистр не важен

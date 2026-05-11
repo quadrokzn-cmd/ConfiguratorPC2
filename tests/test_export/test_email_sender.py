@@ -12,7 +12,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from app.services.export import email_sender
+from portal.services.configurator.export import email_sender
 
 
 # --- helpers -------------------------------------------------------------
@@ -40,7 +40,7 @@ def test_send_email_calls_smtp_ssl_login_sendmail(monkeypatch):
     ssl_cls.return_value.__enter__.return_value = smtp_mock
     ssl_cls.return_value.__exit__.return_value = False
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         email_sender.send_email(
             to_email="sup@ru",
             subject="Тема",
@@ -67,7 +67,7 @@ def test_send_email_adds_bcc_to_recipients_not_header(monkeypatch):
     ssl_cls = MagicMock()
     ssl_cls.return_value.__enter__.return_value = smtp_mock
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         email_sender.send_email(
             to_email="sup@ru",
             subject="X",
@@ -94,7 +94,7 @@ def test_send_email_skips_bcc_if_same_as_to(monkeypatch):
     ssl_cls = MagicMock()
     ssl_cls.return_value.__enter__.return_value = smtp_mock
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         email_sender.send_email(
             to_email="quadro@quadro.tatar",
             subject="X",
@@ -117,7 +117,7 @@ def test_send_email_auth_error_raises_email_send_error(monkeypatch):
     ssl_cls = MagicMock()
     ssl_cls.return_value.__enter__.return_value = smtp_mock
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         with pytest.raises(email_sender.EmailSendError) as exc_info:
             email_sender.send_email(
                 to_email="sup@ru",
@@ -134,7 +134,7 @@ def test_send_email_timeout_raises_email_send_error(monkeypatch):
     _patch_settings(monkeypatch)
     ssl_cls = MagicMock(side_effect=socket.timeout("timed out"))
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         with pytest.raises(email_sender.EmailSendError) as exc_info:
             email_sender.send_email(
                 to_email="sup@ru",
@@ -149,7 +149,7 @@ def test_send_email_without_password_fails_immediately(monkeypatch):
     _patch_settings(monkeypatch, password="")
     ssl_cls = MagicMock()
 
-    with patch("app.services.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
+    with patch("portal.services.configurator.export.email_sender.smtplib.SMTP_SSL", ssl_cls):
         with pytest.raises(email_sender.EmailSendError):
             email_sender.send_email(
                 to_email="x@x", subject="x", body_html="x",

@@ -31,9 +31,9 @@ for _stream in (sys.stdout, sys.stderr):
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.configurator.schema import result_to_dict
-from app.services.nlu.pipeline import process_query
-from app.services.nlu.schema import FinalResponse
+from portal.services.configurator.engine.schema import result_to_dict
+from portal.services.configurator.nlu.pipeline import process_query
+from portal.services.configurator.nlu.schema import FinalResponse
 
 
 def _response_to_dict(resp: FinalResponse) -> dict:

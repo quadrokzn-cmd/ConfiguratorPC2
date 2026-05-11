@@ -1,6 +1,6 @@
 # Юнит-тесты правил совместимости (не требуют БД).
 
-from app.services.compatibility.rules import (
+from portal.services.configurator.compatibility.rules import (
     check_build,
     cooler_cpu,
     cpu_mb_socket,

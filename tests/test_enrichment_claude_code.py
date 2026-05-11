@@ -6,17 +6,17 @@
 
 import pytest
 
-from app.services.enrichment.claude_code.derive import (
+from portal.services.configurator.enrichment.claude_code.derive import (
     derive_needs_extra_power,
     normalize_video_outputs,
     has_power_connector_hint,
 )
-from app.services.enrichment.claude_code.validators import (
+from portal.services.configurator.enrichment.claude_code.validators import (
     ValidationError,
     _validate_source_url,
     validate_field,
 )
-from app.services.enrichment.claude_code.schema import OFFICIAL_DOMAINS
+from portal.services.configurator.enrichment.claude_code.schema import OFFICIAL_DOMAINS
 
 
 # ----------------------------------------------------------------------

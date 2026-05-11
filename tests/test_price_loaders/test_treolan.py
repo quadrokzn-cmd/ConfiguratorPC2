@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.price_loaders.treolan import TreolanLoader
+from portal.services.configurator.price_loaders.treolan import TreolanLoader
 
 
 def test_treolan_reads_headers_from_row_3(make_treolan_xlsx):
@@ -157,7 +157,7 @@ def test_treolan_parses_qualitative_stock_markers():
     """Колонки «Склад»/«Транзит» у Treolan часто содержат не числа,
     а маркеры «<10», «много» и пр. Без перевода в числа конфигуратор
     (фильтр stock_qty > 0) их не увидит."""
-    from app.services.price_loaders.treolan import _parse_stock
+    from portal.services.configurator.price_loaders.treolan import _parse_stock
 
     assert _parse_stock("<10") == 5
     assert _parse_stock("много") == 50

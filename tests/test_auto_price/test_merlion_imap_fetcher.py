@@ -16,7 +16,7 @@ import pytest
 # =====================================================================
 
 def test_merlion_subject_regex_matches():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     pat = re.compile(MerlionImapFetcher.subject_pattern, re.IGNORECASE)
     for s in [
@@ -30,7 +30,7 @@ def test_merlion_subject_regex_matches():
 
 
 def test_merlion_subject_regex_rejects_unrelated():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     pat = re.compile(MerlionImapFetcher.subject_pattern, re.IGNORECASE)
     for s in [
@@ -46,7 +46,7 @@ def test_merlion_subject_regex_rejects_unrelated():
 # =====================================================================
 
 def test_merlion_sender_regex_matches():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     pat = re.compile(MerlionImapFetcher.sender_pattern, re.IGNORECASE)
     for s in [
@@ -67,8 +67,8 @@ def test_merlion_from_via_gmail_forward_matches():
     @merlion.ru. BaseImapFetcher склеивает все адресные заголовки в один
     haystack, и должен матчить именно по From — gmail в Reply-To не
     должен мешать (regex ищет @merlion.ru, gmail.com его не сматчит)."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
-    from app.services.auto_price.fetchers.base_imap import _addresses_in_header
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.base_imap import _addresses_in_header
 
     headers = {
         "From":            "matveeva.y@merlion.ru <matveeva.y@merlion.ru>",
@@ -86,7 +86,7 @@ def test_merlion_from_via_gmail_forward_matches():
 
 
 def test_merlion_sender_regex_rejects_other():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     pat = re.compile(MerlionImapFetcher.sender_pattern, re.IGNORECASE)
     for s in ["egarifullina@ocs.ru", "noreply@merlion.com", "scam@merlion.ru.fake"]:
@@ -153,8 +153,8 @@ def _make_real_xlsx_bytes(sheet_name: str = "Sheet1") -> bytes:
 def test_merlion_zip_extraction_picks_largest_xlsx(monkeypatch):
     """В ZIP может быть несколько .xlsx (основной + сопровождающие).
     parse_attachment должен взять самый большой и передать в MerlionLoader."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     # Готовим ZIP с двумя xlsx разного размера + один pdf.
     big = b"PK\x03\x04" + (b"X" * 5000) + b"big-xlsx-end"
@@ -189,8 +189,8 @@ def test_merlion_zip_extraction_picks_largest_xlsx(monkeypatch):
 
 def test_merlion_zip_extraction_with_single_xlsx(monkeypatch):
     """Базовый кейс: один XLSX внутри — берём его."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"PK\x03\x04only-one"
     zip_bytes = _make_zip_with([("price.xlsx", payload)])
@@ -214,7 +214,7 @@ def test_merlion_zip_extraction_with_single_xlsx(monkeypatch):
 def test_merlion_zip_no_xlsx_raises(monkeypatch):
     """ZIP без xlsx — RuntimeError, чтобы runner и orchestrator не делали
     загрузку с пустыми rows (не обнуляли остатки)."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     zip_bytes = _make_zip_with([("license.pdf", b"%PDF-1.4")])
 
@@ -228,7 +228,7 @@ def test_merlion_zip_no_xlsx_raises(monkeypatch):
 def test_merlion_bad_zip_raises(monkeypatch):
     """Bytes — не ZIP. RuntimeError, NoNewDataException не уместен —
     письмо есть, но кривое."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     monkeypatch.setenv("IMAP_USER", "u@x.test")
     monkeypatch.setenv("IMAP_PASSWORD", "p")
@@ -246,8 +246,8 @@ def test_zip_with_cp1251_names_extracted_correctly(monkeypatch):
     UTF-8 EFS-флага. До 12.1-fix-2 zf.extractall() падал на
     mismatch directory/header. Теперь fetcher должен корректно
     распаковать и передать содержимое в MerlionLoader."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"PK\x03\x04cp1251-content-marker"
     zip_bytes = _make_zip_cp1251([
@@ -281,8 +281,8 @@ def test_zip_with_cp1251_names_extracted_correctly(monkeypatch):
 def test_zip_xlsm_extension_accepted(monkeypatch):
     """ZIP с .xlsm файлом (Excel с макросами) — fetcher должен его
     найти. До 12.1-fix-2 искалось только .xlsx."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"PK\x03\x04xlsm-payload"
     zip_bytes = _make_zip_with([("price_with_macros.xlsm", payload)])
@@ -309,8 +309,8 @@ def test_zip_already_utf8_efs_flag_preserved(monkeypatch):
     """Современный ZIP с UTF-8 именами (EFS bit 11 = 1) — наш фикс
     не должен ломать такие архивы. Имя должно остаться как есть,
     без двойного перекодирования."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"PK\x03\x04utf8-efs-payload"
     # _make_zip_with пишет через writestr(name, data) — Python для
@@ -341,8 +341,8 @@ def test_zip_already_utf8_efs_flag_preserved(monkeypatch):
 
 def test_zip_with_multiple_files_picks_largest_xlsm_or_xlsx(monkeypatch):
     """В реальном ZIP может быть и .xlsx, и .xlsm. Берётся самый большой."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     big_xlsm = b"PK\x03\x04" + (b"X" * 20000) + b"big-xlsm"
     small_xlsx = b"PK\x03\x04small-xlsx"
@@ -373,7 +373,7 @@ def test_zip_with_multiple_files_picks_largest_xlsm_or_xlsx(monkeypatch):
 
 def test_zip_no_xlsx_or_xlsm_raises(monkeypatch):
     """ZIP без xlsx и xlsm — RuntimeError (формат рассылки изменился)."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     zip_bytes = _make_zip_with([
         ("license.pdf", b"%PDF-1.4"),
@@ -405,7 +405,7 @@ def test_merlion_loader_can_open_real_xlsm(tmp_path):
 # =====================================================================
 
 def test_decode_zip_member_name_cp1251_when_efs_off():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     info = zipfile.ZipInfo()
     # Имитируем то, что zipfile при чтении положит в .filename: байты
@@ -417,7 +417,7 @@ def test_decode_zip_member_name_cp1251_when_efs_off():
 
 
 def test_decode_zip_member_name_keeps_utf8_when_efs_on():
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     info = zipfile.ZipInfo()
     info.filename = "Прайс.xlsx"
@@ -484,8 +484,8 @@ def test_extract_zip_with_mismatched_central_and_local_headers(monkeypatch):
     """Реальный Merlion-кейс: имена central/local разные, стандартный
     zf.open() падает. parse_attachment должен использовать ручной
     распаковщик и корректно достать содержимое."""
-    import app.services.auto_price.fetchers.merlion_imap as mer_mod
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    import portal.services.configurator.auto_price.fetchers.merlion_imap as mer_mod
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"PK\x03\x04mismatched-payload-marker-12345"
     # 18 байт у обеих сторон — central и local имеют одинаковую длину,
@@ -516,7 +516,7 @@ def test_extract_zip_with_mismatched_central_and_local_headers(monkeypatch):
 
 def test_extract_zip_member_raw_handles_zip_stored(tmp_path):
     """STORED (без сжатия): payload идёт как есть."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"STORED-uncompressed-bytes-of-some-length"
     buf = io.BytesIO()
@@ -532,7 +532,7 @@ def test_extract_zip_member_raw_handles_zip_stored(tmp_path):
 
 def test_extract_zip_member_raw_handles_zip_deflated(tmp_path):
     """DEFLATED (zlib): payload корректно распаковывается."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     # Возьмём заметно сжимаемый payload, чтобы compressed != raw.
     payload = (b"abc" * 5000) + b"END"
@@ -550,7 +550,7 @@ def test_extract_zip_member_raw_handles_zip_deflated(tmp_path):
 def test_extract_zip_member_raw_rejects_unknown_compression(tmp_path):
     """Метод сжатия, который мы не поддерживаем (например, BZIP2=12) —
     RuntimeError с понятным сообщением."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
@@ -570,7 +570,7 @@ def test_extract_handles_uncompressed_size_mismatch_warning(tmp_path, caplog):
     """Если info.file_size в central неверный — это warning, не error.
     Реальные xlsx-валидаторы поймают битость, если она реально есть."""
     import logging as _logging
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     payload = b"hello world payload"
     buf = io.BytesIO()
@@ -582,7 +582,7 @@ def test_extract_handles_uncompressed_size_mismatch_warning(tmp_path, caplog):
         info = zf.infolist()[0]
         # Соврём про uncompressed size — экстрактор должен warn, не raise.
         info.file_size = 999999
-        with caplog.at_level(_logging.WARNING, logger="app.services.auto_price.fetchers.merlion_imap"):
+        with caplog.at_level(_logging.WARNING, logger="portal.services.configurator.auto_price.fetchers.merlion_imap"):
             MerlionImapFetcher._extract_zip_member_raw(zf, info, str(out))
     assert out.read_bytes() == payload
     assert any("не совпал" in rec.message for rec in caplog.records), (
@@ -593,7 +593,7 @@ def test_extract_handles_uncompressed_size_mismatch_warning(tmp_path, caplog):
 def test_extract_zip_member_raw_rejects_bad_signature(tmp_path):
     """Если local file header начинается не с 'PK\\x03\\x04' —
     RuntimeError. Защита от мусора."""
-    from app.services.auto_price.fetchers.merlion_imap import MerlionImapFetcher
+    from portal.services.configurator.auto_price.fetchers.merlion_imap import MerlionImapFetcher
 
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:

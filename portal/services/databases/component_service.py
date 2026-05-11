@@ -26,7 +26,7 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.services.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
+from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 
 
 # --- Редактируемые характеристики по категориям -------------------------

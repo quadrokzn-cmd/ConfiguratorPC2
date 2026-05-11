@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 import pytest
 
-from app.services.enrichment.openai_search import cost_guard, fx, skip_rules
+from portal.services.configurator.enrichment.openai_search import cost_guard, fx, skip_rules
 
 
 # -----------------------------------------------------------------------------
@@ -168,19 +168,19 @@ class TestFx:
 
 class TestParseResponse:
     def test_plain_json(self):
-        from app.services.enrichment.openai_search.client import _parse_model_response
+        from portal.services.configurator.enrichment.openai_search.client import _parse_model_response
         s = json.dumps({"fields": {"tdp_watts": {"value": 150, "source_url": "https://x"}}})
         obj = _parse_model_response(s)
         assert obj["fields"]["tdp_watts"]["value"] == 150
 
     def test_markdown_wrapped(self):
-        from app.services.enrichment.openai_search.client import _parse_model_response
+        from portal.services.configurator.enrichment.openai_search.client import _parse_model_response
         s = "```json\n{\"fields\": {\"tdp_watts\": {\"value\": 200}}}\n```"
         obj = _parse_model_response(s)
         assert obj["fields"]["tdp_watts"]["value"] == 200
 
     def test_prose_before_json(self):
-        from app.services.enrichment.openai_search.client import _parse_model_response
+        from portal.services.configurator.enrichment.openai_search.client import _parse_model_response
         s = "Вот результат:\n\n{\"fields\": {\"x\": {\"value\": 1}}}\n\nГотово."
         obj = _parse_model_response(s)
         assert obj["fields"]["x"]["value"] == 1

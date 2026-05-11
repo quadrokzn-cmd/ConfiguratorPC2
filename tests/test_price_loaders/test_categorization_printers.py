@@ -11,10 +11,10 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.price_loaders.merlion import _classify_merlion
-from app.services.price_loaders.ocs import _classify_ocs
-from app.services.price_loaders.resurs_media import _classify_resursmedia
-from app.services.price_loaders.treolan import _classify_treolan
+from portal.services.configurator.price_loaders.merlion import _classify_merlion
+from portal.services.configurator.price_loaders.ocs import _classify_ocs
+from portal.services.configurator.price_loaders.resurs_media import _classify_resursmedia
+from portal.services.configurator.price_loaders.treolan import _classify_treolan
 
 
 # === MERLION ===

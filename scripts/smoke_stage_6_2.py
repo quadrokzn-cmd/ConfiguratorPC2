@@ -43,10 +43,10 @@ def main() -> None:
 
     from app.config import settings
     from app.auth import hash_password
-    from app.services.configurator.schema import (
+    from portal.services.configurator.engine.schema import (
         BuildRequest, BuildResult, ComponentChoice, SupplierOffer, Variant,
     )
-    from app.services.nlu.schema import FinalResponse, ParsedRequest
+    from portal.services.configurator.nlu.schema import FinalResponse, ParsedRequest
 
     # На русской Windows консоль по умолчанию в cp1251 — принудительно
     # переключим stdout/stderr на utf-8, чтобы ₽/→ печатались корректно.

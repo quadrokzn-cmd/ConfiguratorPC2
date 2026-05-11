@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from app.services.configurator.schema import (
+from portal.services.configurator.engine.schema import (
     BuildResult,
     ComponentChoice,
     SupplierOffer,

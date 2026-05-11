@@ -170,7 +170,7 @@ def _patch_imap(monkeypatch, messages: list[bytes]):
 
     Сохраняет ссылку на созданный FakeImap в monkeypatch._fake_imap_last,
     чтобы тесты могли проверить .search_charsets и т.п."""
-    import app.services.auto_price.fetchers.base_imap as base_imap_mod
+    import portal.services.configurator.auto_price.fetchers.base_imap as base_imap_mod
 
     fake = FakeImap(messages)
 
@@ -184,7 +184,7 @@ def _patch_imap(monkeypatch, messages: list[bytes]):
 
 def _patch_imap_multi(monkeypatch, folders):
     """То же, но для FakeImapMultiFolder."""
-    import app.services.auto_price.fetchers.base_imap as base_imap_mod
+    import portal.services.configurator.auto_price.fetchers.base_imap as base_imap_mod
 
     fake = FakeImapMultiFolder(folders)
 
@@ -214,7 +214,7 @@ def imap_env(monkeypatch):
 # =====================================================================
 
 def _make_test_subclass(slug: str = "test_imap"):
-    from app.services.auto_price.fetchers.base_imap import BaseImapFetcher
+    from portal.services.configurator.auto_price.fetchers.base_imap import BaseImapFetcher
 
     class _TestFetcher(BaseImapFetcher):
         supplier_slug = slug
@@ -234,7 +234,7 @@ def _make_test_subclass(slug: str = "test_imap"):
 # =====================================================================
 
 def test_imap_credentials_use_imap_user_when_set(monkeypatch):
-    from app.services.auto_price.fetchers.base_imap import _read_imap_credentials
+    from portal.services.configurator.auto_price.fetchers.base_imap import _read_imap_credentials
 
     monkeypatch.setenv("IMAP_USER", "imap@a.test")
     monkeypatch.setenv("IMAP_PASSWORD", "imap_pwd")
@@ -247,7 +247,7 @@ def test_imap_credentials_use_imap_user_when_set(monkeypatch):
 
 
 def test_imap_credentials_fallback_to_smtp_when_imap_missing(monkeypatch):
-    from app.services.auto_price.fetchers.base_imap import _read_imap_credentials
+    from portal.services.configurator.auto_price.fetchers.base_imap import _read_imap_credentials
 
     monkeypatch.delenv("IMAP_USER", raising=False)
     monkeypatch.delenv("IMAP_PASSWORD", raising=False)
@@ -260,7 +260,7 @@ def test_imap_credentials_fallback_to_smtp_when_imap_missing(monkeypatch):
 
 
 def test_imap_credentials_raises_when_both_missing(monkeypatch):
-    from app.services.auto_price.fetchers.base_imap import _read_imap_credentials
+    from portal.services.configurator.auto_price.fetchers.base_imap import _read_imap_credentials
 
     monkeypatch.delenv("IMAP_USER", raising=False)
     monkeypatch.delenv("IMAP_PASSWORD", raising=False)
@@ -440,7 +440,7 @@ def test_extract_attachment_raises_when_no_match(imap_env):
 # =====================================================================
 
 def test_fetch_and_save_raises_no_new_data_when_inbox_empty(imap_env, monkeypatch):
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     _patch_imap(monkeypatch, [])  # пустой ящик
 
@@ -453,7 +453,7 @@ def test_fetch_and_save_raises_no_new_data_when_inbox_empty(imap_env, monkeypatc
 def test_fetch_and_save_raises_no_new_data_when_no_match(imap_env, monkeypatch):
     """В ящике есть письма, но ни одно не подходит под sender/subject —
     тоже NoNewDataException, не привычная ошибка."""
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     _patch_imap(monkeypatch, [
         _make_message_bytes(
@@ -544,7 +544,7 @@ def test_skips_system_folders(imap_env, monkeypatch, db_session):
 
 def test_decodes_utf7_folder_names():
     """imap_utf7_decode корректно декодирует имена папок mail.ru."""
-    from app.services.auto_price.fetchers.base_imap import _imap_utf7_decode
+    from portal.services.configurator.auto_price.fetchers.base_imap import _imap_utf7_decode
     assert _imap_utf7_decode("INBOX") == "INBOX"
     assert _imap_utf7_decode("&BB8EQAQwBDkEQQRL-") == "Прайсы"
     assert _imap_utf7_decode("&BBoEPgRABDcEOAQ9BDA-") == "Корзина"
@@ -654,7 +654,7 @@ def test_search_uses_ascii_only_not_utf8_charset(imap_env, monkeypatch, db_sessi
 # =====================================================================
 
 def test_parse_list_line_extracts_flags_and_decoded_name():
-    from app.services.auto_price.fetchers.base_imap import _parse_list_line
+    from portal.services.configurator.auto_price.fetchers.base_imap import _parse_list_line
 
     line = '(\\HasNoChildren) "/" "&BB8EQAQwBDkEQQRL-"'
     parsed = _parse_list_line(line)
@@ -672,7 +672,7 @@ def test_parse_list_line_extracts_flags_and_decoded_name():
 
 
 def test_is_system_folder_drops_trash_drafts_sent_etc():
-    from app.services.auto_price.fetchers.base_imap import _is_system_folder
+    from portal.services.configurator.auto_price.fetchers.base_imap import _is_system_folder
 
     # Только по флагу.
     assert _is_system_folder("\\hasnochildren \\trash", "Корзина")
@@ -702,7 +702,7 @@ def test_is_system_folder_drops_trash_drafts_sent_etc():
 
 def test_is_priority_folder_recognizes_inbox_and_прайсы():
     """Хелпер _is_priority_folder корректно отличает priority-папки."""
-    from app.services.auto_price.fetchers.base_imap import _is_priority_folder
+    from portal.services.configurator.auto_price.fetchers.base_imap import _is_priority_folder
 
     assert _is_priority_folder("INBOX")
     assert _is_priority_folder("inbox")  # case-insensitive
@@ -905,7 +905,7 @@ def test_no_messages_anywhere_raises_no_new_data(
     imap_env, monkeypatch, db_session,
 ):
     """Все папки пустые → fetch_and_save() поднимает NoNewDataException."""
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     _patch_imap_multi(monkeypatch, [
         ("INBOX",              "INBOX",   "\\HasNoChildren", []),

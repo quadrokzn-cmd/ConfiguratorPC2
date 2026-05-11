@@ -4,7 +4,7 @@
 # Проверяем только добавленные паттерны и крайние случаи Merlion-формата.
 # Базовые случаи (OCS-стиль) покрывались визуальной проверкой прошлых этапов.
 
-from app.services.enrichment.regex_sources import (
+from portal.services.configurator.enrichment.regex_sources import (
     case as case_src,
     cooler as cooler_src,
     gpu as gpu_src,

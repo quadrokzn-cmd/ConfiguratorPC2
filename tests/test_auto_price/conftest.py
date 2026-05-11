@@ -41,7 +41,7 @@ def treolan_env(monkeypatch):
 def _reset_treolan_token_cache():
     """Сбрасываем process-level кеш токена между тестами, иначе
     test_get_token_caches_within_ttl сломает следующие тесты."""
-    from app.services.auto_price.fetchers.treolan import _reset_token_cache_for_tests
+    from portal.services.configurator.auto_price.fetchers.treolan import _reset_token_cache_for_tests
     _reset_token_cache_for_tests()
     yield
     _reset_token_cache_for_tests()

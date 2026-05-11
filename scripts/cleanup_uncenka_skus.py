@@ -46,7 +46,7 @@ load_dotenv()
 
 from sqlalchemy import create_engine, text  # noqa: E402
 
-from app.services.price_loaders.uncenka_filter import is_uncenka  # noqa: E402
+from portal.services.configurator.price_loaders.uncenka_filter import is_uncenka  # noqa: E402
 
 
 _TABLES: list[tuple[str, str]] = [

@@ -17,14 +17,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.manual_edit.editor import (
+from portal.services.configurator.manual_edit.editor import (
     add_component_interactive,
     delete_one,
     find_component,
     format_component,
     update_one_field,
 )
-from app.services.manual_edit.schema import ALL_CATEGORIES
+from portal.services.configurator.manual_edit.schema import ALL_CATEGORIES
 
 
 def _cmd_show(args) -> int:

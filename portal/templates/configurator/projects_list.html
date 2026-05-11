@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Проекты — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<span class="crumb-current">Проекты</span>
+{% endblock %}
+
+{% block topbar_extra %}
+<form method="post" action="/configurator/projects" class="m-0">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <button type="submit" class="btn btn-md btn-primary">
+    {{ icon('plus', class='w-4 h-4') }}
+    Новый проект
+  </button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Проекты</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      {% if user.is_admin %}
+      Все проекты — ваши и других менеджеров. Кликните по строке, чтобы открыть.
+      {% else %}
+      Ваши проекты с конфигурациями и спецификациями.
+      {% endif %}
+    </p>
+  </header>
+
+  {# Поиск по имени проекта (фронтовый фильтр) #}
+  {% if items %}
+  <div class="relative max-w-md">
+    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none">
+      {{ icon('search', class='w-4 h-4') }}
+    </span>
+    <input id="kt-projects-search" type="search"
+           placeholder="Поиск по имени проекта…"
+           class="input pl-10" autocomplete="off">
+  </div>
+  {% endif %}
+
+  {% if not items %}
+  <section class="card card-pad-lg text-center">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full
+                bg-surface-2 text-ink-muted mb-3">
+      {{ icon('folder', class='w-5 h-5') }}
+    </div>
+    <p class="text-body text-ink-secondary">У вас ещё нет проектов.</p>
+    <p class="text-small text-ink-muted mt-1">
+      Создайте первый, или начните с
+      <a href="/configurator/" class="text-brand-400 hover:text-brand-300">нового запроса</a>.
+    </p>
+    <form method="post" action="/configurator/projects" class="mt-4 inline-block">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn btn-md btn-primary">
+        {{ icon('plus', class='w-4 h-4') }}
+        Создать первый
+      </button>
+    </form>
+  </section>
+  {% else %}
+  <section class="card overflow-hidden">
+    <table class="kt-table" id="kt-projects-table">
+      <thead>
+        <tr>
+          <th class="text-left">Проект</th>
+          <th class="text-left w-44">Создан</th>
+          <th class="text-right w-32">Конфигураций</th>
+          <th class="text-right w-52">Сумма спецификации</th>
+          {% if user.is_admin %}
+          <th class="text-left w-48">Автор</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for it in items %}
+        <tr class="kt-row-link" data-href="/configurator/project/{{ it.id }}"
+            data-name="{{ it.name|lower }}">
+          <td>
+            <a href="/configurator/project/{{ it.id }}" class="text-ink-primary hover:text-brand-400">
+              {{ it.name }}
+            </a>
+          </td>
+          <td class="text-ink-secondary whitespace-nowrap">
+            {{ it.created_at.strftime('%d.%m.%Y %H:%M') }}
+          </td>
+          <td class="text-right text-ink-primary tabular-nums">{{ it.queries_count }}</td>
+          <td class="text-right text-ink-primary whitespace-nowrap tabular-nums">
+            {% if it.spec_total_usd > 0 %}
+              ${{ '%.0f'|format(it.spec_total_usd) }}
+              <span class="text-caption text-ink-muted">
+                ({{ it.spec_total_usd | fmt_rub }} ₽)
+              </span>
+            {% else %}
+              <span class="text-ink-muted">—</span>
+            {% endif %}
+          </td>
+          {% if user.is_admin %}
+          <td class="text-ink-secondary">
+            {{ it.author_name }}
+            <span class="text-ink-muted text-caption">({{ it.author_login }})</span>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <div id="kt-projects-empty" class="hidden card card-pad text-center text-body text-ink-secondary">
+    По вашему поиску ничего не найдено.
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Клик по строке таблицы — переход к проекту, кроме клика по ссылке внутри.
+  (function () {
+    document.querySelectorAll('tr.kt-row-link').forEach(function (tr) {
+      tr.addEventListener('click', function (e) {
+        if (e.target.closest('a, button, input, label, form')) return;
+        var href = tr.getAttribute('data-href');
+        if (href) window.location = href;
+      });
+    });
+  })();
+
+  // Фронтовый поиск по имени проекта.
+  (function () {
+    var input = document.getElementById('kt-projects-search');
+    if (!input) return;
+    var rows = Array.prototype.slice.call(
+      document.querySelectorAll('#kt-projects-table tbody tr')
+    );
+    var emptyBox = document.getElementById('kt-projects-empty');
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      rows.forEach(function (tr) {
+        var name = tr.getAttribute('data-name') || '';
+        var match = !q || name.indexOf(q) >= 0;
+        tr.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      if (emptyBox) emptyBox.classList.toggle('hidden', visible > 0);
+    });
+  })();
+</script>
+{% endblock %}

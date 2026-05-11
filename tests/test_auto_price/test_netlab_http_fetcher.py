@@ -49,7 +49,7 @@ class FakeClient:
 
 
 def _patch_httpx(monkeypatch, handler):
-    import app.services.auto_price.fetchers.netlab_http as mod
+    import portal.services.configurator.auto_price.fetchers.netlab_http as mod
 
     def _factory(timeout=None, follow_redirects=False):
         return FakeClient(handler)
@@ -59,7 +59,7 @@ def _patch_httpx(monkeypatch, handler):
 
 def _patch_no_sleep(monkeypatch):
     """Чтобы retry-backoff не задерживал тесты."""
-    import app.services.auto_price.fetchers.netlab_http as mod
+    import portal.services.configurator.auto_price.fetchers.netlab_http as mod
     monkeypatch.setattr(mod.time, "sleep", lambda *_a, **_k: None)
 
 
@@ -88,7 +88,7 @@ class _StubLoader:
 
 
 def _patch_loader(monkeypatch, loader_instance):
-    import app.services.auto_price.fetchers.netlab_http as mod
+    import portal.services.configurator.auto_price.fetchers.netlab_http as mod
     monkeypatch.setattr(mod, "NetlabLoader", lambda: loader_instance)
 
 
@@ -102,7 +102,7 @@ def _patch_save_price_rows(monkeypatch, *, upload_id=42):
         captured["rows"] = list(rows) if rows is not None else []
         return {"upload_id": upload_id}
 
-    import app.services.price_loaders.orchestrator as orch_mod
+    import portal.services.configurator.price_loaders.orchestrator as orch_mod
     monkeypatch.setattr(orch_mod, "save_price_rows", _fake_save)
     return captured
 
@@ -112,7 +112,7 @@ def _patch_save_price_rows(monkeypatch, *, upload_id=42):
 # =====================================================================
 
 def test_fetcher_downloads_and_parses(monkeypatch):
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv(
         "NETLAB_PRICE_URL", "http://example.test/products/dealerd.zip",
@@ -162,7 +162,7 @@ def test_fetcher_downloads_and_parses(monkeypatch):
 # =====================================================================
 
 def test_fetcher_retries_on_5xx(monkeypatch):
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
     _patch_no_sleep(monkeypatch)
@@ -192,7 +192,7 @@ def test_fetcher_retries_on_5xx(monkeypatch):
 
 def test_fetcher_retries_on_network_error(monkeypatch):
     """httpx.RequestError тоже должен ретраиться."""
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
     _patch_no_sleep(monkeypatch)
@@ -220,7 +220,7 @@ def test_fetcher_retries_on_network_error(monkeypatch):
 
 def test_fetcher_gives_up_after_all_retries(monkeypatch):
     """Бесконечный 5xx → RuntimeError со ссылкой на последнюю ошибку."""
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
     _patch_no_sleep(monkeypatch)
@@ -242,7 +242,7 @@ def test_fetcher_gives_up_after_all_retries(monkeypatch):
 
 def test_fetcher_raises_on_oversized_attachment(monkeypatch):
     """Content-Length > 50 МБ → RuntimeError, save_price_rows не зван."""
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
 
@@ -270,7 +270,7 @@ def test_fetcher_raises_on_oversized_attachment(monkeypatch):
 def test_fetcher_raises_on_empty_body(monkeypatch):
     """Пустое тело — RuntimeError (иначе передали бы NetlabLoader-у пустой
     .zip и получили бы непрозрачную ошибку distantly от парсера)."""
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
     _patch_no_sleep(monkeypatch)
@@ -294,8 +294,8 @@ def test_fetcher_raises_when_url_not_configured(monkeypatch):
     __init__ должен бросить RuntimeError. Дефолт как раз и существует,
     чтобы этот сценарий не наступил в проде; но защита нужна на случай
     рефакторинга, который снесёт дефолт."""
-    import app.services.auto_price.fetchers.netlab_http as mod
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    import portal.services.configurator.auto_price.fetchers.netlab_http as mod
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.delenv("NETLAB_PRICE_URL", raising=False)
     monkeypatch.setattr(mod, "_DEFAULT_NETLAB_URL", "")
@@ -307,8 +307,8 @@ def test_fetcher_raises_when_url_not_configured(monkeypatch):
 def test_fetcher_uses_default_url_when_env_empty(monkeypatch):
     """Если env-переменная не задана, fetcher должен использовать
     _DEFAULT_NETLAB_URL (публичную дилерскую ссылку)."""
-    import app.services.auto_price.fetchers.netlab_http as mod
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    import portal.services.configurator.auto_price.fetchers.netlab_http as mod
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.delenv("NETLAB_PRICE_URL", raising=False)
 
@@ -326,7 +326,7 @@ def test_fetcher_cleans_up_temp_file_on_exception(monkeypatch, tmp_path):
     """Если NetlabLoader/iter_rows бросает ошибку — finally должен
     удалить временный .zip. Иначе на проде прайс качали бы каждый день
     с утечкой ~10 МБ в /tmp."""
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/dealerd.zip")
 
@@ -364,7 +364,7 @@ def test_fetcher_cleans_up_temp_file_on_exception(monkeypatch, tmp_path):
 # =====================================================================
 
 def test_derive_filename_prefers_content_disposition(monkeypatch):
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     monkeypatch.setenv("NETLAB_PRICE_URL", "http://example.test/static/d.zip")
     fetcher = NetlabHttpFetcher()
@@ -393,8 +393,8 @@ def test_derive_filename_prefers_content_disposition(monkeypatch):
 
 def test_netlab_fetcher_is_registered():
     """@register_fetcher должен повесить класс под slug 'netlab'."""
-    from app.services.auto_price.base import get_fetcher_class
-    from app.services.auto_price.fetchers.netlab_http import NetlabHttpFetcher
+    from portal.services.configurator.auto_price.base import get_fetcher_class
+    from portal.services.configurator.auto_price.fetchers.netlab_http import NetlabHttpFetcher
 
     cls = get_fetcher_class("netlab")
     assert cls is NetlabHttpFetcher

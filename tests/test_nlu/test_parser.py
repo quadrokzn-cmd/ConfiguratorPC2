@@ -12,8 +12,8 @@ import json
 
 import pytest
 
-from app.services.nlu import parser as parser_mod
-from app.services.nlu.schema import ParsedRequest
+from portal.services.configurator.nlu import parser as parser_mod
+from portal.services.configurator.nlu.schema import ParsedRequest
 
 from .conftest import fake_openai_client, make_openai_response
 

@@ -52,7 +52,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.services.price_loaders import LOADERS
+from portal.services.configurator.price_loaders import LOADERS
 from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (
@@ -351,7 +351,7 @@ def _run_loader_in_background(
     """
     started = time.monotonic()
     try:
-        from app.services.price_loaders.orchestrator import load_price
+        from portal.services.configurator.price_loaders.orchestrator import load_price
 
         # Переименовать файл к "родному" имени для красивого filename в
         # price_uploads — копируем рядом с original-name, иначе все строки

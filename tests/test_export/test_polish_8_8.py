@@ -18,7 +18,7 @@ from unittest.mock import patch
 
 import docx as _docx
 
-from app.services.export import kp_builder
+from portal.services.configurator.export import kp_builder
 
 
 _NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -40,14 +40,14 @@ def _fake_items(items_spec):
 
 def _mock_rate(value: str = "90"):
     return patch(
-        "app.services.export.kp_builder.exchange_rate.get_usd_rate",
+        "portal.services.configurator.export.kp_builder.exchange_rate.get_usd_rate",
         return_value=(Decimal(value), date(2026, 4, 25), "cache"),
     )
 
 
 def _build_kp(items_spec, markup=15):
     with patch(
-        "app.services.export.kp_builder.spec_service.list_spec_items",
+        "portal.services.configurator.export.kp_builder.spec_service.list_spec_items",
         return_value=_fake_items(items_spec),
     ), _mock_rate("90"):
         data = kp_builder.build_kp_docx(

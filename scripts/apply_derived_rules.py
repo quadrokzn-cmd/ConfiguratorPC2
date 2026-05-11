@@ -27,7 +27,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from app.services.enrichment.derived_rules import (  # noqa: E402
+from portal.services.configurator.enrichment.derived_rules import (  # noqa: E402
     all_rule_ids,
     format_report,
     rules_for_category,

@@ -10,7 +10,7 @@ from __future__ import annotations
 import pytest
 from sqlalchemy import text
 
-from app.services.enrichment.raw_name_runner import run
+from portal.services.configurator.enrichment.raw_name_runner import run
 
 
 # ---------------------------------------------------------------------------

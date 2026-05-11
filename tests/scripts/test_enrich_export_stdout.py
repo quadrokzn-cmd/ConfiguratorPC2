@@ -130,7 +130,7 @@ def test_stdout_does_not_create_pending_files(
     """В --stdout-режиме CLI не должен создавать ни одного файла в pending/.
     Гарантия — через write_files=False (проверяется внутри fake_export_category).
     Дополнительно убедимся, что pending/<category>/ остаётся пустой."""
-    from app.services.enrichment.claude_code import exporter as exporter_mod
+    from portal.services.configurator.enrichment.claude_code import exporter as exporter_mod
 
     monkeypatch.setattr(exporter_mod, "ENRICHMENT_ROOT", tmp_path)
     fake_export_category(batch_payloads=[

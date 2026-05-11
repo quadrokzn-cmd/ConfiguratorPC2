@@ -120,7 +120,7 @@ def test_each_job_calls_run_auto_load_for_its_slug(monkeypatch):
         return {"status": "success", "supplier_slug": slug}
 
     # _make_auto_price_job импортирует runner лениво — патчим в его модуле.
-    import app.services.auto_price.runner as runner_mod
+    import portal.services.configurator.auto_price.runner as runner_mod
     monkeypatch.setattr(runner_mod, "run_auto_load", _fake_run_auto_load)
 
     for slug, _h, _m in _EXPECTED_SCHEDULE:
@@ -159,7 +159,7 @@ def test_disabled_supplier_skipped_in_scheduled_run(monkeypatch, db_engine):
         called["n"] += 1
         return {"status": "success", "supplier_slug": slug}
 
-    import app.services.auto_price.runner as runner_mod
+    import portal.services.configurator.auto_price.runner as runner_mod
     monkeypatch.setattr(runner_mod, "run_auto_load", _fake_run_auto_load)
 
     job_fn = sch._make_auto_price_job("treolan")
@@ -196,7 +196,7 @@ def test_enabled_supplier_actually_runs(monkeypatch, db_engine):
         seen.append((slug, triggered_by))
         return {"status": "success", "supplier_slug": slug}
 
-    import app.services.auto_price.runner as runner_mod
+    import portal.services.configurator.auto_price.runner as runner_mod
     monkeypatch.setattr(runner_mod, "run_auto_load", _fake_run_auto_load)
 
     sch._make_auto_price_job("treolan")()
@@ -221,7 +221,7 @@ def test_job_swallows_runner_exception(monkeypatch):
     def _boom(slug, triggered_by):
         raise ValueError(f"fetcher для {slug} не подключён")
 
-    import app.services.auto_price.runner as runner_mod
+    import portal.services.configurator.auto_price.runner as runner_mod
     monkeypatch.setattr(runner_mod, "run_auto_load", _boom)
 
     # Не должно бросить.

@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.price_loaders.uncenka_filter import is_uncenka
+from portal.services.configurator.price_loaders.uncenka_filter import is_uncenka
 
 
 # ---- POSITIVE: уценка в разных формах ----------------------------------

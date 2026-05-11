@@ -14,7 +14,7 @@ def _register_fake_fetcher(monkeypatch, *, slug="fake_supplier", behavior="succe
                     предварительно вставить запись в price_uploads).
         'error'   — бросает RuntimeError("boom").
     """
-    from app.services.auto_price import base as base_mod
+    from portal.services.configurator.auto_price import base as base_mod
 
     class FakeFetcher(base_mod.BaseAutoFetcher):
         supplier_slug = slug
@@ -62,7 +62,7 @@ def _register_fake_fetcher(monkeypatch, *, slug="fake_supplier", behavior="succe
 # ---- 1. Успех: success-row + run-row ----------------------------------
 
 def test_run_marks_success_and_creates_run_row(db_session, monkeypatch):
-    from app.services.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price.runner import run_auto_load
 
     cleanup = _register_fake_fetcher(monkeypatch, slug="fake_supplier", behavior="success")
     try:
@@ -99,7 +99,7 @@ def test_run_marks_success_and_creates_run_row(db_session, monkeypatch):
 # ---- 2. Ошибка: error-row + Sentry-capture ---------------------------
 
 def test_run_marks_error_and_propagates_to_sentry(db_session, monkeypatch):
-    from app.services.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price.runner import run_auto_load
 
     captured = []
 
@@ -139,7 +139,7 @@ def test_run_marks_error_and_propagates_to_sentry(db_session, monkeypatch):
 # ---- 3. Throttle для manual ------------------------------------------
 
 def test_run_blocks_manual_within_5min_window(db_session, monkeypatch):
-    from app.services.auto_price.runner import (
+    from portal.services.configurator.auto_price.runner import (
         TooFrequentRunError, run_auto_load,
     )
 
@@ -155,7 +155,7 @@ def test_run_blocks_manual_within_5min_window(db_session, monkeypatch):
 # ---- 4. Throttle НЕ применяется к scheduled --------------------------
 
 def test_run_allows_scheduled_within_5min_window(db_session, monkeypatch):
-    from app.services.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price.runner import run_auto_load
 
     cleanup = _register_fake_fetcher(monkeypatch, slug="fake_sched", behavior="success")
     try:
@@ -171,7 +171,7 @@ def test_run_allows_scheduled_within_5min_window(db_session, monkeypatch):
 # ---- 5. ValueError для незарегистрированного slug --------------------
 
 def test_run_raises_for_unknown_slug():
-    from app.services.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price.runner import run_auto_load
 
     with pytest.raises(ValueError, match="fetcher"):
         run_auto_load("__unknown__", triggered_by="manual")
@@ -184,9 +184,9 @@ def test_runner_handles_no_new_data_exception(db_session, monkeypatch):
     'no_new_data', НЕ вызывает orchestrator/save_price_rows и НЕ создаёт
     запись в price_uploads. Это ключевая защита от обнуления остатков.
     """
-    from app.services.auto_price import base as base_mod
-    from app.services.auto_price.runner import run_auto_load
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price import base as base_mod
+    from portal.services.configurator.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     fetch_calls = {"n": 0}
 
@@ -246,8 +246,8 @@ def test_runner_records_source_ref_on_imap_success(db_session, monkeypatch):
     """IMAP-fetcher после успешной обработки кладёт Message-ID в
     last_processed_message_id. Runner должен записать его в source_ref
     строки auto_price_load_runs."""
-    from app.services.auto_price import base as base_mod
-    from app.services.auto_price.runner import run_auto_load
+    from portal.services.configurator.auto_price import base as base_mod
+    from portal.services.configurator.auto_price.runner import run_auto_load
 
     class FakeImapFetcher(base_mod.BaseAutoFetcher):
         supplier_slug = "fake_imap_ok"

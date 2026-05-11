@@ -6,7 +6,7 @@
 
 import pytest
 
-from app.services.enrichment.claude_code.derive import normalize_video_outputs
+from portal.services.configurator.enrichment.claude_code.derive import normalize_video_outputs
 
 
 @pytest.mark.parametrize("raw,expected", [

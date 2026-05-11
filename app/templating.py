@@ -23,7 +23,9 @@ from fastapi.templating import Jinja2Templates
 
 from app.config import settings
 from app.database import SessionLocal
-from app.services.export import exchange_rate
+# UI-4 (Путь B, 2026-05-11): app/services/export переехал в portal/services/configurator/export.
+# app/templating.py остаётся для админки конфигуратора (/admin, /admin/budget, /admin/queries).
+from portal.services.configurator.export import exchange_rate
 
 logger = logging.getLogger(__name__)
 

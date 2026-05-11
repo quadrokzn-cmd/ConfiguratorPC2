@@ -10,8 +10,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from app.services.nlu import fuzzy_lookup
-from app.services.nlu.schema import ModelMention
+from portal.services.configurator.nlu import fuzzy_lookup
+from portal.services.configurator.nlu.schema import ModelMention
 
 
 # -----------------------------------------------------------------------------

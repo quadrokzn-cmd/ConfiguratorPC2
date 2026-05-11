@@ -25,7 +25,7 @@ REAL_OCS_SUBJECTS = [
 
 
 def test_ocs_subject_regex_matches_real_subjects():
-    from app.services.auto_price.fetchers.ocs_imap import OCSImapFetcher
+    from portal.services.configurator.auto_price.fetchers.ocs_imap import OCSImapFetcher
 
     pat = re.compile(OCSImapFetcher.subject_pattern, re.IGNORECASE)
     for s in REAL_OCS_SUBJECTS:
@@ -33,7 +33,7 @@ def test_ocs_subject_regex_matches_real_subjects():
 
 
 def test_ocs_subject_regex_rejects_unrelated():
-    from app.services.auto_price.fetchers.ocs_imap import OCSImapFetcher
+    from portal.services.configurator.auto_price.fetchers.ocs_imap import OCSImapFetcher
 
     pat = re.compile(OCSImapFetcher.subject_pattern, re.IGNORECASE)
     rejects = [
@@ -51,7 +51,7 @@ def test_ocs_subject_regex_rejects_unrelated():
 # =====================================================================
 
 def test_ocs_sender_regex_matches_ocs_ru_addresses():
-    from app.services.auto_price.fetchers.ocs_imap import OCSImapFetcher
+    from portal.services.configurator.auto_price.fetchers.ocs_imap import OCSImapFetcher
 
     pat = re.compile(OCSImapFetcher.sender_pattern, re.IGNORECASE)
     for s in [
@@ -70,7 +70,7 @@ def test_ocs_sender_regex_matches_ocs_ru_addresses():
 
 
 def test_ocs_sender_regex_rejects_other_domains():
-    from app.services.auto_price.fetchers.ocs_imap import OCSImapFetcher
+    from portal.services.configurator.auto_price.fetchers.ocs_imap import OCSImapFetcher
 
     pat = re.compile(OCSImapFetcher.sender_pattern, re.IGNORECASE)
     for s in [
@@ -89,8 +89,8 @@ def test_ocs_parse_attachment_uses_existing_loader(tmp_path, monkeypatch):
     """parse_attachment должен записать bytes во временный xlsx и вызвать
     OcsLoader.iter_rows(filepath). Проверяем именно вызов и аргументы —
     содержимое xlsx моки не важно (OcsLoader тестируется отдельно)."""
-    from app.services.auto_price.fetchers.ocs_imap import OCSImapFetcher
-    import app.services.auto_price.fetchers.ocs_imap as ocs_imap_mod
+    from portal.services.configurator.auto_price.fetchers.ocs_imap import OCSImapFetcher
+    import portal.services.configurator.auto_price.fetchers.ocs_imap as ocs_imap_mod
 
     captured = {}
 

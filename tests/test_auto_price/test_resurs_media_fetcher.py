@@ -36,7 +36,7 @@ def _patch_client_and_invoke(
     Возвращает list calls = [(operation, kwargs), ...] для проверки
     тестом аргументов вызовов.
     """
-    import app.services.auto_price.fetchers.resurs_media as rm
+    import portal.services.configurator.auto_price.fetchers.resurs_media as rm
 
     calls: list[tuple[str, dict]] = []
 
@@ -89,7 +89,7 @@ def _prices_response(items: list[dict]) -> dict:
 # =====================================================================
 
 def test_get_prices_call_uses_correct_warehouse_and_groups(resurs_media_env, monkeypatch):
-    from app.services.auto_price.fetchers.resurs_media import (
+    from portal.services.configurator.auto_price.fetchers.resurs_media import (
         ResursMediaApiFetcher, _ALL_GROUP_IDS,
     )
 
@@ -99,7 +99,7 @@ def test_get_prices_call_uses_correct_warehouse_and_groups(resurs_media_env, mon
 
     fetcher = ResursMediaApiFetcher()
 
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
     with pytest.raises(NoNewDataException):
         fetcher.fetch_and_save()
 
@@ -118,7 +118,7 @@ def test_get_prices_call_uses_correct_warehouse_and_groups(resurs_media_env, mon
     # Если меняется _CATEGORY_GROUP_MAP — обновите и этот счётчик.
     assert len(sent_groups) == 11
     # Все 8 наших категорий должны быть представлены.
-    from app.services.auto_price.fetchers.resurs_media import _GROUP_TO_OUR_CATEGORY
+    from portal.services.configurator.auto_price.fetchers.resurs_media import _GROUP_TO_OUR_CATEGORY
     covered_categories = {_GROUP_TO_OUR_CATEGORY[g] for g in sent_groups}
     assert covered_categories == {
         "psu", "cooler", "gpu", "storage", "motherboard", "ram", "case", "cpu",
@@ -134,7 +134,7 @@ def test_strip_padding_from_material_id_and_warehouse_id(
 ):
     """Resurs Media выравнивает строковые ID пробелами справа. Мы должны
     стрипать их до lookup в _GROUP_TO_OUR_CATEGORY и до записи в БД."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [{
         "MaterialID":     "RAM-001       ",   # лишние пробелы справа
@@ -185,8 +185,8 @@ def test_strip_padding_from_material_id_and_warehouse_id(
 def test_skip_position_outside_our_categories(resurs_media_env, monkeypatch):
     """Z017 (Дискеты на test-стенде) не попадает в _GROUP_TO_OUR_CATEGORY.
     Все позиции из неё должны быть отфильтрованы."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     raw_items = [{
         "MaterialID":     "К104",
@@ -221,7 +221,7 @@ def test_skip_position_missing_in_material_data_response(
 ):
     """В GetPrices пришли две позиции, в GetMaterialData — только одна.
     Вторая молча пропускается (счётчик skipped_no_md в логе)."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [
         {"MaterialID": "CPU-OK",      "Price": 5000.0, "AvailableCount": "3"},
@@ -260,12 +260,12 @@ def test_skip_position_missing_in_material_data_response(
 def test_rate_limit_retry_on_result_3(resurs_media_env, monkeypatch):
     """Первый GetPrices вернул Result=3 + интервал в ErrorMessage.
     Fetcher делает time.sleep(N+2), retry. Второй ответ — успех."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     sleep_calls: list[float] = []
 
-    import app.services.auto_price.fetchers.resurs_media as rm
+    import portal.services.configurator.auto_price.fetchers.resurs_media as rm
     monkeypatch.setattr(rm.time, "sleep", lambda s: sleep_calls.append(s))
 
     # GetPrices_call_1: Result=3.  call_2: пустой Material_Tab.
@@ -293,9 +293,9 @@ def test_rate_limit_retry_on_result_3(resurs_media_env, monkeypatch):
 
 def test_no_retry_on_result_3_on_second_attempt(resurs_media_env, monkeypatch):
     """Если retry тоже Result=3 — поднимаем RuntimeError, не loop'имся."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
-    import app.services.auto_price.fetchers.resurs_media as rm
+    import portal.services.configurator.auto_price.fetchers.resurs_media as rm
     monkeypatch.setattr(rm.time, "sleep", lambda s: None)
 
     rate_limited = {
@@ -313,8 +313,8 @@ def test_no_retry_on_result_3_on_second_attempt(resurs_media_env, monkeypatch):
 # =====================================================================
 
 def test_result_4_raises_no_new_data(resurs_media_env, monkeypatch):
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
-    from app.services.auto_price.fetchers.base_imap import NoNewDataException
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
     _patch_client_and_invoke(monkeypatch, {
         "Result": 4,
@@ -330,7 +330,7 @@ def test_result_4_raises_no_new_data(resurs_media_env, monkeypatch):
 # =====================================================================
 
 def test_result_1_raises_runtime_error(resurs_media_env, monkeypatch):
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     _patch_client_and_invoke(monkeypatch, {
         "Result": 1,
@@ -350,7 +350,7 @@ def test_result_1_raises_runtime_error(resurs_media_env, monkeypatch):
 def test_storage_category_aggregates_three_groups(
     resurs_media_env, monkeypatch, db_session,
 ):
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [
         {"MaterialID": "HDD-1", "Price": 5000.0, "AvailableCount": "1"},
@@ -388,7 +388,7 @@ def test_storage_category_aggregates_three_groups(
 # =====================================================================
 
 def test_psu_dual_group_codes(resurs_media_env, monkeypatch, db_session):
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [
         {"MaterialID": "PSU-CASE",   "Price": 4000.0, "AvailableCount": "1"},
@@ -426,7 +426,7 @@ def test_psu_dual_group_codes(resurs_media_env, monkeypatch, db_session):
 def test_correct_decimal_parsing_from_price(
     resurs_media_env, monkeypatch, db_session,
 ):
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [
         # SOAP может вернуть Price и как float, и как строку. Проверяем оба.
@@ -464,7 +464,7 @@ def test_call_arguments_use_item_wrapper(resurs_media_env, monkeypatch):
     """Проверяем, что и MaterialGroup_Tab (в GetPrices), и MaterialID_Tab
     (в GetMaterialData) обёрнуты в {"Item": [...]} — без обёртки сервер
     отвечает 'expected element MaterialGroup_Tab/Item ...'."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [{
         "MaterialID":     "MB-1",
@@ -516,7 +516,7 @@ def test_init_raises_without_credentials(monkeypatch):
     """Без RESURS_MEDIA_WSDL_URL/USERNAME/PASSWORD — RuntimeError с
     понятным списком ожидаемых переменных. Проверяем, что и
     legacy-fallback _TEST тоже учтён в проверке."""
-    from app.services.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
+    from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     monkeypatch.delenv("RESURS_MEDIA_WSDL_URL", raising=False)
     monkeypatch.delenv("RESURS_MEDIA_WSDL_URL_TEST", raising=False)
@@ -536,7 +536,7 @@ def test_init_raises_without_credentials(monkeypatch):
 # =====================================================================
 
 def test_parse_rate_limit_seconds_from_error_message():
-    from app.services.auto_price.fetchers.resurs_media import _parse_rate_limit_seconds
+    from portal.services.configurator.auto_price.fetchers.resurs_media import _parse_rate_limit_seconds
 
     assert _parse_rate_limit_seconds("Разрешенный интервал 60 сек.") == 60
     assert _parse_rate_limit_seconds("limit 5 сек ") == 5

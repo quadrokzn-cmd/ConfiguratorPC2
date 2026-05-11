@@ -35,7 +35,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from app.services.enrichment.raw_name_runner import (
+from portal.services.configurator.enrichment.raw_name_runner import (
     ALL_SUPPLIER_CODES,
     format_report,
     run,

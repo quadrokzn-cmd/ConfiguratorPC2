@@ -15,7 +15,7 @@ import pytest
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from app.services.export import exchange_rate
+from portal.services.configurator.export import exchange_rate
 
 
 # Готовый маленький XML_daily с USD — как отдаёт ЦБ.

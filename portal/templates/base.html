@@ -57,6 +57,20 @@
 {% elif _path.startswith('/settings/audit-log') or _path.startswith('/admin/audit') %}
   {% set active_section = 'settings' %}
   {% set active_subsection = 'audit-log' %}
+{# UI-4 (Путь B, 2026-05-11): «Конфигуратор ПК» переехал в portal под
+   префикс /configurator/*. Подпункты — Новый запрос (главная NLU-формы
+   и /configurator/query), Проекты, История запросов. Экспорт КП живёт
+   на /configurator/project/{id}/export/* — подсвечиваем как 'projects'
+   (страница проекта — основной контекст экспорта). #}
+{% elif _path.startswith('/configurator/projects') or _path.startswith('/configurator/project/') %}
+  {% set active_section = 'configurator' %}
+  {% set active_subsection = 'projects' %}
+{% elif _path.startswith('/configurator/history') %}
+  {% set active_section = 'configurator' %}
+  {% set active_subsection = 'history' %}
+{% elif _path == '/configurator/' or _path.startswith('/configurator/query') or _path == '/configurator' %}
+  {% set active_section = 'configurator' %}
+  {% set active_subsection = 'new_query' %}
 {% else %}
   {# Главная портала + любые неклассифицированные admin-страницы. #}
   {% set active_section = 'home' %}
@@ -69,7 +83,21 @@
 
   {# === Контент ============================================================ #}
   <main class="kt-main">
-    <div class="kt-content px-8 py-8">
+    {# UI-4 (Путь B, 2026-05-11): topbar с breadcrumbs перенесён из
+       app/templates/base.html — нужен для страниц /configurator/* (NLU,
+       проекты, экспорт). На страницах портала без хлебных крошек блок
+       пустой и выглядит как полоса-шапка. #}
+    <header class="kt-topbar h-14 px-8 border-b border-line-subtle
+                   bg-surface-base/80 backdrop-blur-sm
+                   flex items-center justify-between gap-4">
+      <nav class="breadcrumbs min-w-0" aria-label="Хлебные крошки">
+        {% block breadcrumbs %}{% endblock %}
+      </nav>
+      <div class="flex items-center gap-2 shrink-0">
+        {% block topbar_extra %}{% endblock %}
+      </div>
+    </header>
+    <div class="kt-content px-8 py-6">
       {% block content %}{% endblock %}
     </div>
   </main>
@@ -87,6 +115,10 @@
    Подключаем на всех страницах портала, чтобы admin-шаблоны могли
    просто вызывать window.confirmDialog(...). #}
 <script src="{{ static_url('static/js/portal-dialog.js') }}" defer></script>
+{# UI-4 (Путь B, 2026-05-11): common.js нужен страницам /configurator/*
+   (variant_table interactions). Подключаем глобально — на portal-страницах
+   без таких элементов он inert. #}
+<script src="{{ static_url('static/js/common.js') }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

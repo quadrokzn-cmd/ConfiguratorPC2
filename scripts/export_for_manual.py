@@ -15,8 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.manual_edit.exporter import export_all, export_category
-from app.services.manual_edit.schema import ALL_CATEGORIES
+from portal.services.configurator.manual_edit.exporter import export_all, export_category
+from portal.services.configurator.manual_edit.schema import ALL_CATEGORIES
 
 
 def main() -> int:

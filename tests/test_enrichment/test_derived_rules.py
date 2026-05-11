@@ -10,7 +10,7 @@ from __future__ import annotations
 import pytest
 from sqlalchemy import text
 
-from app.services.enrichment.derived_rules import run
+from portal.services.configurator.enrichment.derived_rules import run
 
 
 # ---------------------------------------------------------------------------

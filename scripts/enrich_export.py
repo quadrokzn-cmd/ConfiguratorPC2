@@ -35,11 +35,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.enrichment.claude_code.exporter import (
+from portal.services.configurator.enrichment.claude_code.exporter import (
     export_all,
     export_category,
 )
-from app.services.enrichment.claude_code.schema import ALL_CATEGORIES
+from portal.services.configurator.enrichment.claude_code.schema import ALL_CATEGORIES
 
 
 def _format_result(result: dict) -> str:

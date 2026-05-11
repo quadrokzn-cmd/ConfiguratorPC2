@@ -88,10 +88,10 @@ def test_mapping_detail_subroute_redirects_301(app_client):
 # ----- Соседние /admin/* НЕ должны редиректиться --------------------------
 
 
-def test_admin_dashboard_is_not_redirected(admin_client):
+def test_admin_dashboard_is_not_redirected(admin_client_app):
     """/admin (дашборд конфигуратора) остаётся в конфигураторе. После
     логина админ открывает его и получает 200."""
-    r = admin_client.get("/admin")
+    r = admin_client_app.get("/admin")
     assert r.status_code == 200, r.status_code
     # Минимальный smoke на содержимое.
     assert "<html" in r.text.lower()

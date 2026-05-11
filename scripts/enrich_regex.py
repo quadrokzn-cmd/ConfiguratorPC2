@@ -17,8 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.enrichment.runner import run_for_category
-from app.services.enrichment.report import format_report
+from portal.services.configurator.enrichment.runner import run_for_category
+from portal.services.configurator.enrichment.report import format_report
 
 # Порядок категорий зафиксирован в плане Этапа 2.5А (от простого к сложному).
 _ALL_CATEGORIES = ["cpu", "psu", "ram", "storage", "cooler", "gpu", "motherboard", "case"]

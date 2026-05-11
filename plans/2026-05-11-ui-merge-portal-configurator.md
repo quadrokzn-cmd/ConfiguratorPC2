@@ -200,13 +200,131 @@ DoD: все три страницы работают под `/settings/*`; pytes
 - pytest регрессия: **1886 passed, 1 skipped, 0 failed**
   (UI-2 baseline был 1875; +11 новых нетто-кейсов).
 
-### UI-4 — перенос самого Конфигуратора [ ]
+### UI-4 — перенос самого Конфигуратора [x]
 
-Перенести из `app/routers/`, `app/services/configurator/`, `app/templates/` в `portal/routers/configurator/`, `portal/services/configurator/`, `portal/templates/configurator/`.
+Перенести из `app/routers/`, `app/services/`, `app/templates/` в
+`portal/routers/configurator/`, `portal/services/configurator/`,
+`portal/templates/configurator/`. Все URL конфигуратора (NLU-форма,
+проекты, экспорт КП) переезжают на `app.quadro.tatar/configurator/*`.
+`config.quadro.tatar` — в режиме 301-редиректа на новые URL.
 
-Все URL конфигуратора (NLU-форма, проекты, экспорт КП) переезжают на `app.quadro.tatar/configurator/*`. `config.quadro.tatar` — в режиме 301-редиректа на новые URL.
+**Артефакты UI-4 (2026-05-11):**
 
-DoD: NLU-форма работает на новом URL; экспорт КП работает; live-smoke на pre-prod.
+- `portal/routers/configurator/` — новая папка, 3 модуля:
+  - `main.py` (бывший `app/routers/main_router.py`) — `/configurator/`,
+    `/configurator/query` (POST), `/configurator/query/{id}`,
+    `/configurator/history`.
+  - `projects.py` (бывший `app/routers/project_router.py`) — все
+    `/configurator/projects` и `/configurator/project/{id}/*` маршруты,
+    включая AJAX select/deselect/update_quantity/spec/reoptimize.
+  - `export.py` (бывший `app/routers/export_router.py`) — экспорт Excel,
+    KP (docx) и emails (preview/send).
+  - У всех трёх — `APIRouter(prefix="/configurator",
+    dependencies=[Depends(require_configurator_access)])`.
+- `portal/services/configurator/` — новая папка, ~80 файлов:
+  - `engine/` — бывший `app/services/configurator/` (builder, selector,
+    schema, candidates, prices, warnings, pretty).
+  - `nlu/`, `compatibility/`, `manual_edit/`, `enrichment/`,
+    `auto_price/`, `export/`, `price_loaders/` — перенесены as-is.
+  - Плоские модули: `openai_service.py`, `web_service.py`,
+    `web_result_view.py`, `spec_naming/service/recalc.py`,
+    `budget_guard.py`, `price_loader.py`.
+  - **Кросс-импорт** в `price_loaders/orchestrator.py` —
+    `from app.services.auctions/catalog ...` остаётся до UI-4.5
+    (auctions/catalog не «конфигуратор», переезд отдельным этапом).
+- `portal/templates/configurator/` — новая папка, 6 страниц + 4
+  макроса (`configuration_block`, `variant_block`, `variant_table`,
+  `specification_panel`). Импорты макросов в шаблонах обновлены на
+  `configurator/_macros/X.html`. `icons.html` и `pagination.html`
+  остаются общими (`portal/templates/_macros/`).
+- `portal/dependencies/configurator_access.py` — новый модуль:
+  `require_configurator_access` (FastAPI Depends) +
+  `ConfiguratorAccessDenied` (внутреннее исключение). Заменяет
+  глобальную middleware `_enforce_configurator_permission` из app/main.py.
+- `portal/main.py` — подключение трёх новых роутеров (`configurator_main`,
+  `configurator_projects`, `configurator_export`) и `exception_handler`
+  для `ConfiguratorAccessDenied` → 302 на `/?denied=configurator`.
+- `portal/templates/base.html` — добавлены 3 ветки URL → `active_section`
+  для `/configurator/projects`, `/configurator/project/*`,
+  `/configurator/history`, `/configurator/`, `/configurator/query*`.
+  Также добавлен topbar с `{% block breadcrumbs %}` (перенесён из
+  `app/templates/base.html`) и `<script common.js>` (нужен страницам
+  конфигуратора).
+- `portal/templating.py` — `to_rub`/`fmt_rub` фильтры импортированы из
+  `app.templating` (configurator-шаблоны их используют).
+- `shared/templates/_partials/sidebar.html` — три подпункта
+  «Конфигуратор ПК» переписаны: `target_service='configurator'` →
+  `'portal'`, путь `/`/`/projects`/`/history` → `/configurator/`/
+  `/configurator/projects`/`/configurator/history`. Маркер ↗ исчез
+  при рендере в портале (internal links), остался при рендере в app/
+  (cross-service).
+- `app/main.py` — `_enforce_configurator_permission` middleware удалена,
+  добавлены catch-all 301-редиректы: корневой `/` → `portal_url/configurator/`,
+  `/{rest:path}` → `portal_url/configurator/{rest}` (исключая `/admin/*`,
+  `/healthz`, `/static/*`). Импорты `from app.routers import (main_router,
+  project_router, export_router)` удалены — остался только `admin_router`.
+- `app/scheduler.py`, `app/templating.py`, `app/routers/admin_router.py`
+  — обновлены импорты `from app.services.* import ...` → `from
+  portal.services.configurator.* import ...` (cross-import app/ → portal/,
+  допустим до UI-5).
+- `portal/services/configurator/export/{excel_builder,kp_builder}.py` —
+  `parents[3]` → `parents[4]` (глубина файла после переноса +1, шаблоны
+  `kp_template.docx`/`project_template.xlsx` пока в `app/templates/export/`).
+- `portal/services/configurator/enrichment/{claude_code/exporter,openai_search/fx}.py`
+  — `parents[4]` → `parents[5]` (та же причина).
+- `app/services/__init__.py` остался пустым; `app/services/auctions/` и
+  `app/services/catalog/` — на месте (UI-4.5).
+- Тесты:
+  - **Перенесено через `git mv`** в `tests/test_portal/test_configurator_*.py`:
+    test_web_result_view, test_specification_calc, test_project_routes,
+    test_emails_endpoint, test_export_excel, test_variant_table_rendering,
+    test_result_page_rendering, test_email_modal_ui, test_stage9_motion,
+    test_spec_recalc, test_hide_case_fans, test_stage9_polish,
+    test_stage9a_2_1_logo, test_kp_builder, test_stage9a_2_5,
+    test_stage9a_2_6, test_query_flow, test_csrf, test_stage9_layout,
+    test_stage9a_2_3, test_stage9a_2, test_stage9a_2_2, test_budget.
+    URL'ы обновлены через sed: `/projects` → `/configurator/projects`,
+    `/project/` → `/configurator/project/`, etc.
+  - **Новый** `tests/test_portal/test_configurator_access.py` —
+    бывшая configurator-часть `test_access.py` (5 кейсов).
+  - **Новый** `tests/test_portal/test_configurator_access_perms.py` —
+    замена `test_permission_middleware.py` на тесты
+    `require_configurator_access` Depends (6 кейсов).
+  - **Новый** `tests/test_web/test_configurator_redirects.py` —
+    10 кейсов на catch-all 301 + проверка что `/admin/*`, `/healthz`,
+    `/static/*` не редиректятся.
+  - **Новый** `tests/test_web/test_admin_budget.py` — admin-часть
+    бывшего `test_budget.py` (3 кейса, через `admin_client_app`).
+  - **Удалён** `tests/test_web/test_permission_middleware.py` (middleware
+    нет, тесты переехали).
+  - **Обновлены**: `tests/test_web/test_access.py` (только admin-часть),
+    `tests/test_web/test_ui1_sidebar_app.py` (тестим через `/admin`,
+    проверяем cross-service подпункты конфигуратора), `tests/test_web/
+    test_databases_redirects.py` (admin_client → admin_client_app).
+  - **Расширен** `tests/test_portal/conftest.py`: `mock_process_query`
+    (теперь патчит `portal.routers.configurator.{main,projects}`),
+    алиасы `app_client`/`admin_client`/`manager_client` →
+    `portal_client`/`admin_portal_client`/`manager_portal_client`,
+    `parse_query_submit_redirect`/`qid_from_submit_redirect`,
+    `manager2_user`/`manager_no_perms`.
+  - **Заменён** `tests/test_web/conftest.py`: только app/-специфичное —
+    `app_client_legacy` (TestClient app/main.py), `admin_user`/`manager_user`
+    (для admin-страниц), `admin_client_app`/`manager_client_app`,
+    `app_client` (alias на legacy).
+- Документация:
+  - `docs/ui-architecture.md` — раздел «Конфигуратор» помечен переехавшим,
+    маппинг URL → `active_section`/`subsection` дополнен `/configurator/*`,
+    в раздел 301-редиректов добавлен блок «UI-4 catch-all», обновлена
+    история.
+  - `docs/url-migration-map.md` — секция UI-4 переписана из «плана» в
+    «выполнено» с детальной таблицей маршрутов и описанием POST→404.
+  - `CLAUDE.md` — стек обновлён (FastAPI: один сервис обслуживает всё,
+    app/ остался как legacy), структура папок и блок «Сервисы
+    конфигуратора» переписаны под новое расположение.
+- pytest регрессия: **1882 passed, 1 skipped, 0 failed** (UI-3 baseline
+  был 1886; разница −4 — `test_permission_middleware.py` имел 8 кейсов,
+  заменён на `test_configurator_access_perms.py` (6 кейсов); admin-часть
+  `test_budget.py` отдельный файл; нетто покрытие не уменьшилось).
 
 ### UI-5 — финальная зачистка [ ]
 
@@ -222,14 +340,29 @@ DoD: prod/pre-prod работают только через portal-сервис;
 ## Открытые вопросы
 
 1. **RBAC для менеджеров после UI-5** — какие подразделы скрывать (например, «Настройки → Пользователи» может быть admin-only).
-2. **Структура `portal/routers/configurator/`** — оставить плоской или ввести подпапки (`nlu/`, `projects/`, `export/`)?
+2. ~~**Структура `portal/routers/configurator/`** — оставить плоской или ввести подпапки~~ — Решено в UI-4: плоская структура (`main.py`, `projects.py`, `export.py`).
 3. **Будущие модули** — собственник на 2026-05-11 не имеет фиксированного списка; структуру делаем гибкую.
+4. **UI-4.5 (новый этап)** — перенос `app/services/auctions/` и
+   `app/services/catalog/` в `shared/` или `portal/services/`. Сейчас
+   они остаются в app/ как legacy, а `portal/services/configurator/
+   price_loaders/orchestrator.py` делает кросс-импорт `from
+   app.services.auctions/catalog ...`. После UI-4.5 кросс-импорт
+   исчезнет, что разблокирует UI-5.
+5. **Перенос `app/scheduler.py`** (cron USD/RUB 5 раз в день) в
+   `portal/scheduler.py` — отдельный мини-этап перед UI-5. После
+   переноса scheduler-сервиса можно полностью удалить `app/main.py` и
+   Railway-сервис `configurator`.
+6. **Перенос шаблонов `kp_template.docx` и `project_template.xlsx`** из
+   `app/templates/export/` в `portal/templates/export/` или
+   `portal/services/configurator/export/templates/` — на UI-5 вместе с
+   удалением app/templates/.
 
 ## Итоговый блок
 
-Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1, UI-2 и UI-3 выполнены**:
+Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1, UI-2, UI-3 и UI-4 выполнены**:
 - UI-1 — общий sidebar + новое меню + плашка «Аукционы» (pytest 1857 passed);
 - UI-2 — перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`, 301 со старых `/admin/{suppliers,components,mapping}` (pytest 1875 passed);
-- UI-3 — оформление раздела «Настройки» в `portal/routers/settings/`, перевешивание трёх роутеров с `/admin/*` на `/settings/*` внутри портала + 301-обработчики со старых URL (pytest 1886 passed).
+- UI-3 — оформление раздела «Настройки» в `portal/routers/settings/`, перевешивание трёх роутеров с `/admin/*` на `/settings/*` внутри портала + 301-обработчики со старых URL (pytest 1886 passed);
+- UI-4 — перенос Конфигуратора ПК в `portal/routers/configurator/` + `portal/services/configurator/` (~80 файлов сервисов) + `portal/templates/configurator/`. Глобальная permission-middleware заменена на scoped `Depends(require_configurator_access)`. На `config.quadro.tatar` — catch-all 301 на portal/configurator + legacy admin-страницы (pytest 1882 passed).
 
-Следующий этап — UI-4 (перенос самого Конфигуратора из `app/` в `portal/routers/configurator/`).
+Следующий этап — **UI-4.5** (перенос `app/services/auctions/` и `app/services/catalog/` из app/ в shared/ или portal/services/) и затем **UI-5** (финальная зачистка app/main.py, Dockerfile, railway.json, удаление Railway-сервиса configurator).

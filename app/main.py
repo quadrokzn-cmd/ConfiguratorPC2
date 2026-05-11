@@ -23,27 +23,21 @@ init_sentry("configurator")
 import logging
 from urllib.parse import quote
 
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs, get_user_by_id
+from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from app.config import settings
 from app.database import SessionLocal
-from app.routers import (
-    admin_router,
-    export_router,
-    main_router,
-    project_router,
-)
+from app.routers import admin_router
 from app.scheduler import (
     ensure_initial_rate,
     init_scheduler,
     shutdown_scheduler,
 )
-from shared.permissions import has_permission
 
 
 logger = logging.getLogger(__name__)
@@ -79,67 +73,14 @@ def _shutdown_scheduler() -> None:
     shutdown_scheduler()
 
 
-# Permission middleware (этап 9Б.4). Второй уровень защиты после login:
-# у залогиненного пользователя должна быть permissions["configurator"]=true,
-# иначе конфигуратор НЕ ОТКРЫВАЕТСЯ — редирект на ${PORTAL_URL}/?denied=configurator.
-# Без этого менеджер без прав мог зайти прямо по URL config.quadro.tatar/
-# и обойти UI-фильтр на портале.
+# UI-4 (Путь B, 2026-05-11): Permission middleware
+# _enforce_configurator_permission удалена — конфигуратор переехал в
+# /configurator/* портала, и право permissions['configurator']
+# проверяется теперь точечно через Depends require_configurator_access
+# в portal/dependencies/configurator_access.py. Этот процесс
+# (config.quadro.tatar) после UI-4 обслуживает только 301-редиректы
+# на portal + /healthz + /admin/* (legacy-dashboard и редиректы).
 #
-# Порядок регистрации middleware важен: starlette применяет user_middleware
-# в обратном порядке (последний add_middleware — outermost). Чтобы внутри
-# permission-middleware был доступен request.session, SessionMiddleware
-# должен быть outermost — поэтому его add_middleware идёт ПОСЛЕ нашего.
-_PERM_BYPASS_PATH_PREFIXES = ("/static", "/healthz", "/logout")
-
-
-@app.middleware("http")
-async def _enforce_configurator_permission(request: Request, call_next):
-    """Блокирует доступ к конфигуратору пользователям без права 'configurator'.
-
-    Логика:
-      - служебные пути (/static, /healthz, /logout) и preflight OPTIONS —
-        пропускаются без проверки;
-      - не залогиненные тоже пропускаются: дальше отработает обычный
-        require_login → LoginRequiredRedirect → 302 на портал/login;
-      - залогиненный без права получает 403 JSON, если запрос ждёт JSON,
-        иначе 302 на ${PORTAL_URL}/?denied=configurator (портал покажет баннер).
-
-    admin всегда проходит — has_permission(admin, ..., ...) → True (см. shared/permissions.py).
-    """
-    path = request.url.path
-    if request.method == "OPTIONS" or any(
-        path.startswith(p) for p in _PERM_BYPASS_PATH_PREFIXES
-    ):
-        return await call_next(request)
-
-    user_id = request.session.get("user_id")
-    if not user_id:
-        return await call_next(request)
-
-    db = SessionLocal()
-    try:
-        user = get_user_by_id(db, int(user_id))
-    finally:
-        db.close()
-
-    if user is None:
-        # Сессия указывает на удалённого/деактивированного пользователя —
-        # current_user-зависимость её почистит и редиректнет на login.
-        return await call_next(request)
-
-    if has_permission(user.role, user.permissions or {}, "configurator"):
-        return await call_next(request)
-
-    accept = request.headers.get("accept", "")
-    if "application/json" in accept and "text/html" not in accept:
-        return JSONResponse(
-            status_code=status.HTTP_403_FORBIDDEN,
-            content={"detail": "Нет доступа к модулю «Конфигуратор ПК»."},
-        )
-    target = f"{settings.portal_url}/?denied=configurator"
-    return RedirectResponse(url=target, status_code=status.HTTP_302_FOUND)
-
-
 # Сессии — подписанные cookie. Кука и секрет общие с порталом
 # (build_session_cookie_kwargs живёт в shared/auth.py), чтобы login на
 # app.quadro.tatar пускал сразу и сюда.
@@ -222,10 +163,12 @@ def _redirect_admin_mapping_sub(rest: str):
 # /admin/users тоже переехал; в admin_router.py остался редирект на portal_url
 # для совместимости со старыми ссылками. /admin/suppliers, /admin/components,
 # /admin/mapping переехали в портал на UI-2 — выше стоят 301-редиректы.
-app.include_router(admin_router.router)     # /admin/* — подключаем раньше /
-app.include_router(project_router.router)   # /projects, /project/*
-app.include_router(export_router.router)    # /project/*/export/*
-app.include_router(main_router.router)
+# UI-4 (Путь B, 2026-05-11): main_router, project_router, export_router
+# переехали в portal/routers/configurator/. На config.quadro.tatar
+# остаётся только admin_router (/admin dashboard, /admin/budget,
+# /admin/queries, /admin/users → 302 на portal/settings/users) — он
+# полностью уйдёт в UI-5 вместе со всем app/.
+app.include_router(admin_router.router)     # /admin/* — подключаем раньше catch-all
 
 
 @app.get("/healthz")
@@ -249,3 +192,49 @@ def healthz():
         )
     finally:
         db.close()
+
+
+# UI-4 (Путь B, 2026-05-11): catch-all 301-редиректы на портал.
+# Конфигуратор переехал в portal/routers/configurator/* — здесь
+# остаются только админ-страницы (admin_router выше) и публичные
+# редиректы. Любой остальной URL уезжает на portal/configurator/*.
+#
+# ВАЖНО: catch-all регистрируется ПОСЛЕ admin_router.router и
+# @app.get("/healthz") — иначе он перехватит /admin/* и /healthz.
+# FastAPI matches routes в порядке добавления; если route совпал —
+# дальше не идёт.
+
+@app.get("/")
+def _redirect_root_to_portal_configurator():
+    """Корень config.quadro.tatar → portal/configurator/ (главная NLU-формы)."""
+    return RedirectResponse(
+        url=f"{settings.portal_url}/configurator/",
+        status_code=status.HTTP_301_MOVED_PERMANENTLY,
+    )
+
+
+@app.get("/{rest:path}")
+def _redirect_to_portal_configurator(rest: str):
+    """Catch-all 301: всё, что не /admin/* и не /healthz и не /static/*,
+    отправляется на portal/configurator/<rest>. Старые закладки на
+    config.quadro.tatar/projects, /history, /query продолжат работать.
+
+    Только GET — POST-формы (если они существовали на старых страницах)
+    дадут 404, но самих страниц с такими action в DOM больше нет (все
+    шаблоны переехали и используют новые /configurator/* URL).
+
+    /admin/* не редиректится: admin_router выше отдаёт /admin (dashboard),
+    /admin/users (302 на portal/settings/users), /admin/budget, /admin/queries.
+    Точечные 301 для /admin/{suppliers,components,mapping} зарегистрированы
+    отдельно (UI-2). Любой другой /admin/* — 404 (так и было до UI-4):
+    мы не хотим из этого процесса редиректить административные пути,
+    которые живут только в портале (/admin/auto-price-loads, /admin/diagnostics
+    и т.д. — это portal-роуты, на app никогда не существовали).
+    """
+    if rest.startswith("admin/") or rest == "admin":
+        raise HTTPException(status_code=404)
+    target = f"{settings.portal_url}/configurator/{rest}"
+    return RedirectResponse(
+        url=target,
+        status_code=status.HTTP_301_MOVED_PERMANENTLY,
+    )

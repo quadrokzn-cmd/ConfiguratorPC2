@@ -19,14 +19,14 @@ from pathlib import Path
 import pytest
 from sqlalchemy import text
 
-from app.services.enrichment.claude_code import exporter as exporter_mod
-from app.services.enrichment.claude_code import importer as importer_mod
-from app.services.enrichment.claude_code.exporter import export_category
-from app.services.enrichment.claude_code.importer import (
+from portal.services.configurator.enrichment.claude_code import exporter as exporter_mod
+from portal.services.configurator.enrichment.claude_code import importer as importer_mod
+from portal.services.configurator.enrichment.claude_code.exporter import export_category
+from portal.services.configurator.enrichment.claude_code.importer import (
     import_category,
     import_file,
 )
-from app.services.enrichment.claude_code.schema import (
+from portal.services.configurator.enrichment.claude_code.schema import (
     SOURCE_DETAIL_WEB_SEARCH,
     SOURCE_NAME,
 )
@@ -587,7 +587,7 @@ def test_import_file_one_batch(db_session, enrichment_tmp):
 
 
 def test_validate_cooler_supported_sockets():
-    from app.services.enrichment.claude_code.validators import (
+    from portal.services.configurator.enrichment.claude_code.validators import (
         ValidationError, validate_field,
     )
 
@@ -606,7 +606,7 @@ def test_validate_cooler_supported_sockets():
 
 
 def test_validate_motherboard_socket_chipset():
-    from app.services.enrichment.claude_code.validators import (
+    from portal.services.configurator.enrichment.claude_code.validators import (
         ValidationError, validate_field,
     )
 

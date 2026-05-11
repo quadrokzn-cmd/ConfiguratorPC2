@@ -1,19 +1,17 @@
-# Фикстуры для тестов веб-сервиса.
+# UI-4 (Путь B, 2026-05-11): фикстуры для тестов app/ (legacy-конфигуратор).
 #
-# DB-инфраструктура (engine, миграции, db_session) поднята в корневом
-# `tests/conftest.py` — этот файл оставляет только web-специфичные
-# фикстуры:
-#   - autouse-фикстура _clean_tables, чистящая «свои» таблицы перед
-#     каждым тестом;
-#   - admin/manager-пользователи и TestClient'ы конфигуратора;
-#   - mock_process_query — заглушка вместо реального вызова OpenAI.
+# После UI-4 в app/ остаётся только admin_router (/admin dashboard,
+# /admin/budget, /admin/queries, /admin/users → 302 на portal) и
+# catch-all 301-редиректы на portal/configurator. Эти тесты используют
+# app_client_legacy — TestClient(app/main.py), чтобы проверять реальные
+# admin-страницы конфигуратора и редиректы старых URL.
 #
-# process_query мокается на уровне app.routers.main_router, чтобы
-# не дёргать OpenAI и не требовать живых данных компонентов.
+# Тесты самих /configurator/* URL переехали в tests/test_portal/test_configurator_*.py.
 
 from __future__ import annotations
 
-from unittest.mock import MagicMock
+import json
+import re
 
 import pytest
 from fastapi.testclient import TestClient
@@ -22,9 +20,9 @@ from sqlalchemy import text
 
 @pytest.fixture(autouse=True)
 def _clean_tables(db_engine):
-    """Перед каждым тестом — пустые таблицы, в которые тесты конфигуратора
-    активно пишут. Таблицы компонентов (cpus/motherboards/…) обычно пустые
-    и FK на них через `users`/`projects` не идут — TRUNCATE их не нужен."""
+    """Перед каждым тестом — пустые таблицы, в которые тесты app/ пишут.
+    Дублирует логику test_portal/conftest.py:_clean_tables — нужно,
+    чтобы test_web/ работал независимо от test_portal/."""
     with db_engine.begin() as conn:
         conn.execute(text(
             "TRUNCATE TABLE audit_log, sent_emails, specification_items, queries, "
@@ -34,27 +32,16 @@ def _clean_tables(db_engine):
     yield
 
 
-# ---- Пользователи и клиенты -------------------------------------------
+# ---- Создание пользователей --------------------------------------------
 
 def _create_user(
     session, *, login: str, password: str, role: str, name: str,
     permissions: dict | None = None,
 ) -> int:
-    """Создаёт пользователя. С миграцией 017 (этап 9Б.1) у каждого
-    пользователя есть users.permissions JSONB; для тестов конфигуратора
-    выдаём дефолт {"configurator": True}, чтобы менеджеры могли
-    открывать страницы конфигуратора (с этапа 9Б.4 в конфигураторе
-    есть middleware-проверка permission — без права менеджер получит
-    302 на портал).
-
-    9Б.4: можно передать явный permissions, чтобы создать менеджера
-    БЕЗ доступа к configurator (для тестов middleware)."""
-    import json as _json
     from shared.auth import hash_password
-    if permissions is None:
-        perms = {} if role == "admin" else {"configurator": True}
-    else:
-        perms = permissions
+    perms = permissions if permissions is not None else (
+        {} if role == "admin" else {"configurator": True}
+    )
     row = session.execute(
         text(
             "INSERT INTO users (login, password_hash, role, name, permissions) "
@@ -62,7 +49,7 @@ def _create_user(
         ),
         {
             "l": login, "p": hash_password(password), "r": role, "n": name,
-            "perms": _json.dumps(perms),
+            "perms": json.dumps(perms, ensure_ascii=False),
         },
     ).first()
     session.commit()
@@ -83,164 +70,53 @@ def manager_user(db_session):
     return {"id": uid, "login": "manager1", "password": "manager-pass"}
 
 
-@pytest.fixture()
-def manager2_user(db_session):
-    uid = _create_user(db_session, login="manager2", password="manager-pass",
-                       role="manager", name="Менеджер 2")
-    return {"id": uid, "login": "manager2", "password": "manager-pass"}
-
+# ---- TestClient'ы ------------------------------------------------------
 
 @pytest.fixture()
-def manager_no_perms(db_session):
-    """9Б.4: менеджер БЕЗ permission на configurator. Используется для
-    тестов middleware-блокировки на стороне конфигуратора."""
-    uid = _create_user(
-        db_session, login="manager_empty", password="manager-pass",
-        role="manager", name="Без доступа",
-        permissions={},
-    )
-    return {"id": uid, "login": "manager_empty", "password": "manager-pass"}
-
-
-@pytest.fixture()
-def app_client():
-    """TestClient конфигуратора без залогиненного пользователя."""
-    # Импортируем здесь, чтобы env-переменные уже были подняты.
+def app_client_legacy():
+    """TestClient app-сервиса (config.quadro.tatar): админка + 301-редиректы."""
     from app.main import app
     with TestClient(app, follow_redirects=False) as c:
         yield c
 
 
-def _login(client: TestClient, login: str, password: str) -> None:
-    """Этап 9Б.1: login переехал в портал. Логинимся отдельным
-    portal-клиентом, копируем session-cookie в основной клиент.
+@pytest.fixture()
+def app_client(app_client_legacy):
+    """Алиас под старое имя из bывшего conftest. UI-4 (Путь B):
+    app_client теперь = app_client_legacy (только app/, без логина)."""
+    return app_client_legacy
 
-    Cookie общая (одинаковые secret_key + cookie name), поэтому
-    конфигуратор корректно её разберёт. Это и есть замысел шаринга
-    сессии между сервисами."""
+
+def _login_via_portal(client: TestClient, login: str, password: str) -> None:
+    """Логин в portal-клиенте; портал ставит cookie на .quadro.tatar,
+    которая шарится с app/main.py (тот же secret_key и cookie name)."""
+    r = client.get("/login")
+    assert r.status_code == 200, r.status_code
+    m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
+    assert m, "csrf_token не найден"
+    token = m.group(1)
+    r = client.post(
+        "/login",
+        data={"login": login, "password": password, "csrf_token": token},
+    )
+    assert r.status_code in (302, 303), f"Логин не прошёл: {r.status_code}"
+
+
+@pytest.fixture()
+def admin_client_app(app_client_legacy, admin_user):
     from portal.main import app as portal_app
     with TestClient(portal_app, follow_redirects=False) as portal_client:
-        r = portal_client.get("/login")
-        assert r.status_code == 200, r.status_code
-        import re
-        m = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
-        assert m, "На странице логина не найден csrf_token"
-        token = m.group(1)
-        r = portal_client.post(
-            "/login",
-            data={"login": login, "password": password, "csrf_token": token},
-        )
-        assert r.status_code in (302, 303), f"Логин не прошёл: {r.status_code} {r.text[:200]}"
-        # Переносим session-cookie из портала в клиент конфигуратора.
+        _login_via_portal(portal_client, admin_user["login"], admin_user["password"])
         for k, v in portal_client.cookies.items():
-            client.cookies.set(k, v)
+            app_client_legacy.cookies.set(k, v)
+    return app_client_legacy
 
 
 @pytest.fixture()
-def admin_client(app_client, admin_user):
-    _login(app_client, admin_user["login"], admin_user["password"])
-    return app_client
-
-
-@pytest.fixture()
-def manager_client(app_client, manager_user):
-    _login(app_client, manager_user["login"], manager_user["password"])
-    return app_client
-
-
-# ---- Утилиты для тестов -----------------------------------------------
-
-def extract_csrf(html: str) -> str:
-    import re
-    m = re.search(r'name="csrf_token" value="([^"]+)"', html)
-    assert m, "csrf_token не найден на странице"
-    return m.group(1)
-
-
-def parse_query_submit_redirect(location: str) -> tuple[int, int]:
-    """POST /query теперь редиректит на /project/{pid}?highlight={qid}.
-    Возвращает (project_id, query_id)."""
-    from urllib.parse import urlsplit, parse_qs
-    parts = urlsplit(location)
-    pid = int(parts.path.rsplit("/", 1)[1])
-    qid = int(parse_qs(parts.query).get("highlight", ["0"])[0])
-    return pid, qid
-
-
-def qid_from_submit_redirect(location: str) -> int:
-    """Только query_id — для тестов, которым не нужен project_id."""
-    return parse_query_submit_redirect(location)[1]
-
-
-@pytest.fixture()
-def mock_process_query(monkeypatch):
-    """Мокает process_query из main_router.
-
-    По умолчанию возвращает «успешный» FinalResponse с одним Intel-вариантом.
-    Тест может подменить возвращаемое значение через mock.return_value.
-    """
-    from app.routers import main_router
-    from app.services.configurator.schema import (
-        BuildRequest, BuildResult, ComponentChoice, CPURequirements,
-        GPURequirements, RAMRequirements, StorageRequirements,
-        SupplierOffer, Variant,
-    )
-    from app.services.nlu.schema import FinalResponse, ParsedRequest
-
-    fake_variant = Variant(
-        manufacturer="Intel",
-        components=[
-            ComponentChoice(
-                category="cpu",
-                component_id=1,
-                model="Intel Core i5-12400F",
-                sku="BX8071512400F",
-                manufacturer="Intel",
-                chosen=SupplierOffer(
-                    supplier="Поставщик А", price_usd=180, price_rub=16200, stock=10,
-                ),
-            ),
-            ComponentChoice(
-                category="ram",
-                component_id=2,
-                model="Kingston 16GB DDR4",
-                sku=None,
-                manufacturer="Kingston",
-                chosen=SupplierOffer(
-                    supplier="Поставщик Б", price_usd=40, price_rub=3600, stock=5,
-                ),
-            ),
-        ],
-        total_usd=220,
-        total_rub=19800,
-    )
-    fake_result = BuildResult(
-        status="ok",
-        variants=[fake_variant],
-        refusal_reason=None,
-        usd_rub_rate=90.0,
-        fx_source="fallback",
-    )
-    fake_req = BuildRequest()
-    fake_parsed = ParsedRequest(is_empty=False, purpose="office", budget_usd=300)
-
-    default_resp = FinalResponse(
-        kind="ok",
-        interpretation="Офисный ПК до $300.",
-        formatted_text="[Фиктивный форматированный ответ]",
-        build_request=fake_req,
-        build_result=fake_result,
-        parsed=fake_parsed,
-        resolved=[],
-        warnings=[],
-        cost_usd=0.0,
-    )
-
-    mock = MagicMock(return_value=default_resp)
-    monkeypatch.setattr(main_router, "process_query", mock)
-    # На этапе 6.2 process_query ещё раз импортируется в project_router —
-    # мокнем и его, чтобы тесты новой формы /project/{id}/new_query тоже
-    # работали без обращения к OpenAI.
-    from app.routers import project_router
-    monkeypatch.setattr(project_router, "process_query", mock)
-    return mock
+def manager_client_app(app_client_legacy, manager_user):
+    from portal.main import app as portal_app
+    with TestClient(portal_app, follow_redirects=False) as portal_client:
+        _login_via_portal(portal_client, manager_user["login"], manager_user["password"])
+        for k, v in portal_client.cookies.items():
+            app_client_legacy.cookies.set(k, v)
+    return app_client_legacy

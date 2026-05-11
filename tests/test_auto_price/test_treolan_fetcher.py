@@ -59,7 +59,7 @@ class FakeClient:
 
 def _patch_httpx(monkeypatch, handler):
     """Подменяет httpx.Client в модуле fetcher'а на FakeClient."""
-    import app.services.auto_price.fetchers.treolan as treolan_mod
+    import portal.services.configurator.auto_price.fetchers.treolan as treolan_mod
 
     def _factory(timeout=None):
         return FakeClient(handler)
@@ -70,7 +70,7 @@ def _patch_httpx(monkeypatch, handler):
 # ---- 1. _get_token: основной endpoint ---------------------------------
 
 def test_get_token_success_token_endpoint(treolan_env, monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     token_str = _make_jwt(int(time.time()) + 4 * 3600)
     calls = []
@@ -94,7 +94,7 @@ def test_get_token_success_token_endpoint(treolan_env, monkeypatch):
 # ---- 2. fallback на /v1/auth/login ------------------------------------
 
 def test_get_token_fallback_to_login_endpoint(treolan_env, monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     token_str = _make_jwt(int(time.time()) + 4 * 3600)
     calls = []
@@ -123,7 +123,7 @@ def test_get_token_fallback_to_login_endpoint(treolan_env, monkeypatch):
 # ---- 3. кеш токена внутри TTL ----------------------------------------
 
 def test_get_token_caches_within_ttl(treolan_env, monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     token_str = _make_jwt(int(time.time()) + 4 * 3600)  # 4 часа > 1ч буфер
     call_count = {"n": 0}
@@ -147,7 +147,7 @@ def test_get_token_caches_within_ttl(treolan_env, monkeypatch):
 # ---- 4. 401 в _fetch_catalog → сброс кеша + повтор --------------------
 
 def test_get_token_refreshes_after_401_in_catalog(treolan_env, monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     token1 = _make_jwt(int(time.time()) + 4 * 3600)
     token2 = _make_jwt(int(time.time()) + 5 * 3600)
@@ -229,7 +229,7 @@ _TREOLAN_API_SAMPLE = {
 
 
 def test_fetch_catalog_returns_positions(treolan_env, monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     token_str = _make_jwt(int(time.time()) + 4 * 3600)
 
@@ -252,7 +252,7 @@ def test_fetch_catalog_returns_positions(treolan_env, monkeypatch):
     assert "categories" in data
     assert len(data["categories"]) == 1
     # Товары лежат в category.children[].products — DFS-обходом найдём.
-    from app.services.auto_price.fetchers.treolan import _walk_products
+    from portal.services.configurator.auto_price.fetchers.treolan import _walk_products
     walked = list(_walk_products(data["categories"]))
     assert len(walked) == 2
     sku_set = {p["articul"] for _path, _cat_id, p in walked}
@@ -262,7 +262,7 @@ def test_fetch_catalog_returns_positions(treolan_env, monkeypatch):
 # ---- 6. _save: реальный INSERT в price_uploads/supplier_prices --------
 
 def test_save_inserts_price_upload_and_rows(treolan_env, monkeypatch, db_session):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     # Курс USD/RUB на сегодня — нужен для USD-позиции.
     db_session.execute(text(
@@ -305,7 +305,7 @@ def test_save_inserts_price_upload_and_rows(treolan_env, monkeypatch, db_session
 # ---- 7. _save: пропуск unknown-currency -------------------------------
 
 def test_save_skips_unknown_currency(treolan_env, monkeypatch, db_session):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -344,7 +344,7 @@ def test_save_skips_unknown_currency(treolan_env, monkeypatch, db_session):
 # ---- 8. _save: USD → RUB через cb_rate --------------------------------
 
 def test_save_converts_usd_to_rub_via_cb_rate(treolan_env, monkeypatch, db_session):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     # Курс USD/RUB = 87.5
     db_session.execute(text(
@@ -385,7 +385,7 @@ def test_save_converts_usd_to_rub_via_cb_rate(treolan_env, monkeypatch, db_sessi
 # ---- 9. RuntimeError, если креды не заданы ----------------------------
 
 def test_init_raises_without_credentials(monkeypatch):
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     monkeypatch.delenv("TREOLAN_API_LOGIN", raising=False)
     monkeypatch.delenv("TREOLAN_API_PASSWORD", raising=False)
@@ -404,7 +404,7 @@ def test_init_raises_without_credentials(monkeypatch):
 def test_walk_products_recursive_collects_from_all_levels():
     """DFS должен поднимать товары и из узла-корня, и из вложенных
     children на любой глубине, и сохранять path-имён по дороге."""
-    from app.services.auto_price.fetchers.treolan import _walk_products
+    from portal.services.configurator.auto_price.fetchers.treolan import _walk_products
 
     tree = [
         {
@@ -446,7 +446,7 @@ def test_walk_products_recursive_collects_from_all_levels():
 
 
 def test_walk_products_empty_tree_yields_nothing():
-    from app.services.auto_price.fetchers.treolan import _walk_products
+    from portal.services.configurator.auto_price.fetchers.treolan import _walk_products
 
     assert list(_walk_products([])) == []
     assert list(_walk_products(None)) == []
@@ -458,7 +458,7 @@ def test_walk_products_empty_tree_yields_nothing():
 def test_save_raises_runtimeerror_on_empty_categories(treolan_env):
     """Defensive layer 1: если data['categories'] пустой — RuntimeError,
     pipeline закроется failed и disappeared НЕ запустится."""
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     fetcher = TreolanFetcher()
     with pytest.raises(RuntimeError, match="categories"):
@@ -471,7 +471,7 @@ def test_save_raises_runtimeerror_on_zero_products_after_walk(treolan_env):
     """Defensive layer 2: categories есть, но после DFS ни одного товара
     не нашлось → RuntimeError. Закрывает случай 'структура изменилась
     второй раз и products куда-то переехали'."""
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     sample = {
         "categories": [
@@ -491,7 +491,7 @@ def test_save_handles_atstock_string_with_less_than_marker(
 ):
     """В production atStock приходит строкой '<10' — не должно превращаться
     в stock=0 (иначе товары мгновенно станут «нет в наличии»)."""
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -529,7 +529,7 @@ def test_save_handles_atstock_string_with_less_than_marker(
 def test_detect_our_category_matches_any_level_in_path():
     """_detect_our_category должен ловить наш ключ на любом уровне
     переданного path, не только на последнем."""
-    from app.services.auto_price.fetchers.treolan import _detect_our_category
+    from portal.services.configurator.auto_price.fetchers.treolan import _detect_our_category
 
     # Совпадение на среднем уровне (популярная схема Treolan).
     assert _detect_our_category(
@@ -554,8 +554,8 @@ def test_parse_stock_str_qualitative_values_via_shared_table():
     TREOLAN_QUAL_STOCK (ту же что у XLSX-loader). До этого «много»
     падало в _to_int → InvalidOperation → 0, и ~700 позиций каждой
     автозагрузки терялись со stock=0."""
-    from app.services.auto_price.fetchers.treolan import _parse_stock_str
-    from app.services.price_loaders._qual_stock import TREOLAN_QUAL_STOCK
+    from portal.services.configurator.auto_price.fetchers.treolan import _parse_stock_str
+    from portal.services.configurator.price_loaders._qual_stock import TREOLAN_QUAL_STOCK
 
     # Качественные значения берутся ровно из shared таблицы.
     assert _parse_stock_str("много") == TREOLAN_QUAL_STOCK["много"]
@@ -585,7 +585,7 @@ def test_detect_our_category_psu_branch_takes_priority_over_corpus():
     при неправильном порядке ключей _CATEGORY_NAME_MAP первый match
     падает в 'case' и весь PSU-сегмент Treolan (~210 позиций) теряется
     как 'не наша категория'. Тест — стопор для регрессии порядка."""
-    from app.services.auto_price.fetchers.treolan import _detect_our_category
+    from portal.services.configurator.auto_price.fetchers.treolan import _detect_our_category
 
     # Главный кейс — БП для корпусов в проде.
     assert _detect_our_category(
@@ -649,7 +649,7 @@ def _all_categories_tree():
 def test_build_category_map_from_tree(treolan_env):
     """Map покрывает все 8 our_category по корневым веткам, серверная
     ветка (через blocklist) → None."""
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     fetcher = TreolanFetcher()
     cat_map = fetcher._build_category_map(_all_categories_tree())
@@ -674,7 +674,7 @@ def test_position_classification_uses_category_id_lookup(treolan_env, db_session
     """Позиция в категории с известным id попадает в supplier_prices с
     нашей our_category из map (через _save → orchestrator)."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -717,8 +717,8 @@ def test_position_with_unknown_category_id_falls_back_to_path(
     substring-классификацию по path — позиция всё равно попадёт в БД
     с корректной our_category."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
-    import app.services.auto_price.fetchers.treolan as treolan_mod
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
+    import portal.services.configurator.auto_price.fetchers.treolan as treolan_mod
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -768,7 +768,7 @@ def test_position_with_unknown_category_id_falls_back_to_path(
 def test_build_category_map_handles_recursive_depth(treolan_env):
     """Дерево 3+ уровня: каждая вложенная категория получает свой
     our_category по полному path."""
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     tree = [{
         "id": 1, "name": "Комплектующие", "productsQty": 0, "products": [],
@@ -806,7 +806,7 @@ def test_build_category_map_collects_audit_warning_for_productful_none_branches(
     """Ветка с productsQty=50 и path под blocklist'ом → WARNING с её
     name/path/qty в логе. Это автоматический аудит blocklist'а."""
     import logging
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     tree = [{
         "id": 2, "name": "Серверы", "productsQty": 0, "products": [],
@@ -817,7 +817,7 @@ def test_build_category_map_collects_audit_warning_for_productful_none_branches(
     }]
 
     fetcher = TreolanFetcher()
-    with caplog.at_level(logging.WARNING, logger="app.services.auto_price.fetchers.treolan"):
+    with caplog.at_level(logging.WARNING, logger="portal.services.configurator.auto_price.fetchers.treolan"):
         fetcher._build_category_map(tree)
 
     warning_records = [r for r in caplog.records if r.levelno >= logging.WARNING]
@@ -840,7 +840,7 @@ def test_blocklist_for_server_branches_still_works_via_id_map(
     Это страховка против регрессии: blocklist должен по-прежнему
     отрезать сервера."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -894,7 +894,7 @@ def test_save_writes_category_map_metrics_to_report(treolan_env, db_session):
     category_map со всеми ключами: size, fallback_lookups,
     audit_misses_count, audit_misses_top5, by_our_category."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -979,7 +979,7 @@ def test_category_map_audit_misses_top5_capped(treolan_env, db_session):
     """Если productful-None веток больше 5 — audit_misses_top5 длины 5,
     audit_misses_count показывает полное число."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "
@@ -1036,7 +1036,7 @@ def test_category_map_audit_misses_top5_capped(treolan_env, db_session):
 def test_category_map_metrics_with_zero_fallback(treolan_env, db_session):
     """Стандартный случай — все позиции мапятся через ID, fallback_lookups=0."""
     from sqlalchemy import text
-    from app.services.auto_price.fetchers.treolan import TreolanFetcher
+    from portal.services.configurator.auto_price.fetchers.treolan import TreolanFetcher
 
     db_session.execute(text(
         "INSERT INTO exchange_rates (rate_date, rate_usd_rub, source) "

@@ -38,7 +38,7 @@ from openpyxl import load_workbook
 from sqlalchemy import text
 
 from app.database import SessionLocal
-from app.services.price_loader import (
+from portal.services.configurator.price_loader import (
     _CATEGORY_MAP,
     _COL_CAT_B,
     _COL_KIND_C,

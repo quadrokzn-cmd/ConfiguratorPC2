@@ -26,7 +26,7 @@ load_dotenv()
 
 from sqlalchemy import text
 from app.database import SessionLocal
-from app.services.enrichment.claude_code.derive import normalize_video_outputs
+from portal.services.configurator.enrichment.claude_code.derive import normalize_video_outputs
 
 
 SOURCE = "derived_from_name"

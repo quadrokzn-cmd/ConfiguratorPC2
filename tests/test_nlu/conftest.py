@@ -19,11 +19,11 @@ def _stub_env_and_fx(monkeypatch):
     # Чтобы get_client не падал при создании реального OpenAI()
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test-stub")
 
-    from app.services.enrichment.openai_search import fx
+    from portal.services.configurator.enrichment.openai_search import fx
     monkeypatch.setattr(fx, "get_usd_rub_rate", lambda **kw: (90.0, "fallback"))
 
     # На всякий случай — тот же символ, импортированный в configurator.selector
-    from app.services.configurator import selector as cfg_selector
+    from portal.services.configurator.engine import selector as cfg_selector
     monkeypatch.setattr(cfg_selector, "get_usd_rub_rate", lambda: (90.0, "fallback"))
 
     yield

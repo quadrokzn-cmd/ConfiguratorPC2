@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.services.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
+from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 
 
 # Статусы строки unmapped_supplier_items — единый источник истины.
@@ -838,7 +838,7 @@ def calculate_candidates_ranked(
     if table is None or table not in ALLOWED_TABLES:
         return []
 
-    from app.services.price_loaders.candidates import find_candidates
+    from portal.services.configurator.price_loaders.candidates import find_candidates
 
     # 1) Кандидаты по токенам (та же функция, что на странице детали
     # и при загрузке прайсов). Уже содержит фильтр скелетов и рерканкинг.

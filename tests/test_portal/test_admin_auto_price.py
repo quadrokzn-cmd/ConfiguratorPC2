@@ -112,7 +112,7 @@ def test_run_blocks_unregistered_fetcher(admin_portal_client):
 def test_run_returns_429_on_too_frequent(admin_portal_client, db_session, monkeypatch):
     """Регистрируем фейк-fetcher для slug 'treolan' и проверяем, что
     второй вызов в окне 5 мин возвращает 429."""
-    from app.services.auto_price import base as base_mod
+    from portal.services.configurator.auto_price import base as base_mod
 
     class FakeFetcher(base_mod.BaseAutoFetcher):
         supplier_slug = "fake_run_treolan"

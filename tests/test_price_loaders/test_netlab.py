@@ -9,7 +9,7 @@ import os
 import zipfile
 from decimal import Decimal
 
-from app.services.price_loaders.netlab import NetlabLoader
+from portal.services.configurator.price_loaders.netlab import NetlabLoader
 
 
 def test_netlab_reads_headers_from_row_21(make_netlab_xlsx):
@@ -43,7 +43,7 @@ def test_netlab_reads_headers_from_row_21(make_netlab_xlsx):
 
 def test_netlab_binary_stock_markers():
     """«+» → 5, «-» → 0. Других маркеров в реальном Netlab-прайсе нет."""
-    from app.services.price_loaders.netlab import _parse_stock
+    from portal.services.configurator.price_loaders.netlab import _parse_stock
 
     assert _parse_stock("+") == 5
     assert _parse_stock("-") == 0
@@ -245,7 +245,7 @@ def test_netlab_normalizes_numeric_article_from_excel(make_netlab_xlsx):
     отдаёт его как float (11051003.0). Без нормализации повторная
     загрузка плодит дубликаты supplier_sku. Целочисленные float
     сворачиваются к int-строке."""
-    from app.services.price_loaders.netlab import _normalize
+    from portal.services.configurator.price_loaders.netlab import _normalize
     assert _normalize(11051003.0) == "11051003"
     assert _normalize(0.0) == "0"
     assert _normalize(0.5) == "0.5"

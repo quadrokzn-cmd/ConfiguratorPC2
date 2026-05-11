@@ -6,8 +6,8 @@
 
 from __future__ import annotations
 
-from app.services.nlu import request_builder
-from app.services.nlu.schema import ModelMention, ParsedRequest, ResolvedMention
+from portal.services.configurator.nlu import request_builder
+from portal.services.configurator.nlu.schema import ModelMention, ParsedRequest, ResolvedMention
 
 
 def _parsed(**kw) -> ParsedRequest:

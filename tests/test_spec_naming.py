@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.spec_naming import generate_auto_name
+from portal.services.configurator.spec_naming import generate_auto_name
 
 
 # ---------------------------------------------------------------------

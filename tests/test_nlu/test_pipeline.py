@@ -17,21 +17,21 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from app.services.configurator.schema import (
+from portal.services.configurator.engine.schema import (
     BuildResult,
     ComponentChoice,
     SupplierOffer,
     Variant,
 )
-from app.services.nlu import pipeline as pipeline_mod
-from app.services.nlu import (
+from portal.services.configurator.nlu import pipeline as pipeline_mod
+from portal.services.configurator.nlu import (
     commentator as commentator_mod,
     fuzzy_lookup as fuzzy_mod,
     parser as parser_mod,
 )
-from app.services.nlu.commentator import CommentOutcome
-from app.services.nlu.parser import ParseOutcome
-from app.services.nlu.schema import ModelMention, ParsedRequest, ResolvedMention
+from portal.services.configurator.nlu.commentator import CommentOutcome
+from portal.services.configurator.nlu.parser import ParseOutcome
+from portal.services.configurator.nlu.schema import ModelMention, ParsedRequest, ResolvedMention
 
 
 # -----------------------------------------------------------------------------

@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.manual_edit.importer import format_report, import_csv
+from portal.services.configurator.manual_edit.importer import format_report, import_csv
 
 
 def main() -> int:

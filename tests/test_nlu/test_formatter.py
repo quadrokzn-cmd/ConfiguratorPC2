@@ -4,13 +4,13 @@
 
 from __future__ import annotations
 
-from app.services.configurator.schema import (
+from portal.services.configurator.engine.schema import (
     BuildResult,
     ComponentChoice,
     SupplierOffer,
     Variant,
 )
-from app.services.nlu import formatter
+from portal.services.configurator.nlu import formatter
 
 
 def _offer(usd: float) -> SupplierOffer:

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Новая конфигурация в проект — КВАДРО-ТЕХ{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/configurator/projects">Проекты</a>
+<span class="crumb-sep">/</span>
+<a href="/configurator/project/{{ project.id }}">{{ project.name }}</a>
+<span class="crumb-sep">/</span>
+<span class="crumb-current">Новая конфигурация</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Новая конфигурация</h1>
+    <p class="mt-1.5 text-body text-ink-secondary">
+      Опишите задачу — результат добавится в проект «{{ project.name }}».
+    </p>
+  </header>
+
+  {% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/configurator/project/{{ project.id }}/new_query" id="query-form"
+        class="card card-pad-lg card-elev space-y-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <div>
+      <label class="label" for="qf-text">Текст запроса</label>
+      <textarea id="qf-text" name="raw_text" rows="7" required
+                placeholder="Например: игровой ПК до 100 тысяч, RTX 4060, Ryzen 5"
+                class="textarea text-body-lg"></textarea>
+      <p class="help-text">
+        Свободным текстом: назначение, бюджет, желаемые компоненты.
+      </p>
+    </div>
+
+    <div class="flex items-center justify-between gap-4 flex-wrap pt-1">
+      <span id="submit-hint" class="text-small text-ink-muted hidden">
+        Обрабатываем запрос, это займёт 5–15 секунд…
+      </span>
+      <button id="submit-btn" type="submit" class="btn btn-lg btn-primary ml-auto">
+        <span id="submit-label">Подобрать</span>
+        <span id="submit-spinner" class="kt-spinner hidden"></span>
+      </button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var form    = document.getElementById('query-form');
+    var btn     = document.getElementById('submit-btn');
+    var label   = document.getElementById('submit-label');
+    var spinner = document.getElementById('submit-spinner');
+    var hint    = document.getElementById('submit-hint');
+    if (!form) return;
+    form.addEventListener('submit', function () {
+      btn.disabled = true;
+      label.textContent = 'Обрабатываем…';
+      spinner.classList.remove('hidden');
+      hint.classList.remove('hidden');
+    });
+  })();
+</script>
+{% endblock %}

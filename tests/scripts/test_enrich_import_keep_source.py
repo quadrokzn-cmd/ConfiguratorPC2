@@ -17,8 +17,8 @@ from pathlib import Path
 
 import pytest
 
-from app.services.enrichment.claude_code import exporter as exporter_mod
-from app.services.enrichment.claude_code import importer as importer_mod
+from portal.services.configurator.enrichment.claude_code import exporter as exporter_mod
+from portal.services.configurator.enrichment.claude_code import importer as importer_mod
 from scripts import enrich_import as cli
 
 

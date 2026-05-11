@@ -20,7 +20,11 @@ from app.auth import (
 )
 from app.config import settings
 from app.database import get_db
-from app.services import (
+# UI-4 (Путь B, 2026-05-11): сервисы конфигуратора переехали в
+# portal/services/configurator/. admin_router.py остаётся в app/ для
+# страниц /admin (dashboard), /admin/budget, /admin/queries и
+# legacy-редиректа /admin/users → portal/settings/users.
+from portal.services.configurator import (
     budget_guard,
     web_service,
 )

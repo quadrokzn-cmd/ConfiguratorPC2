@@ -34,11 +34,11 @@
 ### Backend
 
 - **Python** 3.10+ (локально 3.12.13).
-- **FastAPI** + Uvicorn. Два независимых FastAPI-приложения: `app/main.py` (конфигуратор, :8080) и `portal/main.py` (портал, :8081). Общий код — в `shared/`.
+- **FastAPI** + Uvicorn. До UI-3 — два независимых FastAPI-приложения. После **UI-4** (2026-05-11): портал (`portal/main.py`, :8081, `app.quadro.tatar`) обслуживает все URL: главная, аукционы, конфигуратор (`/configurator/*`), базы данных (`/databases/*`), настройки (`/settings/*`). `app/main.py` (:8080, `config.quadro.tatar`) остался как legacy: catch-all 301-редиректы на portal/configurator + admin-страницы (`/admin`, `/admin/budget`, `/admin/queries`). Всё это уйдёт в UI-5. Общий код — в `shared/`.
 - **SQLAlchemy 2.0** только через `text()` и параметры `:name`, без ORM-моделей (папка `app/models/` пустая).
 - **psycopg2-binary**, **Pydantic** 2.6+, **python-multipart**.
 - **APScheduler** (`BackgroundScheduler`) — фоновые задачи внутри процессов FastAPI (см. «Расписание» ниже).
-- **OpenAI** (`gpt-4o-mini` для NLU, `gpt-4o-mini-search-preview` для enrichment); контроль расходов — `app/services/budget_guard.py`. Anthropic Claude SDK не используется (папка `enrichment/claude_code/` — это CSV-workflow для ручного обогащения через локальный Claude Code, не SDK-вызовы).
+- **OpenAI** (`gpt-4o-mini` для NLU, `gpt-4o-mini-search-preview` для enrichment); контроль расходов — `portal/services/configurator/budget_guard.py` (после UI-4). Anthropic Claude SDK не используется (папка `portal/services/configurator/enrichment/claude_code/` — это CSV-workflow для ручного обогащения через локальный Claude Code, не SDK-вызовы).
 - **boto3** — Backblaze B2 для бэкапов.
 - **zeep** + requests — SOAP (Resurs Media).
 - **httpx**, imaplib — IMAP-загрузка прайсов.
@@ -92,17 +92,27 @@ ConfiguratorPC2/
 │   ├── 2026-04-23-platforma-i-aukciony.md   ← канонический план модуля аукционов (бывший QT)
 │   ├── 2026-05-08-configurator-discovery.md ← discovery C-PC2 для оркестратора
 │   └── README.md
-├── app/                       ← FastAPI «Конфигуратор» (:8080)
+├── app/                       ← FastAPI «Конфигуратор» (:8080, legacy после UI-4)
 │   ├── main.py, auth.py, config.py, database.py, scheduler.py
-│   ├── routers/               ← /admin, /project, /export, /mapping, /
-│   ├── services/              ← бизнес-логика (см. «Сервисы» ниже)
-│   ├── templates/             ← Jinja2
+│   ├── routers/admin_router.py ← /admin (dashboard), /admin/budget, /admin/queries, /admin/users (302)
+│   ├── services/auctions/, services/catalog/  ← legacy (переедет на UI-4.5)
+│   ├── templates/admin/, templates/_macros/icons.html, templates/base.html
 │   └── ...
-├── portal/                    ← FastAPI «Портал сотрудника» (:8081)
+├── portal/                    ← FastAPI «Портал» (:8081, основной сервис после UI-4)
 │   ├── main.py, scheduler.py
-│   ├── routers/               ← auth, home, admin_*
-│   ├── services/              ← backup_service, dashboard
+│   ├── dependencies/          ← UI-4: require_configurator_access
+│   ├── routers/               ← auth, home, admin_*, auctions, nomenclature,
+│   │   ├── databases/         ←   UI-2: suppliers, components, mapping
+│   │   ├── settings/          ←   UI-3: users, backups, audit_log
+│   │   └── configurator/      ←   UI-4: main, projects, export
+│   ├── services/              ← backup_service, dashboard, auctions_service
+│   │   ├── databases/         ←   UI-2: supplier_service, component_service, mapping_service
+│   │   └── configurator/      ←   UI-4: engine, nlu, compatibility, manual_edit,
+│   │                              enrichment, auto_price, export, price_loaders,
+│   │                              openai_service, web_service, spec_*, budget_guard
 │   ├── templates/             ← Jinja2
+│   │   ├── databases/, settings/, configurator/  ← UI-2/UI-3/UI-4
+│   │   └── ...
 │   └── ...
 ├── shared/                    ← общий код двух приложений
 │   ├── auth.py, audit.py, audit_actions.py, db.py, permissions.py
@@ -148,15 +158,17 @@ ConfiguratorPC2/
 | Тесты | `tests/` |
 | Скрипты CLI | `scripts/` |
 
-## Сервисы конфигуратора (`app/services/`)
+## Сервисы конфигуратора (`portal/services/configurator/`)
+
+После **UI-4** (2026-05-11) все сервисы конфигуратора живут в портале:
 
 ```
-app/services/
+portal/services/configurator/
 ├── auto_price/             ← runner.py + fetchers/ (treolan REST, ocs/merlion IMAP, netlab HTTP, resurs_media SOAP)
 ├── budget_guard.py         ← дневной лимит OpenAI, читает курс ЦБ
 ├── compatibility/          ← rules.py — совместимость компонентов сборки
-├── component_service.py
-├── configurator/           ← builder, candidates, pretty, prices, schema, selector, warnings
+├── engine/                 ← builder, candidates, pretty, prices, schema, selector, warnings
+│                              (бывший app/services/configurator/)
 ├── enrichment/
 │   ├── runner.py, persistence.py, report.py
 │   ├── claude_code/        ← CSV-workflow для ручного enrichment (не SDK)
@@ -164,16 +176,20 @@ app/services/
 │   └── regex_sources/      ← regex по raw_name
 ├── export/                 ← excel_builder, kp_builder (Word), exchange_rate, email_composer, email_sender
 ├── manual_edit/            ← ручное редактирование компонентов через CSV
-├── mapping_service.py      ← ручной маппинг unmapped_supplier_items
 ├── nlu/                    ← parser (gpt-4o-mini), pipeline, formatter, fuzzy_lookup, profiles, prompts/, request_builder, schema, commentator
 ├── openai_service.py
 ├── price_loader.py         ← тонкая обёртка load_ocs_price для совместимости
 ├── price_loaders/          ← orchestrator + 6 поставщиков (ocs, merlion, treolan, netlab, resurs_media, green_place)
+│                              Кросс-импорт `from app.services.auctions/catalog ...` —
+│                              временный, до UI-4.5.
 ├── spec_naming.py, spec_recalc.py, spec_service.py
-├── supplier_service.py
 ├── web_result_view.py
 └── web_service.py
 ```
+
+`mapping_service.py`, `supplier_service.py`, `component_service.py` живут в
+`portal/services/databases/` (с UI-2). `app/services/auctions/` и
+`app/services/catalog/` пока остаются в app/ (переедут на UI-4.5).
 
 ## Расписание APScheduler
 

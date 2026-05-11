@@ -19,7 +19,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 from app.database import SessionLocal
-from app.services.export import exchange_rate
+# UI-4 (Путь B, 2026-05-11): app/services/export переехал в portal/services/configurator/export.
+# app/scheduler.py пока остаётся в app/ (cron USD/RUB), его перенос — отдельный мини-этап перед UI-5.
+from portal.services.configurator.export import exchange_rate
 
 logger = logging.getLogger(__name__)
 

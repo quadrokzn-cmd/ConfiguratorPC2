@@ -22,13 +22,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.enrichment.claude_code.importer import (
+from portal.services.configurator.enrichment.claude_code.importer import (
     format_report,
     import_all,
     import_category,
     import_file,
 )
-from app.services.enrichment.claude_code.schema import ALL_CATEGORIES
+from portal.services.configurator.enrichment.claude_code.schema import ALL_CATEGORIES
 
 
 def main() -> int:

@@ -145,6 +145,12 @@ def _login_via_portal(client: TestClient, login: str, password: str) -> None:
     assert r.status_code in (302, 303), f"login failed: {r.status_code} {r.text[:200]}"
 
 
+# Алиас под старое имя из tests/test_web/conftest.py — _login.
+# После UI-4 (Путь B): app_client/portal_client — это portal-клиент,
+# логин выполняется напрямую в нём (без копирования cookie).
+_login = _login_via_portal
+
+
 @pytest.fixture()
 def admin_portal_client(portal_client, admin_user):
     _login_via_portal(portal_client, admin_user["login"], admin_user["password"])
@@ -155,6 +161,138 @@ def admin_portal_client(portal_client, admin_user):
 def manager_portal_client(portal_client, manager_user):
     _login_via_portal(portal_client, manager_user["login"], manager_user["password"])
     return portal_client
+
+
+# ---- Утилиты для тестов конфигуратора (бывший tests/test_web/conftest.py) ----
+
+
+def parse_query_submit_redirect(location: str) -> tuple[int, int]:
+    """POST /configurator/query редиректит на /configurator/project/{pid}?highlight={qid}.
+    Возвращает (project_id, query_id). UI-4 (Путь B): URL переехал на /configurator/."""
+    from urllib.parse import urlsplit, parse_qs
+    parts = urlsplit(location)
+    pid = int(parts.path.rsplit("/", 1)[1])
+    qid = int(parse_qs(parts.query).get("highlight", ["0"])[0])
+    return pid, qid
+
+
+def qid_from_submit_redirect(location: str) -> int:
+    """Только query_id — для тестов, которым не нужен project_id."""
+    return parse_query_submit_redirect(location)[1]
+
+
+@pytest.fixture()
+def mock_process_query(monkeypatch):
+    """Мокает process_query из portal.routers.configurator.{main,projects}.
+
+    UI-4 (Путь B, 2026-05-11): main_router и project_router переехали из
+    app/routers в portal/routers/configurator. Импорты обновлены.
+
+    По умолчанию возвращает «успешный» FinalResponse с одним Intel-вариантом.
+    Тест может подменить возвращаемое значение через mock.return_value.
+    """
+    from unittest.mock import MagicMock
+    from portal.routers.configurator import main as configurator_main
+    from portal.routers.configurator import projects as configurator_projects
+    from portal.services.configurator.engine.schema import (
+        BuildRequest, BuildResult, ComponentChoice, CPURequirements,
+        GPURequirements, RAMRequirements, StorageRequirements,
+        SupplierOffer, Variant,
+    )
+    from portal.services.configurator.nlu.schema import FinalResponse, ParsedRequest
+
+    fake_variant = Variant(
+        manufacturer="Intel",
+        components=[
+            ComponentChoice(
+                category="cpu",
+                component_id=1,
+                model="Intel Core i5-12400F",
+                sku="BX8071512400F",
+                manufacturer="Intel",
+                chosen=SupplierOffer(
+                    supplier="Поставщик А", price_usd=180, price_rub=16200, stock=10,
+                ),
+            ),
+            ComponentChoice(
+                category="ram",
+                component_id=2,
+                model="Kingston 16GB DDR4",
+                sku=None,
+                manufacturer="Kingston",
+                chosen=SupplierOffer(
+                    supplier="Поставщик Б", price_usd=40, price_rub=3600, stock=5,
+                ),
+            ),
+        ],
+        total_usd=220,
+        total_rub=19800,
+    )
+    fake_result = BuildResult(
+        status="ok",
+        variants=[fake_variant],
+        refusal_reason=None,
+        usd_rub_rate=90.0,
+        fx_source="fallback",
+    )
+    fake_req = BuildRequest()
+    fake_parsed = ParsedRequest(is_empty=False, purpose="office", budget_usd=300)
+
+    default_resp = FinalResponse(
+        kind="ok",
+        interpretation="Офисный ПК до $300.",
+        formatted_text="[Фиктивный форматированный ответ]",
+        build_request=fake_req,
+        build_result=fake_result,
+        parsed=fake_parsed,
+        resolved=[],
+        warnings=[],
+        cost_usd=0.0,
+    )
+
+    mock = MagicMock(return_value=default_resp)
+    monkeypatch.setattr(configurator_main, "process_query", mock)
+    monkeypatch.setattr(configurator_projects, "process_query", mock)
+    return mock
+
+
+# UI-4: алиасы fixture'ов под старые имена из tests/test_web/conftest.py —
+# чтобы перенесённые тесты test_configurator_*.py продолжали работать без
+# массового переписывания. app_client/admin_client/manager_client теперь
+# используют portal-клиент (конфигуратор переехал в portal/configurator/*).
+
+@pytest.fixture()
+def app_client(portal_client):
+    return portal_client
+
+
+@pytest.fixture()
+def admin_client(admin_portal_client):
+    return admin_portal_client
+
+
+@pytest.fixture()
+def manager_client(manager_portal_client):
+    return manager_portal_client
+
+
+@pytest.fixture()
+def manager2_user(db_session):
+    """Второй менеджер с дефолтными правами (для тестов «чужой проект»)."""
+    uid = _create_user(db_session, login="manager2", password="manager-pass",
+                       role="manager", name="Менеджер 2")
+    return {"id": uid, "login": "manager2", "password": "manager-pass"}
+
+
+@pytest.fixture()
+def manager_no_perms(db_session):
+    """Алиас manager_user_no_perms (имя из test_web/conftest.py)."""
+    uid = _create_user(
+        db_session, login="manager_empty", password="manager-pass",
+        role="manager", name="Без доступа",
+        permissions={},
+    )
+    return {"id": uid, "login": "manager_empty", "password": "manager-pass"}
 
 
 # ---- Минимальный Merlion-XLSX для тестов /admin/price-uploads --------

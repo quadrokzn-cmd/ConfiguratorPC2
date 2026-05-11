@@ -13,8 +13,8 @@ from unittest.mock import patch
 import pytest
 from sqlalchemy import text as _t
 
-from app.services import spec_service
-from app.services.export import email_composer
+from portal.services.configurator import spec_service
+from portal.services.configurator.export import email_composer
 
 
 # --- Фикстуры/хелперы ----------------------------------------------------
@@ -155,7 +155,7 @@ def _make_query(
 
 def _mock_rate(rate_str: str = "90"):
     return patch(
-        "app.services.export.email_composer.exchange_rate.get_usd_rate",
+        "portal.services.configurator.export.email_composer.exchange_rate.get_usd_rate",
         return_value=(Decimal(rate_str), date(2026, 4, 24), "cache"),
     )
 

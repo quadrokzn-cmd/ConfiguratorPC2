@@ -30,8 +30,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
-from app.services.price_loaders import LOADERS, detect_loader, get_loader
-from app.services.price_loaders.orchestrator import load_price
+from portal.services.configurator.price_loaders import LOADERS, detect_loader, get_loader
+from portal.services.configurator.price_loaders.orchestrator import load_price
 
 logger = logging.getLogger(__name__)
 

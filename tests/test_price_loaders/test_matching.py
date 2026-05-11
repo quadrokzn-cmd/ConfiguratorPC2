@@ -16,11 +16,11 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import text as _t
 
-from app.services.price_loaders.matching import (
+from portal.services.configurator.price_loaders.matching import (
     AMBIG_GTIN, AMBIG_MPN, EXISTING, MATCH_GTIN, MATCH_MPN, NO_MATCH,
     resolve,
 )
-from app.services.price_loaders.models import PriceRow
+from portal.services.configurator.price_loaders.models import PriceRow
 
 
 def _insert_cpu(session, *, model: str, manufacturer: str, sku: str,

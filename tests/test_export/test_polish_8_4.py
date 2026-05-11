@@ -17,9 +17,9 @@ from unittest.mock import patch
 import docx as _docx
 from openpyxl import load_workbook
 
-from app.routers.export_router import _safe_project_filename
-from app.services.export import excel_builder, kp_builder
-from app.services.spec_naming import (
+from portal.routers.configurator.export import _safe_project_filename
+from portal.services.configurator.export import excel_builder, kp_builder
+from portal.services.configurator.spec_naming import (
     _block_gpu,
     _looks_suspicious_gpu_model,
     _short_gpu_model,
@@ -105,7 +105,7 @@ def _build_xlsx_with_fake_data(item_name: str = "Системный блок"):
 
     with patch.object(excel_builder, "_load_project", return_value=fake_project), \
          patch(
-             "app.services.export.excel_builder.spec_service.list_spec_items",
+             "portal.services.configurator.export.excel_builder.spec_service.list_spec_items",
              return_value=[blocks[0][0]],
          ), \
          patch.object(excel_builder, "_collect_blocks", return_value=blocks), \
@@ -181,7 +181,7 @@ def test_excel_totals_sum_only_comp_rows():
     }
     with patch.object(excel_builder, "_load_project", return_value=fake_project), \
          patch(
-             "app.services.export.excel_builder.spec_service.list_spec_items",
+             "portal.services.configurator.export.excel_builder.spec_service.list_spec_items",
              return_value=[item1, item2],
          ), \
          patch.object(excel_builder, "_collect_blocks", return_value=blocks), \
@@ -314,7 +314,7 @@ def _kp_header_texts(doc) -> list[str]:
 
 def _mock_rate(value: str = "90"):
     return patch(
-        "app.services.export.kp_builder.exchange_rate.get_usd_rate",
+        "portal.services.configurator.export.kp_builder.exchange_rate.get_usd_rate",
         return_value=(Decimal(value), date(2026, 4, 24), "cache"),
     )
 
@@ -335,7 +335,7 @@ def _fake_items(items_spec):
 
 def _build_kp_with_fake(items_spec, markup=15):
     with patch(
-        "app.services.export.kp_builder.spec_service.list_spec_items",
+        "portal.services.configurator.export.kp_builder.spec_service.list_spec_items",
         return_value=_fake_items(items_spec),
     ), _mock_rate("90"):
         data = kp_builder.build_kp_docx(

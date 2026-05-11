@@ -207,7 +207,7 @@ def _make_auto_price_job(slug: str):
             )
             return
         try:
-            from app.services.auto_price.runner import run_auto_load
+            from portal.services.configurator.auto_price.runner import run_auto_load
         except Exception as exc:
             logger.warning(
                 "scheduler/portal: %s — не удалось импортировать runner (%s: %s)",

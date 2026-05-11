@@ -40,8 +40,8 @@ from openpyxl import load_workbook
 from sqlalchemy import text
 
 from app.database import SessionLocal
-from app.services.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
-from app.services.price_loaders.ocs import (
+from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
+from portal.services.configurator.price_loaders.ocs import (
     _COL_CAT_B, _COL_KIND_C, _COL_SKU,
     _find_ean_column, _normalize_gtin, _resolve_category,
 )

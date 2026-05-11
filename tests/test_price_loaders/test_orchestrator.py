@@ -12,7 +12,7 @@ from decimal import Decimal
 
 from sqlalchemy import text as _t
 
-from app.services.price_loaders.orchestrator import load_price
+from portal.services.configurator.price_loaders.orchestrator import load_price
 
 
 # ---- хелперы -----------------------------------------------------------
@@ -616,7 +616,7 @@ def test_orchestrator_marks_failed_on_zero_total_rows(db_session):
     """Если loader/fetcher отдал 0 строк (rows=[]), upload фиксируется
     как failed, disappeared НЕ применяется. До 12.3-fix run #17 в этой
     ситуации фиксировался success и обнулял остатки поставщика."""
-    from app.services.price_loaders.orchestrator import save_price_rows
+    from portal.services.configurator.price_loaders.orchestrator import save_price_rows
 
     psu_a = _insert_psu(db_session, model="A", sku="MPN-A")
     supplier_id = _ensure_supplier(db_session, "Treolan")
@@ -660,8 +660,8 @@ def test_orchestrator_does_not_call_mark_disappeared_on_zero_rows(
     """Тот же сценарий, но с шпионом на _mark_disappeared — он не должен
     быть вызван. Это «защита первой очереди»: даже если в counters что-то
     разъедется, сама функция-обнулитель не должна стартовать."""
-    from app.services.price_loaders import orchestrator as orch_mod
-    from app.services.price_loaders.orchestrator import save_price_rows
+    from portal.services.configurator.price_loaders import orchestrator as orch_mod
+    from portal.services.configurator.price_loaders.orchestrator import save_price_rows
 
     psu_a = _insert_psu(db_session, model="B", sku="MPN-B")
     supplier_id = _ensure_supplier(db_session, "Treolan")

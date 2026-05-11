@@ -1,7 +1,7 @@
 # Интеграционные тесты selector.build_config с подменой кандидатов и цен.
 #
 # Мы не поднимаем реальную PostgreSQL: вместо этого патчим функции из
-# app.services.configurator.candidates и .prices, возвращая из них нужные
+# portal.services.configurator.engine.candidates и .prices, возвращая из них нужные
 # строки-словари. Также мокаем курс ЦБ через fx.get_usd_rub_rate.
 #
 # Такой подход позволяет быстро проверить большое число сценариев подбора,
@@ -11,10 +11,10 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.configurator import candidates as C
-from app.services.configurator import prices as P
-from app.services.configurator import selector as S
-from app.services.configurator.schema import (
+from portal.services.configurator.engine import candidates as C
+from portal.services.configurator.engine import prices as P
+from portal.services.configurator.engine import selector as S
+from portal.services.configurator.engine.schema import (
     SupplierOffer,
     request_from_dict,
 )
@@ -316,7 +316,7 @@ def world(monkeypatch) -> MockWorld:
         return sorted(rows, key=lambda k: k["price_usd_min"])[0]
 
     # подмена всего слоя candidates
-    from app.services.configurator import builder as B
+    from portal.services.configurator.engine import builder as B
     monkeypatch.setattr(B.C, "get_cpu_candidates",     fake_cpu_candidates)
     monkeypatch.setattr(B.C, "get_cheapest_motherboard", fake_cheapest_mb)
     monkeypatch.setattr(B.C, "get_ram_candidates",     fake_ram_candidates)

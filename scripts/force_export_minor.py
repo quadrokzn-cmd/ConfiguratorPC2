@@ -16,8 +16,8 @@ load_dotenv()
 
 from sqlalchemy import text
 from app.database import SessionLocal
-from app.services.enrichment.claude_code.exporter import ENRICHMENT_ROOT
-from app.services.enrichment.claude_code.schema import TARGET_FIELDS
+from portal.services.configurator.enrichment.claude_code.exporter import ENRICHMENT_ROOT
+from portal.services.configurator.enrichment.claude_code.schema import TARGET_FIELDS
 
 
 QUERIES = {

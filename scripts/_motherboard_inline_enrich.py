@@ -39,7 +39,7 @@ except Exception:
 
 import psycopg2
 
-from app.services.enrichment.claude_code.validators import (
+from portal.services.configurator.enrichment.claude_code.validators import (
     ValidationError,
     validate_field,
 )

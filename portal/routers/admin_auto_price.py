@@ -20,11 +20,11 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.services.auto_price.base import (
+from portal.services.configurator.auto_price.base import (
     get_fetcher_class,
     list_registered_slugs,
 )
-from app.services.auto_price.runner import TooFrequentRunError, run_auto_load
+from portal.services.configurator.auto_price.runner import TooFrequentRunError, run_auto_load
 from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (
@@ -69,7 +69,7 @@ _RUNS_LIMIT = 20
 
 # Защита от частых ручных вызовов в UI должна совпадать с throttle
 # в runner'е, чтобы кнопка корректно блокировалась до истечения окна.
-from app.services.auto_price.runner import MANUAL_THROTTLE_SECONDS
+from portal.services.configurator.auto_price.runner import MANUAL_THROTTLE_SECONDS
 
 
 # ---- Время в МСК ------------------------------------------------------

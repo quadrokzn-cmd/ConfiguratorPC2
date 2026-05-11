@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.price_loaders.ocs import OcsLoader
+from portal.services.configurator.price_loaders.ocs import OcsLoader
 
 
 def test_ocs_parses_basic_row(make_ocs_xlsx):

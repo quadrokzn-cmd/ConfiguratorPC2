@@ -14,7 +14,7 @@ from unittest.mock import patch
 import docx as _docx
 from openpyxl import load_workbook
 
-from app.services.export import excel_builder, kp_builder
+from portal.services.configurator.export import excel_builder, kp_builder
 
 
 _NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -34,7 +34,7 @@ def _build_xlsx_minimal():
     }
     with patch.object(excel_builder, "_load_project", return_value=fake_project), \
          patch(
-             "app.services.export.excel_builder.spec_service.list_spec_items",
+             "portal.services.configurator.export.excel_builder.spec_service.list_spec_items",
              return_value=[],
          ), \
          patch.object(excel_builder, "_collect_blocks", return_value=[]), \
@@ -89,14 +89,14 @@ def _fake_items(items_spec):
 
 def _mock_rate(value: str = "90"):
     return patch(
-        "app.services.export.kp_builder.exchange_rate.get_usd_rate",
+        "portal.services.configurator.export.kp_builder.exchange_rate.get_usd_rate",
         return_value=(Decimal(value), date(2026, 4, 25), "cache"),
     )
 
 
 def _build_kp(items_spec, markup=15):
     with patch(
-        "app.services.export.kp_builder.spec_service.list_spec_items",
+        "portal.services.configurator.export.kp_builder.spec_service.list_spec_items",
         return_value=_fake_items(items_spec),
     ), _mock_rate("90"):
         data = kp_builder.build_kp_docx(

@@ -117,15 +117,21 @@
                        'Аукционы', 'gavel', 'auctions') }}
 
       {# --- 3) Конфигуратор ПК --- #}
-      {{ _section_link('configurator', '/',
+      {# UI-4 (Путь B, 2026-05-11): конфигуратор переехал в портал под
+         префикс /configurator/*. Ссылки стали portal-internal (без ↗ при
+         рендере в портале). С admin-страниц конфигуратора, которые пока
+         живы (config.quadro.tatar/admin/{budget,queries,dashboard}),
+         ссылки cross-service: portal_url/configurator/*. После UI-5
+         эти admin-страницы исчезнут вместе с config.quadro.tatar. #}
+      {{ _section_link('portal', '/configurator/',
                        'Конфигуратор ПК', 'cpu', 'configurator') }}
       {% if active_section == 'configurator' %}
       <div class="py-0.5" data-testid="sidebar-subitems-configurator">
-        {{ _sub_link('configurator', '/',
+        {{ _sub_link('portal', '/configurator/',
                      'Новый запрос', 'new_query') }}
-        {{ _sub_link('configurator', '/projects',
+        {{ _sub_link('portal', '/configurator/projects',
                      'Проекты', 'projects') }}
-        {{ _sub_link('configurator', '/history',
+        {{ _sub_link('portal', '/configurator/history',
                      'История запросов', 'history') }}
       </div>
       {% endif %}
