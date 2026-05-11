@@ -2,7 +2,7 @@
 
 Перенесены из QT (`auctions_staging/tests/test_brand_normalizer.py`),
 плюс расширены парой ПК-кейсов (ASUS/AMD/Palit) — этими брендами
-дополнен словарь алиасов в `app.services.catalog.brand_normalizer`.
+дополнен словарь алиасов в `portal.services.catalog.brand_normalizer`.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import logging
 
 import pytest
 
-from app.services.catalog.brand_normalizer import canonical_brand
+from portal.services.catalog.brand_normalizer import canonical_brand
 
 
 # По 2+ кейса на каждый канон: (input, expected_canon).
@@ -225,7 +225,7 @@ def test_empty_inputs_return_empty_string() -> None:
 
 
 def test_unknown_brand_falls_back_to_title_and_logs(caplog: pytest.LogCaptureFixture) -> None:
-    caplog.set_level(logging.INFO, logger="app.services.catalog.brand_normalizer")
+    caplog.set_level(logging.INFO, logger="portal.services.catalog.brand_normalizer")
     result = canonical_brand("foobarcorp")
     assert result == "Foobarcorp"
     assert any(

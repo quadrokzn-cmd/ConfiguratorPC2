@@ -60,7 +60,12 @@ from portal.routers.settings import (
     backups as settings_backups,
     users as settings_users,
 )
-from portal.scheduler import init_scheduler, shutdown_scheduler
+from portal.scheduler import (
+    ensure_initial_rate,
+    init_scheduler,
+    shutdown_scheduler,
+)
+from portal.scheduler import _is_enabled as _scheduler_enabled
 from shared.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from shared.db import SessionLocal
 
@@ -72,17 +77,37 @@ app = FastAPI(title="КВАДРО-ТЕХ: портал")
 
 @app.on_event("startup")
 def _startup_scheduler() -> None:
-    """9В.2: ежедневный бекап БД на Backblaze B2 в 03:00 МСК.
+    """9В.2 + UI-4.5: фоновые задачи портала.
+
+    9В.2 — ежедневный бекап БД на Backblaze B2 (03:00 МСК) + автозагрузка
+    прайсов + аукционный ingest. UI-4.5 — cron обновления курса USD/RUB
+    (перенесён из app/scheduler.py) и первичный init курса при пустой
+    таблице exchange_rates.
 
     Активация — внутри scheduler'а: APP_ENV=production или
-    RUN_BACKUP_SCHEDULER=1. Если init упал (например, неправильный
-    timezone-конфиг) — логируем и идём дальше: портал должен стартовать
+    RUN_BACKUP_SCHEDULER=1. На pytest эти env'ы по умолчанию пустые, и
+    `_is_enabled()` возвращает False — никаких сетевых походов на ЦБ/B2
+    из тестовых TestClient'ов.
+
+    Если init упал — логируем и идём дальше: портал должен стартовать
     даже когда планировщик заглох.
     """
     try:
         init_scheduler()
     except Exception as exc:
         logger.warning("Не удалось инициализировать scheduler портала: %s", exc)
+
+    # UI-4.5: если в exchange_rates пусто (новый контейнер / свежая БД) —
+    # синхронно дёргаем ЦБ один раз, чтобы UI не висел с прочерком до
+    # 08:30. Гейтится тем же _is_enabled() — на pytest не срабатывает.
+    if _scheduler_enabled():
+        try:
+            ensure_initial_rate()
+        except Exception as exc:
+            logger.warning(
+                "ensure_initial_rate упал (%s: %s)",
+                type(exc).__name__, exc,
+            )
 
 
 @app.on_event("shutdown")

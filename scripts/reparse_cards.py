@@ -10,7 +10,7 @@
 поэтому не оставляет «полу-обновлённого» состояния. Флаги пересчитываются
 на свежих items через `compute_flags`.
 
-Этап 8 слияния (2026-05-08): импорты переехали в `app.services.auctions.ingest.*`.
+Этап 8 слияния (2026-05-08): импорты переехали в `portal.services.auctions.ingest.*`.
 БД — общая kvadro_tech через C-PC2 engine.
 
 Использование (PowerShell):
@@ -30,9 +30,9 @@ load_dotenv()
 from sqlalchemy import text  # noqa: E402
 
 from app.database import engine  # noqa: E402
-from app.services.auctions.ingest.card_parser import parse_card  # noqa: E402
-from app.services.auctions.ingest.filters import compute_flags  # noqa: E402
-from app.services.auctions.ingest.repository import (  # noqa: E402
+from portal.services.auctions.ingest.card_parser import parse_card  # noqa: E402
+from portal.services.auctions.ingest.filters import compute_flags  # noqa: E402
+from portal.services.auctions.ingest.repository import (  # noqa: E402
     load_settings,
     upsert_tender,
 )

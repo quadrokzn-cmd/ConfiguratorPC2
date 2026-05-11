@@ -26,7 +26,7 @@ from typing import Iterable
 from loguru import logger
 from sqlalchemy import Engine, text
 
-from app.services.auctions.match.matcher import (
+from portal.services.auctions.match.matcher import (
     CandidateMatch,
     NomenclatureView,
     TenderItemView,

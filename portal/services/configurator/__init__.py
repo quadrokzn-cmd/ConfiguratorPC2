@@ -17,6 +17,7 @@
 #   - budget_guard    — дневной лимит расходов OpenAI
 #   - price_loader    — тонкая обёртка load_ocs_price для совместимости
 #
-# КРОСС-ИМПОРТ (временно, до отдельного мини-этапа UI-4.5): price_loaders/orchestrator.py
-# импортирует app.services.auctions.* и app.services.catalog.* — эти модули
-# остаются в app/services/ до их переноса в shared/ (или portal/services/).
+# После UI-4.5 (Путь B, 2026-05-11): кросс-импорт `from app.services.auctions/catalog ...`
+# в price_loaders/orchestrator.py заменён на `from portal.services.auctions/catalog ...`.
+# Сами модули auctions/ и catalog/ переехали в portal/services/auctions/ и
+# portal/services/catalog/ — общие зависимости портала, а не «конфигуратор».

@@ -6,15 +6,15 @@ from typing import Any
 from loguru import logger
 from sqlalchemy import Engine
 
-from app.services.auctions.ingest.card_parser import parse_card
-from app.services.auctions.ingest.filters import compute_flags
-from app.services.auctions.ingest.http_client import ZakupkiBlockedError, ZakupkiClient
-from app.services.auctions.ingest.repository import (
+from portal.services.auctions.ingest.card_parser import parse_card
+from portal.services.auctions.ingest.filters import compute_flags
+from portal.services.auctions.ingest.http_client import ZakupkiBlockedError, ZakupkiClient
+from portal.services.auctions.ingest.repository import (
     PlatformSettings,
     load_settings,
     upsert_tender,
 )
-from app.services.auctions.ingest.search import collect_hits
+from portal.services.auctions.ingest.search import collect_hits
 
 
 @dataclass

@@ -33,11 +33,6 @@ from app.auth import LoginRequiredRedirect, build_session_cookie_kwargs
 from app.config import settings
 from app.database import SessionLocal
 from app.routers import admin_router
-from app.scheduler import (
-    ensure_initial_rate,
-    init_scheduler,
-    shutdown_scheduler,
-)
 
 
 logger = logging.getLogger(__name__)
@@ -45,34 +40,13 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="КВАДРО-ТЕХ: сервис-конфигуратор ПК")
 
 
-@app.on_event("startup")
-def _startup_scheduler() -> None:
-    """Запускаем фоновые cron-задачи (обновление курса ЦБ).
-
-    Старт обёрнут в флаг RUN_SCHEDULER (этап 10.1). На Railway-инстансах,
-    где scheduler не нужен (например, будущие реплики), переменную
-    оставляем пустой — задачи не дублируются.
-
-    Если init упал (например, неправильный таймзонный конфиг) — логируем,
-    но сервер всё равно стартует. Курс будет браться из БД, а scheduler'у
-    можно перезапустить вручную.
-    """
-    if not settings.run_scheduler:
-        logger.info("Планировщик отключён в этом инстансе (RUN_SCHEDULER!=1).")
-        return
-    try:
-        ensure_initial_rate()
-        init_scheduler()
-        logger.info("Планировщик запущен.")
-    except Exception as exc:
-        logger.warning("Не удалось инициализировать scheduler: %s", exc)
-
-
-@app.on_event("shutdown")
-def _shutdown_scheduler() -> None:
-    shutdown_scheduler()
-
-
+# UI-4.5 (Путь B, 2026-05-11): app/scheduler.py удалён, cron USD/RUB
+# переехал в portal/scheduler.py. На config.quadro.tatar теперь нет
+# фоновых задач — только catch-all 301 редиректы + legacy admin_router.
+# Railway-сервис configurator можно держать вообще без RUN_SCHEDULER —
+# переменная больше не используется (settings.run_scheduler остался для
+# совместимости, удалится в UI-5 вместе с app/config.py).
+#
 # UI-4 (Путь B, 2026-05-11): Permission middleware
 # _enforce_configurator_permission удалена — конфигуратор переехал в
 # /configurator/* портала, и право permissions['configurator']

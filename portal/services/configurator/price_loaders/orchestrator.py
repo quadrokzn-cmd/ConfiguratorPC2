@@ -42,11 +42,11 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
-from app.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
-from app.services.auctions.catalog.enrichment.schema import (
+from portal.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
+from portal.services.auctions.catalog.enrichment.schema import (
     NA, PRINTER_MFU_ATTRS,
 )
-from app.services.catalog.brand_normalizer import canonical_brand
+from portal.services.catalog.brand_normalizer import canonical_brand
 from portal.services.configurator.enrichment.base import ALLOWED_TABLES, CATEGORY_TO_TABLE
 from portal.services.configurator.price_loaders.base import BasePriceLoader
 from portal.services.configurator.price_loaders.matching import (
@@ -312,7 +312,7 @@ def _create_skeleton(
 
     # Этап 4 слияния (2026-05-08): manufacturer проходит через единый
     # `canonical_brand` (объединённый словарь печатных и ПК-брендов
-    # в `app.services.catalog.brand_normalizer`). Это сводит к одному
+    # в `portal.services.catalog.brand_normalizer`). Это сводит к одному
     # написанию HP/HP Inc./hp inc, ASUS/asus и пр.; неизвестные бренды
     # фолбэчатся через `.title()` и логируются как кандидаты.
     values: dict[str, object] = {

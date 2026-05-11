@@ -29,7 +29,7 @@ import logging
 
 from sqlalchemy import text
 
-from app.database import engine
+from shared.db import engine
 
 logger = logging.getLogger(__name__)
 

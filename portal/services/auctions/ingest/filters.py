@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.services.auctions.ingest.card_parser import TenderCard
-from app.services.auctions.ingest.repository import PlatformSettings
+from portal.services.auctions.ingest.card_parser import TenderCard
+from portal.services.auctions.ingest.repository import PlatformSettings
 
 # После перехода на 2 KTRU-зонтика (миграция 0009) watchlist почти никогда не
 # пересекается с конкретными кодами карточки (карточки содержат точные позиции

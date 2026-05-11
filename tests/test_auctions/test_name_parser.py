@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
+from portal.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
 
 
 # ---- Базовые ------------------------------------------------------------

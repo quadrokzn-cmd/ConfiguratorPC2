@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.auctions.match.matcher import (
+from portal.services.auctions.match.matcher import (
     NomenclatureView,
     TenderItemView,
     match_tender_item,

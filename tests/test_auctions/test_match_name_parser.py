@@ -1,7 +1,7 @@
 """Тесты name_attrs_parser: извлечение требований лота из tender_items.name."""
 from __future__ import annotations
 
-from app.services.auctions.match.name_attrs_parser import (
+from portal.services.auctions.match.name_attrs_parser import (
     extract_attrs_from_name,
     merge_required_attrs,
 )

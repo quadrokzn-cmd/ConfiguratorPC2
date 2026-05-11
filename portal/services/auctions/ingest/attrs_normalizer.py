@@ -33,7 +33,7 @@ import re
 import unicodedata
 from typing import Any
 
-from app.services.auctions.catalog.enrichment.schema import PRINTER_MFU_ATTRS
+from portal.services.auctions.catalog.enrichment.schema import PRINTER_MFU_ATTRS
 
 
 # Все схемные ключи (на момент написания: 9). Любой ключ вне этого набора

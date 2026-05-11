@@ -34,7 +34,7 @@
 ### Backend
 
 - **Python** 3.10+ (локально 3.12.13).
-- **FastAPI** + Uvicorn. До UI-3 — два независимых FastAPI-приложения. После **UI-4** (2026-05-11): портал (`portal/main.py`, :8081, `app.quadro.tatar`) обслуживает все URL: главная, аукционы, конфигуратор (`/configurator/*`), базы данных (`/databases/*`), настройки (`/settings/*`). `app/main.py` (:8080, `config.quadro.tatar`) остался как legacy: catch-all 301-редиректы на portal/configurator + admin-страницы (`/admin`, `/admin/budget`, `/admin/queries`). Всё это уйдёт в UI-5. Общий код — в `shared/`.
+- **FastAPI** + Uvicorn. До UI-3 — два независимых FastAPI-приложения. После **UI-4** (2026-05-11): портал (`portal/main.py`, :8081, `app.quadro.tatar`) обслуживает все URL: главная, аукционы, конфигуратор (`/configurator/*`), базы данных (`/databases/*`), настройки (`/settings/*`). `app/main.py` (:8080, `config.quadro.tatar`) остался как legacy: catch-all 301-редиректы на portal/configurator + admin-страницы (`/admin`, `/admin/budget`, `/admin/queries`). После **UI-4.5** (2026-05-11) `app/services/auctions/` и `app/services/catalog/` переехали в `portal/services/`, `app/scheduler.py` (cron USD/RUB) — в `portal/scheduler.py`; на config.quadro.tatar больше нет фоновых задач, только редиректы. Всё это уйдёт в UI-5. Общий код — в `shared/`.
 - **SQLAlchemy 2.0** только через `text()` и параметры `:name`, без ORM-моделей (папка `app/models/` пустая).
 - **psycopg2-binary**, **Pydantic** 2.6+, **python-multipart**.
 - **APScheduler** (`BackgroundScheduler`) — фоновые задачи внутри процессов FastAPI (см. «Расписание» ниже).
@@ -92,10 +92,10 @@ ConfiguratorPC2/
 │   ├── 2026-04-23-platforma-i-aukciony.md   ← канонический план модуля аукционов (бывший QT)
 │   ├── 2026-05-08-configurator-discovery.md ← discovery C-PC2 для оркестратора
 │   └── README.md
-├── app/                       ← FastAPI «Конфигуратор» (:8080, legacy после UI-4)
-│   ├── main.py, auth.py, config.py, database.py, scheduler.py
+├── app/                       ← FastAPI «Конфигуратор» (:8080, legacy после UI-4.5)
+│   ├── main.py, auth.py, config.py, database.py
 │   ├── routers/admin_router.py ← /admin (dashboard), /admin/budget, /admin/queries, /admin/users (302)
-│   ├── services/auctions/, services/catalog/  ← legacy (переедет на UI-4.5)
+│   ├── services/__init__.py    ← пустой (auctions/catalog переехали в portal/ на UI-4.5)
 │   ├── templates/admin/, templates/_macros/icons.html, templates/base.html
 │   └── ...
 ├── portal/                    ← FastAPI «Портал» (:8081, основной сервис после UI-4)
@@ -106,6 +106,8 @@ ConfiguratorPC2/
 │   │   ├── settings/          ←   UI-3: users, backups, audit_log
 │   │   └── configurator/      ←   UI-4: main, projects, export
 │   ├── services/              ← backup_service, dashboard, auctions_service
+│   │   ├── auctions/          ←   UI-4.5: ingest/, match/, catalog/ (бывший app/services/auctions/)
+│   │   ├── catalog/           ←   UI-4.5: brand_normalizer (бывший app/services/catalog/)
 │   │   ├── databases/         ←   UI-2: supplier_service, component_service, mapping_service
 │   │   └── configurator/      ←   UI-4: engine, nlu, compatibility, manual_edit,
 │   │                              enrichment, auto_price, export, price_loaders,
@@ -152,7 +154,9 @@ ConfiguratorPC2/
 | Портал сотрудника | `portal/` |
 | Общий код двух приложений | `shared/` |
 | Аукционный модуль (после слияния) | `auctions/` (появится на Этапе 3+) |
-| Сервисы конфигуратора | `app/services/` (см. блок ниже) |
+| Сервисы конфигуратора | `portal/services/configurator/` (см. блок ниже) |
+| Сервисы аукционов | `portal/services/auctions/` (после UI-4.5) |
+| Сервисы каталога (brand_normalizer) | `portal/services/catalog/` (после UI-4.5) |
 | Сервисы портала | `portal/services/` |
 | SQL-миграции | `migrations/` |
 | Тесты | `tests/` |
@@ -180,24 +184,22 @@ portal/services/configurator/
 ├── openai_service.py
 ├── price_loader.py         ← тонкая обёртка load_ocs_price для совместимости
 ├── price_loaders/          ← orchestrator + 6 поставщиков (ocs, merlion, treolan, netlab, resurs_media, green_place)
-│                              Кросс-импорт `from app.services.auctions/catalog ...` —
-│                              временный, до UI-4.5.
+│                              После UI-4.5: импортирует из `portal.services.auctions/catalog`,
+│                              кросс-импорт `app.services.*` устранён.
 ├── spec_naming.py, spec_recalc.py, spec_service.py
 ├── web_result_view.py
 └── web_service.py
 ```
 
 `mapping_service.py`, `supplier_service.py`, `component_service.py` живут в
-`portal/services/databases/` (с UI-2). `app/services/auctions/` и
-`app/services/catalog/` пока остаются в app/ (переедут на UI-4.5).
+`portal/services/databases/` (с UI-2). `auctions/` и `catalog/` (бывшие
+`app/services/auctions/`, `app/services/catalog/`) живут в `portal/services/`
+с UI-4.5.
 
 ## Расписание APScheduler
 
-**Конфигуратор** (`app/scheduler.py`, активация через `RUN_SCHEDULER=1`):
-
-| Время МСК | Что делает |
-|---|---|
-| 08:30, 13:00, 16:00, 17:00, 18:15 | Курс USD/RUB с ЦБ → таблица `exchange_rates` |
+После **UI-4.5** (2026-05-11) все cron-задачи живут в `portal/scheduler.py`.
+`app/scheduler.py` удалён, переменная `RUN_SCHEDULER` не используется.
 
 **Портал** (`portal/scheduler.py`, активация через `APP_ENV=production` или `RUN_BACKUP_SCHEDULER=1`):
 
@@ -211,8 +213,10 @@ portal/services/configurator/
 | 07:30 | `auto_price_loads_netlab` | HTTP |
 | 07:40 | `auto_price_loads_resurs_media` | SOAP |
 | 07:50 | `auto_price_loads_green_place` | (no-op до появления fetcher'а) |
+| 08:30, 13:00, 16:00, 17:00, 18:15 | `cbr_fetch_<HHMM>` | Курс USD/RUB с ЦБ → таблица `exchange_rates` (UI-4.5) |
+| каждые 2ч | `auctions_ingest` | Ingest аукционных карточек с zakupki (если включён) |
 
-Каждый cron-job смотрит `auto_price_loads.enabled` для своего slug и вызывает `app/services/auto_price/runner.py::run_auto_load(slug, 'scheduled')`.
+Каждый `auto_price_loads_<slug>` cron-job смотрит `auto_price_loads.enabled` для своего slug и вызывает `portal/services/configurator/auto_price/runner.py::run_auto_load(slug, 'scheduled')`. На старте процесса (если scheduler активен) синхронно выполняется `ensure_initial_rate()` — забор курса ЦБ при пустой `exchange_rates`.
 
 ## Папка `.business/`
 

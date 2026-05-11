@@ -14,8 +14,8 @@ from __future__ import annotations
 
 from sqlalchemy import text
 
-from app.database import engine
-from app.services.auctions.catalog.enrichment.schema import PRINTER_MFU_ATTRS
+from shared.db import engine
+from portal.services.auctions.catalog.enrichment.schema import PRINTER_MFU_ATTRS
 
 LIST_LIMIT_DEFAULT = 200
 PAGE_SIZE_DEFAULT = 50

@@ -7,7 +7,7 @@ from typing import Iterable, Iterator
 from bs4 import BeautifulSoup
 from loguru import logger
 
-from app.services.auctions.ingest.http_client import ZAKUPKI_BASE, ZakupkiClient
+from portal.services.auctions.ingest.http_client import ZAKUPKI_BASE, ZakupkiClient
 
 SEARCH_PATH = "/epz/order/extendedsearch/results.html"
 NOTICE_LINK_RE = re.compile(r"/epz/order/notice/[^/]+/view/common-info\.html\?regNumber=\d+")

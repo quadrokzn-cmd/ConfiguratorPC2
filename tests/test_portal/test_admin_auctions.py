@@ -96,7 +96,7 @@ def test_run_ingest_manager_without_perm_403(portal_client, manager_user_no_perm
 def test_run_ingest_busy_returns_409(admin_portal_client_auc):
     """Если ingest_lock занят (например, scheduler сейчас крутится) —
     /admin/run-ingest отвечает 409."""
-    from app.services.auctions.ingest.single_flight import ingest_lock
+    from portal.services.auctions.ingest.single_flight import ingest_lock
     assert ingest_lock.acquire(blocking=False)
     try:
         r = admin_portal_client_auc.post("/admin/run-ingest")
@@ -106,7 +106,7 @@ def test_run_ingest_busy_returns_409(admin_portal_client_auc):
 
 
 def test_run_ingest_blocking_busy_returns_409(admin_portal_client_auc):
-    from app.services.auctions.ingest.single_flight import ingest_lock
+    from portal.services.auctions.ingest.single_flight import ingest_lock
     assert ingest_lock.acquire(blocking=False)
     try:
         r = admin_portal_client_auc.post("/admin/run-ingest-blocking")
@@ -119,7 +119,7 @@ def test_run_ingest_blocking_busy_returns_409(admin_portal_client_auc):
 
 def _stub_stats():
     """Минимальный заглушечный IngestStats без сетевых вызовов."""
-    from app.services.auctions.ingest.orchestrator import IngestStats
+    from portal.services.auctions.ingest.orchestrator import IngestStats
     s = IngestStats()
     s.cards_seen = 0
     s.cards_parsed = 0
@@ -133,7 +133,7 @@ def test_run_ingest_async_admin_returns_started(monkeypatch, admin_portal_client
     """Хеппи-путь: admin запускает ingest, получает status='started'.
     run_ingest_once мокаем — фоновый поток просто отдаст stub-stats и завершится."""
     monkeypatch.setattr(
-        "app.services.auctions.ingest.orchestrator.run_ingest_once",
+        "portal.services.auctions.ingest.orchestrator.run_ingest_once",
         lambda engine: _stub_stats(),
     )
     r = admin_portal_client_auc.post("/admin/run-ingest")
@@ -142,7 +142,7 @@ def test_run_ingest_async_admin_returns_started(monkeypatch, admin_portal_client
     assert body == {"status": "started"}
 
     # Дожидаемся, пока daemon-поток отпустит lock — на slow-CI бывает нужно.
-    from app.services.auctions.ingest.single_flight import ingest_lock
+    from portal.services.auctions.ingest.single_flight import ingest_lock
     deadline_releases = 0
     while ingest_lock.locked() and deadline_releases < 50:
         threading.Event().wait(0.05)
@@ -152,7 +152,7 @@ def test_run_ingest_async_admin_returns_started(monkeypatch, admin_portal_client
 def test_run_ingest_blocking_admin_returns_stats(monkeypatch, admin_portal_client_auc):
     """admin синхронный запуск — IngestStats.as_dict в JSON-теле."""
     monkeypatch.setattr(
-        "app.services.auctions.ingest.orchestrator.run_ingest_once",
+        "portal.services.auctions.ingest.orchestrator.run_ingest_once",
         lambda engine: _stub_stats(),
     )
     r = admin_portal_client_auc.post("/admin/run-ingest-blocking")
@@ -174,7 +174,7 @@ def test_run_ingest_blocking_manager_with_perm_succeeds(
 ):
     """Менеджер с auctions_edit_settings тоже может запускать (не только админ)."""
     monkeypatch.setattr(
-        "app.services.auctions.ingest.orchestrator.run_ingest_once",
+        "portal.services.auctions.ingest.orchestrator.run_ingest_once",
         lambda engine: _stub_stats(),
     )
     r = manager_portal_client_auc.post("/admin/run-ingest-blocking")

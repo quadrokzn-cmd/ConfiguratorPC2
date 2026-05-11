@@ -85,7 +85,7 @@ def test_run_ingest_success(script_module, tmp_path, monkeypatch):
 
     monkeypatch.setattr("sqlalchemy.create_engine", _fake_create_engine)
     monkeypatch.setattr(
-        "app.services.auctions.ingest.orchestrator.run_ingest_once",
+        "portal.services.auctions.ingest.orchestrator.run_ingest_once",
         _fake_run_ingest_once,
     )
 
@@ -119,7 +119,7 @@ def test_run_ingest_unhandled_exception(script_module, tmp_path, monkeypatch):
         raise RuntimeError("db is down")
 
     monkeypatch.setattr(
-        "app.services.auctions.ingest.orchestrator.run_ingest_once",
+        "portal.services.auctions.ingest.orchestrator.run_ingest_once",
         _boom,
     )
 

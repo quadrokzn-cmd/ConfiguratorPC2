@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.services.auctions.ingest.search import build_search_params
+from portal.services.auctions.ingest.search import build_search_params
 
 
 def test_build_search_params_includes_ktru_code_name_list():

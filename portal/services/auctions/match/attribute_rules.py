@@ -17,7 +17,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from app.services.auctions.catalog.enrichment.schema import NA
+from portal.services.auctions.catalog.enrichment.schema import NA
 
 # Группы атрибутов
 CRITICAL = "critical"

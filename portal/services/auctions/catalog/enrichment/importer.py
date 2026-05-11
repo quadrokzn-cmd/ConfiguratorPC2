@@ -22,10 +22,10 @@ from pathlib import Path
 
 from sqlalchemy import text
 
-from app.database import engine
-from app.services.auctions.catalog.cost_base import recompute_cost_base
-from app.services.auctions.catalog.enrichment.exporter import ENRICHMENT_ROOT
-from app.services.auctions.catalog.enrichment.schema import (
+from shared.db import engine
+from portal.services.auctions.catalog.cost_base import recompute_cost_base
+from portal.services.auctions.catalog.enrichment.exporter import ENRICHMENT_ROOT
+from portal.services.auctions.catalog.enrichment.schema import (
     PRINTER_MFU_ATTRS,
     SOURCE_CLAUDE_CODE,
     validate_attrs,

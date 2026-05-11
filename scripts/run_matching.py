@@ -7,7 +7,7 @@
 Печатает сводную статистику (см. MatchingStats.as_dict).
 
 Этап 8 слияния (2026-05-08): импорты переехали из QT-овских модулей в
-`app.services.auctions.match.*`. БД — общая kvadro_tech через C-PC2 engine
+`portal.services.auctions.match.*`. БД — общая kvadro_tech через C-PC2 engine
 (берёт DATABASE_URL из app.config.settings, как и весь остальной C-PC2-стек).
 """
 from __future__ import annotations
@@ -23,7 +23,7 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv()
 
 from app.database import engine  # noqa: E402
-from app.services.auctions.match.service import run_matching  # noqa: E402
+from portal.services.auctions.match.service import run_matching  # noqa: E402
 
 
 def main() -> int:

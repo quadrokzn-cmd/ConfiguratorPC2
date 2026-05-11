@@ -14,12 +14,12 @@ from dataclasses import dataclass, field, replace
 from decimal import Decimal
 from typing import Any
 
-from app.services.auctions.match.attribute_rules import (
+from portal.services.auctions.match.attribute_rules import (
     AttributeCheck,
     is_critical,
     check_attribute,
 )
-from app.services.auctions.match.name_attrs_parser import (
+from portal.services.auctions.match.name_attrs_parser import (
     extract_attrs_from_name,
     merge_required_attrs,
 )

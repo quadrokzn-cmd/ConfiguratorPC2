@@ -9,7 +9,7 @@ from typing import Any
 from bs4 import BeautifulSoup, Tag
 from loguru import logger
 
-from app.services.auctions.ingest.attrs_normalizer import normalize_attrs
+from portal.services.auctions.ingest.attrs_normalizer import normalize_attrs
 
 KTRU_CODE_RE = re.compile(r"\b\d{2}\.\d{2}\.\d{2}\.\d{3}-\d{8}\b")
 PHONE_RE = re.compile(r"\+?\d[\d\s\-()]{6,}\d")

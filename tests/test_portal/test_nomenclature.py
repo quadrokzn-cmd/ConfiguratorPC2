@@ -174,7 +174,7 @@ def test_enrich_creates_pending_file(
     login_as(portal_client, auctions_settings_editor)
 
     # Подменяем корень enrichment на tmp_path, чтобы не засорять реальную папку.
-    from app.services.auctions.catalog.enrichment import exporter as exp_mod
+    from portal.services.auctions.catalog.enrichment import exporter as exp_mod
     monkeypatch.setattr(exp_mod, "ENRICHMENT_ROOT", tmp_path)
 
     r = portal_client.get("/nomenclature")

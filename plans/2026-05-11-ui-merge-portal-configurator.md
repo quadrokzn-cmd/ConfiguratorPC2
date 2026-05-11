@@ -326,6 +326,97 @@ DoD: все три страницы работают под `/settings/*`; pytes
   заменён на `test_configurator_access_perms.py` (6 кейсов); admin-часть
   `test_budget.py` отдельный файл; нетто покрытие не уменьшилось).
 
+### UI-4.5 — перенос auctions/catalog/scheduler из app/ в portal/ [x]
+
+Технический пред-этап перед UI-5. Не меняет URL, не трогает RBAC, не
+переносит шаблоны — только переезд Python-модулей и устранение
+кросс-импортов `app/ → portal/`.
+
+Что переехало:
+
+- `app/services/auctions/` → `portal/services/auctions/` (ingest, match,
+  catalog/enrichment). 39+ потребителей: `portal/routers/{auctions,
+  admin_auctions,nomenclature}.py`, `portal/scheduler.py`, тесты
+  `test_auctions/`, скрипты `scripts/run_auctions_ingest.py`,
+  `scripts/run_matching.py`, и др.
+- `app/services/catalog/` → `portal/services/catalog/`
+  (`brand_normalizer.py`). Потребители: `portal/services/configurator/
+  price_loaders/orchestrator.py`, `tests/test_catalog/`, скрипты.
+- `app/scheduler.py` (cron USD/RUB) → `portal/scheduler.py` (5 новых
+  cron-job'ов `cbr_fetch_<HHMM>` + `ensure_initial_rate()` при старте
+  через `portal/main.py`).
+- Кросс-импорт `from app.services.auctions/catalog ...` из
+  `portal/services/configurator/price_loaders/orchestrator.py` устранён.
+
+DoD: `git mv` сохраняет историю; импорты `from app.services.{auctions,
+catalog}` нигде не остались (grep пуст); `app/scheduler.py` удалён;
+`app/main.py` без обращений к `app.scheduler`/`init_scheduler`/
+`ensure_initial_rate`; pytest регрессия ≥1882 passed; план/история
+обновлены; в `docs/office-ingest-deploy.md` появилась процедура
+`git pull` на офисном сервере.
+
+**Артефакты UI-4.5 (2026-05-11):**
+
+- `portal/services/auctions/` — новая папка (через `git mv`): `ingest/`
+  (8 файлов), `match/` (6 файлов), `catalog/` (cost_base.py + service.py +
+  enrichment/ — 4 файла).
+- `portal/services/catalog/` — новая папка (через `git mv`):
+  `brand_normalizer.py`.
+- `portal/scheduler.py` — добавлены:
+  - константа `_CBR_CRON_TIMES` (08:30, 13:00, 16:00, 17:00, 18:15 МСК);
+  - функция `_job_fetch_cbr()` — тело cron-задачи курса;
+  - функция `ensure_initial_rate()` (public, для portal/main.py) —
+    при пустой `exchange_rates` синхронно дёргает ЦБ;
+  - регистрация 5 cron-job'ов `cbr_fetch_<HHMM>` в `init_scheduler()`;
+  - расширена шапка-комментарий + final log-message включает cbr-точки.
+- `portal/main.py` — startup-handler вызывает `init_scheduler()` плюс
+  (гейтится тем же `_is_enabled()`) `ensure_initial_rate()`. На pytest
+  оба гейта `False` — никаких сетевых походов из TestClient'ов.
+- `app/scheduler.py` — **удалён**.
+- `app/main.py` — убраны импорты `ensure_initial_rate`/`init_scheduler`/
+  `shutdown_scheduler` и `@app.on_event("startup"/"shutdown")` для
+  scheduler'а. Settings-флаг `settings.run_scheduler` оставлен в
+  `app/config.py` без потребителей (удалится в UI-5).
+- Импорты `from app.services.{auctions,catalog}` заменены на
+  `from portal.services.{auctions,catalog}` в 36 файлах:
+  `portal/scheduler.py`, `portal/routers/{auctions,admin_auctions,
+  nomenclature}.py`, `portal/services/configurator/price_loaders/
+  orchestrator.py`, все внутренние ссылки в перенесённых модулях
+  `portal/services/auctions/{ingest,match,catalog}/*.py`, 7 скриптов
+  (`scripts/run_auctions_ingest.py`, `run_matching.py`,
+  `reparse_cards.py`, `normalize_brands.py`,
+  `enrich_printers_mfu_from_names.py`, `auctions_enrich_export.py`,
+  `auctions_enrich_import.py`), тесты `tests/test_auctions/*.py`,
+  `tests/test_catalog/test_brand_normalizer.py`,
+  `tests/test_portal/{test_nomenclature,test_admin_auctions}.py`.
+  Дополнительно `tests/test_auctions/test_run_auctions_ingest.py` —
+  monkeypatch'и строк-путей обновлены.
+- В перенесённых файлах `from app.database import engine` заменён на
+  `from shared.db import engine` (canonical-источник — `app.database`
+  это просто re-export `shared.db`). Затронуты:
+  `portal/services/auctions/catalog/{service,cost_base}.py`,
+  `portal/services/auctions/catalog/enrichment/{importer,exporter}.py`.
+- `portal/services/configurator/__init__.py` — переписан комментарий
+  про кросс-импорт UI-4 (теперь UI-4.5 устранил).
+- `CLAUDE.md` — обновлены: блок стека (упоминание UI-4.5), таблица
+  «Где что искать» (добавлены `portal/services/auctions/` и
+  `portal/services/catalog/`), структура папок, блок «Сервисы
+  конфигуратора», объединённый блок «Расписание APScheduler» (одна
+  таблица портала, app/scheduler.py больше нет).
+- `docs/ui-architecture.md` — шапка ссылается на UI-4.5, в разделе
+  «История» пункт UI-4.5 переписан из «плана» в «выполнено».
+- `docs/url-migration-map.md` — добавлена секция «UI-4.5 (2026-05-11)»
+  с таблицей переездов модулей и operational-предупреждением про
+  офисный сервер.
+- `docs/office-ingest-deploy.md` — добавлен раздел «Обновление кода на
+  офисе после deploy» с процедурой `git pull` и sanity-проверкой
+  импорта `from portal.services.auctions.ingest.orchestrator import
+  run_ingest_once`.
+- pytest регрессия: **1892 passed, 1 skipped, 0 failed** (UI-4 baseline
+  был 1882; +10 нетто — это `tests/test_auctions/` и
+  `tests/test_catalog/`, которые после устранения кросс-импорта без
+  ошибок собираются с `portal.services.{auctions,catalog}`).
+
 ### UI-5 — финальная зачистка [ ]
 
 Удалить:
@@ -342,27 +433,33 @@ DoD: prod/pre-prod работают только через portal-сервис;
 1. **RBAC для менеджеров после UI-5** — какие подразделы скрывать (например, «Настройки → Пользователи» может быть admin-only).
 2. ~~**Структура `portal/routers/configurator/`** — оставить плоской или ввести подпапки~~ — Решено в UI-4: плоская структура (`main.py`, `projects.py`, `export.py`).
 3. **Будущие модули** — собственник на 2026-05-11 не имеет фиксированного списка; структуру делаем гибкую.
-4. **UI-4.5 (новый этап)** — перенос `app/services/auctions/` и
-   `app/services/catalog/` в `shared/` или `portal/services/`. Сейчас
-   они остаются в app/ как legacy, а `portal/services/configurator/
-   price_loaders/orchestrator.py` делает кросс-импорт `from
-   app.services.auctions/catalog ...`. После UI-4.5 кросс-импорт
-   исчезнет, что разблокирует UI-5.
-5. **Перенос `app/scheduler.py`** (cron USD/RUB 5 раз в день) в
-   `portal/scheduler.py` — отдельный мини-этап перед UI-5. После
-   переноса scheduler-сервиса можно полностью удалить `app/main.py` и
-   Railway-сервис `configurator`.
+4. ~~**UI-4.5 (новый этап)** — перенос `app/services/auctions/` и
+   `app/services/catalog/`~~ — выполнено 2026-05-11, см. блок UI-4.5
+   выше. После UI-4.5 кросс-импорт `app/ → portal/` устранён.
+5. ~~**Перенос `app/scheduler.py`** (cron USD/RUB 5 раз в день) в
+   `portal/scheduler.py`~~ — выполнено в составе UI-4.5. `app/scheduler.py`
+   удалён, cron-job'ы `cbr_fetch_<HHMM>` живут в `portal/scheduler.py`
+   под флагом `APP_ENV=production` / `RUN_BACKUP_SCHEDULER=1`.
 6. **Перенос шаблонов `kp_template.docx` и `project_template.xlsx`** из
    `app/templates/export/` в `portal/templates/export/` или
    `portal/services/configurator/export/templates/` — на UI-5 вместе с
    удалением app/templates/.
+7. **Operational на UI-4.5 деплое** — на офисном сервере
+   `D:\AuctionsIngest\ConfiguratorPC2\` нужно сделать `git pull` ДО
+   следующего тика Task Scheduler. Иначе очередной `scripts/
+   run_auctions_ingest.py` упадёт с `ModuleNotFoundError: No module
+   named 'app.services.auctions'`. Процедура зафиксирована в
+   `docs/office-ingest-deploy.md → «Обновление кода на офисе после
+   deploy»`. Оркестратору — попросить собственника сделать pull в
+   ближайший RDP-сеанс.
 
 ## Итоговый блок
 
-Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1, UI-2, UI-3 и UI-4 выполнены**:
+Статус на 2026-05-11: план составлен, решения собственника зафиксированы. **UI-1, UI-2, UI-3, UI-4 и UI-4.5 выполнены**:
 - UI-1 — общий sidebar + новое меню + плашка «Аукционы» (pytest 1857 passed);
 - UI-2 — перенос «Поставщики», «Комплектующие для ПК», «Очередь маппинга» в `portal/routers/databases/`, 301 со старых `/admin/{suppliers,components,mapping}` (pytest 1875 passed);
 - UI-3 — оформление раздела «Настройки» в `portal/routers/settings/`, перевешивание трёх роутеров с `/admin/*` на `/settings/*` внутри портала + 301-обработчики со старых URL (pytest 1886 passed);
-- UI-4 — перенос Конфигуратора ПК в `portal/routers/configurator/` + `portal/services/configurator/` (~80 файлов сервисов) + `portal/templates/configurator/`. Глобальная permission-middleware заменена на scoped `Depends(require_configurator_access)`. На `config.quadro.tatar` — catch-all 301 на portal/configurator + legacy admin-страницы (pytest 1882 passed).
+- UI-4 — перенос Конфигуратора ПК в `portal/routers/configurator/` + `portal/services/configurator/` (~80 файлов сервисов) + `portal/templates/configurator/`. Глобальная permission-middleware заменена на scoped `Depends(require_configurator_access)`. На `config.quadro.tatar` — catch-all 301 на portal/configurator + legacy admin-страницы (pytest 1882 passed);
+- UI-4.5 — перенос `app/services/auctions/` и `app/services/catalog/` в `portal/services/`, перенос cron USD/RUB из `app/scheduler.py` в `portal/scheduler.py` (5 cron-job'ов `cbr_fetch_<HHMM>` + `ensure_initial_rate()` через portal startup); `app/scheduler.py` удалён, кросс-импорт `from app.services.{auctions,catalog} ...` устранён по всему репо (36 файлов).
 
-Следующий этап — **UI-4.5** (перенос `app/services/auctions/` и `app/services/catalog/` из app/ в shared/ или portal/services/) и затем **UI-5** (финальная зачистка app/main.py, Dockerfile, railway.json, удаление Railway-сервиса configurator).
+Следующий этап — **UI-5** (финальная зачистка `app/main.py`, `Dockerfile`, `railway.json`, удаление Railway-сервиса `configurator`).

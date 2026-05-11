@@ -23,7 +23,7 @@ import threading
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.services.auctions.ingest.single_flight import ingest_lock
+from portal.services.auctions.ingest.single_flight import ingest_lock
 from shared.auth import AuthUser
 from shared.permissions import require_permission
 
@@ -46,7 +46,7 @@ def _run_ingest_async(user_login: str) -> None:
         )
         return
     try:
-        from app.services.auctions.ingest.orchestrator import run_ingest_once
+        from portal.services.auctions.ingest.orchestrator import run_ingest_once
         from shared.db import engine
         try:
             stats = run_ingest_once(engine)
@@ -99,7 +99,7 @@ def run_ingest_blocking(
             detail="Ingest аукционов уже выполняется. Дождитесь завершения и попробуйте снова.",
         )
     try:
-        from app.services.auctions.ingest.orchestrator import run_ingest_once
+        from portal.services.auctions.ingest.orchestrator import run_ingest_once
         from shared.db import engine
         try:
             stats = run_ingest_once(engine)

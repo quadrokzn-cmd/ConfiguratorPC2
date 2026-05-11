@@ -31,7 +31,7 @@ load_dotenv()
 from sqlalchemy import text  # noqa: E402
 
 from app.database import engine  # noqa: E402
-from app.services.catalog.brand_normalizer import canonical_brand  # noqa: E402
+from portal.services.catalog.brand_normalizer import canonical_brand  # noqa: E402
 
 logger = logging.getLogger("normalize_brands")
 
@@ -111,7 +111,7 @@ def _normalize_table(conn, table: str, col: str, *, apply: bool) -> tuple[int, i
 def _collect_unknown(conn, table: str, col: str) -> set[str]:
     """Бренды из таблицы, которые отсутствуют в словаре canonical_brand
     и попадают в title-case fallback. Это кандидаты на расширение словаря."""
-    from app.services.catalog.brand_normalizer import _ALIAS_TO_CANONICAL  # noqa: PLC2701
+    from portal.services.catalog.brand_normalizer import _ALIAS_TO_CANONICAL  # noqa: PLC2701
 
     rows = conn.execute(
         text(

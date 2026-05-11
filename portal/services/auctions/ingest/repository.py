@@ -7,7 +7,7 @@ from typing import Any
 from loguru import logger
 from sqlalchemy import Engine, text
 
-from app.services.auctions.ingest.card_parser import TenderCard
+from portal.services.auctions.ingest.card_parser import TenderCard
 
 
 @dataclass(frozen=True)

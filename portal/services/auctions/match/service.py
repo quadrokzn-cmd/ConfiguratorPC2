@@ -8,13 +8,13 @@ from typing import Iterable
 from loguru import logger
 from sqlalchemy import Engine
 
-from app.services.auctions.match.aggregator import (
+from portal.services.auctions.match.aggregator import (
     TenderSummary,
     aggregate_tender,
     margin_threshold_pct,
 )
-from app.services.auctions.match.matcher import match_tender_item
-from app.services.auctions.match.repository import (
+from portal.services.auctions.match.matcher import match_tender_item
+from portal.services.auctions.match.repository import (
     clear_all_matches,
     derive_single_position_nmck,
     derive_sku_ktru_codes,

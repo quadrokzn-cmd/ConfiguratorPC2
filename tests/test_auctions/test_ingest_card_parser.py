@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from app.services.auctions.ingest.card_parser import parse_card
+from portal.services.auctions.ingest.card_parser import parse_card
 
 FIXTURES = Path(__file__).parent / "fixtures" / "raw_html"
 

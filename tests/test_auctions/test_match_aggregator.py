@@ -9,7 +9,7 @@ from decimal import Decimal
 
 from sqlalchemy import create_engine, text
 
-from app.services.auctions.match.aggregator import aggregate_tender, margin_threshold_pct
+from portal.services.auctions.match.aggregator import aggregate_tender, margin_threshold_pct
 
 
 def _make_db():

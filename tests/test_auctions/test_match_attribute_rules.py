@@ -1,7 +1,7 @@
 """Тесты правил сравнения атрибутов (Волна 2)."""
 from __future__ import annotations
 
-from app.services.auctions.match.attribute_rules import (
+from portal.services.auctions.match.attribute_rules import (
     CRITICAL,
     OPTIONAL,
     check_attribute,

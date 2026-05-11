@@ -32,9 +32,9 @@ from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from app.services.auctions.catalog import service as catalog_service
-from app.services.auctions.catalog.enrichment.exporter import export_manual_single
-from app.services.auctions.catalog.enrichment.schema import (
+from portal.services.auctions.catalog import service as catalog_service
+from portal.services.auctions.catalog.enrichment.exporter import export_manual_single
+from portal.services.auctions.catalog.enrichment.schema import (
     NA,
     PRINTER_MFU_ATTRS,
 )

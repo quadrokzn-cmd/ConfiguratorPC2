@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from app.services.auctions.ingest.card_parser import TenderCard, TenderItem
-from app.services.auctions.ingest.filters import compute_flags
-from app.services.auctions.ingest.repository import PlatformSettings
+from portal.services.auctions.ingest.card_parser import TenderCard, TenderItem
+from portal.services.auctions.ingest.filters import compute_flags
+from portal.services.auctions.ingest.repository import PlatformSettings
 
 
 def _settings(**overrides) -> PlatformSettings:

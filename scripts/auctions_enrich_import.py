@@ -1,7 +1,7 @@
 """CLI: импорт результатов от Claude Code из enrichment/auctions/done/ в БД (printers_mfu).
 
 Этап 8 слияния (2026-05-08): импорты переехали в
-`app.services.auctions.catalog.enrichment.importer`. Сканируется
+`portal.services.auctions.catalog.enrichment.importer`. Сканируется
 `enrichment/auctions/done/`, обновляется `printers_mfu.attrs_jsonb`,
 обработанные файлы переносятся в `enrichment/auctions/archive/<дата>/`.
 
@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from app.services.auctions.catalog.enrichment.importer import (
+from portal.services.auctions.catalog.enrichment.importer import (
     format_report,
     import_done,
 )

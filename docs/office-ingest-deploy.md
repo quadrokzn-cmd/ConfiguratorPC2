@@ -422,6 +422,58 @@ Get-Content $lastLog -Encoding UTF8 -Tail 3
 
 ---
 
+## Обновление кода на офисе после deploy
+
+⚠️ **Критично для UI-4.5 (2026-05-11) и любых будущих переездов модулей.**
+После merge'а в master, который меняет имя/расположение модуля, импортируемого
+из `scripts/run_auctions_ingest.py`, на офисном сервере нужно сделать `git pull`
+ДО следующего тика Task Scheduler. Иначе следующий запуск упадёт с
+`ModuleNotFoundError`.
+
+Пример: UI-4.5 переместил `app.services.auctions.ingest.orchestrator` →
+`portal.services.auctions.ingest.orchestrator`. Без `git pull` на офисе
+ingest сломается, а Task Scheduler пометит `LastTaskResult ≠ 0` (виден
+в `Get-ScheduledTaskInfo -TaskName "AuctionsIngest"`).
+
+Процедура (в RDP-сессии под `server1c\Администратор`, в Git Bash):
+
+```bash
+cd /d/AuctionsIngest/ConfiguratorPC2
+GIT_SSH_COMMAND="ssh -F /d/AuctionsIngest/.ssh/config" git pull
+# Должно показать "Already up to date." или подтянуть merge-коммит.
+```
+
+Если поменялись зависимости в `requirements.txt`:
+
+```powershell
+cd D:\AuctionsIngest\ConfiguratorPC2
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+После этого — sanity-проверка:
+
+```powershell
+.\venv\Scripts\python.exe -c "from portal.services.auctions.ingest.orchestrator import run_ingest_once; print('ok')"
+```
+
+Должно вывести `ok`. Если `ModuleNotFoundError` — pull не подтянулся
+(проверить `git log --oneline -1`), либо в master ещё нет коммита,
+либо ветка не master.
+
+Опционально (если до следующего тика Scheduler'а < 30 мин и хочется
+проверить раньше):
+
+```powershell
+Start-ScheduledTask -TaskName "AuctionsIngest"
+```
+
+Через ~13 минут проверь `Get-Content (Get-ChildItem D:\AuctionsIngest\logs\
+ingest_*.log | Sort-Object LastWriteTime -Descending | Select -First 1).FullName
+-Encoding UTF8 -Tail 15` — финальная строка должна быть
+`ingest done: {'cards_seen': N, ...}`.
+
+---
+
 ## Откат (если нужно временно остановить)
 
 ```powershell

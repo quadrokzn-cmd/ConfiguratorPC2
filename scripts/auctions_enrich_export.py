@@ -1,7 +1,7 @@
 """CLI: выгрузка SKU без атрибутов в JSON-батчи для Claude Code (printers_mfu).
 
 Этап 8 слияния (2026-05-08): импорты переехали в
-`app.services.auctions.catalog.enrichment.exporter`. Файлы пишутся в
+`portal.services.auctions.catalog.enrichment.exporter`. Файлы пишутся в
 `enrichment/auctions/pending/` отдельно от существующего C-PC2-enrichment
 для ПК-компонентов (он живёт в `enrichment/pending/` и обслуживается
 `scripts/enrich_export.py`).
@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from app.services.auctions.catalog.enrichment.exporter import export_pending
+from portal.services.auctions.catalog.enrichment.exporter import export_pending
 
 
 def main() -> int:

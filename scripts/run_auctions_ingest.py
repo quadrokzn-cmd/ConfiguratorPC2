@@ -1,7 +1,7 @@
 """CLI для запуска ingest аукционов из произвольного окружения.
 
 Назначение (мини-этап 9e.2): тонкая обёртка над
-``app.services.auctions.ingest.orchestrator.run_ingest_once(engine)``,
+``portal.services.auctions.ingest.orchestrator.run_ingest_once(engine)``,
 без APScheduler и без FastAPI. Подхватывает .env-файл с ограниченным DSN
 (роль ``ingest_writer`` из миграции 0035), создаёт SQLAlchemy-движок и
 выполняет один цикл ингеста. Предназначена для запуска по расписанию
@@ -94,7 +94,7 @@ def run_ingest(env_file: str, db_url_env: str, log_level: str = "INFO") -> int:
 
     signal.signal(signal.SIGINT, _on_sigint)
 
-    from app.services.auctions.ingest.orchestrator import run_ingest_once
+    from portal.services.auctions.ingest.orchestrator import run_ingest_once
 
     started_at = datetime.now()
     t0 = time.perf_counter()

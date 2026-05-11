@@ -347,7 +347,7 @@ def auction_sku_details(
     request: Request,
     user: AuthUser = Depends(require_permission("auctions")),
 ):
-    from app.services.auctions.catalog import service as _cat
+    from portal.services.auctions.catalog import service as _cat
     row = _cat.get_by_id(nomenclature_id)
     if row is None:
         raise HTTPException(status_code=404, detail="SKU не найден.")

@@ -1,7 +1,7 @@
 """Догоняет attrs_jsonb из printers_mfu.name через regex-парсер.
 
 Идея: для каждого SKU парсит `name` через
-`app.services.auctions.catalog.enrichment.name_parser.parse_printer_attrs`
+`portal.services.auctions.catalog.enrichment.name_parser.parse_printer_attrs`
 и заполняет ТОЛЬКО ключи, где сейчас в attrs_jsonb стоит "n/a". Не
 перезаписывает уже заполненные через Claude Code или вручную значения.
 
@@ -38,8 +38,8 @@ load_dotenv()
 from sqlalchemy import text
 
 from app.database import SessionLocal
-from app.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
-from app.services.auctions.catalog.enrichment.schema import NA, PRINTER_MFU_ATTRS
+from portal.services.auctions.catalog.enrichment.name_parser import parse_printer_attrs
+from portal.services.auctions.catalog.enrichment.schema import NA, PRINTER_MFU_ATTRS
 
 logger = logging.getLogger("enrich_from_names")
 

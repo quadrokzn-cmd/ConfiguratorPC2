@@ -1,17 +1,24 @@
-# Фоновые задачи портала (этап 9В.2).
+# Фоновые задачи портала (этап 9В.2 + UI-4.5).
 #
-# В отличие от scheduler'а конфигуратора (app/scheduler.py — там 5 cron-точек
-# для курса ЦБ), здесь пока ровно одна задача: ежедневный бекап БД на
-# Backblaze B2 в 03:00 МСК. Сюда же позже могут попасть очистка временных
-# файлов портала и аналогичные периодические работы.
+# Состав после UI-4.5 (2026-05-11):
+#   - daily_backup — ежедневный pg_dump на Backblaze B2 (03:00 МСК).
+#   - audit_retention — чистка audit_log > 180 дней (Вс 04:00 МСК).
+#   - auto_price_loads_<slug> — 6 cron-задач автозагрузки прайсов
+#     поставщиков (07:00–07:50 МСК с шагом 10 минут).
+#   - auctions_ingest — ingest аукционных карточек с zakupki (каждые 2ч).
+#   - cbr_fetch_<HHMM> — обновление курса USD/RUB с ЦБ (5 раз в день:
+#     08:30, 13:00, 16:00, 17:00, 18:15 МСК). Перенесено из
+#     app/scheduler.py на UI-4.5: после переноса app/scheduler.py
+#     удалён, и Railway-сервис configurator больше не держит свой
+#     scheduler.
 #
 # Активация: APScheduler стартует только при APP_ENV=production либо если
 # RUN_BACKUP_SCHEDULER=1. Это сделано чтобы:
-#   - на pytest-сессии планировщик не дёргал внешние сервисы (B2);
+#   - на pytest-сессии планировщик не дёргал внешние сервисы (B2, ЦБ);
 #   - на локальной dev-машине (APP_ENV=development) случайно не залить
 #     бекап в продовый бакет;
-#   - на Railway (APP_ENV=production) бекапы работали без дополнительных
-#     env-флагов.
+#   - на Railway (APP_ENV=production) бекапы и cron USD/RUB работали без
+#     дополнительных env-флагов.
 
 from __future__ import annotations
 
@@ -71,12 +78,26 @@ _AUTO_PRICE_SCHEDULE: list[tuple[str, int, int]] = [
 # Тумблер: settings.auctions_ingest_enabled. Если != 'true' (нечувствительно
 # к регистру) — плановый прогон тихо пропускается. Добавлен миграцией 034.
 #
-# Single-flight: общий threading.Lock в app.services.auctions.ingest.single_flight,
+# Single-flight: общий threading.Lock в portal.services.auctions.ingest.single_flight,
 # который шарится с endpoint'ами /admin/run-ingest{,-blocking}. Если cron-тик
 # и ручной запуск пытаются стартовать одновременно — второй проигрывает и
 # пишет лог. max_instances=1 в APScheduler — вторая линия защиты (внутри
 # scheduler'а тики не накапливаются).
 _AUCTIONS_INGEST_INTERVAL_HOURS = 2
+
+# UI-4.5 (Путь B, 2026-05-11): cron-точки обновления курса ЦБ РФ.
+# Перенесено из app/scheduler.py — 5 точек в день в МСК. ЦБ обновляет
+# курс утром (~8:30) и затем периодически до вечера. 5 точек —
+# компромисс между «всегда свежий курс» и «не дёргаем CBR на каждое
+# чихание». UPSERT в exchange_rates обработает дубликаты на reload-режиме
+# uvicorn'а.
+_CBR_CRON_TIMES: list[tuple[str, str]] = [
+    ("08", "30"),
+    ("13", "00"),
+    ("16", "00"),
+    ("17", "00"),
+    ("18", "15"),
+]
 
 # Этап 9В.4: ретенция аудит-лога. По умолчанию 180 дней — можно
 # переопределить через AUDIT_RETENTION_DAYS. Если в B2 лежат бекапы,
@@ -107,6 +128,67 @@ def _job_daily_backup() -> None:
             "scheduler/portal: daily_backup упал за %.2fс (см. трейсбек выше)",
             elapsed,
         )
+
+
+def _job_fetch_cbr() -> None:
+    """Тело cron-задачи: ходит на ЦБ и пишет курс в БД.
+
+    Перенесено из app/scheduler.py в UI-4.5. На ошибке ЦБ-эндпоинта
+    логируем warning и не падаем — следующий cron повторит попытку,
+    старый курс в БД остаётся доступным.
+    """
+    started = datetime.now()
+    from shared.db import SessionLocal
+    from portal.services.configurator.export import exchange_rate
+
+    db = SessionLocal()
+    try:
+        info = exchange_rate.fetch_and_store_cbr_rate(db)
+        logger.info(
+            "scheduler/portal: курс ЦБ обновлён — %s ₽ (date=%s, source=%s)",
+            info.rate, info.rate_date, info.source,
+        )
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: не удалось обновить курс ЦБ (%s): %s",
+            type(exc).__name__, exc,
+        )
+    finally:
+        db.close()
+        elapsed = (datetime.now() - started).total_seconds()
+        logger.info("scheduler/portal: cbr-job выполнен за %.2fс", elapsed)
+
+
+def ensure_initial_rate() -> None:
+    """При старте сервера: если в exchange_rates пусто — синхронно дёргаем
+    ЦБ один раз, чтобы UI сразу показывал данные.
+
+    Перенесено из app/scheduler.py. Если ЦБ недоступен и в БД пусто —
+    логируем warning и идём дальше: портал должен стартовать даже когда
+    сеть недоступна. Вызывается из portal/main.py @startup, гейтится тем
+    же `_is_enabled()` — чтобы pytest не уходил в сеть.
+    """
+    from shared.db import SessionLocal
+    from portal.services.configurator.export import exchange_rate
+
+    db = SessionLocal()
+    try:
+        from sqlalchemy import text as _t
+        row = db.execute(_t("SELECT 1 FROM exchange_rates LIMIT 1")).first()
+        if row is not None:
+            return
+        info = exchange_rate.fetch_and_store_cbr_rate(db)
+        logger.info(
+            "scheduler/portal: при старте подтянули первый курс — %s ₽ (%s)",
+            info.rate, info.rate_date,
+        )
+    except Exception as exc:
+        logger.warning(
+            "scheduler/portal: первичная инициализация курса ЦБ не удалась: %s",
+            exc,
+        )
+    finally:
+        db.close()
 
 
 def _audit_retention_days() -> int:
@@ -257,7 +339,7 @@ def _job_auctions_ingest() -> None:
 
     1. Тумблер `settings.auctions_ingest_enabled`. != 'true' → тихий
        выход (как в auto_price-job'ах: тумблер OFF — никаких записей).
-    2. Single-flight через `app.services.auctions.ingest.single_flight.
+    2. Single-flight через `portal.services.auctions.ingest.single_flight.
        ingest_lock`. Если занято (например, /admin/run-ingest-blocking
        сейчас крутится) — пропускаем тик с warning-логом.
     3. Импорт run_ingest_once отложенный — чтобы portal стартовал даже
@@ -272,7 +354,7 @@ def _job_auctions_ingest() -> None:
         return
 
     try:
-        from app.services.auctions.ingest.single_flight import ingest_lock
+        from portal.services.auctions.ingest.single_flight import ingest_lock
     except Exception as exc:
         logger.warning(
             "scheduler/portal: auctions_ingest — не удалось импортировать single_flight (%s: %s)",
@@ -287,7 +369,7 @@ def _job_auctions_ingest() -> None:
         return
 
     try:
-        from app.services.auctions.ingest.orchestrator import run_ingest_once
+        from portal.services.auctions.ingest.orchestrator import run_ingest_once
         from shared.db import engine
         try:
             stats = run_ingest_once(engine)
@@ -403,17 +485,35 @@ def init_scheduler() -> BackgroundScheduler | None:
         misfire_grace_time=600,
     )
 
+    # UI-4.5 (Путь B, 2026-05-11): курс USD/RUB с ЦБ — 5 точек в день в МСК.
+    # Перенесено из app/scheduler.py (там job активировался отдельным флагом
+    # RUN_SCHEDULER). После переезда конфигуратора в портал курс должен
+    # обновляться на portal-сервисе — иначе после удаления Railway-сервиса
+    # configurator (UI-5) курс встанет.
+    for hour, minute in _CBR_CRON_TIMES:
+        sched.add_job(
+            _job_fetch_cbr,
+            trigger=CronTrigger(
+                hour=hour, minute=minute, timezone=_BACKUP_TIMEZONE,
+            ),
+            id=f"cbr_fetch_{hour}{minute}",
+            name=f"CBR rate fetch {hour}:{minute} МСК",
+            replace_existing=True,
+        )
+
     sched.start()
     _scheduler = sched
     logger.info(
         "scheduler/portal: запущен (daily_backup %02d:%02d МСК, "
         "audit_retention вс 04:00 МСК, retention=%d дней, "
-        "auto_price_loads %s, auctions_ingest каждые %dч).",
+        "auto_price_loads %s, auctions_ingest каждые %dч, "
+        "cbr_fetch %s МСК).",
         _BACKUP_HOUR, _BACKUP_MINUTE, _audit_retention_days(),
         ", ".join(
             f"{slug}={h:02d}:{m:02d}" for slug, h, m in _AUTO_PRICE_SCHEDULE
         ),
         _AUCTIONS_INGEST_INTERVAL_HOURS,
+        ", ".join(f"{h}:{m}" for h, m in _CBR_CRON_TIMES),
     )
     return sched
 

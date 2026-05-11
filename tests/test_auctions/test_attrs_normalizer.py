@@ -5,7 +5,7 @@
 «Способ подключения USB+LAN» и т.п.) + защита от ловли цифры из «А4»."""
 from __future__ import annotations
 
-from app.services.auctions.ingest.attrs_normalizer import normalize_attrs
+from portal.services.auctions.ingest.attrs_normalizer import normalize_attrs
 
 
 def test_print_speed_ppm_lower_bound():

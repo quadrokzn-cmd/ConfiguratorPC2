@@ -162,6 +162,35 @@ UI-лейблы (sidebar / breadcrumbs) и subsection-ключи:
 Все 301-редиректы будут жить пока `config.quadro.tatar` не упразднён
 (UI-5).
 
+## UI-4.5 (2026-05-11) — перенос auctions/catalog/scheduler из app/ в portal/
+
+URL'ы не менялись. Этап чисто внутренний — перенос Python-модулей и
+импортов плюс merge cron-задачи USD/RUB:
+
+| Что переехало | Откуда | Куда |
+|---|---|---|
+| auctions (ingest/, match/, catalog/) | `app/services/auctions/` | `portal/services/auctions/` |
+| catalog (brand_normalizer) | `app/services/catalog/` | `portal/services/catalog/` |
+| cron USD/RUB (5 точек в день в МСК) | `app/scheduler.py` | `portal/scheduler.py` (cron-job'ы `cbr_fetch_<HHMM>`) |
+| `ensure_initial_rate()` | `app/main.py` startup | `portal/main.py` startup (гейт `_is_enabled()`) |
+
+`app/scheduler.py` удалён. Импорты `from app.services.auctions/catalog ...`
+заменены на `from portal.services.auctions/catalog ...` во всём репо
+(36 файлов: portal-роутеры, sub-сервисы, scheduler, скрипты,
+test_auctions/, test_catalog/, test_portal/).
+
+Активация cron-задач после UI-4.5 — единый флаг: `APP_ENV=production`
+(Railway prod/pre-prod) или `RUN_BACKUP_SCHEDULER=1` (ручной запуск).
+Старая переменная `RUN_SCHEDULER` больше нигде не считывается (поле
+`settings.run_scheduler` пока остаётся в `app/config.py` для совместимости,
+удалится в UI-5 вместе с `app/`).
+
+> **Операционно:** на офисном сервере (`D:\AuctionsIngest\ConfiguratorPC2\`)
+> после деплоя UI-4.5 нужен `git pull` ДО следующего тика Task Scheduler —
+> иначе следующий запуск `scripts/run_auctions_ingest.py` упадёт с
+> `ModuleNotFoundError: No module named 'app.services.auctions'`.
+> Подробнее — `docs/office-ingest-deploy.md`.
+
 ## UI-5 (план) — финальная зачистка
 
 - Удаляются 301-обработчики из `app/main.py`.
