@@ -68,9 +68,12 @@ scripts/reports/
 # Содержат raw цены, ассортимент, креды. В репо не нужны.
 scripts/_diag_resurs_media_*
 
-# Smoke-прогон Resurs Media по чек-листу программиста (одноразовый артефакт).
-# Содержит снимки реальных ответов API. В репо не нужен.
+# Артефакты smoke-прогона Resurs Media: всё кроме самого .py-скрипта.
+# Логи/state/markdown-отчёты содержат снимки реальных SOAP-ответов API.
+# Сам scripts/resurs_media_smoke.py — tracked, переиспользуется для
+# prod-валидации через флаг --allow-prod (мини-этап 2026-05-12 prod-switch).
 scripts/resurs_media_smoke*
+!scripts/resurs_media_smoke.py
 
 # Все диагностические скрипты-разведки (этапы 12.4 и слияния QT↔C-PC2).
 scripts/_diag_*

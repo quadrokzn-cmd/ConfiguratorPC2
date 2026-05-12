@@ -10,10 +10,19 @@
 # Запуск:
 #   python -m scripts.resurs_media_bootstrap_catalog
 #   python -m scripts.resurs_media_bootstrap_catalog --force
+#   python -m scripts.resurs_media_bootstrap_catalog \
+#       --env-file .env.local.prod.resurs.v1 --allow-prod
 #
-# По умолчанию скрипт идемпотентен — повторный запуск с непустой
-# таблицей resurs_media_catalog отказывает. --force переписывает
-# существующие строки (synced_at обновится у всех).
+# Флаги:
+#   --env-file PATH  загрузить переменные окружения из указанного файла
+#                    (через python-dotenv); все RESURS_MEDIA_* и
+#                    DATABASE_URL читаются из этого файла. Без флага
+#                    используется обычный .env в корне репо.
+#   --force          переписывает уже заполненную таблицу
+#                    resurs_media_catalog. По умолчанию отказывает.
+#   --allow-prod     разрешить запуск против prod-URL (без 'test' в
+#                    WSDL). Без флага — отказывает (exit 2). С флагом —
+#                    печатает WARNING и спрашивает YES в stdin.
 #
 # На test-стенде ~25 729 позиций, ~15 сек. На prod — заранее не знаем;
 # если попадём в rate-limit (Result=3), fetcher сам ждёт и retry'ит
@@ -25,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 import time
 from pathlib import Path
@@ -40,34 +50,12 @@ for _stream in (sys.stdout, sys.stderr):
         except Exception:
             pass
 
-from dotenv import load_dotenv  # noqa: E402
-
-load_dotenv()
-
-from sqlalchemy import text  # noqa: E402
-
-from portal.services.configurator.auto_price.fetchers.resurs_media import (  # noqa: E402
-    ResursMediaApiFetcher,
-)
-from portal.services.configurator.auto_price.resurs_media_catalog import (  # noqa: E402
-    upsert_catalog,
-)
-from shared.db import engine  # noqa: E402
-
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
 )
 logger = logging.getLogger("resurs_media_bootstrap_catalog")
-
-
-def _is_catalog_empty() -> bool:
-    with engine.begin() as conn:
-        row = conn.execute(
-            text("SELECT COUNT(*) AS n FROM resurs_media_catalog")
-        ).first()
-    return int(row.n if row else 0) == 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -79,6 +67,17 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--env-file",
+        type=str,
+        default=None,
+        help=(
+            "Путь к файлу окружения (dotenv). Если задан — он "
+            "перекрывает обычный .env в корне репо. Удобно для prod-"
+            "bootstrap'а: положить prod-кред в .env.local.prod.resurs.v1, "
+            "пробросить через этот флаг, не тронув dev-окружение."
+        ),
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help=(
@@ -86,7 +85,56 @@ def main(argv: list[str] | None = None) -> int:
             "Все позиции будут перезаписаны (synced_at обновится у всех)."
         ),
     )
+    parser.add_argument(
+        "--allow-prod",
+        action="store_true",
+        help=(
+            "Разрешить запуск против prod-URL (в WSDL нет 'test'). "
+            "Дополнительно запросит подтверждение YES в stdin. "
+            "Без флага — exit 2."
+        ),
+    )
     args = parser.parse_args(argv)
+
+    # 1) Сначала грузим окружение (важно: ДО импортов shared.db и
+    #    fetcher'а — они читают DATABASE_URL и RESURS_MEDIA_* в момент
+    #    импорта/конструирования).
+    from dotenv import load_dotenv  # noqa: E402  (lazy для тестируемости)
+    if args.env_file:
+        env_path = Path(args.env_file)
+        if not env_path.exists():
+            print(
+                f"ERROR: --env-file путь не существует: {env_path}",
+                file=sys.stderr,
+            )
+            return 2
+        load_dotenv(env_path, override=True)
+        logger.info("Загружен env-файл: %s", env_path)
+    else:
+        load_dotenv()
+
+    # 2) Sanity-check: prod-URL без --allow-prod — отказываем.
+    from scripts._resurs_media_safety import check_prod_safety  # noqa: E402
+    wsdl_url = (os.environ.get("RESURS_MEDIA_WSDL_URL") or "").strip()
+    check_prod_safety(wsdl_url, args.allow_prod)
+
+    # 3) Тяжёлые импорты — после load_dotenv, чтобы shared.config поймал
+    #    свежий DATABASE_URL из --env-file.
+    from sqlalchemy import text  # noqa: E402
+    from portal.services.configurator.auto_price.fetchers.resurs_media import (  # noqa: E402
+        ResursMediaApiFetcher,
+    )
+    from portal.services.configurator.auto_price.resurs_media_catalog import (  # noqa: E402
+        upsert_catalog,
+    )
+    from shared.db import engine  # noqa: E402
+
+    def _is_catalog_empty() -> bool:
+        with engine.begin() as conn:
+            row = conn.execute(
+                text("SELECT COUNT(*) AS n FROM resurs_media_catalog")
+            ).first()
+        return int(row.n if row else 0) == 0
 
     if not _is_catalog_empty() and not args.force:
         print(

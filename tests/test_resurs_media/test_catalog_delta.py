@@ -370,7 +370,6 @@ def _resurs_media_env(monkeypatch):
     )
     monkeypatch.setenv("RESURS_MEDIA_USERNAME", "test_user")
     monkeypatch.setenv("RESURS_MEDIA_PASSWORD", "test_password")
-    monkeypatch.delenv("RESURS_MEDIA_WSDL_URL_TEST", raising=False)
 
 
 @pytest.fixture(autouse=True)

@@ -514,12 +514,10 @@ def test_call_arguments_use_item_wrapper(resurs_media_env, monkeypatch):
 
 def test_init_raises_without_credentials(monkeypatch):
     """Без RESURS_MEDIA_WSDL_URL/USERNAME/PASSWORD — RuntimeError с
-    понятным списком ожидаемых переменных. Проверяем, что и
-    legacy-fallback _TEST тоже учтён в проверке."""
+    понятным списком ожидаемых переменных."""
     from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     monkeypatch.delenv("RESURS_MEDIA_WSDL_URL", raising=False)
-    monkeypatch.delenv("RESURS_MEDIA_WSDL_URL_TEST", raising=False)
     monkeypatch.delenv("RESURS_MEDIA_USERNAME", raising=False)
     monkeypatch.delenv("RESURS_MEDIA_PASSWORD", raising=False)
 

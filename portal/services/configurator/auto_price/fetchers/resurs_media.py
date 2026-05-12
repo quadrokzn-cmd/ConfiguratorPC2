@@ -34,10 +34,10 @@
 #   иначе       — RuntimeError с дампом ответа.
 #
 # Замечание по env-переменной:
-#   В .env уже есть RESURS_MEDIA_WSDL_URL_TEST (test endpoint, разведка).
-#   Здесь читаем сначала RESURS_MEDIA_WSDL_URL (канон), при его отсутствии —
-#   fallback на _TEST для обратной совместимости. На проде админ
-#   пропишет RESURS_MEDIA_WSDL_URL=<prod URL> и удалит _TEST из .env.
+#   Единственная переменная — RESURS_MEDIA_WSDL_URL. Значение зависит от
+#   окружения: test-URL для dev/preprod, prod-URL для production
+#   (per Railway environment, см. рефлексию 2026-05-12-resurs-media-prod-
+#   switch-code.md, фаза B).
 
 from __future__ import annotations
 
@@ -216,21 +216,15 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
     supplier_display_name = "Ресурс Медиа"
 
     def __init__(self) -> None:
-        # WSDL: канон — RESURS_MEDIA_WSDL_URL. На переходный период (test
-        # endpoint, разведка 12.4-РМ-0 закидывала именно _TEST в .env) —
-        # fallback на _TEST. После переключения на prod админ переименует
-        # переменную и старый fallback не понадобится.
-        self.wsdl_url = (
-            (os.environ.get("RESURS_MEDIA_WSDL_URL") or "").strip()
-            or (os.environ.get("RESURS_MEDIA_WSDL_URL_TEST") or "").strip()
-        )
+        # WSDL: одна переменная RESURS_MEDIA_WSDL_URL, разные значения
+        # per environment (test для dev/preprod, prod для production).
+        self.wsdl_url = (os.environ.get("RESURS_MEDIA_WSDL_URL") or "").strip()
         self.username = (os.environ.get("RESURS_MEDIA_USERNAME") or "").strip()
         self.password = (os.environ.get("RESURS_MEDIA_PASSWORD") or "").strip()
         if not self.wsdl_url or not self.username or not self.password:
             raise RuntimeError(
                 "Resurs Media SOAP: не заданы креды. Ожидаются переменные "
-                "окружения: RESURS_MEDIA_WSDL_URL (на переходный период — "
-                "RESURS_MEDIA_WSDL_URL_TEST), RESURS_MEDIA_USERNAME, "
+                "окружения: RESURS_MEDIA_WSDL_URL, RESURS_MEDIA_USERNAME, "
                 "RESURS_MEDIA_PASSWORD."
             )
         # Per-instance кеш WSDL. Чтобы повторное создание fetcher'а в одном
