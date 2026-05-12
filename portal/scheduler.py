@@ -533,6 +533,19 @@ def init_scheduler() -> BackgroundScheduler | None:
         _AUCTIONS_INGEST_INTERVAL_HOURS,
         ", ".join(f"{h}:{m}" for h, m in _CBR_CRON_TIMES),
     )
+
+    # 9e.4.2: дублируем итоговый список зарегистрированных job'ов через
+    # print → stdout. logger.info(...) в этом файле уходит в /dev/null,
+    # потому что root-логгер по дефолту на WARNING, а uvicorn настраивает
+    # только свои собственные логгеры (uvicorn.error/access). Stdout же
+    # Railway пишет в Deploy Logs как есть — это даёт диагностический след
+    # любого cutover'а (вкл/выкл cron'ов через ENV-флаги): по строке
+    # `scheduler/portal startup: jobs=[...]` сразу видно, какие задачи
+    # реально живут в этом контейнере.
+    print(
+        f"scheduler/portal startup: jobs={sorted(j.id for j in sched.get_jobs())}",
+        flush=True,
+    )
     return sched
 
 
