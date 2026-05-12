@@ -116,13 +116,28 @@
   {% endif %}
 
   {# Сетка карточек: 1 → 2 → 3 колонки в зависимости от ширины.
-     auto-rows-fr выравнивает карточки по высоте в строке. #}
+     auto-rows-fr выравнивает карточки по высоте в строке.
+     Multi-storage (backlog #7): для категории storage итерируем по
+     v.storages_list — там собраны ВСЕ накопители варианта; остальные
+     категории — как раньше, по dict v.components. #}
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3
               auto-rows-fr gap-4">
     {% for cat in category_order %}
-      {% set c = v.components.get(cat) %}
-      {% if c %}
-        {{ component_card(c, category_label.get(cat, cat)) }}
+      {% if cat == 'storage' %}
+        {% set storages_in_variant = v.storages_list or [] %}
+        {% if not storages_in_variant and v.components.get('storage') %}
+          {# Fallback на одиночный storage из components, если storages_list
+             не передан вызывающим кодом. #}
+          {% set storages_in_variant = [v.components.get('storage')] %}
+        {% endif %}
+        {% for c in storages_in_variant %}
+          {{ component_card(c, category_label.get('storage', 'storage')) }}
+        {% endfor %}
+      {% else %}
+        {% set c = v.components.get(cat) %}
+        {% if c %}
+          {{ component_card(c, category_label.get(cat, cat)) }}
+        {% endif %}
       {% endif %}
     {% endfor %}
   </div>

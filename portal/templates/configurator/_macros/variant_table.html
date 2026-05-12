@@ -194,10 +194,23 @@
         </tr>
       </thead>
       <tbody>
+        {# Multi-storage (backlog #7): для категории storage итерируем по
+           v.storages_list — всем накопителям варианта. Остальные категории
+           рендерим как раньше — по dict v.components. #}
         {% for cat in category_order %}
-          {% set c = v.components.get(cat) %}
-          {% if c %}
-            {{ _component_row(c, category_label.get(cat, cat)) }}
+          {% if cat == 'storage' %}
+            {% set storages_in_variant = v.storages_list or [] %}
+            {% if not storages_in_variant and v.components.get('storage') %}
+              {% set storages_in_variant = [v.components.get('storage')] %}
+            {% endif %}
+            {% for c in storages_in_variant %}
+              {{ _component_row(c, category_label.get('storage', 'storage')) }}
+            {% endfor %}
+          {% else %}
+            {% set c = v.components.get(cat) %}
+            {% if c %}
+              {{ _component_row(c, category_label.get(cat, cat)) }}
+            {% endif %}
           {% endif %}
         {% endfor %}
       </tbody>

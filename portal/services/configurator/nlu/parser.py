@@ -125,6 +125,58 @@ _OVERRIDE_FLOAT_KEYS = ("cpu_min_base_ghz",)
 _OVERRIDE_STR_KEYS = ("ram_memory_type", "storage_type")
 _OVERRIDE_BOOL_KEYS = ("gpu_required",)
 
+# Multi-storage NLU (backlog #7): ключ overrides.storages — массив словарей
+# вида {"min_gb": <int|null>, "type": "SSD"|"HDD"|null}. Если задан и непустой —
+# заменяет одиночные storage_min_gb/storage_type. Если отсутствует или []
+# — работает старый одиночный путь.
+_STORAGES_KEY = "storages"
+_VALID_STORAGE_TYPES = ("SSD", "HDD")
+
+
+def _validate_storages(raw: Any) -> list[dict[str, Any]]:
+    """Валидирует overrides.storages. Возвращает чистый список словарей
+    {min_gb: int | None, preferred_type: 'SSD' | 'HDD' | None}.
+
+    Битые элементы (не dict, отрицательные значения, неизвестные типы)
+    отфильтровываются — это анти-fallback-стратегия, чтобы одиночный
+    кривой элемент не валил весь подбор. Если после фильтрации пусто —
+    возвращаем []."""
+    if raw is None:
+        return []
+    if not isinstance(raw, list):
+        raise ParseValidationError("overrides.storages: ожидался массив")
+
+    out: list[dict[str, Any]] = []
+    for i, item in enumerate(raw):
+        if not isinstance(item, dict):
+            # битый элемент — игнорируем, не падаем
+            continue
+        entry: dict[str, Any] = {}
+        v = item.get("min_gb")
+        if v is not None:
+            if isinstance(v, bool) or not isinstance(v, (int, float)):
+                raise ParseValidationError(
+                    f"overrides.storages[{i}].min_gb: ожидалось число"
+                )
+            if v < 0:
+                raise ParseValidationError(
+                    f"overrides.storages[{i}].min_gb: отрицательное значение"
+                )
+            entry["min_gb"] = int(v)
+        t = item.get("type")
+        if t is not None:
+            if not isinstance(t, str):
+                raise ParseValidationError(
+                    f"overrides.storages[{i}].type: ожидалась строка"
+                )
+            t = t.strip()
+            if t in _VALID_STORAGE_TYPES:
+                entry["preferred_type"] = t
+        if entry:
+            out.append(entry)
+
+    return out
+
 
 def _validate_overrides(raw: Any) -> dict[str, Any]:
     """Возвращает чистый словарь overrides — только валидные значения."""
@@ -181,6 +233,11 @@ def _validate_overrides(raw: Any) -> dict[str, Any]:
         out.pop("ram_memory_type", None)
     if out.get("storage_type") not in (None, "SSD", "HDD"):
         out.pop("storage_type", None)
+
+    # Multi-storage (backlog #7): отдельная валидация storages-массива.
+    storages = _validate_storages(raw.get(_STORAGES_KEY))
+    if storages:
+        out[_STORAGES_KEY] = storages
 
     return out
 

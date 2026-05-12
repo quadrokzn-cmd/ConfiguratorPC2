@@ -327,8 +327,14 @@ def get_cheapest_storage(
     req: StorageRequirements,
     usd_rub: float,
     allow_transit: bool,
+    exclude_ids: list[int] | None = None,
 ) -> dict | None:
-    """Самый дешёвый накопитель по требованиям."""
+    """Самый дешёвый накопитель по требованиям.
+
+    exclude_ids — список id storage-компонентов, которые уже были выбраны
+    в этой сборке; их нельзя выбрать повторно (multi-storage NLU,
+    backlog #7). Если None или пустой — фильтр не применяется.
+    """
     params: dict[str, Any] = {"usd_rub": usd_rub}
     conditions: list[str] = [
         _hidden_filter("s"),
@@ -341,6 +347,9 @@ def get_cheapest_storage(
     if req.preferred_type:
         conditions.append("s.storage_type = :st")
         params["st"] = req.preferred_type
+    if exclude_ids:
+        conditions.append("s.id <> ALL(:excl_ids)")
+        params["excl_ids"] = [int(i) for i in exclude_ids]
 
     stock_sql = _stock_where("sp", allow_transit)
     price_usd_sql = _price_in_usd_sql("sp")

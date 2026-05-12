@@ -254,12 +254,16 @@ def world(monkeypatch) -> MockWorld:
             return None
         return sorted(rows, key=lambda g: g["price_usd_min"])[0]
 
-    def fake_cheapest_storage(session, *, req, usd_rub, allow_transit):
+    def fake_cheapest_storage(session, *, req, usd_rub, allow_transit,
+                              exclude_ids=None):
         rows = [
             s for s in w.storages
             if (not req.min_gb or s["capacity_gb"] >= req.min_gb)
             and (not req.preferred_type or s["storage_type"] == req.preferred_type)
         ]
+        if exclude_ids:
+            ex = {int(i) for i in exclude_ids}
+            rows = [s for s in rows if int(s["id"]) not in ex]
         rows = w._filter_stock("storage", rows, allow_transit)
         if not rows:
             return None
@@ -949,3 +953,196 @@ def test_also_available_includes_price(world, monkeypatch):
     suppliers = {o.supplier: o.price_usd for o in cpu_choice.also_available_at}
     assert suppliers["Merlion"] == 105.0
     assert suppliers["Treolan"] == 110.0
+
+
+# -----------------------------------------------------------------------------
+# Multi-storage NLU (backlog #7): несколько накопителей в одной сборке
+# -----------------------------------------------------------------------------
+
+# -- Тест 18.1. Engine собирает сборку с двумя storage'ями (SSD + HDD) ----
+def test_multi_storage_ssd_plus_hdd(world):
+    """req.storages = [SSD/512, HDD/2000] → в сборке два storage-компонента
+    разного типа."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    # Два разных накопителя — SSD и HDD.
+    world.storages += [
+        mk_storage(401, 512, "SSD", 50),
+        mk_storage(402, 2000, "HDD", 30),
+    ]
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storages": [
+            {"min_gb": 512,  "preferred_type": "SSD"},
+            {"min_gb": 2000, "preferred_type": "HDD"},
+        ],
+    })
+    result = S.build_config(req)
+    assert result.status in ("ok", "partial")
+
+    v = result.variants[0]
+    storage_choices = [c for c in v.components if c.category == "storage"]
+    assert len(storage_choices) == 2
+    chosen_ids = sorted(c.component_id for c in storage_choices)
+    assert chosen_ids == [401, 402]
+
+
+# -- Тест 18.2. Engine для одного storage requirement — один storage (regression) -
+def test_single_storage_regression(world):
+    """Если задан только одиночный storage (старый путь) — в сборке ровно
+    один storage-компонент, как было до multi-storage."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    _std_common(world)
+    # _std_common кладёт два SSD — для одного требования должен взять один.
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storage": {"min_gb": 500, "preferred_type": "SSD"},
+    })
+    result = S.build_config(req)
+
+    v = result.variants[0]
+    storage_choices = [c for c in v.components if c.category == "storage"]
+    assert len(storage_choices) == 1
+    # Будет выбран самый дешёвый из подходящих (capacity>=500, SSD).
+    # В _std_common: 401 (500GB SSD, $45) дешевле 402 (1000GB SSD, $80).
+    assert storage_choices[0].component_id == 401
+
+
+# -- Тест 18.3. Engine: два одинаковых NVMe — два РАЗНЫХ компонента ------
+def test_multi_storage_two_same_type(world):
+    """req.storages = [SSD/1000, SSD/1000] → два разных SSD-компонента,
+    второй вызов get_cheapest_storage идёт с exclude_ids первого.
+
+    Если в каталоге только один подходящий SSD — сборка должна провалиться
+    (нельзя дважды отгрузить один и тот же артикул). Поэтому добавляем два
+    разных SSD по 1000+ ГБ."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages += [
+        mk_storage(401, 1000, "SSD", 60),
+        mk_storage(402, 1000, "SSD", 70),
+    ]
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storages": [
+            {"min_gb": 1000, "preferred_type": "SSD"},
+            {"min_gb": 1000, "preferred_type": "SSD"},
+        ],
+    })
+    result = S.build_config(req)
+    assert result.status in ("ok", "partial")
+
+    v = result.variants[0]
+    storage_choices = [c for c in v.components if c.category == "storage"]
+    assert len(storage_choices) == 2
+    ids = sorted(c.component_id for c in storage_choices)
+    assert ids == [401, 402]   # оба разных — exclude_ids сработал
+
+
+# -- Тест 18.4. Engine: если второй storage не нашёлся — сборка fail ------
+def test_multi_storage_second_not_found(world):
+    """Если по второму требованию нет подходящего storage'а кроме уже
+    выбранного — сборка не собирается."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    # Только ОДИН SSD в каталоге.
+    world.storages.append(mk_storage(401, 1000, "SSD", 60))
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storages": [
+            {"min_gb": 1000, "preferred_type": "SSD"},
+            {"min_gb": 1000, "preferred_type": "SSD"},   # второй не найдётся
+        ],
+    })
+    result = S.build_config(req)
+    # Сборка не получилась — отказ.
+    assert result.status == "failed"
+
+
+# -- Тест 18.5. Итоговая цена варианта = сумма всех storage'ей -----------
+def test_multi_storage_total_includes_both(world):
+    """Цена варианта должна суммировать все storage-компоненты."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages += [
+        mk_storage(401, 512, "SSD", 50),
+        mk_storage(402, 2000, "HDD", 30),
+    ]
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storages": [
+            {"min_gb": 512,  "preferred_type": "SSD"},
+            {"min_gb": 2000, "preferred_type": "HDD"},
+        ],
+    })
+    result = S.build_config(req)
+    v = result.variants[0]
+
+    # Сумма цен всех компонентов варианта должна совпадать с total_usd.
+    expected_total = sum(c.chosen.price_usd * c.quantity for c in v.components)
+    assert v.total_usd == pytest.approx(expected_total, abs=0.01)
+    # И оба storage в сумме лежат — $50 + $30 = $80.
+    storages_sum = sum(
+        c.chosen.price_usd * c.quantity
+        for c in v.components if c.category == "storage"
+    )
+    assert storages_sum == pytest.approx(80.0, abs=0.01)
+
+
+# -- Тест 18.6. UI _prepare_variants собирает storages_list --------------
+def test_prepare_variants_collects_storages_list(world):
+    """Routing-слой _prepare_variants должен сложить все storage'и
+    варианта в storages_list (используется variant_table/variant_block
+    для рендера всех накопителей)."""
+    world.cpus.append(mk_cpu(1, "Intel Corporation", "LGA1700", 100, igpu=True))
+    world.motherboards.append(mk_mb(101, "LGA1700", "ATX", "DDR5", 80, slots=4))
+    world.rams.append(mk_ram(201, "DDR5", 16, 5200, 40))
+    world.storages += [
+        mk_storage(401, 512, "SSD", 50),
+        mk_storage(402, 2000, "HDD", 30),
+    ]
+    world.psus.append(mk_psu(501, 650, 55))
+    world.cases.append(mk_case(601, ["ATX", "mATX"], 60, max_gpu=380))
+    world.coolers.append(mk_cooler(701, ["LGA1700"], 200, 25))
+
+    req = request_from_dict({
+        "cpu": {"min_cores": 4},
+        "storages": [
+            {"min_gb": 512,  "preferred_type": "SSD"},
+            {"min_gb": 2000, "preferred_type": "HDD"},
+        ],
+    })
+    result = S.build_config(req)
+
+    from portal.services.configurator.engine.schema import result_to_dict
+    from portal.routers.configurator.main import _prepare_variants
+
+    rdict = result_to_dict(result)
+    prepared = _prepare_variants(rdict)
+    assert prepared, "должен быть хотя бы один вариант"
+    v = prepared[0]
+    # storages_list собирает все storage-компоненты (без потерь)
+    assert len(v["storages_list"]) == 2
+    storage_ids = sorted(c["component_id"] for c in v["storages_list"])
+    assert storage_ids == [401, 402]

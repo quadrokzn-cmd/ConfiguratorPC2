@@ -63,7 +63,12 @@ class BuildRequest:
     cpu: CPURequirements = field(default_factory=CPURequirements)
     ram: RAMRequirements = field(default_factory=RAMRequirements)
     gpu: GPURequirements = field(default_factory=GPURequirements)
+    # storage — одиночное требование (backwards compat).
+    # storages — список из N требований (multi-storage NLU, backlog #7).
+    # Если storages непустой, engine использует именно его и игнорирует storage.
+    # Если storages пустой, engine работает по старому пути через storage.
     storage: StorageRequirements = field(default_factory=StorageRequirements)
+    storages: list[StorageRequirements] = field(default_factory=list)
     motherboard: FixedRef | None = None
     case: FixedRef | None = None
     psu: FixedRef | None = None
@@ -71,6 +76,17 @@ class BuildRequest:
     # Управляется модулем автоматически: если без транзита сборка не вышла —
     # selector сам повторяет подбор с allow_transit=True.
     allow_transit: bool = False
+
+    def effective_storages(self) -> list[StorageRequirements]:
+        """Список накопителей, который реально пойдёт в подбор.
+
+        Если задан список storages — возвращаем его. Иначе оборачиваем
+        одиночный storage в список (даже если все его поля None — это
+        тривиальный поиск самого дешёвого storage).
+        """
+        if self.storages:
+            return list(self.storages)
+        return [self.storage]
 
     def is_empty(self) -> bool:
         """Запрос считается пустым, если не задано ни одного требования."""
@@ -86,6 +102,9 @@ class BuildRequest:
             return False
         if self.storage.min_gb or self.storage.preferred_type:
             return False
+        for s in self.storages:
+            if s.min_gb or s.preferred_type:
+                return False
         for ref in (self.motherboard, self.case, self.psu, self.cooler):
             if ref and ref.is_set():
                 return False
@@ -193,6 +212,7 @@ def request_from_dict(data: dict) -> BuildRequest:
     ram_raw = data.get("ram") or {}
     gpu_raw = data.get("gpu") or {}
     st_raw = data.get("storage") or {}
+    storages_raw = data.get("storages") or []
 
     cpu = CPURequirements(
         fixed=_as_fixed_ref(cpu_raw),
@@ -216,12 +236,23 @@ def request_from_dict(data: dict) -> BuildRequest:
         preferred_type=st_raw.get("preferred_type"),
     )
 
+    storages: list[StorageRequirements] = []
+    if isinstance(storages_raw, list):
+        for item in storages_raw:
+            if not isinstance(item, dict):
+                continue
+            storages.append(StorageRequirements(
+                min_gb=item.get("min_gb"),
+                preferred_type=item.get("preferred_type"),
+            ))
+
     return BuildRequest(
         budget_usd=data.get("budget_usd"),
         cpu=cpu,
         ram=ram,
         gpu=gpu,
         storage=storage,
+        storages=storages,
         motherboard=_as_fixed_block(data.get("motherboard")),
         case=_as_fixed_block(data.get("case")),
         psu=_as_fixed_block(data.get("psu")),

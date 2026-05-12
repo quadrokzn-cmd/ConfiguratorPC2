@@ -241,7 +241,13 @@ def _build_to_variant(
     if build["gpu"] is not None:
         components.append(make_choice("gpu", build["gpu"]))
 
-    components.append(make_choice("storage", build["storage"]))
+    # Multi-storage (backlog #7): рендерим все накопители из storage_list.
+    # Fallback на одиночный storage сохраняем для backwards compat.
+    storage_items = build.get("storage_list") or []
+    if not storage_items and build.get("storage") is not None:
+        storage_items = [build["storage"]]
+    for st in storage_items:
+        components.append(make_choice("storage", st))
     # Если корпус со встроенным БП (сценарий B) — отдельного PSU нет.
     if build["psu"] is not None:
         components.append(make_choice("psu", build["psu"]))

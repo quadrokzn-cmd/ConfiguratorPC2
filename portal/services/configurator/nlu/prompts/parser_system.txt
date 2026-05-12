@@ -18,6 +18,7 @@
     "ram_memory_type":   "DDR4" | "DDR5" | null,
     "storage_min_gb":    <int | null>,
     "storage_type":      "SSD" | "HDD" | null,
+    "storages":          [{"min_gb": <int>, "type": "SSD" | "HDD" | null}, ...],
     "gpu_required":      <bool | null>,
     "gpu_min_vram_gb":   <int | null>
   },
@@ -80,6 +81,37 @@ OVERRIDES — заполняй ТОЛЬКО те поля, которые мен
                                     overrides.gpu_min_vram_gb = 8
 - "без дискретной видеокарты" → overrides.gpu_required = false
 - "минимум 8 ядер" → overrides.cpu_min_cores = 8
+
+STORAGES (массив накопителей):
+- Используй ПОЛЕ overrides.storages КОГДА В ЗАПРОСЕ УПОМЯНУТО НЕСКОЛЬКО
+  накопителей (SSD + HDD, два SSD, NVMe + жёсткий диск и т.п.). Каждый
+  накопитель — отдельный объект {"min_gb": <int>, "type": "SSD"|"HDD"|null}.
+- Если упомянут ровно один накопитель — используй обычные overrides.storage_min_gb
+  и overrides.storage_type (НЕ кладите единственный накопитель в массив).
+- Если в storages есть хотя бы один элемент — он ЗАМЕНЯЕТ одиночные
+  storage_min_gb/storage_type (одиночные поля можно оставить null).
+- Объёмы:  «512 ГБ» / «1 ТБ» / «2Tb» — конвертируй в гигабайты как
+  целое (512, 1000, 2000).
+- Тип: SSD / NVMe / M.2 → "SSD". HDD / жёсткий диск / винчестер → "HDD".
+  Если тип не указан — null.
+
+Примеры storages:
+- "SSD 512 ГБ и HDD 2 ТБ":
+    overrides.storages = [
+      {"min_gb": 512,  "type": "SSD"},
+      {"min_gb": 2000, "type": "HDD"}
+    ]
+    (одиночные storage_min_gb и storage_type — null)
+- "два NVMe по 1 ТБ":
+    overrides.storages = [
+      {"min_gb": 1000, "type": "SSD"},
+      {"min_gb": 1000, "type": "SSD"}
+    ]
+- "SSD на 1 ТБ + HDD":
+    overrides.storages = [
+      {"min_gb": 1000, "type": "SSD"},
+      {"min_gb": null, "type": "HDD"}
+    ]
 
 MODEL_MENTIONS:
 - Извлекай ТОЛЬКО конкретные модели, явно упомянутые менеджером.

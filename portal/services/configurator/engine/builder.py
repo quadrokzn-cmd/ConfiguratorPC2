@@ -179,14 +179,26 @@ def assemble_build(
             return None
 
     # --- 5. Storage ---------------------------------------------------------
-    storage = C.get_cheapest_storage(
-        session,
-        req=req.storage,
-        usd_rub=usd_rub,
-        allow_transit=allow_transit,
-    )
-    if storage is None:
-        return None
+    # Multi-storage (backlog #7): если req.storages непустой — подбираем по
+    # одному накопителю на каждое требование, исключая уже выбранные.
+    # Иначе fallback на одиночный req.storage.
+    storage_reqs = req.effective_storages()
+    storage_list: list[dict] = []
+    picked_ids: list[int] = []
+    for s_req in storage_reqs:
+        s = C.get_cheapest_storage(
+            session,
+            req=s_req,
+            usd_rub=usd_rub,
+            allow_transit=allow_transit,
+            exclude_ids=picked_ids or None,
+        )
+        if s is None:
+            return None
+        storage_list.append(s)
+        picked_ids.append(int(s["id"]))
+    # Совместимость со старой логикой: первый storage — это "основной".
+    storage = storage_list[0]
 
     # --- 6-7. Пара корпус + БП ----------------------------------------------
     # Считаем два сценария параллельно и выбираем дешевле:
@@ -290,7 +302,8 @@ def assemble_build(
     total_usd += ram_total_usd
     if gpu is not None:
         total_usd += C.to_float(gpu.get("price_usd_min"))
-    total_usd += C.to_float(storage.get("price_usd_min"))
+    for st in storage_list:
+        total_usd += C.to_float(st.get("price_usd_min"))
     total_usd += case_psu_cost
     if cooler is not None:
         total_usd += C.to_float(cooler.get("price_usd_min"))
@@ -300,7 +313,11 @@ def assemble_build(
         "motherboard": motherboard,
         "ram":         {"row": ram_row, "quantity": ram_qty, "price_usd_total": ram_total_usd},
         "gpu":         gpu,
-        "storage":     storage,
+        # storage — основной (первый) накопитель: сохраняем для backwards
+        # compat с тестами и compatibility.check_build. storage_list — полный
+        # список всех накопителей для multi-storage NLU (backlog #7).
+        "storage":      storage,
+        "storage_list": storage_list,
         "psu":         psu,
         "case":        case,
         "cooler":      cooler,

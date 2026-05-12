@@ -68,6 +68,24 @@ def _to_request_dict(merged: dict[str, Any]) -> dict[str, Any]:
     if storage:
         out["storage"] = storage
 
+    # Multi-storage (backlog #7): если overrides.storages непустой — кладём
+    # его в request_from_dict, который раскроет в BuildRequest.storages.
+    storages_raw = merged.get("storages")
+    if isinstance(storages_raw, list) and storages_raw:
+        clean: list[dict[str, Any]] = []
+        for item in storages_raw:
+            if not isinstance(item, dict):
+                continue
+            entry: dict[str, Any] = {}
+            if item.get("min_gb") is not None:
+                entry["min_gb"] = int(item["min_gb"])
+            if item.get("preferred_type"):
+                entry["preferred_type"] = str(item["preferred_type"])
+            if entry:
+                clean.append(entry)
+        if clean:
+            out["storages"] = clean
+
     return out
 
 
