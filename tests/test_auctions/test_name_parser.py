@@ -68,6 +68,30 @@ def test_speed_ppm_high_value_ignored():
     assert "print_speed_ppm" not in out
 
 
+def test_speed_ppm_a4_per_min_cyrillic():
+    """Katusha IT M450p: «50 А4/мин» — кириллическая А + «4/мин» (backlog #4)."""
+    name = (
+        "МФУ Катюша M450p принтер/копир/сканер, А3 формат, монохромный, "
+        "50 А4/мин, дуплекс есть/нет. CPU 1200 МГц, 4 ГБ RAM, Ethernet, USB"
+    )
+    out = parse_printer_attrs(name)
+    assert out["print_speed_ppm"] == 50
+
+
+def test_speed_ppm_a4_per_min_latin():
+    """Латинская A в «50 A4/мин» тоже должна работать."""
+    out = parse_printer_attrs("Принтер 47 A4/мин монохромный")
+    assert out["print_speed_ppm"] == 47
+
+
+def test_speed_ppm_a4_per_min_does_not_eat_format():
+    """Цифры формата (A4 / А4) рядом с числом скорости не должны мешать."""
+    out = parse_printer_attrs("МФУ A3 формат 30 А4/мин")
+    assert out["print_speed_ppm"] == 30
+    # max_format всё ещё ловится (A3 побеждает A4)
+    assert out["max_format"] == "A3"
+
+
 # ---- colorness ----------------------------------------------------------
 
 def test_colorness_mono_laser_eng():
@@ -172,6 +196,33 @@ def test_duplex_dupleks_word():
 
 def test_duplex_absent():
     out = parse_printer_attrs("Printer A4 30 ppm")
+    assert "duplex" not in out
+
+
+def test_duplex_from_dadf():
+    """DADF (Duplex Auto Document Feeder) — однозначно подразумевает
+    duplex-печать в проф. MFP-классе (Konica Minolta, Xerox)."""
+    out = parse_printer_attrs(
+        "Konica Minolta bizhub C257i, A3, 25 стр/мин, DADF, USB, LAN"
+    )
+    assert out["duplex"] == "yes"
+
+
+def test_duplex_from_spdf():
+    """SPDF (Single-Pass Duplex Feeder) — типично для Ricoh."""
+    out = parse_printer_attrs("Ricoh IM C6500, A3, 65 ppm, SPDF, дуплекс есть")
+    assert out["duplex"] == "yes"
+
+
+def test_duplex_from_dspf_or_dsdf():
+    """DSPF / DSDF — варианты обозначения duplex-сканера в Sharp/Canon."""
+    assert parse_printer_attrs("MFP A3 30 ppm DSPF")["duplex"] == "yes"
+    assert parse_printer_attrs("MFP A3 30 ppm DSDF")["duplex"] == "yes"
+
+
+def test_duplex_no_false_positive_from_pdf():
+    """PDF в названии не должен дать duplex (нет word-boundary с цифрой)."""
+    out = parse_printer_attrs("Принтер с поддержкой PDF, A4 20 ppm")
     assert "duplex" not in out
 
 

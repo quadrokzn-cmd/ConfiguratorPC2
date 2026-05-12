@@ -39,11 +39,13 @@ from typing import Any
 
 # Число + единица. Допускаем разделитель: пробел, неразрывный пробел, без
 # пробела. Поддерживаем форматы ppm / pages per minute / стр./мин / страниц
-# в минуту.
+# в минуту / А4/мин (Katusha IT M450p: «50 А4/мин» — backlog #4).
+# Латинская A и кириллическая А (U+0410) в варианте «A4/мин».
 _RE_SPEED = re.compile(
     r"(?<![А-Яа-яA-Za-z0-9])(\d{1,3})\s*"
     r"(?:ppm|pages?\s*/\s*min|pages?\s+per\s+minute"
-    r"|стр\.?\s*/\s*мин|страниц(?:\s*/\s*мин|\s+в\s+минуту))"
+    r"|стр\.?\s*/\s*мин|страниц(?:\s*/\s*мин|\s+в\s+минуту)"
+    r"|[АA]4\s*/\s*мин)"
 )
 
 
@@ -121,7 +123,8 @@ def _parse_max_format(norm: str) -> str | None:
 # ---- Дуплекс --------------------------------------------------------------
 
 _RE_DUPLEX = re.compile(
-    r"\bduplex\b|дуплекс|двусторонн\w+\s+печат\w*",
+    r"\bduplex\b|дуплекс|двусторонн\w+\s+печат\w*"
+    r"|\b(?:DADF|DSDF|DSPF|SPDF)\b",
     re.IGNORECASE,
 )
 # Иногда сокращают `dn` / `dw` / `dnw` в конце MPN — это маркер duplex+net+wifi.
@@ -290,12 +293,15 @@ def parse_printer_attrs(name: str | None) -> dict[str, Any]:
     `n/a` — ключ либо есть с конкретным значением, либо отсутствует.
 
     Поддерживаемые ключи:
-    - print_speed_ppm (int): «22 ppm», «30 стр/мин», «40 страниц в минуту»
+    - print_speed_ppm (int): «22 ppm», «30 стр/мин», «40 страниц в минуту»,
+      «50 А4/мин» (типично для Katusha IT M-серии).
     - colorness (str): «ч/б» из «Mono», «monochrome», «Mono laser», «BW»;
       «цветной» из «Color».
     - max_format (str): «A4» / «A3» из «A4»/«А4»/«A3»/«А3» (кир/лат).
       A3 побеждает A4 при упоминании обоих.
-    - duplex (str): «yes» из «duplex», «дуплекс», «двусторонняя печать».
+    - duplex (str): «yes» из «duplex», «дуплекс», «двусторонняя печать»,
+      «DADF» / «SPDF» / «DSDF» / «DSPF» (Single-Pass Duplex Feeder —
+      в проф. MFP всегда подразумевает duplex-печать).
     - resolution_dpi (int): из «1200 dpi», «2400x600 dpi» (макс по
       горизонтали).
     - print_technology (str): «лазерная» из «laser», «лазерн*»,
