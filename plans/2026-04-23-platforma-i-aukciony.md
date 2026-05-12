@@ -841,3 +841,35 @@ DoD: система работает на проде полный рабочий
     2. **21 «unknown» SKU из 2026-05-12 батча** — есть на preprod, нет на prod. Скорее всего наполнят авто-загрузки прайсов (утренний cron 07:00-07:40). Можно проверить через сутки и при необходимости перезалить эти 21 SKU из архива.
     3. **Margin distribution median ~13%** — близко к порогу 15%, что означает большая часть «теоретически рентабельных» лотов балансирует около порога. Это сигнал для дашборда Волны 3 (показывать лоты в окне ±5п.п. от порога отдельной плашкой). На этом этапе не действуем.
   - Рефлексия: `.business/история/2026-05-13-apply-enrichment-prod.md`.
+
+- **Мини-этап 2026-05-13 фикс фильтра регионов в инбоксе.** Лоты из стоп-регионов (`excluded_regions`) попадали в инбокс — собственник увидел в «Срочно» лоты из Магаданской и Приморского. Discovery на pre-prod показал **двойной баг**:
+  - **Баг A — отсутствие нормализации регионов.** `ingest/filters.py::compute_flags` сравнивал `card.customer_region in settings.excluded_region_names` через точное равенство строк. На zakupki «Место нахождения» приходит в разных формах: «Магаданская **обл**», «Саха (Якутия) Респ», «Татарстан Респ», «МОСКОВСКАЯ ОБЛАСТЬ» — а seed `excluded_regions` хранит «Магаданская **область**», «Якутия» и т.д. Точное равенство не срабатывало → `flags_jsonb={}` пустой → флага нет → дашборд видит лот. Цифра pre-prod: лот `0347100000426000038` (Магаданская обл, НМЦК 811 500 ₽) — `flags_jsonb={}` вместо ожидаемого `excluded_by_region=true`.
+  - **Баг B — отсутствие SQL-фильтра в дашборде.** `auctions_service.py::_INBOX_SQL` **не имел** условия `WHERE NOT COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)`. Даже корректно проставленный флаг игнорировался UI. Цифра pre-prod: лот `0320300133926000052` (Приморский край, НМЦК 6 507 790 ₽) — `flags_jsonb.excluded_by_region=true`, но лот в секции «Срочно».
+  - **Архитектура решения** (зафиксирована собственником в задаче):
+    1. Стоп-лист **жёсткий по умолчанию**, SQL дашборда фильтрует по `flags_jsonb->>'excluded_by_region'`.
+    2. UI-чекбокс «показать стоп-регионы» (по умолчанию выключен) — query-param `include_excluded_regions=1`.
+    3. **Нормализация в коде**, не миграция: `portal/services/auctions/region_normalizer.py::canonical_region` приводит обе строки (seed и карточка) к канонической форме (lowercase, `обл`→`область`, `респ`→`республика`, синоним `Саха`=`Якутия`, выравнивание порядка `<X> республика` → `республика <X>`, отрезание префикса `г.`/`город`). Идемпотентно.
+  - **Артефакты (код):**
+    - `portal/services/auctions/region_normalizer.py` — новый модуль, ~50 строк, чистая функция `canonical_region(str|None) -> str`.
+    - `portal/services/auctions/ingest/filters.py` — заменён `card.customer_region in settings.excluded_region_names` на `canonical_region(card.customer_region) in {canonical_region(n) for n in settings.excluded_region_names}`. `PlatformSettings` не изменён (canonicals вычисляются на лету) — обратная совместимость тестов сохранена.
+    - `portal/services/auctions_service.py` — в `InboxFilters` добавлено поле `include_excluded_regions: bool = False`; в `_INBOX_SQL` добавлено условие `AND (:include_excluded_regions = 1 OR NOT COALESCE((t.flags_jsonb->>'excluded_by_region')::boolean, false))`; в `get_inbox_data` соответствующий параметр.
+    - `portal/routers/auctions.py` — парс QP `include_excluded_regions`, проброс в `InboxFilters` и в контекст шаблона.
+    - `portal/templates/auctions/inbox.html` — новый `<label>` с `data-testid="filter-include-excluded-regions"` рядом с «только печать». По умолчанию выключен, при `?include_excluded_regions=1` — отмечен.
+    - `scripts/refresh_excluded_region_flag.py` — backfill: для каждого `tenders` пересчитывает `flags_jsonb.excluded_by_region` через канонизацию. Идемпотентен. Batched UPDATE по 100 строк (см. memory `feedback_remote_db_n1_pattern`). Не перепарсивает `raw_html`, не трогает остальные ключи флагов.
+  - **Артефакты (тесты):**
+    - `tests/test_auctions/test_region_normalizer.py` — 31 кейс: формы регионов из pre-prod, идемпотентность, кросс-матчинг seed ↔ card.
+    - `tests/test_auctions/test_ingest_filters.py` — +4 кейса: абревиатура «обл», синоним «Саха (Якутия)», регистр, негативный кейс «Татарстан» (не в стоп-листе).
+    - `tests/test_portal/test_auctions_excluded_regions.py` — 4 кейса: скрытие по умолчанию, возврат с галочкой, рендер чекбокса по умолчанию выключенного / отмеченного при QP.
+  - **Pytest:** **1968 passed, 4 skipped** (~71 сек), 0 failed. Прирост от baseline 1936 (multi-storage-nlu): +32 теста (31 normalizer + 4 inbox + 4 filters − 7 уже было). 
+  - **Цифры pre-prod (backfill apply):**
+    - **До:** всего 177 tenders, с `excluded_by_region=true` — 4 (только лоты, где `customer_region` случайно совпал с seed-формой: «Приморский край», «Чукотский АО»).
+    - **После backfill:** с `excluded_by_region=true` — **11** (+7). Из 7 новых: 1 «Магаданская обл», 6 — другие сокращённые формы стоп-регионов.
+    - Лот `0347100000426000038` (Магаданская обл): `flags_jsonb` теперь содержит `excluded_by_region=true, excluded_region_name='Магаданская обл'` ✓. В дашборде по умолчанию **не появляется**.
+    - Лот `0320300133926000052` (Приморский край): флаг уже был, после фикса дашборда **не появляется** в инбоксе ✓.
+  - **Реализован целиком**, открытых задач нет.
+  - **Что НЕ входит** (вынесено):
+    - Backfill на prod — рекомендация собственнику в рефлексии: `python scripts/refresh_excluded_region_flag.py <prod-.env>`. Скрипт идемпотентен, безопасно прогнать. Перед запуском SELECT-проверка: `SELECT COUNT(*) FROM tenders WHERE COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)` — записать число «до».
+    - Миграция в БД — **не делаем** (нормализация в коде, seed и фактические значения трогать не нужно).
+    - Расширение списка алиасов (если на проде появятся ещё формы — добавлять в `region_normalizer.py` через regex/synonym map; новых тестов на кейс).
+  - **Параллельный чат** (enrichment принтеров на prod) работал в той же сессии — зон пересечения не было; единственная точка — этот же plans-файл, оба мини-этапа в нём остаются.
+  - Рефлексия: `.business/история/2026-05-13-region-filter-fix.md`.

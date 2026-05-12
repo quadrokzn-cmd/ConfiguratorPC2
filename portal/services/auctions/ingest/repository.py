@@ -14,6 +14,8 @@ from portal.services.auctions.ingest.card_parser import TenderCard
 class PlatformSettings:
     nmck_min_rub: float
     max_price_per_unit_rub: float
+    # Названия регионов в форме, как они хранятся в `excluded_regions.region_name`.
+    # Матчинг идёт по канонической форме — см. filters.py / region_normalizer.py.
     excluded_region_names: frozenset[str]
     ktru_watchlist: tuple[tuple[str, str], ...]
 

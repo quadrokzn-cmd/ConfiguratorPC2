@@ -45,6 +45,40 @@ def test_flags_excluded_region():
     assert flags["excluded_region_name"] == "Приморский край"
 
 
+def test_flags_excluded_region_matches_abbreviated_form():
+    """Фикс 2026-05-13: seed «Магаданская область» должен матчить
+    карточку с «Магаданская обл» (zakupki короткой форме)."""
+    settings = _settings(excluded_region_names=frozenset({"Магаданская область"}))
+    flags = compute_flags(_card(region="Магаданская обл"), settings)
+    assert flags["excluded_by_region"] is True
+    # В excluded_region_name сохраняем сырое значение из карточки —
+    # удобно для аудита, какой именно текст пришёл с zakupki.
+    assert flags["excluded_region_name"] == "Магаданская обл"
+
+
+def test_flags_excluded_region_matches_sakha_synonym():
+    """Seed «Якутия» должен матчить «Саха (Якутия) Респ»
+    (исторический синоним)."""
+    settings = _settings(excluded_region_names=frozenset({"Якутия"}))
+    flags = compute_flags(_card(region="Саха (Якутия) Респ"), settings)
+    assert flags["excluded_by_region"] is True
+
+
+def test_flags_excluded_region_case_insensitive():
+    """Регистр заказчика-региона на zakupki — разный
+    (МОСКОВСКАЯ ОБЛАСТЬ / Московская обл). Совпадать должно через канон."""
+    settings = _settings(excluded_region_names=frozenset({"Приморский край"}))
+    flags = compute_flags(_card(region="ПРИМОРСКИЙ КРАЙ"), settings)
+    assert flags["excluded_by_region"] is True
+
+
+def test_flags_excluded_region_no_match_for_other_region():
+    """Регион не из стоп-листа — флаг не взводится."""
+    settings = _settings(excluded_region_names=frozenset({"Приморский край"}))
+    flags = compute_flags(_card(region="Республика Татарстан"), settings)
+    assert "excluded_by_region" not in flags
+
+
 def test_flags_below_nmck():
     flags = compute_flags(_card(nmck=Decimal("10000")), _settings())
     assert flags["below_nmck_min"] is True

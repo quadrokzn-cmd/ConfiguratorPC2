@@ -4,6 +4,7 @@ from typing import Any
 
 from portal.services.auctions.ingest.card_parser import TenderCard
 from portal.services.auctions.ingest.repository import PlatformSettings
+from portal.services.auctions.region_normalizer import canonical_region
 
 # После перехода на 2 KTRU-зонтика (миграция 0009) watchlist почти никогда не
 # пересекается с конкретными кодами карточки (карточки содержат точные позиции
@@ -23,9 +24,17 @@ def compute_flags(card: TenderCard, settings: PlatformSettings) -> dict[str, Any
     """
     flags: dict[str, Any] = {}
 
-    if card.customer_region and card.customer_region in settings.excluded_region_names:
-        flags["excluded_by_region"] = True
-        flags["excluded_region_name"] = card.customer_region
+    if card.customer_region:
+        # На zakupki «Место нахождения» приходит в разных формах
+        # («Магаданская обл» vs «Магаданская область», «Саха (Якутия) Респ»
+        # vs «Якутия»). Сравниваем по канонической форме — иначе лоты из
+        # стоп-регионов теряют флаг. См. region_normalizer.py.
+        excluded_canonicals = {
+            canonical_region(n) for n in settings.excluded_region_names if n
+        }
+        if canonical_region(card.customer_region) in excluded_canonicals:
+            flags["excluded_by_region"] = True
+            flags["excluded_region_name"] = card.customer_region
 
     if card.nmck_total is not None and float(card.nmck_total) < settings.nmck_min_rub:
         flags["below_nmck_min"] = True

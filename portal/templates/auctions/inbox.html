@@ -174,6 +174,14 @@
                data-testid="filter-print-only">
         <span>только печать</span>
       </label>
+      <label class="inline-flex items-center gap-2 text-small"
+             title="По умолчанию лоты из стоп-регионов (см. /auctions/settings) скрыты. Поставьте галочку, чтобы временно их увидеть.">
+        <input type="checkbox" name="include_excluded_regions" value="1"
+               {% if filters.include_excluded_regions %}checked{% endif %}
+               class="rounded border-line-subtle"
+               data-testid="filter-include-excluded-regions">
+        <span>показать стоп-регионы</span>
+      </label>
     </div>
     <div class="md:col-span-4 flex justify-end gap-2">
       <a href="/auctions" class="btn btn-secondary btn-sm">Сбросить</a>

@@ -226,6 +226,10 @@ class InboxFilters:
     search: str | None = None
     urgent_only: bool = False
     print_only: bool = False
+    # Стоп-лист регионов по умолчанию жёсткий: лоты с
+    # `flags_jsonb.excluded_by_region=true` скрыты из инбокса. Менеджер
+    # может вручную включить их через UI-чекбокс «показать стоп-регионы».
+    include_excluded_regions: bool = False
 
 
 _INBOX_SQL = """
@@ -287,6 +291,15 @@ SELECT t.reg_number,
         :print_only = 0
         OR (COALESCE(ib.total_cnt, 0) > 0
             AND COALESCE(ib.total_cnt, 0) = COALESCE(ib.printer_cnt, 0))
+       )
+   -- Стоп-лист регионов: по умолчанию скрываем лоты с флагом
+   -- excluded_by_region (взводится в ingest/filters.py::compute_flags
+   -- по канонической форме customer_region — см. region_normalizer.py).
+   -- Менеджер может временно показать их, отметив UI-чекбокс
+   -- «показать стоп-регионы» (?include_excluded_regions=1).
+   AND (
+        :include_excluded_regions = 1
+        OR NOT COALESCE((t.flags_jsonb->>'excluded_by_region')::boolean, false)
        )
  ORDER BY t.submit_deadline DESC NULLS LAST, t.reg_number
 """
@@ -355,6 +368,7 @@ def get_inbox_data(
         "search":            filters.search,
         "search_like":       f"%{filters.search}%" if filters.search else None,
         "print_only":        1 if filters.print_only else 0,
+        "include_excluded_regions": 1 if filters.include_excluded_regions else 0,
     }
 
     rows = db.execute(text(_INBOX_SQL), params).all()

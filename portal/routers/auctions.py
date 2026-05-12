@@ -99,6 +99,7 @@ def auctions_inbox(
     search = (qp.get("q") or "").strip() or None
     urgent_only = qp.get("urgent_only", "") in ("1", "on", "true")
     print_only = qp.get("print_only", "") in ("1", "on", "true")
+    include_excluded_regions = qp.get("include_excluded_regions", "") in ("1", "on", "true")
 
     filters = svc.InboxFilters(
         statuses=statuses,
@@ -107,6 +108,7 @@ def auctions_inbox(
         search=search,
         urgent_only=urgent_only,
         print_only=print_only,
+        include_excluded_regions=include_excluded_regions,
     )
 
     margin_threshold = svc.read_setting_int(db, "margin_threshold_pct", 15)
@@ -138,6 +140,7 @@ def auctions_inbox(
                 "search":      search or "",
                 "urgent_only": urgent_only,
                 "print_only":  print_only,
+                "include_excluded_regions": include_excluded_regions,
             },
             "fmt_msk":              svc.format_msk_dt,
             "info":                 flash_info,
