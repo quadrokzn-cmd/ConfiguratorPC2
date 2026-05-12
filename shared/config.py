@@ -32,6 +32,35 @@ def _require_env(name: str) -> str:
     return val
 
 
+def _resolve_database_url() -> str:
+    """Читает DSN PostgreSQL c fallback'ом DATABASE_URL → DATABASE_PUBLIC_URL.
+
+    Railway раздаёт два варианта URL: DATABASE_URL для внутренних
+    подключений из сервиса (короткий host) и DATABASE_PUBLIC_URL для
+    внешних подключений через прокси (`*.proxy.rlwy.net:port`). В
+    dev-env-файлах для подключения снаружи к prod-БД исторически
+    пишется именно DATABASE_PUBLIC_URL — fallback позволяет коду из
+    shared.config работать с такими файлами без переименования
+    переменной.
+
+    Приоритет: DATABASE_URL → DATABASE_PUBLIC_URL. При срабатывании
+    fallback'а — INFO-лог (без значения, только сам факт).
+    """
+    raw = os.getenv("DATABASE_URL", "").strip()
+    if raw:
+        return raw
+    fallback = os.getenv("DATABASE_PUBLIC_URL", "").strip()
+    if fallback:
+        logger.info("database_url fallback: using DATABASE_PUBLIC_URL")
+        return fallback
+    raise RuntimeError(
+        "Переменная DATABASE_URL не задана, DATABASE_PUBLIC_URL тоже. "
+        "Проверьте файл .env в корне проекта: он должен существовать и "
+        "содержать «DATABASE_URL=...» (или, для внешних подключений к "
+        "Railway, «DATABASE_PUBLIC_URL=...»)."
+    )
+
+
 def _is_production_env() -> bool:
     """True, если APP_ENV=production. Используется для production-проверок."""
     return os.getenv("APP_ENV", "").strip().lower() == "production"
@@ -94,7 +123,7 @@ class Settings:
     app_env: str = field(default_factory=lambda: os.getenv("APP_ENV", "development"))
 
     # --- Обязательные ---
-    database_url:   str = field(default_factory=lambda: _require_env("DATABASE_URL"))
+    database_url:   str = field(default_factory=_resolve_database_url)
     openai_api_key: str = field(default_factory=lambda: _require_env("OPENAI_API_KEY"))
 
     # --- Этап 5: веб-сервис ---
