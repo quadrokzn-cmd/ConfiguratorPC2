@@ -4,7 +4,14 @@
     1) сканируем все JSON-файлы в `enrichment/auctions/done/`;
     2) валидируем каждый по schema.PRINTER_MFU_ATTRS;
     3) если есть ошибки — файл пропускаем целиком и логируем;
-    4) UPDATE по каждому SKU, ставим attrs_source='claude_code', attrs_updated_at=now();
+    4) **Per-key merge** (Backlog #10, 2026-05-12): для каждого SKU
+       читаем текущие `attrs_jsonb`/`attrs_source` и мерджим:
+       - `attrs_jsonb`: n/a из done не затирает существующее не-n/a;
+         не-n/a из done побеждает (см. `merge.py::merge_attrs`).
+       - `attrs_source`: union через `+`-разделитель, дедуп,
+         порядок появления сохранён (см. `merge.py::merge_source`).
+       UPDATE выполняется только если merge изменил состояние —
+       иначе SKU попадает в счётчик `skus_unchanged` (идемпотентность).
     5) обработанные файлы переносим в `enrichment/auctions/archive/<YYYY-MM-DD>/`.
 
 Этап 8 слияния (2026-05-08): таблица переименована `nomenclature` → `printers_mfu`,
@@ -25,6 +32,10 @@ from sqlalchemy import text
 from shared.db import engine
 from portal.services.auctions.catalog.cost_base import recompute_cost_base
 from portal.services.auctions.catalog.enrichment.exporter import ENRICHMENT_ROOT
+from portal.services.auctions.catalog.enrichment.merge import (
+    merge_attrs,
+    merge_source,
+)
 from portal.services.auctions.catalog.enrichment.schema import (
     PRINTER_MFU_ATTRS,
     SOURCE_CLAUDE_CODE,
@@ -40,6 +51,7 @@ def _empty_report() -> dict:
         "files_imported":  0,
         "files_rejected":  0,
         "skus_updated":    0,
+        "skus_unchanged":  0,
         "skus_unknown":    0,
         "skus_invalid":    0,
         "reject_reasons":  Counter(),
@@ -112,23 +124,55 @@ def _process_file(path: Path, report: dict, *, dry_run: bool) -> None:
 
     updated_skus: list[str] = []
     skus_unknown = 0
+    skus_unchanged = 0
     try:
         with engine.begin() as conn:
             for item in payload["results"]:
                 sku = item["sku"]
-                attrs = item["attrs"]
+                incoming_attrs = item["attrs"]
+
+                existing_row = conn.execute(
+                    text(
+                        "SELECT attrs_jsonb, attrs_source "
+                        "FROM printers_mfu WHERE sku = :sku"
+                    ),
+                    {"sku": sku},
+                ).first()
+                if existing_row is None:
+                    skus_unknown += 1
+                    continue
+
+                existing_attrs = existing_row.attrs_jsonb or {}
+                existing_source = existing_row.attrs_source
+
+                # Per-key merge: n/a из done не затирает существующее
+                # не-n/a; не-n/a из done побеждает (claude_code считаем
+                # авторитетнее regex/предыдущей claude-сессии). См.
+                # merge.py для деталей и Backlog #10 для контекста.
+                merged_attrs = merge_attrs(existing_attrs, incoming_attrs)
+                merged_source = merge_source(existing_source, SOURCE_CLAUDE_CODE)
+
                 if dry_run:
-                    exists = conn.execute(
-                        text("SELECT 1 FROM printers_mfu WHERE sku = :sku"),
-                        {"sku": sku},
-                    ).first()
-                    if exists is None:
-                        skus_unknown += 1
+                    if (
+                        merged_attrs == existing_attrs
+                        and merged_source == existing_source
+                    ):
+                        skus_unchanged += 1
                     else:
                         updated_skus.append(sku)
                     continue
 
-                result = conn.execute(
+                if (
+                    merged_attrs == existing_attrs
+                    and merged_source == existing_source
+                ):
+                    # Идемпотентность: повторный импорт того же содержимого
+                    # → 0 строк меняется. Не дёргаем UPDATE, чтобы
+                    # attrs_updated_at не скакал на каждом прогоне.
+                    skus_unchanged += 1
+                    continue
+
+                conn.execute(
                     text(
                         """
                         UPDATE printers_mfu
@@ -139,15 +183,12 @@ def _process_file(path: Path, report: dict, *, dry_run: bool) -> None:
                         """
                     ),
                     {
-                        "attrs":  json.dumps(attrs, ensure_ascii=False),
-                        "source": SOURCE_CLAUDE_CODE,
+                        "attrs":  json.dumps(merged_attrs, ensure_ascii=False),
+                        "source": merged_source,
                         "sku":    sku,
                     },
                 )
-                if result.rowcount == 0:
-                    skus_unknown += 1
-                else:
-                    updated_skus.append(sku)
+                updated_skus.append(sku)
     except Exception as exc:
         report["files_rejected"] += 1
         report["reject_reasons"]["db_write_failed"] += 1
@@ -156,6 +197,7 @@ def _process_file(path: Path, report: dict, *, dry_run: bool) -> None:
 
     report["files_imported"] += 1
     report["skus_updated"] += len(updated_skus)
+    report["skus_unchanged"] += skus_unchanged
     report["skus_unknown"] += skus_unknown
 
     if not dry_run:
@@ -196,6 +238,7 @@ def format_report(report: dict, *, dry_run: bool) -> str:
     lines.append(f"  импортировано:          {report['files_imported']}")
     lines.append(f"  отклонено:              {report['files_rejected']}")
     lines.append(f"SKU обновлено:            {report['skus_updated']}")
+    lines.append(f"SKU без изменений:        {report.get('skus_unchanged', 0)}")
     lines.append(f"SKU не найдено в БД:      {report['skus_unknown']}")
     lines.append(f"SKU с невалидными attrs:  {report['skus_invalid']}")
 
