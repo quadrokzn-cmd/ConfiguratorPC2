@@ -320,6 +320,57 @@ def test_upsert_empty_response(db_engine):
     assert _count_catalog(db_engine) == 0
 
 
+def test_upsert_batches_large_input_into_chunks(db_engine):
+    """8.3 (bonus). Большой вход (2500 item'ов) → batched UPSERT
+    проходит за несколько chunk'ов (chunk_size=1000) и все 2500
+    позиций оказываются в БД. Проверяем счётчики, число строк
+    в catalog и корректность данных на репрезентативных позициях.
+
+    Этот тест защищает chunked-flow: per-item commit без батчинга
+    на удалённой Railway-БД даёт ~80 row/min из-за сетевой latency.
+    Если кто-то откатит chunked-логику, тест продолжит проходить
+    (он не измеряет время), поэтому он именно за корректность —
+    защита от регрессии «batch SQL некорректно собирает параметры»
+    или «RETURNING на multi-row UPSERT возвращает не то».
+    """
+    items = [
+        {
+            "MaterialID":    f"BATCH-{i:05d}",
+            "PartNum":       f"PN-{i}",
+            "MaterialText":  f"Item #{i}",
+            "MaterialGroup": "Z431",
+            "Vendor":        "Kingston",
+            "VendorPart":    f"VP-{i}",
+            "Weight":        "0.05",
+            "VAT":           "20.00",
+        }
+        for i in range(2500)
+    ]
+    response = _md_response(items)
+
+    # chunk_size=1000 → ровно 2 полных chunk'а + остаток 500.
+    counters = upsert_catalog(db_engine, response, chunk_size=1000)
+
+    assert counters == {"inserted": 2500, "updated": 0, "errors": 0}
+    assert _count_catalog(db_engine) == 2500
+
+    # Точечная сверка: первый, средний и последний item должны быть
+    # записаны корректно (а не только число строк).
+    for idx in (0, 1249, 2499):
+        row = _select_catalog_row(db_engine, f"BATCH-{idx:05d}")
+        assert row is not None, f"BATCH-{idx:05d} не найдена"
+        assert row["vendor"]        == "Kingston"
+        assert row["vendor_part"]   == f"VP-{idx}"
+        assert row["material_text"] == f"Item #{idx}"
+        assert row["weight"]        == Decimal("0.05")
+
+    # Повторный UPSERT тем же набором → все 2500 должны стать updated,
+    # ни одной новой строки в БД не добавится.
+    counters_again = upsert_catalog(db_engine, response, chunk_size=1000)
+    assert counters_again == {"inserted": 0, "updated": 2500, "errors": 0}
+    assert _count_catalog(db_engine) == 2500
+
+
 # =====================================================================
 # Integration: fetcher.fetch_and_save() с delta
 # =====================================================================

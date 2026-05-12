@@ -224,9 +224,20 @@ def _item_to_jsonable(item: Any) -> dict[str, Any]:
     return _coerce(item)
 
 
+# Размер chunk'а для batch UPSERT'а. 500 — это компромисс между:
+#   * psycopg2-лимитом на число параметров в одном запросе (~32767);
+#     при 16 колонках × 500 = 8000 параметров — с запасом;
+#   * сетевой latency удалённых БД (Railway prod);
+#     1 round-trip вместо 500 на каждые 500 позиций.
+# На локальной БД ускорения почти не даёт, на удалённой — ~200x+.
+_BATCH_CHUNK_SIZE = 500
+
+
 def upsert_catalog(
     engine: Engine,
     material_data_response: Any,
+    *,
+    chunk_size: int = _BATCH_CHUNK_SIZE,
 ) -> dict[str, int]:
     """Записывает позиции из ответа GetMaterialData в resurs_media_catalog.
 
@@ -236,16 +247,23 @@ def upsert_catalog(
       - dict {"MaterialData_Tab": null} (пустой ответ)
       - zeep CompoundValue — распакуется через _items_in_tab.
 
-    Делает UPSERT по material_id, synced_at = NOW().
+    Делает UPSERT по material_id, synced_at = NOW(), батчем
+    `INSERT ... VALUES (...), (...), ... ON CONFLICT ... DO UPDATE`
+    в одной транзакции на chunk_size позиций. Это критично для
+    удалённой БД (Railway prod): per-item commit с latency 50-100ms
+    на каждом round-trip превращает 25k позиций в 5+ часов работы.
 
     Возвращает счётчики:
       {inserted, updated, errors}.
 
-    Ошибки парсинга/insert'а одного item'а не блокируют остальные —
-    счётчик errors инкрементируется, цикл продолжается. Это страховка
-    против неожиданных значений (например, NULL в обязательном поле):
-    bootstrap-скрипт не должен падать целиком из-за одной кривой
-    позиции.
+    Ошибки. Item без MaterialID отфильтровывается до batch'а
+    (errors += 1). Если падает сам batch (например, кривая запись
+    внутри chunk'а или duplicate material_id в одном INSERT) —
+    fall-back на per-item обработку этого chunk'а: каждая позиция
+    в своей транзакции, ошибка одной не блокирует остальные.
+    Это сохраняет инвариант «одна кривая позиция не валит всю
+    операцию», но платит сетевой latency только за проблемный
+    chunk, а не за весь каталог.
     """
     counters = {"inserted": 0, "updated": 0, "errors": 0}
 
@@ -254,17 +272,17 @@ def upsert_catalog(
     if not items:
         return counters
 
-    # INSERT ... ON CONFLICT с трюком xmax = 0 — определяем, был это
-    # INSERT или UPDATE без дополнительного SELECT'а.
     flat_cols = ("material_id",) + _FLAT_FIELDS
-    placeholders = ", ".join(f":{c}" for c in flat_cols)
     update_set = ", ".join(
         f"{c} = EXCLUDED.{c}" for c in _FLAT_FIELDS
     )
-    sql = text(
+
+    # SQL для per-item фолбэка — тот же, что был до chunked-варианта.
+    per_item_sql = text(
         "INSERT INTO resurs_media_catalog "
         f"    ({', '.join(flat_cols)}, raw_jsonb, synced_at) "
-        f"VALUES ({placeholders}, CAST(:raw_jsonb AS JSONB), NOW()) "
+        f"VALUES ({', '.join(f':{c}' for c in flat_cols)}, "
+        "        CAST(:raw_jsonb AS JSONB), NOW()) "
         "ON CONFLICT (material_id) DO UPDATE SET "
         f"    {update_set}, "
         "    raw_jsonb = EXCLUDED.raw_jsonb, "
@@ -272,44 +290,93 @@ def upsert_catalog(
         "RETURNING (xmax = 0) AS inserted"
     )
 
-    for item in items:
-        try:
-            material_id = _strip_or_empty(_get(item, "MaterialID"))
-            if not material_id:
+    def _per_item_fallback(chunk: list[dict[str, Any]]) -> None:
+        for p in chunk:
+            try:
+                with engine.begin() as conn:
+                    row = conn.execute(per_item_sql, p).first()
+                if row is None:
+                    counters["errors"] += 1
+                    continue
+                if bool(row.inserted):
+                    counters["inserted"] += 1
+                else:
+                    counters["updated"] += 1
+            except Exception as exc:
                 logger.warning(
-                    "resurs_media_catalog: пропускаю item без MaterialID."
+                    "resurs_media_catalog: ошибка UPSERT'а material_id=%r — "
+                    "(%s: %s)",
+                    p.get("material_id") or "<no-id>",
+                    type(exc).__name__, exc,
                 )
                 counters["errors"] += 1
-                continue
-            params: dict[str, Any] = {"material_id": material_id}
-            params.update(_extract_flat_fields(item))
-            params["raw_jsonb"] = json.dumps(
-                _item_to_jsonable(item), ensure_ascii=False,
-            )
-            with engine.begin() as conn:
-                row = conn.execute(sql, params).first()
-            if row is None:
-                # На практике не достижимо (DO UPDATE всегда возвращает),
-                # но на всякий случай.
-                counters["errors"] += 1
-                continue
-            if bool(row.inserted):
-                counters["inserted"] += 1
-            else:
-                counters["updated"] += 1
-        except Exception as exc:
+
+    # Стадия 1. Подготовка параметров. Item'ы без MaterialID
+    # отфильтровываем до batch'а — они увеличивают errors и не
+    # попадают в INSERT.
+    prepared: list[dict[str, Any]] = []
+    for item in items:
+        material_id = _strip_or_empty(_get(item, "MaterialID"))
+        if not material_id:
             logger.warning(
-                "resurs_media_catalog: ошибка UPSERT'а material_id=%r — "
-                "(%s: %s)",
-                _strip_or_empty(_get(item, "MaterialID")) or "<no-id>",
-                type(exc).__name__, exc,
+                "resurs_media_catalog: пропускаю item без MaterialID."
             )
             counters["errors"] += 1
+            continue
+        params: dict[str, Any] = {"material_id": material_id}
+        params.update(_extract_flat_fields(item))
+        params["raw_jsonb"] = json.dumps(
+            _item_to_jsonable(item), ensure_ascii=False,
+        )
+        prepared.append(params)
+
+    # Стадия 2. Batch UPSERT по chunk_size.
+    for start in range(0, len(prepared), chunk_size):
+        chunk = prepared[start:start + chunk_size]
+
+        row_clauses: list[str] = []
+        batch_params: dict[str, Any] = {}
+        for i, p in enumerate(chunk):
+            ph = ", ".join(f":{c}_{i}" for c in flat_cols)
+            row_clauses.append(
+                f"({ph}, CAST(:raw_jsonb_{i} AS JSONB), NOW())"
+            )
+            for c in flat_cols:
+                batch_params[f"{c}_{i}"] = p[c]
+            batch_params[f"raw_jsonb_{i}"] = p["raw_jsonb"]
+
+        batch_sql = text(
+            "INSERT INTO resurs_media_catalog "
+            f"    ({', '.join(flat_cols)}, raw_jsonb, synced_at) "
+            f"VALUES {', '.join(row_clauses)} "
+            "ON CONFLICT (material_id) DO UPDATE SET "
+            f"    {update_set}, "
+            "    raw_jsonb = EXCLUDED.raw_jsonb, "
+            "    synced_at = NOW() "
+            "RETURNING (xmax = 0) AS inserted"
+        )
+
+        try:
+            with engine.begin() as conn:
+                rows = conn.execute(batch_sql, batch_params).all()
+            for r in rows:
+                if bool(r.inserted):
+                    counters["inserted"] += 1
+                else:
+                    counters["updated"] += 1
+        except Exception as exc:
+            logger.warning(
+                "resurs_media_catalog: batch UPSERT chunk %d..%d упал "
+                "(%s: %s) — fall-back на per-item обработку chunk'а.",
+                start, start + len(chunk),
+                type(exc).__name__, exc,
+            )
+            _per_item_fallback(chunk)
 
     logger.info(
         "resurs_media_catalog UPSERT: inserted=%d updated=%d errors=%d "
-        "(total items=%d)",
+        "(total items=%d, chunk_size=%d)",
         counters["inserted"], counters["updated"], counters["errors"],
-        len(items),
+        len(items), chunk_size,
     )
     return counters

@@ -100,6 +100,13 @@ def main(argv: list[str] | None = None) -> int:
     #    fetcher'а — они читают DATABASE_URL и RESURS_MEDIA_* в момент
     #    импорта/конструирования).
     from dotenv import load_dotenv  # noqa: E402  (lazy для тестируемости)
+    # Сначала корневой .env: там лежат OPENAI_API_KEY и прочие
+    # обязательные переменные shared.config.Settings, которые
+    # подхватываются при импорте shared.db (а его тянет fetcher).
+    # Затем --env-file с override — он перетрёт DATABASE_URL и
+    # RESURS_MEDIA_* на prod-значения, не требуя дублировать в
+    # prod-файле остальные секреты.
+    load_dotenv()
     if args.env_file:
         env_path = Path(args.env_file)
         if not env_path.exists():
@@ -110,8 +117,6 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         load_dotenv(env_path, override=True)
         logger.info("Загружен env-файл: %s", env_path)
-    else:
-        load_dotenv()
 
     # 2) Sanity-check: prod-URL без --allow-prod — отказываем.
     from scripts._resurs_media_safety import check_prod_safety  # noqa: E402
