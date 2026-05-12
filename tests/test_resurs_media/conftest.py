@@ -1,7 +1,7 @@
-# Локальный conftest для тестов модуля Resurs Media Notification.
+# Локальный conftest для тестов модуля Resurs Media.
 #
-# Чистит таблицу resurs_media_notifications перед каждым тестом, чтобы
-# тесты не зависели от порядка прогона.
+# Чистит таблицы resurs_media_notifications и resurs_media_catalog
+# перед каждым тестом, чтобы тесты не зависели от порядка прогона.
 
 from __future__ import annotations
 
@@ -10,10 +10,12 @@ from sqlalchemy import text
 
 
 @pytest.fixture(autouse=True)
-def _truncate_notifications(db_engine):
+def _truncate_resurs_media_tables(db_engine):
     with db_engine.begin() as conn:
         conn.execute(text(
-            "TRUNCATE TABLE resurs_media_notifications "
+            "TRUNCATE TABLE "
+            "  resurs_media_notifications, "
+            "  resurs_media_catalog "
             "RESTART IDENTITY CASCADE"
         ))
     yield

@@ -266,7 +266,18 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
                 f"{len(_ALL_GROUP_IDS)} group_id (warehouse={self._warehouse_id})."
             )
 
-        # 2. GetMaterialData — один вызов на все уникальные MaterialID.
+        # 2. GetMaterialData — теперь ТОЛЬКО по дельте.
+        #
+        # spec API_РМ_v7.5 раздел «Методические требования к работе с данными»
+        # рекомендует разовый bootstrap (см. scripts/resurs_media_bootstrap_catalog.py)
+        # и regular дельта-fetch по новинкам. Stale-порог 30 дней защищает
+        # от устаревания атрибутов (вес/штрих-коды у поставщика могут
+        # измениться без замены MaterialID).
+        #
+        # rate-limit edge case: если GetMaterialData по delta упадёт с
+        # повторным Result=3 — НЕ блокируем pipeline, продолжаем с тем,
+        # что у нас есть в локальном catalog'е. Новые MaterialID попробуем
+        # на следующем тике (через ~1 день в нормальной работе).
         material_ids = sorted({
             _strip_or_empty(_get(item, "MaterialID"))
             for item in raw_items
@@ -277,21 +288,82 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
                 "Resurs Media: GetPrices вернул позиции без MaterialID — "
                 "обогащать через GetMaterialData нечем."
             )
-        md_resp = self._call_with_rate_limit(
-            client,
-            "GetMaterialData",
-            MaterialID_Tab={
-                "Item": [{"MaterialID": mid} for mid in material_ids],
-            },
-            WithCharacteristics=False,
-            WithBarCodes=False,
-            WithCertificates=False,
-            WithImages=False,
-        )
-        md_index = self._build_material_index(md_resp)
 
-        # 3. Сборка PriceRow.
-        return self._save_rows(raw_items, md_index)
+        # Импорт здесь, а не на уровне модуля — чтобы тесты, не использующие
+        # БД, могли импортировать resurs_media-модуль без shared.db.engine.
+        from portal.services.configurator.auto_price.resurs_media_catalog import (
+            compute_delta, upsert_catalog,
+        )
+        from shared.db import engine
+
+        ids_to_fetch, cached_data = compute_delta(engine, material_ids)
+
+        delta_new = len(ids_to_fetch)
+        cached_hits = len(cached_data)
+        upsert_inserted = 0
+        upsert_updated = 0
+        upsert_errors = 0
+        rate_limited_pending = 0
+
+        md_index: dict[str, dict[str, str]] = {}
+        if ids_to_fetch:
+            try:
+                md_resp = self._call_with_rate_limit(
+                    client,
+                    "GetMaterialData",
+                    MaterialID_Tab={
+                        "Item": [{"MaterialID": mid} for mid in ids_to_fetch],
+                    },
+                    WithCharacteristics=False,
+                    WithBarCodes=False,
+                    WithCertificates=False,
+                    WithImages=False,
+                )
+                md_index = self._build_material_index(md_resp)
+                counters = upsert_catalog(engine, md_resp)
+                upsert_inserted = counters["inserted"]
+                upsert_updated = counters["updated"]
+                upsert_errors = counters["errors"]
+            except RuntimeError as exc:
+                # Result=3 на retry (или другой RuntimeError из _call_with_rate_limit).
+                # Не валим pipeline — продолжаем с cached_data, новые MaterialID
+                # попробуем на следующем тике.
+                logger.warning(
+                    "Resurs Media GetMaterialData по delta упал (%s) — "
+                    "продолжаем pipeline с cached_data (%d позиций). %d "
+                    "MaterialID останутся pending на следующий тик.",
+                    exc, cached_hits, delta_new,
+                )
+                rate_limited_pending = delta_new
+                delta_new = 0
+
+        # Merge: cached + freshly fetched. md_index перекрывает cached, если
+        # вдруг MaterialID одновременно был stale и пришёл в ответе — мы
+        # верим свежим данным.
+        merged_index: dict[str, dict[str, str]] = dict(cached_data)
+        merged_index.update(md_index)
+
+        logger.info(
+            "Resurs Media delta: GetPrices=%d ID, cache_hits=%d, "
+            "delta_fetched=%d (rate_limited_pending=%d), "
+            "upsert inserted=%d updated=%d errors=%d.",
+            len(material_ids), cached_hits, delta_new, rate_limited_pending,
+            upsert_inserted, upsert_updated, upsert_errors,
+        )
+
+        # 3. Сборка PriceRow. Параметры дельты прицепим через _save_rows'у
+        # в extra_report — отчёт price_uploads увидит, сколько мы сэкономили
+        # трафика на GetMaterialData.
+        self._delta_report = {
+            "total_material_ids":     len(material_ids),
+            "cache_hits":             cached_hits,
+            "delta_fetched":          delta_new,
+            "rate_limited_pending":   rate_limited_pending,
+            "upsert_inserted":        upsert_inserted,
+            "upsert_updated":         upsert_updated,
+            "upsert_errors":          upsert_errors,
+        }
+        return self._save_rows(raw_items, merged_index)
 
     # ---- Notification (spec v7.5 §4.7, обязательная операция) ---------
 
@@ -495,6 +567,11 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
         # импортируется при регистрации в auto_price/__init__.py.
         from portal.services.configurator.price_loaders.orchestrator import save_price_rows
 
+        # delta_report выставляется fetch_and_save() перед вызовом
+        # _save_rows. Может отсутствовать в legacy-сценариях (пустой dict
+        # — нейтральная заглушка), но в живой работе всегда есть.
+        delta_report = getattr(self, "_delta_report", {}) or {}
+
         result = save_price_rows(
             supplier_name=self.supplier_display_name,
             source=virtual_filename,
@@ -508,6 +585,7 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
                     "skipped_unknown_group": skipped_unknown_group,
                     "skipped_no_price":      skipped_no_price,
                     "warehouse_id":          self._warehouse_id,
+                    "delta":                 delta_report,
                 },
             },
         )

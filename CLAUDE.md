@@ -163,7 +163,10 @@ ConfiguratorPC2/
 
 ```
 portal/services/configurator/
-├── auto_price/             ← runner.py + fetchers/ (treolan REST, ocs/merlion IMAP, netlab HTTP, resurs_media SOAP)
+├── auto_price/             ← runner.py + fetchers/ (treolan REST, ocs/merlion IMAP, netlab HTTP, resurs_media SOAP);
+│                              resurs_media_catalog.py — локальный образ каталога РМ (миграция 0037),
+│                              fetcher зовёт GetMaterialData только по дельте (новые + stale > 30 дней);
+│                              resurs_media_notifications.py — обязательная по spec v7.5 §4.7 операция
 ├── budget_guard.py         ← дневной лимит OpenAI, читает курс ЦБ
 ├── compatibility/          ← rules.py — совместимость компонентов сборки
 ├── engine/                 ← builder, candidates, pretty, prices, schema, selector, warnings
@@ -205,7 +208,7 @@ portal/services/configurator/
 | 07:10 | `auto_price_loads_ocs` | IMAP |
 | 07:20 | `auto_price_loads_merlion` | IMAP |
 | 07:30 | `auto_price_loads_netlab` | HTTP |
-| 07:40 | `auto_price_loads_resurs_media` | SOAP (GetPrices+GetMaterialData; после fetch'а в том же job'е — Notification API §4.7) |
+| 07:40 | `auto_price_loads_resurs_media` | SOAP (GetPrices; GetMaterialData только по дельте — новые MaterialID + stale > 30 дней, см. `resurs_media_catalog.py` и миграцию 0037; после fetch'а в том же job'е — Notification API §4.7) |
 | 07:50 | `auto_price_loads_green_place` | (no-op до появления fetcher'а) |
 | 08:30, 13:00, 16:00, 17:00, 18:15 | `cbr_fetch_<HHMM>` | Курс USD/RUB с ЦБ → таблица `exchange_rates` (UI-4.5) |
 | каждые 2ч | `auctions_ingest` | Ingest аукционных карточек с zakupki (если включён) |

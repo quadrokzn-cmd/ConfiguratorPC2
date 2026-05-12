@@ -22,7 +22,8 @@ def _clean_auto_price_tables(db_engine):
             "  unmapped_supplier_items, supplier_prices, price_uploads, "
             "  suppliers, "
             "  cpus, motherboards, rams, gpus, storages, cases, psus, coolers, "
-            "  exchange_rates "
+            "  exchange_rates, "
+            "  resurs_media_catalog "  # 0037 (мини-этап 2026-05-12 РМ catalog delta)
             "RESTART IDENTITY CASCADE"
         ))
     yield

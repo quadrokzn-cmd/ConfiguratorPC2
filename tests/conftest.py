@@ -150,6 +150,9 @@ _MIGRATIONS = [
     # 0035 пропущен намеренно — она создаёт PG-роль ingest_writer
     # (этап 9e.1) и не нужна для тестов.
     "0036_resurs_media_notifications.sql",
+    # 0037_resurs_media_catalog.sql — локальный образ каталога РМ
+    # для инкрементальной дельты GetMaterialData (мини-этап 2026-05-12).
+    "0037_resurs_media_catalog.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
@@ -183,6 +186,7 @@ _ALL_TABLES = [
     "coolers",                  # 001
     "printers_mfu",             # 031 (Этап 6 слияния QT↔C-PC2)
     "resurs_media_notifications",  # 0036 (мини-этап 2026-05-12 Resurs Media Notification)
+    "resurs_media_catalog",        # 0037 (мини-этап 2026-05-12 Resurs Media catalog delta)
     # Аукционные таблицы (миграция 030, Этап 5 слияния).
     "matches",                  # 030
     "tender_status",            # 030
