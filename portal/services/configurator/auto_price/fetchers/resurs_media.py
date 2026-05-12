@@ -293,6 +293,28 @@ class ResursMediaApiFetcher(BaseAutoFetcher):
         # 3. Сборка PriceRow.
         return self._save_rows(raw_items, md_index)
 
+    # ---- Notification (spec v7.5 §4.7, обязательная операция) ---------
+
+    def call_notification(self, from_date: date | None = None) -> Any:
+        """Вызывает SOAP-операцию Notification и возвращает сырой ответ.
+
+        spec v7.5 §4.7 «Сервисные операции / Notification»:
+          FromDate — дата, с которой нужны уведомления. Если не указана,
+          возвращаются актуальные на момент вызова. Передаём только при
+          явном значении: некоторые SOAP-стенды строже относятся к
+          присутствию опционального поля, чем к его None-значению.
+
+        Распаковку Notification_Tab → Item и сохранение в БД делает
+        portal.services.configurator.auto_price.resurs_media_notifications.
+        Здесь — только тонкая обёртка над _call_with_rate_limit, чтобы
+        переиспользовать retry на Result=3 и единый формат ошибок.
+        """
+        client = self._get_client()
+        kwargs: dict[str, Any] = {}
+        if from_date is not None:
+            kwargs["FromDate"] = from_date
+        return self._call_with_rate_limit(client, "Notification", **kwargs)
+
     # ---- client construction ------------------------------------------
 
     def _get_client(self) -> zeep.Client:

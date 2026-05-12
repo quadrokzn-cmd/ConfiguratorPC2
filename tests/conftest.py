@@ -145,6 +145,11 @@ _MIGRATIONS = [
     # 034_auctions_ingest_settings.sql — добавляет ключ
     # auctions_ingest_enabled в settings (этап 8 слияния).
     "034_auctions_ingest_settings.sql",
+    # 0036_resurs_media_notifications.sql — таблица для уведомлений
+    # SOAP-операции Notification «Ресурс Медиа» (мини-этап 2026-05-12).
+    # 0035 пропущен намеренно — она создаёт PG-роль ingest_writer
+    # (этап 9e.1) и не нужна для тестов.
+    "0036_resurs_media_notifications.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
@@ -177,6 +182,7 @@ _ALL_TABLES = [
     "psus",                     # 001
     "coolers",                  # 001
     "printers_mfu",             # 031 (Этап 6 слияния QT↔C-PC2)
+    "resurs_media_notifications",  # 0036 (мини-этап 2026-05-12 Resurs Media Notification)
     # Аукционные таблицы (миграция 030, Этап 5 слияния).
     "matches",                  # 030
     "tender_status",            # 030

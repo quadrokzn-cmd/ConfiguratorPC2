@@ -205,7 +205,7 @@ portal/services/configurator/
 | 07:10 | `auto_price_loads_ocs` | IMAP |
 | 07:20 | `auto_price_loads_merlion` | IMAP |
 | 07:30 | `auto_price_loads_netlab` | HTTP |
-| 07:40 | `auto_price_loads_resurs_media` | SOAP |
+| 07:40 | `auto_price_loads_resurs_media` | SOAP (GetPrices+GetMaterialData; после fetch'а в том же job'е — Notification API §4.7) |
 | 07:50 | `auto_price_loads_green_place` | (no-op до появления fetcher'а) |
 | 08:30, 13:00, 16:00, 17:00, 18:15 | `cbr_fetch_<HHMM>` | Курс USD/RUB с ЦБ → таблица `exchange_rates` (UI-4.5) |
 | каждые 2ч | `auctions_ingest` | Ingest аукционных карточек с zakupki (если включён) |

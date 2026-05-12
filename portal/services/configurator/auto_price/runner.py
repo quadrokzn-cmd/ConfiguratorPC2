@@ -315,6 +315,41 @@ def run_auto_load(slug: str, triggered_by: str) -> dict[str, Any]:
         except Exception:
             pass
 
+    # Notification API «Ресурс Медиа» (spec v7.5 §4.7, обязательная операция).
+    # Зовём ВНУТРИ runner'а для slug='resurs_media' после основного fetch'а —
+    # независимо от его исхода (если price упал, Notification всё равно зовём,
+    # это независимая операция). Если fetcher_instance успешно создан —
+    # переиспользуем его (zeep-клиент уже разогрет, WSDL грузить не надо);
+    # если None — сервис создаст новый или сам залогирует ошибку. Любые
+    # ошибки Notification ловим, чтобы не повлиять на статус price-load'а
+    # в auto_price_load_runs.
+    if slug == "resurs_media":
+        try:
+            from portal.services.configurator.auto_price.resurs_media_notifications import (
+                fetch_and_store_notifications,
+            )
+            from shared.db import engine
+            notif_result = fetch_and_store_notifications(
+                fetcher=fetcher_instance,
+                engine=engine,
+            )
+            logger.info(
+                "auto_price_load: resurs_media Notification — "
+                "seen=%d new=%d attachments=%d errors=%d",
+                notif_result["notifications_seen"],
+                notif_result["new_notifications"],
+                notif_result["attachments_saved"],
+                notif_result["errors"],
+            )
+        except Exception as nexc:
+            # Сервис сам ловит свои ошибки и кладёт в errors, но на
+            # уровне импорта/окружения могут быть сбои — здесь страховка.
+            logger.warning(
+                "auto_price_load: resurs_media Notification упал "
+                "(%s: %s) — основной price-load не затронут.",
+                type(nexc).__name__, nexc,
+            )
+
     session = SessionLocal()
     try:
         if no_new_data is not None:
