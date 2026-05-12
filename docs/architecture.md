@@ -298,7 +298,7 @@ Pipeline:
 - **Word/КП** (python-docx) — коммерческое предложение. Шрифт **Calibri
   11pt** в Normal-стиле, программная сборка таблицы с явным `rFonts`
   на каждом run (Этап 9А.2.7 — см. [design-decisions.md](design-decisions.md)).
-- **Email** — отправка готового КП клиенту.
+- **Email** — отправка писем поставщикам с запросом цен на комплектующие (см. `portal/services/configurator/export/email_{composer,sender}.py`). Отправки КП конечному клиенту из системы нет — КП выгружается в Word, менеджер отправляет его сам.
 - `exchange_rate.py` + `scheduler.py` — APScheduler, 5 cron-задач
   обновления курса USD→RUB с ЦБ РФ:
   **8:30, 13:00, 16:00, 17:00, 18:15** МСК.
