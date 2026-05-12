@@ -349,6 +349,128 @@ def test_db_source_merges_keeping_manual(db_session, enrichment_tmp):
     assert source == "manual+claude_code"
 
 
+def test_counter_two_real_updates_reports_two(
+    db_session, enrichment_tmp,
+):
+    """Фикс счётчика 2026-05-13 (DoD кейс #1): два SKU в done-файле,
+    оба реально меняют `attrs_jsonb` — отчёт показывает `skus_updated=2`
+    (не 0, не 1, не 3)."""
+    sku_a = "bulat:p1024w-counter-a"
+    sku_b = "bulat:p1024w-counter-b"
+    _seed_sku(db_session, sku=sku_a, attrs=_full_attrs(), attrs_source=None)
+    _seed_sku(db_session, sku=sku_b, attrs=_full_attrs(), attrs_source=None)
+
+    _write_done(
+        enrichment_tmp,
+        file_name="counter_two_updates.json",
+        results=[
+            {
+                "sku": sku_a,
+                "attrs": _full_attrs(
+                    {"print_speed_ppm": 22, "colorness": "ч/б"}
+                ),
+            },
+            {
+                "sku": sku_b,
+                "attrs": _full_attrs(
+                    {"print_speed_ppm": 33, "max_format": "A4"}
+                ),
+            },
+        ],
+    )
+
+    report = importer_mod.import_done()
+    assert report["files_imported"] == 1
+    assert report["skus_updated"] == 2, (
+        f"оба SKU реально меняют attrs_jsonb → ожидали 2, "
+        f"получили {report['skus_updated']}"
+    )
+    assert report["skus_unchanged"] == 0
+    assert report["skus_unknown"] == 0
+
+
+def test_counter_source_only_update_counts_as_unchanged(
+    db_session, enrichment_tmp,
+):
+    """Фикс счётчика 2026-05-13 (DoD кейс #2): два SKU, у одного из них
+    все поля уже совпадают с тем, что в БД (после merge — diff только
+    по `attrs_source` из-за дополнения тега `claude_code`) — отчёт
+    показывает `skus_updated=1`, source-only обновление учитывается
+    в `skus_unchanged`.
+
+    Это сценарий «39 SKU updated, na_speed unchanged» из рефлексии
+    2026-05-13 apply-enrichment-prod: до фикса счётчик инкрементировался
+    при любом UPDATE, в т.ч. когда merge_attrs дал тот же словарь и
+    менялся только attrs_source — лог завышал реальное число изменений.
+    """
+    sku_real = "bulat:p1024w-counter-real"
+    sku_source_only = "bulat:p1024w-counter-source-only"
+
+    # У `sku_real` print_speed_ppm уже стоит, но done несёт другой
+    # колорfulness — реальный diff будет.
+    _seed_sku(
+        db_session,
+        sku=sku_real,
+        attrs=_full_attrs({"print_speed_ppm": 22}),
+        attrs_source="regex_name",
+    )
+    # У `sku_source_only` все поля уже не-n/a; done приходит с n/a по
+    # всем — n/a-protection в merge_attrs оставит attrs как есть.
+    # Менять будет только source: 'regex_name' → 'regex_name+claude_code'.
+    seeded_attrs = _full_attrs(
+        {
+            "print_speed_ppm":   22,
+            "colorness":         "ч/б",
+            "max_format":        "A4",
+            "duplex":            "автоматический",
+            "resolution_dpi":    "600x600",
+            "network_interface": "ethernet",
+            "usb":               "USB 2.0",
+            "starter_cartridge_pages": 1000,
+            "print_technology":  "лазерная",
+        }
+    )
+    _seed_sku(
+        db_session,
+        sku=sku_source_only,
+        attrs=seeded_attrs,
+        attrs_source="regex_name",
+    )
+
+    _write_done(
+        enrichment_tmp,
+        file_name="counter_source_only.json",
+        results=[
+            {
+                "sku": sku_real,
+                "attrs": _full_attrs(
+                    {"print_speed_ppm": 22, "colorness": "ч/б"}
+                ),
+            },
+            {
+                "sku": sku_source_only,
+                "attrs": _full_attrs(),  # все n/a
+            },
+        ],
+    )
+
+    report = importer_mod.import_done()
+    assert report["files_imported"] == 1
+    assert report["skus_updated"] == 1, (
+        f"только один SKU имеет реальный diff attrs_jsonb → ожидали 1, "
+        f"получили {report['skus_updated']}"
+    )
+    assert report["skus_unchanged"] == 1, (
+        f"source-only UPDATE должен относиться к unchanged → ожидали 1, "
+        f"получили {report['skus_unchanged']}"
+    )
+
+    # Source у source-only SKU всё же обновился (audit-trail).
+    db_session.expire_all()
+    _, source = _fetch_state(db_session, sku_source_only)
+    assert source == "regex_name+claude_code"
+
+
 def test_db_idempotent_second_import(db_session, enrichment_tmp):
     """Повторный импорт того же содержимого → 0 SKU обновлено
     (skus_unchanged=1). attrs_updated_at не дёргается."""

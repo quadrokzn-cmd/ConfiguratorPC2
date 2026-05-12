@@ -12,6 +12,10 @@
          порядок появления сохранён (см. `merge.py::merge_source`).
        UPDATE выполняется только если merge изменил состояние —
        иначе SKU попадает в счётчик `skus_unchanged` (идемпотентность).
+       Счётчик `skus_updated` инкрементируется только при реальном
+       diff `attrs_jsonb` (фикс счётчика 2026-05-13): SKU, где
+       UPDATE прошёл, но изменился только `attrs_source` (audit-trail),
+       относится к `skus_unchanged`.
     5) обработанные файлы переносим в `enrichment/auctions/archive/<YYYY-MM-DD>/`.
 
 Этап 8 слияния (2026-05-08): таблица переименована `nomenclature` → `printers_mfu`,
@@ -152,20 +156,21 @@ def _process_file(path: Path, report: dict, *, dry_run: bool) -> None:
                 merged_attrs = merge_attrs(existing_attrs, incoming_attrs)
                 merged_source = merge_source(existing_source, SOURCE_CLAUDE_CODE)
 
+                attrs_changed  = merged_attrs  != existing_attrs
+                source_changed = merged_source != existing_source
+
                 if dry_run:
-                    if (
-                        merged_attrs == existing_attrs
-                        and merged_source == existing_source
-                    ):
-                        skus_unchanged += 1
-                    else:
+                    # В dry_run обновлёнными считаем только SKU с реальным
+                    # diff attrs_jsonb. SKU, где изменился бы только source
+                    # (audit-trail), считаем как unchanged — это то, что
+                    # хочет видеть оператор в лог-отчёте.
+                    if attrs_changed:
                         updated_skus.append(sku)
+                    else:
+                        skus_unchanged += 1
                     continue
 
-                if (
-                    merged_attrs == existing_attrs
-                    and merged_source == existing_source
-                ):
+                if not attrs_changed and not source_changed:
                     # Идемпотентность: повторный импорт того же содержимого
                     # → 0 строк меняется. Не дёргаем UPDATE, чтобы
                     # attrs_updated_at не скакал на каждом прогоне.
@@ -188,7 +193,15 @@ def _process_file(path: Path, report: dict, *, dry_run: bool) -> None:
                         "sku":    sku,
                     },
                 )
-                updated_skus.append(sku)
+                if attrs_changed:
+                    updated_skus.append(sku)
+                else:
+                    # Source-only UPDATE (например, n/a-incoming поверх
+                    # regex_name-existing с не-n/a attrs): запись прошла,
+                    # но attrs_jsonb не изменился — по DoD счётчика
+                    # «SKU обновлено» такой SKU не считаем, относим к
+                    # unchanged.
+                    skus_unchanged += 1
     except Exception as exc:
         report["files_rejected"] += 1
         report["reject_reasons"]["db_write_failed"] += 1
