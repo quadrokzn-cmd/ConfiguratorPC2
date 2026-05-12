@@ -165,6 +165,22 @@ class Settings:
         default_factory=lambda: float(os.getenv("DAILY_OPENAI_BUDGET_RUB", "100"))
     )
 
+    # --- Мини-этап 9e.4.2 (2026-05-12): kill-switch cron'а auctions_ingest ---
+    # Регистрировать ли cron-задачу `auctions_ingest` внутри FastAPI-процесса
+    # портала. По умолчанию True — это исторический режим (Railway сам делал
+    # ingest каждые 2ч). На prod после cutover'а на офисный worker (9e.4.2)
+    # выставляется AUCTIONS_INGEST_ENABLED=false: cron не регистрируется,
+    # ingest выполняет внешняя Windows Task Scheduler задача (см. 9e.3).
+    # Pre-prod продолжает работать с дефолтом True.
+    #
+    # Не путать с одноимённым ключом таблицы `settings` в БД (читается
+    # `portal/scheduler.py::_is_auctions_ingest_enabled`): тот тумблер
+    # гейтит per-tick выполнение уже зарегистрированной задачи, а этот
+    # флаг определяет, регистрировать ли задачу вообще.
+    auctions_ingest_enabled: bool = field(
+        default_factory=lambda: _bool_env("AUCTIONS_INGEST_ENABLED", default=True)
+    )
+
     # URL тестовой БД; читается только в tests/conftest.py.
     test_database_url: str = field(
         default_factory=lambda: os.getenv(

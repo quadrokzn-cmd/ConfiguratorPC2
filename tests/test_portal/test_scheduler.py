@@ -226,3 +226,75 @@ def test_job_swallows_runner_exception(monkeypatch):
 
     # Не должно бросить.
     sch._make_auto_price_job("resurs_media")()
+
+
+# =====================================================================
+# 5. Мини-этап 9e.4.2: ENV-флаг AUCTIONS_INGEST_ENABLED.
+# =====================================================================
+
+def test_auctions_ingest_job_registered_when_enabled(monkeypatch):
+    """Дефолтное поведение (`settings.auctions_ingest_enabled=True`):
+    cron-задача `auctions_ingest` зарегистрирована, как было до 9e.4.2.
+    Это и есть pre-prod-режим — переменная не выставлена → дефолт True."""
+    import portal.scheduler as sch
+    from shared.config import settings as _app_settings
+
+    monkeypatch.setenv("RUN_BACKUP_SCHEDULER", "1")
+    monkeypatch.delenv("APP_ENV", raising=False)
+    monkeypatch.setattr(_app_settings, "auctions_ingest_enabled", True)
+
+    sch.shutdown_scheduler()
+    sched = sch.init_scheduler()
+    try:
+        assert sched is not None
+        ids = {j.id for j in sched.get_jobs()}
+        assert "auctions_ingest" in ids, (
+            f"auctions_ingest должен быть зарегистрирован при флаге True; "
+            f"имеющиеся id: {sorted(ids)}"
+        )
+        # Прочие задачи на месте — флаг не должен ломать соседей.
+        assert "daily_backup" in ids
+        assert "audit_retention" in ids
+        for slug, _h, _m in _EXPECTED_SCHEDULE:
+            assert f"auto_price_loads_{slug}" in ids
+    finally:
+        sch.shutdown_scheduler()
+
+
+def test_auctions_ingest_job_not_registered_when_disabled(monkeypatch):
+    """Prod-режим после 9e.4.2 (`AUCTIONS_INGEST_ENABLED=false`):
+    cron-задача `auctions_ingest` НЕ регистрируется — её работу делает
+    внешний офисный worker (Windows Task Scheduler, см. 9e.3).
+    Остальные cron'ы (backup, retention, auto_price_loads_*, cbr_fetch_*)
+    должны быть зарегистрированы как обычно."""
+    import portal.scheduler as sch
+    from shared.config import settings as _app_settings
+
+    monkeypatch.setenv("RUN_BACKUP_SCHEDULER", "1")
+    monkeypatch.delenv("APP_ENV", raising=False)
+    monkeypatch.setattr(_app_settings, "auctions_ingest_enabled", False)
+
+    sch.shutdown_scheduler()
+    sched = sch.init_scheduler()
+    try:
+        assert sched is not None
+        ids = {j.id for j in sched.get_jobs()}
+        assert "auctions_ingest" not in ids, (
+            f"auctions_ingest НЕ должен быть зарегистрирован при флаге False; "
+            f"имеющиеся id: {sorted(ids)}"
+        )
+        # Остальные задачи остаются на месте.
+        assert "daily_backup" in ids
+        assert "audit_retention" in ids
+        for slug, _h, _m in _EXPECTED_SCHEDULE:
+            assert f"auto_price_loads_{slug}" in ids, (
+                f"auto_price_loads_{slug} должен быть зарегистрирован "
+                f"независимо от AUCTIONS_INGEST_ENABLED"
+            )
+        # cbr_fetch_* — пять задач курса ЦБ — тоже на месте.
+        cbr_ids = {jid for jid in ids if jid.startswith("cbr_fetch_")}
+        assert len(cbr_ids) == 5, (
+            f"ожидалось 5 cbr_fetch_*, найдено: {sorted(cbr_ids)}"
+        )
+    finally:
+        sch.shutdown_scheduler()

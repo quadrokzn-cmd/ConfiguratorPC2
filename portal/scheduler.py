@@ -472,18 +472,36 @@ def init_scheduler() -> BackgroundScheduler | None:
         )
 
     # Этап 8/9 слияния: ingest аукционных карточек с zakupki, каждые 2 часа.
-    # Тумблер — settings.auctions_ingest_enabled (через миграцию 034).
-    sched.add_job(
-        _job_auctions_ingest,
-        trigger=IntervalTrigger(
-            hours=_AUCTIONS_INGEST_INTERVAL_HOURS,
-            timezone=_BACKUP_TIMEZONE,
-        ),
-        id="auctions_ingest",
-        name=f"ingest аукционов с zakupki (каждые {_AUCTIONS_INGEST_INTERVAL_HOURS}ч)",
-        replace_existing=True,
-        misfire_grace_time=600,
-    )
+    # Тумблер per-tick — DB `settings.auctions_ingest_enabled` (миграция 034).
+    #
+    # Мини-этап 9e.4.2 (2026-05-12): ENV-флаг `AUCTIONS_INGEST_ENABLED`
+    # (поле `settings.auctions_ingest_enabled` в shared.config, **не путать
+    # с DB-таблицей `settings`**) определяет, регистрировать ли cron-задачу
+    # вообще. На prod после cutover'а ingest делает внешний офисный worker
+    # (см. 9e.3 / 9e.4.2), и cron внутри FastAPI отключается, чтобы не было
+    # дубля. Pre-prod продолжает работать в режиме «cron включён».
+    from shared.config import settings as _app_settings
+    if _app_settings.auctions_ingest_enabled:
+        sched.add_job(
+            _job_auctions_ingest,
+            trigger=IntervalTrigger(
+                hours=_AUCTIONS_INGEST_INTERVAL_HOURS,
+                timezone=_BACKUP_TIMEZONE,
+            ),
+            id="auctions_ingest",
+            name=f"ingest аукционов с zakupki (каждые {_AUCTIONS_INGEST_INTERVAL_HOURS}ч)",
+            replace_existing=True,
+            misfire_grace_time=600,
+        )
+        logger.info(
+            "scheduler/portal: auctions_ingest job registered (каждые %dч)",
+            _AUCTIONS_INGEST_INTERVAL_HOURS,
+        )
+    else:
+        logger.info(
+            "scheduler/portal: auctions_ingest job disabled "
+            "(AUCTIONS_INGEST_ENABLED=false) — external worker expected",
+        )
 
     # UI-4.5 (Путь B, 2026-05-11): курс USD/RUB с ЦБ — 5 точек в день в МСК.
     # Перенесено из app/scheduler.py (там job активировался отдельным флагом
