@@ -59,6 +59,7 @@ from shared.component_filters import (
     is_likely_case_fan,
     is_likely_case_panel_or_filter,
     is_likely_drive_cage,
+    is_likely_fan_splitter,
     is_likely_gpu_support_bracket,
     is_likely_loose_case_fan,
     is_likely_non_psu_in_psus,
@@ -326,8 +327,16 @@ def _create_skeleton(
     # Этап 9Г.1: корпусные вентиляторы при создании скелета помечаем
     # is_hidden=True, чтобы они не попадали в подбор CPU-кулеров.
     # См. shared/component_filters.py и docs/enrichment_techdebt.md §9.
-    if table == "coolers" and is_likely_case_fan(
-        row.name, row.brand, row.our_category,
+    #
+    # Мини-этап 2026-05-13: fan-разветвители / PWM-хабы / fan-контроллеры
+    # (is_likely_fan_splitter) — добавлены сюда же логическим OR. Триггер
+    # — ID-Cooling FS-04 ARGB (4-pin сплиттер для корпусных вентиляторов),
+    # попадавший в подбор CPU-кулеров. Защитный слой _CPU_COOLER_HINTS
+    # внутри детектора не трогает настоящие CPU-кулеры с разветвителем
+    # в комплекте.
+    if table == "coolers" and (
+        is_likely_case_fan(row.name, row.brand, row.our_category)
+        or is_likely_fan_splitter(row.name, row.brand)
     ):
         values["is_hidden"] = True
 

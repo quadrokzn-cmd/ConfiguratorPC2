@@ -349,6 +349,31 @@ def test_cpu_cooler_skeleton_remains_visible(make_merlion_xlsx, db_session):
     assert is_hidden is False
 
 
+# Мини-этап 2026-05-13: classification-фикс fan-разветвителя в категории cooler.
+
+def test_fan_splitter_skeleton_marked_is_hidden(make_merlion_xlsx, db_session):
+    """Скелет fan-разветвителя в категории cooler (ID-Cooling FS-04 ARGB)
+    автоматически создаётся с is_hidden=TRUE — иначе он попадёт в подбор
+    CPU-кулера, как и было до фикса 2026-05-13."""
+    path = make_merlion_xlsx([
+        {
+            "g1": "Комплектующие для компьютеров",
+            "g2": "Устройства охлаждения",
+            "g3": "Универсальные",
+            "brand": "ID-Cooling", "number": "M-SPL1", "mpn": "FS-04-ARGB",
+            "name": "Разветвитель питания ID-Cooling FS-04 ARGB",
+            "price_rub": 300, "stock": 10,
+        },
+    ])
+    result = load_price(path, supplier_key="merlion")
+    assert result["added"] == 1
+
+    is_hidden = bool(db_session.execute(_t(
+        "SELECT is_hidden FROM coolers WHERE sku = 'FS-04-ARGB'"
+    )).scalar())
+    assert is_hidden is True
+
+
 def test_unmapped_stores_raw_and_guessed_category(make_merlion_xlsx, db_session):
     """raw_category — строго путь от поставщика, guessed_category — наш код."""
     path = make_merlion_xlsx([

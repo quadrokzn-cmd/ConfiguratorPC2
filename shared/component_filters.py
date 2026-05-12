@@ -218,6 +218,89 @@ def is_likely_mounting_kit(
     return bool(_MOUNTING_KIT_KEYWORDS.search(full))
 
 
+# Маркеры fan-разветвителя / fan-хаба / fan-контроллера, ошибочно
+# попавших в категорию cooler. Триггер 2026-05-13: ID-Cooling FS-04 ARGB
+# (id 1081 на pre-prod) — «Разветвитель питания ID-Cooling FS-04 ARGB» —
+# фактически 4-pin сплиттер для подключения нескольких корпусных
+# вентиляторов к одному разъёму материнки, а не CPU-кулер.
+#
+# Защитный слой — общий с другими is_likely_*: при наличии CPU-маркера
+# (_CPU_COOLER_HINTS) детектор возвращает False. Это страхует от случаев
+# вроде «CPU-кулер с PWM-сплиттером в комплекте» — в имени такого кулера
+# обязательно есть «башня»/«радиатор»/«socket»/«AM4»/«LGA», и защита
+# сработает.
+_FAN_SPLITTER_KEYWORDS = re.compile(
+    r"\bразветвител\w*|"
+    r"\bсплиттер\w*|"
+    r"\bsplitter\b|"
+    r"\bудлинител\w*|"
+    r"\bfan[\s\-]?hub\b|"
+    r"\bфан[\-\s]?хаб\b|"
+    r"\bpwm[\s\-]?hub\b|"
+    r"\bpwm[\-\s]?хаб\b|"
+    r"\bfan\s+controller\b|"
+    r"\bfan\s+switch\b|"
+    r"\bmulti[\-\s]?fan\b|"
+    r"(?:\b[34][\s\-]?pin\b\s*разъём)|"
+    r"(?:\bразъём(?:а|ов)?\s+[34][\s\-]?pin\b)",
+    flags=re.IGNORECASE,
+)
+
+# Дополнительные «сильные» маркеры CPU-кулера, специфичные для fan-разветвителя.
+# Если они есть в имени — это точно полноценный CPU-кулер с разветвителем
+# в комплекте, не самостоятельный сплиттер. Защита поверх _CPU_COOLER_HINTS.
+_FAN_SPLITTER_CPU_GUARDS = re.compile(
+    r"\bsocket\b|"
+    r"\b(?:am[345]|lga\s*\d{3,4}|fm[12])\b|"
+    r"\blow[\s\-]?profile\b|"
+    r"\bнизкопрофильн\w+|"
+    r"\bдвухсекционн\w+|"
+    r"(?<![A-Za-z])[5-9]\d{1,2}\s*(?:W\b|Вт\b|Watt\b)",
+    flags=re.IGNORECASE,
+)
+
+
+def is_likely_fan_splitter(
+    name: str | None,
+    manufacturer: str | None = None,
+) -> bool:
+    """Эвристика: похожа ли позиция на fan-разветвитель / PWM-хаб /
+    fan-контроллер, ошибочно классифицированный как cooler.
+
+    Реальный кейс (2026-05-13): ID-Cooling FS-04 ARGB — 4-pin сплиттер
+    для подключения 4 корпусных вентиляторов к одному разъёму материнки.
+    Появляется в подборе CPU-кулеров и приводит к нерабочей сборке.
+
+    Защита (любой → НЕ разветвитель):
+
+    1. _CPU_COOLER_HINTS — общая защита (башня/tower/радиатор/heat-sink/
+       liquid/aio/жидкост/water cool/cpu fan/процессорн/cpu-cooler).
+    2. _FAN_SPLITTER_CPU_GUARDS — специфические маркеры CPU-кулера
+       (socket, AM4/AM5/LGA, low-profile, низкопрофильный, двухсекционный,
+       TDP-указание ≥50W). Эти маркеры у самостоятельного разветвителя
+       не встречаются.
+
+    Позитив (любой → разветвитель):
+
+    * слова: «разветвитель», «сплиттер», «splitter», «удлинитель»,
+      «fan hub», «фан-хаб», «PWM hub», «PWM-хаб», «fan controller»,
+      «fan switch», «multi-fan»;
+    * паттерн «3pin/4pin разъём(а|ов)» / «разъёма(ов) 4pin».
+
+    Защитное поведение: пустое ``name`` → False.
+    """
+    if not name:
+        return False
+    full = name if not manufacturer else f"{name} {manufacturer}"
+
+    if _CPU_COOLER_HINTS.search(full):
+        return False
+    if _FAN_SPLITTER_CPU_GUARDS.search(full):
+        return False
+
+    return bool(_FAN_SPLITTER_KEYWORDS.search(full))
+
+
 def is_likely_external_storage(
     name: str | None,
     manufacturer: str | None = None,

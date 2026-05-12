@@ -12,6 +12,7 @@ from shared.component_filters import (
     is_likely_cable_or_adapter,
     is_likely_case_fan,
     is_likely_external_storage,
+    is_likely_fan_splitter,
     is_likely_mounting_kit,
     is_likely_non_psu_in_psus,
     is_likely_thermal_paste,
@@ -435,3 +436,102 @@ class TestIsLikelyNonPsuInPsus:
         assert is_likely_non_psu_in_psus("") is False
         assert is_likely_non_psu_in_psus("   ") is False
         assert is_likely_non_psu_in_psus(None, "Cooler Master") is False
+
+
+class TestIsLikelyFanSplitter:
+    """Эвристика fan-разветвителей / PWM-хабов / fan-контроллеров в категории
+    cooler. Мини-этап 2026-05-13 (триггер — ID-Cooling FS-04 ARGB)."""
+
+    def test_id_cooling_fs04_argb_detected(self):
+        """Реальный кейс из БД: FS-04 ARGB — 4-pin сплиттер питания."""
+        assert is_likely_fan_splitter(
+            "Разветвитель питания ID-Cooling FS-04 ARGB"
+        ) is True
+        assert is_likely_fan_splitter(
+            "Разветвитель питания ID-Cooling FS-04 (на 4 корпусных вентилятора)"
+        ) is True
+        assert is_likely_fan_splitter(
+            "Разветвитель питания ID-Cooling FS-06 ARGB (FS-06 ARGB)"
+        ) is True
+
+    def test_splitter_keywords_in_english(self):
+        """splitter / fan splitter / multi-fan splitter."""
+        assert is_likely_fan_splitter("Fan splitter cable 4-pin to 4") is True
+        assert is_likely_fan_splitter("Multi-fan splitter 1->4 PWM") is True
+        assert is_likely_fan_splitter("PWM splitter hub 4-pin 4-way") is True
+
+    def test_fan_hub_and_controller_detected(self):
+        """fan hub / PWM hub / fan controller / фан-хаб."""
+        assert is_likely_fan_splitter("ARCTIC Case Fan Hub to 10-x PWM Fan") is True
+        assert is_likely_fan_splitter("Thermaltake PWM Hub 10-port") is True
+        assert is_likely_fan_splitter("Corsair Commander Pro Fan Controller") is True
+        assert is_likely_fan_splitter("Фан-хаб 6-канальный 4-pin") is True
+
+    def test_extension_cable_detected(self):
+        """Удлинитель кабеля вентилятора."""
+        assert is_likely_fan_splitter(
+            "Удлинитель кабеля вентилятора 4-pin 30см"
+        ) is True
+
+    def test_cpu_cooler_not_marked_as_splitter(self):
+        """CPU-кулеры с явными маркерами защищаются _CPU_COOLER_HINTS,
+        даже если в имени есть слово «разветвитель» (например, «с
+        разветвителем в комплекте»)."""
+        # Башня / tower
+        assert is_likely_fan_splitter(
+            "DeepCool AK620 башенный кулер с PWM-разветвителем"
+        ) is False
+        # Радиатор
+        assert is_likely_fan_splitter(
+            "Радиатор Noctua NH-U12S Redux + PWM splitter в комплекте"
+        ) is False
+        # AIO
+        assert is_likely_fan_splitter(
+            "NZXT Kraken X63 AIO 280mm с fan splitter"
+        ) is False
+        # CPU cooler keyword
+        assert is_likely_fan_splitter(
+            "CPU Cooler Cooler Master Hyper 212 + multi-fan splitter"
+        ) is False
+
+    def test_socket_lga_am_blocks_match(self):
+        """Защита _FAN_SPLITTER_CPU_GUARDS: socket/AM4/AM5/LGA блокируют."""
+        assert is_likely_fan_splitter(
+            "Кулер AM5 LGA1700 с PWM splitter"
+        ) is False
+        assert is_likely_fan_splitter(
+            "Socket AM4 cooler PWM hub 4-pin"
+        ) is False
+
+    def test_tdp_marker_blocks_match(self):
+        """TDP ≥50W у самостоятельного разветвителя не указывается —
+        наличие 95W/150W указывает на CPU-кулер с разветвителем."""
+        assert is_likely_fan_splitter(
+            "PWM hub 95W TDP support"
+        ) is False
+        assert is_likely_fan_splitter(
+            "Кулер с разветвителем 150W"
+        ) is False
+
+    def test_low_profile_blocks_match(self):
+        """low-profile / низкопрофильный — маркер CPU-кулера."""
+        assert is_likely_fan_splitter(
+            "Низкопрофильный кулер с PWM-сплиттером"
+        ) is False
+        assert is_likely_fan_splitter(
+            "Low-profile cooler + fan splitter cable"
+        ) is False
+
+    def test_empty_input_returns_false(self):
+        """Пустые/None входы — False (защитное поведение)."""
+        assert is_likely_fan_splitter(None) is False
+        assert is_likely_fan_splitter("") is False
+        assert is_likely_fan_splitter("   ") is False
+        assert is_likely_fan_splitter(None, "ID-Cooling") is False
+
+    def test_neutral_cpu_cooler_returns_false(self):
+        """Имя без триггер-слов разветвителя — False, даже если это вентилятор."""
+        assert is_likely_fan_splitter("Noctua NH-D15 Tower CPU Cooler") is False
+        assert is_likely_fan_splitter("DeepCool AK500 башенный кулер") is False
+        # Кулер с просто «PWM» без hub/controller/splitter — не помечаем.
+        assert is_likely_fan_splitter("Arctic Freezer 36 PWM") is False
