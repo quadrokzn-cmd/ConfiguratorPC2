@@ -19,32 +19,269 @@
 
 2. **`Печатная_техника.xlsx`** — для аукционного модуля.
    - 2 листа: `Принтеры`, `МФУ`.
-   - Источник — таблица `nomenclature`, фильтр по `category` (`printer` / `mfu`).
+   - Источник — таблица `printers_mfu` (после миграции 031, этап 6 слияния),
+     фильтр по `category` (`printer` / `mfu`). В discovery
+     2026-05-14 уточнено: таблица называется `printers_mfu`, а не
+     `nomenclature` — старое название встречается в коде только в
+     legacy-комментариях.
 
 Логика «один файл — один источник истины»: каждый файл скачивается и загружается обратно как единое целое, листы не перепутать.
 
 ---
 
+## Структура колонок по листам (зафиксирована Фазой 1 — 2026-05-14)
+
+### Условные обозначения
+
+- **категория «edit»** — редактируемая ячейка, белый фон.
+- **категория «ro»** — read-only, жёлтая заливка (`PatternFill('solid', fgColor='FFF4CE')`), import игнорирует значения.
+- **категория «hidden»** — скрытая колонка (`column_dimensions[<letter>].hidden = True`). Внутренний `id` идёт первой колонкой — он используется importer'ом как ключ строки.
+- **категория «service»** — служебная (например, ячейка курса в строке 1), показывается отдельно (см. «Архитектурные решения»).
+
+### Служебная шапка каждого листа (общая)
+
+| Строка | Колонка A | Колонка B | Назначение |
+|---|---|---|---|
+| 1 | `Курс ЦБ (USD→RUB)` | число (например `97.4523`) — берётся из `exchange_rates` LATEST на дату выгрузки | Используется в формулах `RUB-ячеек`. Редактируемая. |
+| 2 | *(пусто)* | *(пусто)* | Разделитель |
+| 3 | Заголовки колонок | … | Шапка таблицы (autofilter применяется к этой строке) |
+| 4+ | Данные | … | По одной строке на товар |
+
+### 1. Лист `CPU` (таблица `cpus`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | PK, ключ для UPDATE |
+| `model` | varchar(500) | edit | Название (NOT NULL) |
+| `manufacturer` | varchar(50) | edit | AMD/Intel (NOT NULL) |
+| `sku` | varchar(100) | edit | Артикул для matching |
+| `gtin` | varchar(20) | edit | Штрих-код (миграция 009) |
+| `is_hidden` | bool | edit | TRUE/FALSE (миграция 013), скрывает товар в подборе |
+| `socket` | varchar(20) | edit | AM5, LGA1700 |
+| `cores` | int | edit | Кол-во ядер |
+| `threads` | int | edit | Кол-во потоков |
+| `base_clock_ghz` | numeric(4,2) | edit | Базовая частота |
+| `turbo_clock_ghz` | numeric(4,2) | edit | Турбо-частота |
+| `tdp_watts` | int | edit | TDP |
+| `has_integrated_graphics` | bool | edit | Есть ли встроенная графика |
+| `memory_type` | varchar(20) | edit | DDR4/DDR5/DDR4+DDR5 |
+| `package_type` | varchar(10) | edit | OEM/BOX |
+| `process_nm` | int | edit | Техпроцесс |
+| `l3_cache_mb` | int | edit | L3-кэш |
+| `max_memory_freq` | int | edit | Макс. частота памяти |
+| `release_year` | int | edit | Год релиза |
+| `Цена min, USD` | number | ro | Минимум по `supplier_prices`(currency='USD') для (category='cpu', component_id=id) |
+| `Цена min, RUB` | number/formula | ro | Если есть USD-цена: `=USD_cell*$B$1`. Если только RUB: статика. |
+| `Поставщик (min)` | string | ro | Имя поставщика, давшего min-цену |
+| `Цена обновлена` | datetime | ro | `supplier_prices.updated_at` |
+| `created_at` | timestamp | — | НЕ выгружается |
+
+### 2. Лист `Motherboard` (таблица `motherboards`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | Общая часть |
+| `socket` | varchar(20) | edit | |
+| `chipset` | varchar(50) | edit | |
+| `form_factor` | varchar(20) | edit | ATX / mATX / ITX |
+| `memory_type` | varchar(20) | edit | DDR4/DDR5 |
+| `has_m2_slot` | bool | edit | |
+| `memory_slots` | int | edit | |
+| `max_memory_gb` | int | edit | |
+| `max_memory_freq` | int | edit | |
+| `sata_ports` | int | edit | |
+| `m2_slots` | int | edit | |
+| `has_wifi` | bool | edit | |
+| `has_bluetooth` | bool | edit | |
+| `pcie_version` | varchar(10) | edit | |
+| `pcie_x16_slots` | int | edit | |
+| `usb_ports` | int | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | Через `supplier_prices` (category='motherboard') |
+
+### 3. Лист `RAM` (таблица `rams`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `memory_type` | varchar(20) | edit | DDR4/DDR5 |
+| `form_factor` | varchar(20) | edit | DIMM/SO-DIMM |
+| `module_size_gb` | int | edit | |
+| `modules_count` | int | edit | |
+| `frequency_mhz` | int | edit | |
+| `cl_timing` | int | edit | |
+| `voltage` | numeric(3,2) | edit | |
+| `has_heatsink` | bool | edit | |
+| `has_rgb` | bool | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='ram') |
+
+### 4. Лист `GPU` (таблица `gpus`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `vram_gb` | int | edit | |
+| `vram_type` | varchar(20) | edit | GDDR6/GDDR6X/GDDR7 |
+| `tdp_watts` | int | edit | |
+| `needs_extra_power` | bool | edit | |
+| `video_outputs` | text | edit | «HDMI 2.1 x1, DisplayPort 1.4 x3» |
+| `core_clock_mhz` | int | edit | |
+| `memory_clock_mhz` | int | edit | |
+| `gpu_chip` | varchar(100) | edit | |
+| `recommended_psu_watts` | int | edit | |
+| `length_mm` | int | edit | |
+| `height_mm` | int | edit | |
+| `power_connectors` | varchar(50) | edit | |
+| `fans_count` | int | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='gpu') |
+
+### 5. Лист `Storage` (таблица `storages`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `storage_type` | varchar(10) | edit | SSD/HDD |
+| `form_factor` | varchar(20) | edit | M.2 / 2.5" / 3.5" |
+| `interface` | varchar(20) | edit | NVMe/SATA |
+| `capacity_gb` | int | edit | |
+| `read_speed_mb` | int | edit | |
+| `write_speed_mb` | int | edit | |
+| `tbw` | int | edit | |
+| `rpm` | int | edit | |
+| `cache_mb` | int | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='storage') |
+
+### 6. Лист `Case` (таблица `cases`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `supported_form_factors` | TEXT[] | edit | **В Excel сериализуется как `ATX,mATX,ITX` через запятую**. Importer делает split + trim. |
+| `has_psu_included` | bool | edit | |
+| `included_psu_watts` | int | edit | |
+| `max_gpu_length_mm` | int | edit | |
+| `max_cooler_height_mm` | int | edit | |
+| `psu_form_factor` | varchar(20) | edit | |
+| `color` | varchar(50) | edit | |
+| `material` | varchar(50) | edit | |
+| `drive_bays` | int | edit | |
+| `fans_included` | int | edit | |
+| `has_glass_panel` | bool | edit | |
+| `has_rgb` | bool | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='case') |
+
+### 7. Лист `PSU` (таблица `psus`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `power_watts` | int | edit | |
+| `form_factor` | varchar(20) | edit | ATX/SFX |
+| `efficiency_rating` | varchar(20) | edit | Bronze/Gold/Platinum |
+| `modularity` | varchar(20) | edit | |
+| `has_12vhpwr` | bool | edit | |
+| `sata_connectors` | int | edit | |
+| `main_cable_length_mm` | int | edit | |
+| `warranty_years` | int | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='psu') |
+
+### 8. Лист `Cooler` (таблица `coolers`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | int | hidden | |
+| `model`, `manufacturer`, `sku`, `gtin`, `is_hidden` | … | edit | |
+| `supported_sockets` | TEXT[] | edit | **Сериализуется как `AM5,LGA1700` через запятую** (как и `supported_form_factors` у case) |
+| `max_tdp_watts` | int | edit | |
+| `cooler_type` | varchar(20) | edit | воздушный/жидкостный |
+| `height_mm` | int | edit | |
+| `radiator_size_mm` | int | edit | |
+| `fans_count` | int | edit | |
+| `noise_db` | numeric(4,1) | edit | |
+| `has_rgb` | bool | edit | |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | (category='cooler') |
+
+### 9. Лист `Принтеры` (таблица `printers_mfu`, фильтр `category='printer'`)
+
+| Колонка | Тип | Категория | Примечание |
+|---|---|---|---|
+| `id` | bigint | hidden | PK |
+| `sku` | text | edit | UNIQUE NOT NULL |
+| `mpn` | text | edit | Manufacturer Part Number |
+| `gtin` | text | edit | |
+| `brand` | text | edit | NOT NULL |
+| `name` | text | edit | NOT NULL |
+| `category` | text | edit | Должно остаться `printer` (CHECK constraint) |
+| `ktru_codes_array` | TEXT[] | edit | Сериализация через запятую |
+| `is_hidden` | bool | edit | |
+| `cost_base_rub` | numeric(12,2) | edit | Базовая закупочная цена для маржи (правится UI отдельно — но через Excel тоже можно) |
+| `margin_pct_target` | numeric(5,2) | edit | Целевая маржа |
+| **Из `attrs_jsonb` (PRINTER_MFU_ATTRS — 9 ключей)**: | | | |
+| `print_speed_ppm` | int / "n/a" | edit | |
+| `colorness` | ч/б, цветной, n/a | edit | |
+| `max_format` | A4, A3, n/a | edit | |
+| `duplex` | yes, no, n/a | edit | |
+| `resolution_dpi` | int / "n/a" | edit | |
+| `network_interface` | LAN,WiFi через запятую / "n/a" | edit | Массив → строка через запятую |
+| `usb` | yes, no, n/a | edit | |
+| `starter_cartridge_pages` | int / "n/a" | edit | |
+| `print_technology` | лазерная, струйная, светодиодная, n/a | edit | |
+| **Из `attrs_jsonb` (PRINTER_MFU_DIMENSION_ATTRS — 4 ключа, опциональные)**: | | | |
+| `weight_kg` | number / "n/a" / пусто | edit | Вес брутто в упаковке |
+| `box_width_cm` | number / "n/a" / пусто | edit | Ширина упаковки |
+| `box_height_cm` | number / "n/a" / пусто | edit | Высота упаковки |
+| `box_depth_cm` | number / "n/a" / пусто | edit | Глубина упаковки |
+| `attrs_source` | text | ro | claude_code / regex_name / manual / союзы; не правится из Excel |
+| `Цена min, USD/RUB`, `Поставщик (min)`, `Цена обновлена` | … | ro | Через `supplier_prices` (category='printer') |
+| `attrs_updated_at`, `price_updated_at`, `created_at` | timestamp | — | НЕ выгружаются |
+
+### 10. Лист `МФУ` (таблица `printers_mfu`, фильтр `category='mfu'`)
+
+Структура идентична листу `Принтеры` — те же колонки, тот же набор `attrs_jsonb` (`PRINTER_MFU_ATTRS` + `PRINTER_MFU_DIMENSION_ATTRS`), отличается только фильтр `category='mfu'`.
+
+---
+
 ## Архитектурные решения (фиксированы — AskUserQuestion не нужен)
 
-- **Идентификатор строки в Excel — id из БД.** Это первая колонка, скрытая или защищённая от правки. По id importer находит запись для обновления.
-- **Что можно править:** характеристики (`attrs_jsonb` для печатной техники; типовые колонки для комплектующих), `name`, возможно `brand` (с предупреждением). Цены, остатки, ссылки на поставщиков **редактировать нельзя** — они приходят от поставщиков через автозагрузку прайсов, ручная правка их в Excel перетрётся при следующем тике. Цены показываются в файле read-only (для понимания контекста — «какая цена сейчас у этой модели»).
+- **Идентификатор строки в Excel — id из БД.** Это первая скрытая колонка (`column_dimensions['A'].hidden = True`). По id importer находит запись для обновления.
+- **Что можно править:** характеристики (`attrs_jsonb` для печатной техники; типовые колонки для комплектующих), `name`, `brand`, `sku`, `gtin`, `is_hidden`, `cost_base_rub`, `margin_pct_target`. Цены, остатки, поставщики **редактировать нельзя** — они приходят от поставщиков через автозагрузку прайсов, ручная правка их в Excel перетрётся при следующем тике. Цены показываются read-only (для понимания контекста — «какая цена сейчас у этой модели»).
 - **Новые строки (id пустой) — создавать.** Поведение как при ручном добавлении товара.
 - **Удалённые строки игнорируем** (не удаляем из БД автоматически — слишком опасно). Удаление товаров — отдельная операция через UI.
-- **Конфликт «параллельная правка»:** если за время «скачал → правил → загрузил обратно» товар был обновлён (например, автозагрузкой прайса), показать diff и спросить «применить мои изменения / откатить». Это в первом MVP **не делать** — оставить пометку «при коллизии — last write wins, в audit_log запись о том, кто и когда правил».
+- **Конфликт «параллельная правка»:** если за время «скачал → правил → загрузил обратно» товар был обновлён (например, автозагрузкой прайса), в первом MVP принимается **last-write-wins**; в `audit_log` пишется запись о том, кто и когда правил. Diff-резолюшн — отдельный мини-этап после первого фидбэка.
 - **Аудит:** каждый импорт фиксируется в `audit_log` (action: `catalog_excel_import`) — кто, когда, сколько строк затронул, по каким листам.
 - **Файл импорта сохраняется** в `data/catalog_imports/<timestamp>_<filename>.xlsx` (для отката вручную, если что).
 - **UI:** один экран `/databases/catalog-excel` (или внутри существующего `/nomenclature` для печатной техники + новый раздел для комплектующих). Две кнопки на каждый файл: «Скачать» и «Загрузить». Доступ — только админ.
+- **Цена — две колонки + редактируемый курс ЦБ в служебной строке 1** (уточнение собственника 2026-05-14):
+  - На каждом листе строка 1 содержит:
+    - `A1` = `Курс ЦБ (USD→RUB)` (подпись), `B1` = числовое значение курса на дату выгрузки (берётся из `exchange_rates` LATEST по `rate_date DESC, fetched_at DESC`).
+    - `B1` редактируемая; при ручной правке курса все RUB-формулы пересчитываются автоматически.
+  - Колонки `Цена min, USD` и `Цена min, RUB`:
+    - Если у поставщика цена изначально в USD — `Цена min, USD` = статическое число, `Цена min, RUB` = формула вида `=<USD_cell>*$B$1` (абсолютная ссылка на ячейку курса).
+    - Если цена изначально в RUB — `Цена min, USD` = пусто, `Цена min, RUB` = статическое число.
+  - Заменяет старый «вариант А / Б» в открытых вопросах. **Старый пункт удалён.**
+- **Autofilter** — на строку шапки (строка 3 каждого листа): `ws.auto_filter.ref = "A3:<last_col>3"`. Так админ может фильтровать товары по бренду / категории / любой характеристике прямо в Excel.
+- **Сериализация массивов** (TEXT[] в БД, например `supported_form_factors`, `supported_sockets`, `ktru_codes_array`, `network_interface`) — в одной ячейке через запятую (`ATX,mATX,ITX`). При import — split по `,`, trim, фильтр пустых. Альтернатива «отдельные колонки» отклонена: ширина листа неконтролируема (у cooler может быть 40+ сокетов).
+- **Пустые ключи `attrs_jsonb` / NULL в БД**:
+  - Если значение в БД отсутствует → ячейка в Excel пустая.
+  - Если значение в БД = `n/a` → ячейка `n/a` (маркер «искали — не нашли»).
+  - При import: пустая ячейка → ключ не обновляется (no-op, per-key merge сохраняет существующее значение); `n/a` → пишется `n/a` (как и сейчас в Claude-Code-flow).
+- **Read-only визуально** — жёлтая заливка (`PatternFill('solid', fgColor='FFF4CE')`). Excel не блокирует ввод (sheet protection требует пароль и ломает совместимость с LibreOffice), но importer ro-колонки игнорирует с предупреждением в отчёте.
 
 ---
 
 ## Фазы реализации
 
-### Фаза 1. Discovery — структура колонок ⏳
+### Фаза 1. Discovery — структура колонок ✅ (2026-05-14)
 
-- [ ] Прочитать схемы таблиц комплектующих (`cpu`, `motherboard`, `ram`, `gpu`, `storage`, `case_`, `psu`, `cooler`): какие колонки есть, какие из них «характеристики» (правятся), какие «системные» (read-only).
-- [ ] Прочитать схему `nomenclature` + `attrs_jsonb` для печатной техники: список ключей `attrs_jsonb` (см. `portal/services/auctions/catalog/enrichment/schema.py`).
-- [ ] Зафиксировать в этом плане итоговый список колонок для каждого листа (на согласование собственнику).
+- [x] Прочитать схемы таблиц комплектующих (`cpus`, `motherboards`, `rams`, `gpus`, `storages`, `cases`, `psus`, `coolers`) — все колонки и их категории зафиксированы в секции «Структура колонок по листам» выше.
+- [x] Прочитать схему `printers_mfu` + `attrs_jsonb` (`PRINTER_MFU_ATTRS` в `portal/services/auctions/catalog/enrichment/schema.py`).
+- [x] Расширить `enrichment/schema.py` 4 опциональными ключами габаритов (`weight_kg`, `box_width_cm`, `box_height_cm`, `box_depth_cm`) — словарь общий с планом ПЭК-логистики (`plans/2026-05-13-logistics-pek.md`).
+- [x] Уточнить архитектуру: формула RUB-цен от ячейки курса, autofilter, сериализация массивов через запятую, поведение пустых/NA-ячеек.
 
 ### Фаза 2. Export (выгрузка) ⏳
 
@@ -98,17 +335,17 @@
 - Конфликт-резолюшн при параллельной правке — первый MVP принимает last-write-wins.
 - Импорт CSV — только Excel.
 
-## Открытые вопросы (на discovery)
+## Открытые вопросы
 
-- Структура колонок каждого листа — какие точно поля комплектующих включать. Discovery в фазе 1.
-- Где брать data для read-only колонок цен? Из таблицы `supplier_prices` — минимум по активным записям, один колонкой на строку («Цена min, RUB»). Или две колонки «Цена, USD» / «Цена, RUB» с курсом ЦБ дня выгрузки.
+*(пусто — все вопросы Фазы 1 закрыты 2026-05-14, см. блок «Архитектурные
+решения» и «Структура колонок по листам»)*
 
 ---
 
 ## Итоговый блок
 
-**Статус:** план создан 2026-05-13, не начат.
+**Статус:** Фаза 1 (discovery) закрыта 2026-05-14. Фазы 2-5 не начаты.
 
-**Что осталось:** всё — фазы 1-5.
+**Что осталось:** Фазы 2-5 — export, import, UI, тесты, docs.
 
 **Артефакты после реализации:** `portal/services/catalog/excel_{export,import}.py`, `scripts/catalog_excel_export.py`, UI `/databases/catalog-excel`, тесты, docs.

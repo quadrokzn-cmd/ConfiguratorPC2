@@ -34,6 +34,23 @@ PRINTER_MFU_ATTRS: dict[str, str] = {
     "print_technology":        "лазерная | струйная | светодиодная | n/a",
 }
 
+# Габариты упаковки и вес — общий словарь Excel-каталога и ПЭК-логистики
+# (зафиксирован 2026-05-14 в Фазе 1 Backlog #11). Опциональные ключи
+# `attrs_jsonb`: при валидации не обязательны, при отсутствии — пустая
+# ячейка в Excel. Единицы: см и кг (стандарт ПЭК калькулятора).
+PRINTER_MFU_DIMENSION_ATTRS: dict[str, str] = {
+    "weight_kg":     "number (kg, брутто в упаковке) | n/a",
+    "box_width_cm":  "number (cm, ширина упаковки) | n/a",
+    "box_height_cm": "number (cm, высота упаковки) | n/a",
+    "box_depth_cm":  "number (cm, глубина упаковки) | n/a",
+}
+
+# Полный набор допустимых ключей `attrs_jsonb` (обязательные + опциональные).
+PRINTER_MFU_ATTRS_ALL: dict[str, str] = {
+    **PRINTER_MFU_ATTRS,
+    **PRINTER_MFU_DIMENSION_ATTRS,
+}
+
 # Источник, под которым atts_jsonb пишутся в БД.
 SOURCE_CLAUDE_CODE = "claude_code"
 SOURCE_MANUAL = "manual"
@@ -47,6 +64,14 @@ def _validate_int(field: str, value) -> str | None:
         return f"{field}: ожидался int, пришло {type(value).__name__}"
     if value < 0:
         return f"{field}: int должен быть >= 0, пришло {value}"
+    return None
+
+
+def _validate_number(field: str, value) -> str | None:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return f"{field}: ожидался number, пришло {type(value).__name__}"
+    if value < 0:
+        return f"{field}: number должен быть >= 0, пришло {value}"
     return None
 
 
@@ -73,7 +98,10 @@ def validate_attrs(payload: dict) -> list[str]:
     """Возвращает список строк-ошибок (пусто => payload валиден).
 
     Любое поле может быть строкой "n/a" — это не ошибка, а маркер «не нашли
-    на сайте производителя». Все 9 ключей обязаны присутствовать.
+    на сайте производителя». Все 9 ключей `PRINTER_MFU_ATTRS` обязаны
+    присутствовать. Ключи габаритов из `PRINTER_MFU_DIMENSION_ATTRS`
+    опциональны: при отсутствии валидатор не ругается (исторические
+    enrichment-батчи Волны 1А-β их не несли).
     """
     errors: list[str] = []
 
@@ -84,12 +112,12 @@ def validate_attrs(payload: dict) -> list[str]:
     if missing:
         errors.append(f"отсутствуют поля: {missing}")
 
-    extra = [k for k in payload if k not in PRINTER_MFU_ATTRS]
+    extra = [k for k in payload if k not in PRINTER_MFU_ATTRS_ALL]
     if extra:
         errors.append(f"лишние поля: {extra}")
 
     for field, value in payload.items():
-        if field not in PRINTER_MFU_ATTRS:
+        if field not in PRINTER_MFU_ATTRS_ALL:
             continue
         if value == NA:
             continue
@@ -107,6 +135,8 @@ def validate_attrs(payload: dict) -> list[str]:
             err = _validate_enum(field, value, PRINT_TECH_VALUES)
         elif field == "network_interface":
             err = _validate_list_enum(field, value, NETWORK_INTERFACE_VALUES)
+        elif field in PRINTER_MFU_DIMENSION_ATTRS:
+            err = _validate_number(field, value)
         else:
             err = None
         if err:
