@@ -162,6 +162,10 @@
                      'Комплектующие для ПК', 'components') }}
         {{ _sub_link('portal', '/databases/mapping',
                      'Очередь маппинга', 'mapping') }}
+        {# Фаза 4 Excel-каталога (2026-05-13): админ-страница
+           выгрузки/загрузки каталога в xlsx. Доступ — только admin. #}
+        {{ _sub_link('portal', '/databases/catalog-excel',
+                     'Выгрузка/загрузка xlsx', 'catalog-excel') }}
       </div>
       {% endif %}
 

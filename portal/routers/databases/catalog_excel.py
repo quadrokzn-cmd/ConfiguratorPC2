@@ -39,7 +39,10 @@ from fastapi import (
     status,
 )
 from fastapi.responses import FileResponse, JSONResponse
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 from starlette.background import BackgroundTask
+from zoneinfo import ZoneInfo
 
 from portal.services.catalog.excel_export import (
     default_filename,
@@ -51,12 +54,14 @@ from portal.services.catalog.excel_import import (
     import_components_pc,
     import_printers_mfu,
 )
+from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (
     ACTION_CATALOG_EXCEL_EXPORT,
     ACTION_CATALOG_EXCEL_IMPORT,
 )
-from shared.auth import AuthUser, require_admin, verify_csrf
+from shared.auth import AuthUser, get_csrf_token, require_admin, verify_csrf
+from shared.db import get_db
 
 
 logger = logging.getLogger(__name__)
@@ -68,6 +73,148 @@ router = APIRouter(prefix="/databases/catalog-excel")
 _XLSX_MIME = (
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
+
+
+# ---------------------------------------------------------------------------
+# UI-страница (Фаза 4)
+# ---------------------------------------------------------------------------
+
+# Кол-во последних операций audit_log, которое показываем под каждой карточкой.
+# 10 — компромисс между «видна свежая активность» и «не перегружаем таблицу
+# журнальными хвостами»; полная история всё равно есть в /settings/audit-log.
+_HISTORY_LIMIT = 10
+
+_MSK_TZ = ZoneInfo("Europe/Moscow")
+
+
+_CARDS = [
+    {
+        "kind":     "pc",
+        "title":    "Комплектующие ПК",
+        "subtitle": "8 листов: CPU, Motherboard, RAM, GPU, Storage, Case, PSU, Cooler",
+        "icon":     "cpu",
+    },
+    {
+        "kind":     "printers",
+        "title":    "Печатная техника",
+        "subtitle": "2 листа: Принтеры и МФУ",
+        "icon":     "printer",
+    },
+]
+
+
+def _format_msk(value) -> str:
+    """audit_log.created_at → строка «YYYY-MM-DD HH:MM МСК»."""
+    if value is None:
+        return "—"
+    if value.tzinfo is None:
+        # Подстраховка: на проде колонка TIMESTAMPTZ, но локально/в pytest
+        # SQLite/PG-драйверы могут отдать naive — считаем UTC.
+        from datetime import timezone
+        value = value.replace(tzinfo=timezone.utc)
+    return value.astimezone(_MSK_TZ).strftime("%Y-%m-%d %H:%M")
+
+
+def _summarize_payload(action: str, payload: dict | None) -> tuple[str, bool]:
+    """Превращает payload audit_log в человекочитаемую сводку для таблицы
+    истории + флаг «была ли ошибка» (для подсветки бейджа «Импорт»).
+
+    Для catalog_excel_export:
+        «строк: 1234, листов: 8»
+    Для catalog_excel_import:
+        «+12 ~5 skip 0 err 0»  — успех;
+        «ошибка: KeyError: ...» — если в payload есть поле error.
+    """
+    payload = payload or {}
+    if action == ACTION_CATALOG_EXCEL_EXPORT:
+        rows = payload.get("rows_count", 0)
+        sheets = payload.get("sheet_counts") or {}
+        return f"строк: {rows}, листов: {len(sheets)}", False
+    if action == ACTION_CATALOG_EXCEL_IMPORT:
+        if "error" in payload:
+            return f"ошибка: {payload['error']}", True
+        parts = [
+            f"+{payload.get('inserted', 0)}",
+            f"~{payload.get('updated', 0)}",
+            f"skip {payload.get('skipped', 0)}",
+            f"err {payload.get('errors', 0)}",
+        ]
+        has_error = int(payload.get("errors", 0) or 0) > 0
+        return " / ".join(parts), has_error
+    # fallback: показываем JSON-ключи (не должны попасть сюда — фильтр по action)
+    return ", ".join(sorted(payload.keys())), False
+
+
+def _load_history(db: Session) -> dict[str, list[dict]]:
+    """Достаёт последние _HISTORY_LIMIT операций audit_log per kind
+    ('pc'/'printers') и кладёт уже отформатированные строки в словарь.
+
+    Один запрос с фильтром по target_type+action и оконной функцией
+    `ROW_NUMBER() PARTITION BY target_id`, чтобы при большом объёме
+    журнала не вытаскивать тысячи лишних строк.
+    """
+    rows = db.execute(
+        text(
+            """
+            SELECT id, created_at, user_login, action, target_id, payload
+              FROM (
+                SELECT id, created_at, user_login, action, target_id, payload,
+                       ROW_NUMBER() OVER (
+                         PARTITION BY target_id
+                         ORDER BY created_at DESC, id DESC
+                       ) AS rn
+                  FROM audit_log
+                 WHERE target_type = 'catalog_excel'
+                   AND action IN (:export_action, :import_action)
+                   AND target_id IN ('pc', 'printers')
+              ) sub
+             WHERE rn <= :limit
+             ORDER BY created_at DESC, id DESC
+            """
+        ),
+        {
+            "export_action": ACTION_CATALOG_EXCEL_EXPORT,
+            "import_action": ACTION_CATALOG_EXCEL_IMPORT,
+            "limit":         _HISTORY_LIMIT,
+        },
+    ).all()
+
+    out: dict[str, list[dict]] = {"pc": [], "printers": []}
+    for r in rows:
+        summary, has_error = _summarize_payload(r.action, r.payload)
+        out.setdefault(r.target_id, []).append({
+            "id":         r.id,
+            "created_msk": _format_msk(r.created_at),
+            "user_login": r.user_login,
+            "action":     r.action,
+            "summary":    summary,
+            "has_error":  has_error,
+        })
+    return out
+
+
+@router.get("")
+def catalog_excel_page(
+    request: Request,
+    user: AuthUser = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """UI-страница: две карточки (ПК + печатная техника) + история операций.
+
+    Доступ — только админ (`require_admin`). Manager получает 403.
+    """
+    return templates.TemplateResponse(
+        request,
+        "databases/catalog_excel.html",
+        {
+            "user":       user,
+            "csrf_token": get_csrf_token(request),
+            "cards":      _CARDS,
+            "history":    _load_history(db),
+            "info":       request.session.pop("flash_info",  None),
+            "error":      request.session.pop("flash_error", None),
+        },
+    )
 
 
 # ---------------------------------------------------------------------------

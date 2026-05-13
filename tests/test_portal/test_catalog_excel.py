@@ -80,3 +80,85 @@ def test_download_writes_audit_log(admin_portal_client, db_session):
     assert row.payload["target"] == "pc"
     assert "rows_count" in row.payload
     assert "sheet_counts" in row.payload
+
+
+# ---------------------------------------------------------------------------
+# UI-страница /databases/catalog-excel (Фаза 4)
+# ---------------------------------------------------------------------------
+
+
+def test_page_admin_200(admin_portal_client):
+    """GET /databases/catalog-excel админу отдаёт 200 со страницей."""
+    r = admin_portal_client.get("/databases/catalog-excel")
+    assert r.status_code == 200, r.text[:200]
+    body = r.text
+    # На странице есть обе карточки и обе кнопки скачивания.
+    assert "Комплектующие ПК" in body
+    assert "Печатная техника" in body
+    assert "/databases/catalog-excel/download/pc" in body
+    assert "/databases/catalog-excel/download/printers" in body
+    # data-testid карточек — стабильные якоря для будущих UI-тестов.
+    assert 'data-testid="catalog-card-pc"' in body
+    assert 'data-testid="catalog-card-printers"' in body
+
+
+def test_page_manager_403(manager_portal_client):
+    """Менеджер не должен видеть страницу — только админ."""
+    r = manager_portal_client.get("/databases/catalog-excel")
+    assert r.status_code == 403
+
+
+def test_page_anonymous_redirect(portal_client):
+    r = portal_client.get("/databases/catalog-excel")
+    assert r.status_code in (302, 303), r.status_code
+    assert "/login" in r.headers.get("location", "")
+
+
+def test_page_history_shows_recent_export(admin_portal_client, db_session):
+    """После скачивания запись audit_log появляется на странице как «Экспорт»."""
+    # Сначала вызываем download — он пишет audit_log row.
+    r1 = admin_portal_client.get("/databases/catalog-excel/download/pc")
+    assert r1.status_code == 200
+
+    r2 = admin_portal_client.get("/databases/catalog-excel")
+    assert r2.status_code == 200
+    body = r2.text
+    # Бейдж «Экспорт» должен присутствовать в строке истории для pc-карточки.
+    assert "Экспорт" in body
+    # data-testid конкретной audit-строки (id из БД).
+    row = db_session.execute(
+        text(
+            "SELECT id FROM audit_log "
+            "WHERE action = 'catalog_excel_export' AND target_id = 'pc' "
+            "ORDER BY id DESC LIMIT 1"
+        )
+    ).first()
+    assert row is not None
+    assert f'data-testid="audit-row-pc-{row.id}"' in body
+
+
+def test_page_history_separated_by_kind(admin_portal_client, db_session):
+    """История pc-карточки и printers-карточки не перемешиваются.
+
+    Делаем по одному download для каждого target и проверяем, что в HTML
+    audit-row с правильным target_id рендерится под своей карточкой.
+    """
+    admin_portal_client.get("/databases/catalog-excel/download/pc")
+    admin_portal_client.get("/databases/catalog-excel/download/printers")
+
+    rows = db_session.execute(
+        text(
+            "SELECT id, target_id FROM audit_log "
+            "WHERE action = 'catalog_excel_export' "
+            "ORDER BY id DESC LIMIT 2"
+        )
+    ).all()
+    by_kind = {r.target_id: r.id for r in rows}
+    assert {"pc", "printers"}.issubset(by_kind.keys())
+
+    body = admin_portal_client.get("/databases/catalog-excel").text
+    assert f'data-testid="audit-row-pc-{by_kind["pc"]}"' in body
+    assert f'data-testid="audit-row-printers-{by_kind["printers"]}"' in body
+    # Перекрёстных совпадений не должно быть.
+    assert f'data-testid="audit-row-pc-{by_kind["printers"]}"' not in body
+    assert f'data-testid="audit-row-printers-{by_kind["pc"]}"' not in body

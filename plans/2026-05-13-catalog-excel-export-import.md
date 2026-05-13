@@ -320,21 +320,22 @@
 - **Транзакция:** один `session.commit()` на весь файл. SQL-ошибка → `rollback()` всего файла. Валидационные ошибки rollback'у не вызывают — валидные строки коммитятся.
 - **Порог sync/background:** синхронный. На полном каталоге (≈1.5к ПК + ≈3к печатной техники) импорт укладывается в секунды локально; для прод-объёмов > 5к строк или 100 МБ — будущая оптимизация через `BackgroundTasks` по шаблону `admin_price_uploads`.
 
-### Фаза 4. UI ⏳
+### Фаза 4. UI ✅ (2026-05-13)
 
-- [ ] Страница `/databases/catalog-excel` (или интеграция в существующие разделы — решить при реализации):
-  - Карточка «Комплектующие ПК» — кнопки «Скачать xlsx», «Загрузить xlsx».
-  - Карточка «Печатная техника» — кнопки «Скачать xlsx», «Загрузить xlsx».
-  - Под каждой карточкой — история последних 10 загрузок (из `audit_log`).
-- [ ] Sidebar: новый подпункт `Выгрузка/загрузка` в разделе «Базы данных» (см. `shared/templates/_partials/sidebar.html`).
-- [ ] Иконка: `download` или `file-spreadsheet` (добавить в `_macros/icons.html` если нет).
+- [x] Страница `/databases/catalog-excel` — `portal/templates/databases/catalog_excel.html`:
+  - Две карточки («Комплектующие ПК» + «Печатная техника»), каждая с кнопкой «Скачать xlsx» (ссылка GET) и формой «Загрузить xlsx» (multipart POST → JSON-отчёт).
+  - Кнопка «Загрузить» получает spinner / `disabled` на время импорта; после ответа сервера рисуется сводка (обновлено/создано/пропущено/ошибок) + сворачиваемый блок с полным JSON.
+  - Под каждой карточкой — таблица последних 10 операций из `audit_log` (фильтр `target_type='catalog_excel'`, `target_id IN ('pc','printers')`) с подсветкой ошибочных импортов.
+- [x] Router GET `/databases/catalog-excel` в `portal/routers/databases/catalog_excel.py` (`require_admin`, отдельный SQL с ROW_NUMBER per kind, чтобы избежать N+1 и не вытаскивать тысячи строк журнала).
+- [x] Sidebar: новый подпункт «Выгрузка/загрузка xlsx» в разделе «Базы данных» (`shared/templates/_partials/sidebar.html`).
+- [x] `base.html`: классификация `_path.startswith('/databases/catalog-excel')` → `active_section='databases'`, `active_subsection='catalog-excel'`.
+- [x] Иконки `download`, `upload`, `file-spreadsheet`, `info` добавлены в `portal/templates/_macros/icons.html`.
 
-### Фаза 5. Тесты + документация ⏳
+### Фаза 5. Тесты + документация ✅ (2026-05-13)
 
-- [ ] `tests/test_catalog/test_excel_export.py` — экспорт + проверка структуры файла (openpyxl-based).
-- [ ] `tests/test_catalog/test_excel_import.py` — импорт: обновление, создание, валидационные ошибки, удалённые из Excel строки не трогаются в БД.
-- [ ] Полный pytest baseline должен остаться зелёным.
-- [ ] `docs/catalog_excel.md` — описание формата файла, поведения importer'а, известных ограничений.
+- [x] HTTP-тесты Фазы 2/3 (`tests/test_portal/test_catalog_excel.py`) дополнены 4 UI-тестами Фазы 4: admin 200 + контент страницы (две карточки, ссылки скачивания, data-testid), manager 403, anonymous redirect /login, история операций per kind не перемешивается.
+- [x] Юнит-тесты сервисов экспорта/импорта живут в `tests/test_catalog/test_excel_export.py` и `test_excel_import.py` (Фазы 2/3).
+- [x] `docs/catalog_excel.md` — формат файла, fallback курса 90.0, COALESCE-семантика, last-write-wins, частые ошибки, CLI-обёртка.
 
 ---
 
@@ -355,13 +356,18 @@
 
 ## Итоговый блок
 
-**Статус:** Фазы 1 (discovery), 2 (export) и 3 (import) закрыты 2026-05-13. Фазы 4-5 не начаты.
+**Статус:** все 5 фаз закрыты 2026-05-13. Фича реализована на 100%.
 
-**Что осталось:** Фаза 4 (UI-страница + sidebar), Фаза 5 (тесты импорта/экспорта в полном объёме + docs).
+**Что осталось:** ничего обязательного. Опциональные доработки в `Что НЕ входит в этот план` (удаление через Excel, конфликт-резолюшн с diff, CSV) — отдельными мини-этапами по фидбэку первых пользователей.
 
-**Артефакты после реализации (Фаза 2):**
-- `portal/services/catalog/excel_export.py` — сервис.
-- `scripts/catalog_excel_export.py` — CLI.
-- `portal/routers/databases/catalog_excel.py` — GET-эндпоинт скачивания.
-- `tests/test_catalog/test_excel_export.py` + `tests/test_portal/test_catalog_excel.py`.
-- `ACTION_CATALOG_EXCEL_EXPORT = "catalog_excel_export"` в `shared/audit_actions.py`.
+**Артефакты:**
+- `portal/services/catalog/excel_export.py` — сервис экспорта (Фаза 2).
+- `portal/services/catalog/excel_import.py` — сервис импорта (Фаза 3).
+- `scripts/catalog_excel_export.py` — CLI-обёртка (Фаза 2).
+- `portal/routers/databases/catalog_excel.py` — GET `/databases/catalog-excel` (UI-страница, Фаза 4), GET `/download/{kind}`, POST `/upload/{kind}` (Фазы 2/3).
+- `portal/templates/databases/catalog_excel.html` — UI-страница с двумя карточками + историей (Фаза 4).
+- `shared/templates/_partials/sidebar.html` + `portal/templates/base.html` — новый подпункт sidebar + классификация активного раздела (Фаза 4).
+- `portal/templates/_macros/icons.html` — иконки `download`, `upload`, `file-spreadsheet`, `info` (Фаза 4).
+- `tests/test_catalog/test_excel_export.py`, `tests/test_catalog/test_excel_import.py`, `tests/test_portal/test_catalog_excel.py` (Фазы 2/3 + UI-тесты Фазы 4).
+- `docs/catalog_excel.md` (Фаза 5).
+- `ACTION_CATALOG_EXCEL_EXPORT`, `ACTION_CATALOG_EXCEL_IMPORT` в `shared/audit_actions.py`.

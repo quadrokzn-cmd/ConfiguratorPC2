@@ -42,6 +42,10 @@
 {% elif _path.startswith('/databases/mapping') %}
   {% set active_section = 'databases' %}
   {% set active_subsection = 'mapping' %}
+{# Фаза 4 Excel-каталога (2026-05-13): страница выгрузки/загрузки каталога. #}
+{% elif _path.startswith('/databases/catalog-excel') %}
+  {% set active_section = 'databases' %}
+  {% set active_subsection = 'catalog-excel' %}
 {# UI-3 (Путь B, 2026-05-11): «Настройки» переехали из /admin/{users,
    backups,audit} на /settings/{users,backups,audit-log}. Старые URL
    отдают 301 (см. portal/main.py), сами страницы здесь больше не

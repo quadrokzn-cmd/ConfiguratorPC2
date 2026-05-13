@@ -291,6 +291,32 @@ body.portal-theme {
     @apply border-danger-500;
   }
 
+  /* === input[type=file] ============================================
+     Браузер по умолчанию рендерит ::file-selector-button белой кнопкой,
+     которая «режет глаз» на тёмной теме портала. Окрашиваем её под
+     btn-secondary (тёмная плашка surface-3 + тонкая граница), чтобы
+     визуально сливалась с остальными элементами формы.
+     Решение Фазы C UX-правок 2026-05-13: secondary-палитра выбрана как
+     нейтральный «подобный другим кнопкам» вариант — не отвлекает от
+     основной кнопки «Загрузить» (btn-primary справа). */
+  .input[type="file"] {
+    @apply py-1.5 pl-1.5;
+    color: theme('colors.ink.secondary');
+    cursor: pointer;
+  }
+  .input[type="file"]::file-selector-button {
+    @apply mr-3 px-3 py-1.5 text-small font-medium rounded-md
+           bg-surface-3 text-ink-primary;
+    border: 1px solid theme('colors.line.softer');
+    cursor: pointer;
+    transition: background-color 120ms ease-out,
+                border-color 120ms ease-out;
+  }
+  .input[type="file"]::file-selector-button:hover {
+    background-color: theme('colors.surface.4');
+    border-color: theme('colors.line.strong');
+  }
+
   /* === Кастомный stepper для input[type=number] =====================
      9А.1.3: нативные стрелки скрыты глобально (см. base layer); здесь —
      своя пара кнопок вверх/вниз, прижатых к input справа. Высота

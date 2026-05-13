@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
+
+{% block title %}Выгрузка/загрузка каталога — КВАДРО-ТЕХ{% endblock %}
+
+{% block content %}
+<div class="max-w-screen-2xl mx-auto space-y-6">
+
+  <header>
+    <h1 class="text-display text-ink-primary">Выгрузка/загрузка каталога</h1>
+    <p class="mt-1.5 text-body text-ink-secondary max-w-3xl">
+      Скачайте каталог в Excel, поправьте характеристики массово, загрузите файл
+      обратно — изменения попадут в БД. Идентификатор строки (id) — скрытая
+      первая колонка; по ней импорт находит запись. Цены, поставщик и дата
+      обновления выгружаются read-only (жёлтые ячейки) и при импорте игнорируются —
+      они обновляются автозагрузкой прайсов.
+    </p>
+  </header>
+
+  {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-success">{{ info }}</div>{% endif %}
+
+  {# === Две карточки: ПК + печатная техника =========================== #}
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    {% for card in cards %}
+    <div class="card card-pad" data-testid="catalog-card-{{ card.kind }}">
+      <div class="flex items-start gap-3 mb-3">
+        <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg
+                    bg-surface-2 text-brand-300 shrink-0">
+          {{ icon(card.icon, class='w-5 h-5') }}
+        </div>
+        <div class="min-w-0 flex-1">
+          <h2 class="text-h3 text-ink-primary">{{ card.title }}</h2>
+          <p class="text-caption text-ink-muted">{{ card.subtitle }}</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-stretch gap-2 mb-4">
+        <a href="/databases/catalog-excel/download/{{ card.kind }}"
+           class="btn btn-md btn-primary inline-flex items-center gap-2"
+           data-testid="download-{{ card.kind }}">
+          {{ icon('download', class='w-4 h-4') }}
+          Скачать xlsx
+        </a>
+
+        <form method="post"
+              action="/databases/catalog-excel/upload/{{ card.kind }}"
+              enctype="multipart/form-data"
+              class="inline-flex items-center gap-2 kt-catalog-upload-form"
+              data-kind="{{ card.kind }}"
+              data-title="{{ card.title }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <input type="file"
+                 name="uploaded_file"
+                 class="input kt-file-input"
+                 accept=".xlsx"
+                 required
+                 data-testid="file-input-{{ card.kind }}">
+          <button type="submit"
+                  class="btn btn-md btn-secondary inline-flex items-center gap-2 kt-upload-btn"
+                  data-testid="upload-{{ card.kind }}">
+            {{ icon('upload', class='w-4 h-4') }}
+            <span class="kt-upload-btn-label">Загрузить xlsx</span>
+            <span class="kt-upload-btn-spinner hidden">…</span>
+          </button>
+        </form>
+      </div>
+
+      {# Отчёт после импорта (заполняется JS из JSON-ответа). #}
+      <div class="kt-import-report hidden mb-4" data-testid="import-report-{{ card.kind }}">
+        <div class="kt-import-report-summary text-small font-mono text-ink-primary
+                    bg-surface-2 rounded-md p-3 mb-2"></div>
+        <details class="text-caption text-ink-secondary">
+          <summary class="cursor-pointer hover:text-ink-primary">Полный JSON-отчёт</summary>
+          <pre class="kt-import-report-json mt-2 p-3 rounded-md bg-surface-2
+                      text-caption font-mono text-ink-primary overflow-auto"
+               style="max-height: 40vh; white-space: pre-wrap;"></pre>
+        </details>
+      </div>
+
+      <h3 class="text-small font-medium text-ink-secondary mb-2">
+        История последних операций
+      </h3>
+      {% set events = history.get(card.kind, []) %}
+      {% if events %}
+      <div class="overflow-x-auto">
+        <table class="kt-table text-small">
+          <thead>
+            <tr>
+              <th class="text-left w-40">Дата (МСК)</th>
+              <th class="text-left w-32">Пользователь</th>
+              <th class="text-left w-24">Действие</th>
+              <th class="text-left">Счётчики</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ev in events %}
+            <tr data-testid="audit-row-{{ card.kind }}-{{ ev.id }}">
+              <td class="text-ink-secondary font-mono text-small whitespace-nowrap">
+                {{ ev.created_msk }}
+              </td>
+              <td class="text-ink-primary text-small">{{ ev.user_login or '—' }}</td>
+              <td>
+                {% if ev.action == 'catalog_excel_export' %}
+                  <span class="badge badge-neutral">Экспорт</span>
+                {% elif ev.action == 'catalog_excel_import' %}
+                  {% if ev.has_error %}
+                    <span class="badge badge-danger">Импорт</span>
+                  {% else %}
+                    <span class="badge badge-success">Импорт</span>
+                  {% endif %}
+                {% else %}
+                  <span class="badge badge-neutral">{{ ev.action }}</span>
+                {% endif %}
+              </td>
+              <td class="text-ink-secondary text-small font-mono">{{ ev.summary }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-ink-muted text-small">Операций пока не было.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+  </section>
+
+</div>
+
+<script>
+  // Перехватываем submit формы загрузки, чтобы:
+  //   1) подтвердить через confirmDialog;
+  //   2) показать spinner на кнопке во время импорта (он синхронный, может
+  //      занять несколько секунд на большом каталоге);
+  //   3) после ответа сервера отрисовать сводку и полный JSON-отчёт.
+  (function () {
+    var forms = document.querySelectorAll('.kt-catalog-upload-form');
+    forms.forEach(function (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+
+        var fileInput = form.querySelector('input[type="file"]');
+        if (!fileInput || !fileInput.files || !fileInput.files.length) {
+          window.toastDialog &&
+            window.toastDialog('Выберите xlsx-файл.', { kind: 'warn' });
+          return;
+        }
+
+        var title = form.dataset.title || form.dataset.kind;
+        var fileName = fileInput.files[0].name;
+        var ask = window.confirmDialog
+          ? window.confirmDialog(
+              'Загрузить «' + fileName + '» в каталог «' + title + '»?\n' +
+              'Операция перезапишет характеристики по id строки.',
+              { okLabel: 'Загрузить' })
+          : Promise.resolve(window.confirm('Загрузить?'));
+
+        ask.then(function (ok) {
+          if (!ok) return;
+          ktSubmitCatalogUpload(form);
+        });
+      });
+    });
+  })();
+
+  function ktSubmitCatalogUpload(form) {
+    var btn = form.querySelector('.kt-upload-btn');
+    var btnLabel = form.querySelector('.kt-upload-btn-label');
+    var btnSpinner = form.querySelector('.kt-upload-btn-spinner');
+    var report = form.parentElement.querySelector('.kt-import-report');
+    var summary = report.querySelector('.kt-import-report-summary');
+    var jsonBox = report.querySelector('.kt-import-report-json');
+
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('opacity-70');
+    if (btnLabel) btnLabel.classList.add('hidden');
+    if (btnSpinner) btnSpinner.classList.remove('hidden');
+    report.classList.add('hidden');
+
+    var data = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      credentials: 'same-origin',
+    })
+      .then(function (r) {
+        return r.json().then(function (body) {
+          return { ok: r.ok, status: r.status, body: body };
+        });
+      })
+      .then(function (res) {
+        var body = res.body || {};
+        if (!res.ok) {
+          summary.innerHTML =
+            '<span class="text-danger-500 font-medium">Импорт упал:</span> ' +
+            (body.detail || ('HTTP ' + res.status));
+        } else {
+          summary.innerHTML = ktImportSummary(body);
+        }
+        jsonBox.textContent = JSON.stringify(body, null, 2);
+        report.classList.remove('hidden');
+      })
+      .catch(function (err) {
+        summary.innerHTML =
+          '<span class="text-danger-500 font-medium">Сеть:</span> ' + err;
+        jsonBox.textContent = '';
+        report.classList.remove('hidden');
+      })
+      .finally(function () {
+        btn.removeAttribute('disabled');
+        btn.classList.remove('opacity-70');
+        if (btnLabel) btnLabel.classList.remove('hidden');
+        if (btnSpinner) btnSpinner.classList.add('hidden');
+      });
+  }
+
+  function ktImportSummary(body) {
+    var u = body.updated == null ? 0 : body.updated;
+    var i = body.inserted == null ? 0 : body.inserted;
+    var s = body.skipped == null ? 0 : body.skipped;
+    var e = body.errors_count == null ? 0 : body.errors_count;
+    var parts = [
+      '<span class="text-success-500">обновлено: ' + u + '</span>',
+      '<span class="text-brand-300">создано: ' + i + '</span>',
+      '<span class="text-ink-muted">пропущено: ' + s + '</span>',
+    ];
+    if (e > 0) {
+      parts.push('<span class="text-danger-500">ошибок: ' + e + '</span>');
+    } else {
+      parts.push('<span class="text-success-500">ошибок: 0</span>');
+    }
+    return parts.join(' · ');
+  }
+</script>
+{% endblock %}

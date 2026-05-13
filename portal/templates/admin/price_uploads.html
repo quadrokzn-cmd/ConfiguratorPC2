@@ -1,6 +1,22 @@
 {% extends "base.html" %}
+{% from "_macros/icons.html" import icon %}
 
 {% block title %}Прайс-листы поставщиков — Портал КВАДРО-ТЕХ{% endblock %}
+
+{# UX-правка 2026-05-13: словарь русских лейблов для status в журнале
+   загрузок. На уровне БД и API статус остаётся английским enum'ом
+   (success/partial/failed/running/...), русифицируем только
+   отображение. Если в журнал прилетит новый, неизвестный статус —
+   {{ map.get(status, status) }} покажет сырое значение, чтобы админ
+   не остался слепым. #}
+{% set _STATUS_RU = {
+    'success':     'успешно',
+    'partial':     'частично',
+    'failed':      'ошибка',
+    'running':     'выполняется',
+    'pending':     'ожидает',
+    'no_new_data': 'нет новых данных',
+} %}
 
 {% block content %}
 <div class="portal-page">
@@ -119,7 +135,19 @@
           <th class="text-left">Поставщик</th>
           <th class="text-left">Файл</th>
           <th class="text-left w-28">Статус</th>
-          <th class="text-left w-48">Счётчики</th>
+          <th class="text-left w-48">
+            <span class="inline-flex items-center gap-1.5">
+              <span>Счётчики</span>
+              {# UX-правка 2026-05-13: tooltip-подсказка о формате колонки.
+                 Браузерный title="" даёт нативный hover-tooltip — никаких
+                 custom-tooltip'ов на странице нет, экономим JS. #}
+              <span class="text-ink-muted cursor-help"
+                    aria-label="Описание столбца Счётчики"
+                    title="Формат: «+добавлено / ~обновлено / skip пропущено / err ошибок».&#10;&#10;+ добавлено — новые SKU, попавшие в БД из этого прайса.&#10;~ обновлено — существующие SKU, у которых обновились цены/остатки.&#10;skip — строки прайса, не сматченные к товарам в БД.&#10;err — строки с ошибками парсинга или валидации.">
+                {{ icon('info', class='w-3.5 h-3.5') }}
+              </span>
+            </span>
+          </th>
           <th class="text-right w-24">Пропали</th>
           <th class="text-right w-32">Подробности</th>
         </tr>
@@ -134,13 +162,13 @@
           <td class="text-ink-secondary font-mono text-small">{{ j.filename }}</td>
           <td>
             {% if j.status == 'success' %}
-              <span class="badge badge-success">success</span>
+              <span class="badge badge-success">{{ _STATUS_RU['success'] }}</span>
             {% elif j.status == 'partial' %}
-              <span class="badge badge-warning">partial</span>
+              <span class="badge badge-warning">{{ _STATUS_RU['partial'] }}</span>
             {% elif j.status == 'failed' %}
-              <span class="badge badge-danger">failed</span>
+              <span class="badge badge-danger">{{ _STATUS_RU['failed'] }}</span>
             {% else %}
-              <span class="badge badge-neutral">{{ j.status or '—' }}</span>
+              <span class="badge badge-neutral">{{ _STATUS_RU.get(j.status, j.status) or '—' }}</span>
             {% endif %}
           </td>
           <td class="text-ink-secondary text-small font-mono">
