@@ -1,0 +1,35 @@
+{
+  "brand": "Konica Minolta",
+  "batch_id": "round2_001",
+  "generated_at": "2026-05-13T18:20:00+00:00",
+  "results": [
+    {
+      "sku": "konica minolta:AA7R021",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1800,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "konica minolta:ADXM021",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1800,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}

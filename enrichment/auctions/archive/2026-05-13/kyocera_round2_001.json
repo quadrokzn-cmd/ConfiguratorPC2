@@ -1,0 +1,21 @@
+{
+  "brand": "Kyocera",
+  "batch_id": "round2_001",
+  "generated_at": "2026-05-13T18:22:00+00:00",
+  "results": [
+    {
+      "sku": "kyocera:110C143AX0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": ["LAN"],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}
