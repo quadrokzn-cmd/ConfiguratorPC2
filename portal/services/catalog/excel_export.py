@@ -109,6 +109,10 @@ _FILL_RATE = PatternFill("solid", fgColor="DDEBF7")  # светло-голубо
 #         'price:rub'            — min-цена в RUB: формула или статика (ro).
 #         'price:supplier'       — имя поставщика min-предложения (ro).
 #         'price:updated_at'     — updated_at min-предложения (ro).
+#         'stock:on_hand'        — сумма stock_qty по активным предложениям (ro).
+#         'stock:in_transit'     — сумма transit_qty по активным предложениям (ro).
+#         'stock:suppliers'      — count(DISTINCT supplier) с положительным
+#                                  наличием/транзитом (ro).
 @dataclass(frozen=True)
 class _Col:
     title: str
@@ -126,12 +130,20 @@ _PC_COMMON_PREFIX = (
     _Col("is_hidden",    "edit",   "col:is_hidden"),
 )
 
-# Общий «хвост» цен у всех листов ПК.
+# Общий «хвост» цен и наличия у всех листов ПК. Сначала price-блок
+# (USD/RUB/Поставщик/Обновлена) — слитная группа; затем блок наличия
+# (Склад/Транзит/Поставщиков) — отдельная группа. Подмножество поставщиков
+# для наличия совпадает с подмножеством для min-цены (активные поставщики
+# + активные позиции stock>0 OR transit>0), цифры читаются вместе с
+# «Поставщик (min)» и не противоречат друг другу.
 _PC_COMMON_PRICE_SUFFIX = (
-    _Col("Цена min, USD",  "ro", "price:usd"),
-    _Col("Цена min, RUB",  "ro", "price:rub"),
+    _Col("Цена min, USD",   "ro", "price:usd"),
+    _Col("Цена min, RUB",   "ro", "price:rub"),
     _Col("Поставщик (min)", "ro", "price:supplier"),
-    _Col("Цена обновлена", "ro", "price:updated_at"),
+    _Col("Цена обновлена",  "ro", "price:updated_at"),
+    _Col("Склад, шт",       "ro", "stock:on_hand"),
+    _Col("Транзит, шт",     "ro", "stock:in_transit"),
+    _Col("Поставщиков, шт", "ro", "stock:suppliers"),
 )
 
 
@@ -304,11 +316,14 @@ def _printer_mfu_columns() -> tuple[_Col, ...]:
     for key in PRINTER_MFU_DIMENSION_ATTRS:
         base.append(_Col(key, "edit", f"attr:{key}"))
     base.extend([
-        _Col("attrs_source",   "ro", "col:attrs_source"),
-        _Col("Цена min, USD",  "ro", "price:usd"),
-        _Col("Цена min, RUB",  "ro", "price:rub"),
+        _Col("attrs_source",    "ro", "col:attrs_source"),
+        _Col("Цена min, USD",   "ro", "price:usd"),
+        _Col("Цена min, RUB",   "ro", "price:rub"),
         _Col("Поставщик (min)", "ro", "price:supplier"),
-        _Col("Цена обновлена", "ro", "price:updated_at"),
+        _Col("Цена обновлена",  "ro", "price:updated_at"),
+        _Col("Склад, шт",       "ro", "stock:on_hand"),
+        _Col("Транзит, шт",     "ro", "stock:in_transit"),
+        _Col("Поставщиков, шт", "ro", "stock:suppliers"),
     ])
     return tuple(base)
 
@@ -480,6 +495,58 @@ def _fetch_min_prices(
     return out
 
 
+def _fetch_availability(
+    db: Session, category: str, component_ids: Sequence[int],
+) -> dict[int, dict[str, int]]:
+    """Агрегаты наличия по поставщикам для каждой component_id.
+
+    Подмножество строк — то же, что для min-цены: только активные
+    поставщики и активные позиции (`stock_qty > 0 OR transit_qty > 0`).
+    Тем самым «Склад, шт» / «Транзит, шт» / «Поставщиков, шт» когерентны
+    с «Поставщик (min)»: видишь у поставщика min-цену → его остаток
+    включён в суммы.
+
+    Result-схема:
+      {
+        <component_id>: {
+          'on_hand':       int,  # SUM(stock_qty)
+          'in_transit':    int,  # SUM(transit_qty)
+          'suppliers':     int,  # COUNT(DISTINCT supplier_id)
+        }
+      }
+    Компоненты без активных предложений в результате отсутствуют (Excel
+    показывает пустые ячейки — означает «нет наличия ни у кого»).
+    """
+    if not component_ids:
+        return {}
+    sql = text(
+        """
+        SELECT sp.component_id,
+               COALESCE(SUM(sp.stock_qty),   0) AS on_hand,
+               COALESCE(SUM(sp.transit_qty), 0) AS in_transit,
+               COUNT(DISTINCT sp.supplier_id)   AS suppliers
+          FROM supplier_prices sp
+          JOIN suppliers s ON s.id = sp.supplier_id
+         WHERE sp.category = :cat
+           AND s.is_active = TRUE
+           AND (sp.stock_qty > 0 OR sp.transit_qty > 0)
+           AND sp.component_id = ANY(:ids)
+         GROUP BY sp.component_id
+        """
+    )
+    rows = db.execute(
+        sql, {"cat": category, "ids": list(component_ids)},
+    ).mappings().all()
+    return {
+        int(r["component_id"]): {
+            "on_hand":    int(r["on_hand"] or 0),
+            "in_transit": int(r["in_transit"] or 0),
+            "suppliers":  int(r["suppliers"] or 0),
+        }
+        for r in rows
+    }
+
+
 # ---------------------------------------------------------------------
 # Преобразование значений ячеек
 # ---------------------------------------------------------------------
@@ -569,6 +636,7 @@ def _write_sheet(
     spec: _SheetSpec,
     rows: list[dict[str, Any]],
     prices: dict[int, dict[str, Any]],
+    availability: dict[int, dict[str, int]],
     rate: Decimal,
 ) -> None:
     """Заполняет один лист по spec'у. Возвращает число записанных строк
@@ -615,6 +683,10 @@ def _write_sheet(
         min_rub = price_info.get("min_rub")
         supplier_name = price_info.get("supplier_name")
         price_updated_at = price_info.get("updated_at")
+        avail_info = availability.get(int(component_id), {}) if component_id else {}
+        on_hand = avail_info.get("on_hand")
+        in_transit = avail_info.get("in_transit")
+        suppliers_with_stock = avail_info.get("suppliers")
 
         for col_idx, col in enumerate(spec.columns, start=1):
             cell = ws.cell(row=excel_row, column=col_idx)
@@ -641,6 +713,21 @@ def _write_sheet(
                 if price_updated_at is not None:
                     cell.value = price_updated_at
                     cell.number_format = "yyyy-mm-dd hh:mm"
+            elif src == "stock:on_hand":
+                # 0 — это значащее «нет на складе ни у кого», пишем число;
+                # отсутствие записи (нет активных предложений вообще) —
+                # пустая ячейка.
+                if on_hand is not None:
+                    cell.value = on_hand
+                    cell.number_format = "0"
+            elif src == "stock:in_transit":
+                if in_transit is not None:
+                    cell.value = in_transit
+                    cell.number_format = "0"
+            elif src == "stock:suppliers":
+                if suppliers_with_stock is not None:
+                    cell.value = suppliers_with_stock
+                    cell.number_format = "0"
             else:
                 value = _cell_value_for_column(col, row, attrs)
                 if value is not None:
@@ -687,7 +774,8 @@ def _build_workbook(
         rows = _fetch_main_rows(db, spec, db_cols)
         component_ids = [int(r["id"]) for r in rows if r.get("id") is not None]
         prices = _fetch_min_prices(db, spec.price_category, component_ids)
-        _write_sheet(ws, spec, rows, prices, rate)
+        availability = _fetch_availability(db, spec.price_category, component_ids)
+        _write_sheet(ws, spec, rows, prices, availability, rate)
         sheet_counts[spec.title] = len(rows)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)

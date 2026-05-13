@@ -127,10 +127,16 @@ _COMMON_EDIT_PC: list[tuple[str, str, str, str]] = [
 ]
 
 _RO_PC: list[tuple[str, str, str, str]] = [
-    ("Цена min, USD",  None, "readonly", "float"),
-    ("Цена min, RUB",  None, "readonly", "float"),
+    ("Цена min, USD",   None, "readonly", "float"),
+    ("Цена min, RUB",   None, "readonly", "float"),
     ("Поставщик (min)", None, "readonly", "str"),
-    ("Цена обновлена", None, "readonly", "datetime"),
+    ("Цена обновлена",  None, "readonly", "datetime"),
+    # Колонки наличия — агрегаты по supplier_prices. Импортер их
+    # игнорирует, пишет общий read-only warning. Реальные значения
+    # обновляются только автозагрузкой прайсов.
+    ("Склад, шт",       None, "readonly", "int"),
+    ("Транзит, шт",     None, "readonly", "int"),
+    ("Поставщиков, шт", None, "readonly", "int"),
 ]
 
 
@@ -363,11 +369,14 @@ _PRINTER_ATTRS_COLS: list[tuple[str, str, str, str]] = [
 ]
 
 _PRINTER_RO_COLS: list[tuple[str, str, str, str]] = [
-    ("attrs_source",   None, "readonly", "str"),
-    ("Цена min, USD",  None, "readonly", "float"),
-    ("Цена min, RUB",  None, "readonly", "float"),
+    ("attrs_source",    None, "readonly", "str"),
+    ("Цена min, USD",   None, "readonly", "float"),
+    ("Цена min, RUB",   None, "readonly", "float"),
     ("Поставщик (min)", None, "readonly", "str"),
-    ("Цена обновлена", None, "readonly", "datetime"),
+    ("Цена обновлена",  None, "readonly", "datetime"),
+    ("Склад, шт",       None, "readonly", "int"),
+    ("Транзит, шт",     None, "readonly", "int"),
+    ("Поставщиков, шт", None, "readonly", "int"),
 ]
 
 

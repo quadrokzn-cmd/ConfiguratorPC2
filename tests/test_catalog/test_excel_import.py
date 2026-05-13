@@ -369,6 +369,64 @@ def test_pc_readonly_columns_ignored_and_warning(db_session, tmp_path):
     assert "Цена min, USD" in ro_warning[0]
 
 
+def test_pc_availability_columns_are_readonly(db_session, tmp_path):
+    """Колонки наличия (Склад/Транзит/Поставщиков) — read-only: значения
+    в Excel игнорируются на импорте, имена попадают в общий ro-warning."""
+    cpu_id = _insert_cpu(db_session, model="Intel i5", sku="AVAIL-RO")
+
+    # Самостоятельно строим лист с колонками наличия (хелпер _make_cpu_xlsx
+    # их не пишет — это новые колонки, не вошедшие в исходную фикстуру).
+    wb = Workbook()
+    ws = wb.active
+    ws.title = PC_SHEETS["cpu"]["sheet_name"]
+    headers = [
+        "id", "model", "manufacturer", "sku", "gtin", "is_hidden",
+        "socket", "cores", "threads", "base_clock_ghz", "turbo_clock_ghz",
+        "tdp_watts", "has_integrated_graphics", "memory_type", "package_type",
+        "process_nm", "l3_cache_mb", "max_memory_freq", "release_year",
+        # Все ro-колонки, включая три новых:
+        "Цена min, USD", "Цена min, RUB", "Поставщик (min)", "Цена обновлена",
+        "Склад, шт", "Транзит, шт", "Поставщиков, шт",
+    ]
+    # Шапка через хелпер; на нём же модуль-уровневые row1/row2/row3.
+    ws.cell(row=1, column=1, value="Курс ЦБ (USD→RUB)")
+    ws.cell(row=1, column=2, value=97.45)
+    for col_idx, h in enumerate(headers, start=1):
+        ws.cell(row=3, column=col_idx, value=h)
+    row_data = {
+        "id": cpu_id,
+        "model": "Intel i5",
+        "manufacturer": "Intel",
+        "socket": "LGA1700",
+        "cores": 6, "threads": 12,
+        "base_clock_ghz": 2.5, "turbo_clock_ghz": 4.4,
+        "tdp_watts": 65, "has_integrated_graphics": True,
+        "memory_type": "DDR4", "package_type": "BOX",
+        # «Якобы правки» в ro-колонках наличия — должны быть проигнорированы.
+        "Склад, шт": 99999,
+        "Транзит, шт": 88888,
+        "Поставщиков, шт": 77,
+    }
+    for col_idx, h in enumerate(headers, start=1):
+        v = row_data.get(h)
+        if v is not None:
+            ws.cell(row=4, column=col_idx, value=v)
+    path = tmp_path / "cpu_avail.xlsx"
+    wb.save(path)
+
+    report = import_components_pc(path, user_id=1, session=db_session)
+
+    assert report.updated == 1
+    assert report.error_count == 0
+
+    # Имена трёх новых ro-колонок попали в общий ro-warning.
+    ro_warning = [w for w in report.warnings if "read-only columns ignored" in w]
+    assert ro_warning, report.warnings
+    assert "Склад, шт"       in ro_warning[0]
+    assert "Транзит, шт"     in ro_warning[0]
+    assert "Поставщиков, шт" in ro_warning[0]
+
+
 # ---------------------------------------------------------------------------
 # 6. Полностью пустые строки → пропуск без ошибки
 # ---------------------------------------------------------------------------

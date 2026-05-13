@@ -83,6 +83,7 @@ def _insert_case(session, supported: list[str]) -> int:
 def _insert_supplier_price(
     session, *, supplier_id: int, category: str, component_id: int,
     price: Decimal, currency: str = "USD", stock: int = 5,
+    transit: int = 0,
     updated_at: datetime | None = None,
 ) -> None:
     session.execute(
@@ -90,12 +91,12 @@ def _insert_supplier_price(
             "INSERT INTO supplier_prices "
             "  (supplier_id, category, component_id, price, currency, "
             "   stock_qty, transit_qty, updated_at) "
-            "VALUES (:sid, :cat, :cid, :p, :cur, :st, 0, "
+            "VALUES (:sid, :cat, :cid, :p, :cur, :st, :tr, "
             "  COALESCE(:upd, NOW()))"
         ),
         {
             "sid": supplier_id, "cat": category, "cid": component_id,
-            "p": str(price), "cur": currency, "st": stock,
+            "p": str(price), "cur": currency, "st": stock, "tr": transit,
             "upd": updated_at,
         },
     )
@@ -371,6 +372,165 @@ def test_out_of_stock_offers_excluded_from_min_price(tmp_path: Path, db_session)
                for c in range(1, ws.max_column + 1)}
     assert ws.cell(row=4, column=headers["Цена min, USD"]).value is None
     assert ws.cell(row=4, column=headers["Поставщик (min)"]).value is None
+
+
+# ---------------------------------------------------------------------
+# Колонки наличия (Склад / Транзит / Поставщиков)
+# ---------------------------------------------------------------------
+
+def test_availability_sums_across_active_suppliers(tmp_path: Path, db_session):
+    """Склад/Транзит/Поставщиков суммируются по всем активным поставщикам
+    с активными предложениями (stock>0 OR transit>0)."""
+    sid1 = _insert_supplier(db_session, "S1")
+    sid2 = _insert_supplier(db_session, "S2")
+    cpu_id = _insert_cpu(db_session, "CPU-Avail")
+
+    # S1: stock=7, transit=3
+    _insert_supplier_price(
+        db_session, supplier_id=sid1, category="cpu",
+        component_id=cpu_id, price=Decimal("100.00"), currency="USD",
+        stock=7, transit=3,
+    )
+    # S2: stock=2, transit=10
+    _insert_supplier_price(
+        db_session, supplier_id=sid2, category="cpu",
+        component_id=cpu_id, price=Decimal("105.00"), currency="USD",
+        stock=2, transit=10,
+    )
+
+    out = tmp_path / "pc.xlsx"
+    export_components_pc(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws = wb["CPU"]
+    headers = {ws.cell(row=3, column=c).value: c
+               for c in range(1, ws.max_column + 1)}
+    # Все три колонки наличия присутствуют.
+    assert "Склад, шт"       in headers
+    assert "Транзит, шт"     in headers
+    assert "Поставщиков, шт" in headers
+
+    assert ws.cell(row=4, column=headers["Склад, шт"]).value       == 9   # 7+2
+    assert ws.cell(row=4, column=headers["Транзит, шт"]).value     == 13  # 3+10
+    assert ws.cell(row=4, column=headers["Поставщиков, шт"]).value == 2
+
+
+def test_availability_excludes_inactive_supplier(tmp_path: Path, db_session):
+    """Неактивный поставщик не входит ни в одну из трёх агрегатных колонок."""
+    sid_active   = _insert_supplier(db_session, "Live")
+    sid_inactive = _insert_supplier(db_session, "Dead")
+    db_session.execute(
+        text("UPDATE suppliers SET is_active = FALSE WHERE id = :sid"),
+        {"sid": sid_inactive},
+    )
+    db_session.commit()
+    cpu_id = _insert_cpu(db_session, "CPU-InactiveAvail")
+
+    _insert_supplier_price(
+        db_session, supplier_id=sid_active, category="cpu",
+        component_id=cpu_id, price=Decimal("100.00"), currency="USD",
+        stock=4, transit=1,
+    )
+    _insert_supplier_price(
+        db_session, supplier_id=sid_inactive, category="cpu",
+        component_id=cpu_id, price=Decimal("80.00"), currency="USD",
+        stock=999, transit=999,
+    )
+
+    out = tmp_path / "pc.xlsx"
+    export_components_pc(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws = wb["CPU"]
+    headers = {ws.cell(row=3, column=c).value: c
+               for c in range(1, ws.max_column + 1)}
+    assert ws.cell(row=4, column=headers["Склад, шт"]).value       == 4
+    assert ws.cell(row=4, column=headers["Транзит, шт"]).value     == 1
+    assert ws.cell(row=4, column=headers["Поставщиков, шт"]).value == 1
+
+
+def test_availability_excludes_out_of_stock_rows(tmp_path: Path, db_session):
+    """Строка с stock=0 AND transit=0 не считается активной — не входит в
+    суммы и не увеличивает счётчик поставщиков."""
+    sid_a = _insert_supplier(db_session, "A")
+    sid_b = _insert_supplier(db_session, "B")
+    cpu_id = _insert_cpu(db_session, "CPU-OutOfStock")
+
+    # A — активен: stock=5
+    _insert_supplier_price(
+        db_session, supplier_id=sid_a, category="cpu",
+        component_id=cpu_id, price=Decimal("100.00"), currency="USD",
+        stock=5, transit=0,
+    )
+    # B — out-of-stock: stock=0 AND transit=0 (хотя цена есть)
+    _insert_supplier_price(
+        db_session, supplier_id=sid_b, category="cpu",
+        component_id=cpu_id, price=Decimal("90.00"), currency="USD",
+        stock=0, transit=0,
+    )
+
+    out = tmp_path / "pc.xlsx"
+    export_components_pc(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws = wb["CPU"]
+    headers = {ws.cell(row=3, column=c).value: c
+               for c in range(1, ws.max_column + 1)}
+    assert ws.cell(row=4, column=headers["Склад, шт"]).value       == 5
+    assert ws.cell(row=4, column=headers["Транзит, шт"]).value     == 0
+    assert ws.cell(row=4, column=headers["Поставщиков, шт"]).value == 1
+
+
+def test_availability_empty_when_no_active_offers(tmp_path: Path, db_session):
+    """Без активных предложений все три колонки пустые (не ноль) — означает
+    «у этой позиции нет ни одной активной строки в supplier_prices»."""
+    _insert_cpu(db_session, "CPU-NoOffers")
+
+    out = tmp_path / "pc.xlsx"
+    export_components_pc(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws = wb["CPU"]
+    headers = {ws.cell(row=3, column=c).value: c
+               for c in range(1, ws.max_column + 1)}
+    # Пустые ячейки — None у openpyxl.
+    assert ws.cell(row=4, column=headers["Склад, шт"]).value       is None
+    assert ws.cell(row=4, column=headers["Транзит, шт"]).value     is None
+    assert ws.cell(row=4, column=headers["Поставщиков, шт"]).value is None
+
+
+def test_availability_mfu_uses_mfu_category(tmp_path: Path, db_session):
+    """Лист «МФУ» суммирует наличие по supplier_prices.category='mfu',
+    а не 'printer'. Регрессия мини-этапа 2026-05-13 (orchestrator-fix)
+    проверена для цен; здесь — то же для наличия."""
+    sid = _insert_supplier(db_session, "MFU-AvailSup")
+    pid_mfu = _insert_printer(
+        db_session, sku="M-AVAIL", brand="Pantum", name="Pantum BM5100",
+        category="mfu",
+    )
+    _insert_supplier_price(
+        db_session, supplier_id=sid, category="mfu",
+        component_id=pid_mfu, price=Decimal("450.00"), currency="USD",
+        stock=12, transit=4,
+    )
+    # А вот «грязная» MFU-строка с category='printer' (легаси до 0038)
+    # — должна игнорироваться на листе «МФУ».
+    _insert_supplier_price(
+        db_session, supplier_id=sid, category="printer",
+        component_id=pid_mfu, price=Decimal("999.00"), currency="USD",
+        stock=999, transit=999,
+    )
+
+    out = tmp_path / "pr.xlsx"
+    export_printers_mfu(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws_m = wb["МФУ"]
+    headers_m = {ws_m.cell(row=3, column=c).value: c
+                 for c in range(1, ws_m.max_column + 1)}
+    assert ws_m.cell(row=4, column=headers_m["Склад, шт"]).value       == 12
+    assert ws_m.cell(row=4, column=headers_m["Транзит, шт"]).value     == 4
+    assert ws_m.cell(row=4, column=headers_m["Поставщиков, шт"]).value == 1
 
 
 # ---------------------------------------------------------------------
