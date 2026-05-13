@@ -1006,6 +1006,33 @@ DoD: система работает на проде полный рабочий
   - **Реализован целиком.**
   - **Рефлексия:** `.business/история/2026-05-13-enrich-canon-r3.md`.
 
+- **Мини-этап 2026-05-13 enrichment round 3 — Pantum (51 SKU).** Закрытие n/a-marked пула Pantum после round 2: discovery на prod показал 51 SKU с хотя бы одним обязательным ключом `'n/a'` (round 2 предсказывал ~38 по `print_speed_ppm`, итог: 38 SKU n/a-speed + 13 SKU только-network — base BM/BP без LAN/WiFi). Стратегия: 51 параллельный WebFetch обход pantum.ru (URL-паттерн `https://www.pantum.ru/products/laser-devices/<тип>-<модель>/`), типы `monohromnoe-mfu-`/`monohromnyj-printer-`/`cvetnoe-mfu-`/`cvetnoj-printer-` плюс «czvetnoe-…» / «czvetnoj-…» для отдельных моделей (CM2200FDW, CM2800ADN/W PLUS, CP2200DW, CP2800DN/W). На несколько 404 — WebSearch `site:pantum.ru <модель>` + альтернативный URL; для CP2200DN своей страницы нет → approximated_from CP2200DW (без WiFi). Артефакты:
+  - **Done-файлы:** `enrichment/auctions/done/pantum_round3_001.json` (26 SKU) и `pantum_round3_002.json` (25 SKU); validate_attrs — 0 ошибок; после apply перемещены в `enrichment/auctions/archive/2026-05-13/`.
+  - **Apply на prod (`portal/services/auctions/catalog/enrichment/importer.py::import_done`):** 2 files imported, **46 SKU updated, 5 SKU unchanged (audit-trail), 0 unknown, 0 invalid, 0 rejected**. 5 unchanged — это BM1800/BM2300/BM2300A/BP1800/BP2300, у которых n/a по `network_interface` подтверждён корректным (модели не имеют ни LAN, ни WiFi, только USB) → attrs_jsonb не диффает → счётчик `skus_updated` их не считает (по семантике фикса 2026-05-13 enrich-import-counter-fix).
+  - **Distribution по 9 ключам (Pantum, prod, ДО → ПОСЛЕ):**
+    - `print_speed_ppm`: 33 / 38 / 0  →  **71 / 0 / 0** (+38 success).
+    - `colorness`: 39 / 32 / 0  →  **71 / 0 / 0** (+32).
+    - `max_format`: 36 / 35 / 0  →  **71 / 0 / 0** (+35).
+    - `duplex`: 28 / 43 / 0  →  **71 / 0 / 0** (+43).
+    - `resolution_dpi`: 25 / 46 / 0  →  **69 / 2 / 0** (+44; 2 CP2800 моделей — DN/DW — на pantum.ru без явного указания DPI, оставлены n/a).
+    - `network_interface`: 27 / 44 / 0  →  **58 / 13 / 0** (+31; 13 моделей реально без LAN/WiFi — base BM/BP MFP, M6507/M6700D, P-серия без N-суффикса).
+    - `usb`: 25 / 46 / 0  →  **71 / 0 / 0** (+46).
+    - `starter_cartridge_pages`: 25 / 46 / 0  →  **71 / 0 / 0** (+46).
+    - `print_technology`: 71 / 0 / 0 — без изменений (уже было полным).
+  - **attrs_source:** все 71 Pantum-SKU теперь `'regex_name+claude_code'` (round 2 разделял: 46 regex_name + 25 regex_name+claude_code; round 3 догнал оставшиеся 46 до объединённого тега).
+  - **Pantum n/a-summary:** 51 → 15 SKU с хотя бы одним n/a. Из 15: 13 — `network_interface=n/a` (это **правильное n/a** — модель не имеет ни LAN, ни WiFi), 2 — `resolution_dpi=n/a` (CP2800DN/DW, страница не назвала).
+  - **Что осталось после round 3 (backlog следующих enrichment-чатов):**
+    1. **HP 140 n/a-speed** (крупнейший пул) — отдельный чат, источник `hp.com`.
+    2. **Canon 45 + Kyocera 45 + Epson 30 + Ricoh 23** n/a-marked.
+    3. **Avision 14 + Katusha IT 14 fully-empty** — стратегия approximated_from / brand-code lookup.
+    4. **CP2800DN/DW resolution_dpi** — попробовать PDF datasheet с pantum.ru, если найдётся.
+    5. **Pantum regex_name parser extension** — добавить ppm/dpi для Pantum-паттерна (BM/BP/CM/M/P), это закрыло бы будущие новые SKU без Claude Code; backlog после volume-теста parser'а на текущих 71.
+  - **Урок round 3 (что добавилось к round 2):**
+    1. URL-паттерн pantum.ru имеет два варианта транслитерации: `cvetnoe-`/`cvetnoj-` для большинства моделей и `czvetnoe-`/`czvetnoj-` для PLUS-серии и нескольких отдельных моделей (CM2200FDW, CP2200DW, CP2800DN/DW). При 404 — сразу WebSearch вместо угадывания.
+    2. Для семейств D/DN/DW (CP2200, CP2800) у DN-варианта **может не быть своей страницы** — approximated_from DW + сброс WiFi из network_interface. Это безопасно: схема и матчинг fail-open на конкретных значениях.
+    3. Importer прозрачно обрабатывает 5 audit-trail-only-UPDATE'ов (когда attrs_jsonb идемпотентно равен existing): они уходят в `skus_unchanged`, не в `skus_updated`, что согласуется с фиксом счётчика 2026-05-13.
+  - Рефлексия: `.business/история/2026-05-13-enrich-pantum-r3.md`.
+
 - **Мини-этап 2026-05-13 фикс фильтра регионов в инбоксе.** Лоты из стоп-регионов (`excluded_regions`) попадали в инбокс — собственник увидел в «Срочно» лоты из Магаданской и Приморского. Discovery на pre-prod показал **двойной баг**:
   - **Баг A — отсутствие нормализации регионов.** `ingest/filters.py::compute_flags` сравнивал `card.customer_region in settings.excluded_region_names` через точное равенство строк. На zakupki «Место нахождения» приходит в разных формах: «Магаданская **обл**», «Саха (Якутия) Респ», «Татарстан Респ», «МОСКОВСКАЯ ОБЛАСТЬ» — а seed `excluded_regions` хранит «Магаданская **область**», «Якутия» и т.д. Точное равенство не срабатывало → `flags_jsonb={}` пустой → флага нет → дашборд видит лот. Цифра pre-prod: лот `0347100000426000038` (Магаданская обл, НМЦК 811 500 ₽) — `flags_jsonb={}` вместо ожидаемого `excluded_by_region=true`.
   - **Баг B — отсутствие SQL-фильтра в дашборде.** `auctions_service.py::_INBOX_SQL` **не имел** условия `WHERE NOT COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)`. Даже корректно проставленный флаг игнорировался UI. Цифра pre-prod: лот `0320300133926000052` (Приморский край, НМЦК 6 507 790 ₽) — `flags_jsonb.excluded_by_region=true`, но лот в секции «Срочно».
