@@ -985,6 +985,27 @@ DoD: система работает на проде полный рабочий
   - **Worktree:** `feature/enrich-kyocera-r3`. Влит в master через rebase + ff-only merge.
   - Рефлексия: `.business/история/2026-05-13-enrich-kyocera-r3.md`.
 
+- **Мини-этап 2026-05-13 enrichment round 3 — Canon (67 SKU).** Параллельная серия добивает n/a-marked SKU по брендам после round 2. Этот мини-этап — Canon. Discovery на prod-БД (`turntable.proxy.rlwy.net:13528/railway`) показал **67 Canon SKU** с хотя бы одним n/a по обязательным ключам — 45 с `attrs_source='regex_name'` (которых первая волна claude_code из round 2 не коснулась) + 22 partial `claude_code` (где обогащение в round 2 не закрыло ключ-другой). Промт ожидал ~45 — реальная цифра выше из-за partial-claude_code-22.
+  - **Покрытие моделей** (59 уникальных, после нормализации серий — ~35 канонических, см. далее): PIXMA G/MG/TS/iX (струйные A4 + A3+ фото), i-SENSYS LBP/MF (лазерные A4, ч/б и цв), imageCLASS MF3010/LBP6030 (региональные клоны), imagePRESS C265 (production A3 цв), imageRUNNER 2930i (A3 ч/б), imageRUNNER C3326i + ADVANCE DX C3922i/C3926i/C3930i/C3935i/C5850i (A3 цв enterprise).
+  - **Источники характеристик:** WebSearch по запросам `site:canon.ru <модель>` + `<модель> характеристики`. WebFetch к canon.ru/canon-europe.com/canon-cna.com возвращал **403 Forbidden** (anti-bot защита) — критическое отличие от Pantum (pantum.ru открыт). Workaround: парсил snippets WebSearch + WebFetch к printer-copir.ru (есть полная карта характеристик с pages-yield). Для семейств без точных данных по starter_cartridge_pages — оставил `n/a` (опциональный с точки зрения матчинга атрибут, fail-open).
+  - **Артефакты:**
+    - `enrichment/auctions/archive/2026-05-13/canon_round3_001.json` — done-файл, 67 SKU, attrs_source `claude_code`. Все 67 валидны по `schema.validate_attrs` (0 ошибок). Apply прошёл за один transaction.
+  - **Discovery-цифры (ДО / ПОСЛЕ apply):**
+    - empty-пул n/a-marked: **67 → 29** SKU (всё что осталось — это реальные модельные ограничения: PIXMA G2xxx/MG2541S/LBP6030B/MF3010 не имеют сети, iX6840/imageRUNNER/imagePRESS не публикуют starter cartridge yield).
+    - По 9 обязательным ключам (success / n/a):
+      - `print_speed_ppm`:  22/45 → **67/0** (+45)
+      - `colorness`:        34/33 → **67/0** (+33)
+      - `max_format`:       54/13 → **67/0** (+13)
+      - `duplex`:           32/35 → **67/0** (+35)
+      - `resolution_dpi`:   22/45 → **67/0** (+45)
+      - `network_interface`:33/34 → **49/18** (+16; 18 моделей без сети по design)
+      - `usb`:              22/45 → **67/0** (+45)
+      - `starter_cartridge_pages`: 0/67 → **53/14** (+53)
+      - `print_technology`: 66/1  → **67/0** (+1)
+  - **Apply на prod:** 1 file imported, **61 SKU updated, 6 unchanged, 0 unknown, 0 invalid, 0 rejected**. 6 unchanged — это SKU где claude_code round 2 уже зафиксировал не-n/a по всем ключам, что мог дать новый payload.
+  - **Реализован целиком.**
+  - **Рефлексия:** `.business/история/2026-05-13-enrich-canon-r3.md`.
+
 - **Мини-этап 2026-05-13 фикс фильтра регионов в инбоксе.** Лоты из стоп-регионов (`excluded_regions`) попадали в инбокс — собственник увидел в «Срочно» лоты из Магаданской и Приморского. Discovery на pre-prod показал **двойной баг**:
   - **Баг A — отсутствие нормализации регионов.** `ingest/filters.py::compute_flags` сравнивал `card.customer_region in settings.excluded_region_names` через точное равенство строк. На zakupki «Место нахождения» приходит в разных формах: «Магаданская **обл**», «Саха (Якутия) Респ», «Татарстан Респ», «МОСКОВСКАЯ ОБЛАСТЬ» — а seed `excluded_regions` хранит «Магаданская **область**», «Якутия» и т.д. Точное равенство не срабатывало → `flags_jsonb={}` пустой → флага нет → дашборд видит лот. Цифра pre-prod: лот `0347100000426000038` (Магаданская обл, НМЦК 811 500 ₽) — `flags_jsonb={}` вместо ожидаемого `excluded_by_region=true`.
   - **Баг B — отсутствие SQL-фильтра в дашборде.** `auctions_service.py::_INBOX_SQL` **не имел** условия `WHERE NOT COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)`. Даже корректно проставленный флаг игнорировался UI. Цифра pre-prod: лот `0320300133926000052` (Приморский край, НМЦК 6 507 790 ₽) — `flags_jsonb.excluded_by_region=true`, но лот в секции «Срочно».
