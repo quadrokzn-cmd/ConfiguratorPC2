@@ -322,3 +322,55 @@ auto-deploy):**
 4. Если снова ошибка — пришли последнюю строку журнала
    (`auto_price_load_runs.error_message`), будем смотреть, что
    именно — возможен сценарий warehouse'а или Notification.
+
+---
+
+## ИТОГ ФАЗЫ D — manual-тик 2026-05-13 10:40 МСК после деплоя
+
+**Победа.** Собственник прислал скриншот журнала запусков с зелёным
+бейджем `success` и flash «Загрузка для «resurs_media» запущена.
+price_upload_id=48». Sanity-check `scripts/_diag_rm_run48.py` (тоже
+одноразовый, не коммитится) подтвердил по prod-БД:
+
+- `price_uploads.id=48`: status='success', uploaded_at=2026-05-13
+  10:40:36 МСК, **rows_total=151, rows_matched=151, rows_unmatched=0**.
+  `notes`: «updated=150, added=1, skipped=0, errors=0, unmapped(amb=0,
+  new=1)» — все 151 SKU нашлись в нашем каталоге по mpn, одна новая
+  легла в `unmapped_supplier_items` как кандидат на ручную привязку.
+- `auto_price_load_runs.id=43`: started=10:40:32 МСК, finished=10:40:37
+  МСК (5 сек), status='success', triggered_by='manual', pu_id=48.
+- `auto_price_loads.resurs_media`: enabled=True, status='success',
+  last_success_at=2026-05-13 10:40:37 МСК, last_price_upload_id=48.
+- `resurs_media_notifications`: **1 row** — Notification API §4.7 тоже
+  отработал в том же run'е (runner вызвал его после save_price_rows).
+- Разбивка `supplier_prices` для supplier_id=8 по category:
+  storage=143, ram=14, psu=13, gpu=11, cooler=10, cpu=7,
+  motherboard=1, case=1. Все 8 наших категорий покрыты, хотя по части
+  (case, motherboard) только по 1 row — возможно, на сегодня в Москве
+  на складе мало корпусов и материнок. Это не наш контроль.
+
+**Прогноз 1856 row не подтвердился — на самом деле 151.** Причина:
+fetcher зовёт `GetPrices(WareHouseID="00011", GetAvailableCount=True)`,
+сервер РМ возвращает ТОЛЬКО позиции с stock > 0 на этом складе. Полный
+каталог в 22 group_id'ах (1856 row) остаётся в `resurs_media_catalog`,
+но в `supplier_prices` идут только реально доступные. Это **штатное
+поведение** — конфигуратор и должен видеть только то, что можно
+действительно купить.
+
+**Что произошло за день 2026-05-13** (сводка для будущей памяти):
+
+| Время МСК | Событие |
+|---|---|
+| (до 09:00) | scheduled-тик не запустился: `auto_price_loads.enabled=FALSE` |
+| ~09:30 | Discovery 1 (1-й чат): диагноз «тумблер OFF». Action item собственнику |
+| ~09:40 | Собственник: тумблер ON в UI |
+| 09:45:34 | Собственник: «Запустить сейчас». run_id=42, status='no_new_data', пустой Material_Tab (тестовые group_id'ы) |
+| ~10:00 | Discovery 2 (этот чат): диагноз «маппинг тестовый ≠ prod-каталог». 4 diagnostic-скрипта по prod-БД |
+| ~10:20 | Коммит `d221e64`: переписан `_CATEGORY_GROUP_MAP` на 22 prod-group'а, тесты адаптированы, baseline 2026 passed |
+| ~10:30 | Push в master → Railway auto-deploy prod-сервиса |
+| 10:40:32 | Собственник: «Запустить сейчас» ещё раз. run_id=43, **status='success', pu_id=48, rows_total=151** |
+| (07:40 завтра) | Ожидаем автоматический scheduled-тик — должен пройти аналогично |
+
+**Закрытие:** Фаза D Resurs Media полностью закрыта. Поставщик #5
+из 6 в проде работает; остался Green Place (Фаза 12.4 ещё не
+закрыта — нет fetcher'а вообще).
