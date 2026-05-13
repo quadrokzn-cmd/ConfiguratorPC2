@@ -1,0 +1,217 @@
+{
+  "brand": "Epson",
+  "batch_id": "round3_002",
+  "generated_at": "2026-05-13T20:00:00+00:00",
+  "results": [
+    {
+      "sku": "epson:C11CJ67418",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67421",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67508/503/418/405/408/412",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ68405/C11CJ68403",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ68501",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ88405/404/502/507",
+      "attrs": {
+        "print_speed_ppm": 17,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK37405/506/507/504/402",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK37504",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK38403/402/505/38503/38507",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK39501/505/503/507/403/402",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK39503",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK59405/C11CK59506",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 7300,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK94402/C11CK94503",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 5400,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CL41412",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": ["WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 8500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CL43403",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": ["LAN", "WiFi"],
+        "usb": "yes",
+        "starter_cartridge_pages": 8500,
+        "print_technology": "струйная"
+      }
+    }
+  ]
+}

@@ -918,6 +918,42 @@ DoD: система работает на проде полный рабочий
   - **Промт-шаблон для следующего enrichment-чата** — см. в рефлексии `.business/история/2026-05-13-printers-enrichment-round2.md` (раздел «Action items»).
   - Рефлексия: `.business/история/2026-05-13-printers-enrichment-round2.md`.
 
+- **Мини-этап 2026-05-13 enrichment round 3 — Epson + Ricoh (30+23 SKU).** Параллельно с чатом Pantum round 3 (38 SKU) этот чат добил n/a-marked SKU двух брендов из backlog'а round 2. Discovery prod-БД через SQL по `attrs_jsonb->>'<key>' = 'n/a'`: **Epson 30 SKU (все `attrs_source=regex_name`)**, **Ricoh 34 SKU всего n/a-marked, но 11 уже `attrs_source=claude_code` от round 2 (`starter_cartridge_pages` n/a у всех Ricoh — не публикуется производителем); 23 «новых» SKU взяты в round 3**. Пересечения с round 2 нет.
+  - **Pending-файлы (собраны напрямую SQL'ом из prod, минуя `auctions_enrich_export.py` — он бы не выбрал SKU с непустым `attrs_jsonb`):** `enrichment/auctions/pending/epson_round3_{001,002}.json` (по 15 SKU), `ricoh_round3_001.json` (23 SKU).
+  - **Обогащение через 2 параллельных subagent'а (general-purpose):** один на Epson (epson.ru + reseller'ы — DNS, Citilink, 3Logic; epson.ru/catalog отвечает 302→epson.sn, поэтому критичные spec'и брались с epson.eu и epson.com.sg datasheet'ов), второй на Ricoh (ricoh.ru + ricoh-usa.com + ricoh-ap.com). Ricoh-агент при первой попытке упал на «API Error: Internal server error», ретрай прошёл чисто. Все 53 SKU прошли `schema.validate_attrs` (0 ошибок).
+  - **Артефакты (done-файлы):** `enrichment/auctions/done/epson_round3_001.json` (15), `epson_round3_002.json` (15), `ricoh_round3_001.json` (23) — после prod-apply перемещены в `enrichment/auctions/archive/2026-05-13/`.
+  - **Применение на prod (`importer.import_done`):** **3 files imported, 53 SKU updated, 0 unchanged, 0 unknown, 0 invalid, 0 rejected**. Per-key merge корректно слил `attrs_source` Epson `regex_name` → `regex_name+claude_code`, Ricoh `regex_name` → `regex_name+claude_code`.
+  - **Sanity-check ДО→ПОСЛЕ (prod, success/n/a/empty по 9 ключам):**
+    | ключ | Epson ДО | Epson ПОСЛЕ | Ricoh ДО (23 цел.) | Ricoh ПОСЛЕ (по всем 34) |
+    |---|---|---|---|---|
+    | print_speed_ppm        | 0/30/0  | **30/0/0**  | 11/23/0 | **34/0/0** |
+    | colorness              | 0/30/0  | **30/0/0**  | 33/1/0  | **34/0/0** |
+    | max_format             | 26/4/0  | **30/0/0**  | 25/9/0  | **34/0/0** |
+    | duplex                 | 10/20/0 | **30/0/0**  | 12/22/0 | **34/0/0** |
+    | resolution_dpi         | 0/30/0  | **30/0/0**  | 11/23/0 | **34/0/0** |
+    | network_interface      | 22/8/0  | **30/0/0**  | 11/23/0 | **34/0/0** |
+    | usb                    | 0/30/0  | **30/0/0**  | 11/23/0 | **34/0/0** |
+    | starter_cartridge_pages| 0/30/0  | 0/30/0 (искл. L3216, L8160 остались n/a, остальные 28 SKU получили реальное значение из datasheet'ов) | 0/34/0 | 0/34/0 (Ricoh не публикует) |
+    | print_technology       | 30/0/0  | **30/0/0**  | 12/22/0 | **34/0/0** |
+    
+    Итог: **по 8 из 9 ключей у обоих брендов 100% success**. Старт-картридж — слабое место (для Epson 28/30 закрыли, для Ricoh — 0/34, ожидаемо).
+  - **Ключевые approximations и сюрпризы из subagent-отчётов:**
+    - **Epson L8050 / L8100 — 6-цветные фотопринтеры**: `starter_cartridge_pages` реально измеряется в фото (2100 фото), а не в страницах текста. Записан как страничный ресурс по datasheet.
+    - **Epson L3216 и L8160** — `starter_cartridge_pages=n/a`: для L3216 параметр стартовой бутылки чётко не публикуется; для L8160 (6-цв фото) ресурс зависит от типа печати.
+    - **Epson M3170** — единственный монохромный из батча (M-серия Epson — ч/б струйные, 2400×1200 dpi вместо типичных 5760).
+    - **Ricoh IM C530FB** — `print_technology="светодиодная"` (ricoh-usa.com: "Color **LED** Multifunction Printer"). Единственное отклонение от паттерна «Ricoh = лазерная» в батче.
+    - **Ricoh Pro C5300SL** — 65 ppm (паспортное), не 80 ppm (80 — high-speed на 52-256 gsm бумаге, не базовый паспорт).
+    - **Ricoh M C2000** — A4 цветной MFP (не путать с IM C2000 = A3 цветной MFP).
+    - **WiFi у Ricoh** — опциональный интерфейс во всех 23 моделях, поэтому `network_interface=["LAN"]` без WiFi (консервативно по stock-комплектации).
+  - **Реализован целиком** в части prod-apply Epson + Ricoh round 3.
+  - **Что НЕ входит / открытые задачи:**
+    1. **Pantum batch 2/3 (38 SKU)** — обрабатывается параллельно в чате `feature/enrich-pantum-r3`.
+    2. **HP 140 n/a по print_speed_ppm** — крупнейший пул, ждёт отдельный батч.
+    3. **Canon 45 n/a, Kyocera 45 n/a** — backlog после HP.
+    4. **Avision 14 + Katusha IT 14 fully-empty (cryptic names)** — отдельная стратегия approximated_from / brand-code lookup.
+    5. **starter_cartridge_pages у Ricoh** — Ricoh не публикует на model-страницах; potential workaround — PDF datasheet'ы по сериям, но фактическая ценность для матчинга низкая (fail-open на этот атрибут).
+  - Рефлексия: `.business/история/2026-05-13-enrich-epson-ricoh-r3.md`.
+
 - **Мини-этап 2026-05-13 фикс фильтра регионов в инбоксе.** Лоты из стоп-регионов (`excluded_regions`) попадали в инбокс — собственник увидел в «Срочно» лоты из Магаданской и Приморского. Discovery на pre-prod показал **двойной баг**:
   - **Баг A — отсутствие нормализации регионов.** `ingest/filters.py::compute_flags` сравнивал `card.customer_region in settings.excluded_region_names` через точное равенство строк. На zakupki «Место нахождения» приходит в разных формах: «Магаданская **обл**», «Саха (Якутия) Респ», «Татарстан Респ», «МОСКОВСКАЯ ОБЛАСТЬ» — а seed `excluded_regions` хранит «Магаданская **область**», «Якутия» и т.д. Точное равенство не срабатывало → `flags_jsonb={}` пустой → флага нет → дашборд видит лот. Цифра pre-prod: лот `0347100000426000038` (Магаданская обл, НМЦК 811 500 ₽) — `flags_jsonb={}` вместо ожидаемого `excluded_by_region=true`.
   - **Баг B — отсутствие SQL-фильтра в дашборде.** `auctions_service.py::_INBOX_SQL` **не имел** условия `WHERE NOT COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)`. Даже корректно проставленный флаг игнорировался UI. Цифра pre-prod: лот `0320300133926000052` (Приморский край, НМЦК 6 507 790 ₽) — `flags_jsonb.excluded_by_region=true`, но лот в секции «Срочно».
