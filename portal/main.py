@@ -180,8 +180,10 @@ app.include_router(nomenclature.router)
 app.include_router(databases_suppliers.router)
 app.include_router(databases_components.router)
 app.include_router(databases_mapping.router)
-# Фаза 2 Excel-выгрузки каталога (2026-05-14): только GET-эндпоинт
-# скачивания. UI-страница /databases/catalog-excel — Фаза 4.
+# Фазы 2 + 3 Excel-выгрузки/загрузки каталога (2026-05-14):
+# GET /databases/catalog-excel/download/{kind} — скачивание xlsx;
+# POST /databases/catalog-excel/upload/{kind} — загрузка xlsx + импорт.
+# UI-страница /databases/catalog-excel — Фаза 4.
 app.include_router(databases_catalog_excel.router)
 # UI-4 (Путь B, 2026-05-11): «Конфигуратор ПК» — NLU-форма, проекты и
 # экспорт КП. Префикс /configurator/. Раньше жили в app/routers/*

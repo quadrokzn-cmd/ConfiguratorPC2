@@ -294,22 +294,30 @@
 - [x] UI-эндпоинт `GET /databases/catalog-excel/download/{pc|printers}` → `FileResponse` xlsx, MIME `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`, имя `Комплектующие_ПК_YYYY-MM-DD.xlsx` / `Печатная_техника_YYYY-MM-DD.xlsx`, доступ `require_admin`, запись `audit_log.action='catalog_excel_export'` с payload `{target, rows_count, sheet_counts, rate_used, rate_fallback}`. Временный файл удаляется `BackgroundTask`'ом после отдачи.
 - [x] Тесты: 14 в `tests/test_catalog/test_excel_export.py` (структура файла, RUB-формула, сериализация массивов, фильтр printer/mfu, габариты attrs, неактивные поставщики, out-of-stock) + 6 в `tests/test_portal/test_catalog_excel.py` (HTTP-доступы, audit_log). Полный pytest: 2013 passed, 0 failed (baseline 1995 → +18 catalog + auto-detected ещё пара).
 
-### Фаза 3. Import (загрузка обратно) ⏳
+### Фаза 3. Import (загрузка обратно) ✅ (2026-05-14)
 
-- [ ] Сервис `portal/services/catalog/excel_import.py`:
-  - `import_components_pc(file_path: Path, user_id: int) -> ImportReport` — читает 8 листов, валидирует, обновляет/создаёт.
-  - `import_printers_mfu(file_path: Path, user_id: int) -> ImportReport`.
-- [ ] Поведение по строке:
-  - id есть → `UPDATE` по id, только изменённые поля; read-only поля игнорируются (предупреждение в отчёте).
-  - id пустой + name заполнен → `INSERT` нового товара.
-  - id есть, но в БД не найден → строка пропускается, запись в отчёт.
-- [ ] Валидация на уровне ячейки: тип колонки (число / строка / enum), обязательные поля, длина. Ошибки собираются в отчёт, **не прерывают всю загрузку** — валидные строки применяются.
-- [ ] UI-эндпоинт `POST /databases/catalog-excel/upload/{pc|printers}` (multipart):
-  - Доступ — только админ (`require_admin`).
-  - Сохраняет файл в `data/catalog_imports/`.
-  - Запускает импорт синхронно (или в `BackgroundTasks` если файл больше 1000 строк).
-  - Возвращает HTMX-партиал с отчётом: «обновлено N, создано M, пропущено K, ошибок L (детально по строкам)».
-- [ ] Запись в `audit_log` (action `catalog_excel_import`, details — счётчики и путь сохранённого файла).
+- [x] Сервис `portal/services/catalog/excel_import.py`:
+  - `import_components_pc(file_path, user_id, *, session=None) -> ImportReport` — читает 8 листов, валидирует, обновляет/создаёт.
+  - `import_printers_mfu(file_path, user_id, *, session=None) -> ImportReport`.
+- [x] Поведение по строке:
+  - id есть → `UPDATE` по id (COALESCE-семантика: пустая ячейка → значение в БД сохраняется); read-only колонки игнорируются (warning в report).
+  - id пустой → `INSERT` нового товара (через `required_for_insert`-валидацию NOT NULL полей).
+  - id есть, в БД не найден → строка пропускается + warning в report.
+  - Полностью пустые строки → skip без ошибки.
+- [x] Валидация на уровне ячейки (типы, enum, многозначные через запятую). Ошибки собираются в `ImportReport.errors` и НЕ прерывают остальные строки.
+- [x] UI-эндпоинт `POST /databases/catalog-excel/upload/{pc|printers}` (multipart):
+  - Доступ — `require_admin`.
+  - Сохраняет файл в `data/catalog_imports/<timestamp>_<filename>.xlsx`.
+  - Запуск импорта синхронный (типичный размер 8 листов + 2 листа укладывается в секунды). Async-вариант — см. шаблон `admin_price_uploads._run_loader_in_background` для будущей оптимизации, если объёмы вырастут.
+  - Возвращает JSON `{updated, inserted, skipped, errors_count, errors[], warnings[], saved_path}`.
+- [x] Запись в `audit_log` (action `catalog_excel_import`, target_type=`catalog_excel`, target_id=`pc|printers`, payload — счётчики + путь файла).
+
+**Архитектурные решения (приняты по brief'у, без AskUserQuestion):**
+
+- **Семантика UPDATE = COALESCE-merge:** пустая ячейка → значение в БД сохраняется. Это согласуется с per-key merge для `attrs_jsonb` (печатная техника) и закрывает риск «пользователь случайно стёр FALSE → потерял NOT NULL bool». Минус: «обнулить» поле через Excel нельзя — нужно через UI. Документируется в Фазе 5 (docs/catalog_excel.md).
+- **INSERT для NOT NULL DEFAULT-полей через `COALESCE(:field, DEFAULT_SQL)`:** для PC — только `is_hidden=FALSE` (миграция 013); для printers_mfu — `is_hidden=FALSE` и `ktru_codes_array=ARRAY[]::TEXT[]` (миграция 031). Это позволяет батчить INSERT'ы единым SQL-шаблоном через SQLAlchemy executemany (insertmanyvalues), что критично для Railway-latency.
+- **Транзакция:** один `session.commit()` на весь файл. SQL-ошибка → `rollback()` всего файла. Валидационные ошибки rollback'у не вызывают — валидные строки коммитятся.
+- **Порог sync/background:** синхронный. На полном каталоге (≈1.5к ПК + ≈3к печатной техники) импорт укладывается в секунды локально; для прод-объёмов > 5к строк или 100 МБ — будущая оптимизация через `BackgroundTasks` по шаблону `admin_price_uploads`.
 
 ### Фаза 4. UI ⏳
 
@@ -346,9 +354,9 @@
 
 ## Итоговый блок
 
-**Статус:** Фазы 1 (discovery) и 2 (export) закрыты 2026-05-14. Фазы 3-5 не начаты.
+**Статус:** Фазы 1 (discovery), 2 (export) и 3 (import) закрыты 2026-05-14. Фазы 4-5 не начаты.
 
-**Что осталось:** Фаза 3 (import), Фаза 4 (UI-страница + sidebar), Фаза 5 (тесты импорта, docs).
+**Что осталось:** Фаза 4 (UI-страница + sidebar), Фаза 5 (тесты импорта/экспорта в полном объёме + docs).
 
 **Артефакты после реализации (Фаза 2):**
 - `portal/services/catalog/excel_export.py` — сервис.

@@ -69,6 +69,11 @@ ACTION_BACKUP_MANUAL   = "backup.manual_run"
 ACTION_BACKUP_DOWNLOAD = "backup.download"
 
 
+# --- Catalog Excel import (Фаза 3 плана 2026-05-13) --------------------
+
+ACTION_CATALOG_EXCEL_IMPORT = "catalog_excel_import"
+
+
 # --- Audit log self ----------------------------------------------------
 
 ACTION_AUDIT_VIEW = "audit.view"
