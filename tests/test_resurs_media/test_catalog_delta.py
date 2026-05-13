@@ -44,7 +44,7 @@ def _seed_row(
     vendor: str = "Vendor-X",
     vendor_part: str = "VP-1",
     material_text: str = "Description",
-    material_group: str = "Z431",
+    material_group: str = "Z100189",
     synced_days_ago: int = 0,
 ) -> None:
     """Прямой INSERT в resurs_media_catalog с явно заданным synced_at —
@@ -123,7 +123,7 @@ def test_compute_delta_all_fresh_nothing_to_fetch(db_engine):
         "vendor":         "Vendor-X",
         "vendor_part":    f"VP-{ids_in[0]}",
         "material_text":  "Description",
-        "material_group": "Z431",
+        "material_group": "Z100189",
     }
 
 
@@ -201,7 +201,7 @@ def test_upsert_inserts_new_row(db_engine):
         "MaterialID":         "RAM-001",
         "PartNum":            "PN-1",
         "MaterialText":       "Kingston DDR4 16GB",
-        "MaterialGroup":      "Z431",
+        "MaterialGroup":      "Z100189",
         "Vendor":             "Kingston",
         "VendorPart":         "DDR4-16",
         "UnitOfMeasurement":  "PC",
@@ -218,7 +218,7 @@ def test_upsert_inserts_new_row(db_engine):
     assert row["vendor"]        == "Kingston"
     assert row["vendor_part"]   == "DDR4-16"
     assert row["material_text"] == "Kingston DDR4 16GB"
-    assert row["material_group"] == "Z431"
+    assert row["material_group"] == "Z100189"
     assert row["weight"]        == Decimal("0.05")
     assert row["vat"]           == Decimal("20.00")
     # raw_jsonb — JSONB, в SQLAlchemy 2 приходит как dict.
@@ -242,7 +242,7 @@ def test_upsert_updates_existing_row(db_engine):
     response = _md_response([{
         "MaterialID":    "RAM-002",
         "MaterialText":  "NEW TEXT",
-        "MaterialGroup": "Z431",
+        "MaterialGroup": "Z100189",
         "Vendor":        "NEW-VENDOR",
         "VendorPart":    "NEW-VP",
     }])
@@ -255,7 +255,7 @@ def test_upsert_updates_existing_row(db_engine):
     assert row["vendor"]        == "NEW-VENDOR"
     assert row["vendor_part"]   == "NEW-VP"
     assert row["material_text"] == "NEW TEXT"
-    assert row["material_group"] == "Z431"
+    assert row["material_group"] == "Z100189"
     # synced_at стал свежим — меньше 5 сек назад.
     assert row["age"].total_seconds() < 5
 
@@ -266,7 +266,7 @@ def test_upsert_saves_full_raw_jsonb(db_engine):
     full_item = {
         "MaterialID":   "RAM-003",
         "MaterialText": "with nested",
-        "MaterialGroup": "Z431",
+        "MaterialGroup": "Z100189",
         "BarCodes": {
             "Item": [{"BarCode": "1234567890"}, {"BarCode": "987654321"}],
         },
@@ -298,9 +298,9 @@ def test_upsert_saves_full_raw_jsonb(db_engine):
 def test_upsert_skips_items_without_material_id(db_engine):
     """8.1 (bonus). Item без MaterialID → errors += 1, остальные пишутся."""
     response = _md_response([
-        {"MaterialID": "OK-1", "MaterialGroup": "Z431", "Vendor": "K"},
-        {"MaterialID": "",     "MaterialGroup": "Z431", "Vendor": "K"},  # пустой
-        {"MaterialID": "OK-2", "MaterialGroup": "Z431", "Vendor": "K"},
+        {"MaterialID": "OK-1", "MaterialGroup": "Z100189", "Vendor": "K"},
+        {"MaterialID": "",     "MaterialGroup": "Z100189", "Vendor": "K"},  # пустой
+        {"MaterialID": "OK-2", "MaterialGroup": "Z100189", "Vendor": "K"},
     ])
 
     counters = upsert_catalog(db_engine, response)
@@ -338,7 +338,7 @@ def test_upsert_batches_large_input_into_chunks(db_engine):
             "MaterialID":    f"BATCH-{i:05d}",
             "PartNum":       f"PN-{i}",
             "MaterialText":  f"Item #{i}",
-            "MaterialGroup": "Z431",
+            "MaterialGroup": "Z100189",
             "Vendor":        "Kingston",
             "VendorPart":    f"VP-{i}",
             "Weight":        "0.05",
@@ -458,7 +458,7 @@ def test_full_flow_empty_table_populates_catalog(
             "MaterialID":    f"MID-{i}",
             "VendorPart":    f"VP-{i}",
             "MaterialText":  f"Item {i}",
-            "MaterialGroup": "Z431",  # ram
+            "MaterialGroup": "Z100189",  # ram
             "Vendor":        "Kingston",
         }
         for i in range(5)
@@ -491,12 +491,12 @@ def test_full_flow_fresh_cache_skips_get_material_data(
         ResursMediaApiFetcher,
     )
 
-    # Pre-seed: все 5 ID fresh, материал-группа Z431 (ram), vendor — Kingston.
+    # Pre-seed: все 5 ID fresh, материал-группа Z100189 (ram), vendor — Kingston.
     for i in range(5):
         _seed_row(
             db_engine, f"MID-{i}",
             vendor="Kingston", vendor_part=f"VP-{i}",
-            material_text=f"Item {i}", material_group="Z431",
+            material_text=f"Item {i}", material_group="Z100189",
             synced_days_ago=1,
         )
 
