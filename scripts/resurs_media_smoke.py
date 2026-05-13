@@ -76,20 +76,28 @@ RATE_LIMIT_RETRY_PADDING = 5
 # scripts/_diag_resurs_media_warehouses.json).
 WAREHOUSE_ID = "00011"
 
-# 10 групп для пункта 4. Берём ровно те же, что fetcher использует для prod-
-# загрузки (8 наших категорий, 10 групп — см. _CATEGORY_GROUP_MAP в
-# portal/services/configurator/auto_price/fetchers/resurs_media.py:72).
+# Группы для пункта 4. Берём ровно те же, что fetcher использует для prod-
+# загрузки (8 наших категорий — см. _CATEGORY_GROUP_MAP в
+# portal/services/configurator/auto_price/fetchers/resurs_media.py).
+# Примечание: имя константы TEN_GROUPS сохранено для обратной совместимости
+# с историей чек-листа Волкова. После смены маппинга с test- на prod-
+# стенд (2026-05-13) фактическое число элементов >10. Если скрипт
+# исполняется впервые, сверьте список против текущего _CATEGORY_GROUP_MAP.
 TEN_GROUPS: list[str] = [
-    "Z999-919999",  # psu (БП корпусов)
-    "Z999-9992",    # psu (серверные/прочие)
-    "Z999-999979",  # cooler
-    "Z999-10001",   # gpu
-    "Z383",         # storage (внутр. HDD)
-    "Z897",         # storage (SSD)
-    "Z373",         # storage (флеш)
-    "Z999-10006",   # motherboard
-    "Z431",         # ram
-    "Z999-911999",  # case
+    "Z100173",   # psu (ATX-БП)
+    "Z100198",   # cooler (кулеры/вентиляторы/СВО)
+    "Z100175",   # gpu (ASUS)
+    "Z100176",   # gpu (GIGABYTE)
+    "Z100177",   # gpu (MSI)
+    "Z100178",   # gpu (PALIT)
+    "Z100160",   # storage SSD (1TB-семейство)
+    "Z100109",   # storage HDD (1TB)
+    "Z100183",   # motherboard (ASUS)
+    "Z100184",   # motherboard (GIGABYTE)
+    "Z100185",   # motherboard (MSI)
+    "Z100189",   # ram (DIMM DDR4/DDR5)
+    "Z100180",   # case (корпуса)
+    "Z100197",   # cpu (OEM Intel/AMD)
 ]
 
 

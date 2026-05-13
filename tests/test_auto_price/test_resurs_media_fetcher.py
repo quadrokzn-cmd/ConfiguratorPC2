@@ -85,12 +85,12 @@ def _prices_response(items: list[dict]) -> dict:
 
 
 # =====================================================================
-# 1. GetPrices аргументы — warehouse + все 12 group_id (8 категорий)
+# 1. GetPrices аргументы — warehouse + все group_id из _ALL_GROUP_IDS
 # =====================================================================
 
 def test_get_prices_call_uses_correct_warehouse_and_groups(resurs_media_env, monkeypatch):
     from portal.services.configurator.auto_price.fetchers.resurs_media import (
-        ResursMediaApiFetcher, _ALL_GROUP_IDS,
+        ResursMediaApiFetcher, _ALL_GROUP_IDS, _CATEGORY_GROUP_MAP,
     )
 
     calls = _patch_client_and_invoke(monkeypatch, [
@@ -114,9 +114,10 @@ def test_get_prices_call_uses_correct_warehouse_and_groups(resurs_media_env, mon
     assert "Item" in tab
     sent_groups = [it["MaterialGroup"] for it in tab["Item"]]
     assert sorted(sent_groups) == sorted(_ALL_GROUP_IDS)
-    # 11 group_id (8 категорий + по доп.группе у psu и storage).
-    # Если меняется _CATEGORY_GROUP_MAP — обновите и этот счётчик.
-    assert len(sent_groups) == 11
+    # Счётчик считается из _CATEGORY_GROUP_MAP, чтобы не привязываться к
+    # конкретному количеству при изменении prod-каталога РМ.
+    expected_count = sum(len(g) for g in _CATEGORY_GROUP_MAP.values())
+    assert len(sent_groups) == expected_count
     # Все 8 наших категорий должны быть представлены.
     from portal.services.configurator.auto_price.fetchers.resurs_media import _GROUP_TO_OUR_CATEGORY
     covered_categories = {_GROUP_TO_OUR_CATEGORY[g] for g in sent_groups}
@@ -148,7 +149,7 @@ def test_strip_padding_from_material_id_and_warehouse_id(
         "PartNum":       "DDR4-3200-CL16",
         "VendorPart":    "DDR4-3200-CL16",
         "MaterialText":  "Kingston DDR4 16GB 3200",
-        "MaterialGroup": "Z431       ",      # ram, с padding
+        "MaterialGroup": "Z100189     ",     # ram (prod DIMM-группа), с padding
         "Vendor":        "Kingston",
     }]
 
@@ -169,13 +170,13 @@ def test_strip_padding_from_material_id_and_warehouse_id(
 
     # raw_category хранится в unmapped_supplier_items — для NO_MATCH/AMBIG
     # позиций. Для свежесозданного скелета status='created_new'. Тоже
-    # должна быть стрипнутая «Z431».
+    # должна быть стрипнутая «Z100189».
     unm = db_session.execute(text(
         "SELECT raw_category FROM unmapped_supplier_items "
         "WHERE supplier_sku = 'RAM-001'"
     )).first()
     assert unm is not None
-    assert unm.raw_category == "Z431"
+    assert unm.raw_category == "Z100189"
 
 
 # =====================================================================
@@ -183,8 +184,9 @@ def test_strip_padding_from_material_id_and_warehouse_id(
 # =====================================================================
 
 def test_skip_position_outside_our_categories(resurs_media_env, monkeypatch):
-    """Z017 (Дискеты на test-стенде) не попадает в _GROUP_TO_OUR_CATEGORY.
-    Все позиции из неё должны быть отфильтрованы."""
+    """Z017 не попадает в _GROUP_TO_OUR_CATEGORY (это группа дискет на
+    test-стенде, на prod-стенде её тоже нет — годится как заведомо
+    «чужой» group_id). Все позиции из неё должны быть отфильтрованы."""
     from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
     from portal.services.configurator.auto_price.fetchers.base_imap import NoNewDataException
 
@@ -233,7 +235,7 @@ def test_skip_position_missing_in_material_data_response(
             "MaterialID":    "CPU-OK",
             "VendorPart":    "i5-12400F",
             "MaterialText":  "Intel Core i5-12400F",
-            "MaterialGroup": "Z999-10110",  # cpu
+            "MaterialGroup": "Z100197",  # cpu (prod-группа OEM-процессоров)
             "Vendor":        "Intel",
         },
     ]
@@ -344,7 +346,7 @@ def test_result_1_raises_runtime_error(resurs_media_env, monkeypatch):
 
 
 # =====================================================================
-# 9. storage агрегирует Z383, Z897, Z373 — все в our_category="storage"
+# 9. storage агрегирует SSD- и HDD-семейства в одну our_category="storage"
 # =====================================================================
 
 def test_storage_category_aggregates_three_groups(
@@ -355,15 +357,16 @@ def test_storage_category_aggregates_three_groups(
     raw_items = [
         {"MaterialID": "HDD-1", "Price": 5000.0, "AvailableCount": "1"},
         {"MaterialID": "SSD-1", "Price": 6000.0, "AvailableCount": "2"},
-        {"MaterialID": "FLASH-1", "Price": 1500.0, "AvailableCount": "3"},
+        {"MaterialID": "SSD-NVME-1", "Price": 9500.0, "AvailableCount": "3"},
     ]
     md_items = [
-        {"MaterialID": "HDD-1",   "VendorPart": "WD", "MaterialText": "WD HDD",
-         "MaterialGroup": "Z383", "Vendor": "WD"},
-        {"MaterialID": "SSD-1",   "VendorPart": "SAM", "MaterialText": "Samsung SSD",
-         "MaterialGroup": "Z897", "Vendor": "Samsung"},
-        {"MaterialID": "FLASH-1", "VendorPart": "KF",  "MaterialText": "Kingston flash",
-         "MaterialGroup": "Z373", "Vendor": "Kingston"},
+        # HDD-семейство (Z100109-Z100118) и SSD-семейство (Z100160-Z100172).
+        {"MaterialID": "HDD-1",      "VendorPart": "WD",  "MaterialText": "WD HDD 1TB",
+         "MaterialGroup": "Z100109", "Vendor": "Western Digital"},
+        {"MaterialID": "SSD-1",      "VendorPart": "SAM", "MaterialText": "Samsung SATA SSD",
+         "MaterialGroup": "Z100167", "Vendor": "Samsung"},
+        {"MaterialID": "SSD-NVME-1", "VendorPart": "KF",  "MaterialText": "Kingston NVMe SSD",
+         "MaterialGroup": "Z100160", "Vendor": "Kingston Technology"},
     ]
 
     _patch_client_and_invoke(monkeypatch, [
@@ -378,27 +381,41 @@ def test_storage_category_aggregates_three_groups(
         "ORDER BY supplier_sku"
     )).all()
     cats = {r.supplier_sku: r.category for r in rows}
-    assert cats["FLASH-1"] == "storage"
-    assert cats["HDD-1"]   == "storage"
-    assert cats["SSD-1"]   == "storage"
+    assert cats["HDD-1"]      == "storage"
+    assert cats["SSD-1"]      == "storage"
+    assert cats["SSD-NVME-1"] == "storage"
 
 
 # =====================================================================
-# 10. psu из Z999-919999 + Z999-9992 — обе → our_category="psu"
+# 10. gpu агрегирует Z100175..Z100178 (4 prod-группы по вендору) →
+#     our_category="gpu" для каждой
 # =====================================================================
 
-def test_psu_dual_group_codes(resurs_media_env, monkeypatch, db_session):
+def test_gpu_aggregates_four_vendor_groups(resurs_media_env, monkeypatch, db_session):
+    """На prod-стенде Resurs Media GPU разделены по вендорам: Z100175 (ASUS),
+    Z100176 (GIGABYTE), Z100177 (MSI), Z100178 (PALIT). Все четыре group_id
+    должны мапиться в our_category='gpu' через _GROUP_TO_OUR_CATEGORY."""
     from portal.services.configurator.auto_price.fetchers.resurs_media import ResursMediaApiFetcher
 
     raw_items = [
-        {"MaterialID": "PSU-CASE",   "Price": 4000.0, "AvailableCount": "1"},
-        {"MaterialID": "PSU-SERVER", "Price": 9000.0, "AvailableCount": "1"},
+        {"MaterialID": "GPU-ASUS",  "Price": 50000.0, "AvailableCount": "1"},
+        {"MaterialID": "GPU-GIG",   "Price": 55000.0, "AvailableCount": "1"},
+        {"MaterialID": "GPU-MSI",   "Price": 60000.0, "AvailableCount": "1"},
+        {"MaterialID": "GPU-PALIT", "Price": 45000.0, "AvailableCount": "1"},
     ]
     md_items = [
-        {"MaterialID": "PSU-CASE",   "VendorPart": "RM750", "MaterialText": "Corsair RM750",
-         "MaterialGroup": "Z999-919999", "Vendor": "Corsair"},
-        {"MaterialID": "PSU-SERVER", "VendorPart": "PWR1",  "MaterialText": "Power Server PSU",
-         "MaterialGroup": "Z999-9992",   "Vendor": "DELL"},
+        {"MaterialID": "GPU-ASUS",  "VendorPart": "RTX5060-PRIME-OC",
+         "MaterialText": "Видеокарта RTX5060 8GB ASUS PRIME OC",
+         "MaterialGroup": "Z100175", "Vendor": "ASUS"},
+        {"MaterialID": "GPU-GIG",   "VendorPart": "RTX5070-WINDFORCE",
+         "MaterialText": "Видеокарта RTX5070 12GB GIGABYTE WINDFORCE OC",
+         "MaterialGroup": "Z100176", "Vendor": "GIGABYTE"},
+        {"MaterialID": "GPU-MSI",   "VendorPart": "RTX5070TI-VENTUS",
+         "MaterialText": "Видеокарта RTX5070Ti 16GB MSI VENTUS 3X OC",
+         "MaterialGroup": "Z100177", "Vendor": "MSI"},
+        {"MaterialID": "GPU-PALIT", "VendorPart": "RTX5060-INFINITY",
+         "MaterialText": "Видеокарта RTX5060 8GB PALIT INFINITY 2 OC",
+         "MaterialGroup": "Z100178", "Vendor": "PALIT"},
     ]
 
     _patch_client_and_invoke(monkeypatch, [
@@ -412,11 +429,13 @@ def test_psu_dual_group_codes(resurs_media_env, monkeypatch, db_session):
         r.supplier_sku: r.category
         for r in db_session.execute(text(
             "SELECT supplier_sku, category FROM supplier_prices "
-            "WHERE supplier_sku IN ('PSU-CASE','PSU-SERVER')"
+            "WHERE supplier_sku LIKE 'GPU-%'"
         )).all()
     }
-    assert cats["PSU-CASE"]   == "psu"
-    assert cats["PSU-SERVER"] == "psu"
+    assert cats["GPU-ASUS"]  == "gpu"
+    assert cats["GPU-GIG"]   == "gpu"
+    assert cats["GPU-MSI"]   == "gpu"
+    assert cats["GPU-PALIT"] == "gpu"
 
 
 # =====================================================================
@@ -435,9 +454,9 @@ def test_correct_decimal_parsing_from_price(
     ]
     md_items = [
         {"MaterialID": "P-FLOAT",  "VendorPart": "A", "MaterialText": "X",
-         "MaterialGroup": "Z431", "Vendor": "K"},
+         "MaterialGroup": "Z100189", "Vendor": "K"},
         {"MaterialID": "P-STRING", "VendorPart": "B", "MaterialText": "Y",
-         "MaterialGroup": "Z431", "Vendor": "K"},
+         "MaterialGroup": "Z100189", "Vendor": "K"},
     ]
 
     _patch_client_and_invoke(monkeypatch, [
@@ -475,7 +494,7 @@ def test_call_arguments_use_item_wrapper(resurs_media_env, monkeypatch):
         "MaterialID":    "MB-1",
         "VendorPart":    "B760",
         "MaterialText":  "ASUS B760",
-        "MaterialGroup": "Z999-10006",  # motherboard
+        "MaterialGroup": "Z100183",  # motherboard (prod-группа ASUS-плат)
         "Vendor":        "ASUS",
     }]
 
