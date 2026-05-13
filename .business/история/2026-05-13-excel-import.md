@@ -1,4 +1,4 @@
-# Рефлексия 2026-05-14: Фаза 3 Excel-импорта каталога
+# Рефлексия 2026-05-13: Фаза 3 Excel-импорта каталога
 
 ## 1. Задача
 
@@ -160,4 +160,4 @@ contention на CREATE DATABASE при одновременном старте N
 - `shared/audit_actions.py` (+1 константа)
 - `tests/test_catalog/test_excel_import.py` (13 тестов)
 - `plans/2026-05-13-catalog-excel-export-import.md` (Фаза 3 `[x]`)
-- `.business/история/2026-05-14-excel-import.md` (этот файл)
+- `.business/история/2026-05-13-excel-import.md` (этот файл)

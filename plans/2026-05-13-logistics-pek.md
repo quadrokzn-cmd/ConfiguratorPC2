@@ -17,7 +17,7 @@
 
 Все 4 значения берутся **со страницы модели на официальном сайте производителя** — там же, где собирали остальные характеристики через enrichment Claude Code. Это означает:
 
-- Расширить схему `portal/services/auctions/catalog/enrichment/schema.py` — **сделано Фазой 1 Excel-каталога 2026-05-14** (см. константа `PRINTER_MFU_DIMENSION_ATTRS`, 4 опциональных ключа в `validate_attrs`).
+- Расширить схему `portal/services/auctions/catalog/enrichment/schema.py` — **сделано Фазой 1 Excel-каталога 2026-05-13** (см. константа `PRINTER_MFU_DIMENSION_ATTRS`, 4 опциональных ключа в `validate_attrs`).
 - Дополнить промт-шаблон `enrichment/auctions/prompts/printer_mfu_attrs.md` инструкцией собрать ещё 4 поля (Фаза 2 ПЭК).
 - Прогнать enrichment по всем 628 SKU (как на этапе 9a-enrich): экспорт батчей по бренду, Claude Code обход, импорт через `auctions_enrich_import.py` (importer уже умеет per-key merge — backlog #10, поэтому существующие значения не затрутся).
 
@@ -57,7 +57,7 @@
 
 ---
 
-## Словарь ключей габаритов/веса в attrs_jsonb (зафиксирован 2026-05-14 в Фазе 1 Excel-каталога)
+## Словарь ключей габаритов/веса в attrs_jsonb (зафиксирован 2026-05-13 в Фазе 1 Excel-каталога)
 
 Общий словарь для двух планов — Excel-каталога (Backlog #11) и ПЭК-логистики (этот). Источник истины — константа `PRINTER_MFU_DIMENSION_ATTRS` в `portal/services/auctions/catalog/enrichment/schema.py`.
 
