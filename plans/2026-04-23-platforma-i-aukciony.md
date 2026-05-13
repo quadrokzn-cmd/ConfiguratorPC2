@@ -954,6 +954,37 @@ DoD: система работает на проде полный рабочий
     5. **starter_cartridge_pages у Ricoh** — Ricoh не публикует на model-страницах; potential workaround — PDF datasheet'ы по сериям, но фактическая ценность для матчинга низкая (fail-open на этот атрибут).
   - Рефлексия: `.business/история/2026-05-13-enrich-epson-ricoh-r3.md`.
 
+- **Мини-этап 2026-05-13 enrichment round 3 — Kyocera (49 SKU).** Серия round 3 закрывает n/a-marked SKU по брендам после round 2 (358 → 28 empty). Этот чат — Kyocera. Discovery prod-БД (`turntable.proxy.rlwy.net:13528/railway`, `printers_mfu WHERE brand='Kyocera'`): total **49 SKU**, у каждого хотя бы один обязательный ключ = `'n/a'`. ДО: print_speed_ppm 4 success / 45 n/a; colorness 9/40; max_format 32/17; duplex 26/23; resolution_dpi 4/45; network_interface 4/45; usb 4/45; starter_cartridge_pages 0/49; print_technology 49/0 (regex_name полностью покрыл).
+  - **Источники:** kyoceradocumentsolutions.eu (PA/MA/TASKalfa MZ-серия) + kyoceradocumentsolutions.ru (FS-/M-/P-/TASKalfa 4054ci). PA/MA — новая Asia-серия с тонер-картриджами TK-1270/TK-3300/TK-3400/TK-3410, EU-страницы дают starter yield явно. TASKalfa MZ/4054ci — starter не публикуется в общедоступной спеке → `n/a`. FS- и legacy M/P A4 — тоже starter `n/a` (типовой starter ~1000 страниц, но сайт явно не пишет).
+  - **Артефакты:**
+    - `enrichment/auctions/pending/kyocera_round3_{001,002}.json` — 25 + 24 SKU, собраны напрямую SQL'ом из prod-БД (`auctions_enrich_export.py` фильтрует только `attrs_jsonb IS NULL OR ={}`; после round 2 у этих SKU `attrs_jsonb` заполнен regex_name на 1-3 ключа, exporter их не подобрал бы).
+    - `enrichment/auctions/done/kyocera_round3_{001,002}.json` → перемещены в `enrichment/auctions/archive/2026-05-13/` после apply. 49 SKU, все валидны по `schema.validate_attrs` (0 ошибок).
+    - Одноразовая обвязка (`scripts/_kyocera_{discovery,make_pending,build_done,apply_prod}.py`) использовалась локально в worktree и в коммит не вошла — паттерн DSN через `dotenv_values('.env.local.prod.v1')['DATABASE_PUBLIC_URL']` + `os.environ['DATABASE_URL']` до импорта `shared.db.engine`.
+  - **Apply на prod:** 2 files imported, **49 SKU updated, 0 unchanged, 0 unknown, 0 invalid, 0 rejected**. Per-key merge корректно соединил `regex_name` (print_technology) + `claude_code` (остальные 8 ключей) в большинстве SKU → `attrs_source='regex_name+claude_code'`.
+  - **Sanity-check ПОСЛЕ (только Kyocera 49 SKU):**
+    | ключ | ДО (success/n/a) | ПОСЛЕ (success/n/a) |
+    |---|---|---|
+    | print_speed_ppm         | 4 / 45 | **49 / 0** |
+    | colorness               | 9 / 40 | **49 / 0** |
+    | max_format              | 32 / 17 | **49 / 0** |
+    | duplex                  | 26 / 23 | **49 / 0** |
+    | resolution_dpi          | 4 / 45 | **49 / 0** |
+    | network_interface       | 4 / 45 | **49 / 0** |
+    | usb                     | 4 / 45 | **49 / 0** |
+    | starter_cartridge_pages | 0 / 49 | **30 / 19** |
+    | print_technology        | 49 / 0 | **49 / 0** |
+    
+    19 SKU остаются с `starter_cartridge_pages='n/a'` — TASKalfa MZ/4054ci (4 SKU) + FS-серия (3) + ECOSYS M/P legacy A4 (5) + ECOSYS M-серия A3 (5) + PA4500cx (1) + другие модели без явного starter yield. Это ожидаемо: матчинг на этот атрибут fail-open, Excel-каталог менеджера получает ячейку с `n/a` вместо пустоты.
+  - **Реализован целиком.** Все 49 Kyocera SKU больше не имеют n/a по 8 из 9 обязательных ключей.
+  - **Открытые задачи (НЕ в этом чате, серия round 3):**
+    1. Pantum round 3 (38 SKU) — параллельный чат `feature/enrich-pantum-r3`.
+    2. Epson + Ricoh round 3 (53 SKU) — параллельный чат `feature/enrich-epson-ricoh-r3`.
+    3. Canon round 3 (45 SKU) — параллельный чат `feature/enrich-canon-r3`.
+    4. HP 140 n/a по print_speed_ppm — крупнейший пул, отдельный чат позже.
+    5. Avision 14 + Katusha IT 14 fully-empty — отдельная стратегия (approximated_from / brand-code lookup).
+  - **Worktree:** `feature/enrich-kyocera-r3`. Влит в master через rebase + ff-only merge.
+  - Рефлексия: `.business/история/2026-05-13-enrich-kyocera-r3.md`.
+
 - **Мини-этап 2026-05-13 фикс фильтра регионов в инбоксе.** Лоты из стоп-регионов (`excluded_regions`) попадали в инбокс — собственник увидел в «Срочно» лоты из Магаданской и Приморского. Discovery на pre-prod показал **двойной баг**:
   - **Баг A — отсутствие нормализации регионов.** `ingest/filters.py::compute_flags` сравнивал `card.customer_region in settings.excluded_region_names` через точное равенство строк. На zakupki «Место нахождения» приходит в разных формах: «Магаданская **обл**», «Саха (Якутия) Респ», «Татарстан Респ», «МОСКОВСКАЯ ОБЛАСТЬ» — а seed `excluded_regions` хранит «Магаданская **область**», «Якутия» и т.д. Точное равенство не срабатывало → `flags_jsonb={}` пустой → флага нет → дашборд видит лот. Цифра pre-prod: лот `0347100000426000038` (Магаданская обл, НМЦК 811 500 ₽) — `flags_jsonb={}` вместо ожидаемого `excluded_by_region=true`.
   - **Баг B — отсутствие SQL-фильтра в дашборде.** `auctions_service.py::_INBOX_SQL` **не имел** условия `WHERE NOT COALESCE((flags_jsonb->>'excluded_by_region')::boolean, false)`. Даже корректно проставленный флаг игнорировался UI. Цифра pre-prod: лот `0320300133926000052` (Приморский край, НМЦК 6 507 790 ₽) — `flags_jsonb.excluded_by_region=true`, но лот в секции «Срочно».

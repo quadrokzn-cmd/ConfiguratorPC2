@@ -1,0 +1,412 @@
+{
+  "brand": "Kyocera",
+  "batch_id": "round3_002",
+  "generated_at": "2026-05-13T18:47:45+00:00",
+  "results": [
+    {
+      "sku": "kyocera:110C0F3NL0",
+      "attrs": {
+        "print_speed_ppm": 26,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная",
+        "weight_kg": 26
+      }
+    },
+    {
+      "sku": "kyocera:110C0H3NL0",
+      "attrs": {
+        "print_speed_ppm": 26,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная",
+        "weight_kg": 22
+      }
+    },
+    {
+      "sku": "kyocera:110C0T3NL0",
+      "attrs": {
+        "print_speed_ppm": 60,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 11000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C0V3NL0",
+      "attrs": {
+        "print_speed_ppm": 60,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 11000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C0W3NL0",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 10000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C0X3NL0",
+      "attrs": {
+        "print_speed_ppm": 50,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 15500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C0Y3NL0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C0Z3NL0",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 10000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C103NL0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C113NL0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C133AX0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C133NL0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C133NL0/110C133DZ0",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "kyocera:110C143AX0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "лазерная",
+        "weight_kg": 19
+      }
+    },
+    {
+      "sku": "kyocera:110C143NL0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "лазерная",
+        "weight_kg": 19
+      }
+    },
+    {
+      "sku": "kyocera:110C153NL0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "лазерная",
+        "weight_kg": 14
+      }
+    },
+    {
+      "sku": "kyocera:110C1B3NL0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "лазерная",
+        "weight_kg": 19
+      }
+    },
+    {
+      "sku": "kyocera:110C1D3NL0/110C1D3NL1",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "лазерная",
+        "weight_kg": 19
+      }
+    },
+    {
+      "sku": "kyocera:110C223NL1/110C223NL0",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная",
+        "weight_kg": 26
+      }
+    },
+    {
+      "sku": "kyocera:110C233NL0",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная",
+        "weight_kg": 26
+      }
+    },
+    {
+      "sku": "kyocera:110C2K3NL0",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная",
+        "weight_kg": 95
+      }
+    },
+    {
+      "sku": "kyocera:110C2M3NL0",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная",
+        "weight_kg": 90
+      }
+    },
+    {
+      "sku": "kyocera:110C3G3NL0",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1000,
+        "print_technology": "лазерная",
+        "weight_kg": 19
+      }
+    },
+    {
+      "sku": "raw:1660332",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}
