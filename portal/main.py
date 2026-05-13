@@ -51,6 +51,7 @@ from portal.routers.configurator import (
     projects as configurator_projects,
 )
 from portal.routers.databases import (
+    catalog_excel as databases_catalog_excel,
     components as databases_components,
     mapping as databases_mapping,
     suppliers as databases_suppliers,
@@ -179,6 +180,9 @@ app.include_router(nomenclature.router)
 app.include_router(databases_suppliers.router)
 app.include_router(databases_components.router)
 app.include_router(databases_mapping.router)
+# Фаза 2 Excel-выгрузки каталога (2026-05-14): только GET-эндпоинт
+# скачивания. UI-страница /databases/catalog-excel — Фаза 4.
+app.include_router(databases_catalog_excel.router)
 # UI-4 (Путь B, 2026-05-11): «Конфигуратор ПК» — NLU-форма, проекты и
 # экспорт КП. Префикс /configurator/. Раньше жили в app/routers/*
 # на config.quadro.tatar. Со старого хоста стоит catch-all 301 в

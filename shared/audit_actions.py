@@ -46,6 +46,10 @@ ACTION_BUILD_REOPTIMIZE = "build.reoptimize"
 ACTION_EXPORT_EXCEL = "export.excel"
 ACTION_EXPORT_KP    = "export.kp_word"
 
+# Excel-выгрузка каталога (мини-этап 2026-05-14, Фаза 2):
+# admin скачивает «Комплектующие_ПК.xlsx» / «Печатная_техника.xlsx».
+ACTION_CATALOG_EXCEL_EXPORT = "catalog_excel_export"
+
 
 # --- Supplier emails ----------------------------------------------------
 

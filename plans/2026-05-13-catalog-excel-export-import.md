@@ -283,14 +283,16 @@
 - [x] Расширить `enrichment/schema.py` 4 опциональными ключами габаритов (`weight_kg`, `box_width_cm`, `box_height_cm`, `box_depth_cm`) — словарь общий с планом ПЭК-логистики (`plans/2026-05-13-logistics-pek.md`).
 - [x] Уточнить архитектуру: формула RUB-цен от ячейки курса, autofilter, сериализация массивов через запятую, поведение пустых/NA-ячеек.
 
-### Фаза 2. Export (выгрузка) ⏳
+### Фаза 2. Export (выгрузка) ✅ (2026-05-14)
 
-- [ ] Сервис `portal/services/catalog/excel_export.py` с функциями:
-  - `export_components_pc(output_path: Path) -> ExportReport` — собирает 8 листов в один файл.
-  - `export_printers_mfu(output_path: Path) -> ExportReport` — собирает 2 листа.
-- [ ] Каждый лист: шапка (имена колонок), затем строки. Read-only колонки помечены жёлтым (через openpyxl Style). Скрытая первая колонка — id.
-- [ ] CLI-обёртка `scripts/catalog_excel_export.py` для разовых ручных запусков.
-- [ ] UI-эндпоинт `GET /databases/catalog-excel/download/{pc|printers}` → возвращает файл как `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`.
+- [x] Сервис `portal/services/catalog/excel_export.py` с функциями:
+  - `export_components_pc(output_path, *, db=None) -> ExportReport` — собирает 8 листов в один файл.
+  - `export_printers_mfu(output_path, *, db=None) -> ExportReport` — собирает 2 листа.
+- [x] Каждый лист: служебная строка 1 (курс ЦБ), пустая 2, шапка на строке 3, autofilter на A3:<last>3, скрытая первая колонка `id`, ro-колонки (цены / поставщик / `attrs_source`) с жёлтой заливкой `FFF4CE`. RUB-формула `=<USD_cell><row>*$B$1` для товаров с USD-ценой; статика RUB для товаров без USD-цены; курс из `exchange_rates` LATEST или fallback 90.0 если таблица пуста (без обращения к ЦБ — экспорт офлайн).
+- [x] Min-цена: WINDOW-функция `ROW_NUMBER() PARTITION BY (component_id, currency)` среди активных поставщиков и активных позиций (`stock_qty>0 OR transit_qty>0`); поставщик USD-min имеет приоритет в колонке «Поставщик (min)» (единая шкала сравнения).
+- [x] CLI-обёртка `scripts/catalog_excel_export.py` (`--target {pc|printers|both}`, `--output <dir>`).
+- [x] UI-эндпоинт `GET /databases/catalog-excel/download/{pc|printers}` → `FileResponse` xlsx, MIME `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`, имя `Комплектующие_ПК_YYYY-MM-DD.xlsx` / `Печатная_техника_YYYY-MM-DD.xlsx`, доступ `require_admin`, запись `audit_log.action='catalog_excel_export'` с payload `{target, rows_count, sheet_counts, rate_used, rate_fallback}`. Временный файл удаляется `BackgroundTask`'ом после отдачи.
+- [x] Тесты: 14 в `tests/test_catalog/test_excel_export.py` (структура файла, RUB-формула, сериализация массивов, фильтр printer/mfu, габариты attrs, неактивные поставщики, out-of-stock) + 6 в `tests/test_portal/test_catalog_excel.py` (HTTP-доступы, audit_log). Полный pytest: 2013 passed, 0 failed (baseline 1995 → +18 catalog + auto-detected ещё пара).
 
 ### Фаза 3. Import (загрузка обратно) ⏳
 
@@ -344,8 +346,13 @@
 
 ## Итоговый блок
 
-**Статус:** Фаза 1 (discovery) закрыта 2026-05-14. Фазы 2-5 не начаты.
+**Статус:** Фазы 1 (discovery) и 2 (export) закрыты 2026-05-14. Фазы 3-5 не начаты.
 
-**Что осталось:** Фазы 2-5 — export, import, UI, тесты, docs.
+**Что осталось:** Фаза 3 (import), Фаза 4 (UI-страница + sidebar), Фаза 5 (тесты импорта, docs).
 
-**Артефакты после реализации:** `portal/services/catalog/excel_{export,import}.py`, `scripts/catalog_excel_export.py`, UI `/databases/catalog-excel`, тесты, docs.
+**Артефакты после реализации (Фаза 2):**
+- `portal/services/catalog/excel_export.py` — сервис.
+- `scripts/catalog_excel_export.py` — CLI.
+- `portal/routers/databases/catalog_excel.py` — GET-эндпоинт скачивания.
+- `tests/test_catalog/test_excel_export.py` + `tests/test_portal/test_catalog_excel.py`.
+- `ACTION_CATALOG_EXCEL_EXPORT = "catalog_excel_export"` в `shared/audit_actions.py`.
