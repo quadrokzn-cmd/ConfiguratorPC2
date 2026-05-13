@@ -331,6 +331,56 @@
 - [x] `base.html`: классификация `_path.startswith('/databases/catalog-excel')` → `active_section='databases'`, `active_subsection='catalog-excel'`.
 - [x] Иконки `download`, `upload`, `file-spreadsheet`, `info` добавлены в `portal/templates/_macros/icons.html`.
 
+### Мини-этап 2026-05-13 — фикс привязки supplier_prices к printers_mfu ✅
+
+**Симптом.** Собственник скачал «Печатная_техника.xlsx» и увидел:
+лист «МФУ» — все 360 строк без цен (USD/RUB/Поставщик/Цена обновлена
+пустые); лист «Принтеры» — у 134 из 136 строк пуста USD-колонка
+(хотя 73 имеют RUB-цену через формулу). Прайсы 4 поставщиков
+загружались штатно (OCS, Merlion, Treolan, Resurs Media — Netlab и
+Green Place печать не парсят, ожидаемо).
+
+**Причина.** Баг в orchestrator'е (`portal/services/configurator/price_loaders/orchestrator.py`,
+функция `_category_of_component`). Этап 6 слияния (2026-05-08) добавил
+в `CATEGORY_TO_TABLE` две категории, указывающие на одну таблицу:
+`"printer": "printers_mfu"` и `"mfu": "printers_mfu"`. Хелпер
+`_category_of_component(table)` шёл по dict в insertion-порядке и
+для `table='printers_mfu'` всегда возвращал первую совпадающую
+категорию — `'printer'`. В итоге **все** MFU-строки записывались в
+`supplier_prices` с `category='printer'` (439 строк на prod), а
+Excel-экспорт листа «МФУ» искал строго `WHERE sp.category='mfu'`
+и не находил ничего.
+
+**Фикс.**
+
+- [x] `orchestrator.py::_process_row`: `category = row.our_category`
+  (хелпер `_category_of_component` удалён — он был нужен только для
+  обратного table → category lookup, который теперь не используется).
+- [x] `migrations/0038_supplier_prices_mfu_backfill.sql`:
+  `UPDATE supplier_prices SET category='mfu' WHERE pm.category='mfu'
+   AND sp.category='printer'` — переименовывает накопленные 439
+  ошибочных строк.
+- [x] `tests/test_catalog/test_excel_export.py` — два новых теста:
+  `test_mfu_prices_use_mfu_category` (золотой путь — Excel «МФУ»
+  показывает цены при `sp.category='mfu'`) и
+  `test_mfu_price_with_printer_category_is_ignored` (защита от
+  регрессии: MFU-строка с category='printer' НЕ всплывает на листе
+  «МФУ»).
+- [x] `tests/test_price_loaders/test_orchestrator.py` — расширен
+  `test_orchestrator_writes_printer_mfu_to_printers_mfu`: проверяет,
+  что `supplier_prices.category` совпадает с `printers_mfu.category`
+  для каждой загруженной печатной строки.
+- [x] Накат миграции на prod 2026-05-13: 439 строк MFU
+  переименованы; 0 mismatches `sp.category != pm.category` для
+  printer/mfu. Контрольный экспорт: лист «МФУ» — 171/360 SKU с
+  ценой (было 0/360); лист «Принтеры» — без изменений (73/136).
+
+**Side-эффекты:** ни Treolan, ни Resurs Media пока не дают
+printer/mfu-строк в `supplier_prices` (Treolan loader парсит, но в
+последних feed'ах позиций печати нет; Resurs Media сегодня впервые
+отработал и его адаптер ещё не маппит групп `_CATEGORY_GROUP_MAP`
+на printer/mfu — отдельная задача backlog'а).
+
 ### Фаза 5. Тесты + документация ✅ (2026-05-13)
 
 - [x] HTTP-тесты Фазы 2/3 (`tests/test_portal/test_catalog_excel.py`) дополнены 4 UI-тестами Фазы 4: admin 200 + контент страницы (две карточки, ссылки скачивания, data-testid), manager 403, anonymous redirect /login, история операций per kind не перемешивается.

@@ -421,6 +421,79 @@ def test_printers_filter_by_category(tmp_path: Path, db_session):
     assert ws_m.cell(row=4, column=headers_m["max_format"]).value == "A3"
 
 
+def test_mfu_prices_use_mfu_category(tmp_path: Path, db_session):
+    """Лист «МФУ» подтягивает min-цену по supplier_prices.category='mfu',
+    а не 'printer'. Регрессия мини-этапа 2026-05-13: orchestrator писал
+    все printers_mfu-строки в category='printer' независимо от
+    printers_mfu.category, и лист «МФУ» оставался без цен.
+    """
+    sid = _insert_supplier(db_session, "MFUSup")
+    # Принтер с ценой category='printer' — лист «Принтеры» должен подхватить.
+    pid_printer = _insert_printer(
+        db_session, sku="P-PRINT", brand="HP", name="HP LaserJet",
+        category="printer",
+    )
+    _insert_supplier_price(
+        db_session, supplier_id=sid, category="printer",
+        component_id=pid_printer, price=Decimal("250.00"), currency="USD",
+    )
+    # МФУ с ценой category='mfu' — лист «МФУ» должен подхватить.
+    pid_mfu = _insert_printer(
+        db_session, sku="M-MFU", brand="Pantum", name="Pantum BM5100",
+        category="mfu",
+    )
+    _insert_supplier_price(
+        db_session, supplier_id=sid, category="mfu",
+        component_id=pid_mfu, price=Decimal("450.00"), currency="USD",
+    )
+
+    out = tmp_path / "pr.xlsx"
+    export_printers_mfu(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws_p = wb["Принтеры"]
+    headers_p = {ws_p.cell(row=3, column=c).value: c
+                 for c in range(1, ws_p.max_column + 1)}
+    assert float(
+        ws_p.cell(row=4, column=headers_p["Цена min, USD"]).value
+    ) == pytest.approx(250.0)
+    assert ws_p.cell(row=4, column=headers_p["Поставщик (min)"]).value == "MFUSup"
+
+    ws_m = wb["МФУ"]
+    headers_m = {ws_m.cell(row=3, column=c).value: c
+                 for c in range(1, ws_m.max_column + 1)}
+    assert float(
+        ws_m.cell(row=4, column=headers_m["Цена min, USD"]).value
+    ) == pytest.approx(450.0)
+    assert ws_m.cell(row=4, column=headers_m["Поставщик (min)"]).value == "MFUSup"
+
+
+def test_mfu_price_with_printer_category_is_ignored(tmp_path: Path, db_session):
+    """Если в supplier_prices ошибочно осталась MFU-строка с category='printer'
+    (старые данные до миграции 0038), лист «МФУ» её НЕ показывает —
+    защищает от регрессии, если backfill не был накачен."""
+    sid = _insert_supplier(db_session, "LegacySup")
+    pid_mfu = _insert_printer(
+        db_session, sku="M-LEGACY", brand="HP", name="HP MFP",
+        category="mfu",
+    )
+    # Симулируем баг: MFU-строка лежит с category='printer'.
+    _insert_supplier_price(
+        db_session, supplier_id=sid, category="printer",
+        component_id=pid_mfu, price=Decimal("300.00"), currency="USD",
+    )
+
+    out = tmp_path / "pr.xlsx"
+    export_printers_mfu(out, db=db_session)
+
+    wb = load_workbook(out)
+    ws_m = wb["МФУ"]
+    headers_m = {ws_m.cell(row=3, column=c).value: c
+                 for c in range(1, ws_m.max_column + 1)}
+    assert ws_m.cell(row=4, column=headers_m["Цена min, USD"]).value is None
+    assert ws_m.cell(row=4, column=headers_m["Поставщик (min)"]).value is None
+
+
 def test_printer_dimension_attrs_written(tmp_path: Path, db_session):
     """Опциональные ключи габаритов (weight_kg/box_*) попадают в Excel."""
     _insert_printer(

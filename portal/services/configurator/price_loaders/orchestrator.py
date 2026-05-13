@@ -727,15 +727,6 @@ def _mark_disappeared(
         counters.disappeared_truncated = True
 
 
-def _category_of_component(session: Session, table: str) -> str:
-    """Обратное сопоставление: table → category. Нужно, чтобы писать
-    корректный category в supplier_prices."""
-    for cat, t in CATEGORY_TO_TABLE.items():
-        if t == table:
-            return cat
-    raise RuntimeError(f"Нет категории для таблицы {table}")
-
-
 def _process_row(
     session: Session, *,
     supplier_id: int, row: PriceRow, counters: Counters,
@@ -778,7 +769,12 @@ def _process_row(
     counters.by_source[res.source] = counters.by_source.get(res.source, 0) + 1
 
     table = CATEGORY_TO_TABLE[row.our_category]
-    category = _category_of_component(session, table)
+    # Category для supplier_prices берём напрямую из row.our_category.
+    # Обратный поиск table → category был неоднозначен: 'printer' и 'mfu'
+    # оба указывают на printers_mfu, и любая МФУ-строка приземлялась в
+    # supplier_prices.category='printer' — лист «МФУ» в Excel-экспорте
+    # оставался без цен. Мини-этап 2026-05-13 + миграция 0038.
+    category = row.our_category
 
     # Обработка по source ------------------------------------------------
 

@@ -780,6 +780,20 @@ def test_orchestrator_writes_printer_mfu_to_printers_mfu(
     # supplier_prices: 3 записи у Merlion (1 psu + 1 printer + 1 mfu).
     assert _count_supplier_prices(db_session, "Merlion") == 3
 
+    # supplier_prices.category совпадает с printers_mfu.category для
+    # каждой печатной строки — иначе Excel-экспорт «МФУ» ничего не находит
+    # (мини-этап 2026-05-13: фикс _category_of_component → row.our_category).
+    sp_categories = dict(
+        db_session.execute(_t(
+            "SELECT pm.category AS pm_cat, sp.category AS sp_cat "
+            "  FROM supplier_prices sp "
+            "  JOIN printers_mfu pm ON pm.id = sp.component_id "
+            " WHERE sp.category IN ('printer','mfu') "
+            " ORDER BY pm.category"
+        )).all()
+    )
+    assert sp_categories == {"printer": "printer", "mfu": "mfu"}
+
     # printers_mfu: 2 строки, у каждой category и sku корректно заполнены.
     # Этап 9a-enrich: для HP LaserJet — парсер найдёт `print_technology=лазерная`
     # (по слову LaserJet); для Pantum M6500W — ни одного атрибута → attrs={}.
