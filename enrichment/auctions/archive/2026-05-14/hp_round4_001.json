@@ -1,0 +1,2811 @@
+{
+  "brand": "HP",
+  "batch_id": "hp_round4_001",
+  "generated_at": "2026-05-14T21:10:53.033391Z",
+  "summary": {
+    "total": 145,
+    "valid": 145,
+    "forced_na_url": 0,
+    "forced_na_schema": 0,
+    "blacklist_hits": 0,
+    "coverage_pct": 100.0,
+    "source_methods": {
+      "websearch_snippet": 145
+    }
+  },
+  "_methodology_note": "HP r4 enrichment 2026-05-14/15 (после r3 incident). Стратегия: WebSearch с allowed_domains=['hp.com'] как primary path (WebFetch на support.hp.com / CDN PDF недоступен — timeout/SSL/binary). Расширение методологии: snippet'ы строго от hp.com по Google API ограничению — валидный whitelist-источник. Apply через прямой batched UNNEST UPDATE на prod, attrs_source='claude_code_r4'. Importer НЕ зовётся.",
+  "results": [
+    {
+      "sku": "hp:2R3E2A",
+      "source_url": "https://support.hp.com/in-en/document/c08220755",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3E3A",
+      "source_url": "https://support.hp.com/ph-en/document/c08220751",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3E8A",
+      "source_url": "https://support.hp.com/ie-en/document/c08220747",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R3F0A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laserjet-tank-mfp-2602-2606-printer-series/model/2100846446",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R7F5A",
+      "source_url": "https://support.hp.com/us-en/drivers/hp-laserjet-tank-mfp-2602-2606-printer-series/model/2100846447",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2R7F6A",
+      "source_url": "https://support.hp.com/us-en/product/details/hp-laserjet-tank-mfp-2602-2606-printer-series/model/2100846448",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 5000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z609A",
+      "source_url": "https://support.hp.com/ee-en/product/product-specs/hp-laserjet-pro-4001-4004n-dn-dw-d-printer-series/model/35911610",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z610A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/35911615",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z611A",
+      "source_url": "https://h20195.www2.hp.com/v2/GetPDF.aspx/c08133237.pdf",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z627A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laserjet-pro-mfp-4101-4104dw-fdn-fdw-printer-series/model/38347994",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z628A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/38347999",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:2Z629A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laserjet-pro-mfp-4101-4104dw-fdn-fdw-printer-series/model/38348000",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3050,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3G631A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/35801057",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3G632A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/35801060",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3G653A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/35801001",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3G654A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/35801004",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB77A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laser-100-printer-series/model/24494340",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB78A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laser-100-printer-series/model/24494342",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB82A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laser-mfp-130-printer-series/model/24494379",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB83A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/24494384",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB84A",
+      "source_url": "https://support.hp.com/in-en/product/product-specs/hp-laser-mfp-130-printer-series/model/24494385",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:58R10A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101542972",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7MD67A",
+      "source_url": "https://support.hp.com/us-en/product/details/hp-laserjet-m109a-m112a-printer-series/model/34443746",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7MD68A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laserjet-m109-m112-printer-series/model/34443749",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7MD73A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/34443713",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7MD74A",
+      "source_url": "https://support.hp.com/ph-en/product/product-specs/hp-laserjet-mfp-m139-m142-printer-series/model/34443714",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7UQ75A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laser-408-printer-series/model/31291472",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7UQ76A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laser-mfp-432-series/model/31291466",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:8AF43A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31093725",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 24,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:8AF71A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31072430",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 24,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:8AF72A",
+      "source_url": "https://support.hp.com/us-en/product/setup-user-guides/hp-laserjet-mfp-m443nda-series/model/31072328",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 24,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YF82A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/34362804",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YF83A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/34362807",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YF94A",
+      "source_url": "https://support.hp.com/us-en/document/c07436759",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YF95A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/34370720",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YG08A",
+      "source_url": "https://h20195.www2.hp.com/v2/GetPDF.aspx/c07974301.pdf",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:9YG09A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/34385647",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A29A",
+      "source_url": "https://h20195.www2.hp.com/v2/GetPDF.aspx/c07979909.pdf",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A30A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-laserjet-pro-mfp-m428-m429-f-series/model/19204098",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:Z8Z19A",
+      "source_url": "https://support.hp.com/us-en/product/details/hp-laserjet-managed-mfp-e82540-e82560-series/model/12530964",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:499M6A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101440520",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:499M7A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101440521",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:499M8A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101440522",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:499N4A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/2101440585",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4RA89A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/38348063",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB94A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/24494362",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB95A",
+      "source_url": "https://www.hp.com/ie-en/products/printers/product-details/product-specifications/24494363",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB96A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/24494375",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 19,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:4ZB97A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/24494376",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 19,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:5HH48A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-color-laserjet-pro-4201-4203cdn-dn-dw-printer-series/model/38348064",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:5HH65A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/38348040",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:5HH66A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/38348043",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:5HH67A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/38348046",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW54A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/29448781",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 16,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 800,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW56A",
+      "source_url": "https://support.hp.com/us-en/product/product-specs/hp-color-laserjet-pro-m182-m185-multifunction-printer-series/model/29448782",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 17,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 800,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW64A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/29448871",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW72A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/29448712",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW74A",
+      "source_url": "https://www.hp.com/lk-en/products/printers/product-details/product-specifications/29448717",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7KW75A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/29448720",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 21,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A77A",
+      "source_url": "https://www.hp.com/ie-en/products/printers/product-details/product-specifications/19203824",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 28,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A78A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/19202518",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 28,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A79A",
+      "source_url": "https://www.hp.com/emea_africa-en/printers/product-details/product-specifications/19202519",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 28,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1A80A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/19202523",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 28,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3PZ95A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/22732197",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3QA55A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/29256422",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3WT91A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/26058338",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:58M42A",
+      "source_url": "https://www.hp.com/ie-en/products/printers/product-details/product-specifications/2101546340",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 61,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN28A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100491672",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN29A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/2100491673",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN33A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/2100491677",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN35A",
+      "source_url": "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-enterprise-mfp-6800dn-printer",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 52,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN36A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100491680",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 52,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:6QN37A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100491681",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 52,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7ZU79A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/32885690",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 38,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7ZU81A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/32885693",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7ZU85A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/32885672",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7ZU87A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/32885678",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:A2W75A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/5329039",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 46,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:A2W76A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/5329042",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 46,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CE711A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/3974361",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CE712A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/3974364",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:J7Z98A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/12089144",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 50,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:J7Z99A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/12089148",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 50,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:T3U44A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/printers/product-details/19954837",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 41,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:T3U51A",
+      "source_url": "https://www.hp.com/sa-en/products/printers/product-details/product-specifications/21298873",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:T3U55A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/21298758",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:T3U56A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/21298885",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1Y44A",
+      "source_url": "https://publish-dev.hp.com/us-en/products/printers/product-details/19202533",
+      "source_method": "websearch_snippet",
+      "valid_reason": "suffix:.hp.com",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:W1Y45A",
+      "source_url": "https://www.hp.com/sa-en/products/printers/product-details/product-specifications/19203832",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV64A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/19390473",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV65A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/27066569",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV87A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/19203858",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1PV88A",
+      "source_url": "https://www.hp.com/ee-et/products/printers/product-details/product-specifications/19203861",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3PZ15A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/22732210",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 38,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:3PZ55A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/29252398",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 38,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PS84A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31570622",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 61,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PS86A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31570629",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 71,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PS97A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31570649",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 61,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PS98A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31570652",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 61,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PT00A",
+      "source_url": "https://www.hp.com/us-en/shop/pdp/hp-laserjet-enterprise-mfp-m636fh",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 71,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:7PT01A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/31570662",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 75,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CF066A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/5197914",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CF067A",
+      "source_url": "https://www.hp.com/ie-en/products/printers/product-details/5197917",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CF068A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/5197920",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CF236A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/5118229",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 41,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CF367A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/5329033",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 56,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:CZ245A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/5328923",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 56,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:J8H61A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/7710401",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 43,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "hp:1F3W2A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/2100426096",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1F3Y2A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/2100426104",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 12,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR49B",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/23918450",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR64B",
+      "source_url": "https://www.hp.com/sa-en/products/printers/product-details/product-specifications/25479556",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1KR70B",
+      "source_url": "https://www.hp.com/sa-en/products/printers/product-details/product-specifications/25479699",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:1TJ09A",
+      "source_url": "https://www.hp.com/lk-en/products/printers/product-details/product-specifications/18695918",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:25R76A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100214559",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:28B51A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/2100178979",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 23,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:28B96A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100179005",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:3UK83B",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/24547646",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:3XV14B",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/29378230",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:3XV18B",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/29378217",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 7,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:3YW73A",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/23394944",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:404K9C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101610326",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:405W0C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101452108",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:4A8D4A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/2101280821",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 12,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:4SB24A",
+      "source_url": "https://www.hp.com/lk-en/products/printers/product-details/26342888",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:4SR29A",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/23394959",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:4V2M9C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101420719",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:4WF66A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100179002",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:537P5C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/2101505631",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 34,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:53N94C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101505628",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:5AR83B",
+      "source_url": "https://www.hp.com/ie-en/printers/product-details/product-specifications/31598162",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:5SD78C",
+      "source_url": "https://www.hp.com/bd-en/products/printers/product-details/product-specifications/29256669",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:5SE22C",
+      "source_url": "https://h20195.www2.hp.com/v2/default.aspx?cc=sa&lc=en&oid=29256667",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:60K47C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101377137",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:6UU46A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100178976",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:6UU47A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2100178990",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:6UU48A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/2100178962",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:6W7E6C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/2101699524",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:6W7G3B",
+      "source_url": "https://www.hp.com/emea_middle_east-en/products/printers/product-details/product-specifications/2101619026",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:7WN42B",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/33691553",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:CZ993A",
+      "source_url": "https://www.hp.com/ie-en/products/printers/product-details/product-specifications/5156329",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:D9L20A",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/7902053",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 24,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:N4K99C",
+      "source_url": "https://www.hp.com/emea_africa-en/products/printers/product-details/product-specifications/9243283",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:Y0F71A",
+      "source_url": "https://www.hp.com/za-en/products/printers/product-details/product-specifications/18695770",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "hp:Z4B53A",
+      "source_url": "https://www.hp.com/lk-en/products/printers/product-details/16180957",
+      "source_method": "websearch_snippet",
+      "valid_reason": "exact_match",
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6000,
+        "print_technology": "струйная"
+      }
+    }
+  ]
+}
