@@ -212,7 +212,7 @@
     try {
       if (cb.checked) {
         if (qtyEl) qtyEl.disabled = false;
-        var data = await post('/project/' + PROJECT_ID + '/select', {
+        var data = await post('/configurator/project/' + PROJECT_ID + '/select', {
           query_id: queryId,
           variant_manufacturer: mfg,
           quantity: qty
@@ -220,7 +220,7 @@
         renderSpec(data);
       } else {
         if (qtyEl) qtyEl.disabled = true;
-        var data2 = await post('/project/' + PROJECT_ID + '/deselect', {
+        var data2 = await post('/configurator/project/' + PROJECT_ID + '/deselect', {
           query_id: queryId,
           variant_manufacturer: mfg
         });
@@ -246,7 +246,7 @@
     }
     input.disabled = true;
     try {
-      var data = await post('/project/' + PROJECT_ID + '/update_quantity', {
+      var data = await post('/configurator/project/' + PROJECT_ID + '/update_quantity', {
         query_id: queryId,
         variant_manufacturer: mfg,
         quantity: qty
@@ -625,7 +625,7 @@
       hint.classList.remove('hidden');
     }
     try {
-      var data = await post('/project/' + PROJECT_ID + '/spec/reoptimize', {});
+      var data = await post('/configurator/project/' + PROJECT_ID + '/spec/reoptimize', {});
       renderSpec(data);
       showReoptimizeSummary(data.recalc);
     } catch (e) {
@@ -644,7 +644,7 @@
     )) return;
     try {
       var data = await post(
-        '/project/' + PROJECT_ID + '/spec/' + itemId + '/reoptimize', {}
+        '/configurator/project/' + PROJECT_ID + '/spec/' + itemId + '/reoptimize', {}
       );
       renderSpec(data);
       var d = data.recalc_item;
@@ -669,8 +669,8 @@
 
   async function rollbackAllAndReload(itemId) {
     var url = itemId
-      ? '/project/' + PROJECT_ID + '/spec/' + itemId + '/rollback'
-      : '/project/' + PROJECT_ID + '/spec/rollback';
+      ? '/configurator/project/' + PROJECT_ID + '/spec/' + itemId + '/rollback'
+      : '/configurator/project/' + PROJECT_ID + '/spec/rollback';
     try {
       await post(url, {});
       deferToastAndReload(

@@ -114,7 +114,7 @@
                selected.get(cfg.id, {}),
                category_order, category_label,
                show_delete_btn=true,
-               delete_action="/configurator/project/" ~ project.id ~ "/configurator/query/" ~ cfg.id ~ "/delete",
+               delete_action="/configurator/project/" ~ project.id ~ "/query/" ~ cfg.id ~ "/delete",
                csrf_token=csrf_token,
              ) }}
         {% endfor %}

@@ -20,7 +20,8 @@
     "storage_type":      "SSD" | "HDD" | null,
     "storages":          [{"min_gb": <int>, "type": "SSD" | "HDD" | null}, ...],
     "gpu_required":      <bool | null>,
-    "gpu_min_vram_gb":   <int | null>
+    "gpu_min_vram_gb":   <int | null>,
+    "psu_min_watts":     <int | null>
   },
   "model_mentions": [
     {
@@ -81,6 +82,14 @@ OVERRIDES — заполняй ТОЛЬКО те поля, которые мен
                                     overrides.gpu_min_vram_gb = 8
 - "без дискретной видеокарты" → overrides.gpu_required = false
 - "минимум 8 ядер" → overrides.cpu_min_cores = 8
+- "БП 550W" / "блок питания 550 Вт" / "650 ватт БП" / явная мощность
+  блока питания в спецификации сборки (например, "550W" среди
+  перечисленных характеристик) → overrides.psu_min_watts = 550
+  Это число — минимально допустимая мощность БП в ваттах. Если
+  пользователь написал «БП Corsair RM750x» — это model_mentions
+  категории "psu", psu_min_watts тут не нужен (модель сама задаёт
+  мощность). Заполняй psu_min_watts ТОЛЬКО для абстрактной мощности
+  без указания модели.
 
 STORAGES (массив накопителей):
 - Используй ПОЛЕ overrides.storages КОГДА В ЗАПРОСЕ УПОМЯНУТО НЕСКОЛЬКО

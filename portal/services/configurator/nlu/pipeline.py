@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 from sqlalchemy import text
@@ -40,6 +41,41 @@ logger = logging.getLogger(__name__)
 
 
 _PROVIDER = "openai"
+
+
+# Регекс-fallback для извлечения мощности БП из текста запроса.
+# Срабатывает на «550W», «550 Вт», «550 ватт» — типовая запись мощности
+# БП в названии конфигурации («Компьютер ..., 550W»). Если парсер пропустит,
+# pipeline всё равно поймает явный сигнал.
+_PSU_WATTS_RE = re.compile(
+    r"(?<![A-Za-z\d])(\d{3,4})\s*(?:W|Вт|ватт)\b",
+    re.IGNORECASE,
+)
+# Диапазон, в котором число с суффиксом W почти всегда означает БП:
+# меньше 250W — обычно TDP CPU/GPU, больше 2000W — нереалистично.
+_PSU_WATTS_MIN = 250
+_PSU_WATTS_MAX = 2000
+
+
+def _augment_psu_watts_from_text(parsed: ParsedRequest, raw_text: str) -> None:
+    """Если парсер не вытащил psu_min_watts — пробуем regex по сырому тексту.
+
+    Покрывает случай, когда мощность БП указана как «550W» в скобочном
+    списке спецификаций («Компьютер (..., 550W)»). На production-LLM
+    надеяться нельзя — резерв через детерминированный regex.
+    """
+    if parsed.overrides.get("psu_min_watts"):
+        return
+    if not raw_text:
+        return
+    for m in _PSU_WATTS_RE.finditer(raw_text):
+        try:
+            watts = int(m.group(1))
+        except ValueError:
+            continue
+        if _PSU_WATTS_MIN <= watts <= _PSU_WATTS_MAX:
+            parsed.overrides["psu_min_watts"] = watts
+            return
 
 
 # --- Логирование вызовов в api_usage_log ---------------------------------
@@ -141,6 +177,8 @@ def process_query(text_query: str) -> FinalResponse:
     # 2. Парсер
     parse_result = parser_mod.parse(text_query, usd_rub_rate=usd_rub)
     parsed = parse_result.parsed
+    # Резерв на случай, если LLM пропустил мощность БП в спецификации.
+    _augment_psu_watts_from_text(parsed, text_query)
     parser_status = "error" if parse_result.parse_error else (
         "ok" if not parsed.is_empty else "no_data"
     )

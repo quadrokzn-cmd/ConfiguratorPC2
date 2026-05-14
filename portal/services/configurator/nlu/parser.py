@@ -120,6 +120,7 @@ class ParseValidationError(ValueError):
 _OVERRIDE_INT_KEYS = (
     "cpu_min_cores", "cpu_min_threads", "ram_min_gb",
     "ram_min_freq_mhz", "storage_min_gb", "gpu_min_vram_gb",
+    "psu_min_watts",
 )
 _OVERRIDE_FLOAT_KEYS = ("cpu_min_base_ghz",)
 _OVERRIDE_STR_KEYS = ("ram_memory_type", "storage_type")

@@ -73,6 +73,11 @@ class BuildRequest:
     case: FixedRef | None = None
     psu: FixedRef | None = None
     cooler: FixedRef | None = None
+    # Минимальная требуемая мощность БП в ваттах (из NLU: «БП 550W», «550W»).
+    # Если None — используется только базовая мощность из required_psu_watts.
+    # Если задано и БП с такой мощностью нет в наличии — selector берёт
+    # ближайший доступный (по базовой мощности) и добавляет warning о shortage.
+    min_psu_watts: int | None = None
     # Управляется модулем автоматически: если без транзита сборка не вышла —
     # selector сам повторяет подбор с allow_transit=True.
     allow_transit: bool = False
@@ -108,6 +113,8 @@ class BuildRequest:
         for ref in (self.motherboard, self.case, self.psu, self.cooler):
             if ref and ref.is_set():
                 return False
+        if self.min_psu_watts:
+            return False
         return True
 
 
@@ -194,6 +201,17 @@ def _as_fixed_ref(raw: Any) -> FixedRef | None:
     return None
 
 
+def _as_positive_int(raw: Any) -> int | None:
+    """Достаёт целое положительное число из произвольного значения. Иначе None."""
+    if raw is None:
+        return None
+    try:
+        n = int(raw)
+    except (TypeError, ValueError):
+        return None
+    return n if n > 0 else None
+
+
 def _as_fixed_block(raw: Any) -> FixedRef | None:
     """Для блоков motherboard/case/psu/cooler: принимает {"fixed_id": ...}
     или {"id": ..., "sku": ...}."""
@@ -257,6 +275,7 @@ def request_from_dict(data: dict) -> BuildRequest:
         case=_as_fixed_block(data.get("case")),
         psu=_as_fixed_block(data.get("psu")),
         cooler=_as_fixed_block(data.get("cooler")),
+        min_psu_watts=_as_positive_int(data.get("min_psu_watts")),
         allow_transit=bool(data.get("allow_transit", False)),
     )
 

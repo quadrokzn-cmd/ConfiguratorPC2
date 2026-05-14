@@ -22,6 +22,7 @@ from portal.services.configurator.compatibility.rules import (
     required_psu_watts,
 )
 from portal.services.configurator.engine import candidates as C
+from portal.services.configurator.engine import warnings as W
 from portal.services.configurator.engine.schema import BuildRequest
 
 
@@ -208,9 +209,13 @@ def assemble_build(
     if not mb_ff:
         return None
 
-    req_watts = required_psu_watts({
+    base_req_watts = required_psu_watts({
         "cpu": cpu, "gpu": gpu, "motherboard": motherboard, "ram": ram_row,
     })
+    # Если пользователь явно запросил БП мощнее базовой нормы — используем
+    # запрошенную мощность как фильтр. Иначе фильтруем по базовой норме.
+    user_req_watts = req.min_psu_watts or 0
+    effective_min_watts = max(base_req_watts, user_req_watts)
 
     # Если пользователь зафиксировал корпус или БП — сценарий B отключаем,
     # иначе попытка подставить встроенный БП «съест» выбранный пользователем
@@ -235,8 +240,25 @@ def assemble_build(
         fixed=req.psu,
         usd_rub=usd_rub,
         allow_transit=allow_transit,
-        min_watts=req_watts,
+        min_watts=effective_min_watts,
     )
+    # Fallback: если пользователь запросил мощность выше базовой и в наличии
+    # таких БП нет — берём ближайший доступный по базовой норме и помечаем
+    # warning о shortage (добавится после подбора всего билда — см. ниже).
+    psu_watts_shortage_warn: str | None = None
+    if psu_a is None and user_req_watts > base_req_watts:
+        psu_a = C.get_cheapest_psu(
+            session,
+            fixed=req.psu,
+            usd_rub=usd_rub,
+            allow_transit=allow_transit,
+            min_watts=base_req_watts,
+        )
+        if psu_a is not None:
+            actual_watts = int(psu_a.get("power_watts") or 0)
+            psu_watts_shortage_warn = W.psu_watts_shortage(
+                requested=user_req_watts, actual=actual_watts,
+            )
     total_a: float | None = None
     if case_a is not None and psu_a is not None:
         total_a = (
@@ -247,6 +269,7 @@ def assemble_build(
     # --- Сценарий B ---------------------------------------------------------
     case_b: dict | None = None
     total_b: float | None = None
+    case_b_watts_shortage_warn: str | None = None
     if not fixed_case_or_psu:
         case_b = C.get_cheapest_case(
             session,
@@ -255,8 +278,24 @@ def assemble_build(
             usd_rub=usd_rub,
             allow_transit=allow_transit,
             scenario="B",
-            min_watts=req_watts,
+            min_watts=effective_min_watts,
         )
+        # Fallback для встроенного БП аналогично сценарию A.
+        if case_b is None and user_req_watts > base_req_watts:
+            case_b = C.get_cheapest_case(
+                session,
+                mb_form_factor=mb_ff,
+                fixed=None,
+                usd_rub=usd_rub,
+                allow_transit=allow_transit,
+                scenario="B",
+                min_watts=base_req_watts,
+            )
+            if case_b is not None:
+                actual_watts = int(case_b.get("included_psu_watts") or 0)
+                case_b_watts_shortage_warn = W.psu_watts_shortage(
+                    requested=user_req_watts, actual=actual_watts,
+                )
         if case_b is not None:
             total_b = C.to_float(case_b.get("price_usd_min"))
 
@@ -294,6 +333,13 @@ def assemble_build(
     # БП автоматически не усиливаем — менеджер должен это проверить.
     if gpu_needs_aux_power(gpu):
         warnings.append(_WARN_GPU_AUX_POWER)
+
+    # Warning о shortage мощности БП: пользователь запросил БП мощнее,
+    # чем нашёлся в наличии. Подвязываем к выбранному сценарию.
+    if psu is not None and psu_watts_shortage_warn is not None:
+        warnings.append(psu_watts_shortage_warn)
+    elif psu is None and case_b_watts_shortage_warn is not None:
+        warnings.append(case_b_watts_shortage_warn)
 
     # --- 9. Итог ------------------------------------------------------------
     total_usd = 0.0

@@ -68,6 +68,14 @@ def _to_request_dict(merged: dict[str, Any]) -> dict[str, Any]:
     if storage:
         out["storage"] = storage
 
+    # Требуемая минимальная мощность БП (NLU: «БП 550W», «550W»).
+    # Кладём как число; request_from_dict сам отфильтрует невалидные значения.
+    if merged.get("psu_min_watts") is not None:
+        try:
+            out["min_psu_watts"] = int(merged["psu_min_watts"])
+        except (TypeError, ValueError):
+            pass
+
     # Multi-storage (backlog #7): если overrides.storages непустой — кладём
     # его в request_from_dict, который раскроет в BuildRequest.storages.
     storages_raw = merged.get("storages")
