@@ -1,0 +1,545 @@
+{
+  "brand": "epson",
+  "batch_id": "epson_round4_001",
+  "generated_at": "2026-05-14T08:53:52.294661+00:00",
+  "_methodology_note": "Re-enrichment 31 Epson SKU после methodology incident'а round 3 (commit fc4777b 2026-05-13): часть SKU была обогащена с DNS-shop / Citilink / 3Logic. Round 4 — только официальные Epson-домены (whitelist: epson.com.sg, epson.eu, epson.com, epson.de, epson.co.jp, epson.com.au, epson.co.uk). Apply на prod выполнен через прямой batched UNNEST UPDATE (не importer), т.к. importer merge_attrs защитил бы старые грязные значения от перезаписи в n/a. attrs_source='claude_code_r4'. Coverage 30/31 = 96.8%.",
+  "summary": {
+    "total": 31,
+    "valid": 30,
+    "forced_na": 1,
+    "coverage_pct": 96.8,
+    "host_dist": {
+      "www.epson.com.sg": 22,
+      "www.epson.eu": 8
+    }
+  },
+  "results": [
+    {
+      "sku": "epson:C11C68518/CJ68518/CJ68502",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L3216-A4-All-in-One-Ink-Tank-Printer/p/C11CJ68502",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CD76414/413/505/504",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System/Epson-EcoTank-L121-A4-Ink-Tank-Printer/p/C11CD76501",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 720,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ63513",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l4260-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/30601",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 14000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ65411",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank-System-Printers/Ink-Tank-System-Printers/Epson-EcoTank-L5296-A4-Wi-Fi-All-in-One-Ink-Tank-Printer-with-ADF/p/C11CJ65503",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ65512/C11CJ65409",
+      "source_url": "https://www.epson.eu/products/printers/inkjet/consumer/ecotank-l5290/p/30255",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ66409/507/511/414/K58507",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3260-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/30254",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ66416",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3266-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/31097",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67409/C11CJ67406/419",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l3251-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/30245",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67411/421/504/524/516/519",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L3256-A4-Wi-Fi-All-in-One-Ink-Tank-Printer/p/C11CJ67504",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67418",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L3250-A4-Wi-Fi-All-in-One-Ink-Tank-Printer/p/C11CJ67503",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67421",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L3256-A4-Wi-Fi-All-in-One-Ink-Tank-Printer/p/C11CJ67504",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67424/C11CJ67423",
+      "source_url": null,
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    },
+    {
+      "sku": "epson:C11CJ67508/503/418/405/408/412",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L3250-A4-Wi-Fi-All-in-One-Ink-Tank-Printer/p/C11CJ67503",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ68405/C11CJ68403",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L3210-A4-All-in-One-Ink-Tank-Printer/p/C11CJ68501",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ68501",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L3210-A4-All-in-One-Ink-Tank-Printer/p/C11CJ68501",
+      "attrs": {
+        "print_speed_ppm": 10,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK59405/C11CK59506",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L3550-Ink-Tank-Printer/p/C11CK59501",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4300,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CL41412",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L4360-A4-Wi-Fi-Duplex-All-in-One-Ink-Tank-Printer/p/C11CL41502",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CG92501/508/C11CG92404",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-Monochrome-M3170-Wi-Fi-All-in-One-Ink-Tank-Printer/p/C11CG92501",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 2400,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CH72404/505/506/403/503",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L15150-A3-Wi-Fi-Duplex-All-in-One-Ink-Tank-Printer/p/C11CH72502",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CH96403/502/503/505/506/507",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L14150-A3+-Wi-Fi-Duplex-Wide-Format-All-in-One-Ink-Tank-Printer/p/C11CH96502",
+      "attrs": {
+        "print_speed_ppm": 17,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ20404/403/402",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/ecotank-l8160-a4-wi-fi-ink-tank-photo-printer/p/29185",
+      "attrs": {
+        "print_speed_ppm": 16,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 6200,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ60405/505/408/507",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l6290-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/30260",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "n/a",
+        "starter_cartridge_pages": 14000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ61507/61407/64407",
+      "source_url": "https://www.epson.eu/en_EU/products/printers/inkjet/consumer/ecotank-l6270-multifunction-wi-fi-ink-tank-a4-printer,-with-up-to-3-years-of-ink-included/p/30259",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "n/a",
+        "starter_cartridge_pages": 14000,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CJ88405/404/502/507",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L6490-A4-Ink-Tank-Printer/p/C11CJ88502",
+      "attrs": {
+        "print_speed_ppm": 17,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 7500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK37405/506/507/504/402",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L8050-Ink-Tank-Printer/p/C11CK37501",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK37504",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L8050-Ink-Tank-Printer/p/C11CK37501",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK38403/402/505/38503/38507",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L18050-Ink-Tank-Printer/p/C11CK38501",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK39501/505/503/507/403/402",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Work-Colour-Ink-Tank-Printers/Epson-EcoTank-L11050-Ink-Tank-Printer/p/C11CK39501",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK39503",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Work-Colour-Ink-Tank-Printers/Epson-EcoTank-L11050-Ink-Tank-Printer/p/C11CK39501",
+      "attrs": {
+        "print_speed_ppm": 15,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 4500,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CK94402/C11CK94503",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Home-Office-Printers/Epson-EcoTank-L8100-Ink-Tank-Printer/p/C11CK94501",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 5760,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3600,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "epson:C11CL43403",
+      "source_url": "https://www.epson.com.sg/For-Home/Printers/Ink-Tank/Ink-Tank-System-Printers/Epson-EcoTank-L6370-A4-Wi-Fi-Duplex-All-in-One-Ink-Tank-Printer/p/C11CL43501",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 8500,
+        "print_technology": "струйная"
+      }
+    }
+  ]
+}
