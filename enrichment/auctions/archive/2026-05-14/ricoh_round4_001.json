@@ -1,0 +1,607 @@
+{
+  "brand": "Ricoh",
+  "batch_id": "ricoh_round4_001",
+  "generated_at": "2026-05-14T10:41:49.429221+00:00",
+  "summary": {
+    "total": 34,
+    "valid": 34,
+    "forced_na_invalid_url": 0,
+    "forced_na_schema": 0,
+    "coverage_pct": 100.0
+  },
+  "_methodology_note": "Re-enrichment Ricoh r4 (2026-05-14) после methodology incident'а round 3 (commit fc4777b, эвристика «серия→spec» + ритейлеры). Apply выполнен через прямой batched UNNEST UPDATE на printers_mfu с attrs_source='claude_code_r4', НЕ через importer (forced-n/a SKU сохранили бы грязные данные через per-key merge). Whitelist: ricoh.com, ricoh.eu, ricoh.co.jp, ricoh.com.cn, ricoh.com.au, ricoh.in, support.ricoh.com + PDF brochures на *.ricoh.*. starter_cartridge_pages у Ricoh не публикуется на model-страницах — массовый n/a ожидаем.",
+  "results": [
+    {
+      "sku": "ricoh:409474",
+      "source_url": "https://www.ricoh-ap.com/configurators/409396",
+      "attrs": {
+        "print_speed_ppm": 65,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418224",
+      "source_url": "https://assets.ricoh-usa.com/j2jqn9lauv41/2wg5RCeRo7eqllN9WYkZY8/14b50123db59da23a34a978b7a3853e7/im-c530fb-spec-sheet.pdf",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "светодиодная"
+      }
+    },
+    {
+      "sku": "ricoh:418281",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418289",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418297",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418305",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418314",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418968",
+      "source_url": "https://www.ricoh-me.com/en/products/office-printing/all-in-one-printers/m-c2000/",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419295",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001077/0001077458/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419308",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c3010",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419317",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c3510",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419326",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c4510",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419328",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c4510",
+      "attrs": {
+        "print_speed_ppm": 45,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419337",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c6010",
+      "attrs": {
+        "print_speed_ppm": 60,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419345",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c2010",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:419355",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-colour/im-c2510",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:408291",
+      "source_url": "https://www.ricoh-ap.com/products/office-printing/black-and-white-printer/sp-230dnw",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:408293",
+      "source_url": "https://www.ricoh-ap.com/products/office-printing/black-and-white-printer/sp-230sfnw",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:408527",
+      "source_url": "https://www.ricoh-ap.com/products/office-printing/mfp-black-and-white/m-320fb",
+      "attrs": {
+        "print_speed_ppm": 32,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:408536",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/black-and-white-printer/m-320f",
+      "attrs": {
+        "print_speed_ppm": 32,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:417378",
+      "source_url": "https://www.ricoh.com.ph/products/office-solutions/printers-and-copiers/mfp-black-and-white/mp-2014ad",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:417435",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001059/0001059811/view/intro/int/0236.htm",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418117",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001079/0001079293/view/user/int/0176.htm",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418118",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001079/0001079293/view/user/int/0176.htm",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418146",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001079/0001079426/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 27,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418470",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001080/0001080398/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 55,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418487",
+      "source_url": "http://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001078/0001078256/view/spec/int/0013.htm",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "светодиодная"
+      }
+    },
+    {
+      "sku": "ricoh:418832",
+      "source_url": "https://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001087/0001087344/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418834",
+      "source_url": "https://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001087/0001087344/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418836",
+      "source_url": "https://support.ricoh.com/bb_v1oi/pub_e/oi_view/0001087/0001087344/view/spec/int/specifications.htm",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:418839",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-black-and-white/im-4000",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:423502",
+      "source_url": "https://www.ricoh.com.au/products/office-solutions/printers-and-copiers/multifunction-printer-black-and-white/im-370f",
+      "attrs": {
+        "print_speed_ppm": 37,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:912356",
+      "source_url": "https://www.ricoh.com.ph/products/office-solutions/printers-and-copiers/mfp-black-and-white/mp-2014ad",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "ricoh:912356/417378",
+      "source_url": "https://www.ricoh.com.ph/products/office-solutions/printers-and-copiers/mfp-black-and-white/mp-2014ad",
+      "attrs": {
+        "print_speed_ppm": 20,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    }
+  ]
+}
