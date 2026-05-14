@@ -1,0 +1,1145 @@
+{
+  "brand": "Canon",
+  "batch_id": "round4_001",
+  "generated_at": "2026-05-14T06:37:44.290201+00:00",
+  "_methodology_note": "Re-enrichment Canon r4 после incident'а 2026-05-14: round 3 обогатил все 67 SKU из printer-copir.ru (русский ритейлер), нарушение методологии feedback_only_official_sources. Re-enrichment с whitelist'а официальных Canon-доменов (asia.canon, usa.canon.com, downloads.canon.com). Main-thread валидация source_url. 64/67 SKU обогащено с whitelist'а, 3 forced n/a (G540, LBP722Cdw, iX6840 — нет на whitelist'е). Apply через прямой batched UPDATE (UNNEST), а не через importer (per-key merge importer'а сохранил бы грязные данные printer-copir.ru там, где у нас n/a). attrs_source='claude_code_r4'.",
+  "results": [
+    {
+      "sku": "canon:0717C071",
+      "source_url": "http://asia.canon/en/consumer/pixma-mg2570s/main/specification",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:0727C071",
+      "source_url": "http://asia.canon/en/consumer/pixma-mg2570s/main/specification",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:0727C071/0727C067",
+      "source_url": "http://asia.canon/en/consumer/pixma-mg2570s/main/specification",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2313C009",
+      "source_url": "http://asia.canon/en/consumer/pixma-g2010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2313C012",
+      "source_url": "http://asia.canon/en/consumer/pixma-g2010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2314C012/2314C015",
+      "source_url": "http://asia.canon/en/consumer/pixma-g1010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2315C009",
+      "source_url": "https://asia.canon/en/consumer/pixma-g3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2315C012",
+      "source_url": "https://asia.canon/en/consumer/pixma-g3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:2315C052",
+      "source_url": "https://asia.canon/en/consumer/pixma-g3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 9,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:3771C007",
+      "source_url": "http://asia.canon/en/consumer/pixma-ts3470/main/specification",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:4621C009",
+      "source_url": null,
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    },
+    {
+      "sku": "canon:5804C009",
+      "source_url": "https://www.usa.canon.com/support/p/pixma-g2270",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:5805C029 / 5805C009",
+      "source_url": "https://www.usa.canon.com/support/p/megatank-pixma-g3272-wireless-all-in-one-printer",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:5991C009",
+      "source_url": "https://www.usa.canon.com/support/p/pixma-g2270",
+      "attrs": {
+        "print_speed_ppm": 11,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:6670C007",
+      "source_url": "https://www.usa.canon.com/support/p/pixma-ts3722-wireless-home-all-in-one-printer",
+      "attrs": {
+        "print_speed_ppm": 8,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 4800,
+        "network_interface": [
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 100,
+        "print_technology": "струйная"
+      }
+    },
+    {
+      "sku": "canon:1418C169/113/1418С105/1418C030",
+      "source_url": "https://asia.canon/en/support/6200412100?segment=consumer",
+      "attrs": {
+        "print_speed_ppm": 23,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5158C001",
+      "source_url": "https://www.usa.canon.com/shop/p/color-imageclass-mf656cdw",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1350,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5158C004",
+      "source_url": "https://www.usa.canon.com/shop/p/color-imageclass-mf654cdw",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1350,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5158C009",
+      "source_url": "https://www.usa.canon.com/shop/p/color-imageclass-mf652cw",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1350,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5161C006/16",
+      "source_url": "https://www.usa.canon.com/support/p/imageclass-mf455dw",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5161C007",
+      "source_url": "https://www.usa.canon.com/support/p/imageclass-mf453dw",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5252B004",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5252B004+3484B002",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5252B004/5252B004-AB",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5252B007/5252B008/5252B011",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5455C009",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf752cdw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5455C009/5455C019/010/5455C023",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf752cdw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5455C012",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf752cdw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5621C001",
+      "source_url": "https://www.usa.canon.com/shop/p/imageclass-mf275dw",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 2400,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5621C013",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf272dw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5938C008",
+      "source_url": "https://www.usa.canon.com/support/p/imageclass-mf267dw-ii",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5951C007",
+      "source_url": "https://asia.canon/en/business/imageclass-mf465dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5951C007/5951C023",
+      "source_url": "https://asia.canon/en/business/imageclass-mf465dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5951C008",
+      "source_url": "https://www.usa.canon.com/support/p/imageclass-mf462dw",
+      "attrs": {
+        "print_speed_ppm": 37,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5951C020",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf461dw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 36,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:6928C001",
+      "source_url": "https://asia.canon/en/business/imageclass-mf667cx/main/specification",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1400,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7185C010",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf752cdw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7185C013",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf752cdw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 2100,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C007",
+      "source_url": "https://asia.canon/en/business/imageclass-mf465dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C008",
+      "source_url": "https://www.usa.canon.com/support/p/imageclass-mf462dw-ii-all-in-one-wireless-duplex-laser-printer",
+      "attrs": {
+        "print_speed_ppm": 37,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7188C019",
+      "source_url": "http://asia.canon/en/business/imageclass-mf461dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 36,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 600,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "raw:1514394",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "raw:1578784",
+      "source_url": "https://asia.canon/en/consumer/imageclass-mf3010/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:4929C006",
+      "source_url": null,
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    },
+    {
+      "sku": "canon:5159C001",
+      "source_url": "https://www.usa.canon.com/shop/p/color-imageclass-lbp633cdw",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 910,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5159C004",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp621cw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 910,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5456C007",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp673cdw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1200,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5620C001",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp122dw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 2400,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5620C001AA",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp122dw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 29,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 2400,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:6929C007",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp646cdw/main/specification",
+      "attrs": {
+        "print_speed_ppm": 25,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7186C007",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp673cdw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1200,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7186C013",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp673cdw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 33,
+        "colorness": "цветной",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1200,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7187C006",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp246dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 40,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 3000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:7187C013",
+      "source_url": "http://asia.canon/en/business/imageclass-lbp243dw-ii/main/specification",
+      "attrs": {
+        "print_speed_ppm": 36,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 1500,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:8468B006",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp6030/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:8468B006+3484B002",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp6030/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:8468B008",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp6030/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "raw:1514408",
+      "source_url": "http://asia.canon/en/consumer/imageclass-lbp6030/main/specification",
+      "attrs": {
+        "print_speed_ppm": 18,
+        "colorness": "ч/б",
+        "max_format": "A4",
+        "duplex": "no",
+        "resolution_dpi": 600,
+        "network_interface": "n/a",
+        "usb": "yes",
+        "starter_cartridge_pages": 700,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:3826C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-advance-dx-c5800i-series/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 50,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5590C003",
+      "source_url": "http://asia.canon/en/business/imagepress-c265/main/specification",
+      "attrs": {
+        "print_speed_ppm": 65,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 2400,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5961C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-advance-dx-c3900i-series/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 35,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5962C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-advance-dx-c3900i-series/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5963C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-advance-dx-c3900i-series/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 26,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5964C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-advance-dx-c3900i-series/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 22,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5965C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-c3326i/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 26,
+        "colorness": "цветной",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:5975C005",
+      "source_url": "http://asia.canon/en/business/imagerunner-2900i/main/specification?category=printing&subCategory=multi-functional-devices",
+      "attrs": {
+        "print_speed_ppm": 30,
+        "colorness": "ч/б",
+        "max_format": "A3",
+        "duplex": "yes",
+        "resolution_dpi": 1200,
+        "network_interface": [
+          "LAN",
+          "WiFi"
+        ],
+        "usb": "yes",
+        "starter_cartridge_pages": 33000,
+        "print_technology": "лазерная"
+      }
+    },
+    {
+      "sku": "canon:8747B007",
+      "source_url": null,
+      "attrs": {
+        "print_speed_ppm": "n/a",
+        "colorness": "n/a",
+        "max_format": "n/a",
+        "duplex": "n/a",
+        "resolution_dpi": "n/a",
+        "network_interface": "n/a",
+        "usb": "n/a",
+        "starter_cartridge_pages": "n/a",
+        "print_technology": "n/a"
+      }
+    }
+  ]
+}
