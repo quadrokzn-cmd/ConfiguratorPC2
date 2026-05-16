@@ -87,12 +87,15 @@ def derive_sku_ktru_codes(engine: Engine) -> int:
     return filled
 
 
-def derive_single_position_nmck(engine: Engine) -> int:
+def derive_single_position_nmck(engine: Engine, tender_id: str | None = None) -> int:
     """Для одно-позиционных тендеров (ровно одна tender_items, qty>0, nmck_total!=NULL)
     выставляет tender_items.nmck_per_unit = nmck_total / qty.
     Идемпотентно: затрагивает только строки с nmck_per_unit IS NULL.
+
+    Если передан `tender_id` — операция ограничена одним лотом
+    (используется smart-ingest'ом перед per-tender матчингом).
     """
-    sql = text("""
+    sql_text = """
         UPDATE tender_items ti
         SET nmck_per_unit = ROUND(t.nmck_total / ti.qty, 2)
         FROM tenders t
@@ -101,10 +104,14 @@ def derive_single_position_nmck(engine: Engine) -> int:
           AND ti.qty > 0
           AND t.nmck_total IS NOT NULL
           AND (SELECT count(*) FROM tender_items x WHERE x.tender_id = t.reg_number) = 1
-        RETURNING ti.id
-    """)
+    """
+    params: dict = {}
+    if tender_id is not None:
+        sql_text += " AND ti.tender_id = :tender_id"
+        params["tender_id"] = tender_id
+    sql_text += " RETURNING ti.id"
     with engine.begin() as conn:
-        rows = list(conn.execute(sql))
+        rows = list(conn.execute(text(sql_text), params))
     return len(rows)
 
 

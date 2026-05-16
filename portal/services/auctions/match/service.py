@@ -134,6 +134,50 @@ def run_matching(engine: Engine, full_recompute: bool = True) -> MatchingStats:
     return stats
 
 
+def match_single_tender(engine: Engine, reg_number: str) -> int:
+    """Матчит один лот по `reg_number` и возвращает кол-во вставленных matches.
+
+    Используется smart-ingest'ом (mini-этап 2026-05-16) после INSERT/UPDATE
+    лота, чтобы пересчитать matches ТОЛЬКО для этого аукциона. Не вызывает
+    `clear_all_matches` (matches остальных лотов остаются нетронутыми) и
+    не запускает агрегацию margin — отчёт по marginам считается отдельным
+    full-run матчингом (`scripts/run_matching.py`).
+
+    Гарантии вызывающего:
+      - matches для items этого `reg_number` либо никогда не существовали
+        (INSERT-сценарий), либо удалены в той же транзакции
+        `repository.upsert_tender` (UPDATE-сценарий). `save_matches`
+        идемпотентна (DELETE+INSERT per item_id), так что повторный вызов
+        безопасен в любом случае.
+      - derive_single_position_nmck выполняется перед загрузкой items,
+        ограничен этим reg_number — дёшево.
+    """
+    derive_single_position_nmck(engine, tender_id=reg_number)
+
+    items = load_tender_items(engine, tender_id=reg_number)
+    if not items:
+        return 0
+
+    matches_inserted = 0
+    candidate_cache: dict[str, list] = {}
+
+    for item in items:
+        if not item.ktru_code or item.nmck_per_unit is None:
+            continue
+        candidates = candidate_cache.get(item.ktru_code)
+        if candidates is None:
+            candidates = load_candidates_for_ktru(engine, item.ktru_code)
+            candidate_cache[item.ktru_code] = candidates
+        if not candidates:
+            continue
+        matches = match_tender_item(item, candidates)
+        if not matches:
+            continue
+        matches_inserted += save_matches(engine, item.id, matches)
+
+    return matches_inserted
+
+
 def aggregate_all(engine: Engine, tender_ids: Iterable[str]) -> list[TenderSummary]:
     return [aggregate_tender(engine, tid) for tid in tender_ids]
 

@@ -93,6 +93,7 @@ def main() -> int:
     failed = 0
     inserted = 0
     updated = 0
+    skipped = 0
     print(f"reparse plan: {total} tenders with raw_html")
 
     for r in rows:
@@ -112,11 +113,16 @@ def main() -> int:
         parsed_ok += 1
         if result.inserted:
             inserted += 1
-        else:
+        elif result.updated:
             updated += 1
+        else:
+            skipped += 1
 
     print()
-    print(f"reparse done: {parsed_ok}/{total} parsed; updated={updated}, inserted={inserted}, failed={failed}")
+    print(
+        f"reparse done: {parsed_ok}/{total} parsed; "
+        f"updated={updated}, inserted={inserted}, skipped={skipped}, failed={failed}"
+    )
     print()
     after = _stats("after")
 

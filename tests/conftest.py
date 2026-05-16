@@ -153,6 +153,11 @@ _MIGRATIONS = [
     # 0037_resurs_media_catalog.sql — локальный образ каталога РМ
     # для инкрементальной дельты GetMaterialData (мини-этап 2026-05-12).
     "0037_resurs_media_catalog.sql",
+    # 0039_auctions_smart_ingest.sql — smart-ingest аукционов:
+    # tenders.content_hash + last_modified_at, FK matches/tender_items
+    # на NO ACTION (мини-этап 2026-05-16, блокер Волны 3 Telegram-уведомлений).
+    # 0038 пропущена — она backfill для supplier_prices_mfu, не нужна для тестов.
+    "0039_auctions_smart_ingest.sql",
 ]
 
 # Все таблицы, которые могут быть созданы любой миграцией. DROP CASCADE
