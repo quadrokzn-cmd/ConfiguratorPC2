@@ -17,15 +17,23 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime
+import os
+import tempfile
+from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
+from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy.orm import Session
+from starlette.background import BackgroundTask
 
 from portal.services import auctions_service as svc
+from portal.services.auctions.excel_export import (
+    default_filename as auctions_excel_default_filename,
+    export_auctions,
+)
 from portal.templating import templates
 from shared.audit import extract_request_meta, write_audit
 from shared.audit_actions import (
@@ -36,6 +44,7 @@ from shared.audit_actions import (
     ACTION_AUCTION_REGION_TOGGLE,
     ACTION_AUCTION_SETTINGS_UPDATE,
     ACTION_AUCTION_STATUS_CHANGE,
+    ACTION_AUCTIONS_EXCEL_EXPORT,
 )
 from shared.auth import AuthUser, get_csrf_token, verify_csrf
 from shared.db import get_db
@@ -147,6 +156,104 @@ def auctions_inbox(
             "error":                flash_error,
             # has_permission уже зарегистрирован глобально в templating.py.
         },
+    )
+
+
+# ============================================================
+# GET /auctions/excel — Excel-выгрузка инбокса под текущие фильтры
+# (Backlog #12, план 2026-05-13-auctions-excel-export.md).
+# Объявлено ДО /{reg_number}, чтобы wildcard не перехватил «excel».
+# ============================================================
+
+_XLSX_MIME = (
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+
+def _cleanup_tmp_xlsx(path: Path) -> None:
+    """BackgroundTask: удаляет временный xlsx-файл после отдачи клиенту.
+    Если файла уже нет — молча выходим."""
+    try:
+        path.unlink(missing_ok=True)
+    except Exception as exc:
+        logger.warning(
+            "auctions_excel: не удалось удалить временный файл %s: %s",
+            path, exc,
+        )
+
+
+@router.get("/excel")
+def auctions_excel_download(
+    request: Request,
+    user: AuthUser = Depends(require_permission("auctions")),
+    db: Session = Depends(get_db),
+):
+    """Скачивание Excel-выгрузки списка аукционов под фильтрами инбокса.
+
+    Принимает те же query-параметры, что и `/auctions` (статус, НМЦК,
+    поиск, urgent_only, print_only, include_excluded_regions). Файл
+    собирается во временный файл и удаляется BackgroundTask'ом после
+    того, как Starlette отправил последний байт клиенту.
+    """
+    # Парсим те же фильтры, что в auctions_inbox.
+    qp = request.query_params
+    statuses = tuple(s for s in qp.getlist("status") if s in _ALL_STATUSES)
+    nmck_min = _parse_decimal(qp.get("nmck_min"))
+    nmck_max = _parse_decimal(qp.get("nmck_max"))
+    search = (qp.get("q") or "").strip() or None
+    urgent_only = qp.get("urgent_only", "") in ("1", "on", "true")
+    print_only = qp.get("print_only", "") in ("1", "on", "true")
+    include_excluded_regions = qp.get("include_excluded_regions", "") in ("1", "on", "true")
+
+    filters = svc.InboxFilters(
+        statuses=statuses,
+        nmck_min=nmck_min,
+        nmck_max=nmck_max,
+        search=search,
+        urgent_only=urgent_only,
+        print_only=print_only,
+        include_excluded_regions=include_excluded_regions,
+    )
+
+    deadline_alert_hours = svc.read_setting_int(db, "deadline_alert_hours", 24)
+
+    # tempfile.mkstemp создаёт уникальный путь — параллельные запросы не
+    # конфликтуют.
+    fd, raw_path = tempfile.mkstemp(suffix=".xlsx", prefix="auctions_excel_")
+    os.close(fd)
+    tmp_path = Path(raw_path)
+
+    try:
+        report = export_auctions(
+            tmp_path, filters, deadline_alert_hours=deadline_alert_hours, db=db,
+        )
+    except Exception:
+        _cleanup_tmp_xlsx(tmp_path)
+        raise
+
+    ip, ua = extract_request_meta(request)
+    write_audit(
+        action=ACTION_AUCTIONS_EXCEL_EXPORT,
+        service="portal",
+        user_id=user.id,
+        user_login=user.login,
+        target_type="auctions_excel",
+        payload={
+            "rows_count":     report.rows_count,
+            "filter_summary": report.filter_summary,
+            "rate_used":      str(report.rate_used),
+            "rate_fallback":  bool(report.rate_is_fallback),
+            "cap_reached":    bool(report.cap_reached),
+        },
+        ip=ip,
+        user_agent=ua,
+    )
+
+    return FileResponse(
+        path=str(tmp_path),
+        filename=auctions_excel_default_filename(today=date.today()),
+        media_type=_XLSX_MIME,
+        background=BackgroundTask(_cleanup_tmp_xlsx, tmp_path),
     )
 
 

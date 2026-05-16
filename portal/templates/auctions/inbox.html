@@ -113,12 +113,22 @@
         ({{ data.margin_threshold_pct }}%), жёлтый — ниже, красный — отрицательная.
       </p>
     </div>
-    {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
-    <a href="/auctions/settings" class="btn btn-secondary btn-sm shrink-0">
-      {{ icon('refresh-cw', 'w-4 h-4') }}
-      <span>Настройки</span>
-    </a>
-    {% endif %}
+    <div class="flex items-start gap-2 shrink-0">
+      {# Excel-выгрузка: одна ссылка GET с текущими query-параметрами. #}
+      <a href="/auctions/excel{% if request.query_params %}?{{ request.query_params }}{% endif %}"
+         class="btn btn-secondary btn-sm"
+         data-testid="download-auctions-excel"
+         title="Скачать Excel-файл с теми лотами, которые видны под текущими фильтрами">
+        {{ icon('download', 'w-4 h-4') }}
+        <span>Скачать Excel</span>
+      </a>
+      {% if has_permission(user.role, user.permissions, 'auctions_edit_settings') %}
+      <a href="/auctions/settings" class="btn btn-secondary btn-sm">
+        {{ icon('refresh-cw', 'w-4 h-4') }}
+        <span>Настройки</span>
+      </a>
+      {% endif %}
+    </div>
   </header>
 
   {% if error %}<div class="alert alert-danger mb-4">{{ error }}</div>{% endif %}

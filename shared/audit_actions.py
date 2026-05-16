@@ -105,3 +105,8 @@ ACTION_AUCTION_KTRU_ADD          = "auction.ktru_add"
 ACTION_AUCTION_KTRU_TOGGLE       = "auction.ktru_toggle"
 ACTION_AUCTION_NOMENCLATURE_EDIT = "auction.nomenclature_edit"
 ACTION_AUCTION_ENRICH_REQUEST    = "auction.enrich_request"
+
+# Excel-выгрузка списка аукционов (Backlog #12, 2026-05-17, план
+# 2026-05-13-auctions-excel-export.md). target_type='auctions_excel',
+# target_id=NULL, payload содержит счётчики и filter_summary.
+ACTION_AUCTIONS_EXCEL_EXPORT     = "auctions_excel_export"

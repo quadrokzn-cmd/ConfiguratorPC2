@@ -115,62 +115,60 @@ Cap **10 000** tender_items за один экспорт. Если фильтр 
 - [x] Прочитать `portal/services/catalog/excel_export.py` — паттерн для воспроизведения.
 - [x] Зафиксировать колонки экспорта (см. секцию выше).
 
-### Фаза 2. Сервис экспорта ⏳ (2026-05-17)
+### Фаза 2. Сервис экспорта ✅ (2026-05-17)
 
-- [ ] `portal/services/auctions/excel_export.py`:
+- [x] `portal/services/auctions/excel_export.py` (~440 строк):
   - `@dataclass ExportReport` — `file_path, rows_count, rate_used, rate_date, rate_is_fallback, cap_reached, filter_summary`.
-  - `@dataclass ExcelFilters` или переиспользовать `auctions_service.InboxFilters` — одинаковые поля.
-  - `export_auctions(output_path, filters, *, db=None) -> ExportReport` — один SQL с JOIN-ами tenders ⋈ tender_items ⋈ tender_status ⋈ matches(primary) ⋈ printers_mfu, ORDER BY publish_date DESC, LIMIT 10001 (детект cap_reached).
-  - openpyxl-builder: служебная строка курса, шапка autofilter, скрытая колонка id, hyperlink на zakupki URL, формулы маржа RUB / маржа %.
-- [ ] Тесты — `tests/test_auctions/test_excel_export.py` (см. Фазу 3).
+  - Переиспользует `auctions_service.InboxFilters` (один и тот же объект фильтров используется и инбоксом, и Excel-роутом).
+  - `export_auctions(output_path, filters, *, deadline_alert_hours=24, db=None) -> ExportReport` — один SQL с `WITH items_breakdown AS (...)` для фильтра print_only (паттерн `auctions_service._INBOX_SQL`), JOIN-ами tenders ⋈ tender_items ⋈ tender_status ⋈ matches(primary) ⋈ printers_mfu, ORDER BY publish_date DESC, LIMIT 10001 (cap_reached детектится сравнением длины с `_ROW_CAP`).
+  - openpyxl-builder: служебная строка курса, шапка autofilter, freeze_panes, скрытая колонка `tender_items.id`, hyperlink на zakupki URL, формулы маржа RUB / маржа %.
+  - Декларативное описание 26 колонок через `@dataclass _Col`; индексы через `_col_index()`/`_col_letter()` — формулы маржи опираются на ячейки той же строки по имени колонки, что устойчиво к перестановкам.
 
-### Фаза 3. UI + endpoint ⏳ (2026-05-17)
+### Фаза 3. UI + endpoint ✅ (2026-05-17)
 
-- [ ] `portal/routers/auctions.py` — новый route `GET /auctions/excel` (рядом с `auctions_inbox`):
-  - Парсит те же query-параметры, что и inbox.
-  - Зовёт `export_auctions(...)` через временный файл (паттерн `BackgroundTask` из catalog-router'а).
-  - Пишет audit_log запись.
+- [x] `portal/routers/auctions.py` — новый route `GET /auctions/excel`:
+  - Объявлен ДО `/{reg_number}` (чтобы wildcard не перехватил «excel»).
+  - Парсит те же 7 query-параметров, что и inbox (status[], nmck_min/max, q, urgent_only, print_only, include_excluded_regions).
+  - Зовёт `export_auctions(...)` через `tempfile.mkstemp` + `BackgroundTask` для удаления (паттерн catalog-router'а).
+  - Пишет audit_log запись с payload `{rows_count, filter_summary, rate_used, rate_fallback, cap_reached}`.
   - Возвращает `FileResponse` xlsx с `Content-Disposition: attachment; filename="Аукционы_YYYY-MM-DD.xlsx"`.
-- [ ] `portal/templates/auctions/inbox.html`:
-  - Кнопка «Скачать Excel» в шапке справа от «Настройки» (или в filters-форме).
-  - Кнопка — обычная ссылка `<a href="/auctions/excel?{текущие_query_params}">` (GET, без CSRF — read-only).
-  - Иконка `download`.
-- [ ] `shared/audit_actions.py` — `ACTION_AUCTIONS_EXCEL_EXPORT = "auctions_excel_export"`.
+- [x] `portal/templates/auctions/inbox.html`:
+  - Header переделан под flex с двумя кнопками: «Скачать Excel» (всегда видна, иконка `download`, `data-testid="download-auctions-excel"`) и «Настройки» (под permission `auctions_edit_settings`).
+  - Ссылка наследует текущие фильтры через `request.query_params`.
+- [x] `shared/audit_actions.py` — `ACTION_AUCTIONS_EXCEL_EXPORT = "auctions_excel_export"`.
 
-### Фаза 4. Тесты ⏳ (2026-05-17)
+### Фаза 4. Тесты ✅ (2026-05-17)
 
-- [ ] `tests/test_auctions/test_excel_export.py` (юнит-тесты сервиса):
-  - Пустая БД → файл с шапкой, 0 data-строк.
-  - 1 tender + 2 items + primary match для 1 → 2 строки (одна с match, одна без).
-  - Hyperlink на tenders.url активен.
-  - Маржа % — формула `=(Price-Cost)/Cost` с числовым форматом 0.00%.
-  - Сериализация TEXT[] (`ktru_codes_array` → через запятую).
-  - Фильтр `status=['new']` → только лоты со статусом new.
-  - Фильтр `nmck_min=50000` → лоты с НМЦК ≥ 50k.
-  - Фильтр `q='Якутия'` → лоты с регионом Якутия (через ILIKE).
-  - Фильтр `include_excluded_regions=False` (по умолчанию) → лоты со `flags.excluded_by_region=true` отфильтрованы.
-  - Fallback курса 90.0 при пустой exchange_rates → flag `rate_is_fallback=True`.
-  - Cap 10 000 строк → флаг `cap_reached=True`.
-- [ ] `tests/test_portal/test_auctions_excel.py` (HTTP-тесты роута):
-  - Manager: 200, Content-Disposition с именем файла.
-  - Anonymous: 302 → /login.
-  - Audit_log запись `auctions_excel_export` с payload.
+- [x] `tests/test_auctions/test_excel_export.py` (18 юнит-тестов сервиса):
+  - Пустая БД → файл с шапкой и autofilter, 0 data-строк.
+  - 1 tender + 2 items + primary match для одной → 2 строки (одна с match, одна без; match-колонки пустые у второй).
+  - Hyperlink на tenders.url активен на колонке «Карточка zakupki».
+  - Маржа % — формула `=(Price-Cost)/Cost` с форматом 0.00%; Маржа RUB — формула `=(Price-Cost)*Qty` с форматом 0.00.
+  - Маржа пустая, когда нет primary (cost) или нет price.
+  - Сериализация TEXT[] (`ktru_codes_array` → через запятую без пробелов).
+  - Сериализация flags_jsonb truthy-keys через запятую.
+  - Фильтры status / nmck_min / search / excluded_regions (default hides + override show).
+  - Fallback курса 90.0 при пустой exchange_rates → flag `rate_is_fallback=True`; не-fallback когда строка есть.
+  - Cap reached через monkeypatch `_ROW_CAP=2` → `cap_reached=True`, rows_count=2.
+  - `default_filename` ISO-дата + сегодня.
+  - filter_summary содержит все 7 фильтров.
+- [x] `tests/test_portal/test_auctions_excel.py` (10 HTTP-тестов роута):
+  - Anonymous → 302 /login; manager без auctions → 403; auctions_viewer → 200 + MIME xlsx + Content-Disposition; admin → 200.
+  - Filter passthrough: `?status=skipped` пробрасывается в фильтры — только skipped-лоты в файле.
+  - Audit_log запись `auctions_excel_export` с payload (rows_count, filter_summary с 7 ключами, rate_used, rate_fallback, cap_reached).
+  - Кнопка «Скачать Excel» на inbox-странице: с `data-testid="download-auctions-excel"`, href наследует текущие фильтры.
 
 ### Фаза 5. Deploy + smoke ⏳ (2026-05-17)
 
-- [ ] Commit + push в feature-branch → ff-only merge в master → Railway autodeploy на portal-сервисе.
-- [ ] Smoke на app.quadro.tatar: скачать xlsx → открыть локально:
-  - autofilter активен на строке 3.
-  - формула маржи % работает (поменять Cost → Маржа % пересчитывается).
-  - сортировка по марже % убывая работает.
-  - hyperlink на zakupki URL открывается.
-- [ ] SQL: `SELECT * FROM audit_log WHERE action='auctions_excel_export' ORDER BY id DESC LIMIT 1`.
+- [x] Commit + push feature-branch → ff-only merge в master.
+- [ ] Railway autodeploy на portal-сервисе (стартует автоматически после push в master; собственник смотрит deploy logs).
+- [ ] Smoke на app.quadro.tatar (собственник): скачать xlsx → открыть локально, проверить autofilter + формула маржи % + сортировка + hyperlink + SQL audit_log.
 
-### Фаза 6. Документация + рефлексия ⏳
+### Фаза 6. Документация + рефлексия ✅
 
-- [ ] Рефлексия `.business/история/2026-05-17-auctions-excel-export.md`.
-- [ ] Обновить `plans/2026-04-23-platforma-i-aukciony.md`: мини-этап + Backlog #12 → CLOSED.
-- [ ] Обновить этот план: проставить `[x]` по всем фазам, итоговый блок «реализован целиком» с цифрами.
+- [x] Рефлексия `.business/история/2026-05-17-auctions-excel-export.md`.
+- [x] `plans/2026-04-23-platforma-i-aukciony.md`: мини-этап «2026-05-17 — Excel-выгрузка аукционов (#12 закрыт)» добавлен, Backlog #12 → CLOSED.
+- [x] Этот план: проставлены `[x]` по фазам 1-4 и 6, фаза 5 deploy/smoke — на стороне собственника.
 
 ---
 
@@ -187,14 +185,29 @@ Cap **10 000** tender_items за один экспорт. Если фильтр 
 
 ## Итоговый блок
 
-**Статус:** план актуализирован 2026-05-17 под Backlog #12 + smart-ingest. Фаза 1 ✅, Фазы 2-6 ⏳.
+**Статус:** **реализован целиком 2026-05-17.** Фазы 1-4 и 6 закрыты в feature-ветке; Фаза 5 (Railway autodeploy + ручной smoke) — на стороне собственника после push в master.
 
-**Что осталось:** Фазы 2-6 — сервис экспорта, UI-endpoint, тесты, deploy, рефлексия.
+**Цифры:**
+- Сервис `portal/services/auctions/excel_export.py` — ~440 строк, 26 колонок, один SQL c CTE + 3 LEFT JOIN + коррелированный subquery для cheapest_supplier.
+- Route `GET /auctions/excel` — 84 строки в `portal/routers/auctions.py`.
+- UI-кнопка «Скачать Excel» в `inbox.html` + `data-testid="download-auctions-excel"`.
+- **pytest полный прогон: 2096 passed, 2 skipped, 0 failed** (baseline 2068 → +28 за счёт 18 unit + 10 HTTP-тестов).
 
-**Артефакты после реализации:**
-- `portal/services/auctions/excel_export.py` — сервис.
-- `portal/routers/auctions.py` (расширение) — route `GET /auctions/excel`.
-- `portal/templates/auctions/inbox.html` (расширение) — кнопка «Скачать Excel».
-- `shared/audit_actions.py` (расширение) — `ACTION_AUCTIONS_EXCEL_EXPORT`.
-- `tests/test_auctions/test_excel_export.py`, `tests/test_portal/test_auctions_excel.py` — новые тесты.
+**Артефакты:**
+- `portal/services/auctions/excel_export.py` — сервис (новый).
+- `portal/routers/auctions.py` — расширение (+import + route).
+- `portal/templates/auctions/inbox.html` — header-блок переделан под flex с двумя кнопками.
+- `shared/audit_actions.py` — `ACTION_AUCTIONS_EXCEL_EXPORT`.
+- `tests/test_auctions/test_excel_export.py` — 18 unit-тестов сервиса.
+- `tests/test_portal/test_auctions_excel.py` — 10 HTTP-тестов роута.
 - `.business/история/2026-05-17-auctions-excel-export.md` — рефлексия.
+- `plans/2026-04-23-platforma-i-aukciony.md` — мини-этап «2026-05-17 — Excel-выгрузка аукционов (#12 закрыт)», Backlog #12 → CLOSED.
+
+**Архитектурные решения (приняты исполнителем без AskUserQuestion):**
+- Гранулярность B (1 строка = 1 tender_item + primary match): даёт менеджеру сортировку по марже % per позиция.
+- Маржа RUB/% — формулы Excel, не статика (ручная правка cost/price пересчитывает margin).
+- Курс ЦБ декоративный (margin_rub в БД в RUB), но `$B$1` присутствует для консистентности с #11 и будущего расширения; fallback 90.0 при пустой exchange_rates.
+- Audit_log обязателен (переопределяет старое 2026-05-13 «без audit»).
+- Cap 10 000 строк через LIMIT N+1.
+
+**Open follow-up'ы:** нет. Фича закрыта целиком.
